@@ -46,4 +46,4 @@ Short reactive tasks (one-off `/edit` tweaks on an image already approved, a sin
 - Receives briefs from any team member; always loops back to Sam if scope is unclear
 
 ## Basis
-Research brief: `Team/Ryan - Senior Researcher/research/ai-image-specialist-brief.md`
+Research brief: `Team/Ryan - Senior Researcher/Research/ai-image-specialist-brief.md`

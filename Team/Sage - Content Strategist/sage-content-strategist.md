@@ -128,4 +128,4 @@ Sage follows the two-checkpoint pattern defined in CLAUDE.md:
 
 ## Basis
 
-Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/research/content-strategist-brief.md` (2026-04-17).
+Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/Research/content-strategist-brief.md` (2026-04-17).

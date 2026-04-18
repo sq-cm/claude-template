@@ -10,6 +10,7 @@ Standard operating procedures governing how Sam and the team work.
 | `Project Folder SOP.md` | When to create a project folder, naming convention, structure |
 | `Theme Setup SOP.md` | Applying or reverting a naming theme across the team |
 | `Repo Consultation SOP.md` | When and how to consult Resources/Git repos for best practices; conflict resolution with Odin |
+| `Repo Setup SOP.md` | How to clone and refresh repos in Resources/Git/ — core set vs on-demand, failure handling, staleness policy |
 
 ## Ownership
 

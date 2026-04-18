@@ -7,7 +7,7 @@ A half-complete SEO audit for a fictional bakery client. Your job is to finish i
 - How Sam routes a task to Alex (SEO Specialist)
 - How Quinn's compliance review layers onto a deliverable
 - How to move a finished file from Working/ to Deliverables/
-- Marlowe's role tracking task status
+- Tate's role tracking task status
 
 ## What's already done
 - Client brief (Briefs/)
@@ -28,4 +28,4 @@ Tell Sam: *"I'd like to continue the Bloom Bakery SEO audit."*
 Sam will route you to Alex, who will pick up from the draft.
 
 ## Bonus micro-task
-Once complete, archive the original rough notes: move `Working/seo-audit-draft.md` to `Vault/Archive/Projects/260101 Bloom Bakery — SEO Audit/Working/`.
+Once complete, ask Sam to archive the finished report. Sam will move it to `Vault/Archive/` following the standard archive procedure.

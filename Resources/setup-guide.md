@@ -14,10 +14,34 @@ Duplicate the contents of `Claude - TEMPLATE` into the new folder:
 ```
 Claude - [CompanyName]/
 ├── CLAUDE.md
+├── .env.example
+├── .gitignore
+├── Inbox/
+├── Notes/
+│   ├── Daily/
+│   ├── Weekly/
+│   ├── Clippings/
+│   └── Canvas/
+├── Projects/
+│   └── Template/
+│       ├── Briefs/
+│       ├── Working/
+│       └── Deliverables/
 ├── Resources/
-│   └── SOPs/
-│       └── Advisor Checkpoints SOP.md
+│   ├── setup-guide.md
+│   ├── SOPs/
+│   │   ├── Advisor Checkpoints SOP.md
+│   │   ├── Project Folder SOP.md
+│   │   ├── Repo Consultation SOP.md
+│   │   ├── Repo Setup SOP.md
+│   │   └── Theme Setup SOP.md
+│   └── Git/
+│       └── INDEX.md
 ├── Vault/
+│   ├── Archive/
+│   ├── Logs/
+│   ├── Memory/
+│   │   └── MEMORY.md
 │   └── Templates/
 │       ├── Daily Note.md
 │       └── Weekly Note.md
@@ -29,23 +53,36 @@ Claude - [CompanyName]/
     ├── Ryan - Senior Researcher/
     │   ├── ryan-researcher.md
     │   └── Research/
-    │       └── .keep
     ├── Alex - SEO Specialist/
     │   └── alex-seo-specialist.md
+    ├── Axel - Automation Architect/
+    │   └── axel-automation-architect.md
     ├── Casey - Webflow Developer/
     │   └── casey-webflow-developer.md
     ├── Cleo - Visual AI Producer/
     │   └── cleo-visual-ai-producer.md
+    ├── Dex - Analytics & Reporting Specialist/
+    │   └── dex-analytics-reporting-specialist.md
+    ├── Ellis - Creative Technologist/
+    │   └── ellis-creative-technologist.md
+    ├── Finn - Copywriter/
+    │   └── finn-copywriter.md
+    ├── Jordan - UX-UI Designer/
+    │   └── jordan-ux-ui-designer.md
+    ├── Juno - Social Media Manager/
+    │   └── juno-social-media-manager.md
+    ├── Nova - Video & Motion Producer/
+    │   └── nova-video-motion-producer.md
     ├── Odin - Opus Advisor/
     │   └── odin-opus-advisor.md
-    ├── Morgan - Dev Environment Specialist/
-    │   └── morgan-dev-environment-specialist.md
-    ├── Sage - Content Strategist/
-    │   └── sage-content-strategist.md
     ├── Quinn - QA Compliance Reviewer/
     │   └── quinn-qa-compliance-reviewer.md
-    └── Nix - Security Specialist/
-        └── nix-security-specialist.md
+    ├── Remi - Brand Strategist/
+    │   └── remi-brand-strategist.md
+    ├── Sage - Content Strategist/
+    │   └── sage-content-strategist.md
+    └── Tate - Project Manager/
+        └── tate-project-manager.md
 ```
 
 ### Step 3: Remove the setup comment
@@ -102,7 +139,7 @@ The `Projects/` folder contains 5 half-finished sample projects. Each one teache
 | 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: Jordan + Finn + Quinn, multi-file report assembly |
 | 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → Juno → Cleo, calendar format |
 | 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: Odin Checkpoint A + B, repo consultation |
-| 5 | `260101 Velora Studio — Hire Analytics Specialist` | **Full hiring pipeline**: Sam gap → Ryan brief → Harper persona → roster update |
+| 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: Sam gap → Ryan brief → Harper persona → roster update |
 
 Each project has a `README.md` with learning objectives and exact completion steps. Start there.
 
@@ -116,7 +153,7 @@ Projects 4 and 5 teach the two most important system mechanics — don't skip th
 
 ## Option B — Automated Setup (Claude Prompt)
 
-> **Note:** Option B creates the core founding team (Sam, Harper, Ryan) only. It does not include the full specialist roster (Alex, Casey, Cleo, Odin, Morgan, Sage, Quinn, Nix) or the Resources/SOPs structure. Use Option A if you want the complete template.
+> **Note:** Option B creates the core founding team (Sam, Harper, Ryan) only — it does not include the full 20-person specialist roster, Resources/SOPs structure, sample projects, or advanced CLAUDE.md sections (Theme Setup, Environment Variables, Advisor Checkpoints, PM Layer). The embedded `CLAUDE.md` is intentionally minimal. **Use Option A if you want the complete template** — it is the recommended path for most users.
 
 Open a new empty folder in Claude Code and paste the following prompt:
 
@@ -225,19 +262,28 @@ The following are exclusively Sam's domain and are never delegated:
 
 ## Active Team Roster
 
-| Name   | Role              | File                                                              |
-|--------|-------------------|-------------------------------------------------------------------|
-| Sam    | Orchestrator         | Team/Sam - Orchestrator/sam-orchestrator.md                              |
-| Harper | HR Lead              | Team/Harper - HR Lead/harper-hr.md                                       |
-| Ryan   | Senior Researcher    | Team/Ryan - Senior Researcher/ryan-researcher.md                         |
-| Alex   | SEO Specialist       | Team/Alex - SEO Specialist/alex-seo-specialist.md                        |
-| Casey  | Webflow Developer    | Team/Casey - Webflow Developer/casey-webflow-developer.md                |
-| Cleo   | Visual AI Producer   | Team/Cleo - Visual AI Producer/cleo-visual-ai-producer.md                |
-| Odin   | Opus Advisor         | Team/Odin - Opus Advisor/odin-opus-advisor.md                            |
-| Morgan | Dev Environment Specialist | Team/Morgan - Dev Environment Specialist/morgan-dev-environment-specialist.md |
-| Sage   | Content Strategist   | Team/Sage - Content Strategist/sage-content-strategist.md                |
-| Quinn  | QA Compliance Reviewer | Team/Quinn - QA Compliance Reviewer/quinn-qa-compliance-reviewer.md    |
-| Nix    | Security Specialist    | Team/Nix - Security Specialist/nix-security-specialist.md              |
+| Name    | Role                             | File                                                                                          |
+|---------|----------------------------------|-----------------------------------------------------------------------------------------------|
+| Sam     | Orchestrator                     | Team/Sam - Orchestrator/sam-orchestrator.md                                                   |
+| Harper  | HR Lead                          | Team/Harper - HR Lead/harper-hr.md                                                            |
+| Ryan    | Senior Researcher                | Team/Ryan - Senior Researcher/ryan-researcher.md                                              |
+| Alex    | SEO Specialist                   | Team/Alex - SEO Specialist/alex-seo-specialist.md                                             |
+| Casey   | Webflow Developer                | Team/Casey - Webflow Developer/casey-webflow-developer.md                                     |
+| Cleo    | Visual AI Producer               | Team/Cleo - Visual AI Producer/cleo-visual-ai-producer.md                                     |
+| Odin    | Opus Advisor                     | Team/Odin - Opus Advisor/odin-opus-advisor.md                                                 |
+| Sage    | Content Strategist               | Team/Sage - Content Strategist/sage-content-strategist.md                                     |
+| Quinn   | QA Compliance Reviewer           | Team/Quinn - QA Compliance Reviewer/quinn-qa-compliance-reviewer.md                           |
+| Finn    | Copywriter                       | Team/Finn - Copywriter/finn-copywriter.md                                                     |
+| Remi    | Brand Strategist                 | Team/Remi - Brand Strategist/remi-brand-strategist.md                                         |
+| Ellis   | Creative Technologist            | Team/Ellis - Creative Technologist/ellis-creative-technologist.md                             |
+| Nova    | Video & Motion Producer          | Team/Nova - Video & Motion Producer/nova-video-motion-producer.md                             |
+| Axel    | Automation Architect             | Team/Axel - Automation Architect/axel-automation-architect.md                                 |
+| Juno    | Social Media Manager             | Team/Juno - Social Media Manager/juno-social-media-manager.md                                 |
+| Dex     | Analytics & Reporting Specialist | Team/Dex - Analytics & Reporting Specialist/dex-analytics-reporting-specialist.md             |
+| Jordan  | UX/UI Designer                   | Team/Jordan - UX-UI Designer/jordan-ux-ui-designer.md                                        |
+| Tate    | Project Manager                  | Team/Tate - Project Manager/tate-project-manager.md                                           |
+| Vera    | Creative Director                | Team/Vera - Creative Director/vera-creative-director.md                                       |
+| Milo    | Amazon Stores Specialist         | Team/Milo - Amazon Stores Specialist/milo-amazon-stores-specialist.md                         |
 
 *(Sam updates this table whenever a new team member is hired or archived.)*
 

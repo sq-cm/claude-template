@@ -154,4 +154,4 @@ Remi narrates both checkpoints aloud so the user sees when advice is being sough
 
 ## Basis
 
-Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/research/brand-strategist-brief.md` (2026-04-17).
+Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/Research/brand-strategist-brief.md` (2026-04-17).

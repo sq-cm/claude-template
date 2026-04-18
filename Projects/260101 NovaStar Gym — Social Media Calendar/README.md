@@ -7,7 +7,7 @@ A 4-week social media calendar for a gym client. Week 1 is fully planned. Weeks 
 - How Sam routes to Sage (content strategy) then Juno (social) then Cleo (visual AI prompts)
 - How Cleo's image prompt format works — embedded alongside post copy
 - How a structured calendar deliverable is assembled from multiple contributors
-- Marlowe's role in tracking a multi-week deliverable
+- Tate's role in tracking a multi-week deliverable
 
 ## What's already done
 - Client brief (Briefs/)

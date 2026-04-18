@@ -1,6 +1,6 @@
 # /onboard
 
-You are Morgan, Dev Environment Specialist. Run first-time workspace setup. Execute all steps in order. Narrate each step briefly as you go.
+You are Sam, the orchestrator. Run first-time workspace setup. Execute all steps in order. Narrate each step briefly as you go.
 
 ---
 
@@ -83,7 +83,7 @@ Ask the user:
 
 ---
 
-## Step 6 — Final summary
+## Step 6 — Setup complete
 
 Read the Active Team Roster table from `CLAUDE.md` and print it.
 
@@ -103,41 +103,53 @@ Print the following block exactly:
 
 **Want to try something straight away? Here are five sample projects — just copy and send any one of them.**
 
-Each one exercises a different part of the team. No setup needed.
+The `Projects/` folder contains 5 half-finished sample projects. Each one teaches a different workflow layer. No setup needed. Work through them in order — each builds on what the previous one introduced.
+
+| # | Project | What it teaches |
+|---|---------|-----------------|
+| 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: Sam → Alex → Quinn → Deliverables |
+| 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: Jordan + Finn + Quinn, multi-file report assembly |
+| 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → Juno → Cleo, calendar format |
+| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: Odin Checkpoint A + B, repo consultation |
+| 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: Sam gap → Ryan brief → Harper persona → roster update |
+
+Each project has a `README.md` with learning objectives and exact completion steps.
+
+Projects 4 and 5 teach the two most important system mechanics — don't skip them.
+
+To begin any project, just copy and send the prompt below.
 
 ---
 
-**SEO Audit — Alex**
-> I'd like to start an SEO audit for Bloom Bakery. Their site is bloombakery.com.au — a small Melbourne bakery. Run a full audit and produce a report.
+**1. Bloom Bakery — SEO Audit**
+> I'd like to continue the Bloom Bakery SEO audit.
 
-*Alex will crawl the site, assess technical SEO, content, schema, and backlink profile, then deliver a structured audit report.*
-
----
-
-**Content Strategy — Sage**
-> Help me build a content strategy for Bloom Bakery. They want to grow organic traffic and build a local audience. Start with a 3-month editorial plan.
-
-*Sage will develop audience personas, topic clusters, and a monthly content calendar.*
+*Sam routes to Alex, who picks up from the draft. Quinn reviews before delivery.*
 
 ---
 
-**Copywriting — Finn**
-> Write homepage copy for Bloom Bakery. They're a sourdough-first bakery, family run, open Tuesday to Sunday. Warm and community-focused tone.
+**2. Meridian Law — Homepage UX Review**
+> I want to continue the Meridian Law UX review.
 
-*Finn will draft headline, subhead, body copy, and CTA — ready to hand off to a designer.*
-
----
-
-**Social Media — Juno**
-> Build a one-week Instagram content plan for Bloom Bakery. Mix product shots, behind-the-scenes, and community posts. Include captions and hashtag sets.
-
-*Juno will produce a day-by-day post plan with caption drafts and hashtag strategy.*
+*Sam routes to Jordan for sections 4–7, then Quinn evaluates the WCAG checklist. Both outputs compile into one final report.*
 
 ---
 
-**Brand Strategy — Remi**
-> Run a brand audit for Bloom Bakery. I'll describe them: sourdough-first, family run, Tuesday–Sunday, Melbourne inner-north. What's their positioning and what should they own?
+**3. NovaStar Gym — Social Media Calendar**
+> Continue the NovaStar Gym social calendar — I need Weeks 2 through 4.
 
-*Remi will analyse their market position, identify differentiation opportunities, and recommend brand pillars.*
+*Sam routes to Sage (content strategy), then Juno (copy) and Cleo (visual prompts). Week 1 is the format template.*
 
 ---
+
+**4. Thornwood Coffee — Brand Copywriting** ★ *teaches Odin checkpoints*
+> Continue the Thornwood Coffee brand copy — I need Remi to finish the audience section, then Finn to complete the headlines.
+
+*Remi hands off to Finn. Odin Checkpoint A fires before drafting; Checkpoint B fires before delivery. This project is the core quality gate mechanic.*
+
+---
+
+**5. Velora Studio — Hire Paid Media Specialist** ★ *teaches the hiring pipeline*
+> I want to run the paid media specialist hiring pipeline.
+
+*Sam confirms the gap, routes to Ryan (research brief), then Harper (persona file), then updates the roster. This is the most important meta-workflow — it teaches how the team grows.*

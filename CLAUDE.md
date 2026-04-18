@@ -114,6 +114,20 @@ When retiring any project, document, persona, brief, or other artifact — move 
 
 ---
 
+## Environment Variables
+
+API keys and secrets live in `.env` at the vault root. This file is git-ignored and must never be committed. Copy `.env.example` to `.env` and fill in values before first use (the `/onboard` command does this automatically).
+
+| Variable | Purpose |
+|---|---|
+| `ANTHROPIC_API_KEY` | Required for all Claude API calls |
+| `GOOGLE_API_KEY` / `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google Workspace integrations |
+| `GMAIL_CLIENT_ID` / `GMAIL_CLIENT_SECRET` / `GMAIL_REFRESH_TOKEN` | Gmail MCP server |
+
+Additional keys for MCP servers and project-specific integrations go in the `# MCP Servers` and `# Project-specific` sections of `.env`. See `.env.example` for the full template.
+
+---
+
 ## Memory
 
 All persistent memory lives in `Vault/Memory/` inside this vault folder — **not** the default Claude Code internal path. Read from and write to this path for all memory files and `MEMORY.md`.
@@ -141,7 +155,7 @@ The root of this workspace is reserved for named top-level folders only:
 
 ## Repo Consultation
 
-The authoritative reference is [Resources/SOPs/Repo Consultation SOP.md](Resources/SOPs/Repo%20Consultation%20SOP.md).
+Authoritative references: [Resources/SOPs/Repo Consultation SOP.md](Resources/SOPs/Repo%20Consultation%20SOP.md) · [Resources/SOPs/Repo Setup SOP.md](Resources/SOPs/Repo%20Setup%20SOP.md) · [Resources/SOPs/README.md](Resources/SOPs/README.md)
 
 Before checkpoint-eligible work, team members consult relevant repos in `Resources/Git/` for best-practice guidance. Use `Resources/Git/INDEX.md` to identify relevant repos by domain tag — max 3 per task. Narrate which repos were checked and what was applied.
 
@@ -202,15 +216,15 @@ The persona narrates the checkpoint in their own voice so the user sees when adv
 
 ### PM Layer
 
-When Sam flags a task as checkpoint-eligible, Marlowe is looped in at the same time. The temporal split is: **Sam routes work at intake; Marlowe tracks it through delivery.** These are sequential — Marlowe does not re-route tasks; Sam does not track pipeline status after handoff.
+When Sam flags a task as checkpoint-eligible, Tate is looped in at the same time. The temporal split is: **Sam routes work at intake; Tate tracks it through delivery.** These are sequential — Tate does not re-route tasks; Sam does not track pipeline status after handoff.
 
-| Task type | Checkpoint flag | Marlowe looped in |
+| Task type | Checkpoint flag | Tate looped in |
 |---|---|---|
 | Durable artefact, multi-step, or hard-to-unwind | Yes | Yes |
 | Lookup, roster check, single-line answer | No | No |
 | Sam-only meta-operation | No | No |
 
-Marlowe's authoritative file: `Team/Marlowe - Project Manager/marlowe-project-manager.md`
+Tate's authoritative file: `Team/Tate - Project Manager/tate-project-manager.md`
 
 ---
 
@@ -225,10 +239,8 @@ Marlowe's authoritative file: `Team/Marlowe - Project Manager/marlowe-project-ma
 | Casey   | Webflow Developer                | Team/Casey - Webflow Developer/casey-webflow-developer.md                                                 |
 | Cleo    | Visual AI Producer               | Team/Cleo - Visual AI Producer/cleo-visual-ai-producer.md                                                 |
 | Odin    | Opus Advisor                     | Team/Odin - Opus Advisor/odin-opus-advisor.md                                                             |
-| Morgan  | Dev Environment Specialist       | Team/Morgan - Dev Environment Specialist/morgan-dev-environment-specialist.md                             |
 | Sage    | Content Strategist               | Team/Sage - Content Strategist/sage-content-strategist.md                                                 |
 | Quinn   | QA Compliance Reviewer           | Team/Quinn - QA Compliance Reviewer/quinn-qa-compliance-reviewer.md                                       |
-| Nix     | Security Specialist              | Team/Nix - Security Specialist/nix-security-specialist.md                                                 |
 | Finn    | Copywriter                       | Team/Finn - Copywriter/finn-copywriter.md                                                                 |
 | Remi    | Brand Strategist                 | Team/Remi - Brand Strategist/remi-brand-strategist.md                                                     |
 | Ellis   | Creative Technologist            | Team/Ellis - Creative Technologist/ellis-creative-technologist.md                                         |
@@ -237,6 +249,8 @@ Marlowe's authoritative file: `Team/Marlowe - Project Manager/marlowe-project-ma
 | Juno    | Social Media Manager             | Team/Juno - Social Media Manager/juno-social-media-manager.md                                             |
 | Dex     | Analytics & Reporting Specialist | Team/Dex - Analytics & Reporting Specialist/dex-analytics-reporting-specialist.md                        |
 | Jordan  | UX/UI Designer                   | Team/Jordan - UX-UI Designer/jordan-ux-ui-designer.md                                                    |
-| Marlowe | Project Manager                  | Team/Marlowe - Project Manager/marlowe-project-manager.md                                                 |
+| Tate    | Project Manager                  | Team/Tate - Project Manager/tate-project-manager.md                                                       |
+| Vera    | Creative Director                | Team/Vera - Creative Director/vera-creative-director.md                                                   |
+| Milo    | Amazon Stores Specialist         | Team/Milo - Amazon Stores Specialist/milo-amazon-stores-specialist.md                                     |
 
 *(Sam updates this table whenever a new team member is hired or archived.)*

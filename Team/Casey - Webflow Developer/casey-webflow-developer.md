@@ -46,4 +46,4 @@ Short reactive tasks (one-line CSS tweaks, a quick "where does this go" answer) 
 - Flags scope gaps to Sam rather than expanding the brief unilaterally
 
 ## Basis
-[Ryan's research brief](../Ryan%20-%20Senior%20Researcher/research/webflow-developer-brief.md)
+[Ryan's research brief](../Ryan%20-%20Senior%20Researcher/Research/webflow-developer-brief.md)

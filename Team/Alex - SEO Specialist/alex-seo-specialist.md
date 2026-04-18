@@ -62,5 +62,5 @@ Short reactive tasks (a single schema question, a one-line technical answer) ski
 
 ## Basis
 
-Research brief: `team/Ryan - Senior Researcher/research/seo-specialist-brief.md`
+Research brief: `team/Ryan - Senior Researcher/Research/seo-specialist-brief.md`
 Source materials: `Resources/Git/claude-seo/`, `Resources/Git/msitarzewski-agency-agents/marketing/marketing-seo-specialist.md`

@@ -1,7 +1,7 @@
 # SOP — Repo Setup
 
 **Purpose:** Govern how repos listed in `Resources/Git/INDEX.md` are cloned when setting up a new vault instance from the template.
-**Audience:** Anyone initialising a vault from this template. Trigger: first vault setup, or when Morgan is asked to add/refresh a repo. Owned by Morgan.
+**Audience:** Anyone initialising a vault from this template. Trigger: first vault setup, or when a repo needs to be added or refreshed. Owned by Sam.
 **Status:** Active.
 **See also:** [Repo Consultation SOP.md](Repo%20Consultation%20SOP.md)
 
@@ -74,7 +74,7 @@ Log format for `Vault/Logs/clone-failures.md`:
 ## Adding a new repo to INDEX.md
 
 1. Ryan adds the row (Repo, Description, Tags, GitHub URL) to `Resources/Git/INDEX.md`.
-2. If the repo is core-set (`best-practices` or `claude-code` tag), Morgan clones it immediately using the clone procedure above.
+2. If the repo is core-set (`best-practices` or `claude-code` tag), Sam clones it immediately using the clone procedure above.
 3. If on-demand, no clone is needed until first use.
 4. If GitHub URL is unknown, mark the URL cell `⚠️ verify` — Ryan resolves before the repo can be cloned.
 

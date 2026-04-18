@@ -28,7 +28,7 @@ Hi Sam, what can the team help me with today?
 
 That's it. Sam responds immediately. No API keys to wire up, no bootstrapping.
 
-For full setup instructions (including secrets hygiene, path verification, and automated setup via a single Claude prompt): see [setup-guide.md](setup-guide.md).
+For full setup instructions (including secrets hygiene, path verification, and automated setup via a single Claude prompt): see [setup-guide.md](Resources/setup-guide.md).
 
 ---
 
@@ -75,10 +75,10 @@ Your message
 | Dex | Analytics & Reporting Specialist |
 | Ellis | Creative Technologist |
 | Axel | Automation Architect |
-| Morgan | Dev Environment Specialist |
-| Nix | Security Specialist |
 | Quinn | QA Compliance Reviewer |
-| Marlowe | Project Manager |
+| Tate | Project Manager |
+| Vera | Creative Director |
+| Milo | Amazon Stores Specialist |
 | Odin | Opus Advisor — quality gate at checkpoints |
 
 ---
@@ -106,7 +106,7 @@ The new team member is immediately available. No code changes, no config — jus
 | 2 | Meridian Law — Homepage UX Review | Cross-functional handoff + WCAG compliance |
 | 3 | NovaStar Gym — Social Media Calendar | Multi-specialist creative (Sage → Juno → Cleo) |
 | 4 | Thornwood Coffee — Brand Copywriting | Odin Checkpoint A+B + repo consultation |
-| 5 | Velora Studio — Hire Analytics Specialist | Full hiring pipeline end-to-end |
+| 5 | Velora Studio — Hire Paid Media Specialist | Full hiring pipeline end-to-end |
 
 Each project has a `README.md` with learning objectives and completion steps.
 
@@ -146,21 +146,29 @@ Sam will preview changes and ask for confirmation before touching anything. Full
 ```
 Claude - TEMPLATE/
 ├── CLAUDE.md                          ← orchestrator rules + team roster
-├── setup-guide.md                     ← full setup instructions
 ├── README.md                          ← this file
+├── .env.example                       ← API key template
+├── .claude/
+│   └── commands/
+│       ├── onboard.md                 ← /onboard command (run first)
+│       └── import-repos.md            ← /import-repos command
 ├── Team/
 │   ├── Sam - Orchestrator/
 │   ├── Harper - HR Lead/
 │   ├── Ryan - Senior Researcher/
-│   │   └── research/                  ← Ryan's role research briefs
-│   └── [18 more specialists]/
+│   │   └── Research/                  ← Ryan's role research briefs
+│   └── [17 more specialists]/
 ├── Projects/
 │   └── [5 sample onboarding projects]/
 ├── Resources/
-│   └── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
+│   ├── setup-guide.md                 ← full setup instructions
+│   ├── sam-routing.gif                ← demo animation
+│   ├── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
+│   └── Git/                           ← cloned reference repos (git-ignored)
 ├── Vault/
 │   ├── Memory/                        ← persistent session memory
-│   └── Archive/                       ← retired projects and personas
+│   ├── Archive/                       ← retired projects and personas
+│   └── Logs/                          ← clone failure logs, import logs
 ├── Inbox/                             ← staging area for unrouted material
 └── Notes/                             ← daily notes, canvas files, clippings
 ```
@@ -169,7 +177,7 @@ Claude - TEMPLATE/
 
 ## Demo
 
-![Sam routing a request](sam-routing.gif)
+![Sam routing a request](Resources/sam-routing.gif)
 
 ---
 

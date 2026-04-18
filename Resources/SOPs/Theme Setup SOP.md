@@ -192,7 +192,7 @@ Before any mutation, Sam creates `Vault/Memory/.theme-lock`. On completion or fa
 If a rename or find-replace fails mid-batch, Sam halts immediately, reports the last successful step, and instructs the user to either (a) resume from that step manually, or (b) restore the previous state using the most recent timestamped map backup. Sam does not attempt to auto-recover.
 
 ### Missing Original column (legacy vaults)
-If `Original` column is absent from the map on a revert attempt, Sam halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Morgan, Sage, Quinn) before proceeding.
+If `Original` column is absent from the map on a revert attempt, Sam halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn) before proceeding.
 
 ### Collision normalisation
 For the collision check in pre-flight, compare names case-insensitively and strip Unicode diacritics (e.g. "Björn" and "bjorn" are treated as equivalent). If a collision is detected, Ryan proposes an alternative.

@@ -1,7 +1,7 @@
-# Velora Studio — Hire Analytics Specialist
+# Velora Studio — Hire Paid Media Specialist
 
 ## What this is
-A hiring pipeline exercise. The team has identified a capability gap — no one currently covers analytics and reporting. You'll run the full hiring process: Sam's gap note → Ryan's research brief → Harper's persona file → Sam's roster announcement.
+A hiring pipeline exercise. Velora Studio has a paid media campaign to run — and no one on the current team handles paid advertising. You'll run the full hiring process: Sam's gap note → Ryan's research brief → Harper's persona file → Sam's roster announcement.
 
 ## Learning objectives
 - How Sam identifies and escalates a capability gap
@@ -12,7 +12,7 @@ A hiring pipeline exercise. The team has identified a capability gap — no one 
 
 ## What's already done
 - Sam's gap note (identifies the problem, asks for permission to hire)
-- Ryan's brief: Skills section complete; 3 sections incomplete (Knowledge Domains, Collaboration Patterns, Risk Areas)
+- Ryan's brief: Skills Inventory complete; 3 sections incomplete (Knowledge Domains, Collaboration Patterns, Risk Areas)
 - Harper's persona stub: Identity section only; all other sections empty
 
 ## What you need to complete
@@ -26,15 +26,15 @@ A hiring pipeline exercise. The team has identified a capability gap — no one 
 4. Open `Working/harper-persona-stub.md`
 5. Read Ryan's completed brief
 6. Fill in all remaining persona template sections using Ryan's research
-7. Save to `Team/Dex - Analytics & Reporting Specialist/dex-analytics-reporting-specialist.md` in your TEMPLATE directory *(or use a fictional name if you prefer)*
+7. Save to `Team/Reed - Paid Media Specialist/reed-paid-media-specialist.md`
 
 ### Step 3 — Sam announces and updates the roster
 8. Open `Working/roster-announcement-template.md`
 9. Fill in the announcement
-10. Update the **Active Team Roster** table in your `CLAUDE.md` to include the new team member
+10. Update the **Active Team Roster** table in your `CLAUDE.md` to include Reed
 
 ## How to start
-Tell Sam: *"I want to run the analytics specialist hiring pipeline."*
+Tell Sam: *"I want to run the paid media specialist hiring pipeline."*
 
 Sam will confirm the gap and route to Ryan first, then Harper.
 

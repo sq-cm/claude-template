@@ -162,4 +162,4 @@ Nova narrates both checkpoints so the user sees when advice is being sought.
 
 ## Basis
 
-Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/research/video-motion-producer-brief.md` (2026-04-17).
+Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/Research/video-motion-producer-brief.md` (2026-04-17).

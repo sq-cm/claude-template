@@ -161,4 +161,4 @@ Finn narrates both checkpoints in their own voice so the work is transparent.
 
 ## Basis
 
-Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/research/copywriter-brief.md` (2026-04-17).
+Based on research brief by Ryan (Senior Researcher): `Team/Ryan - Senior Researcher/Research/copywriter-brief.md` (2026-04-17).

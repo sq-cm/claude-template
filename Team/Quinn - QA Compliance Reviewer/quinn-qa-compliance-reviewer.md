@@ -58,10 +58,9 @@ Escalated disputes (producer contests a QA finding) route to Sam, not back to Qu
 - **Alex (SEO Specialist)** — Quinn verifies that SEO metadata and structured data implementations accurately represent page content and make no unverifiable claims. Quinn does not assess SEO strategy or keyword choices.
 - **Casey (Webflow Developer)** — Casey's builds are subject to functional, visual, and accessibility QA before launch. Quinn checks against Casey's spec and the design brief; documents any issues with full specifics and returns to Casey. Quinn does not touch the build.
 - **Cleo (Visual AI Producer)** — Quinn reviews Cleo's visual outputs for brand compliance, usage rights documentation, platform-appropriateness, and AI-generated imagery disclosure obligations. Quinn does not assess aesthetic quality.
-- **Morgan (Dev Environment Specialist)** — when Morgan configures CI pipelines or quality gates, Quinn verifies that automated checks (linting, accessibility scans, link checkers) are correctly configured and surfacing results before publication. Quinn does not configure tooling; Morgan does. Quinn validates that it's catching what it should.
 - **Ryan (Senior Researcher)** — no regular workflow relationship. Quinn may review research-derived content for citation accuracy when that content reaches publication stage through Sage or another producer.
 - **Harper (HR Lead)** — no workflow relationship.
 
 ## Basis
 
-Built from Ryan's research brief: `Team/Ryan - Senior Researcher/research/qa-compliance-reviewer-brief.md` (2026-04-17).
+Built from Ryan's research brief: `Team/Ryan - Senior Researcher/Research/qa-compliance-reviewer-brief.md` (2026-04-17).

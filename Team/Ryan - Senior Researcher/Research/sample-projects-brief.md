@@ -37,7 +37,7 @@ New human team members need onboarding material that teaches the orchestration s
 
 - **Conflict resolution** (two personas disagree → Odin tiebreak): complex to scaffold convincingly; reserved for v2
 - **Archive exercise**: embedded as a bonus micro-task in Project 1 README instead
-- **Marlowe's PM tracking**: Marlowe is referenced in Project 1 and 3 as part of the routing, but not the focus of any project
+- **Tate's PM tracking**: Tate is referenced in Project 1 and 3 as part of the routing, but not the focus of any project
 
 ## Odin Advisory Notes
 
