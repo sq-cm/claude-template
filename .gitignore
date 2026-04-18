@@ -1,0 +1,26 @@
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code internals
+.claude/cache/
+.claude/logs/
+
+# Obsidian internals
+.obsidian/workspace
+.obsidian/workspace.json
+.obsidian/workspaces.json
+
+# Git repo clones — reference only, not committed
+Resources/Git/*/
+
+# Temporary / working files
+*.tmp
+*.bak
+~$*
