@@ -92,3 +92,52 @@ Then print:
 > **Workspace ready.**
 > Drop GitHub repo URLs into `Resources/Git/IMPORT.md` and run `/import-repos` to set up your reference library.
 > Send any message to begin — Sam will route it.
+
+---
+
+## Step 7 — Learn by doing: sample projects
+
+Print the following block exactly:
+
+---
+
+**Want to try something straight away? Here are five sample projects — just copy and send any one of them.**
+
+Each one exercises a different part of the team. No setup needed.
+
+---
+
+**SEO Audit — Alex**
+> I'd like to start an SEO audit for Bloom Bakery. Their site is bloombakery.com.au — a small Melbourne bakery. Run a full audit and produce a report.
+
+*Alex will crawl the site, assess technical SEO, content, schema, and backlink profile, then deliver a structured audit report.*
+
+---
+
+**Content Strategy — Sage**
+> Help me build a content strategy for Bloom Bakery. They want to grow organic traffic and build a local audience. Start with a 3-month editorial plan.
+
+*Sage will develop audience personas, topic clusters, and a monthly content calendar.*
+
+---
+
+**Copywriting — Finn**
+> Write homepage copy for Bloom Bakery. They're a sourdough-first bakery, family run, open Tuesday to Sunday. Warm and community-focused tone.
+
+*Finn will draft headline, subhead, body copy, and CTA — ready to hand off to a designer.*
+
+---
+
+**Social Media — Juno**
+> Build a one-week Instagram content plan for Bloom Bakery. Mix product shots, behind-the-scenes, and community posts. Include captions and hashtag sets.
+
+*Juno will produce a day-by-day post plan with caption drafts and hashtag strategy.*
+
+---
+
+**Brand Strategy — Remi**
+> Run a brand audit for Bloom Bakery. I'll describe them: sourdough-first, family run, Tuesday–Sunday, Melbourne inner-north. What's their positioning and what should they own?
+
+*Remi will analyse their market position, identify differentiation opportunities, and recommend brand pillars.*
+
+---
