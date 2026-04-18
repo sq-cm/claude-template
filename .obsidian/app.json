@@ -1,3 +1,8 @@
 {
-  "readableLineLength": false
+  "readableLineLength": false,
+  "newFileLocation": "current",
+  "newFileFolderPath": "Notes",
+  "attachmentFolderPath": "Vault/Attachments",
+  "alwaysUpdateLinks": true,
+  "promptDelete": false
 }
