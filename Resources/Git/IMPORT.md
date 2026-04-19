@@ -6,6 +6,7 @@ This file is cleared automatically after each import run.
 
 <!-- TEMPLATE: Sample links to get started
 
+https://github.com/blader/humanizer
 https://github.com/msitarzewski/agency-agents
 https://github.com/ericosiu/ai-marketing-skills
 https://github.com/vijaythecoder/awesome-claude-agents
