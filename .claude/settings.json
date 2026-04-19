@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '=== grill-me skill loaded ===' && cat \"${CLAUDE_PROJECT_DIR:-.}/.claude/skills/grill-me/SKILL.md\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
