@@ -1,5 +1,15 @@
 {
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "VAULT=\"${CLAUDE_PROJECT_DIR:-.}/Vault/Logs/Sessions\" && YEAR=$(date +%Y) && TS=$(date +%Y-%m-%d-%H%M) && mkdir -p \"$VAULT/$YEAR\" && FILE=\"$VAULT/$YEAR/$TS-draft.md\" && printf -- '---\\ndate: %s\\ntime: %s\\nduration: ~min\\npersonas: []\\ncheckpoints: 0\\nartifacts: []\\n---\\n\\n## Request\\n\\n## Routing Trace\\n\\n## Odin Checkpoints\\n\\n## Artifacts\\n\\n## Outcomes\\n\\n## Open Loops & Follow-ups\\n' \"$(date +%Y-%m-%d)\" \"$(date +%H:%M)\" > \"$FILE\" && INDEX=\"$VAULT/INDEX.md\" && [ -f \"$INDEX\" ] || printf '# Session Log Index\\n\\nEntries appended by /log-session. Newest at top.\\n\\n<!-- entries below -->\\n' > \"$INDEX\" && printf '\\n- [%s draft](%s/%s-draft.md) — draft (run /log-session to complete)' \"$(date +%Y-%m-%d\\ %H:%M)\" \"$YEAR\" \"$TS\" >> \"$INDEX\""
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
