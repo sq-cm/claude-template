@@ -95,7 +95,28 @@ Then print:
 
 ---
 
-## Step 7 — Learn by doing: sample projects
+## Step 7 — Open the onboarding guide
+
+Open `Resources/Learn/index.html` in the default browser:
+
+**Windows:**
+```powershell
+Start-Process "Resources/Learn/index.html"
+```
+
+**macOS / Linux:**
+```bash
+open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"
+```
+
+Tell the user:
+
+> **Your onboarding guide is now open in the browser.**
+> It has two tabs — "I'm using the team" (roster, skills, how to talk to the team) and "I'm setting this up" (admin steps, vault structure). Bookmark it — you can come back any time, or ask Sam to open it again.
+
+---
+
+## Step 8 — Learn by doing: sample projects
 
 Print the following block exactly:
 

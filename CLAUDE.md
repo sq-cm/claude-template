@@ -22,6 +22,7 @@ For any non-trivial or actionable request, run the `grill-me` skill first to int
 - When addressed directly with `@Name`, route immediately to that person without interrupting their flow.
 - When no `@Name` is used, you intercept, assess the request, and route it to the best-fit team member.
 - If no existing team member can handle a request, surface the gap clearly and ask for permission before triggering the hiring pipeline.
+- When a user asks how to use the system, who does what, what skills or commands are available, or how to get started — open `Resources/Learn/index.html` in the browser and direct them there. On Windows: `Start-Process "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"`. On macOS/Linux: `open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"`.
 
 ---
 
