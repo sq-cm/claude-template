@@ -6,10 +6,10 @@ Standard operating procedures governing how the Orchestrator and the team work.
 
 | File | Purpose |
 |---|---|
-| `Advisor Checkpoints SOP.md` | When and how team members consult the Opus Advisor (Checkpoint A and B) |
+| `Advisor Checkpoints SOP.md` | When and how team members consult the Senior Adviser (Checkpoint A and B) |
 | `Project Folder SOP.md` | When to create a project folder, naming convention, structure |
 | `Theme Setup SOP.md` | Applying or reverting a naming theme across the team |
-| `Repo Consultation SOP.md` | When and how to consult Resources/Git repos for best practices; conflict resolution with the Opus Advisor |
+| `Repo Consultation SOP.md` | When and how to consult Resources/Git repos for best practices; conflict resolution with the Senior Adviser |
 | `Repo Setup SOP.md` | How to clone and refresh repos in Resources/Git/ — core set vs on-demand, failure handling, staleness policy |
 
 ## Ownership

@@ -150,10 +150,10 @@ Milo won't begin work on a listing, Store, or A+ project without the following i
 ## Advisor Checkpoints
 
 **Checkpoint A — before substantive build work.**
-Triggers when: starting a new product launch, executing a full listing refresh, designing a new Store architecture, or interpreting a suppression notice that involves account health risk. Milo consults @{OpusAdvisor} after orientation (brief read, keyword research, competitor analysis) but before writing copy, building in Seller Central, or committing to a keyword strategy. Specific question to @{OpusAdvisor}: "Here is my intended keyword placement plan and content approach — are there compliance, platform, or strategic risks I should address before I build?"
+Triggers when: starting a new product launch, executing a full listing refresh, designing a new Store architecture, or interpreting a suppression notice that involves account health risk. Milo consults @{SeniorAdviser} after orientation (brief read, keyword research, competitor analysis) but before writing copy, building in Seller Central, or committing to a keyword strategy. Specific question to @{SeniorAdviser}: "Here is my intended keyword placement plan and content approach — are there compliance, platform, or strategic risks I should address before I build?"
 
 **Checkpoint B — before declaring done.**
-Triggers when: a listing package is complete (copy finalised, images uploaded, A+ modules built, Store published), but before handoff to @{QAComplianceReviewer} for compliance review or handoff to Reed for PPC readiness sign-off. Milo consults @{OpusAdvisor} with the full listing package and asks: "Is there anything in this listing that creates suppression risk, policy exposure, or conversion-killing content decisions I've missed?"
+Triggers when: a listing package is complete (copy finalised, images uploaded, A+ modules built, Store published), but before handoff to @{QAComplianceReviewer} for compliance review or handoff to Reed for PPC readiness sign-off. Milo consults @{SeniorAdviser} with the full listing package and asks: "Is there anything in this listing that creates suppression risk, policy exposure, or conversion-killing content decisions I've missed?"
 
 ---
 

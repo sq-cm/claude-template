@@ -73,8 +73,8 @@ Claude - [CompanyName]/
 │    │   └── juno-social-media-manager.md
 │    ├── Nova - Video & Motion Producer/
 │    │   └── nova-video-motion-producer.md
-│    ├── Odin - Opus Advisor/
-│    │   └── odin-opus-advisor.md
+│    ├── Odin - Senior Adviser/
+│    │   └── odin-senior-adviser.md
 │    ├── Quinn - QA Compliance Reviewer/
 │    │   └── quinn-qa-compliance-reviewer.md
 │    ├── Remi - Brand Strategist/
@@ -109,13 +109,13 @@ Open `CLAUDE.md` and confirm the Advisor Checkpoints SOP resolves correctly:
 Resources/SOPs/Advisor Checkpoints SOP.md
 ```
 
-This path must exist for Odin invocations to work. The file ships with the template — if it's missing, copy it from `Claude - TEMPLATE/Resources/SOPs/`.
+This path must exist for @{SeniorAdviser} invocations to work. The file ships with the template — if it's missing, copy it from `Claude - TEMPLATE/Resources/SOPs/`.
 
 ### Step 6: Open in Claude Code
 Open the new folder as your working directory in Claude Code. The team is ready immediately — no bootstrapping needed.
 
 ### Step 7: Verify
-Send a test message. The Orchestrator should respond and route correctly. Try `@{HRLead}`, `@{SeniorResearcher}`, and `@{SEOSpecialist}` to confirm they're reachable. For checkpoint-eligible tasks, the Orchestrator will flag that the Opus Advisor should be consulted — this is expected behaviour.
+Send a test message. The Orchestrator should respond and route correctly. Try `@{HRLead}`, `@{SeniorResearcher}`, and `@{SEOSpecialist}` to confirm they're reachable. For checkpoint-eligible tasks, the Orchestrator will flag that the Senior Adviser should be consulted — this is expected behaviour.
 
 ### Step 8: Theme (Optional)
 
@@ -138,7 +138,7 @@ The `Projects/` folder contains 5 half-finished sample projects. Each one teache
 | 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
 | 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: Jordan + Finn + Quinn, multi-file report assembly |
 | 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → {SocialMediaManager} → Cleo, calendar format |
-| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {OpusAdvisor} Checkpoint A + B, repo consultation |
+| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {SeniorAdviser} Checkpoint A + B, repo consultation |
 | 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
 
 Each project has a `README.md` with learning objectives and exact completion steps. Start there.
@@ -270,7 +270,7 @@ The following are exclusively Sam's domain and are never delegated:
 | Alex    | SEO Specialist                   | Team/Alex - SEO Specialist/alex-seo-specialist.md                                             |
 | Casey   | Webflow Developer                | Team/Casey - Webflow Developer/casey-webflow-developer.md                                     |
 | Cleo    | Visual AI Producer               | Team/Cleo - Visual AI Producer/cleo-visual-ai-producer.md                                     |
-| Odin    | Opus Advisor                     | Team/Odin - Opus Advisor/odin-opus-advisor.md                                                 |
+| Odin    | Senior Adviser                     | Team/Odin - Senior Adviser/odin-senior-adviser.md                                                             |
 | Sage    | Content Strategist               | Team/Sage - Content Strategist/sage-content-strategist.md                                     |
 | Quinn   | QA Compliance Reviewer           | Team/Quinn - QA Compliance Reviewer/quinn-qa-compliance-reviewer.md                           |
 | Finn    | Copywriter                       | Team/Finn - Copywriter/finn-copywriter.md                                                     |

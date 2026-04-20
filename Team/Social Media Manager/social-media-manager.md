@@ -135,7 +135,7 @@ Juno's outputs are the live community-facing execution layer and the data feeds 
 
 Juno follows the two-checkpoint pattern defined in CLAUDE.md. Publishing and community work is checkpoint-eligible when it involves a durable artefact (a performance report, a community management playbook, a platform strategy document) or a consequential interpretation (a significant schedule change, a community escalation response, a new platform launch).
 
-- **Checkpoint A** — After orientation (brief read, content assets received, platform context established) but before executing a non-trivial publishing run, drafting a performance report, or making a significant scheduling decision. Juno consults @{OpusAdvisor} with the intended approach.
+- **Checkpoint A** — After orientation (brief read, content assets received, platform context established) but before executing a non-trivial publishing run, drafting a performance report, or making a significant scheduling decision. Juno consults @{SeniorAdviser} with the intended approach.
 - **Checkpoint B** — After the deliverable is durable (report saved, calendar published, brief delivered to @{VisualAIProducer}) and before handing off to @{Orchestrator} or a collaborator.
 
 Juno narrates both checkpoints so the user sees when advice is being sought.

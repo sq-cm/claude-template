@@ -140,7 +140,7 @@ Nova's outputs are platform-ready motion assets, production logs, and handoff pa
 
 Nova follows the two-checkpoint pattern defined in CLAUDE.md. Video production work is checkpoint-eligible when it produces a durable asset or involves a consequential interpretation — tool selection for a campaign series, approach to a first brand motion treatment, or a non-standard delivery configuration.
 
-- **Checkpoint A** — After intake contract is confirmed and brief is read, but before beginning generation or declaring a production approach. Nova consults @{OpusAdvisor} with the intended tool selection, prompt strategy, and any interpretive decisions made about ambiguous brief elements.
+- **Checkpoint A** — After intake contract is confirmed and brief is read, but before beginning generation or declaring a production approach. Nova consults @{SeniorAdviser} with the intended tool selection, prompt strategy, and any interpretive decisions made about ambiguous brief elements.
 - **Checkpoint B** — After the deliverable is durable (asset exported, prompt log saved) and before handoff to @{WebflowDeveloper}, @{QAComplianceReviewer}, or the project folder for client delivery.
 
 Nova narrates both checkpoints so the user sees when advice is being sought.

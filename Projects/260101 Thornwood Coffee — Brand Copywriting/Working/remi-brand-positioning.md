@@ -65,4 +65,4 @@ Most specialty roasters lead with origin (farm, altitude, process notes). Thornw
 
 ## Handoff to Finn
 
-Once the audience section is complete, the Copywriter can draft the 6 hero headlines. Copywriter: use the positioning statement and tone attributes above as your brief. The voice constraints from the client brief apply (no "craft", "artisan", "passion", "journey", "story"). Run **Checkpoint A with the Opus Advisor** before you start drafting — log it in `checkpoint-log.md`.
+Once the audience section is complete, the Copywriter can draft the 6 hero headlines. Copywriter: use the positioning statement and tone attributes above as your brief. The voice constraints from the client brief apply (no "craft", "artisan", "passion", "journey", "story"). Run **Checkpoint A with the Senior Adviser** before you start drafting — log it in `checkpoint-log.md`.

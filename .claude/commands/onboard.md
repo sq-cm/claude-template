@@ -28,7 +28,7 @@ Check if `.env` exists in the vault root.
 Confirm `Resources/SOPs/Advisor Checkpoints SOP.md` exists.
 
 - **Found:** Report: "Advisor Checkpoints SOP ✓"
-- **Missing:** Warn the user: "⚠️ `Resources/SOPs/Advisor Checkpoints SOP.md` is missing. Odin checkpoints will not work until this file is restored from the template."
+- **Missing:** Warn the user: "⚠️ `Resources/SOPs/Advisor Checkpoints SOP.md` is missing. @{SeniorAdviser} checkpoints will not work until this file is restored from the template."
 
 ---
 
@@ -131,7 +131,7 @@ The `Projects/` folder contains 5 half-finished sample projects. Each one teache
 | 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
 | 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: {UXUIDesigner} + {Copywriter} + {QAComplianceReviewer}, multi-file report assembly |
 | 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: {ContentStrategist} → {SocialMediaManager} → {VisualAIProducer}, calendar format |
-| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {OpusAdvisor} Checkpoint A + B, repo consultation |
+| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {SeniorAdviser} Checkpoint A + B, repo consultation |
 | 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
 
 Each project has a `README.md` with learning objectives and exact completion steps.
@@ -163,10 +163,10 @@ To begin any project, just copy and send the prompt below.
 
 ---
 
-**4. Thornwood Coffee — Brand Copywriting** ★ *teaches Odin checkpoints*
+**4. Thornwood Coffee — Brand Copywriting** ★ *teaches @{SeniorAdviser} checkpoints*
 > Continue the Thornwood Coffee brand copy — I need Remi to finish the audience section, then Finn to complete the headlines.
 
-*Remi hands off to Finn. The Opus Advisor Checkpoint A fires before drafting; Checkpoint B fires before delivery. This project is the core quality gate mechanic.*
+*Remi hands off to Finn. The Senior Adviser Checkpoint A fires before drafting; Checkpoint B fires before delivery. This project is the core quality gate mechanic.*
 
 ---
 

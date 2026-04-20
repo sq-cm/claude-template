@@ -9,7 +9,7 @@ SeniorResearcher: Ryan
 SEOSpecialist: Alex
 WebflowDeveloper: Casey
 VisualAIProducer: Cleo
-OpusAdvisor: Odin
+SeniorAdviser: Odin
 ContentStrategist: Sage
 QAComplianceReviewer: Quinn
 Copywriter: Finn

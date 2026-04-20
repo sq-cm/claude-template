@@ -183,13 +183,13 @@ Authoritative references: [Resources/SOPs/Repo Consultation SOP.md](Resources/SO
 
 Before checkpoint-eligible work, team members consult relevant repos in `Resources/Git/` for best-practice guidance. Use `Resources/Git/INDEX.md` to identify relevant repos by domain tag — max 3 per task. Narrate which repos were checked and what was applied.
 
-If repo guidance conflicts with CLAUDE.md, an SOP, or a persona constraint: pause, invoke the Opus Advisor with both sources, surface the conflict and ruling to the user, and log the ruling to `Vault/Memory/repo-conflicts.md`.
+If repo guidance conflicts with CLAUDE.md, an SOP, or a persona constraint: pause, invoke the Senior Adviser with both sources, surface the conflict and ruling to the user, and log the ruling to `Vault/Memory/repo-conflicts.md`.
 
 ---
 
 ## Advisor Checkpoints
 
-The authoritative reference for this workflow is [Resources/SOPs/Advisor Checkpoints SOP.md](Resources/SOPs/Advisor%20Checkpoints%20SOP.md). The team uses a Claude-Code-native analog of Anthropic's Advisor tool: **the Opus Advisor** (@{OpusAdvisor}), an Opus-powered reviewer persona invoked as a subagent at fixed checkpoints in non-trivial work.
+The authoritative reference for this workflow is [Resources/SOPs/Advisor Checkpoints SOP.md](Resources/SOPs/Advisor%20Checkpoints%20SOP.md). The team uses a Claude-Code-native analog of Anthropic's Advisor tool: **the Senior Adviser** (@{SeniorAdviser}), a high-capability reviewer persona invoked as a subagent at fixed checkpoints in non-trivial work.
 
 ### When checkpoints apply
 
@@ -207,21 +207,21 @@ The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible 
 
 ### The two checkpoints
 
-1. **Checkpoint A — before substantive work.** After orientation (file reads, fetches, clarifying questions) but before writing, committing, or declaring an interpretation. The persona consults the Opus Advisor with their intended approach.
-2. **Checkpoint B — before declaring done.** After the deliverable is *durable* (file written, brief saved). The persona consults the Opus Advisor for a final review before handoff back to the Orchestrator.
+1. **Checkpoint A — before substantive work.** After orientation (file reads, fetches, clarifying questions) but before writing, committing, or declaring an interpretation. The persona consults the Senior Adviser with their intended approach.
+2. **Checkpoint B — before declaring done.** After the deliverable is *durable* (file written, brief saved). The persona consults the Senior Adviser for a final review before handoff back to the Orchestrator.
 
 The HR Lead is lighter: one checkpoint, before drafting a persona from the Senior Researcher's brief.
 
-### How to invoke the Opus Advisor
+### How to invoke the Senior Adviser
 
-The consulting persona calls the Agent tool with an Opus model override:
+The consulting persona calls the Agent tool using the most capable model available:
 
 ```
 Agent(
   subagent_type: "general-purpose",
   model: "opus",
   description: "Odin advisor checkpoint [A|B]",
-  prompt: "You are Odin — Opus Advisor (see Team/Opus Advisor/opus-advisor.md).
+  prompt: "You are Odin — Senior Adviser (see Team/Senior Adviser/senior-adviser.md).
            Respond in ≤100 words, enumerated steps, no explanations.
 
            <full task context>
@@ -230,12 +230,14 @@ Agent(
 )
 ```
 
-The persona narrates the checkpoint in their own voice so the user sees when advice is being sought ("Checkpoint A — consulting the Opus Advisor before drafting.").
+> **Model note:** Use the most capable model available at invocation time (currently `claude-opus-4-7`). Update when a newer flagship is released.
 
-### How to treat the Opus Advisor's advice
+The persona narrates the checkpoint in their own voice so the user sees when advice is being sought ("Checkpoint A — consulting the Senior Adviser before drafting.").
+
+### How to treat the Senior Adviser's advice
 
 - Give it serious weight. A passing self-test is not evidence the advice is wrong.
-- If primary-source evidence contradicts the advice, don't silently override — surface the conflict in one more Opus Advisor call ("I found X, you suggested Y, which constraint breaks the tie?").
+- If primary-source evidence contradicts the advice, don't silently override — surface the conflict in one more Senior Adviser call ("I found X, you suggested Y, which constraint breaks the tie?").
 - Two calls per non-trivial task is the norm.
 
 ### PM Layer
@@ -264,7 +266,7 @@ Token → Current Name mapping (from `Vault/Memory/theme-name-map.md`):
 | `@{SEOSpecialist}` | Alex    | SEO Specialist                   | Team/SEO Specialist/seo-specialist.md                  |
 | `@{WebflowDeveloper}` | Casey   | Webflow Developer                | Team/Webflow Developer/webflow-developer.md            |
 | `@{VisualAIProducer}` | Cleo    | Visual AI Producer               | Team/Visual AI Producer/visual-ai-producer.md          |
-| `@{OpusAdvisor}` | Odin    | Opus Advisor                     | Team/Opus Advisor/opus-advisor.md                      |
+| `@{SeniorAdviser}` | Odin    | Senior Adviser                   | Team/Senior Adviser/senior-adviser.md                            |
 | `@{ContentStrategist}` | Sage    | Content Strategist               | Team/Content Strategist/content-strategist.md          |
 | `@{QAComplianceReviewer}` | Quinn   | QA Compliance Reviewer           | Team/QA Compliance Reviewer/qa-compliance-reviewer.md  |
 | `@{Copywriter}` | Finn    | Copywriter                       | Team/Copywriter/copywriter.md                          |

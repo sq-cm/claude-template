@@ -7,11 +7,11 @@ You are the Orchestrator. This command writes a session log for the current conv
 - Save log to: `Vault/Logs/Sessions/YYYY/YYYY-MM-DD-HHMM-[slug].md` where slug is a 2–4 word kebab-case summary of the session's primary request.
 - Append one index entry to `Vault/Logs/Sessions/INDEX.md` (create file if missing).
 - Use actual current date/time. Estimate duration from conversation length.
-- If no Odin checkpoints occurred, write "none".
+- If no @{SeniorAdviser} checkpoints occurred, write "none".
 
 ## Steps
 
-1. Review the full conversation to extract: user's intent, personas invoked, Odin checkpoints, artifacts created/modified, outcomes, open loops.
+1. Review the full conversation to extract: user's intent, personas invoked, @{SeniorAdviser} checkpoints, artifacts created/modified, outcomes, open loops.
 2. Write the log file using the template below.
 3. Append the index entry.
 4. Confirm to the user with the file path.
@@ -35,7 +35,7 @@ artifacts:
 ## Routing Trace
 [the Orchestrator's handoffs in order — e.g. "{Orchestrator} → {SeniorResearcher} (research) → {HRLead} (persona draft) → {Orchestrator} (announce)"]
 
-## Odin Checkpoints
+## @{SeniorAdviser} Checkpoints
 [List each invocation: "Checkpoint A — [topic] — ruling: [summary]" or "none"]
 
 ## Artifacts

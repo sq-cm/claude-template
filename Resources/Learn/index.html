@@ -203,12 +203,12 @@ const TEAM = [
   },
   {
     name: "Odin",
-    role: "Opus Advisor",
+    role: "Senior Adviser",
     tags: ["Quality Review", "Checkpoint Analysis", "Strategic Oversight"],
     desc: "The team's reviewer of last resort. Consulted at key checkpoints — not day-to-day execution. Spots the flaw in the approach before it becomes durable.",
-    prompt: "— Internal use only. Odin is invoked by team members at checkpoints, not directly by users. —",
+    prompt: "— Internal use only. @{SeniorAdviser} is invoked by team members at checkpoints, not directly by users. —",
     expertise: ["Pre-work checkpoint review — approach validation before drafting begins", "Post-work checkpoint review — final quality gate before delivery", "Identifying flawed assumptions and structural weaknesses in plans", "Returning concise, enumerated course corrections"],
-    constraints: "Odin does not produce deliverables. He reviews and advises only. Invoked by team members via Agent tool with Opus model override."
+    constraints: "@{SeniorAdviser} does not produce deliverables. Reviews and advises only. Invoked by team members via Agent tool using the most capable model available."
   },
   {
     name: "Sage",
@@ -332,7 +332,7 @@ const TEAM = [
 const SKILLS = [
   { name: "/humaniser", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
   { name: "/grill-me", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
-  { name: "/log-session", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables. Run manually when the session is worth keeping." },
+  { name: "/log-session", desc: "Saves a structured log of the current session — request, routing trace, @{SeniorAdviser} checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables. Run manually when the session is worth keeping." },
   { name: "/onboard", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, offers theme selection.", when: "Once, the first time you open a new client vault. Do not re-run on an active vault." },
   { name: "/import-repos", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." }
 ];
@@ -415,7 +415,7 @@ const COMMANDS = [
         </div>
         <div class="example-step">
           <div class="step-label"><span class="persona">Sage — Content Strategist</span></div>
-          <div class="step-body">Before drafting, I'm checking the repo library for content strategy frameworks. Running <strong>Checkpoint A</strong> with Odin before I commit to a structure…<br><br>Here's the content architecture: three pillar topics — Origin Stories, Brewing Methods, and Ethical Sourcing. Supporting cluster topics mapped to search intent. Brief prepared for Finn.</div>
+          <div class="step-body">Before drafting, I'm checking the repo library for content strategy frameworks. Running <strong>Checkpoint A</strong> with @{SeniorAdviser} before I commit to a structure…<br><br>Here's the content architecture: three pillar topics — Origin Stories, Brewing Methods, and Ethical Sourcing. Supporting cluster topics mapped to search intent. Brief prepared for Finn.</div>
         </div>
         <div class="example-step">
           <div class="step-label"><span class="persona">Finn — Copywriter</span></div>
@@ -496,7 +496,7 @@ const COMMANDS = [
           <div class="step-num">4</div>
           <div class="step-content">
             <h3>Verify SOP paths</h3>
-            <p>Confirm <code>Resources/SOPs/Advisor Checkpoints SOP.md</code> exists. This path must resolve for Odin checkpoint invocations to work. If missing, copy from the template.</p>
+            <p>Confirm <code>Resources/SOPs/Advisor Checkpoints SOP.md</code> exists. This path must resolve for @{SeniorAdviser} checkpoint invocations to work. If missing, copy from the template.</p>
           </div>
         </li>
         <li class="step-item">

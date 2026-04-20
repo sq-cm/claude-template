@@ -64,7 +64,7 @@ The Senior Researcher:
 | SEO Specialist | Scout, messenger, networker |
 | Webflow Developer | Builder, craftsperson, engineer |
 | Visual AI Producer | Artist, visionary, creator |
-| Opus Advisor | Elder advisor, oracle, strategist |
+| Senior Adviser | Elder advisor, oracle, strategist |
 | Dev Environment Specialist | Tinkerer, inventor, problem-solver |
 | Content Strategist | Storyteller, bard, communicator |
 | QA Compliance Reviewer | Judge, guardian, rule-keeper |
@@ -81,7 +81,7 @@ The Orchestrator shows the user a confirmation table before making any changes:
 | SEO Specialist | [current] | [NewName] | ... |
 | Webflow Developer | [current] | [NewName] | ... |
 | Visual AI Producer | [current] | [NewName] | ... |
-| Opus Advisor | [current] | [NewName] | ... |
+| Senior Adviser | [current] | [NewName] | ... |
 | Dev Environment Specialist | [current] | [NewName] | ... |
 | Content Strategist | [current] | [NewName] | ... |
 | QA Compliance Reviewer | [current] | [NewName] | ... |

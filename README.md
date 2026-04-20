@@ -12,7 +12,7 @@ The **Orchestrator** is the single point of contact for every request. They neve
 
 The team grows with you. When you hit a capability gap, a built-in **hiring pipeline** kicks in: the Senior Researcher researches the role, the HR Lead builds the persona, the Orchestrator announces the new hire and updates the roster. No new infrastructure needed — just new files.
 
-Quality gates are built in too. An Opus-powered advisor — the **Opus Advisor** — is consulted at checkpoints before and after substantive work, catching problems before they reach you.
+Quality gates are built in too. An Opus-powered advisor — the **Senior Adviser** — is consulted at checkpoints before and after substantive work, catching problems before they reach you.
 
 ---
 
@@ -43,7 +43,7 @@ Your message
      ↓
   Team member             ← persona file defines who they are, what they do, what they won't
      ↓
-  Opus Advisor (checkpoint) ← Opus advisor consulted before/after durable work
+  Senior Adviser (checkpoint) ← Opus advisor consulted before/after durable work
      ↓
   Deliverable             ← lands in Projects/[project]/Deliverables/
 ```
@@ -79,7 +79,7 @@ Your message
 | Project Manager | |
 | Creative Director | |
 | Amazon Stores Specialist | |
-| Opus Advisor | Quality gate at checkpoints |
+| Senior Adviser | Quality gate at checkpoints |
 
 ---
 
@@ -105,7 +105,7 @@ The new team member is immediately available. No code changes, no config — jus
 | 1 | Bloom Bakery — SEO Audit | Standard audit pipeline (Alex → Quinn → Deliverables) |
 | 2 | Meridian Law — Homepage UX Review | Cross-functional handoff + WCAG compliance |
 | 3 | NovaStar Gym — Social Media Calendar | Multi-specialist creative (Sage → {SocialMediaManager} → Cleo) |
-| 4 | Thornwood Coffee — Brand Copywriting | {OpusAdvisor} Checkpoint A+B + repo consultation |
+| 4 | Thornwood Coffee — Brand Copywriting | {SeniorAdviser} Checkpoint A+B + repo consultation |
 | 5 | Velora Studio — Hire Paid Media Specialist | Full hiring pipeline end-to-end |
 
 Each project has a `README.md` with learning objectives and completion steps.
@@ -134,7 +134,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) — the CLI or desktop app
-- Access to Claude models. Odin checkpoints use **Opus** — confirm your plan includes Opus access.
+- Access to Claude models. @{SeniorAdviser} checkpoints use **Opus** — confirm your plan includes Opus access.
 - No external API keys required for basic use
 
 **OS note:** Example paths in `CLAUDE.md` and persona files use Windows-style absolute paths (`J:\My Drive\...`). Update the memory path in `CLAUDE.md` to match your OS and file system before first use.

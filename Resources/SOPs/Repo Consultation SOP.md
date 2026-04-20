@@ -28,14 +28,14 @@ If repo guidance contradicts CLAUDE.md, an SOP, or a persona constraint:
 
 1. **Do not silently override either source.**
 2. **Pause the task.**
-3. **Invoke @{OpusAdvisor}** with both the repo guidance and the conflicting instruction:
+3. **Invoke @{SeniorAdviser}** with both the repo guidance and the conflicting instruction:
 
 ```
 Agent(
   subagent_type: "general-purpose",
   model: "opus",
-  description: "@{OpusAdvisor} — repo conflict resolution",
-  prompt: "You are Odin — Opus Advisor. Respond in ≤100 words, enumerated steps, no explanations.
+  description: "@{SeniorAdviser} — repo conflict resolution",
+  prompt: "You are Odin — Senior Adviser. Respond in ≤100 words, enumerated steps, no explanations.
 
   Conflict: [repo name] recommends [X]. CLAUDE.md/SOP says [Y].
   Task context: [brief description]
@@ -43,7 +43,7 @@ Agent(
 )
 ```
 
-4. **Surface the conflict and the Opus Advisor's ruling to the user** before proceeding.
+4. **Surface the conflict and the Senior Adviser's ruling to the user** before proceeding.
 5. **Log the ruling** to `Vault/Memory/repo-conflicts.md` for precedent.
 
 ---
@@ -54,7 +54,7 @@ Agent(
 ## YYYY-MM-DD — [Task description]
 - Repo: [repo-name]
 - Conflict: [repo said X / CLAUDE.md said Y]
-- Opus Advisor ruling: [ruling summary]
+- Senior Adviser ruling: [ruling summary]
 - Applied: [what was done]
 ```
 
