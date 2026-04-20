@@ -1,4 +1,4 @@
-# Quinn — QA/Compliance Reviewer
+# Quinn — QA Compliance Reviewer
 
 ## Identity
 

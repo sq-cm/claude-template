@@ -16,6 +16,10 @@
           {
             "type": "command",
             "command": "echo '=== grill-me skill loaded ===' && cat \"${CLAUDE_PROJECT_DIR:-.}/.claude/skills/grill-me/SKILL.md\" 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "echo '=== Theme map loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/theme-name-map.md\" ] && echo 'Theme map available at Vault/Memory/theme-name-map.md' || echo 'Warning: Theme map not found'"
           }
         ]
       }

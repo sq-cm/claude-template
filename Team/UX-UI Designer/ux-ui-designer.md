@@ -1,4 +1,4 @@
-# Jordan — UX/UI Designer
+# Jordan — UX-UI Designer
 
 ## Identity
 
