@@ -115,7 +115,7 @@ This path must exist for Odin invocations to work. The file ships with the templ
 Open the new folder as your working directory in Claude Code. The team is ready immediately — no bootstrapping needed.
 
 ### Step 7: Verify
-Send a test message. Sam should respond and route correctly. Try `@Harper`, `@Ryan`, and `@Alex` to confirm they're reachable. For checkpoint-eligible tasks, Sam will flag that Odin should be consulted — this is expected behaviour.
+Send a test message. The Orchestrator should respond and route correctly. Try `@{HRLead}`, `@{SeniorResearcher}`, and `@{SEOSpecialist}` to confirm they're reachable. For checkpoint-eligible tasks, the Orchestrator will flag that the Opus Advisor should be consulted — this is expected behaviour.
 
 ### Step 8: Theme (Optional)
 
@@ -127,7 +127,7 @@ Give your team custom names based on a theme of your choice — Vikings, Pokémo
 **Revert to default names:**
 > "Revert theme"
 
-Sam will research character names, match them to roles by archetype, show you a dry-run preview, and ask for confirmation before changing anything. A full change log and rollback map are kept in `Vault/Memory/`.
+The Orchestrator will research character names, match them to roles by archetype, show you a dry-run preview, and ask for confirmation before changing anything. A full change log and rollback map are kept in `Vault/Memory/`.
 
 ### Step 9: Learn by doing — sample projects
 
@@ -135,15 +135,15 @@ The `Projects/` folder contains 5 half-finished sample projects. Each one teache
 
 | # | Project | What it teaches |
 |---|---------|-----------------|
-| 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: Sam → Alex → Quinn → Deliverables |
+| 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
 | 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: Jordan + Finn + Quinn, multi-file report assembly |
-| 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → Juno → Cleo, calendar format |
-| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: Odin Checkpoint A + B, repo consultation |
-| 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: Sam gap → Ryan brief → Harper persona → roster update |
+| 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → {SocialMediaManager} → Cleo, calendar format |
+| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {OpusAdvisor} Checkpoint A + B, repo consultation |
+| 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
 
 Each project has a `README.md` with learning objectives and exact completion steps. Start there.
 
-**To begin:** open a project folder, read the README, then tell Sam what you want to continue.
+**To begin:** open a project folder, read the README, then tell the Orchestrator what you want to continue.
 
 > "I want to continue the Bloom Bakery SEO audit."
 

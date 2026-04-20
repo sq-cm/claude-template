@@ -1,7 +1,7 @@
 # SOP — Repo Setup
 
 **Purpose:** Govern how repos listed in `Resources/Git/INDEX.md` are cloned when setting up a new vault instance from the template.
-**Audience:** Anyone initialising a vault from this template. Trigger: first vault setup, or when a repo needs to be added or refreshed. Owned by Sam.
+**Audience:** Anyone initialising a vault from this template. Trigger: first vault setup, or when a repo needs to be added or refreshed. Owned by the Orchestrator.
 **Status:** Active.
 **See also:** [Repo Consultation SOP.md](Repo%20Consultation%20SOP.md)
 
@@ -15,7 +15,7 @@ Repo setup applies in these situations:
 - Adding a new repo to `INDEX.md` for the first time
 - Refreshing a stale local clone
 
-Does **not** apply to: routine repo consultation (see Repo Consultation SOP), meta-operations Sam handles directly, or single-step lookups.
+Does **not** apply to: routine repo consultation (see Repo Consultation SOP), meta-operations the Orchestrator handles directly, or single-step lookups.
 
 ---
 
@@ -73,10 +73,10 @@ Log format for `Vault/Logs/clone-failures.md`:
 
 ## Adding a new repo to INDEX.md
 
-1. Ryan adds the row (Repo, Description, Tags, GitHub URL) to `Resources/Git/INDEX.md`.
-2. If the repo is core-set (`best-practices` or `claude-code` tag), Sam clones it immediately using the clone procedure above.
+1. The Senior Researcher adds the row (Repo, Description, Tags, GitHub URL) to `Resources/Git/INDEX.md`.
+2. If the repo is core-set (`best-practices` or `claude-code` tag), the Orchestrator clones it immediately using the clone procedure above.
 3. If on-demand, no clone is needed until first use.
-4. If GitHub URL is unknown, mark the URL cell `⚠️ verify` — Ryan resolves before the repo can be cloned.
+4. If GitHub URL is unknown, mark the URL cell `⚠️ verify` — the Senior Researcher resolves before the repo can be cloned.
 
 ---
 

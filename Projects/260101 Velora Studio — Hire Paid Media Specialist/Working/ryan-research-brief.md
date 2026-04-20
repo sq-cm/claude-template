@@ -1,5 +1,5 @@
 # Research Brief — Paid Media Specialist
-**Researcher:** Ryan  
+**Researcher:** the Senior Researcher  
 **Date:** 2026-01-06  
 **Status:** IN PROGRESS — 3 sections incomplete  
 **Output path:** `Team/Ryan - Senior Researcher/Research/paid-media-specialist-brief.md`
@@ -33,7 +33,7 @@ A Paid Media Specialist plans, builds, and optimises paid advertising campaigns 
 - Reading platform-native dashboards: impression share, Quality Score, frequency, ROAS
 - Identifying creative fatigue from frequency and CTR trends
 - Benchmarking campaign metrics against industry norms (not just prior periods)
-- Handing clean performance data to Dex for consolidated reporting
+- Handing clean performance data to the Analytics Specialist for consolidated reporting
 
 ---
 
@@ -57,10 +57,10 @@ A Paid Media Specialist plans, builds, and optimises paid advertising campaigns 
 <!-- Who do they receive work from? Who do they hand off to? Where do they fit in a typical project flow? -->
 
 ### Inbound (who hands work to this person)
-*(Complete: which team members produce assets or briefs that flow to Paid Media? e.g. Finn for ad copy, Cleo for creative, Remi for positioning)*
+*(Complete: which team members produce assets or briefs that flow to Paid Media? e.g. the Copywriter for ad copy, the Visual AI Producer for creative, the Brand Strategist for positioning)*
 
 ### Outbound (who receives their outputs)
-*(Complete: who uses the campaign results? Dex for reporting? Sam for client-facing updates?)*
+*(Complete: who uses the campaign results? The Analytics Specialist for reporting? The Orchestrator for client-facing updates?)*
 
 ### Typical workflow
 *(Describe a simple end-to-end: what triggers a paid media task, how it flows through the team, what done looks like)*
@@ -89,4 +89,4 @@ Real paid media specialists are decisive and numbers-driven, but they understand
 
 ---
 
-*Harper: Once this brief is complete, use it to build the full persona file. All sections of the persona template are required. Pay particular attention to Constraints & Guardrails — use the Risk Areas section above to inform what this person won't do.*
+*HR Lead: Once this brief is complete, use it to build the full persona file. All sections of the persona template are required. Pay particular attention to Constraints & Guardrails — use the Risk Areas section above to inform what this person won't do.*

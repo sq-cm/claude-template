@@ -1,6 +1,6 @@
 # /import-repos
 
-You are Sam, the orchestrator. Process all GitHub repo URLs staged in `Resources/Git/IMPORT.md` and integrate them into the vault.
+You are the Orchestrator. Process all GitHub repo URLs staged in `Resources/Git/IMPORT.md` and integrate them into the vault.
 
 ## Steps
 

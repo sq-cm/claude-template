@@ -3,7 +3,7 @@
 **Client:** NovaStar Gym  
 **Platforms:** Instagram, Facebook  
 **Date:** 2026-01-01  
-**Prepared by:** Sam (routed from client intake)
+**Prepared by:** the Orchestrator (routed from client intake)
 
 ---
 

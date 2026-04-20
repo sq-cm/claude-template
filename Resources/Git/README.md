@@ -30,7 +30,7 @@ Only `INDEX.md`, `README.md`, and `IMPORT.md` are committed. No per-repo entries
 
 ## Adding repos
 
-Drop GitHub URLs into `IMPORT.md` (one per line) and run `/import-repos`. Sam will clone each repo, append it to this table, and update `INDEX.md`.
+Drop GitHub URLs into `IMPORT.md` (one per line) and run `/import-repos`. The Orchestrator will clone each repo, append it to this table, and update `INDEX.md`.
 
 ## Cloned Repos
 

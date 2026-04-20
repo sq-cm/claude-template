@@ -8,11 +8,11 @@
 
 Most AI setups give you one assistant. This gives you a team.
 
-**Sam** is the orchestrator — the single point of contact for every request. He never does the work himself. Instead, he routes each task to the right specialist: SEO audits go to Alex, brand copy goes to Finn, UX reviews go to Jordan. Each team member has a detailed persona file defining their expertise, voice, constraints, and relationships.
+The **Orchestrator** is the single point of contact for every request. They never do the work themselves. Instead, they route each task to the right specialist: SEO audits go to the SEO Specialist, brand copy goes to Finn, UX reviews go to Jordan. Each team member has a detailed persona file defining their expertise, voice, constraints, and relationships.
 
-The team grows with you. When you hit a capability gap, a built-in **hiring pipeline** kicks in: Ryan researches the role, Harper builds the persona, Sam announces the new hire and updates the roster. No new infrastructure needed — just new files.
+The team grows with you. When you hit a capability gap, a built-in **hiring pipeline** kicks in: the Senior Researcher researches the role, the HR Lead builds the persona, the Orchestrator announces the new hire and updates the roster. No new infrastructure needed — just new files.
 
-Quality gates are built in too. An Opus-powered advisor named **Odin** is consulted at checkpoints before and after substantive work, catching problems before they reach you.
+Quality gates are built in too. An Opus-powered advisor — the **Opus Advisor** — is consulted at checkpoints before and after substantive work, catching problems before they reach you.
 
 ---
 
@@ -23,7 +23,7 @@ Quality gates are built in too. An Opus-powered advisor named **Odin** is consul
 3. Say hello:
 
 ```
-Hi Sam, what can the team help me with today?
+Hi, what can the team help me with today?
 ```
 
 That's it. Sam responds immediately. No API keys to wire up, no bootstrapping.
@@ -37,19 +37,19 @@ For full setup instructions (including secrets hygiene, path verification, and a
 ```
 Your message
      ↓
-  CLAUDE.md          ← orchestrator rules + active roster
+  CLAUDE.md               ← orchestrator rules + active roster
      ↓
-   Sam               ← routes all requests; never does task work himself
+  Orchestrator            ← routes all requests; never does task work themselves
      ↓
- Team member         ← persona file defines who they are, what they do, what they won't
+  Team member             ← persona file defines who they are, what they do, what they won't
      ↓
-  Odin (checkpoint)  ← Opus advisor consulted before/after durable work
+  Opus Advisor (checkpoint) ← Opus advisor consulted before/after durable work
      ↓
-  Deliverable        ← lands in Projects/[project]/Deliverables/
+  Deliverable             ← lands in Projects/[project]/Deliverables/
 ```
 
 **Key files:**
-- `CLAUDE.md` — the orchestrator's brain; defines Sam's rules, the hiring pipeline, checkpoint protocol, and the active team roster
+- `CLAUDE.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
 - `Team/[Name]/[name]-[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
 - `.claude/skills/` — reusable skill modules (brainstorming, planning, debugging, code review, etc.)
@@ -58,28 +58,28 @@ Your message
 
 ## The team
 
-| Name | Role |
+| Role | Description |
 |------|------|
-| Sam | Orchestrator — routes all requests, manages the roster |
-| Harper | HR Lead — builds new team member personas from Ryan's briefs |
-| Ryan | Senior Researcher — researches roles before any new hire |
-| Alex | SEO Specialist |
-| Casey | Webflow Developer |
-| Cleo | Visual AI Producer |
-| Finn | Copywriter |
-| Remi | Brand Strategist |
-| Sage | Content Strategist |
-| Jordan | UX/UI Designer |
-| Juno | Social Media Manager |
-| Nova | Video & Motion Producer |
-| Dex | Analytics & Reporting Specialist |
-| Ellis | Creative Technologist |
-| Axel | Automation Architect |
-| Quinn | QA Compliance Reviewer |
-| Tate | Project Manager |
-| Vera | Creative Director |
-| Milo | Amazon Stores Specialist |
-| Odin | Opus Advisor — quality gate at checkpoints |
+| Orchestrator | Routes all requests, manages the roster |
+| HR Lead | Builds new team member personas from the Senior Researcher's briefs |
+| Senior Researcher | Researches roles before any new hire |
+| SEO Specialist | |
+| Webflow Developer | |
+| Visual AI Producer | |
+| Copywriter | |
+| Brand Strategist | |
+| Content Strategist | |
+| UX/UI Designer | |
+| Social Media Manager | |
+| Video & Motion Producer | |
+| Analytics & Reporting Specialist | |
+| Creative Technologist | |
+| Automation Architect | |
+| QA Compliance Reviewer | |
+| Project Manager | |
+| Creative Director | |
+| Amazon Stores Specialist | |
+| Opus Advisor | Quality gate at checkpoints |
 
 ---
 
@@ -87,10 +87,10 @@ Your message
 
 The team is not fixed. When a capability gap appears:
 
-1. **Sam** identifies the gap and asks your permission to hire
-2. **Ryan** researches the role — skills, knowledge domains, collaboration patterns, failure modes
-3. **Harper** reads Ryan's brief and writes a full persona file
-4. **Sam** announces the hire and updates the Active Team Roster in `CLAUDE.md`
+1. The **Orchestrator** identifies the gap and asks your permission to hire
+2. The **Senior Researcher** researches the role — skills, knowledge domains, collaboration patterns, failure modes
+3. The **HR Lead** reads the Senior Researcher's brief and writes a full persona file
+4. The **Orchestrator** announces the hire and updates the Active Team Roster in `CLAUDE.md`
 
 The new team member is immediately available. No code changes, no config — just a new markdown file.
 
@@ -104,8 +104,8 @@ The new team member is immediately available. No code changes, no config — jus
 |---|---------|---------|
 | 1 | Bloom Bakery — SEO Audit | Standard audit pipeline (Alex → Quinn → Deliverables) |
 | 2 | Meridian Law — Homepage UX Review | Cross-functional handoff + WCAG compliance |
-| 3 | NovaStar Gym — Social Media Calendar | Multi-specialist creative (Sage → Juno → Cleo) |
-| 4 | Thornwood Coffee — Brand Copywriting | Odin Checkpoint A+B + repo consultation |
+| 3 | NovaStar Gym — Social Media Calendar | Multi-specialist creative (Sage → {SocialMediaManager} → Cleo) |
+| 4 | Thornwood Coffee — Brand Copywriting | {OpusAdvisor} Checkpoint A+B + repo consultation |
 | 5 | Velora Studio — Hire Paid Media Specialist | Full hiring pipeline end-to-end |
 
 Each project has a `README.md` with learning objectives and completion steps.
@@ -118,16 +118,16 @@ Each project has a `README.md` with learning objectives and completion steps.
 Duplicate this folder, rename it `Claude - [YourCompany]`, and open that copy in Claude Code. Update the memory path in `CLAUDE.md` to the absolute path of your new folder.
 
 **Add a team member:**
-Tell Sam you have a capability gap. The hiring pipeline handles the rest.
+Tell the Orchestrator you have a capability gap. The hiring pipeline handles the rest.
 
 **Remove a team member:**
-Tell Sam to archive them. Sam moves the persona file to `Vault/Archive/` and removes them from the roster.
+Tell the Orchestrator to archive them. The Orchestrator moves the persona file to `Vault/Archive/` and removes them from the roster.
 
 **Apply a theme:**
 Rename the team to match a theme of your choice (Greek myths, Studio Ghibli, etc.):
 > "Set theme to [your theme]"
 
-Sam will preview changes and ask for confirmation before touching anything. Full rollback map saved to `Vault/Memory/`.
+The Orchestrator will preview changes and ask for confirmation before touching anything. Full rollback map saved to `Vault/Memory/`.
 
 ---
 
@@ -177,7 +177,7 @@ Claude - TEMPLATE/
 
 ## Demo
 
-![Sam routing a request](Resources/sam-routing.gif)
+![Orchestrator routing a request](Resources/sam-routing.gif)
 
 ---
 

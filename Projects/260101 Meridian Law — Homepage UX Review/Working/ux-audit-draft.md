@@ -1,7 +1,7 @@
 # UX Audit Draft — Meridian Law Homepage
 **Status:** IN PROGRESS  
-**Lead:** Jordan (UX/UI Designer)  
-**Supporting:** Finn (copy review), Quinn (WCAG — see separate checklist)  
+**Lead:** the UX/UI Designer  
+**Supporting:** the Copywriter (copy review), the QA Compliance Reviewer (WCAG — see separate checklist)  
 **Last updated:** 2026-01-04
 
 ---
@@ -45,7 +45,7 @@
 - Hero image: stock photo of handshake — low trust signal, visually clichéd
 - Primary CTA in hero: "Learn More" — non-specific, low intent
 
-**Finn's copy note:** The headline could do more work. Suggest: "Commercial Law for Startups That Move Fast." Tests the client's actual differentiator (speed + startup focus) rather than generic trust language.
+**Copywriter's copy note:** The headline could do more work. Suggest: "Commercial Law for Startups That Move Fast." Tests the client's actual differentiator (speed + startup focus) rather than generic trust language.
 
 ### Recommendations
 | Priority | Action |
@@ -67,7 +67,7 @@
 | Priority | Action |
 |---|---|
 | Critical | Standardise all CTAs to "Book a Free Call" or "Book a Consultation" — pick one |
-| Critical | Change CTA button to #1A3A7A (contrast 5.1:1) — flagged for Quinn's WCAG review |
+| Critical | Change CTA button to #1A3A7A (contrast 5.1:1) — flagged for the QA Compliance Reviewer's WCAG review |
 | High | Add CTA button to mobile hero (above fold) |
 
 ---
@@ -139,7 +139,7 @@
 ## Compile Instructions
 
 Once all sections are complete:
-1. Ask Quinn to confirm WCAG checklist is done
-2. Merge this document + Quinn's checklist into `Deliverables/UX Review Report — Meridian Law.md`
+1. Ask the QA Compliance Reviewer to confirm WCAG checklist is done
+2. Merge this document + the QA Compliance Reviewer's checklist into `Deliverables/UX Review Report — Meridian Law.md`
 3. Add an **Executive Summary** (3–5 bullets, non-technical) at the top for the partner
 4. Add a **Developer Handoff** section at the bottom for the Webflow dev

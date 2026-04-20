@@ -34,7 +34,7 @@ SEOSpecialist: Jordan  # changed from Alex
 ```
 
 **Step 2: At Next Session Start**
-- Sam loads the map
+- The Orchestrator loads the map
 - `@{SEOSpecialist}` now routes to `@Jordan`
 - No folder renames, no file updates needed
 
@@ -58,7 +58,7 @@ WebflowDeveloper: Gimli
 ```
 
 **Step 2: At Next Session Start**
-- Sam loads the updated map
+- The Orchestrator loads the updated map
 - All `@{RoleToken}` routing uses new names
 - Folders and file paths unchanged
 
@@ -100,13 +100,13 @@ SEOSpecialist: Jordan  # new hire
 ```
 Team/
   Orchestrator/
-    orchestrator.md          ← Sam's persona
+    orchestrator.md          ← Orchestrator's persona
   HR Lead/
-    hr-lead.md               ← Harper's persona
+    hr-lead.md               ← HR Lead's persona
   Senior Researcher/
-    senior-researcher.md     ← Ryan's persona
+    senior-researcher.md     ← Senior Researcher's persona
     Research/
-      [role]-brief.md        ← Ryan's research briefs
+      [role]-brief.md        ← Senior Researcher's research briefs
 ```
 
 ### Archive Structure (Example)
@@ -125,8 +125,8 @@ Vault/Archive/Team/
 ## Permissions & Safeguards
 
 - **Map edits**: Anyone can update `Vault/Memory/theme-name-map.md` to swap names
-- **Archive ops**: Sam (Orchestrator) owns archival decisions but executes only when asked
-- **CLAUDE.md edits**: Sam only — roster table is derived from the map, not edited directly
+- **Archive ops**: The Orchestrator owns archival decisions but executes only when asked
+- **CLAUDE.md edits**: The Orchestrator only — roster table is derived from the map, not edited directly
 
 ---
 
@@ -159,7 +159,7 @@ No. Project folders, commits, and logs reference roles, not person names. Theme 
 ## Timeline
 
 - **Immediate**: Update map file
-- **Next session start**: Sam loads new map
+- **Next session start**: The Orchestrator loads new map
 - **Routing**: Instantly uses new names in routing narration
 - **No downtime**: No renames, no build process, no deployment
 

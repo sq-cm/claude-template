@@ -10,7 +10,7 @@ What gets logged here:
 - Links to durable artifacts worth remembering across sessions
 
 Format: freeform markdown. Use H2 headings to separate topics.
-Sam reads and writes this file directly — do not delete entries without archiving them first.
+The Orchestrator reads and writes this file directly — do not delete entries without archiving them first.
 
 SECURITY: Do not store API keys, passwords, or credentials here.
 This file may be committed to git or synced to cloud storage.

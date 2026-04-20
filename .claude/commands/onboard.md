@@ -1,6 +1,6 @@
 # /onboard
 
-You are Sam, the orchestrator. Run first-time workspace setup. Execute all steps in order. Narrate each step briefly as you go.
+You are the Orchestrator. Run first-time workspace setup. Execute all steps in order. Narrate each step briefly as you go.
 
 ---
 
@@ -77,8 +77,8 @@ Ask the user:
 >
 > Type a number, type your own theme name, or type "skip" to keep default names.
 
-- If user picks a theme: hand off to Sam with the message: `"Set theme to [chosen theme]"`
-- If user types their own theme: hand off to Sam with: `"Set theme to [their theme]"`
+- If user picks a theme: hand off to the Orchestrator with the message: `"Set theme to [chosen theme]"`
+- If user types their own theme: hand off to the Orchestrator with: `"Set theme to [their theme]"`
 - If user skips: continue to Step 6.
 
 ---
@@ -91,7 +91,7 @@ Then print:
 
 > **Workspace ready.**
 > Drop GitHub repo URLs into `Resources/Git/IMPORT.md` and run `/import-repos` to set up your reference library.
-> Send any message to begin — Sam will route it.
+> Send any message to begin — the Orchestrator will route it.
 
 ---
 
@@ -112,7 +112,7 @@ open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"
 Tell the user:
 
 > **Your onboarding guide is now open in the browser.**
-> It has two tabs — "I'm using the team" (roster, skills, how to talk to the team) and "I'm setting this up" (admin steps, vault structure). Bookmark it — you can come back any time, or ask Sam to open it again.
+> It has two tabs — "I'm using the team" (roster, skills, how to talk to the team) and "I'm setting this up" (admin steps, vault structure). Bookmark it — you can come back any time, or ask the Orchestrator to open it again.
 
 ---
 
@@ -128,11 +128,11 @@ The `Projects/` folder contains 5 half-finished sample projects. Each one teache
 
 | # | Project | What it teaches |
 |---|---------|-----------------|
-| 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: Sam → Alex → Quinn → Deliverables |
-| 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: Jordan + Finn + Quinn, multi-file report assembly |
-| 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → Juno → Cleo, calendar format |
-| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: Odin Checkpoint A + B, repo consultation |
-| 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: Sam gap → Ryan brief → Harper persona → roster update |
+| 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
+| 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: {UXUIDesigner} + {Copywriter} + {QAComplianceReviewer}, multi-file report assembly |
+| 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: {ContentStrategist} → {SocialMediaManager} → {VisualAIProducer}, calendar format |
+| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {OpusAdvisor} Checkpoint A + B, repo consultation |
+| 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
 
 Each project has a `README.md` with learning objectives and exact completion steps.
 
@@ -145,32 +145,32 @@ To begin any project, just copy and send the prompt below.
 **1. Bloom Bakery — SEO Audit**
 > I'd like to continue the Bloom Bakery SEO audit.
 
-*Sam routes to Alex, who picks up from the draft. Quinn reviews before delivery.*
+*The Orchestrator routes to the SEO Specialist, who picks up from the draft. The QA Compliance Reviewer reviews before delivery.*
 
 ---
 
 **2. Meridian Law — Homepage UX Review**
 > I want to continue the Meridian Law UX review.
 
-*Sam routes to Jordan for sections 4–7, then Quinn evaluates the WCAG checklist. Both outputs compile into one final report.*
+*The Orchestrator routes to the UX/UI Designer for sections 4–7, then the QA Compliance Reviewer evaluates the WCAG checklist. Both outputs compile into one final report.*
 
 ---
 
 **3. NovaStar Gym — Social Media Calendar**
 > Continue the NovaStar Gym social calendar — I need Weeks 2 through 4.
 
-*Sam routes to Sage (content strategy), then Juno (copy) and Cleo (visual prompts). Week 1 is the format template.*
+*The Orchestrator routes to Sage (content strategy), then the Social Media Manager (copy) and Cleo (visual prompts). Week 1 is the format template.*
 
 ---
 
 **4. Thornwood Coffee — Brand Copywriting** ★ *teaches Odin checkpoints*
 > Continue the Thornwood Coffee brand copy — I need Remi to finish the audience section, then Finn to complete the headlines.
 
-*Remi hands off to Finn. Odin Checkpoint A fires before drafting; Checkpoint B fires before delivery. This project is the core quality gate mechanic.*
+*Remi hands off to Finn. The Opus Advisor Checkpoint A fires before drafting; Checkpoint B fires before delivery. This project is the core quality gate mechanic.*
 
 ---
 
 **5. Velora Studio — Hire Paid Media Specialist** ★ *teaches the hiring pipeline*
 > I want to run the paid media specialist hiring pipeline.
 
-*Sam confirms the gap, routes to Ryan (research brief), then Harper (persona file), then updates the roster. This is the most important meta-workflow — it teaches how the team grows.*
+*The Orchestrator confirms the gap, routes to the Senior Researcher (research brief), then the HR Lead (persona file), then updates the roster. This is the most important meta-workflow — it teaches how the team grows.*

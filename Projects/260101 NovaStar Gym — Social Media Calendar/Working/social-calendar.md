@@ -22,7 +22,7 @@ What's your warm-up routine? Drop it below 👇
 
 **Hashtags:** #fitnesstips #warmup #novastarfam #brisbanegym #trainsmarter
 
-**Visual prompt (Cleo):** Person mid-movement doing dynamic warm-up stretches in a well-lit gym. Natural, unposed, caught-in-motion feel. Warm amber and steel tones. Wide shot with gym equipment visible in background. Aspect ratio: 4:5.
+**Visual prompt (Visual AI Producer):** Person mid-movement doing dynamic warm-up stretches in a well-lit gym. Natural, unposed, caught-in-motion feel. Warm amber and steel tones. Wide shot with gym equipment visible in background. Aspect ratio: 4:5.
 
 ---
 
@@ -39,7 +39,7 @@ Welcome to the fam, Jamie. 💛
 
 **Hashtags:** #memberstory #novastarfam #brisbanefitness #strongwomen #gymcommunity
 
-**Visual prompt (Cleo):** Woman in her late 30s smiling in a gym environment, natural lighting, candid portrait feel. Not posed. Warm, real, community-focused. Close-up, 1:1 square crop. Inclusive, non-intimidating aesthetic.
+**Visual prompt (Visual AI Producer):** Woman in her late 30s smiling in a gym environment, natural lighting, candid portrait feel. Not posed. Warm, real, community-focused. Close-up, 1:1 square crop. Inclusive, non-intimidating aesthetic.
 
 ---
 
@@ -56,7 +56,7 @@ See you on the floor.
 
 **Hashtags:** #behindthescenes #novastarfam #brisbanegym #hiit #gymlife
 
-**Visual prompt (Cleo):** Female fitness coach setting up equipment in an empty gym in early morning light. Candid, documentary feel. Low warm light, slightly underexposed, authentic. Wide shot. 4:5 aspect ratio.
+**Visual prompt (Visual AI Producer):** Female fitness coach setting up equipment in an empty gym in early morning light. Candid, documentary feel. Low warm light, slightly underexposed, authentic. Wide shot. 4:5 aspect ratio.
 
 ---
 
@@ -74,7 +74,7 @@ Train hard. Recover harder.
 
 **Hashtags:** #fitnessadvice #recovery #trainsmarter #novastarfam #gymtips
 
-**Visual prompt (Cleo):** Split graphic — left side shows person mid-exercise (clean, strong movement), right side shows person stretching/recovering. Minimal gym background. Clean, editorial style. Bold typography space at top for optional overlay. 4:5.
+**Visual prompt (Visual AI Producer):** Split graphic — left side shows person mid-exercise (clean, strong movement), right side shows person stretching/recovering. Minimal gym background. Clean, editorial style. Bold typography space at top for optional overlay. 4:5.
 
 ---
 
@@ -91,7 +91,7 @@ Link in bio to book yours.
 
 **Hashtags:** #gymtrial #novastarfam #brisbanegym #newmember #jointoday
 
-**Visual prompt (Cleo):** Welcoming gym entrance or reception area, bright and open. Friendly, approachable feel. No people — just the space. Natural daylight. Horizontal composition, 4:5. Conveys "come in, you belong here."
+**Visual prompt (Visual AI Producer):** Welcoming gym entrance or reception area, bright and open. Friendly, approachable feel. No people — just the space. Natural daylight. Horizontal composition, 4:5. Conveys "come in, you belong here."
 
 ---
 
@@ -102,7 +102,7 @@ Link in bio to book yours.
 
 **Hashtags:** *(5–8 tags using the strategy above)*
 
-**Visual prompt (Cleo):** *(Follow Cleo's prompt format — subject, style, palette, composition, aspect ratio)*
+**Visual prompt (Visual AI Producer):** *(Follow Cleo's prompt format — subject, style, palette, composition, aspect ratio)*
 
 ---
 
@@ -111,7 +111,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -120,7 +120,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -129,7 +129,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -138,7 +138,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -149,7 +149,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -158,7 +158,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -167,7 +167,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -176,7 +176,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -185,7 +185,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -196,7 +196,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -205,7 +205,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -214,7 +214,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -223,7 +223,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 
@@ -232,7 +232,7 @@ Link in bio to book yours.
 
 **Hashtags:**
 
-**Visual prompt (Cleo):**
+**Visual prompt (Visual AI Producer):**
 
 ---
 

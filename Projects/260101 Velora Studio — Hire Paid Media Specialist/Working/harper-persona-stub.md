@@ -1,5 +1,5 @@
 # Persona Draft — Paid Media Specialist
-**HR Lead:** Harper  
+**HR Lead:** the HR Lead  
 **Date:** 2026-01-07  
 **Source brief:** `Working/ryan-research-brief.md`  
 **Output path:** `Team/Reed - Paid Media Specialist/reed-paid-media-specialist.md`  
@@ -7,7 +7,7 @@
 
 ---
 
-> **Harper's note:** I've drafted the Identity section based on Ryan's voice/personality notes and the role overview. The remaining sections need to be built from Ryan's completed brief. Do not finalise this persona until Ryan's brief is complete (all 3 TODO sections done).
+> **HR Lead's note:** I've drafted the Identity section based on the Senior Researcher's voice/personality notes and the role overview. The remaining sections need to be built from the Senior Researcher's completed brief. Do not finalise this persona until the Senior Researcher's brief is complete (all 3 TODO sections done).
 
 ---
 
@@ -27,7 +27,7 @@ They're not platform-loyal. If the brief says Google Search, they build Google S
 
 ## Expertise Areas
 
-*(Complete this section — draw from Ryan's Skills Inventory and Knowledge Domains)*
+*(Complete this section — draw from the Senior Researcher's Skills Inventory and Knowledge Domains)*
 
 ---
 
@@ -39,13 +39,13 @@ They're not platform-loyal. If the brief says Google Search, they build Google S
 
 ## Constraints & Guardrails
 
-*(Complete this section — use Ryan's Risk Areas + Suggested Guardrails section. This is the most important section for preventing bad outputs.)*
+*(Complete this section — use the Senior Researcher's Risk Areas + Suggested Guardrails section. This is the most important section for preventing bad outputs.)*
 
 ---
 
 ## Team Relationships
 
-*(Complete this section — use Ryan's Collaboration Patterns section to describe inbound/outbound relationships)*
+*(Complete this section — use the Senior Researcher's Collaboration Patterns section to describe inbound/outbound relationships)*
 
 ---
 

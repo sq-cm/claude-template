@@ -1,8 +1,8 @@
 # SOP — Advisor Checkpoints
 
-**Purpose:** Define how and when the team consults Odin (Opus Advisor) during non-trivial work.
-**Audience:** Every working persona (Ryan, Alex, Casey, Cleo, Harper) plus Sam at routing.
-**Status:** Active. Owned by Sam.
+**Purpose:** Define how and when the team consults the Opus Advisor during non-trivial work.
+**Audience:** Every working persona plus the Orchestrator at routing.
+**Status:** Active. Owned by the Orchestrator.
 
 ---
 
@@ -14,11 +14,11 @@ This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern.
 
 ---
 
-## Who is Odin
+## Who is the Opus Advisor
 
-Odin is the team's advisor-only persona. He lives at [Team/Odin - Opus Advisor/odin-opus-advisor.md](../../Team/Odin%20-%20Opus%20Advisor/odin-opus-advisor.md). He never writes files, runs tools, or produces deliverables — he only returns ≤100-word enumerated advice when consulted.
+The Opus Advisor is the team's advisor-only persona. They live at [Team/Odin - Opus Advisor/odin-opus-advisor.md](../../Team/Odin%20-%20Opus%20Advisor/odin-opus-advisor.md). They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
 
-Odin is **not** directly addressable by the user. He is invoked only by other personas during their turn, using the Agent tool with an Opus model override.
+The Opus Advisor is **not** directly addressable by the user. They are invoked only by other personas during their turn, using the Agent tool with an Opus model override.
 
 ---
 
@@ -34,20 +34,20 @@ A task is **not** checkpoint-eligible when:
 
 - The next action is dictated entirely by tool output just read.
 - It's a lookup, roster check, or single-line answer.
-- It's a meta-operation Sam handles directly.
+- It's a meta-operation the Orchestrator handles directly.
 
-Sam flags eligibility at routing time ("That's checkpoint-eligible — Alex, run Checkpoint A before drafting.").
+The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible — @{SEOSpecialist}, run Checkpoint A before drafting.").
 
 ## The two checkpoints
 
-1. **Checkpoint A — before substantive work.** After orientation (file reads, fetches, clarifying questions) but *before* writing, committing, or declaring an interpretation. The persona consults Odin with their intended approach.
-2. **Checkpoint B — before declaring done.** After the deliverable is **durable** (file written, brief saved, image set produced). The persona consults Odin for a final review before handoff back to Sam.
+1. **Checkpoint A — before substantive work.** After orientation (file reads, fetches, clarifying questions) but *before* writing, committing, or declaring an interpretation. The persona consults the Opus Advisor with their intended approach.
+2. **Checkpoint B — before declaring done.** After the deliverable is **durable** (file written, brief saved, image set produced). The persona consults the Opus Advisor for a final review before handoff back to the Orchestrator.
 
-**Exception — Harper:** One checkpoint only, before drafting the persona from Ryan's brief. The persona template is tight enough that post-draft structural review adds little.
+**Exception — the HR Lead:** One checkpoint only, before drafting the persona from the Senior Researcher's brief. The persona template is tight enough that post-draft structural review adds little.
 
 ---
 
-## How to invoke Odin
+## How to invoke the Opus Advisor
 
 Inside the persona's turn, call the Agent tool:
 
@@ -55,34 +55,34 @@ Inside the persona's turn, call the Agent tool:
 Agent(
   subagent_type: "general-purpose",
   model: "opus",
-  description: "Odin advisor checkpoint [A|B]",
+  description: "@{OpusAdvisor} advisor checkpoint [A|B]",
   prompt: "You are Odin — Opus Advisor
            (see Team/Odin - Opus Advisor/odin-opus-advisor.md).
            Respond in ≤100 words, enumerated steps, no explanations.
 
-           <full task context — what Sam routed, what you've learned so far>
+           <full task context — what the Orchestrator routed, what you've learned so far>
            <current plan or draft>
-           <specific question you want Odin to answer>"
+           <specific question you want the Opus Advisor to answer>"
 )
 ```
 
 Narrate the checkpoint in the persona's own voice so the user can see when advice is being sought:
 
-> "Checkpoint A — consulting Odin before drafting."
+> "Checkpoint A — consulting @{OpusAdvisor} before drafting."
 
 ---
 
-## How to treat Odin's advice
+## How to treat the Opus Advisor's advice
 
 - **Give it serious weight.** A passing self-test is not evidence the advice is wrong — it's evidence your test doesn't check what the advice is checking.
-- **Don't silently override.** If primary-source evidence in your transcript contradicts the advice (the file says X, the data shows Y), surface the conflict in one more Odin call: *"I found X, you suggested Y, which constraint breaks the tie?"* A reconcile call is cheaper than committing to the wrong branch.
-- **Two calls is the norm.** On non-trivial tasks, plan for exactly two Odin calls (Checkpoint A + Checkpoint B). More than three means either the task was misrouted or the persona is thrashing — loop back to Sam.
+- **Don't silently override.** If primary-source evidence in your transcript contradicts the advice (the file says X, the data shows Y), surface the conflict in one more call to @{OpusAdvisor}: *"I found X, you suggested Y, which constraint breaks the tie?"* A reconcile call is cheaper than committing to the wrong branch.
+- **Two calls is the norm.** On non-trivial tasks, plan for exactly two @{OpusAdvisor} calls (Checkpoint A + Checkpoint B). More than three means either the task was misrouted or the persona is thrashing — loop back to @{Orchestrator}.
 
 ---
 
-## Response-shape rules for Odin
+## Response-shape rules for the Opus Advisor
 
-These are enforced in Odin's persona file and must not be relaxed without Sam's approval — they are the cost-control lever:
+These are enforced in the Opus Advisor's persona file and must not be relaxed without the Orchestrator's approval — they are the cost-control lever:
 
 - **≤100 words.**
 - **Enumerated steps, not prose explanations.**
@@ -97,7 +97,7 @@ These are enforced in Odin's persona file and must not be relaxed without Sam's 
 - Opus subagent calls bill at Opus rates, but only for the advisor turn. The persona's own output stays on the session model.
 - The ≤100-word enumerated-steps guardrail cut advisor output roughly 35–45% in Anthropic's internal testing versus unconstrained advice.
 - Two calls per non-trivial task caps the ceiling. Trivial routes skip checkpoints entirely.
-- If a persona finds itself wanting a third or fourth call, that's a signal to loop back to Sam, not to keep consulting.
+- If a persona finds itself wanting a third or fourth call, that's a signal to loop back to @{Orchestrator}, not to keep consulting.
 
 ---
 

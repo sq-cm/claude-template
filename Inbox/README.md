@@ -14,6 +14,6 @@ Staging area for incoming material before it's routed, filed, or actioned.
 ## How it works
 
 - Drop files here when you're not sure where they belong yet
-- Sam routes Inbox items to the right team member or project folder on request
+- The Orchestrator routes Inbox items to the right team member or project folder on request
 - Once actioned, move to the relevant `Projects/` folder or `Vault/Archive/`
 - Inbox is not a permanent home — items should move out once processed

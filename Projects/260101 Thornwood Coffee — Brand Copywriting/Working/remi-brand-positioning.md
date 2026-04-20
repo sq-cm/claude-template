@@ -1,5 +1,5 @@
 # Brand Positioning Notes — Thornwood Coffee
-**Strategist:** Remi  
+**Strategist:** the Brand Strategist  
 **Date:** 2026-01-03  
 **Status:** IN PROGRESS — audience section incomplete
 
@@ -65,4 +65,4 @@ Most specialty roasters lead with origin (farm, altitude, process notes). Thornw
 
 ## Handoff to Finn
 
-Once the audience section is complete, Finn can draft the 6 hero headlines. Finn: use the positioning statement and tone attributes above as your brief. The voice constraints from the client brief apply (no "craft", "artisan", "passion", "journey", "story"). Run **Checkpoint A with Odin** before you start drafting — log it in `checkpoint-log.md`.
+Once the audience section is complete, the Copywriter can draft the 6 hero headlines. Copywriter: use the positioning statement and tone attributes above as your brief. The voice constraints from the client brief apply (no "craft", "artisan", "passion", "journey", "story"). Run **Checkpoint A with the Opus Advisor** before you start drafting — log it in `checkpoint-log.md`.

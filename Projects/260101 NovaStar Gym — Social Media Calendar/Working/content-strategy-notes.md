@@ -1,5 +1,5 @@
 # Content Strategy Notes — NovaStar Gym
-**Strategist:** Sage  
+**Strategist:** the Content Strategist  
 **Date:** 2026-01-02
 
 ---
@@ -34,6 +34,6 @@
 **Instagram:** Prioritise Reels for education content. Static images for member stories. Carousel for multi-tip education.  
 **Facebook:** Repurpose Instagram content same day. Add 1–2 sentences of context (FB audience skews older, more context-seeking).
 
-## Handoff to Juno
+## Handoff to Social Media Manager
 
-Juno: use this doc as your creative brief. Each post needs: platform, pillar tag, caption (Instagram version), hashtags, and a handoff note to Cleo for the visual prompt. See Week 1 in the calendar for the format.
+Social Media Manager: use this doc as your creative brief. Each post needs: platform, pillar tag, caption (Instagram version), hashtags, and a handoff note to the Visual AI Producer for the visual prompt. See Week 1 in the calendar for the format.

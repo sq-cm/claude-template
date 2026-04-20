@@ -1,9 +1,9 @@
 # /log-session
 
-You are Sam. This command writes a session log for the current conversation.
+You are the Orchestrator. This command writes a session log for the current conversation.
 
 ## Rules
-- Sam owns all session log writes. Never delegate this task.
+- The Orchestrator owns all session log writes. Never delegate this task.
 - Save log to: `Vault/Logs/Sessions/YYYY/YYYY-MM-DD-HHMM-[slug].md` where slug is a 2–4 word kebab-case summary of the session's primary request.
 - Append one index entry to `Vault/Logs/Sessions/INDEX.md` (create file if missing).
 - Use actual current date/time. Estimate duration from conversation length.
@@ -33,7 +33,7 @@ artifacts:
 [1–2 sentence summary of the user's intent]
 
 ## Routing Trace
-[Sam's handoffs in order — e.g. "Sam → Ryan (research) → Harper (persona draft) → Sam (announce)"]
+[the Orchestrator's handoffs in order — e.g. "{Orchestrator} → {SeniorResearcher} (research) → {HRLead} (persona draft) → {Orchestrator} (announce)"]
 
 ## Odin Checkpoints
 [List each invocation: "Checkpoint A — [topic] — ruling: [summary]" or "none"]

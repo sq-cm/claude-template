@@ -1,11 +1,11 @@
 # Hero Copy — Thornwood Coffee
-**Copywriter:** Finn  
+**Copywriter:** the Copywriter  
 **Date:** 2026-01-04  
 **Status:** IN PROGRESS — headlines 4–6 not drafted
 
 ---
 
-> **Before drafting headlines 4–6:** Run Checkpoint B with Odin.  
+> **Before drafting headlines 4–6:** Run Checkpoint B with the Opus Advisor.  
 > See `checkpoint-log.md` for the invocation format and where to log the response.  
 > Do not move this file to Deliverables until Checkpoint B is complete and logged.
 
@@ -41,8 +41,8 @@
 
 ## Headlines 4–6 *(to be drafted)*
 
-<!-- Complete these after running Checkpoint A with Odin -->
-<!-- Use Remi's audience section (once complete) to inform which segment each headline speaks to -->
+<!-- Complete these after running Checkpoint A with the Opus Advisor -->
+<!-- Use the Brand Strategist's audience section (once complete) to inform which segment each headline speaks to -->
 <!-- Aim for variety: one for home brewers, one for café buyers, one that works for both -->
 
 ---
@@ -73,7 +73,7 @@
 
 ## Checkpoint B — Before Declaring Done
 
-> Run Odin Checkpoint B with the complete set of 6 headlines.  
+> Run Opus Advisor Checkpoint B with the complete set of 6 headlines.  
 > Ask Odin: "Do these options collectively cover both audience segments? Is any headline at risk of violating the voice constraints? Which is strongest and why?"  
 > Log response in `checkpoint-log.md`. Apply changes if recommended.
 

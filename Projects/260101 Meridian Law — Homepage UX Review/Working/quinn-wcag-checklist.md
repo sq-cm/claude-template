@@ -1,5 +1,5 @@
 # WCAG 2.1 AA Compliance Checklist — Meridian Law Homepage
-**Reviewer:** Quinn (QA Compliance)  
+**Reviewer:** the QA Compliance Reviewer  
 **Standard:** WCAG 2.1 Level AA  
 **Status:** PENDING EVALUATION
 
@@ -8,7 +8,7 @@
 > **Instructions for completing this checklist:**  
 > For each item, set Status to **Pass**, **Fail**, or **N/A**.  
 > Add a Note where the status is Fail or where evidence is needed.  
-> When done, flag to Jordan so results can be merged into the final report.
+> When done, flag to the UX/UI Designer so results can be merged into the final report.
 
 ---
 
@@ -20,7 +20,7 @@
 | 1.2 | No auto-playing audio or video | A | — | |
 | 1.3 | Information conveyed by colour alone has a non-colour alternative | A | — | |
 | 1.4.1 | Colour is not the only visual means of conveying information | A | — | |
-| 1.4.3 | Normal text contrast ratio ≥ 4.5:1 | AA | — | CTA button flagged by Jordan: #2C4A8B on white = 2.8:1. Likely Fail. |
+| 1.4.3 | Normal text contrast ratio ≥ 4.5:1 | AA | — | CTA button flagged by the UX/UI Designer: #2C4A8B on white = 2.8:1. Likely Fail. |
 | 1.4.4 | Text resizes to 200% without loss of content or functionality | AA | — | |
 | 1.4.10 | Content reflows at 320px width without horizontal scrolling | AA | — | |
 | 1.4.11 | Non-text contrast ratio ≥ 3:1 (UI components, graphics) | AA | — | |

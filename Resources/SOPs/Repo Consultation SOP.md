@@ -8,7 +8,7 @@ How team members consult `Resources/Git/` repos for best-practice guidance befor
 
 Repo consultation happens at **Checkpoint A** (pre-work) for any checkpoint-eligible task. It does not apply to:
 - Lookups, roster checks, or single-line answers
-- Meta-operations Sam handles directly
+- Meta-operations the Orchestrator handles directly
 - Tasks where the next action is dictated entirely by tool output just read
 
 ---
@@ -28,13 +28,13 @@ If repo guidance contradicts CLAUDE.md, an SOP, or a persona constraint:
 
 1. **Do not silently override either source.**
 2. **Pause the task.**
-3. **Invoke Odin** with both the repo guidance and the conflicting instruction:
+3. **Invoke @{OpusAdvisor}** with both the repo guidance and the conflicting instruction:
 
 ```
 Agent(
   subagent_type: "general-purpose",
   model: "opus",
-  description: "Odin — repo conflict resolution",
+  description: "@{OpusAdvisor} — repo conflict resolution",
   prompt: "You are Odin — Opus Advisor. Respond in ≤100 words, enumerated steps, no explanations.
 
   Conflict: [repo name] recommends [X]. CLAUDE.md/SOP says [Y].
@@ -43,7 +43,7 @@ Agent(
 )
 ```
 
-4. **Surface the conflict and Odin's ruling to the user** before proceeding.
+4. **Surface the conflict and the Opus Advisor's ruling to the user** before proceeding.
 5. **Log the ruling** to `Vault/Memory/repo-conflicts.md` for precedent.
 
 ---
@@ -54,7 +54,7 @@ Agent(
 ## YYYY-MM-DD — [Task description]
 - Repo: [repo-name]
 - Conflict: [repo said X / CLAUDE.md said Y]
-- Odin ruling: [ruling summary]
+- Opus Advisor ruling: [ruling summary]
 - Applied: [what was done]
 ```
 
@@ -62,4 +62,4 @@ Agent(
 
 ## Index location
 
-`Resources/Git/INDEX.md` — maintained by Ryan when new repos are added.
+`Resources/Git/INDEX.md` — maintained by the Senior Researcher when new repos are added.

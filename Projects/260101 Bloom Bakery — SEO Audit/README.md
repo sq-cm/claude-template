@@ -4,10 +4,10 @@
 A half-complete SEO audit for a fictional bakery client. Your job is to finish it.
 
 ## Learning objectives
-- How Sam routes a task to Alex (SEO Specialist)
-- How Quinn's compliance review layers onto a deliverable
+- How the Orchestrator routes a task to the SEO Specialist
+- How the QA Compliance Reviewer's compliance review layers onto a deliverable
 - How to move a finished file from Working/ to Deliverables/
-- Tate's role tracking task status
+- The Project Manager's role tracking task status
 
 ## What's already done
 - Client brief (Briefs/)
@@ -19,13 +19,13 @@ A half-complete SEO audit for a fictional bakery client. Your job is to finish i
 1. Open `Working/seo-audit-draft.md`
 2. Complete the **Content Quality**, **Schema Markup**, and **GEO (Generative Engine Optimisation)** sections
 3. Fill in the remaining rows in the score table
-4. Ask Quinn to run a compliance check on the completed draft
+4. Ask the QA Compliance Reviewer to run a compliance check on the completed draft
 5. Move the finished report to `Deliverables/SEO Audit Report — Bloom Bakery.md`
 
 ## How to start
-Tell Sam: *"I'd like to continue the Bloom Bakery SEO audit."*
+Tell the Orchestrator: *"I'd like to continue the Bloom Bakery SEO audit."*
 
-Sam will route you to Alex, who will pick up from the draft.
+The Orchestrator will route you to the SEO Specialist, who will pick up from the draft.
 
 ## Bonus micro-task
-Once complete, ask Sam to archive the finished report. Sam will move it to `Vault/Archive/` following the standard archive procedure.
+Once complete, ask the Orchestrator to archive the finished report. The Orchestrator will move it to `Vault/Archive/` following the standard archive procedure.

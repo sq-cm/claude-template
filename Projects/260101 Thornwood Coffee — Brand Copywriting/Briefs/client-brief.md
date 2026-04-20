@@ -3,7 +3,7 @@
 **Client:** Thornwood Coffee Roasters  
 **Website:** thornwoodcoffee.com.au *(fictional)*  
 **Date:** 2026-01-01  
-**Prepared by:** Sam (routed from client intake)
+**Prepared by:** the Orchestrator (routed from client intake)
 
 ---
 
@@ -25,7 +25,7 @@ Thornwood is a specialty coffee roaster based in Hobart. They source single-orig
 
 ## Deliverable Requested
 
-6 hero headline options for the homepage. Each headline: max 8 words. Accompanied by a 1-sentence subheadline (max 20 words). Remi to provide brand positioning context first, then Finn to write the headlines.
+6 hero headline options for the homepage. Each headline: max 8 words. Accompanied by a 1-sentence subheadline (max 20 words). The Brand Strategist to provide brand positioning context first, then the Copywriter to write the headlines.
 
 ## Audience
 

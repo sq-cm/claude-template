@@ -3,7 +3,7 @@
 **Client:** Bloom Bakery  
 **Website:** bloombakery.com.au *(fictional)*  
 **Date:** 2026-01-01  
-**Prepared by:** Sam (routed from client intake)
+**Prepared by:** the Orchestrator (routed from client intake)
 
 ---
 

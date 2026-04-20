@@ -1,6 +1,6 @@
 # SEO Audit Draft — Bloom Bakery
 **Status:** IN PROGRESS  
-**Auditor:** Alex  
+**Auditor:** the SEO Specialist  
 **Last updated:** 2026-01-03
 
 ---
@@ -128,9 +128,9 @@
 
 ---
 
-## Quinn — Compliance Review
+## QA Compliance Reviewer — Compliance Review
 
-<!-- Once all sections are complete, ask Quinn to review this document before it moves to Deliverables/ -->
-<!-- Quinn checks: claims are substantiated, scores are consistent with findings, no misleading promises -->
+<!-- Once all sections are complete, ask the QA Compliance Reviewer to review this document before it moves to Deliverables/ -->
+<!-- The QA Compliance Reviewer checks: claims are substantiated, scores are consistent with findings, no misleading promises -->
 
 **Status:** Pending
