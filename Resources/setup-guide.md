@@ -46,43 +46,43 @@ Claude - [CompanyName]/
 │       ├── Daily Note.md
 │       └── Weekly Note.md
 └── Team/
-    ├── Sam - Orchestrator/
-    │   └── sam-orchestrator.md
-    ├── Harper - HR Lead/
-    │   └── harper-hr.md
-    ├── Ryan - Senior Researcher/
-    │   ├── ryan-researcher.md
-    │   └── Research/
-    ├── Alex - SEO Specialist/
-    │   └── alex-seo-specialist.md
-    ├── Axel - Automation Architect/
-    │   └── axel-automation-architect.md
-    ├── Casey - Webflow Developer/
-    │   └── casey-webflow-developer.md
-    ├── Cleo - Visual AI Producer/
-    │   └── cleo-visual-ai-producer.md
-    ├── Dex - Analytics & Reporting Specialist/
-    │   └── dex-analytics-reporting-specialist.md
-    ├── Ellis - Creative Technologist/
-    │   └── ellis-creative-technologist.md
-    ├── Finn - Copywriter/
-    │   └── finn-copywriter.md
-    ├── Jordan - UX-UI Designer/
-    │   └── jordan-ux-ui-designer.md
-    ├── Juno - Social Media Manager/
-    │   └── juno-social-media-manager.md
-    ├── Nova - Video & Motion Producer/
-    │   └── nova-video-motion-producer.md
-    ├── Odin - Opus Advisor/
-    │   └── odin-opus-advisor.md
-    ├── Quinn - QA Compliance Reviewer/
-    │   └── quinn-qa-compliance-reviewer.md
-    ├── Remi - Brand Strategist/
-    │   └── remi-brand-strategist.md
-    ├── Sage - Content Strategist/
-    │   └── sage-content-strategist.md
-    └── Tate - Project Manager/
-        └── tate-project-manager.md
+│    ├── Sam - Orchestrator/
+│    │   └── sam-orchestrator.md
+│    ├── Harper - HR Lead/
+│    │   └── harper-hr.md
+│    ├── Ryan - Senior Researcher/
+│    │   ├── ryan-researcher.md
+│    │   └── Research/
+│    ├── Alex - SEO Specialist/
+│    │   └── alex-seo-specialist.md
+│    ├── Axel - Automation Architect/
+│    │   └── axel-automation-architect.md
+│    ├── Casey - Webflow Developer/
+│    │   └── casey-webflow-developer.md
+│    ├── Cleo - Visual AI Producer/
+│    │   └── cleo-visual-ai-producer.md
+│    ├── Dex - Analytics & Reporting Specialist/
+│    │   └── dex-analytics-reporting-specialist.md
+│    ├── Ellis - Creative Technologist/
+│    │   └── ellis-creative-technologist.md
+│    ├── Finn - Copywriter/
+│    │   └── finn-copywriter.md
+│    ├── Jordan - UX-UI Designer/
+│    │   └── jordan-ux-ui-designer.md
+│    ├── Juno - Social Media Manager/
+│    │   └── juno-social-media-manager.md
+│    ├── Nova - Video & Motion Producer/
+│    │   └── nova-video-motion-producer.md
+│    ├── Odin - Opus Advisor/
+│    │   └── odin-opus-advisor.md
+│    ├── Quinn - QA Compliance Reviewer/
+│    │   └── quinn-qa-compliance-reviewer.md
+│    ├── Remi - Brand Strategist/
+│    │   └── remi-brand-strategist.md
+│    ├── Sage - Content Strategist/
+│    │   └── sage-content-strategist.md
+│    └── Tate - Project Manager/
+│        └── tate-project-manager.md
 ```
 
 ### Step 3: Remove the setup comment
