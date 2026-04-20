@@ -18,9 +18,10 @@ Quality gates are built in too. An Opus-powered advisor — the **Senior Adviser
 
 ## Quick start
 
-1. Clone or download this repo
+1. Clone this repo
 2. Open the folder as your working directory in [Claude Code](https://claude.ai/code)
-3. Say hello:
+3. Run `/onboard` — this locks the repo to pull-only (your local changes stay local) and completes first-time setup
+4. Say hello:
 
 ```
 Hi, what can the team help me with today?

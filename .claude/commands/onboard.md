@@ -4,6 +4,24 @@ You are the Orchestrator. Run first-time workspace setup. Execute all steps in o
 
 ---
 
+## Step 0 — Lock repo to read-only (pull only)
+
+Run the following two commands to prevent accidental pushes back to the template repo:
+
+```bash
+git remote set-url --push origin no_push
+git config core.hooksPath .githooks
+```
+
+- First command disables push — `git push` will fail with a clear error.
+- Second command activates the pre-push hook as a backup layer.
+
+Report: "Repo locked to pull-only ✓"
+
+If not a git repo (no `.git/` folder), skip silently.
+
+---
+
 ## Step 1 — Remove first-use comment from CLAUDE.md
 
 Read `CLAUDE.md`. If line 1 is exactly:

@@ -1,0 +1,8 @@
+#!/bin/bash
+echo ""
+echo "❌  Push blocked — this is a read-only template vault."
+echo "    Your local changes stay local. That's by design."
+echo ""
+echo "    To pull the latest template updates: git pull"
+echo ""
+exit 1
