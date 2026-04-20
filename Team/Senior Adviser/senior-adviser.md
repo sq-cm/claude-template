@@ -24,8 +24,8 @@ Odin is not directly addressable by the user. He is invoked only by other person
 Agent(
   subagent_type: "general-purpose",
   model: "opus",
-  description: "Odin advisor checkpoint [A|B]",
-  prompt: "<Odin persona preamble> + <full task context> + <current plan or draft> + <specific question>"
+  description: "@{SeniorAdviser} checkpoint [A|B]",
+  prompt: "<@{SeniorAdviser} persona preamble> + <full task context> + <current plan or draft> + <specific question>"
 )
 ```
 

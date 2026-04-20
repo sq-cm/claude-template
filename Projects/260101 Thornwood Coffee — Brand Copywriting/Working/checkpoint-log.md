@@ -13,7 +13,7 @@ Agent(
   subagent_type: "general-purpose",
   model: "opus",
   description: "@{SeniorAdviser} advisor checkpoint A",
-  prompt: "You are Odin — Senior Adviser (see Team/Senior Adviser/senior-adviser.md).
+  prompt: "You are @{SeniorAdviser} — Senior Adviser (see Team/Senior Adviser/senior-adviser.md).
            Respond in ≤100 words, enumerated steps, no explanations.
 
            Task: Brand copywriting for Thornwood Coffee. Finn is about to draft 6 hero headlines.

@@ -220,8 +220,8 @@ The consulting persona calls the Agent tool using the most capable model availab
 Agent(
   subagent_type: "general-purpose",
   model: "opus",
-  description: "Odin advisor checkpoint [A|B]",
-  prompt: "You are Odin — Senior Adviser (see Team/Senior Adviser/senior-adviser.md).
+  description: "@{SeniorAdviser} checkpoint [A|B]",
+  prompt: "You are @{SeniorAdviser} — Senior Adviser (see Team/Senior Adviser/senior-adviser.md).
            Respond in ≤100 words, enumerated steps, no explanations.
 
            <full task context>

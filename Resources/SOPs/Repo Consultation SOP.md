@@ -35,7 +35,7 @@ Agent(
   subagent_type: "general-purpose",
   model: "opus",
   description: "@{SeniorAdviser} — repo conflict resolution",
-  prompt: "You are Odin — Senior Adviser. Respond in ≤100 words, enumerated steps, no explanations.
+  prompt: "You are @{SeniorAdviser} — Senior Adviser. Respond in ≤100 words, enumerated steps, no explanations.
 
   Conflict: [repo name] recommends [X]. CLAUDE.md/SOP says [Y].
   Task context: [brief description]

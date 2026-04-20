@@ -46,43 +46,47 @@ Claude - [CompanyName]/
 │       ├── Daily Note.md
 │       └── Weekly Note.md
 └── Team/
-│    ├── Sam - Orchestrator/
-│    │   └── sam-orchestrator.md
-│    ├── Harper - HR Lead/
-│    │   └── harper-hr.md
-│    ├── Ryan - Senior Researcher/
-│    │   ├── ryan-researcher.md
+│    ├── Orchestrator/
+│    │   └── orchestrator.md
+│    ├── HR Lead/
+│    │   └── hr-lead.md
+│    ├── Senior Researcher/
+│    │   ├── senior-researcher.md
 │    │   └── Research/
-│    ├── Alex - SEO Specialist/
-│    │   └── alex-seo-specialist.md
-│    ├── Axel - Automation Architect/
-│    │   └── axel-automation-architect.md
-│    ├── Casey - Webflow Developer/
-│    │   └── casey-webflow-developer.md
-│    ├── Cleo - Visual AI Producer/
-│    │   └── cleo-visual-ai-producer.md
-│    ├── Dex - Analytics & Reporting Specialist/
-│    │   └── dex-analytics-reporting-specialist.md
-│    ├── Ellis - Creative Technologist/
-│    │   └── ellis-creative-technologist.md
-│    ├── Finn - Copywriter/
-│    │   └── finn-copywriter.md
-│    ├── Jordan - UX-UI Designer/
-│    │   └── jordan-ux-ui-designer.md
-│    ├── Juno - Social Media Manager/
-│    │   └── juno-social-media-manager.md
-│    ├── Nova - Video & Motion Producer/
-│    │   └── nova-video-motion-producer.md
-│    ├── Odin - Senior Adviser/
-│    │   └── odin-senior-adviser.md
-│    ├── Quinn - QA Compliance Reviewer/
-│    │   └── quinn-qa-compliance-reviewer.md
-│    ├── Remi - Brand Strategist/
-│    │   └── remi-brand-strategist.md
-│    ├── Sage - Content Strategist/
-│    │   └── sage-content-strategist.md
-│    └── Tate - Project Manager/
-│        └── tate-project-manager.md
+│    ├── SEO Specialist/
+│    │   └── seo-specialist.md
+│    ├── Webflow Developer/
+│    │   └── webflow-developer.md
+│    ├── Visual AI Producer/
+│    │   └── visual-ai-producer.md
+│    ├── Senior Adviser/
+│    │   └── senior-adviser.md
+│    ├── Content Strategist/
+│    │   └── content-strategist.md
+│    ├── QA Compliance Reviewer/
+│    │   └── qa-compliance-reviewer.md
+│    ├── Copywriter/
+│    │   └── copywriter.md
+│    ├── Brand Strategist/
+│    │   └── brand-strategist.md
+│    ├── Creative Technologist/
+│    │   └── creative-technologist.md
+│    ├── Video & Motion Producer/
+│    │   └── video-&-motion-producer.md
+│    ├── Automation Architect/
+│    │   └── automation-architect.md
+│    ├── Social Media Manager/
+│    │   └── social-media-manager.md
+│    ├── Analytics & Reporting Specialist/
+│    │   └── analytics-&-reporting-specialist.md
+│    ├── UX-UI Designer/
+│    │   └── ux-ui-designer.md
+│    ├── Project Manager/
+│    │   └── project-manager.md
+│    ├── Creative Director/
+│    │   └── creative-director.md
+│    └── Amazon Stores Specialist/
+│        └── amazon-stores-specialist.md
 ```
 
 ### Step 3: Remove the setup comment
@@ -264,26 +268,26 @@ The following are exclusively Sam's domain and are never delegated:
 
 | Name    | Role                             | File                                                                                          |
 |---------|----------------------------------|-----------------------------------------------------------------------------------------------|
-| Sam     | Orchestrator                     | Team/Sam - Orchestrator/sam-orchestrator.md                                                   |
-| Harper  | HR Lead                          | Team/Harper - HR Lead/harper-hr.md                                                            |
-| Ryan    | Senior Researcher                | Team/Ryan - Senior Researcher/ryan-researcher.md                                              |
-| Alex    | SEO Specialist                   | Team/Alex - SEO Specialist/alex-seo-specialist.md                                             |
-| Casey   | Webflow Developer                | Team/Casey - Webflow Developer/casey-webflow-developer.md                                     |
-| Cleo    | Visual AI Producer               | Team/Cleo - Visual AI Producer/cleo-visual-ai-producer.md                                     |
-| Odin    | Senior Adviser                     | Team/Odin - Senior Adviser/odin-senior-adviser.md                                                             |
-| Sage    | Content Strategist               | Team/Sage - Content Strategist/sage-content-strategist.md                                     |
-| Quinn   | QA Compliance Reviewer           | Team/Quinn - QA Compliance Reviewer/quinn-qa-compliance-reviewer.md                           |
-| Finn    | Copywriter                       | Team/Finn - Copywriter/finn-copywriter.md                                                     |
-| Remi    | Brand Strategist                 | Team/Remi - Brand Strategist/remi-brand-strategist.md                                         |
-| Ellis   | Creative Technologist            | Team/Ellis - Creative Technologist/ellis-creative-technologist.md                             |
-| Nova    | Video & Motion Producer          | Team/Nova - Video & Motion Producer/nova-video-motion-producer.md                             |
-| Axel    | Automation Architect             | Team/Axel - Automation Architect/axel-automation-architect.md                                 |
-| Juno    | Social Media Manager             | Team/Juno - Social Media Manager/juno-social-media-manager.md                                 |
-| Dex     | Analytics & Reporting Specialist | Team/Dex - Analytics & Reporting Specialist/dex-analytics-reporting-specialist.md             |
-| Jordan  | UX/UI Designer                   | Team/Jordan - UX-UI Designer/jordan-ux-ui-designer.md                                        |
-| Tate    | Project Manager                  | Team/Tate - Project Manager/tate-project-manager.md                                           |
-| Vera    | Creative Director                | Team/Vera - Creative Director/vera-creative-director.md                                       |
-| Milo    | Amazon Stores Specialist         | Team/Milo - Amazon Stores Specialist/milo-amazon-stores-specialist.md                         |
+| Sam     | Orchestrator                     | Team/Orchestrator/orchestrator.md                                   |
+| Harper  | HR Lead                          | Team/HR Lead/hr-lead.md                                             |
+| Ryan    | Senior Researcher                | Team/Senior Researcher/senior-researcher.md                         |
+| Alex    | SEO Specialist                   | Team/SEO Specialist/seo-specialist.md                               |
+| Casey   | Webflow Developer                | Team/Webflow Developer/webflow-developer.md                         |
+| Cleo    | Visual AI Producer               | Team/Visual AI Producer/visual-ai-producer.md                       |
+| Odin    | Senior Adviser                   | Team/Senior Adviser/senior-adviser.md                               |
+| Sage    | Content Strategist               | Team/Content Strategist/content-strategist.md                       |
+| Quinn   | QA Compliance Reviewer           | Team/QA Compliance Reviewer/qa-compliance-reviewer.md               |
+| Finn    | Copywriter                       | Team/Copywriter/copywriter.md                                       |
+| Remi    | Brand Strategist                 | Team/Brand Strategist/brand-strategist.md                           |
+| Ellis   | Creative Technologist            | Team/Creative Technologist/creative-technologist.md                 |
+| Nova    | Video & Motion Producer          | Team/Video & Motion Producer/video-&-motion-producer.md             |
+| Axel    | Automation Architect             | Team/Automation Architect/automation-architect.md                   |
+| Juno    | Social Media Manager             | Team/Social Media Manager/social-media-manager.md                   |
+| Dex     | Analytics & Reporting Specialist | Team/Analytics & Reporting Specialist/analytics-&-reporting-specialist.md |
+| Jordan  | UX/UI Designer                   | Team/UX-UI Designer/ux-ui-designer.md                               |
+| Tate    | Project Manager                  | Team/Project Manager/project-manager.md                             |
+| Vera    | Creative Director                | Team/Creative Director/creative-director.md                         |
+| Milo    | Amazon Stores Specialist         | Team/Amazon Stores Specialist/amazon-stores-specialist.md           |
 
 *(Sam updates this table whenever a new team member is hired or archived.)*
 
