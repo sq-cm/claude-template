@@ -72,8 +72,8 @@ Your message
 | [Content Strategist](Team/Content%20Strategist/content-strategist.md) | Content architecture, audits, editorial planning, briefs, measurement |
 | [UX/UI Designer](Team/UX-UI%20Designer/ux-ui-designer.md) | IA, wireframing, interaction design, UX writing, Figma handoff |
 | [Social Media Manager](Team/Social%20Media%20Manager/social-media-manager.md) | Publishing, scheduling, community management, platform analytics |
-| [Video & Motion Producer](Team/Video%20%26%20Motion%20Producer/video-%26-motion-producer.md) | AI video generation, motion graphics, reels, animated assets |
-| [Analytics & Reporting Specialist](Team/Analytics%20%26%20Reporting%20Specialist/analytics-%26-reporting-specialist.md) | Dashboards, performance reporting, attribution, data quality |
+| [Video & Motion Producer](Team/Video%20&%20Motion%20Producer/video-&-motion-producer.md) | AI video generation, motion graphics, reels, animated assets |
+| [Analytics & Reporting Specialist](Team/Analytics%20&%20Reporting%20Specialist/analytics-&-reporting-specialist.md) | Dashboards, performance reporting, attribution, data quality |
 | [Creative Technologist](Team/Creative%20Technologist/creative-technologist.md) | Multi-step AI pipelines, prompt systems, structured output schemas |
 | [Automation Architect](Team/Automation%20Architect/automation-architect.md) | Workflow automation, n8n/Make/Zapier, API and webhook integrations |
 | [QA Compliance Reviewer](Team/QA%20Compliance%20Reviewer/qa-compliance-reviewer.md) | Quality gates — reviews deliverables before they reach the client |
