@@ -330,7 +330,7 @@ const TEAM = [
 ];
 
 const SKILLS = [
-  { name: "/humaniser", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
+  { name: "/humaniser", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on the Copywriter's copy, the Content Strategist's briefs, any AI-generated text." },
   { name: "/grill-me", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
   { name: "/log-session", desc: "Saves a structured log of the current session — request, routing trace, @{SeniorAdviser} checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables. Run manually when the session is worth keeping." },
   { name: "/onboard", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, offers theme selection.", when: "Once, the first time you open a new client vault. Do not re-run on an active vault." },
@@ -374,7 +374,7 @@ const COMMANDS = [
     <!-- What is this -->
     <section class="section" id="what-is-this">
       <h2 class="section-title">What is this?</h2>
-      <p class="section-intro">You have access to a team of 20 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. You talk to them through Claude Code. A coordinator named <strong>Sam</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
+      <p class="section-intro">You have access to a team of 20 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. You talk to them through Claude Code. A coordinator called <strong>the Orchestrator</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
     </section>
 
     <!-- How to talk to the team -->
@@ -385,17 +385,17 @@ const COMMANDS = [
         <div class="syntax-card">
           <h3>Open request</h3>
           <div class="example">"I need a first draft of a client welcome email for a new skincare brand."</div>
-          <p>No <code>@Name</code> needed. Sam reads your request and routes it to the best-fit specialist.</p>
+          <p>No <code>@Name</code> needed. The Orchestrator reads your request and routes it to the best-fit specialist.</p>
         </div>
         <div class="syntax-card">
           <h3>Direct address</h3>
-          <div class="example">"@Finn write a 200-word homepage intro for Meridian Law. Tone: authoritative but approachable."</div>
-          <p>Use <code>@Name</code> when you already know who you need. Bypasses Sam's routing step.</p>
+          <div class="example">"@{Copywriter} write a 200-word homepage intro for Meridian Law. Tone: authoritative but approachable."</div>
+          <p>Use <code>@{RoleToken}</code> when you already know who you need. Bypasses the Orchestrator's routing step.</p>
         </div>
         <div class="syntax-card">
           <h3>Multi-step request</h3>
           <div class="example">"I need a full social calendar for NovaStar Gym — strategy, post copy, and visual direction for Instagram."</div>
-          <p>Sam will loop in Sage, Juno, and Cleo in sequence. You'll see the handoffs happen.</p>
+          <p>The Orchestrator will loop in the Content Strategist, Social Media Manager, and Visual AI Producer in sequence. You'll see the handoffs happen.</p>
         </div>
       </div>
     </section>
@@ -410,23 +410,23 @@ const COMMANDS = [
           <div class="step-body">"I need blog content for a new coffee brand targeting specialty coffee enthusiasts in Australia."</div>
         </div>
         <div class="example-step">
-          <div class="step-label"><span class="routing">Sam — routing</span></div>
-          <div class="step-body">Content strategy first, then copy. I'm handing this to <strong>Sage</strong> to build the content framework, then <strong>Finn</strong> will write from it. <strong>Tate</strong>, you're on delivery tracking.</div>
+          <div class="step-label"><span class="routing">Orchestrator — routing</span></div>
+          <div class="step-body">Content strategy first, then copy. I'm handing this to <strong>the Content Strategist</strong> to build the content framework, then <strong>the Copywriter</strong> will write from it. <strong>the Project Manager</strong>, you're on delivery tracking.</div>
         </div>
         <div class="example-step">
-          <div class="step-label"><span class="persona">Sage — Content Strategist</span></div>
-          <div class="step-body">Before drafting, I'm checking the repo library for content strategy frameworks. Running <strong>Checkpoint A</strong> with @{SeniorAdviser} before I commit to a structure…<br><br>Here's the content architecture: three pillar topics — Origin Stories, Brewing Methods, and Ethical Sourcing. Supporting cluster topics mapped to search intent. Brief prepared for Finn.</div>
+          <div class="step-label"><span class="persona">Content Strategist</span></div>
+          <div class="step-body">Before drafting, I'm checking the repo library for content strategy frameworks. Running <strong>Checkpoint A</strong> with @{SeniorAdviser} before I commit to a structure…<br><br>Here's the content architecture: three pillar topics — Origin Stories, Brewing Methods, and Ethical Sourcing. Supporting cluster topics mapped to search intent. Brief prepared for the Copywriter.</div>
         </div>
         <div class="example-step">
-          <div class="step-label"><span class="persona">Finn — Copywriter</span></div>
-          <div class="step-body">Working from Sage's brief. Running <strong>Checkpoint B</strong> before delivery…<br><br>First article drafted: "Why Single-Origin Coffee Tastes Different (And Why It Matters)." 800 words, conversational but informed. Ready for Quinn's QA pass.</div>
+          <div class="step-label"><span class="persona">Copywriter</span></div>
+          <div class="step-body">Working from the Content Strategist's brief. Running <strong>Checkpoint B</strong> before delivery…<br><br>First article drafted: "Why Single-Origin Coffee Tastes Different (And Why It Matters)." 800 words, conversational but informed. Ready for the QA Reviewer's pass.</div>
         </div>
         <div class="example-step">
-          <div class="step-label"><span class="persona">Quinn — QA Reviewer</span></div>
-          <div class="step-body"><strong>Result: Pass.</strong> Article aligns with brief. No unverified claims. Tone consistent. One suggestion: add a source citation on the altitude flavour profile claim. Returning to Sam.</div>
+          <div class="step-label"><span class="persona">QA Reviewer</span></div>
+          <div class="step-body"><strong>Result: Pass.</strong> Article aligns with brief. No unverified claims. Tone consistent. One suggestion: add a source citation on the altitude flavour profile claim. Returning to the Orchestrator.</div>
         </div>
         <div class="example-step">
-          <div class="step-label"><span class="routing">Sam — handoff complete</span></div>
+          <div class="step-label"><span class="routing">Orchestrator — handoff complete</span></div>
           <div class="step-body">Article delivered to <code>Projects/[Client]/Deliverables/</code>. Quinn flagged one citation — Finn will add it. Let me know when you're ready for article two.</div>
         </div>
       </div>
@@ -515,7 +515,7 @@ const COMMANDS = [
           <div class="step-num">6</div>
           <div class="step-content">
             <h3>Open in Claude Code and verify</h3>
-            <p>Open the folder as your working directory. Send a test message — Sam should respond and route correctly. Try <code>@Harper</code>, <code>@Ryan</code>, and <code>@Alex</code> to confirm they're reachable.</p>
+            <p>Open the folder as your working directory. Send a test message — Sam should respond and route correctly. Try <code>@{HRLead}</code>, <code>@{SeniorResearcher}</code>, and <code>@{SEOSpecialist}</code> to confirm they're reachable.</p>
           </div>
         </li>
         <li class="step-item">
@@ -524,7 +524,7 @@ const COMMANDS = [
             <h3>Apply a theme (optional)</h3>
             <p>Rename the team with characters from a theme — Vikings, Greek myths, Studio Ghibli, etc. This can be done now or any time later.</p>
             <pre>"Set theme to Vikings"</pre>
-            <p>Sam researches character names, matches them to roles, shows a preview, and asks for confirmation before changing anything.</p>
+            <p>The Orchestrator researches character names, matches them to roles, shows a preview, and asks for confirmation before changing anything.</p>
           </div>
         </li>
         <li class="step-item">
@@ -554,26 +554,38 @@ const COMMANDS = [
     <section class="section">
       <h2 class="section-title">Vault Structure</h2>
       <p class="section-intro">The root is reserved for named top-level folders only. New persistent storage goes under <code>Vault/</code> — never at root level.</p>
-      <div class="structure-tree">Claude - [ClientName]/<br>
-├── CLAUDE.md                  ← AI team rules and roster<br>
-├── .env                       ← API keys (never commit)<br>
-├── .gitignore<br>
-├── Inbox/                     ← Staging for unrouted material<br>
-├── Notes/                     ← Daily notes, clippings, canvas<br>
-├── Projects/                  ← Client and campaign work<br>
+      <div class="structure-tree">Claude - [YourCompany]/<br>
+├── .claude/<br>
+│   └── commands/<br>
+│       ├── onboard.md             ← /onboard command (run first)<br>
+│       └── import-repos.md        ← /import-repos command<br>
+├── Inbox/                         ← staging area for unrouted material<br>
+├── Notes/                         ← daily notes, canvas files, clippings<br>
+├── Projects/<br>
 │   └── [ProjectName]/<br>
 │       ├── Briefs/<br>
 │       ├── Working/<br>
 │       └── Deliverables/<br>
 ├── Resources/<br>
-│   ├── SOPs/                  ← Advisor Checkpoints, Repo Consultation, etc.<br>
-│   ├── Git/                   ← Cloned reference repos<br>
-│   └── Learn/                 ← This guide<br>
-├── Team/                      ← Persona files for all team members<br>
-└── Vault/<br>
-│   ├── Archive/               ← Retired artefacts<br>
-│   ├── Logs/Sessions/         ← Session logs (/log-session)<br>
-│   └── Memory/MEMORY.md       ← Persistent context across sessions</div>
+│   ├── Git/                       ← cloned reference repos (git-ignored)<br>
+│   ├── Learn/                     ← this guide<br>
+│   ├── SOPs/                      ← Advisor Checkpoints, Repo Consultation, etc.<br>
+│   └── setup-guide.md             ← full setup instructions<br>
+├── Team/<br>
+│   ├── Orchestrator/<br>
+│   ├── HR Lead/<br>
+│   ├── Senior Researcher/<br>
+│   │   └── Research/              ← Senior Researcher's role research briefs<br>
+│   └── [17 more specialist roles]/<br>
+├── Vault/<br>
+│   ├── Archive/                   ← retired projects and personas<br>
+│   ├── Logs/                      ← session logs, import logs<br>
+│   ├── Memory/                    ← persistent session memory + theme map<br>
+│   ├── Scripts/                   ← maintenance scripts (sync-theme.sh)<br>
+│   └── Templates/                 ← daily and weekly note templates<br>
+├── CLAUDE.md                      ← orchestrator rules + team roster<br>
+├── README.md<br>
+└── .env.example                   ← API key template</div>
     </section>
 
   </div>
