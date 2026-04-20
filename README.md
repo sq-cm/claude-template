@@ -50,7 +50,7 @@ Your message
 
 **Key files:**
 - `CLAUDE.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
-- `Team/[Name]/[name]-[role].md` — each team member's persona: identity, expertise, constraints, relationships
+- `Team/[Role]/[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
 - `.claude/skills/` — reusable skill modules (brainstorming, planning, debugging, code review, etc.)
 
@@ -60,26 +60,26 @@ Your message
 
 | Role | Description |
 |------|------|
-| Orchestrator | Routes all requests, manages the roster |
+| Orchestrator | Routes all requests, manages the roster, never does task work |
 | HR Lead | Builds new team member personas from the Senior Researcher's briefs |
-| Senior Researcher | Researches roles before any new hire |
-| SEO Specialist | |
-| Webflow Developer | |
-| Visual AI Producer | |
-| Copywriter | |
-| Brand Strategist | |
-| Content Strategist | |
-| UX/UI Designer | |
-| Social Media Manager | |
-| Video & Motion Producer | |
-| Analytics & Reporting Specialist | |
-| Creative Technologist | |
-| Automation Architect | |
-| QA Compliance Reviewer | |
-| Project Manager | |
-| Creative Director | |
-| Amazon Stores Specialist | |
-| Senior Adviser | Quality gate at checkpoints |
+| Senior Researcher | Researches roles before any new hire; writes role briefs |
+| SEO Specialist | Audits, keyword strategy, technical SEO, Search Console analysis |
+| Webflow Developer | Custom code embeds, JS interactions, CSS beyond Webflow's style panel |
+| Visual AI Producer | AI image generation, prompt engineering, visual asset delivery |
+| Copywriter | Ad copy, landing pages, emails, social captions, website copy |
+| Brand Strategist | Positioning, voice architecture, messaging frameworks, brand governance |
+| Content Strategist | Content architecture, audits, editorial planning, briefs, measurement |
+| UX/UI Designer | IA, wireframing, interaction design, UX writing, Figma handoff |
+| Social Media Manager | Publishing, scheduling, community management, platform analytics |
+| Video & Motion Producer | AI video generation, motion graphics, reels, animated assets |
+| Analytics & Reporting Specialist | Dashboards, performance reporting, attribution, data quality |
+| Creative Technologist | Multi-step AI pipelines, prompt systems, structured output schemas |
+| Automation Architect | Workflow automation, n8n/Make/Zapier, API and webhook integrations |
+| QA Compliance Reviewer | Quality gates — reviews deliverables before they reach the client |
+| Project Manager | Delivery tracking, pipeline status, handoff coordination, timelines |
+| Creative Director | Campaign concepts, creative territories, cross-channel coherence |
+| Amazon Stores Specialist | Listings, A+ content, Stores, variation architecture, compliance |
+| Senior Adviser | Checkpoint reviewer — consulted before and after durable work |
 
 ---
 
@@ -145,32 +145,33 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 
 ```
 Claude - TEMPLATE/
-├── CLAUDE.md                          ← orchestrator rules + team roster
-├── README.md                          ← this file
-├── .env.example                       ← API key template
 ├── .claude/
 │   └── commands/
 │       ├── onboard.md                 ← /onboard command (run first)
 │       └── import-repos.md            ← /import-repos command
-├── Team/
-│   ├── Sam - Orchestrator/
-│   ├── Harper - HR Lead/
-│   ├── Ryan - Senior Researcher/
-│   │   └── Research/                  ← Ryan's role research briefs
-│   └── [17 more specialists]/
+├── Inbox/                             ← staging area for unrouted material
+├── Notes/                             ← daily notes, canvas files, clippings
 ├── Projects/
 │   └── [5 sample onboarding projects]/
 ├── Resources/
-│   ├── setup-guide.md                 ← full setup instructions
-│   ├── sam-routing.gif                ← demo animation
+│   ├── Git/                           ← cloned reference repos (git-ignored)
+│   ├── Learn/                         ← onboarding guide (index.html)
 │   ├── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
-│   └── Git/                           ← cloned reference repos (git-ignored)
+│   └── setup-guide.md                 ← full setup instructions
+├── Team/
+│   ├── Orchestrator/
+│   ├── HR Lead/
+│   ├── Senior Researcher/
+│   │   └── Research/                  ← Senior Researcher's role research briefs
+│   └── [17 more specialist roles]/
 ├── Vault/
-│   ├── Memory/                        ← persistent session memory
 │   ├── Archive/                       ← retired projects and personas
-│   └── Logs/                          ← clone failure logs, import logs
-├── Inbox/                             ← staging area for unrouted material
-└── Notes/                             ← daily notes, canvas files, clippings
+│   ├── Logs/                          ← clone failure logs, import logs
+│   ├── Memory/                        ← persistent session memory
+│   └── Templates/                     ← daily and weekly note templates
+├── CLAUDE.md                          ← orchestrator rules + team roster
+├── README.md                          ← this file
+└── .env.example                       ← API key template
 ```
 
 ---
