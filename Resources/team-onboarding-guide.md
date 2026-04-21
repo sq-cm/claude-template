@@ -54,12 +54,12 @@ That's it. You're in.
 The Orchestrator will assess the request and route it to the best-fit team member.
 
 **Direct address — you choose who handles it:**
-> "@Finn I need a 200-word intro paragraph for the Meridian Law homepage. Tone: authoritative but approachable."
+> "@Finn I need a 200-word intro paragraph for the Demo — Meridian Law homepage. Tone: authoritative but approachable."
 
 The `@Name` format goes directly to that person, bypassing Sam's routing step. Use it when you already know who you need.
 
 **Multi-step request — the Orchestrator coordinates the handoffs:**
-> "I need a full social calendar for NovaStar Gym — strategy, post copy, and visual direction for Instagram."
+> "I need a full social calendar for Demo — NovaStar Gym — strategy, post copy, and visual direction for Instagram."
 
 The Orchestrator will loop in the Social Media Manager, Sage, and Cleo in sequence. You'll see the work handed off and built up in stages.
 
