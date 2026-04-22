@@ -139,11 +139,11 @@ The `Projects/` folder contains 5 half-finished sample projects. Each one teache
 
 | # | Project | What it teaches |
 |---|---------|-----------------|
-| 1 | `260101 Bloom Bakery — SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
-| 2 | `260101 Meridian Law — Homepage UX Review` | Cross-functional handoff: Jordan + Finn + Quinn, multi-file report assembly |
-| 3 | `260101 NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → {SocialMediaManager} → Cleo, calendar format |
-| 4 | `260101 Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {SeniorAdviser} Checkpoint A + B, repo consultation |
-| 5 | `260101 Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
+| 1 | `Demo — Bloom Bakery — SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
+| 2 | `Demo — Meridian Law — Homepage UX Review` | Cross-functional handoff: Jordan + Finn + Quinn, multi-file report assembly |
+| 3 | `Demo — NovaStar Gym — Social Media Calendar` | Multi-specialist creative: Sage → {SocialMediaManager} → Cleo, calendar format |
+| 4 | `Demo — Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {SeniorAdviser} Checkpoint A + B, repo consultation |
+| 5 | `Demo — Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
 
 Each project has a `README.md` with learning objectives and exact completion steps. Start there.
 
