@@ -1,5 +1,3 @@
-<!-- TEMPLATE: Rename this folder to "Claude - [YourCompany]" before first use. -->
-
 # AI Team Orchestrator
 
 ## Identity

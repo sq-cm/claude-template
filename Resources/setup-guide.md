@@ -89,13 +89,7 @@ Claude - [CompanyName]/
 │        └── amazon-stores-specialist.md
 ```
 
-### Step 3: Remove the setup comment
-Open `CLAUDE.md` and delete the first line:
-```
-<!-- TEMPLATE: Rename this folder to "Claude - [YourCompany]" before first use. -->
-```
-
-### Step 4: Secrets hygiene
+### Step 3: Secrets hygiene
 
 The template ships with `.gitignore` and `.env.example`. Before opening in Claude Code:
 
@@ -105,7 +99,7 @@ The template ships with `.gitignore` and `.env.example`. Before opening in Claud
 4. Never commit `.env` — it is git-ignored for this reason
 5. `Vault/Memory/MEMORY.md` accumulates session context over time — confirm it contains no secrets before any git commit
 
-### Step 5: Verify Advisor Checkpoints SOP path
+### Step 4: Verify Advisor Checkpoints SOP path
 
 Open `CLAUDE.md` and confirm the Advisor Checkpoints SOP resolves correctly:
 
@@ -115,13 +109,13 @@ Resources/SOPs/Advisor Checkpoints SOP.md
 
 This path must exist for @{SeniorAdviser} invocations to work. The file ships with the template — if it's missing, copy it from `Claude - TEMPLATE/Resources/SOPs/`.
 
-### Step 6: Open in Claude Code
+### Step 5: Open in Claude Code
 Open the new folder as your working directory in Claude Code. The team is ready immediately — no bootstrapping needed.
 
-### Step 7: Verify
+### Step 6: Verify
 Send a test message. The Orchestrator should respond and route correctly. Try `@{HRLead}`, `@{SeniorResearcher}`, and `@{SEOSpecialist}` to confirm they're reachable. For checkpoint-eligible tasks, the Orchestrator will flag that the Senior Adviser should be consulted — this is expected behaviour.
 
-### Step 8: Theme (Optional)
+### Step 7: Theme (Optional)
 
 Give your team custom names based on a theme of your choice — Vikings, Pokémon, Greek myths, Studio Ghibli characters, etc. This can be done during setup or at any time later.
 
@@ -133,7 +127,7 @@ Give your team custom names based on a theme of your choice — Vikings, Pokémo
 
 The Orchestrator will research character names, match them to roles by archetype, show you a dry-run preview, and ask for confirmation before changing anything. A full change log and rollback map are kept in `Vault/Memory/`.
 
-### Step 9: Learn by doing — sample projects
+### Step 8: Learn by doing — sample projects
 
 The `Projects/` folder contains 5 half-finished sample projects. Each one teaches a different workflow layer. Work through them in order — each builds on what the previous one introduced.
 

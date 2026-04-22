@@ -22,17 +22,7 @@ If not a git repo (no `.git/` folder), skip silently.
 
 ---
 
-## Step 1 — Remove first-use comment from CLAUDE.md
-
-Read `CLAUDE.md`. If line 1 is exactly:
-```
-<!-- TEMPLATE: Rename this folder to "Claude - [YourCompany]" before first use. -->
-```
-Delete it using the Edit tool. If not present, skip silently.
-
----
-
-## Step 2 — Create .env
+## Step 1 — Create .env
 
 Check if `.env` exists in the vault root.
 
@@ -41,7 +31,7 @@ Check if `.env` exists in the vault root.
 
 ---
 
-## Step 3 — Verify SOP path
+## Step 2 — Verify SOP path
 
 Confirm `Resources/SOPs/Advisor Checkpoints SOP.md` exists.
 
@@ -50,7 +40,7 @@ Confirm `Resources/SOPs/Advisor Checkpoints SOP.md` exists.
 
 ---
 
-## Step 4 — Install Caveman + activate lite
+## Step 3 — Install Caveman + activate lite
 
 Detect platform:
 - If `$env:OS` contains `Windows` or `$OSTYPE` is unset on Windows → run PowerShell install
@@ -72,7 +62,7 @@ Report: "Caveman installed and set to lite mode."
 
 ---
 
-## Step 5 — Theme
+## Step 4 — Theme
 
 Ask the user:
 
@@ -97,11 +87,11 @@ Ask the user:
 
 - If user picks a theme: hand off to the Orchestrator with the message: `"Set theme to [chosen theme]"`
 - If user types their own theme: hand off to the Orchestrator with: `"Set theme to [their theme]"`
-- If user skips: continue to Step 6.
+- If user skips: continue to Step 5.
 
 ---
 
-## Step 6 — Setup complete
+## Step 5 — Setup complete
 
 Read the Active Team Roster table from `CLAUDE.md` and print it.
 
@@ -113,7 +103,7 @@ Then print:
 
 ---
 
-## Step 7 — Open the onboarding guide
+## Step 6 — Open the onboarding guide
 
 Open `Resources/Learn/index.html` in the default browser:
 
@@ -134,7 +124,7 @@ Tell the user:
 
 ---
 
-## Step 8 — Learn by doing: sample projects
+## Step 7 — Learn by doing: sample projects
 
 Print the following block exactly:
 
