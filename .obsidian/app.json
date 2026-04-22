@@ -4,5 +4,6 @@
   "newFileFolderPath": "Notes",
   "attachmentFolderPath": "Vault/Attachments",
   "alwaysUpdateLinks": true,
-  "promptDelete": false
+  "promptDelete": false,
+  "showInlineTitle": false
 }
