@@ -25,6 +25,10 @@ CreativeDirector: Vera
 AmazonStoresSpecialist: Milo
 ```
 
+## File Path Convention
+
+Persona files live at `Team/[Role Title]/[role].md`. Example: `Team/SEO Specialist/seo-specialist.md`. The Orchestrator can derive any persona path from the role title without a lookup table.
+
 ## How to Use
 
 When you want to swap a team member:
