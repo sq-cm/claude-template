@@ -4,6 +4,24 @@ Everything needed to deploy a new instance of this vault from scratch.
 
 ---
 
+## Step 0 — Run the install script
+
+After cloning, run once from the vault root:
+
+**Mac / Linux:**
+```bash
+bash install.sh
+```
+
+**Windows:**
+```bat
+install.bat
+```
+
+This does three things automatically: blocks push to the upstream template repo (your instance is yours — you can't accidentally push back), activates git hooks, and creates your `.env` file. Then continue with the steps below.
+
+---
+
 ## Step 1 — Copy environment file
 
 ```bash
