@@ -42,7 +42,35 @@ Confirm `Resources/SOPs/Advisor Checkpoints SOP.md` exists.
 
 ## Step 3 — Install Caveman + activate lite
 
-Detect platform:
+First, check if Node.js is available:
+
+```bash
+node --version
+```
+
+**If Node.js not found:** auto-install using the platform package manager, then retry.
+
+**Windows:**
+```powershell
+winget install -e --id OpenJS.NodeJS.LTS --silent
+```
+
+**macOS:**
+```bash
+command -v brew &>/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install node
+```
+
+**Linux:**
+```bash
+sudo apt-get install -y nodejs npm
+```
+
+After install, refresh PATH and retry `node --version`. If install fails, print:
+
+> ⚠️ Caveman skipped — could not install Node.js automatically. Install Node.js LTS manually then re-run `/onboard`.
+
+**Once Node.js is confirmed**, detect platform and run Caveman install:
 - If `$env:OS` contains `Windows` or `$OSTYPE` is unset on Windows → run PowerShell install
 - Otherwise → run bash install
 
@@ -59,6 +87,51 @@ bash <(curl -s https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hook
 After install completes, activate lite mode by invoking: `/caveman lite`
 
 Report: "Caveman installed and set to lite mode."
+
+---
+
+## Step 3.5 — Install MemPalace
+
+Check if Python 3.9+ is available:
+
+```bash
+python --version
+```
+
+**If Python 3.9+ found:** run the following in order, defaulting the project directory to the vault root (current working directory) — do not prompt the user.
+
+```bash
+pip show mempalace || pip install mempalace
+PYTHONUTF8=1 python -m mempalace init --yes .
+claude mcp add --scope project mempalace -- python -m mempalace.mcp_server
+PYTHONUTF8=1 python -m mempalace status
+```
+
+Report: "MemPalace installed and configured ✓ — restart Claude Code to activate MCP tools."
+
+If `pip install` fails, try `pip3 install mempalace` then `python -m pip install mempalace`. If all fail, skip and warn.
+
+**If Python not found or version < 3.9:** auto-install Python using the platform package manager, then retry from the top of this step.
+
+**Windows:**
+```powershell
+winget install -e --id Python.Python.3.12 --silent
+```
+
+**macOS:**
+```bash
+command -v brew &>/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install python@3.12
+```
+
+**Linux:**
+```bash
+sudo apt-get install -y python3 python3-pip
+```
+
+After install, refresh PATH and retry `python --version`. If install still fails, print:
+
+> ⚠️ MemPalace skipped — could not install Python automatically. Install Python 3.9+ manually then run `/mempalace:init`.
 
 ---
 

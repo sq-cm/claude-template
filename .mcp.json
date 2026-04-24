@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "mempalace": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "Vault\\Scripts\\mempalace-mcp.cmd"
+      ],
+      "env": {}
+    }
+  }
+}
