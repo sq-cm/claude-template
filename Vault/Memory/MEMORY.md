@@ -15,3 +15,7 @@ The Orchestrator reads and writes this file directly — do not delete entries w
 SECURITY: Do not store API keys, passwords, or credentials here.
 This file may be committed to git or synced to cloud storage.
 -->
+
+## Workflow preferences
+
+- [Run humaniser on all content output](feedback_humaniser.md) — apply `/humaniser` to every written deliverable before finalising; no exceptions for short docs
