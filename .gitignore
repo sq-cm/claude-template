@@ -28,3 +28,7 @@ Resources/Git/*/
 # MemPalace per-project files (issue #185)
 mempalace.yaml
 entities.json
+
+
+# MemPalace palace data — local only, not committed
+Vault/Logs/Palace/
