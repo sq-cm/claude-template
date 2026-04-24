@@ -20,6 +20,10 @@
           {
             "type": "command",
             "command": "echo '=== Theme map loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/theme-name-map.md\" ] && echo 'Theme map available at Vault/Memory/theme-name-map.md' || echo 'Warning: Theme map not found'"
+          },
+          {
+            "type": "command",
+            "command": "echo '=== Memory index loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/MEMORY.md\" ] && cat \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/MEMORY.md\" || echo 'Warning: MEMORY.md not found'"
           }
         ]
       }

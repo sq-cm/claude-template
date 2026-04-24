@@ -97,6 +97,14 @@ API keys and secrets live in `.env` at the vault root (git-ignored). Copy `.env.
 
 All persistent memory lives in `Vault/Memory/` inside this vault folder — **not** the default Claude Code internal path. Read from and write to this path for all memory files and `MEMORY.md`.
 
+**Who writes:** Every team member — not just the Orchestrator. Discoveries made during delegated work are just as worth keeping.
+
+**When to write:** Immediately, mid-task, the moment something valuable surfaces. Don't wait to be asked. Don't wait for session end. Write only if skipping would cause a mistake or wasted work next time — e.g. an environment quirk that broke a tool, an architectural decision that constrains future work, a client preference that changed the output. Observations that wouldn't change anything: skip.
+
+**How to write:** Create a separate file in `Vault/Memory/`, then add a one-line pointer to `Vault/Memory/MEMORY.md`. Do not append raw content directly to `MEMORY.md`. Use the existing entry types: user, feedback, project, reference.
+
+**Session start:** `MEMORY.md` loads automatically via hook at session start — no manual action needed. See `.claude/settings.json` for hook config.
+
 > **Setup note:** When deploying this template, create the `Vault/Memory/` folder and an empty `Vault/Memory/MEMORY.md` file before first use.
 
 ---
