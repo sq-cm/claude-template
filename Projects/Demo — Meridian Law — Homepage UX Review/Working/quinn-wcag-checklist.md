@@ -1,13 +1,13 @@
 # WCAG 2.1 AA Compliance Checklist — Meridian Law Homepage
-**Reviewer:** the QA Compliance Reviewer  
-**Standard:** WCAG 2.1 Level AA  
+**Reviewer:** the QA Compliance Reviewer
+**Standard:** WCAG 2.1 Level AA
 **Status:** PENDING EVALUATION
 
 ---
 
-> **Instructions for completing this checklist:**  
-> For each item, set Status to **Pass**, **Fail**, or **N/A**.  
-> Add a Note where the status is Fail or where evidence is needed.  
+> **Instructions for completing this checklist:**
+> For each item, set Status to **Pass**, **Fail**, or **N/A**.
+> Add a Note where the status is Fail or where evidence is needed.
 > When done, flag to the UX/UI Designer so results can be merged into the final report.
 
 ---
@@ -68,9 +68,9 @@
 
 ## Summary (complete when all items evaluated)
 
-**Total Pass:** —  
-**Total Fail:** —  
-**Total N/A:** —  
+**Total Pass:** —
+**Total Fail:** —
+**Total N/A:** —
 **Overall WCAG 2.1 AA Status:** PENDING
 
 ### Critical Failures (if any)

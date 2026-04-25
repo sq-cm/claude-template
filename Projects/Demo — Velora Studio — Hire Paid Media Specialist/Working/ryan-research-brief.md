@@ -1,7 +1,7 @@
 # Research Brief — Paid Media Specialist
-**Researcher:** the Senior Researcher  
-**Date:** 2026-01-06  
-**Status:** IN PROGRESS — 3 sections incomplete  
+**Researcher:** the Senior Researcher
+**Date:** 2026-01-06
+**Status:** IN PROGRESS — 3 sections incomplete
 **Output path:** `Resources/Research/paid-media-specialist-brief.md`
 
 ---

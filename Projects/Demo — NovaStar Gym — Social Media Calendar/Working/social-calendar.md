@@ -1,6 +1,6 @@
 # Social Media Calendar — NovaStar Gym
-**Period:** 6 Jan – 31 Jan 2026  
-**Platforms:** Instagram + Facebook  
+**Period:** 6 Jan – 31 Jan 2026
+**Platforms:** Instagram + Facebook
 **Status:** Week 1 complete. Weeks 2–4 in progress.
 
 ---

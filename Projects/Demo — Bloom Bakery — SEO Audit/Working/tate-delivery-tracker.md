@@ -1,7 +1,7 @@
 # Delivery Tracker — Bloom Bakery SEO Audit
-**PM:** the Project Manager  
-**Opened:** 2026-01-06  
-**Last updated:** 2026-01-08  
+**PM:** the Project Manager
+**Opened:** 2026-01-06
+**Last updated:** 2026-01-08
 **Status:** IN PROGRESS
 
 ---

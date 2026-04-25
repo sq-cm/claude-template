@@ -19,7 +19,7 @@ Agent(
            Task: Brand copywriting for Thornwood Coffee. Finn is about to draft 6 hero headlines.
            Brief: [paste Remi's positioning doc]
            Client constraints: no craft/artisan/passion/journey/story. Max 8 words per headline.
-           
+
            Question: What are the 3 most important things to get right before drafting begins?"
 )
 ```
@@ -27,9 +27,9 @@ Agent(
 ---
 
 ## Entry 1 — Checkpoint A (Brand Strategist → Copywriter handoff)
-**Date:** 2026-01-04  
-**Stage:** Before the Copywriter begins drafting  
-**Consulted by:** the Brand Strategist  
+**Date:** 2026-01-04
+**Stage:** Before the Copywriter begins drafting
+**Consulted by:** the Brand Strategist
 
 **What I asked:**
 > Thornwood brief confirmed. Remi's positioning is drafted (tone, differentiator, positioning statement). Audience section is being completed. Finn is about to draft 6 hero headlines. What are the 3 most important constraints to carry into copy — given the client's ban on generic "craft" language and the dual audience (home brewers + café buyers)?
@@ -46,9 +46,9 @@ Agent(
 ---
 
 ## Entry 2 — Checkpoint B (before final delivery)
-**Date:** *(fill in when run)*  
-**Stage:** After all 6 headlines drafted  
-**Consulted by:** the Copywriter  
+**Date:** *(fill in when run)*
+**Stage:** After all 6 headlines drafted
+**Consulted by:** the Copywriter
 
 **What I asked:**
 *(Paste your @{SeniorAdviser} invocation here)*

@@ -1,6 +1,6 @@
 # SEO Audit Draft — Bloom Bakery
-**Status:** IN PROGRESS  
-**Auditor:** the SEO Specialist  
+**Status:** IN PROGRESS
+**Auditor:** the SEO Specialist
 **Last updated:** 2026-01-03
 
 ---

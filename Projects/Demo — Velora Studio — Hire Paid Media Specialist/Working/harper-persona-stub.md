@@ -1,8 +1,8 @@
 # Persona Draft — Paid Media Specialist
-**HR Lead:** the HR Lead  
-**Date:** 2026-01-07  
-**Source brief:** `Working/ryan-research-brief.md`  
-**Output path:** `.claude/agents/paid-media-specialist.md`  
+**HR Lead:** the HR Lead
+**Date:** 2026-01-07
+**Source brief:** `Working/ryan-research-brief.md`
+**Output path:** `.claude/agents/paid-media-specialist.md`
 **Status:** IN PROGRESS — Identity section only
 
 ---

@@ -1,8 +1,8 @@
 # Client Brief — Thornwood Coffee
 
-**Client:** Thornwood Coffee Roasters  
-**Website:** thornwoodcoffee.com.au *(fictional)*  
-**Date:** 2026-01-01  
+**Client:** Thornwood Coffee Roasters
+**Website:** thornwoodcoffee.com.au *(fictional)*
+**Date:** 2026-01-01
 **Prepared by:** the Orchestrator (routed from client intake)
 
 ---

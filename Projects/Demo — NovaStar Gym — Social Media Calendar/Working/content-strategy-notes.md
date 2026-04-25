@@ -1,5 +1,5 @@
 # Content Strategy Notes — NovaStar Gym
-**Strategist:** the Content Strategist  
+**Strategist:** the Content Strategist
 **Date:** 2026-01-02
 
 ---
@@ -31,7 +31,7 @@
 
 ## Platform Notes
 
-**Instagram:** Prioritise Reels for education content. Static images for member stories. Carousel for multi-tip education.  
+**Instagram:** Prioritise Reels for education content. Static images for member stories. Carousel for multi-tip education.
 **Facebook:** Repurpose Instagram content same day. Add 1–2 sentences of context (FB audience skews older, more context-seeking).
 
 ## Handoff to Social Media Manager

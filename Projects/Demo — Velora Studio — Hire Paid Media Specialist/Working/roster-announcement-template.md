@@ -1,5 +1,5 @@
 # New Hire Announcement — Reed, Paid Media Specialist
-**Announced by:** the Orchestrator  
+**Announced by:** the Orchestrator
 **Date:** *(fill in)*
 
 ---

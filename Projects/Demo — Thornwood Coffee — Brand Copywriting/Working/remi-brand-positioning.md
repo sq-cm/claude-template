@@ -1,6 +1,6 @@
 # Brand Positioning Notes — Thornwood Coffee
-**Strategist:** the Brand Strategist  
-**Date:** 2026-01-03  
+**Strategist:** the Brand Strategist
+**Date:** 2026-01-03
 **Status:** IN PROGRESS — audience section incomplete
 
 ---

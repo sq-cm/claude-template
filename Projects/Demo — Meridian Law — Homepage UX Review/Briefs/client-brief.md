@@ -1,8 +1,8 @@
 # Client Brief — Meridian Law
 
-**Client:** Meridian Law  
-**Website:** meridianlaw.com.au *(fictional)*  
-**Date:** 2026-01-01  
+**Client:** Meridian Law
+**Website:** meridianlaw.com.au *(fictional)*
+**Date:** 2026-01-01
 **Prepared by:** the Orchestrator (routed from client intake)
 
 ---

@@ -1,7 +1,7 @@
 # UX Audit Draft — Meridian Law Homepage
-**Status:** IN PROGRESS  
-**Lead:** the UX/UI Designer  
-**Supporting:** the Copywriter (copy review), the QA Compliance Reviewer (WCAG — see separate checklist)  
+**Status:** IN PROGRESS
+**Lead:** the UX/UI Designer
+**Supporting:** the Copywriter (copy review), the QA Compliance Reviewer (WCAG — see separate checklist)
 **Last updated:** 2026-01-04
 
 ---

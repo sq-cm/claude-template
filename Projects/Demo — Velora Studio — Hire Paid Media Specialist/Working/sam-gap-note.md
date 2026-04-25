@@ -1,5 +1,5 @@
 # Capability Gap Note — Paid Media
-**Raised by:** the Orchestrator  
+**Raised by:** the Orchestrator
 **Date:** 2026-01-05
 
 ---
@@ -16,7 +16,7 @@ A client (Velora Studio) wants to run paid advertising across Google and Meta to
 
 ## Proposed Hire
 
-**Role:** Paid Media Specialist  
+**Role:** Paid Media Specialist
 **Scope:** Paid search, paid social, campaign strategy and setup, budget management, performance optimisation, reporting handoff to the Analytics Specialist.
 
 ## Permission Request

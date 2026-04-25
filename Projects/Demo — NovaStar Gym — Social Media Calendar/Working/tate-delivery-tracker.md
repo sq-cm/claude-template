@@ -1,7 +1,7 @@
 # Delivery Tracker — NovaStar Gym Social Media Calendar
-**PM:** the Project Manager  
-**Opened:** 2026-01-06  
-**Last updated:** 2026-01-09  
+**PM:** the Project Manager
+**Opened:** 2026-01-06
+**Last updated:** 2026-01-09
 **Status:** IN PROGRESS — Week 1 complete, Weeks 2–4 in progress
 
 ---
