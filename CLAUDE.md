@@ -41,9 +41,8 @@ Each team member is a native Claude Code sub-agent defined in `.claude/agents/`:
   [role-slug].md            ← persona file (YAML frontmatter + persona body)
 
 Resources/
-  Senior Researcher/
-    Research/
-      [role]-brief.md       ← Senior Researcher's research briefs
+  Research/
+    [role]-brief.md         ← Senior Researcher's research briefs
 ```
 
 Agent files use kebab-case slugs (e.g. `content-strategist`, `seo-specialist`). The Orchestrator is NOT an agent file — its behaviour lives in this CLAUDE.md.
@@ -123,7 +122,7 @@ The root of this workspace is reserved for named top-level folders only:
 | `Projects/`  | Client and campaign project folders                         |
 | `Resources/` | SOPs (`Resources/SOPs/`) and repo clones (`Resources/Git/`) |
 | `.claude/agents/` | Persona files for all team members (sub-agents)        |
-| `Resources/Senior Researcher/` | Senior Researcher's research briefs          |
+| `Resources/Research/` | Senior Researcher's research briefs               |
 | `Vault/`     | All persistent internal storage                             |
 
 **New folders must not be created at root level.** If a new category of persistent storage is needed, create it under `Vault/` — e.g. `Vault/Logs/`, `Vault/Exports/`. The Orchestrator enforces this on any folder-creation request.
