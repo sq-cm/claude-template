@@ -1,6 +1,6 @@
 # SOP — Roster Drift Check
 
-**Purpose:** Ensure the three sources of team roster truth stay in sync: `CLAUDE.md` table, `Team/` directory, and `Vault/Memory/theme-name-map.md`.  
+**Purpose:** Ensure the three sources of team roster truth stay in sync: `CLAUDE.md` table, `.claude/agents/` files, and `Vault/Memory/theme-name-map.md`.  
 **Audience:** Orchestrator. Run before any hire, fire, or theme-swap operation.  
 **Status:** Active. Owned by the Orchestrator.
 
@@ -11,7 +11,7 @@
 | Source | What it governs |
 |--------|----------------|
 | `CLAUDE.md` — Active Team Roster table | Canonical role list; names and file paths shown to session |
-| `Team/[Role Title]/` directories | Actual persona files on disk |
+| `.claude/agents/[role].md` files | Actual persona files on disk |
 | `Vault/Memory/theme-name-map.md` | Runtime name → role mapping used for `@{RoleToken}` resolution |
 
 Drift = any of the three disagrees with the others.
@@ -31,16 +31,15 @@ Drift = any of the three disagrees with the others.
 
 Run these checks in order. Stop and resolve any failure before proceeding with the triggering operation.
 
-### Check 1 — CLAUDE.md ↔ Team/ directory
+### Check 1 — CLAUDE.md ↔ .claude/agents/ files
 
 For every row in the CLAUDE.md roster table:
-- [ ] Corresponding `Team/[Role Title]/` folder exists
-- [ ] Persona file `[role].md` exists inside that folder
+- [ ] Corresponding `.claude/agents/[role].md` file exists
 - [ ] File path in table matches actual path on disk
 
-### Check 2 — Team/ directory ↔ theme-name-map.md
+### Check 2 — .claude/agents/ files ↔ theme-name-map.md
 
-For every `Team/[Role Title]/` folder:
+For every `.claude/agents/[role].md` file:
 - [ ] A matching role token exists in `theme-name-map.md`
 - [ ] The mapped name matches the `# [Name]` heading in the persona file
 
@@ -52,7 +51,7 @@ For every entry in `theme-name-map.md`:
 
 ### Check 4 — No orphans
 
-- [ ] No `Team/` folders exist without a matching CLAUDE.md row
+- [ ] No `.claude/agents/` files exist without a matching CLAUDE.md row
 - [ ] No CLAUDE.md rows reference a file that does not exist
 
 ---

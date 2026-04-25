@@ -16,7 +16,7 @@ This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern.
 
 ## Who is the Senior Adviser
 
-The Senior Adviser is the team's advisor-only persona. They live at [Team/Senior Adviser/senior-adviser.md](../../Team/Senior%20Adviser/senior-adviser.md). They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
+The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
 
 The Senior Adviser is **not** directly addressable by the user. They are invoked only by other personas during their turn, using the Agent tool with an Opus model override.
 
@@ -57,7 +57,7 @@ Agent(
   model: "opus",
   description: "@{SeniorAdviser} advisor checkpoint [A|B]",
   prompt: "You are @{SeniorAdviser} — Senior Adviser
-           (see Team/Senior Adviser/senior-adviser.md).
+           (see .claude/agents/senior-adviser.md).
            Respond in ≤100 words, enumerated steps, no explanations.
 
            <full task context — what the Orchestrator routed, what you've learned so far>

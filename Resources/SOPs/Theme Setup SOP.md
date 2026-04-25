@@ -25,8 +25,8 @@ This SOP governs replacing AI team member names with characters from a user-chos
 Before any theme or revert operation, the Orchestrator must:
 
 1. **Verify name map exists** — if `Vault/Memory/theme-name-map.md` is missing, halt and ask the user to confirm current team names before proceeding
-2. **Check for drift** — scan `Team/` folder names against the `Current` column in the map; if any mismatch is found, flag to user and resolve before proceeding
-3. **Check for collisions** — confirm no new character name already exists as a folder name or file name in `Team/`; if collision found, ask the Senior Researcher to suggest an alternative
+2. **Check for drift** — scan `# [Name]` headings in `.claude/agents/` files against the `Current` column in the map; if any mismatch is found, flag to user and resolve before proceeding
+3. **Check for collisions** — confirm no new character name already exists as a name heading in `.claude/agents/`; if collision found, ask the Senior Researcher to suggest an alternative
 4. **No concurrent operations** — if a theme operation is already in progress, refuse to start another
 
 ---
@@ -106,19 +106,7 @@ Name map format:
 ...
 ```
 
-#### 4b — Rename Team folders
-```
-Team/[CurrentName] - [Role]/ → Team/[NewName] - [Role]/
-```
-All 10 folders under `Team/`.
-
-#### 4c — Rename persona files
-```
-[currentname]-[role].md → [newname]-[role].md
-```
-Inside each renamed folder.
-
-#### 4d — Find-replace names in all .md files
+#### 4b — Find-replace names in all .md files
 
 Perform a grep-and-replace sweep across **all** `.md` files in the vault. Process these files explicitly:
 1. `CLAUDE.md` — roster table (names + file paths atomically), hiring pipeline references, Advisor Checkpoints section
@@ -205,8 +193,6 @@ For the collision check in pre-flight, compare names case-insensitively and stri
 - [ ] Dry-run preview confirmed by user
 - [ ] `Vault/Memory/theme-name-map.md` `Current` column updated
 - [ ] Timestamped backup of previous map exists
-- [ ] All 10 `Team/` folders renamed
-- [ ] All 10 persona files renamed
 - [ ] All `@Name` references updated in persona files
 - [ ] All `Basis` section file path links updated in persona files
 - [ ] CLAUDE.md roster table shows new names and correct file paths (in sync with folders)

@@ -27,7 +27,7 @@ AmazonStoresSpecialist: Milo
 
 ## File Path Convention
 
-Persona files live at `Team/[Role Title]/[role].md`. Example: `Team/SEO Specialist/seo-specialist.md`. The Orchestrator can derive any persona path from the role title without a lookup table.
+Persona files live at `.claude/agents/[role].md`. Example: `.claude/agents/seo-specialist.md`. The Orchestrator can derive any persona path from the role slug without a lookup table.
 
 ## How to Use
 
@@ -42,5 +42,5 @@ When you want to swap a team member:
 To completely rebrand the team (e.g., use a different name theme):
 
 - Update all name values above
-- Person-based folder structure is unnecessary; folders stay role-based
+- File paths stay role-based — no files or folders are renamed
 - All @{RoleToken} routing automatically uses the new names

@@ -20,7 +20,7 @@ The Active Team Roster in `CLAUDE.md` has been updated:
 
 | Role Token | Current Name | Role | File |
 |---|---|---|---|
-| `@{PaidMediaSpecialist}` | Reed | Paid Media Specialist | Team/Paid Media Specialist/paid-media-specialist.md |
+| `@{PaidMediaSpecialist}` | Reed | Paid Media Specialist | .claude/agents/paid-media-specialist.md |
 
 *(Copy this row into the Active Team Roster table in your CLAUDE.md and add `PaidMediaSpecialist: Reed` to `Vault/Memory/theme-name-map.md`)*
 
@@ -28,7 +28,7 @@ The Active Team Roster in `CLAUDE.md` has been updated:
 
 ## Next steps
 
-- [ ] Persona file saved to `Team/Paid Media Specialist/`
+- [ ] Persona file saved to `.claude/agents/paid-media-specialist.md`
 - [ ] CLAUDE.md Active Team Roster updated
 - [ ] `Vault/Memory/theme-name-map.md` updated with new role token
 - [ ] Orchestrator announcement logged (this file)

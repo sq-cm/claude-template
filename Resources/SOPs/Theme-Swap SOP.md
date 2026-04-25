@@ -78,7 +78,7 @@ Vault/Archive/Team/SEO Specialist/[2024-2026-Alex]/
 ```
 
 **Step 2: Move Persona File**
-- Move `Team/SEO Specialist/seo-specialist.md` to the archive folder
+- Copy `.claude/agents/seo-specialist.md` to the archive folder
 - Files stay intact; dates document the tenure
 
 **Step 3: Add Successor to Role (if applicable)**
@@ -98,15 +98,15 @@ SEOSpecialist: Jordan  # new hire
 
 ### Current Role-Based Structure
 ```
-Team/
-  Orchestrator/
-    orchestrator.md          ← Orchestrator's persona
-  HR Lead/
+.claude/
+  agents/
+    orchestrator.md          ← Orchestrator's persona (also CLAUDE.md)
     hr-lead.md               ← HR Lead's persona
-  Senior Researcher/
     senior-researcher.md     ← Senior Researcher's persona
-    Research/
-      [role]-brief.md        ← Senior Researcher's research briefs
+    [role].md                ← all other specialist personas
+Resources/
+  Research/
+    [role]-brief.md          ← Senior Researcher's research briefs
 ```
 
 ### Archive Structure (Example)

@@ -26,7 +26,7 @@ A hiring pipeline exercise. Velora Studio has a paid media campaign to run — a
 4. Open `Working/harper-persona-stub.md`
 5. Read the Senior Researcher's completed brief
 6. Fill in all remaining persona template sections using Ryan's research
-7. Save to `Team/Reed - Paid Media Specialist/reed-paid-media-specialist.md`
+7. Save to `.claude/agents/paid-media-specialist.md`
 
 ### Step 3 — Orchestrator announces and updates the roster
 8. Open `Working/roster-announcement-template.md`

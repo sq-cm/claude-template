@@ -225,7 +225,7 @@ const TEAM = [
     desc: "Methodical, intellectually curious researcher who digs until he finds the real picture. Writes actionable briefs, not bullet-point summaries.",
     prompt: "@{SeniorResearcher} research the email marketing specialist role and write a brief.",
     expertise: ["Mapping real-world skills and knowledge of professionals across industries", "Synthesising research into structured briefs for persona development", "Identifying core competencies that distinguish great practitioners", "Spotting gaps in role definitions before they cause problems downstream"],
-    constraints: "Writes research briefs only — does not build personas. Briefs stored at Team/Senior Researcher/Research/."
+    constraints: "Writes research briefs only — does not build personas. Briefs stored at Resources/Research/."
   },
   {
     name: "Alex",
@@ -691,9 +691,26 @@ const FAQ = [
           <div class="step-num">7</div>
           <div class="step-content">
             <h3>Apply a theme (optional)</h3>
-            <p>Rename the team with characters from a theme — Vikings, Greek myths, Studio Ghibli, etc. This can be done now or any time later.</p>
-            <pre>"Set theme to Vikings"</pre>
-            <p>Sam researches character names, matches them to roles, shows a preview, and asks for confirmation before changing anything.</p>
+            <p>Rename the team with characters from a chosen universe. This can be done now or any time later — just send: <code>"Set theme to [theme]"</code>. Sam matches characters to roles, shows a preview, and asks for confirmation before changing anything. To revert: <code>"reset theme"</code>.</p>
+            <p style="margin-top:12px;font-size:0.85rem;font-weight:700;color:#555;">12 built-in themes — or name your own:</p>
+            <table class="caveman-table" style="margin-top:8px;">
+              <thead><tr><th>#</th><th>Theme</th><th>Sample names</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Vikings</td><td>Odin, Freya, Thor, Loki, Sigrid, Bjorn, Astrid, Ragnar, Ingrid, Gunnar</td></tr>
+                <tr><td>2</td><td>Greek Myths</td><td>Apollo, Iris, Hermes, Athena, Calypso, Daedalus, Selene, Eros, Theia, Nereus</td></tr>
+                <tr><td>3</td><td>Studio Ghibli</td><td>Totoro, Kiki, Nausicaä, Ashitaka, San, Chihiro, Howl, Sophie, Mononoke, Calcifer</td></tr>
+                <tr><td>4</td><td>Pokémon</td><td>Eevee, Raichu, Gengar, Mewtwo, Jolteon, Umbreon, Espeon, Alakazam, Machamp, Vaporeon</td></tr>
+                <tr><td>5</td><td>Jazz Musicians</td><td>Miles, Coltrane, Monk, Billie, Ella, Dizzy, Bird, Mingus, Chet, Cannonball</td></tr>
+                <tr><td>6</td><td>Planets &amp; Moons</td><td>Sol, Luna, Vega, Orion, Cassini, Titan, Lyra, Sirius, Halley, Io</td></tr>
+                <tr><td>7</td><td>Colours</td><td>Indigo, Sable, Ochre, Vermeil, Slate, Cobalt, Sienna, Teal, Onyx, Flax</td></tr>
+                <tr><td>8</td><td>Mushrooms</td><td>Morel, Chanterelle, Truffle, Shiitake, Matsutake, Porcini, Cremini, Amanita, Russula, Lactarius</td></tr>
+                <tr><td>9</td><td>Gemstones</td><td>Onyx, Jasper, Topaz, Garnet, Obsidian, Beryl, Citrine, Opal, Spinel, Zircon</td></tr>
+                <tr><td>10</td><td>Star Wars</td><td>Yoda, Leia, Han, Luke, Lando, Padmé, Obi-Wan, Anakin, Ahsoka, Grogu</td></tr>
+                <tr><td>11</td><td>Lord of the Rings</td><td>Gandalf, Frodo, Aragorn, Legolas, Gimli, Elrond, Galadriel, Boromir, Sam, Pippin</td></tr>
+                <tr><td>12</td><td>Game of Thrones</td><td>Jon, Daenerys, Tyrion, Cersei, Arya, Sansa, Brienne, Jaime, Theon, Davos</td></tr>
+              </tbody>
+            </table>
+            <p style="margin-top:10px;font-size:0.875rem;color:#555;">To pick a theme, send the number or name — or describe your own universe and Sam will research fitting names.</p>
           </div>
         </li>
         <li class="step-item">
@@ -725,6 +742,7 @@ const FAQ = [
       <p class="section-intro">The root is reserved for named top-level folders only. New persistent storage goes under <code>Vault/</code> — never at root level.</p>
       <div class="structure-tree">Claude - [YourCompany]/<br>
 ├── .claude/<br>
+│   ├── agents/                    ← persona files for all 20 team members<br>
 │   ├── commands/<br>
 │   │   ├── onboard.md             ← /onboard command (run first)<br>
 │   │   ├── log-session.md         ← /log-session command<br>
@@ -745,16 +763,9 @@ const FAQ = [
 │   ├── Git/                       ← cloned reference repos (git-ignored)<br>
 │   ├── Learn/                     ← this guide<br>
 │   ├── SOPs/                      ← Advisor Checkpoints, Repo Consultation, etc.<br>
+│   ├── Research/                  ← Senior Researcher's role research briefs<br>
 │   ├── setup-guide.md<br>
-│   ├── team-onboarding-guide.md<br>
 │   └── sam-routing.gif<br>
-├── Team/<br>
-│   ├── Orchestrator/<br>
-│   ├── HR Lead/<br>
-│   ├── Senior Researcher/<br>
-│   │   └── Research/              ← Senior Researcher's role research briefs<br>
-│   ├── INDEX.md                   ← team index<br>
-│   └── [17 more specialist roles]/<br>
 ├── Vault/<br>
 │   ├── Archive/                   ← retired projects and personas<br>
 │   ├── Attachments/               ← media and file attachments<br>

@@ -45,48 +45,17 @@ Claude - [CompanyName]/
 │   └── Templates/
 │       ├── Daily Note.md
 │       └── Weekly Note.md
-└── Team/
-│    ├── Orchestrator/
-│    │   └── orchestrator.md
-│    ├── HR Lead/
-│    │   └── hr-lead.md
-│    ├── Senior Researcher/
-│    │   ├── senior-researcher.md
-│    │   └── Research/
-│    ├── SEO Specialist/
-│    │   └── seo-specialist.md
-│    ├── Webflow Developer/
-│    │   └── webflow-developer.md
-│    ├── Visual AI Producer/
-│    │   └── visual-ai-producer.md
-│    ├── Senior Adviser/
-│    │   └── senior-adviser.md
-│    ├── Content Strategist/
-│    │   └── content-strategist.md
-│    ├── QA Compliance Reviewer/
-│    │   └── qa-compliance-reviewer.md
-│    ├── Copywriter/
-│    │   └── copywriter.md
-│    ├── Brand Strategist/
-│    │   └── brand-strategist.md
-│    ├── Creative Technologist/
-│    │   └── creative-technologist.md
-│    ├── Video & Motion Producer/
-│    │   └── video-&-motion-producer.md
-│    ├── Automation Architect/
-│    │   └── automation-architect.md
-│    ├── Social Media Manager/
-│    │   └── social-media-manager.md
-│    ├── Analytics & Reporting Specialist/
-│    │   └── analytics-&-reporting-specialist.md
-│    ├── UX-UI Designer/
-│    │   └── ux-ui-designer.md
-│    ├── Project Manager/
-│    │   └── project-manager.md
-│    ├── Creative Director/
-│    │   └── creative-director.md
-│    └── Amazon Stores Specialist/
-│        └── amazon-stores-specialist.md
+├── .claude/
+│   ├── agents/                        ← persona files for all 20 team members
+│   │   ├── orchestrator.md
+│   │   ├── hr-lead.md
+│   │   ├── senior-researcher.md
+│   │   ├── senior-adviser.md
+│   │   └── [16 more specialist roles].md
+│   ├── commands/
+│   └── skills/
+└── Resources/
+    └── Research/                      ← Senior Researcher's role research briefs
 ```
 
 ### Step 3: Secrets hygiene
@@ -196,12 +165,12 @@ You have one core rule: **you never carry out work yourself.** Every task — no
 Each team member lives in their own folder:
 
 ```
-Team/
-  [Name]/
-    [name]-[role].md        ← persona file
-  Ryan/
-    Research/
-      [role]-brief.md       ← Ryan's research briefs
+.claude/
+  agents/
+    [role].md               ← persona file for each team member
+Resources/
+  Research/
+    [role]-brief.md         ← Ryan's research briefs
 ```
 
 ### Persona File Template
@@ -240,8 +209,8 @@ Every persona file — including Harper's and Ryan's — must contain:
 When a new team member is needed:
 
 1. **Sam** identifies the gap and asks for your permission to hire.
-2. **Ryan** (Senior Researcher) researches the skills and knowledge real human professionals in that role typically have, then writes a brief to `Team/Ryan - Senior Researcher/Research/[role]-brief.md`.
-3. **Harper** (HR) reads Ryan's brief and uses it to build a full persona file at `Team/[Name - Role Title]/[name]-[role].md`, following the persona template above.
+2. **Ryan** (Senior Researcher) researches the skills and knowledge real human professionals in that role typically have, then writes a brief to `Resources/Research/[role]-brief.md`.
+3. **Harper** (HR) reads Ryan's brief and uses it to build a full persona file at `.claude/agents/[role].md`, following the persona template above.
 4. **Sam** announces the new hire and adds them to the active roster.
 
 ---
@@ -260,34 +229,34 @@ The following are exclusively Sam's domain and are never delegated:
 
 ## Active Team Roster
 
-| Name    | Role                             | File                                                                                          |
-|---------|----------------------------------|-----------------------------------------------------------------------------------------------|
-| Sam     | Orchestrator                     | Team/Orchestrator/orchestrator.md                                   |
-| Harper  | HR Lead                          | Team/HR Lead/hr-lead.md                                             |
-| Ryan    | Senior Researcher                | Team/Senior Researcher/senior-researcher.md                         |
-| Alex    | SEO Specialist                   | Team/SEO Specialist/seo-specialist.md                               |
-| Casey   | Webflow Developer                | Team/Webflow Developer/webflow-developer.md                         |
-| Cleo    | Visual AI Producer               | Team/Visual AI Producer/visual-ai-producer.md                       |
-| Odin    | Senior Adviser                   | Team/Senior Adviser/senior-adviser.md                               |
-| Sage    | Content Strategist               | Team/Content Strategist/content-strategist.md                       |
-| Quinn   | QA Compliance Reviewer           | Team/QA Compliance Reviewer/qa-compliance-reviewer.md               |
-| Finn    | Copywriter                       | Team/Copywriter/copywriter.md                                       |
-| Remi    | Brand Strategist                 | Team/Brand Strategist/brand-strategist.md                           |
-| Ellis   | Creative Technologist            | Team/Creative Technologist/creative-technologist.md                 |
-| Nova    | Video & Motion Producer          | Team/Video & Motion Producer/video-&-motion-producer.md             |
-| Axel    | Automation Architect             | Team/Automation Architect/automation-architect.md                   |
-| Juno    | Social Media Manager             | Team/Social Media Manager/social-media-manager.md                   |
-| Dex     | Analytics & Reporting Specialist | Team/Analytics & Reporting Specialist/analytics-&-reporting-specialist.md |
-| Jordan  | UX/UI Designer                   | Team/UX-UI Designer/ux-ui-designer.md                               |
-| Tate    | Project Manager                  | Team/Project Manager/project-manager.md                             |
-| Vera    | Creative Director                | Team/Creative Director/creative-director.md                         |
-| Milo    | Amazon Stores Specialist         | Team/Amazon Stores Specialist/amazon-stores-specialist.md           |
+| Name    | Role                             | File                                                              |
+|---------|----------------------------------|-------------------------------------------------------------------|
+| Sam     | Orchestrator                     | CLAUDE.md                                                         |
+| Harper  | HR Lead                          | .claude/agents/hr-lead.md                                         |
+| Ryan    | Senior Researcher                | .claude/agents/senior-researcher.md                               |
+| Alex    | SEO Specialist                   | .claude/agents/seo-specialist.md                                  |
+| Casey   | Webflow Developer                | .claude/agents/webflow-developer.md                               |
+| Cleo    | Visual AI Producer               | .claude/agents/visual-ai-producer.md                              |
+| Odin    | Senior Adviser                   | .claude/agents/senior-adviser.md                                  |
+| Sage    | Content Strategist               | .claude/agents/content-strategist.md                              |
+| Quinn   | QA Compliance Reviewer           | .claude/agents/qa-compliance-reviewer.md                          |
+| Finn    | Copywriter                       | .claude/agents/copywriter.md                                      |
+| Remi    | Brand Strategist                 | .claude/agents/brand-strategist.md                                |
+| Ellis   | Creative Technologist            | .claude/agents/creative-technologist.md                           |
+| Nova    | Video & Motion Producer          | .claude/agents/video-motion-producer.md                           |
+| Axel    | Automation Architect             | .claude/agents/automation-architect.md                            |
+| Juno    | Social Media Manager             | .claude/agents/social-media-manager.md                            |
+| Dex     | Analytics & Reporting Specialist | .claude/agents/analytics-reporting-specialist.md                  |
+| Jordan  | UX/UI Designer                   | .claude/agents/ux-ui-designer.md                                  |
+| Tate    | Project Manager                  | .claude/agents/project-manager.md                                 |
+| Vera    | Creative Director                | .claude/agents/creative-director.md                               |
+| Milo    | Amazon Stores Specialist         | .claude/agents/amazon-stores-specialist.md                        |
 
 *(Sam updates this table whenever a new team member is hired or archived.)*
 
 ---
 
-FILE: Team/Sam - Orchestrator/sam-orchestrator.md
+FILE: CLAUDE.md
 
 # Sam — AI Team Orchestrator
 
@@ -326,7 +295,7 @@ Founding member and orchestrator. Sam's behavior is fully defined in CLAUDE.md, 
 
 ---
 
-FILE: Team/Harper - HR Lead/harper-hr.md
+FILE: .claude/agents/hr-lead.md
 
 # Harper — HR Lead
 
@@ -365,7 +334,7 @@ Founding member — no research brief required. Harper's persona was established
 
 ---
 
-FILE: Team/Ryan - Senior Researcher/ryan-researcher.md
+FILE: .claude/agents/senior-researcher.md
 
 # Ryan — Senior Researcher
 
@@ -391,7 +360,7 @@ Ryan is a methodical, intellectually curious researcher who digs until he finds 
 ## Constraints & Guardrails
 - Ryan writes research briefs only — he does not build personas himself
 - He does not approve hires — that's Sam's domain
-- His briefs are stored at `Team/Ryan - Senior Researcher/Research/[role]-brief.md`
+- His briefs are stored at `Resources/Research/[role]-brief.md`
 - He focuses on real human professionals as a reference point, not idealized or fictional archetypes
 
 ## Team Relationships
@@ -404,7 +373,7 @@ Founding member — no research brief required. Ryan's persona was established a
 
 ---
 
-FILE: Team/Ryan - Senior Researcher/Research/.keep
+FILE: Resources/Research/.keep
 
 Ryan's research briefs for this project will be stored here.
 

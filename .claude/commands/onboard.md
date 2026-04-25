@@ -135,36 +135,7 @@ After install, refresh PATH and retry `python --version`. If install still fails
 
 ---
 
-## Step 4 — Theme
-
-Ask the user:
-
-> Want to apply a name theme to your team? Themes replace the default names (Sam, Harper, Ryan…) with characters from a chosen universe. You can do this now or any time later with "Set theme to [theme]".
->
-> Here are 12 options — or pick your own:
->
-> 1. **Vikings** — Odin, Freya, Thor, Loki, Sigrid, Bjorn, Astrid, Ragnar, Ingrid, Gunnar
-> 2. **Greek Myths** — Apollo, Iris, Hermes, Athena, Calypso, Daedalus, Selene, Eros, Theia, Nereus
-> 3. **Studio Ghibli** — Totoro, Kiki, Nausicaä, Ashitaka, San, Chihiro, Howl, Sophie, Mononoke, Calcifer
-> 4. **Pokémon** — Eevee, Raichu, Gengar, Mewtwo, Jolteon, Umbreon, Espeon, Alakazam, Machamp, Vaporeon
-> 5. **Jazz Musicians** — Miles, Coltrane, Monk, Billie, Ella, Dizzy, Bird, Mingus, Chet, Cannonball
-> 6. **Planets & Moons** — Sol, Luna, Vega, Orion, Cassini, Titan, Lyra, Sirius, Halley, Io
-> 7. **Colours** — Indigo, Sable, Ochre, Vermeil, Slate, Cobalt, Sienna, Teal, Onyx, Flax
-> 8. **Mushrooms** — Morel, Chanterelle, Truffle, Shiitake, Matsutake, Porcini, Cremini, Amanita, Russula, Lactarius
-> 9. **Gemstones** — Onyx, Jasper, Topaz, Garnet, Obsidian, Beryl, Citrine, Opal, Spinel, Zircon
-> 10. **Star Wars** — Yoda, Leia, Han, Luke, Lando, Padmé, Obi-Wan, Anakin, Ahsoka, Grogu
-> 11. **Lord of the Rings** — Gandalf, Frodo, Aragorn, Legolas, Gimli, Elrond, Galadriel, Boromir, Sam, Pippin
-> 12. **Game of Thrones** — Jon, Daenerys, Tyrion, Cersei, Arya, Sansa, Brienne, Jaime, Theon, Davos
->
-> Type a number, type your own theme name, or type "skip" to keep default names.
-
-- If user picks a theme: hand off to the Orchestrator with the message: `"Set theme to [chosen theme]"`
-- If user types their own theme: hand off to the Orchestrator with: `"Set theme to [their theme]"`
-- If user skips: continue to Step 5.
-
----
-
-## Step 5 — Setup complete
+## Step 4 — Setup complete
 
 Read the Active Team Roster table from `CLAUDE.md` and print it.
 
@@ -176,7 +147,7 @@ Then print:
 
 ---
 
-## Step 6 — Open the onboarding guide
+## Step 5 — Open the onboarding guide
 
 Open `Resources/Learn/index.html` in the default browser:
 
@@ -197,7 +168,7 @@ Tell the user:
 
 ---
 
-## Step 7 — Learn by doing: sample projects
+## Step 6 — Learn by doing: sample projects
 
 Print the following block exactly:
 

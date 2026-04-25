@@ -29,6 +29,6 @@ A client (Velora Studio) wants to run paid advertising across Google and Meta to
 ---
 
 *Orchestrator's note: Once permission is granted, this follows the standard hiring pipeline:*
-1. *The Senior Researcher researches the role → writes brief to `Team/Ryan - Senior Researcher/Research/paid-media-specialist-brief.md`*
-2. *The HR Lead reads brief → builds persona at `Team/Reed - Paid Media Specialist/reed-paid-media-specialist.md`*
+1. *The Senior Researcher researches the role → writes brief to `Resources/Research/paid-media-specialist-brief.md`*
+2. *The HR Lead reads brief → builds persona at `.claude/agents/paid-media-specialist.md`*
 3. *The Orchestrator announces hire + updates Active Team Roster in CLAUDE.md*

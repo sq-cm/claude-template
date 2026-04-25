@@ -51,7 +51,7 @@ Your message
 
 **Key files:**
 - `CLAUDE.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
-- `Team/[Role]/[role].md` — each team member's persona: identity, expertise, constraints, relationships
+- `.claude/agents/[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
 - `.claude/skills/` — reusable skill modules (brainstorming, planning, debugging, code review, etc.)
 
@@ -61,26 +61,26 @@ Your message
 
 | Role | Description |
 |------|------|
-| [Orchestrator](Team/Orchestrator/orchestrator.md) | Routes all requests, manages the roster, never does task work |
-| [HR Lead](Team/HR%20Lead/hr-lead.md) | Builds new team member personas from the Senior Researcher's briefs |
-| [Senior Researcher](Team/Senior%20Researcher/senior-researcher.md) | Researches roles before any new hire; writes role briefs |
-| [SEO Specialist](Team/SEO%20Specialist/seo-specialist.md) | Audits, keyword strategy, technical SEO, Search Console analysis |
-| [Webflow Developer](Team/Webflow%20Developer/webflow-developer.md) | Custom code embeds, JS interactions, CSS beyond Webflow's style panel |
-| [Visual AI Producer](Team/Visual%20AI%20Producer/visual-ai-producer.md) | AI image generation, prompt engineering, visual asset delivery |
-| [Copywriter](Team/Copywriter/copywriter.md) | Ad copy, landing pages, emails, social captions, website copy |
-| [Brand Strategist](Team/Brand%20Strategist/brand-strategist.md) | Positioning, voice architecture, messaging frameworks, brand governance |
-| [Content Strategist](Team/Content%20Strategist/content-strategist.md) | Content architecture, audits, editorial planning, briefs, measurement |
-| [UX/UI Designer](Team/UX-UI%20Designer/ux-ui-designer.md) | IA, wireframing, interaction design, UX writing, Figma handoff |
-| [Social Media Manager](Team/Social%20Media%20Manager/social-media-manager.md) | Publishing, scheduling, community management, platform analytics |
-| [Video & Motion Producer](Team/Video%20&%20Motion%20Producer/video-&-motion-producer.md) | AI video generation, motion graphics, reels, animated assets |
-| [Analytics & Reporting Specialist](Team/Analytics%20&%20Reporting%20Specialist/analytics-&-reporting-specialist.md) | Dashboards, performance reporting, attribution, data quality |
-| [Creative Technologist](Team/Creative%20Technologist/creative-technologist.md) | Multi-step AI pipelines, prompt systems, structured output schemas |
-| [Automation Architect](Team/Automation%20Architect/automation-architect.md) | Workflow automation, n8n/Make/Zapier, API and webhook integrations |
-| [QA Compliance Reviewer](Team/QA%20Compliance%20Reviewer/qa-compliance-reviewer.md) | Quality gates — reviews deliverables before they reach the client |
-| [Project Manager](Team/Project%20Manager/project-manager.md) | Delivery tracking, pipeline status, handoff coordination, timelines |
-| [Creative Director](Team/Creative%20Director/creative-director.md) | Campaign concepts, creative territories, cross-channel coherence |
-| [Amazon Stores Specialist](Team/Amazon%20Stores%20Specialist/amazon-stores-specialist.md) | Listings, A+ content, Stores, variation architecture, compliance |
-| [Senior Adviser](Team/Senior%20Adviser/senior-adviser.md) | Checkpoint reviewer — consulted before and after durable work |
+| [Orchestrator](CLAUDE.md) | Routes all requests, manages the roster, never does task work |
+| [HR Lead](.claude/agents/hr-lead.md) | Builds new team member personas from the Senior Researcher's briefs |
+| [Senior Researcher](.claude/agents/senior-researcher.md) | Researches roles before any new hire; writes role briefs |
+| [SEO Specialist](.claude/agents/seo-specialist.md) | Audits, keyword strategy, technical SEO, Search Console analysis |
+| [Webflow Developer](.claude/agents/webflow-developer.md) | Custom code embeds, JS interactions, CSS beyond Webflow's style panel |
+| [Visual AI Producer](.claude/agents/visual-ai-producer.md) | AI image generation, prompt engineering, visual asset delivery |
+| [Copywriter](.claude/agents/copywriter.md) | Ad copy, landing pages, emails, social captions, website copy |
+| [Brand Strategist](.claude/agents/brand-strategist.md) | Positioning, voice architecture, messaging frameworks, brand governance |
+| [Content Strategist](.claude/agents/content-strategist.md) | Content architecture, audits, editorial planning, briefs, measurement |
+| [UX/UI Designer](.claude/agents/ux-ui-designer.md) | IA, wireframing, interaction design, UX writing, Figma handoff |
+| [Social Media Manager](.claude/agents/social-media-manager.md) | Publishing, scheduling, community management, platform analytics |
+| [Video & Motion Producer](.claude/agents/video-motion-producer.md) | AI video generation, motion graphics, reels, animated assets |
+| [Analytics & Reporting Specialist](.claude/agents/analytics-reporting-specialist.md) | Dashboards, performance reporting, attribution, data quality |
+| [Creative Technologist](.claude/agents/creative-technologist.md) | Multi-step AI pipelines, prompt systems, structured output schemas |
+| [Automation Architect](.claude/agents/automation-architect.md) | Workflow automation, n8n/Make/Zapier, API and webhook integrations |
+| [QA Compliance Reviewer](.claude/agents/qa-compliance-reviewer.md) | Quality gates — reviews deliverables before they reach the client |
+| [Project Manager](.claude/agents/project-manager.md) | Delivery tracking, pipeline status, handoff coordination, timelines |
+| [Creative Director](.claude/agents/creative-director.md) | Campaign concepts, creative territories, cross-channel coherence |
+| [Amazon Stores Specialist](.claude/agents/amazon-stores-specialist.md) | Listings, A+ content, Stores, variation architecture, compliance |
+| [Senior Adviser](.claude/agents/senior-adviser.md) | Checkpoint reviewer — consulted before and after durable work |
 
 ---
 
@@ -147,9 +147,11 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ```
 Claude - TEMPLATE/
 ├── .claude/
-│   └── commands/
-│       ├── onboard.md                 ← /onboard command (run first)
-│       └── import-repos.md            ← /import-repos command
+│   ├── agents/                        ← persona files for all 20 team members
+│   ├── commands/
+│   │   ├── onboard.md                 ← /onboard command (run first)
+│   │   └── import-repos.md            ← /import-repos command
+│   └── skills/                        ← reusable skill modules
 ├── Inbox/                             ← staging area for unrouted material
 ├── Notes/                             ← daily notes, canvas files, clippings
 ├── Projects/
@@ -157,14 +159,9 @@ Claude - TEMPLATE/
 ├── Resources/
 │   ├── Git/                           ← cloned reference repos (git-ignored)
 │   ├── Learn/                         ← onboarding guide (index.html)
+│   ├── Research/                      ← Senior Researcher's role research briefs
 │   ├── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
 │   └── setup-guide.md                 ← full setup instructions
-├── Team/
-│   ├── Orchestrator/
-│   ├── HR Lead/
-│   ├── Senior Researcher/
-│   │   └── Research/                  ← Senior Researcher's role research briefs
-│   └── [17 more specialist roles]/
 ├── Vault/
 │   ├── Archive/                       ← retired projects and personas
 │   ├── Logs/                          ← clone failure logs, import logs

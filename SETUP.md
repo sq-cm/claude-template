@@ -112,4 +112,3 @@ Or just describe what you need — Sam will intercept and route.
 | `Vault/Memory/MEMORY.md` | Persistent cross-session memory |
 | `Vault/Memory/theme-name-map.md` | Current name → role mapping |
 | `Resources/SOPs/` | All standard operating procedures |
-| `Team/INDEX.md` | Quick roster lookup |

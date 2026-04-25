@@ -34,16 +34,19 @@ For any non-trivial or actionable request, run the `grill-me` skill first to int
 
 ## Team File Structure
 
-Each role (not person) has its own folder. This keeps the structure stable when team members change:
+Each team member is a native Claude Code sub-agent defined in `.claude/agents/`:
 
 ```
-Team/
-  [Role]/
-    [role].md               ← persona file
+.claude/agents/
+  [role-slug].md            ← persona file (YAML frontmatter + persona body)
+
+Resources/
   Senior Researcher/
     Research/
       [role]-brief.md       ← Senior Researcher's research briefs
 ```
+
+Agent files use kebab-case slugs (e.g. `content-strategist`, `seo-specialist`). The Orchestrator is NOT an agent file — its behaviour lives in this CLAUDE.md.
 
 For the full persona file template, see [Resources/SOPs/Persona Template SOP.md](Resources/SOPs/Persona%20Template%20SOP.md).
 
@@ -54,8 +57,8 @@ For the full persona file template, see [Resources/SOPs/Persona Template SOP.md]
 When a new team member is needed:
 
 1. **The Orchestrator** identifies the gap and asks for your permission to hire.
-2. **The Senior Researcher** researches the skills and knowledge real human professionals in that role typically have, then writes a brief to `Team/Senior Researcher/Research/[role]-brief.md`.
-3. **The HR Lead** reads the Senior Researcher's brief and uses it to build a full persona file at `Team/[Role Title]/[role].md`, following the persona template above.
+2. **The Senior Researcher** researches the skills and knowledge real human professionals in that role typically have, then writes a brief to `Resources/Research/[role]-brief.md`.
+3. **The HR Lead** reads the Senior Researcher's brief and uses it to build a full persona file at `.claude/agents/[role-slug].md`, following the persona template above.
 4. **The Orchestrator** announces the new hire and adds them to the active roster.
 
 ---
@@ -119,7 +122,8 @@ The root of this workspace is reserved for named top-level folders only:
 | `Notes/`     | Daily notes, weekly reviews, clippings, canvas files        |
 | `Projects/`  | Client and campaign project folders                         |
 | `Resources/` | SOPs (`Resources/SOPs/`) and repo clones (`Resources/Git/`) |
-| `Team/`      | Persona files and the Senior Researcher's research briefs   |
+| `.claude/agents/` | Persona files for all team members (sub-agents)        |
+| `Resources/Senior Researcher/` | Senior Researcher's research briefs          |
 | `Vault/`     | All persistent internal storage                             |
 
 **New folders must not be created at root level.** If a new category of persistent storage is needed, create it under `Vault/` — e.g. `Vault/Logs/`, `Vault/Exports/`. The Orchestrator enforces this on any folder-creation request.
@@ -151,4 +155,4 @@ The Orchestrator flags eligibility at routing time. Invoke using the most capabl
 
 ## Active Team Roster
 
-Token → name mappings: `Vault/Memory/theme-name-map.md`. File paths follow the pattern `Team/[Role Title]/[role].md`.
+Token → name mappings: `Vault/Memory/theme-name-map.md`. Agent files follow the pattern `.claude/agents/[role-slug].md`.

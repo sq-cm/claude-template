@@ -1,7 +1,7 @@
 # SOP — Odin Fallback (Adviser Unavailable)
 
-**Purpose:** Define team behaviour when an Odin checkpoint cannot complete — model unavailable, timeout, or empty response.  
-**Audience:** All team members who invoke Odin at checkpoints.  
+**Purpose:** Define team behaviour when an Odin checkpoint cannot complete — model unavailable, timeout, or empty response.
+**Audience:** All team members who invoke Odin at checkpoints.
 **Status:** Active. Owned by the Orchestrator.
 
 ---

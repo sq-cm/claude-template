@@ -2,7 +2,7 @@
 **HR Lead:** the HR Lead  
 **Date:** 2026-01-07  
 **Source brief:** `Working/ryan-research-brief.md`  
-**Output path:** `Team/Reed - Paid Media Specialist/reed-paid-media-specialist.md`  
+**Output path:** `.claude/agents/paid-media-specialist.md`  
 **Status:** IN PROGRESS — Identity section only
 
 ---

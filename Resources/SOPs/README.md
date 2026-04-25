@@ -12,7 +12,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Project Folder SOP.md`](Project%20Folder%20SOP.md)           | When to create a project folder, naming convention, structure                                                |
 | [`Repo Consultation SOP.md`](Repo%20Consultation%20SOP.md)     | When and how to consult Resources/Git repos for best practices; conflict resolution with the Senior Adviser  |
 | [`Repo Setup SOP.md`](Repo%20Setup%20SOP.md)                   | How to clone and refresh repos in Resources/Git/ — core set vs on-demand, failure handling, staleness policy |
-| [`Roster Drift SOP.md`](Roster%20Drift%20SOP.md)               | Pre-hire/fire/swap checklist to keep CLAUDE.md, Team/, and theme-name-map.md in sync                         |
+| [`Roster Drift SOP.md`](Roster%20Drift%20SOP.md)               | Pre-hire/fire/swap checklist to keep CLAUDE.md, .claude/agents/, and theme-name-map.md in sync               |
 | [`Tate Sam Handoff SOP.md`](Tate%20Sam%20Handoff%20SOP.md)     | Clean boundary between Sam (routes) and Tate (tracks); escalation triggers                                   |
 | [`Theme Setup SOP.md`](Theme%20Setup%20SOP.md)                 | Applying or reverting a naming theme across the team                                                         |
 | [`Theme-Swap SOP.md`](Theme-Swap%20SOP.md)                     | Step-by-step process for swapping the active naming theme across the team                                    |
