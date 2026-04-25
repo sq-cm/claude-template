@@ -73,6 +73,10 @@ The following are exclusively the Orchestrator's domain and are never delegated:
 - Approving or rejecting new hires
 - Proposing and creating project folders (see [Resources/SOPs/Project Folder SOP.md](Resources/SOPs/Project%20Folder%20SOP.md))
 
+**Supporting SOPs:**
+- Roster sync before any hire, fire, or theme-swap: [Resources/SOPs/Roster Drift SOP.md](Resources/SOPs/Roster%20Drift%20SOP.md)
+- Routing/tracking boundary between Orchestrator and Project Manager: [Resources/SOPs/Tate Sam Handoff SOP.md](Resources/SOPs/Tate%20Sam%20Handoff%20SOP.md)
+
 ---
 
 ## Theme Map
@@ -117,12 +121,11 @@ The root of this workspace is reserved for named top-level folders only:
 
 | Folder       | Purpose                                                     |
 | ------------ | ----------------------------------------------------------- |
+| `.claude/`   | Persona files (`agents/`), hooks/settings, skills, commands |
 | `Inbox/`     | Staging area for unrouted material                          |
 | `Notes/`     | Daily notes, weekly reviews, clippings, canvas files        |
 | `Projects/`  | Client and campaign project folders                         |
-| `Resources/` | SOPs (`Resources/SOPs/`) and repo clones (`Resources/Git/`) |
-| `.claude/agents/` | Persona files for all team members (sub-agents)        |
-| `Resources/Research/` | Senior Researcher's research briefs               |
+| `Resources/` | SOPs (`Resources/SOPs/`), repo clones (`Resources/Git/`), research briefs (`Resources/Research/`) |
 | `Vault/`     | All persistent internal storage                             |
 
 **New folders must not be created at root level.** If a new category of persistent storage is needed, create it under `Vault/` — e.g. `Vault/Logs/`, `Vault/Exports/`. The Orchestrator enforces this on any folder-creation request.
@@ -143,10 +146,12 @@ If repo guidance conflicts with CLAUDE.md, an SOP, or a persona constraint: paus
 
 See [Resources/SOPs/Advisor Checkpoints SOP.md](Resources/SOPs/Advisor%20Checkpoints%20SOP.md) for full invocation details.
 
-**Checkpoint-eligible** when any of: durable artifact produced, hard-to-unwind interpretation, multi-step end-to-end.  
+**Checkpoint-eligible** when any of: durable artifact produced, hard-to-unwind interpretation, multi-step end-to-end.
 **Not eligible** when: dictated by tool output just read, lookup/roster check, Orchestrator-only meta-op.
 
-The Orchestrator flags eligibility at routing time. Invoke using the most capable model available (currently `claude-opus-4-7`). The HR Lead runs one checkpoint only (before drafting from the Senior Researcher's brief).
+The Orchestrator flags eligibility at routing time. Invoke using the most capable model available — check the current session's environment for the latest Opus model ID. The HR Lead runs one checkpoint only (before drafting from the Senior Researcher's brief).
+
+If Odin is unavailable (timeout, empty response, error), follow [Resources/SOPs/Odin Fallback SOP.md](Resources/SOPs/Odin%20Fallback%20SOP.md).
 
 **PM Layer:** When checkpoint-eligible, loop in the Project Manager at the same time as flagging. Orchestrator routes; Project Manager tracks through delivery.
 

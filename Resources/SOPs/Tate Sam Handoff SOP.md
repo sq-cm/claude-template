@@ -1,7 +1,7 @@
 # SOP — Tate ↔ Sam Handoff
 
-**Purpose:** Define the clean boundary between Sam (Orchestrator) and Tate (Project Manager) so pipeline ownership never overlaps or falls through.  
-**Audience:** Sam and Tate. Referenced at routing time and at task close.  
+**Purpose:** Define the clean boundary between Sam (Orchestrator) and Tate (Project Manager) so pipeline ownership never overlaps or falls through.
+**Audience:** Sam and Tate. Referenced at routing time and at task close.
 **Status:** Active. Owned by the Orchestrator.
 
 ---

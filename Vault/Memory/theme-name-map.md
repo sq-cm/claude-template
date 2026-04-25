@@ -29,6 +29,8 @@ AmazonStoresSpecialist: Milo
 
 Persona files live at `.claude/agents/[role].md`. Example: `.claude/agents/seo-specialist.md`. The Orchestrator can derive any persona path from the role slug without a lookup table.
 
+> **Note:** `Orchestrator` is the only token with no corresponding `.claude/agents/` file. Its behaviour is defined in `CLAUDE.md` directly. All other tokens must have a matching agent file.
+
 ## How to Use
 
 When you want to swap a team member:

@@ -1,7 +1,7 @@
 # SOP — Roster Drift Check
 
-**Purpose:** Ensure the three sources of team roster truth stay in sync: `CLAUDE.md` table, `.claude/agents/` files, and `Vault/Memory/theme-name-map.md`.  
-**Audience:** Orchestrator. Run before any hire, fire, or theme-swap operation.  
+**Purpose:** Ensure the three sources of team roster truth stay in sync: `CLAUDE.md` table, `.claude/agents/` files, and `Vault/Memory/theme-name-map.md`.
+**Audience:** Orchestrator. Run before any hire, fire, or theme-swap operation.
 **Status:** Active. Owned by the Orchestrator.
 
 ---

@@ -1,7 +1,7 @@
 # Memory Index
 
 <!--
-This file is Sam's persistent memory store for this vault.
+This file is the Orchestrator's persistent memory store for this vault.
 
 What gets logged here:
 - Decisions and context that should survive session resets
@@ -19,3 +19,8 @@ This file may be committed to git or synced to cloud storage.
 ## Workflow preferences
 
 - [Run humaniser on all content output](feedback_humaniser.md) — apply `/humaniser` to every written deliverable before finalising; no exceptions for short docs
+
+## System logs
+
+- [Repo conflict rulings](repo-conflicts.md) — log of conflicts between `Resources/Git/` guidance and CLAUDE.md/SOPs, with Odin rulings and outcomes
+- [Theme change log](theme-change-log.md) — append-only log of all theme-swap operations; see `Resources/SOPs/Theme Setup SOP.md` for workflow

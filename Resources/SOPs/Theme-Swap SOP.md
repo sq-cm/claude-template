@@ -100,7 +100,7 @@ SEOSpecialist: Jordan  # new hire
 ```
 .claude/
   agents/
-    orchestrator.md          ← Orchestrator's persona (also CLAUDE.md)
+    [no orchestrator.md]     ← Orchestrator's behaviour lives in CLAUDE.md, not an agent file
     hr-lead.md               ← HR Lead's persona
     senior-researcher.md     ← Senior Researcher's persona
     [role].md                ← all other specialist personas

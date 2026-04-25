@@ -46,8 +46,7 @@ Claude - [CompanyName]/
 │       ├── Daily Note.md
 │       └── Weekly Note.md
 ├── .claude/
-│   ├── agents/                        ← persona files for all 20 team members
-│   │   ├── orchestrator.md
+│   ├── agents/                        ← persona files for all 19 team members (Orchestrator lives in CLAUDE.md)
 │   │   ├── hr-lead.md
 │   │   ├── senior-researcher.md
 │   │   ├── senior-adviser.md
