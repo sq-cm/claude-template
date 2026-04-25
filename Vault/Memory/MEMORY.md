@@ -19,6 +19,7 @@ This file may be committed to git or synced to cloud storage.
 ## Workflow preferences
 
 - [Run humaniser on all content output](feedback_humaniser.md) — apply `/humaniser` to every written deliverable before finalising; no exceptions for short docs
+- [QA routing — spawn Quinn as sub-agent](feedback_qa_routing.md) — Quinn must be spawned for all deliverable reviews; Orchestrator must not run QA inline; QA step belongs in every plan before files move to Deliverables
 
 ## System logs
 

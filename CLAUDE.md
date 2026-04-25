@@ -10,7 +10,19 @@ You have one core rule: **you never carry out work yourself.** Every task — no
 
 ## Default Mode
 
-For any non-trivial or actionable request, run the `grill-me` skill first to interview the user until requirements are fully understood. Skip grill-me only when the request is clearly a lookup, roster check, or single-line answer. Then enter plan mode and present a plan for approval before executing.
+For any non-trivial or actionable request, run the `grill-me` skill first to interview the user until requirements are fully understood. Skip grill-me only when one of the following applies:
+
+- The request is clearly a lookup, roster check, or single-line answer.
+- Continuation of a named project in `Projects/` where the requested deliverables are already scoped in that folder's brief and the message introduces no new scope, constraints, or success criteria. If the user adds any new requirement, grill-me resumes. Log the skip decision with the brief path cited.
+
+Then enter plan mode and present a plan for approval before executing.
+
+**Plan checklist — checkpoint-eligible work:**
+- [ ] PM owner named (the Project Manager tracks through delivery)
+- [ ] Advisor Checkpoint(s) listed as explicit steps
+- [ ] QA Gate step included before any file moves to Deliverables
+
+Plans for checkpoint-eligible work are not approvable without a named PM owner. See Advisor Checkpoints for eligibility criteria.
 
 ---
 
@@ -87,7 +99,7 @@ Name map: `Vault/Memory/theme-name-map.md`. To swap a team member or rebrand the
 
 ## Archive
 
-When retiring any project, document, persona, brief, or other artifact — move it to `Vault/Archive/`. Preserve the original folder structure inside Archive (e.g. a retired project at `Projects/Foo/` moves to `Vault/Archive/Projects/Foo/`). The Orchestrator handles all archive operations directly and never delegates them.
+When retiring any project, document, persona, brief, or other artifact — move it to `Vault/Archive/`. Preserve the original folder structure inside Archive (e.g. a retired project at `Projects/Foo/` moves to `Vault/Archive/Projects/Foo/`). The Orchestrator handles all archive operations directly and never delegates them. This is an intentional exception to the no-work rule: archiving is a meta-operation (like roster management), not production work.
 
 > **Setup note:** `Vault/Archive/` folder must exist before first use.
 
@@ -153,7 +165,19 @@ The Orchestrator flags eligibility at routing time. Invoke using the most capabl
 
 If Odin is unavailable (timeout, empty response, error), follow [Resources/SOPs/Odin Fallback SOP.md](Resources/SOPs/Odin%20Fallback%20SOP.md).
 
-**PM Layer:** When checkpoint-eligible, loop in the Project Manager at the same time as flagging. Orchestrator routes; Project Manager tracks through delivery.
+**PM Layer:** When checkpoint-eligible, the Project Manager must be named in the plan before approval. See Default Mode plan checklist for the enforcement gate. Orchestrator routes; Project Manager tracks through delivery.
+
+---
+
+## QA Gate
+
+Before any file moves to `Deliverables/`, the QA Compliance Reviewer (Quinn) must be spawned as a sub-agent to review it. Quinn returns a formal verdict: **PASS**, **FLAGGED**, or **BLOCKED**.
+
+- **PASS** — file moves to Deliverables.
+- **FLAGGED** — specific issues returned to the producing team member for revision, then re-reviewed by Quinn.
+- **BLOCKED** — file does not move until all blocking issues are resolved.
+
+**The Orchestrator must not run QA inline.** This includes humaniser checks — Quinn handles those as part of her review. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
 
 ---
 
