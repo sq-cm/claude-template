@@ -51,12 +51,12 @@ Run this once after cloning. Hooks enforce vault hygiene on commit.
 
 The vault ships with placeholder role names. You have two options:
 
-**Option A — Keep default (no action needed)**  
+**Option A — Keep default (no action needed)**
 Default names are already set in `Vault/Memory/theme-name-map.md`. Skip to Step 4.
 
-**Option B — Apply a naming theme**  
-Ask Sam: `apply a [theme] naming theme to the team` — e.g. Norse mythology, Greek gods, Pokémon.  
-Sam will route to Ryan (research) → Harper (persona renaming) → Sam (execution).  
+**Option B — Apply a naming theme**
+Ask Sam: `apply a [theme] naming theme to the team` — e.g. Norse mythology, Greek gods, Pokémon.
+Sam will route to Ryan (research) → Harper (persona renaming) → Sam (execution).
 See `Resources/SOPs/Theme Setup SOP.md` for the full workflow.
 
 ---

@@ -44,12 +44,12 @@ The Orchestrator runs pre-flight checks, then routes to the Senior Researcher.
 
 ### Step 2 — Senior Researcher researches
 
-The Orchestrator routes to @{SeniorResearcher}: *"Research [theme]. Find 10 characters and assign them to our 10 roles using archetype matching. Return a confirmation table."*
+The Orchestrator routes to @{SeniorResearcher}: *"Research [theme]. Find 20 characters and assign them to our 20 roles using archetype matching. Return a confirmation table."*
 
 The Senior Researcher:
 1. Checks theme is appropriate — flags to the Orchestrator if the theme contains culturally sensitive, offensive, or contentious characters before proceeding
 2. Searches Wikipedia or the web for a character list for the theme
-3. Selects exactly 10 characters — if fewer than 10 clearly distinct characters exist, flags this to @{Orchestrator} and asks whether to (a) broaden to related characters from the same universe, or (b) pick a different theme
+3. Selects exactly 20 characters — if fewer than 20 clearly distinct characters exist, flags this to @{Orchestrator} and asks whether to (a) broaden to related characters from the same universe, or (b) pick a different theme
 4. Assigns each character to a role using the archetype guide below — if two characters fit the same role equally well, picks the one with stronger narrative fit and notes the reasoning
 5. Checks for idempotency — if the proposed mapping is identical to the current `theme-name-map.md`, returns "already applied" and no changes are made
 6. Returns a mapping table to @{Orchestrator}
@@ -65,9 +65,19 @@ The Senior Researcher:
 | Webflow Developer | Builder, craftsperson, engineer |
 | Visual AI Producer | Artist, visionary, creator |
 | Senior Adviser | Elder advisor, oracle, strategist |
-| Dev Environment Specialist | Tinkerer, inventor, problem-solver |
 | Content Strategist | Storyteller, bard, communicator |
 | QA Compliance Reviewer | Judge, guardian, rule-keeper |
+| Copywriter | Wordsmith, poet, persuader |
+| Brand Strategist | Identity-keeper, philosopher, visionary |
+| Creative Technologist | Inventor, hybrid, bridge-builder |
+| Video Motion Producer | Director, filmmaker, motion artist |
+| Automation Architect | Systems-builder, efficiency-seeker, engineer |
+| Social Media Manager | Messenger, community voice, trend-rider |
+| Analytics & Reporting Specialist | Data sage, number-reader, pattern-finder |
+| UX/UI Designer | Empathic builder, interface shaper, user advocate |
+| Project Manager | Coordinator, task-master, timeline keeper |
+| Creative Director | Visionary leader, taste-maker, aesthetic judge |
+| Amazon Stores Specialist | Merchant, marketplace navigator, deal-maker |
 
 ### Step 3 — Orchestrator presents dry-run preview
 
@@ -82,9 +92,19 @@ The Orchestrator shows the user a confirmation table before making any changes:
 | Webflow Developer | [current] | [NewName] | ... |
 | Visual AI Producer | [current] | [NewName] | ... |
 | Senior Adviser | [current] | [NewName] | ... |
-| Dev Environment Specialist | [current] | [NewName] | ... |
 | Content Strategist | [current] | [NewName] | ... |
 | QA Compliance Reviewer | [current] | [NewName] | ... |
+| Copywriter | [current] | [NewName] | ... |
+| Brand Strategist | [current] | [NewName] | ... |
+| Creative Technologist | [current] | [NewName] | ... |
+| Video Motion Producer | [current] | [NewName] | ... |
+| Automation Architect | [current] | [NewName] | ... |
+| Social Media Manager | [current] | [NewName] | ... |
+| Analytics & Reporting Specialist | [current] | [NewName] | ... |
+| UX/UI Designer | [current] | [NewName] | ... |
+| Project Manager | [current] | [NewName] | ... |
+| Creative Director | [current] | [NewName] | ... |
+| Amazon Stores Specialist | [current] | [NewName] | ... |
 
 User confirms or requests specific swaps. The Orchestrator adjusts and re-presents until explicitly approved. No files are touched before confirmation.
 
@@ -110,10 +130,10 @@ Name map format:
 
 Perform a grep-and-replace sweep across **all** `.md` files in the vault. Process these files explicitly:
 1. `CLAUDE.md` — roster table (names + file paths atomically), hiring pipeline references, Advisor Checkpoints section
-2. All 10 persona files — headers (`# Name — Role`), `@Name` addressing, cross-references, `Basis` section links
+2. All 20 persona files — headers (`# Name — Role`), `@Name` addressing, cross-references, `Basis` section links
 3. `Resources/SOPs/Advisor Checkpoints SOP.md` — audience list, file path references
 4. `Resources/SOPs/Project Folder SOP.md` — any name references
-5. `setup-guide.md` — directory tree, Option B embedded template
+5. `SETUP.md` — directory tree, Option B embedded template
 
 Names are case-sensitive — match exact capitalisation. If a character name contains special characters (e.g. "Björn"), normalise for file/folder names (`bjorn-researcher.md`) but preserve the display name in markdown headers (`# Björn — Senior Researcher`).
 
@@ -180,7 +200,7 @@ Before any mutation, the Orchestrator creates `Vault/Memory/.theme-lock`. On com
 If a rename or find-replace fails mid-batch, the Orchestrator halts immediately, reports the last successful step, and instructs the user to either (a) resume from that step manually, or (b) restore the previous state using the most recent timestamped map backup. The Orchestrator does not attempt to auto-recover.
 
 ### Missing Original column (legacy vaults)
-If `Original` column is absent from the map on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn) before proceeding.
+If `Original` column is absent from the map on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn, Finn, Remi, Ellis, Nova, Axel, Juno, Dex, Jordan, Tate, Vera, Milo) before proceeding.
 
 ### Collision normalisation
 For the collision check in pre-flight, compare names case-insensitively and strip Unicode diacritics (e.g. "Björn" and "bjorn" are treated as equivalent). If a collision is detected, the Senior Researcher proposes an alternative.
@@ -197,6 +217,6 @@ For the collision check in pre-flight, compare names case-insensitively and stri
 - [ ] All `Basis` section file path links updated in persona files
 - [ ] CLAUDE.md roster table shows new names and correct file paths (in sync with folders)
 - [ ] `Resources/SOPs/Advisor Checkpoints SOP.md` audience list updated
-- [ ] `setup-guide.md` directory tree and Option B template updated
+- [ ] `SETUP.md` directory tree and Option B template updated
 - [ ] Operation logged to `Vault/Memory/theme-change-log.md`
 - [ ] Routing works — sending `@[NewOrchestratorName]` reaches the Orchestrator's equivalent
