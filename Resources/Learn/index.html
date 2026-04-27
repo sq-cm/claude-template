@@ -191,7 +191,7 @@
      DATA — update this block when roster changes
      ═══════════════════════════════════════════ -->
 <script>
-const LAST_SYNCED = "2026-04-22";
+const LAST_SYNCED = "2026-04-27";
 
 const TEAM = [
   {
@@ -733,6 +733,21 @@ const FAQ = [
           <tr><td>/caveman lite</td><td>Drop filler and articles. Keep grammar. Professional but no fluff.</td><td>Default — recommended for most workspaces.</td></tr>
           <tr><td>/caveman</td><td>Drop articles. Fragments OK. Default grunt mode.</td><td>Power users who want maximum density.</td></tr>
           <tr><td>/caveman ultra</td><td>Maximum compression. Telegraphic.</td><td>High-volume sessions where token cost matters.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Model Assignments</h2>
+      <p class="section-intro">Each agent file in <code>.claude/agents/</code> specifies a model. Assignments are pre-configured — no action needed unless you're hiring a new team member.</p>
+      <table class="caveman-table">
+        <thead>
+          <tr><th>Model</th><th>Assigned to</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>claude-opus-4-7</td><td>Odin (Senior Adviser)</td><td>Highest-stakes checkpoint reviews require maximum capability.</td></tr>
+          <tr><td>claude-haiku-4-5-20251001</td><td>Harper (HR Lead), Tate (Project Manager)</td><td>Structured, process-driven roles that don't need deep reasoning.</td></tr>
+          <tr><td>claude-sonnet-4-6</td><td>All 16 remaining specialists</td><td>Best balance of quality and speed for production work.</td></tr>
         </tbody>
       </table>
     </section>
