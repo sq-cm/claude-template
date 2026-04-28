@@ -24,31 +24,27 @@ If not a git repo (no `.git/` folder), skip silently.
 
 ---
 
-## Step 0.5 — Link Shared Projects folder
+## Step 0.5 — Verify Shared Projects folder
 
-Check if `../../Shared Projects` exists relative to the vault root.
-
-**If it does not exist:** skip this step and print:
-
-> ⚠️ Shared Projects folder not found. Make sure your vault is inside the Team shared drive (`Team/[Name]/Claude-[Name]/`), then re-run `/onboard`.
-
-**If `Projects/Shared` already exists:** skip silently — already linked.
-
-**If target exists and link not yet created:**
+Check if `../../Shared Projects` exists relative to the vault root:
 
 **macOS / Linux:**
 ```bash
-mkdir -p Projects
-ln -s "../../Shared Projects" Projects/Shared
+test -d "../../Shared Projects" && echo "FOUND" || echo "NOT FOUND"
 ```
 
 **Windows:**
 ```powershell
-New-Item -ItemType Directory -Force -Path "Projects" | Out-Null
-cmd /c mklink /J "Projects\Shared" "..\..\Shared Projects"
+if (Test-Path "..\..\Shared Projects") { "FOUND" } else { "NOT FOUND" }
 ```
 
-Report: "Projects/Shared linked to Team/Shared Projects ✓"
+**If found:** Report: "Shared Projects folder detected — accessible via Claude Code ✓"
+
+**If not found:** Print:
+
+> ⚠️ Shared Projects folder not found at `../../Shared Projects`. Make sure your vault is inside the Team shared drive (`Team/[Name]/Claude-[Name]/`). Claude Code will not have access to shared work until this is resolved.
+
+No symlinks or junctions needed. `../../Shared Projects` is pre-configured as an `additionalDirectory` in `.claude/settings.json` — Claude Code picks it up automatically when the folder exists.
 
 ---
 
