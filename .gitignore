@@ -32,3 +32,8 @@ entities.json
 
 # MemPalace palace data — local only, not committed
 Vault/Logs/Palace/
+
+# Personal work — local only, backed by Google Drive
+Projects/
+Vault/Memory/
+Inbox/

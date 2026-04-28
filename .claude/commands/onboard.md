@@ -6,17 +6,19 @@ You are the Orchestrator. Run first-time workspace setup. Execute all steps in o
 
 ## Step 0 — Lock repo to read-only (pull only)
 
-Run the following two commands to prevent accidental pushes back to the template repo:
+Run the following commands to prevent accidental pushes back to the template repo and set up a personal local branch:
 
 ```bash
 git remote set-url --push origin no_push
 git config core.hooksPath .githooks
+git checkout -b local/main 2>/dev/null || git checkout local/main
 ```
 
 - First command disables push — `git push` will fail with a clear error.
 - Second command activates the pre-push hook as a backup layer.
+- Third command creates and switches to `local/main` — all personal commits go here; `main` stays clean as the upstream mirror. If the branch already exists (re-run), it just checks it out.
 
-Report: "Repo locked to pull-only ✓"
+Report: "Repo locked to pull-only, switched to local/main ✓"
 
 If not a git repo (no `.git/` folder), skip silently.
 
