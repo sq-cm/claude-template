@@ -77,7 +77,7 @@ The Senior Researcher:
 | UX/UI Designer | Empathic builder, interface shaper, user advocate |
 | Project Manager | Coordinator, task-master, timeline keeper |
 | Creative Director | Visionary leader, taste-maker, aesthetic judge |
-| Amazon Stores Specialist | Merchant, marketplace navigator, deal-maker |
+| Email Developer | Craftsperson, inbox engineer, cross-client tester |
 
 ### Step 3 — Orchestrator presents dry-run preview
 
@@ -104,7 +104,7 @@ The Orchestrator shows the user a confirmation table before making any changes:
 | UX/UI Designer | [current] | [NewName] | ... |
 | Project Manager | [current] | [NewName] | ... |
 | Creative Director | [current] | [NewName] | ... |
-| Amazon Stores Specialist | [current] | [NewName] | ... |
+| Email Developer | [current] | [NewName] | ... |
 
 User confirms or requests specific swaps. The Orchestrator adjusts and re-presents until explicitly approved. No files are touched before confirmation.
 
@@ -200,7 +200,7 @@ Before any mutation, the Orchestrator creates `Vault/Memory/.theme-lock`. On com
 If a rename or find-replace fails mid-batch, the Orchestrator halts immediately, reports the last successful step, and instructs the user to either (a) resume from that step manually, or (b) restore the previous state using the most recent timestamped map backup. The Orchestrator does not attempt to auto-recover.
 
 ### Missing Original column (legacy vaults)
-If `Original` column is absent from the map on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn, Finn, Remi, Ellis, Nova, Axel, Juno, Dex, Jordan, Tate, Vera, Milo) before proceeding.
+If `Original` column is absent from the map on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn, Finn, Remi, Ellis, Nova, Axel, Juno, Dex, Jordan, Tate, Vera, Rory) before proceeding.
 
 ### Collision normalisation
 For the collision check in pre-flight, compare names case-insensitively and strip Unicode diacritics (e.g. "Björn" and "bjorn" are treated as equivalent). If a collision is detected, the Senior Researcher proposes an alternative.

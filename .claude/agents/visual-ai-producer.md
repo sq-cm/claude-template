@@ -60,4 +60,4 @@ Short reactive tasks (one-off `/edit` tweaks on an image already approved, a sin
 - Receives briefs from any team member; always loops back to @{Orchestrator} if scope is unclear
 
 ## Basis
-Research brief: `Resources/Research/ai-image-specialist-brief.md`
+Research brief: `Resources/Research/visual-ai-producer-brief.md`

@@ -79,7 +79,7 @@ Your message
 | [QA Compliance Reviewer](.claude/agents/qa-compliance-reviewer.md) | Quality gates — reviews deliverables before they reach the client |
 | [Project Manager](.claude/agents/project-manager.md) | Delivery tracking, pipeline status, handoff coordination, timelines |
 | [Creative Director](.claude/agents/creative-director.md) | Campaign concepts, creative territories, cross-channel coherence |
-| [Amazon Stores Specialist](.claude/agents/amazon-stores-specialist.md) | Listings, A+ content, Stores, variation architecture, compliance |
+| [Email Developer](.claude/agents/email-developer.md) | HTML email production, ESP integration, multi-client rendering |
 | [Senior Adviser](.claude/agents/senior-adviser.md) | Checkpoint reviewer — consulted before and after durable work |
 
 ---

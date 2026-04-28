@@ -249,7 +249,7 @@ The following are exclusively Sam's domain and are never delegated:
 | Jordan  | UX/UI Designer                   | .claude/agents/ux-ui-designer.md                                  |
 | Tate    | Project Manager                  | .claude/agents/project-manager.md                                 |
 | Vera    | Creative Director                | .claude/agents/creative-director.md                               |
-| Milo    | Amazon Stores Specialist         | .claude/agents/amazon-stores-specialist.md                        |
+| Rory    | Email Developer                  | .claude/agents/email-developer.md                                 |
 
 *(Sam updates this table whenever a new team member is hired or archived.)*
 

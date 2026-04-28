@@ -22,7 +22,7 @@ AnalyticsReportingSpecialist: Dex
 UXUIDesigner: Jordan
 ProjectManager: Tate
 CreativeDirector: Vera
-AmazonStoresSpecialist: Milo
+EmailDeveloper: Rory
 ```
 
 ## File Path Convention

@@ -135,6 +135,38 @@ After install, refresh PATH and retry `python --version`. If install still fails
 
 ---
 
+## Step 3.6 — Install VS Code extensions
+
+Detect platform, then find the `code` CLI:
+
+**Windows:** check `code` on PATH, then fall back to `$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code`.
+
+**macOS:** check `code` on PATH, then fall back to `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`.
+
+**Linux:** check `code` on PATH only.
+
+**If `code` is not found on any path:** skip this step and print:
+
+> ⚠️ VS Code extensions skipped — `code` CLI not found. In VS Code, open the Command Palette and run **"Shell Command: Install 'code' command in PATH"**, then re-run `/onboard`.
+
+**If `code` is available**, run the platform-appropriate script:
+
+**Windows:**
+```powershell
+PowerShell -ExecutionPolicy Bypass -File "${env:CLAUDE_PROJECT_DIR}\Vault\Scripts\install-vscode-extensions.ps1"
+```
+
+**macOS / Linux:**
+```bash
+bash "${CLAUDE_PROJECT_DIR}/Vault/Scripts/install-vscode-extensions.sh"
+```
+
+If the script file is not found, skip silently.
+
+Report: "VS Code extensions installed ✓"
+
+---
+
 ## Step 4 — Setup complete
 
 Read the Active Team Roster table from `CLAUDE.md` and print it.
