@@ -24,6 +24,34 @@ If not a git repo (no `.git/` folder), skip silently.
 
 ---
 
+## Step 0.5 — Link Shared Projects folder
+
+Check if `../../Shared Projects` exists relative to the vault root.
+
+**If it does not exist:** skip this step and print:
+
+> ⚠️ Shared Projects folder not found. Make sure your vault is inside the Team shared drive (`Team/[Name]/Claude-[Name]/`), then re-run `/onboard`.
+
+**If `Projects/Shared` already exists:** skip silently — already linked.
+
+**If target exists and link not yet created:**
+
+**macOS / Linux:**
+```bash
+mkdir -p Projects
+ln -s "../../Shared Projects" Projects/Shared
+```
+
+**Windows:**
+```powershell
+New-Item -ItemType Directory -Force -Path "Projects" | Out-Null
+cmd /c mklink /J "Projects\Shared" "..\..\Shared Projects"
+```
+
+Report: "Projects/Shared linked to Team/Shared Projects ✓"
+
+---
+
 ## Step 1 — Create .env
 
 Check if `.env` exists in the vault root.
