@@ -41,14 +41,14 @@ The Orchestrator does not create a project folder speculatively or mid-task. If 
 ## Folder naming convention
 
 ```
-Projects/[YYMMDD] [Client or Campaign Name] — [Deliverable Type]/
+Projects/[YYMMDD] [Client or Campaign Name] - [Deliverable Type]/
 ```
 
 Examples:
 ```
-Projects/260417 WellJoy — SEO Audit/
-Projects/260417 AISA — CyberCon Countdown Embed/
-Projects/260417 Su-Bridge — Hero Banner/
+Projects/260417 WellJoy - SEO Audit/
+Projects/260417 AISA - CyberCon Countdown Embed/
+Projects/260417 Su-Bridge - Hero Banner/
 ```
 
 - Use the date the project folder is created (YYMMDD)
