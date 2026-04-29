@@ -49,5 +49,7 @@ https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
 https://github.com/monmush/webflow-development
 https://github.com/webflow/webflow-skills
 https://github.com/Don-Monteverdi/webflow-claude-skills
+https://github.com/pbakaus/impeccable
+https://github.com/alchaincyf/huashu-design/
 
 -->
