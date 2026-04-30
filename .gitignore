@@ -17,6 +17,9 @@ desktop.ini
 .obsidian/workspace.json
 .obsidian/workspaces.json
 
+# Octarine
+.octarine/
+
 # Git repo clones — reference only, not committed
 Resources/Git/*/
 
