@@ -23,6 +23,8 @@ UXUIDesigner: Jordan
 ProjectManager: Tate
 CreativeDirector: Vera
 EmailDeveloper: Rory
+CompetitiveIntelligenceSpecialist: Kai
+MarketResearchSpecialist: Reid
 ```
 
 ## File Path Convention
