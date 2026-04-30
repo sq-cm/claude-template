@@ -6,6 +6,16 @@
     ]
   },
   "hooks": {
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"continue\": false, \"stopReason\": \"Worktree creation disabled — work directly in main directory\"}'"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
