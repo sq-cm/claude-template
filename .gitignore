@@ -39,8 +39,9 @@ entities.json
 Vault/Logs/Palace/
 
 # Personal work — local only, backed by Google Drive
-Projects/
-Vault/Memory/
 Inbox/
-Vault/Logs/Sessions/
+Projects/
 Vault/Exports/
+Vault/Logs/Sessions/
+Vault/Memory/
+Vault/rchive/
