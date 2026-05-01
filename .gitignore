@@ -11,6 +11,7 @@ desktop.ini
 # Claude Code internals
 .claude/cache/
 .claude/logs/
+.claude/settings.local.json
 
 # Obsidian internals
 .obsidian/workspace
