@@ -12,6 +12,7 @@ desktop.ini
 .claude/cache/
 .claude/logs/
 .claude/settings.local.json
+.claude/worktrees/
 
 # Obsidian internals
 .obsidian/workspace
