@@ -51,5 +51,7 @@ https://github.com/webflow/webflow-skills
 https://github.com/Don-Monteverdi/webflow-claude-skills
 https://github.com/pbakaus/impeccable
 https://github.com/alchaincyf/huashu-design/
+https://github.com/nexu-io/open-design
+https://github.com/FlorianBruniaux/claude-code-ultimate-guide
 
 -->
