@@ -2,10 +2,12 @@
   "mcpServers": {
     "mempalace": {
       "type": "stdio",
-      "command": "cmd",
+      "command": "python3",
       "args": [
-        "/c",
-        "Vault\\Scripts\\mempalace-mcp.cmd"
+        "-m",
+        "mempalace.mcp_server",
+        "--palace",
+        "Vault/Logs/Palace"
       ],
       "env": {}
     }
