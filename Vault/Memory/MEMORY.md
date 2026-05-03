@@ -25,3 +25,4 @@ This file may be committed to git or synced to cloud storage.
 
 - [Repo conflict rulings](repo-conflicts.md) — log of conflicts between `Resources/Git/` guidance and CLAUDE.md/SOPs, with Odin rulings and outcomes
 - [Theme change log](theme-change-log.md) — append-only log of all theme-swap operations; see `Resources/SOPs/Theme Setup SOP.md` for workflow
+- [Odin misses log](odin-misses.md) — append-only log of issues Odin's checkpoints failed to catch; used to improve checkpoint prompts and SOP coverage

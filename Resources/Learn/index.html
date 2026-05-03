@@ -415,6 +415,28 @@ const TEAM = [
     constraints: "Builds email-safe HTML only — does not originate visual designs, own deliverability infrastructure (SPF/DKIM/DMARC), or manage list segmentation and send logic."
   },
   {
+    name: "Kai",
+    role: "Competitive Intelligence Specialist",
+    token: "CompetitiveIntelligenceSpecialist",
+    core: false,
+    tags: ["Competitor Analysis", "Battlecards", "Win/Loss Research"],
+    desc: "Turns competitive noise into decision-enabling signal. Tracks competitors across features, pricing, positioning, and strategic moves — and communicates what those moves mean, not just what they are.",
+    prompt: "@{CompetitiveIntelligenceSpecialist} analyse our top 3 competitors' positioning and produce a battlecard.",
+    expertise: ["Signal triangulation across public sources — job postings, pricing pages, review sites, financial filings", "Win/loss programme design and debrief synthesis", "Battlecard development and competitive comparison matrices", "Landscape analysis and strategic implication memos"],
+    constraints: "Reports on competitive intelligence — does not make product or pricing decisions. Every claim is tiered: Confirmed, Inferred, or Speculative. Won't use grey-area sourcing without flagging it."
+  },
+  {
+    name: "Reid",
+    role: "Market Research Specialist",
+    token: "MarketResearchSpecialist",
+    core: false,
+    tags: ["Market Research", "Audience Insights", "Survey Design"],
+    desc: "Methodical, data-driven researcher who treats research design as a discipline. Moves fluently between fieldwork and synthesis — and always ends with a recommended action, not just findings.",
+    prompt: "@{MarketResearchSpecialist} design a survey to validate our target audience's key pain points.",
+    expertise: ["Primary research — survey design, interview moderation, data collection", "Secondary research — desk research, competitive landscape, market sizing", "Audience segmentation and persona validation from data", "Research synthesis — pattern identification, implication mapping, actionable briefs"],
+    constraints: "Won't start fieldwork on a vague brief — scopes the researchable question first. Flags sample size limits and methodological constraints explicitly. Does not overstate certainty."
+  },
+  {
     name: "Drew",
     role: "Business Analyst",
     token: "BusinessAnalyst",
@@ -531,7 +553,7 @@ const FAQ = [
     <!-- What is this -->
     <section class="section" id="what-is-this">
       <h2 class="section-title">What is this?</h2>
-      <p class="section-intro">You have access to a team of 21 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
+      <p class="section-intro">You have access to a team of 23 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
       <div class="callout">
         <strong>Using Claude Code:</strong> Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter — that's it. Everything in this guide assumes you have Claude Code open with this workspace as your working directory.
       </div>
