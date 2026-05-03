@@ -9,7 +9,7 @@ if command -v jq >/dev/null 2>&1; then
     # --- jq path ---
     CONTEXT_WINDOW_USED_PERCENTAGE=$(printf '%s' "$input" | jq -r '.context_window.used_percentage // 0 | floor | tostring' 2>/dev/null || echo "0")
     MODEL_DISPLAY_NAME=$(printf '%s' "$input" | jq -r '.model.display_name // ""' 2>/dev/null || echo "")
-    WORKSPACE_PROJECT_DIR=$(printf '%s' "$input" | jq -r '.workspace.project_dir // "" | split("/") | last | split("\\\\") | last' 2>/dev/null || echo "")
+    WORKSPACE_PROJECT_DIR=$(printf '%s' "$input" | jq -r '.workspace.project_dir // "" | split("/") | last | split("\\") | last' 2>/dev/null || echo "")
 
 else
     # --- Python path ---
