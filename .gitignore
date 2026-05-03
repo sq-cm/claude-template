@@ -35,14 +35,17 @@ Resources/Git/*/
 mempalace.yaml
 entities.json
 
-
 # MemPalace palace data — local only, not committed
 Vault/Logs/Palace/
 
 # Personal work — local only, backed by Google Drive
 Inbox/
+Notes/
 Projects/
+Vault/Archive/
+Vault/Attachments/
+Vault/Bases/
+Vault/Categories/
 Vault/Exports/
 Vault/Logs/Sessions/
 Vault/Memory/
-Vault/rchive/
