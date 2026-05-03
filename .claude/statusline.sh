@@ -1,16 +1,24 @@
 #!/bin/bash
 input=$(cat)
 
-CONTEXT_WINDOW_USED_PERCENTAGE=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
-MODEL_DISPLAY_NAME=$(echo "$input" | jq -r '.model.display_name')
-WORKSPACE_PROJECT_DIR=$(basename "$(echo "$input" | jq -r '.workspace.project_dir')")
-# Show git branch if in a git repo
+PYTHON=$(command -v python3 || command -v python || true)
+[ -z "$PYTHON" ] && { echo "statusline: python required" >&2; exit 1; }
+
+read -r CONTEXT_WINDOW_USED_PERCENTAGE MODEL_DISPLAY_NAME WORKSPACE_PROJECT_DIR <<EOF
+$(printf '%s' "$input" | "$PYTHON" -c "
+import sys, json, os
+d = json.load(sys.stdin)
+pct = int(d.get('context_window', {}).get('used_percentage', 0))
+model = d.get('model', {}).get('display_name', '')
+proj = os.path.basename(d.get('workspace', {}).get('project_dir', ''))
+print(pct, model, proj)
+")
+EOF
+
 GIT_BRANCH=""
 if git rev-parse --git-dir > /dev/null 2>&1; then
     BRANCH=$(git branch --show-current 2>/dev/null)
-    if [ -n "$BRANCH" ]; then
-        GIT_BRANCH="$BRANCH"
-    fi
+    [ -n "$BRANCH" ] && GIT_BRANCH=" | 🌿 $BRANCH"
 fi
 
-echo "🧠 ${CONTEXT_WINDOW_USED_PERCENTAGE}% | 🤖 $MODEL_DISPLAY_NAME | 📁 $WORKSPACE_PROJECT_DIR | 🌿 $GIT_BRANCH"
+echo "🧠 ${CONTEXT_WINDOW_USED_PERCENTAGE}% | 🤖 $MODEL_DISPLAY_NAME | 📁 $WORKSPACE_PROJECT_DIR${GIT_BRANCH}"
