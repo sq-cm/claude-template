@@ -6,7 +6,10 @@ PYTHON=$(command -v python3 || command -v python || true)
 
 parsed=$(printf '%s' "$input" | "$PYTHON" -c "
 import sys, json, os
-d = json.load(sys.stdin)
+try:
+    d = json.load(sys.stdin)
+except Exception:
+    d = {}
 pct = int(d.get('context_window', {}).get('used_percentage', 0))
 model = d.get('model', {}).get('display_name', '')
 proj = os.path.basename(d.get('workspace', {}).get('project_dir', ''))
