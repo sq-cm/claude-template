@@ -2,6 +2,7 @@
 input=$(cat)
 
 PYTHON=$(command -v python3 || command -v python || true)
+if [ -n "$PYTHON" ] && ! "$PYTHON" -c "exit(0)" > /dev/null 2>&1; then PYTHON=""; fi
 [ -z "$PYTHON" ] && { echo "statusline: python required" >&2; exit 1; }
 
 parsed=$(printf '%s' "$input" | "$PYTHON" -c "
