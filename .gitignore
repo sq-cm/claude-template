@@ -31,7 +31,7 @@ Resources/Git/*/
 *.bak
 ~$*
 
-# MemPalace per-project files (issue #185)
+# MemPalace per-project files
 mempalace.yaml
 entities.json
 
