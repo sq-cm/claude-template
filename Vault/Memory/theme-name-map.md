@@ -25,6 +25,7 @@ CreativeDirector: Vera
 EmailDeveloper: Rory
 CompetitiveIntelligenceSpecialist: Kai
 MarketResearchSpecialist: Reid
+BusinessAnalyst: Drew
 ```
 
 ## File Path Convention

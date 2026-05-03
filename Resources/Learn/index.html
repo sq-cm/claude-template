@@ -191,7 +191,7 @@
      DATA — update this block when roster changes
      ═══════════════════════════════════════════ -->
 <script>
-const LAST_SYNCED = "2026-04-27";
+const LAST_SYNCED = "2026-05-03";
 
 const TEAM = [
   {
@@ -413,6 +413,17 @@ const TEAM = [
     prompt: "@{EmailDeveloper} convert this Figma design into a production HTML email for Klaviyo — audience is mostly Gmail and Apple Mail on mobile.",
     expertise: ["Table-based HTML email structure — MSO conditionals, VML, inline CSS, ghost tables", "Multi-client rendering: Outlook (Word engine), Gmail (style stripping), Apple Mail (WebKit, dark mode)", "ESP integration: Klaviyo (Jinja2), Mailchimp (merge tags), Campaign Monitor (editable regions)", "Responsive and fluid layout patterns with graceful degradation"],
     constraints: "Builds email-safe HTML only — does not originate visual designs, own deliverability infrastructure (SPF/DKIM/DMARC), or manage list segmentation and send logic."
+  },
+  {
+    name: "Drew",
+    role: "Business Analyst",
+    token: "BusinessAnalyst",
+    core: false,
+    tags: ["Brief Analysis", "RFQ Review", "Profitability Framing"],
+    desc: "Intake-stage analyst who sits between the client's raw request and the delivery pipeline. Reads briefs carefully, flags gaps and unstated assumptions, interrogates the business case, and produces a qualified brief the Orchestrator can route with confidence.",
+    prompt: "@{BusinessAnalyst} analyse this RFQ and flag any gaps before we scope it.",
+    expertise: ["Requirements elicitation and gap analysis — distinguishing stated, implied, and absent information", "Business case interrogation — testing scope-to-budget ratios, timeline realism, and commercial risk signals", "Scope definition — drawing clear in/out boundaries and explicit exclusion lists", "Qualified brief production — Go / Go-with-conditions / No-go recommendations with structured reasoning"],
+    constraints: "Recommends only — does not make the Go/No-go decision (that's the Orchestrator and user). Does not conduct external research, write copy, track delivery, model financials, or manage client relationships."
   }
 ];
 
@@ -520,7 +531,7 @@ const FAQ = [
     <!-- What is this -->
     <section class="section" id="what-is-this">
       <h2 class="section-title">What is this?</h2>
-      <p class="section-intro">You have access to a team of 20 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
+      <p class="section-intro">You have access to a team of 21 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
       <div class="callout">
         <strong>Using Claude Code:</strong> Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter — that's it. Everything in this guide assumes you have Claude Code open with this workspace as your working directory.
       </div>
