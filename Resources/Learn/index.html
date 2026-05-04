@@ -786,6 +786,30 @@ const FAQ = [
     </section>
 
     <section class="section">
+      <h2 class="section-title">Keeping your vault updated</h2>
+      <p class="section-intro">When the template repo receives updates, run this command from your vault root to pull them in without overwriting your personal work.</p>
+      <div class="steps-list" style="border-radius:12px;overflow:hidden;">
+        <div class="step-item">
+          <div class="step-num" style="background:#2d6a4f;">1</div>
+          <div class="step-content">
+            <h3>Run the update command</h3>
+            <pre>git fetch origin && git checkout main && git merge --ff-only origin/main && git checkout local/main && git rebase main</pre>
+            <p style="margin-top:8px;">This fetches the latest template, fast-forwards <code>main</code> as a clean upstream mirror, then rebases your personal <code>local/main</code> branch on top.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:#2d6a4f;">2</div>
+          <div class="step-content">
+            <h3>If rebase hits a conflict</h3>
+            <p>Git will pause and show which file conflicted. Resolve it, then:</p>
+            <pre>git add [file] && git rebase --continue</pre>
+            <p style="margin-top:8px;">To abort and return to your previous state: <code>git rebase --abort</code></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <h2 class="section-title">Caveman Mode Levels</h2>
       <table class="caveman-table">
         <thead>
