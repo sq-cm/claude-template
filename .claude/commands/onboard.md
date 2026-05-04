@@ -48,6 +48,22 @@ No symlinks or junctions needed. `../../Shared Projects` is pre-configured as an
 
 ---
 
+## Step 0.6 — Configure VS Code settings
+
+Add `"git.enabled": false` to `.vscode/settings.json` if not already present.
+
+Read `.vscode/settings.json`, check if `git.enabled` exists. If not, add it:
+
+```json
+"git.enabled": false
+```
+
+Report: "VS Code git.enabled set to false ✓"
+
+This disables VS Code's built-in git UI for the vault — Claude Code handles git operations directly.
+
+---
+
 ## Step 1 — Create .env
 
 Check if `.env` exists in the vault root.
