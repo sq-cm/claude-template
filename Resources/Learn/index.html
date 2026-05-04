@@ -191,7 +191,7 @@
      DATA — update this block when roster changes
      ═══════════════════════════════════════════ -->
 <script>
-const LAST_SYNCED = "2026-05-03";
+const LAST_SYNCED = "2026-05-04";
 
 const TEAM = [
   {
@@ -453,7 +453,7 @@ const SLASH_COMMANDS = [
   { name: "/humaniser", type: "skill", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
   { name: "/grill-me", type: "skill", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
   { name: "/log-session", type: "skill", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
-  { name: "/onboard", type: "command", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, offers theme selection.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
+  { name: "/onboard", type: "command", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs recommended plugins (context-mode, superpowers, skill-creator, frontend-design), and installs VS Code extensions.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
   { name: "/import-repos", type: "command", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." }
 ];
 
@@ -711,6 +711,25 @@ const FAQ = [
         <li class="step-item">
           <div class="step-num">6</div>
           <div class="step-content">
+            <h3>Install recommended plugins</h3>
+            <p>Run each pair of commands in Claude Code. These add context-window management, skill authoring, and UI generation capabilities.</p>
+            <pre>/plugin marketplace add mksglu/context-mode
+/plugin install context-mode
+
+/plugin marketplace add obra/superpowers
+/plugin install superpowers
+
+/plugin marketplace add anthropics/claude-plugins-official/plugins/skill-creator
+/plugin install skill-creator
+
+/plugin marketplace add anthropics/claude-plugins-official/plugins/frontend-design
+/plugin install frontend-design</pre>
+            <p style="margin-top:8px;">Restart Claude Code after all four installs to activate.</p>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">7</div>
+          <div class="step-content">
             <h3>Open in Claude Code and verify</h3>
             <p>Open the folder as your working directory. Use the prompt below to confirm routing works correctly.</p>
             <div class="verify-box">
@@ -721,7 +740,7 @@ const FAQ = [
           </div>
         </li>
         <li class="step-item">
-          <div class="step-num">7</div>
+          <div class="step-num">8</div>
           <div class="step-content">
             <h3>Apply a theme (optional)</h3>
             <p>Rename the team with characters from a chosen universe. This can be done now or any time later — just send: <code>"Set theme to [theme]"</code>. Sam matches characters to roles, shows a preview, and asks for confirmation before changing anything. To revert: <code>"reset theme"</code>.</p>
@@ -747,7 +766,7 @@ const FAQ = [
           </div>
         </li>
         <li class="step-item">
-          <div class="step-num">8</div>
+          <div class="step-num">9</div>
           <div class="step-content">
             <h3>Import reference repos</h3>
             <p>Drop GitHub repo URLs into <code>Resources/Git/IMPORT.md</code> and run <code>/import-repos</code>. The team consults these repos for best-practice guidance on relevant tasks.</p>

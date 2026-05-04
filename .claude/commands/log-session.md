@@ -15,9 +15,6 @@ You are the Orchestrator. This command writes a session log for the current conv
 2. Write the log file using the template below.
 3. Append the index entry.
 4. Confirm to the user with the file path.
-5. Automatically mine the new log into MemPalace by invoking `/mempalace:mine` on the saved log file path. No user prompt needed — just run it. Report: "Session mined into MemPalace ✓"
-
-   If MemPalace is not installed (command not found), skip silently.
 
 ## Log Template
 

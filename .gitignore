@@ -12,6 +12,7 @@ desktop.ini
 .claude/cache/
 .claude/logs/
 .claude/settings.local.json
+.claude/settings.local.jsonc
 .claude/worktrees/
 
 # Obsidian internals
@@ -33,8 +34,6 @@ Resources/Git/*/
 # MemPalace per-project files
 mempalace.yaml
 entities.json
-
-# MemPalace palace data — local only, not committed
 Vault/Logs/Palace/
 
 # Personal work — local only, backed by Google Drive
@@ -47,4 +46,3 @@ Vault/Bases/
 Vault/Categories/
 Vault/Exports/
 Vault/Logs/Sessions/
-Vault/Memory/

@@ -30,7 +30,32 @@ BusinessAnalyst: Drew
 
 ## File Path Convention
 
-Persona files live at `.claude/agents/[role].md`. Example: `.claude/agents/seo-specialist.md`. The Orchestrator can derive any persona path from the role slug without a lookup table.
+Persona files live at `.claude/agents/[role-slug].md`. Use the explicit map below — naive camelCase→kebab conversion breaks on acronym-heavy tokens (e.g. `UXUIDesigner`, `SEOSpecialist`).
+
+| Token | Agent file |
+|-------|-----------|
+| HRLead | `hr-lead.md` |
+| SeniorResearcher | `senior-researcher.md` |
+| SEOSpecialist | `seo-specialist.md` |
+| WebflowDeveloper | `webflow-developer.md` |
+| VisualAIProducer | `visual-ai-producer.md` |
+| SeniorAdviser | `senior-adviser.md` |
+| ContentStrategist | `content-strategist.md` |
+| QAComplianceReviewer | `qa-compliance-reviewer.md` |
+| Copywriter | `copywriter.md` |
+| BrandStrategist | `brand-strategist.md` |
+| CreativeTechnologist | `creative-technologist.md` |
+| VideoMotionProducer | `video-motion-producer.md` |
+| AutomationArchitect | `automation-architect.md` |
+| SocialMediaManager | `social-media-manager.md` |
+| AnalyticsReportingSpecialist | `analytics-reporting-specialist.md` |
+| UXUIDesigner | `ux-ui-designer.md` |
+| ProjectManager | `project-manager.md` |
+| CreativeDirector | `creative-director.md` |
+| EmailDeveloper | `email-developer.md` |
+| CompetitiveIntelligenceSpecialist | `competitive-intelligence-specialist.md` |
+| MarketResearchSpecialist | `market-research-specialist.md` |
+| BusinessAnalyst | `business-analyst.md` |
 
 > **Note:** `Orchestrator` is the only token with no corresponding `.claude/agents/` file. Its behaviour is defined in `CLAUDE.md` directly. All other tokens must have a matching agent file.
 

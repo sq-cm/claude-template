@@ -116,80 +116,61 @@ Report: "Caveman installed and set to lite mode."
 
 ---
 
-## Step 3.5 — Install MemPalace
+## Step 3.5 — Install claude-mem
 
-Check if Python 3.9+ is available:
+Install claude-mem via the plugin marketplace:
 
-```bash
-python --version
+```
+/plugin marketplace add thedotmack/claude-mem
 ```
 
-**If Python 3.9+ found:** run the following in order, defaulting the project directory to the vault root (current working directory) — do not prompt the user.
+Then install the plugin:
 
-```bash
-pip show mempalace || pip install mempalace
-PYTHONUTF8=1 python -m mempalace init --yes .
-claude mcp add --scope project mempalace -- python -m mempalace.mcp_server
-PYTHONUTF8=1 python -m mempalace status
+```
+/plugin install claude-mem
 ```
 
-Report: "MemPalace installed and configured ✓ — restart Claude Code to activate MCP tools."
+Report: "claude-mem installed ✓ — restart Claude Code to activate memory hooks."
 
-If `pip install` fails, try `pip3 install mempalace` then `python -m pip install mempalace`. If all fail, skip and warn.
+If the plugin command fails or is unavailable, print:
 
-**If Python not found or version < 3.9:** auto-install Python using the platform package manager, then retry from the top of this step.
-
-**Windows:**
-```powershell
-winget install -e --id Python.Python.3.12 --silent
-```
-
-**macOS:**
-```bash
-command -v brew &>/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install python@3.12
-```
-
-**Linux:**
-```bash
-sudo apt-get install -y python3 python3-pip
-```
-
-After install, refresh PATH and retry `python --version`. If install still fails, print:
-
-> ⚠️ MemPalace skipped — could not install Python automatically. Install Python 3.9+ manually then run `/mempalace:init`.
+> ⚠️ claude-mem skipped — plugin marketplace unavailable. Install manually: `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem`
 
 ---
 
-## Step 3.6 — Install VS Code extensions
+## Step 3.55 — Install recommended plugins
 
-Detect platform, then find the `code` CLI:
+Install four plugins via the plugin marketplace. Run each pair sequentially.
 
-**Windows:** check `code` on PATH, then fall back to `$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code`.
-
-**macOS:** check `code` on PATH, then fall back to `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`.
-
-**Linux:** check `code` on PATH only.
-
-**If `code` is not found on any path:** skip this step and print:
-
-> ⚠️ VS Code extensions skipped — `code` CLI not found. In VS Code, open the Command Palette and run **"Shell Command: Install 'code' command in PATH"**, then re-run `/onboard`.
-
-**If `code` is available**, run the platform-appropriate script:
-
-**Windows:**
-```powershell
-PowerShell -ExecutionPolicy Bypass -File "${env:CLAUDE_PROJECT_DIR}\Vault\Scripts\install-vscode-extensions.ps1"
+**context-mode** (context-window management):
+```
+/plugin marketplace add mksglu/context-mode
+/plugin install context-mode
 ```
 
-**macOS / Linux:**
-```bash
-bash "${CLAUDE_PROJECT_DIR}/Vault/Scripts/install-vscode-extensions.sh"
+**superpowers** (skill collection):
+```
+/plugin marketplace add obra/superpowers
+/plugin install superpowers
 ```
 
-If the script file is not found, skip silently.
+**skill-creator** (create and improve skills):
+```
+/plugin marketplace add anthropics/claude-plugins-official/plugins/skill-creator
+/plugin install skill-creator
+```
 
-Report: "VS Code extensions installed ✓"
+**frontend-design** (production UI generation):
+```
+/plugin marketplace add anthropics/claude-plugins-official/plugins/frontend-design
+/plugin install frontend-design
+```
+
+Report: "context-mode, superpowers, skill-creator, frontend-design installed ✓ — restart Claude Code to activate."
+
+If any plugin command fails, print a warning for that plugin and continue with the rest:
+
+> ⚠️ [plugin-name] skipped — install manually: `/plugin marketplace add [source]` then `/plugin install [plugin-name]`
 
 ---
 
