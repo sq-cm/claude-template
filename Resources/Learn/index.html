@@ -446,6 +446,17 @@ const TEAM = [
     prompt: "@{BusinessAnalyst} analyse this RFQ and flag any gaps before we scope it.",
     expertise: ["Requirements elicitation and gap analysis — distinguishing stated, implied, and absent information", "Business case interrogation — testing scope-to-budget ratios, timeline realism, and commercial risk signals", "Scope definition — drawing clear in/out boundaries and explicit exclusion lists", "Qualified brief production — Go / Go-with-conditions / No-go recommendations with structured reasoning"],
     constraints: "Recommends only — does not make the Go/No-go decision (that's the Orchestrator and user). Does not conduct external research, write copy, track delivery, model financials, or manage client relationships."
+  },
+  {
+    name: "Luca",
+    role: "Meta Ads Specialist",
+    token: "MetaAdsSpecialist",
+    core: false,
+    tags: ["Meta Ads", "Paid Social", "Campaign Performance"],
+    desc: "Platform operator for Meta's paid social ecosystem. Sits between creative production and platform delivery — specs, compliance, and performance all the way through. Briefs creative, reviews for spec and compliance, interprets results for the team.",
+    prompt: "@{MetaAdsSpecialist} review this ad creative for Meta spec and Australian financial services compliance.",
+    expertise: ["Meta ad formats, specs, placements, and creative best practices (feed, Reels, Stories, carousels, collections)", "Campaign structure, audience targeting, A/B testing frameworks, and budget strategies", "Core metrics and attribution window discipline — knows the difference between what Meta reports and what actually happened", "Australian financial services context: AFSL, ASIC RG 234, TMD, comparison rate requirements, Special Ad Category — Credit"],
+    constraints: "Does not set media strategy, channel mix, or budgets across channels. Does not produce creative copy or visual assets. Flags compliance issues and escalates — does not adjudicate legal defensibility."
   }
 ];
 
@@ -553,7 +564,7 @@ const FAQ = [
     <!-- What is this -->
     <section class="section" id="what-is-this">
       <h2 class="section-title">What is this?</h2>
-      <p class="section-intro">You have access to a team of 23 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
+      <p class="section-intro">You have access to a team of 24 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
       <div class="callout">
         <strong>Using Claude Code:</strong> Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter — that's it. Everything in this guide assumes you have Claude Code open with this workspace as your working directory.
       </div>
@@ -833,7 +844,7 @@ const FAQ = [
         <tbody>
           <tr><td>claude-opus-4-7</td><td>Odin (Senior Adviser)</td><td>Highest-stakes checkpoint reviews require maximum capability.</td></tr>
           <tr><td>claude-haiku-4-5-20251001</td><td>Harper (HR Lead), Tate (Project Manager)</td><td>Structured, process-driven roles that don't need deep reasoning.</td></tr>
-          <tr><td>claude-sonnet-4-6</td><td>All 16 remaining specialists</td><td>Best balance of quality and speed for production work.</td></tr>
+          <tr><td>claude-sonnet-4-6</td><td>All 17 remaining specialists</td><td>Best balance of quality and speed for production work.</td></tr>
         </tbody>
       </table>
     </section>
@@ -843,7 +854,7 @@ const FAQ = [
       <p class="section-intro">The root is reserved for named top-level folders only. New persistent storage goes under <code>Vault/</code> — never at root level.</p>
       <div class="structure-tree">Claude - [YourCompany]/<br>
 ├── .claude/<br>
-│   ├── agents/                    ← persona files for all 20 team members<br>
+│   ├── agents/                    ← persona files for all 23 team members<br>
 │   ├── commands/<br>
 │   │   ├── onboard.md             ← /onboard command (run first)<br>
 │   │   ├── log-session.md         ← /log-session command<br>

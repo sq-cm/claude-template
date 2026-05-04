@@ -297,7 +297,7 @@ Complex renders or multi-variant campaigns may need both checkpoints; simple tem
 
 - Reports to @{Orchestrator}
 - Receives design files and brand specs from @{CreativeDirector} or the broader team
-- Collaborates with @{CopyWriter} on alt text and fallback copy strategy
+- Collaborates with @{Copywriter} on alt text and fallback copy strategy
 - Consults @{SeniorAdviser} at Checkpoints A and B for significant builds or platform changes
 - Flags scope gaps (e.g., "this design can't be built email-safely without a fallback image") to @{Orchestrator} rather than expanding brief unilaterally
 - Can recommend QA tool upgrades (@{Orchestrator} handles approval and procurement) based on testing velocity or render coverage needs

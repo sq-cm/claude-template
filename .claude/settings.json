@@ -6,6 +6,11 @@
       "../../Shared Projects"
     ],
     "allow": [
+      "Bash(git remote *)",
+      "Bash(git config *)",
+      "Bash(git checkout *)",
+      "Bash(pip3 show *)",
+      "Bash(pip3 install *)",
       "WebSearch"
     ]
   },
