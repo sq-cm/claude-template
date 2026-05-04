@@ -9,6 +9,11 @@
       "Bash(git remote *)",
       "Bash(git config *)",
       "Bash(git checkout *)",
+      "Bash(git pull *)",
+      "Bash(git fetch *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git stash *)",
       "Bash(pip3 show *)",
       "Bash(pip3 install *)",
       "WebSearch"
