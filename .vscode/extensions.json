@@ -76,6 +76,7 @@
     "xdebug.php-pack",
     "yzhang.markdown-all-in-one",
     "zignd.html-css-class-completion",
-    "zobo.php-intellisense"
+    "zobo.php-intellisense",
+    "EthanSK.restore-terminals"
   ]
 }
