@@ -18,7 +18,16 @@ bash install.sh
 install.bat
 ```
 
-This does three things automatically: blocks push to the upstream template repo (your instance is yours — you can't accidentally push back), activates git hooks, and creates your `.env` file. Then continue with the steps below.
+This does three things automatically: blocks push to the upstream template repo (your instance is yours — you can't accidentally push back), activates git hooks (commit + push gates), and creates your `.env` file. The script verifies `core.hooksPath` resolved before proceeding — if it prints `[FAIL]`, fix that before continuing.
+
+### What you can and can't change locally
+
+The template flows one direction: maintainer → upstream → your clone. Your clone is read-only for template files.
+
+- **Editable** — `Inbox/`, `Notes/`, `Projects/` (all gitignored — your work lives here)
+- **Not editable for commit** — everything else (CLAUDE.md, `.claude/agents/`, SOPs, settings, etc.)
+
+`.githooks/pre-commit` blocks any commit touching paths outside the editable zone. `.githooks/pre-push` blocks all pushes. If you genuinely need a template change, propose it to the maintainer.
 
 ---
 
@@ -39,11 +48,13 @@ Never commit `.env` to git.
 
 ## Step 2 — Confirm git hooks are active
 
+The install script already wired this. To verify:
+
 ```bash
-git config core.hooksPath .githooks
+git config --get core.hooksPath
 ```
 
-Run this once after cloning. Hooks enforce vault hygiene on commit.
+Expected output: `.githooks`. If you see nothing, re-run the install script.
 
 ---
 

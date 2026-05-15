@@ -29,7 +29,7 @@ Hi, what can the team help me with today?
 
 That's it. Sam responds immediately. No API keys to wire up, no bootstrapping.
 
-For full setup instructions (including secrets hygiene, path verification, and automated setup via a single Claude prompt): see [setup-guide.md](Resources/setup-guide.md).
+For full setup instructions (including secrets hygiene, path verification, and automated setup via a single Claude prompt): see [Resources/Onboarding/setup-guide.md](Resources/Onboarding/setup-guide.md). New users: start with [Resources/Onboarding/team-onboarding-guide.md](Resources/Onboarding/team-onboarding-guide.md).
 
 ---
 
@@ -158,10 +158,10 @@ Claude - TEMPLATE/
 │   └── [5 sample onboarding projects]/
 ├── Resources/
 │   ├── Git/                           ← cloned reference repos (git-ignored)
-│   ├── Learn/                         ← onboarding guide (index.html)
+│   ├── Learn/                         ← interactive onboarding guide (index.html)
+│   ├── Onboarding/                    ← SETUP.md, setup-guide.md, team-onboarding-guide.md
 │   ├── Research/                      ← Senior Researcher's role research briefs
-│   ├── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
-│   └── setup-guide.md                 ← full setup instructions
+│   └── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
 ├── Vault/
 │   ├── Archive/                       ← retired projects and personas
 │   ├── Logs/                          ← clone failure logs, import logs
@@ -176,7 +176,7 @@ Claude - TEMPLATE/
 
 ## Demo
 
-![Orchestrator routing a request](Resources/sam-routing.gif)
+![Orchestrator routing a request](Resources/Assets/sam-routing.gif)
 
 ---
 

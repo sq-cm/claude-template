@@ -133,7 +133,7 @@ Perform a grep-and-replace sweep across **all** `.md` files in the vault. Proces
 2. All 20 persona files — headers (`# Name — Role`), `@Name` addressing, cross-references, `Basis` section links
 3. `Resources/SOPs/Advisor Checkpoints SOP.md` — audience list, file path references
 4. `Resources/SOPs/Project Folder SOP.md` — any name references
-5. `SETUP.md` — directory tree, Option B embedded template
+5. `Resources/Onboarding/SETUP.md` — directory tree, Option B embedded template
 
 Names are case-sensitive — match exact capitalisation. If a character name contains special characters (e.g. "Björn"), normalise for file/folder names (`bjorn-researcher.md`) but preserve the display name in markdown headers (`# Björn — Senior Researcher`).
 
@@ -217,6 +217,6 @@ For the collision check in pre-flight, compare names case-insensitively and stri
 - [ ] All `Basis` section file path links updated in persona files
 - [ ] CLAUDE.md roster table shows new names and correct file paths (in sync with folders)
 - [ ] `Resources/SOPs/Advisor Checkpoints SOP.md` audience list updated
-- [ ] `SETUP.md` directory tree and Option B template updated
+- [ ] `Resources/Onboarding/SETUP.md` directory tree and Option B template updated
 - [ ] Operation logged to `Vault/Memory/theme-change-log.md`
 - [ ] Routing works — sending `@[NewOrchestratorName]` reaches the Orchestrator's equivalent

@@ -28,7 +28,10 @@ Claude - [CompanyName]/
 │       ├── Working/
 │       └── Deliverables/
 ├── Resources/
-│   ├── setup-guide.md
+│   ├── Onboarding/
+│   │   ├── SETUP.md
+│   │   ├── setup-guide.md
+│   │   └── team-onboarding-guide.md
 │   ├── SOPs/
 │   │   ├── Advisor Checkpoints SOP.md
 │   │   ├── Project Folder SOP.md

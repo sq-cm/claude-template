@@ -1,8 +1,18 @@
 #!/bin/bash
+# pre-push — block teammate pushes; allow maintainer pushes
+#
+# Maintainer override: export CLAUDE_TEMPLATE_MAINTAINER=1
+
+if [ "$CLAUDE_TEMPLATE_MAINTAINER" = "1" ]; then
+  exit 0
+fi
+
 echo ""
 echo "❌  Push blocked — this is a read-only template vault."
 echo "    Your local changes stay local. That's by design."
 echo ""
 echo "    To pull the latest template updates: git pull"
+echo ""
+echo "    Maintainer override: export CLAUDE_TEMPLATE_MAINTAINER=1"
 echo ""
 exit 1

@@ -67,7 +67,3 @@ Luca is the team's platform translator for Meta's paid social ecosystem. They si
 ## Basis
 
 Research brief: `Resources/Research/meta-ads-specialist-brief.md` (prepared by @{SeniorResearcher} / Ryan)
-
----
-
-*HR Lead — Harper / Studio internal use only*

@@ -30,6 +30,24 @@ Resources/Git/*/
 *.tmp
 *.bak
 ~$*
+*~
+
+# Build / runtime artefacts
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+dist/
+build/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+pip-log.txt
 
 # MemPalace per-project files
 mempalace.yaml
@@ -42,6 +60,7 @@ Notes/
 Projects/
 Vault/Archive/
 Vault/Attachments/
+Vault/Audits/
 Vault/Bases/
 Vault/Categories/
 Vault/Exports/

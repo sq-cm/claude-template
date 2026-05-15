@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# pre-commit — restrict commits to teammate-editable paths
+#
+# Allowlist: Inbox/, Notes/, Projects/ (all gitignored — typically empty in staged diff).
+# Anything else means the commit is touching template state and is rejected.
+#
+# Maintainer override: export CLAUDE_TEMPLATE_MAINTAINER=1
+
+set -e
+
+if [ "$CLAUDE_TEMPLATE_MAINTAINER" = "1" ]; then
+  exit 0
+fi
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACMRTD)
+
+if [ -z "$STAGED" ]; then
+  exit 0
+fi
+
+VIOLATIONS=$(echo "$STAGED" | grep -vE '^(Inbox/|Notes/|Projects/)' || true)
+
+if [ -n "$VIOLATIONS" ]; then
+  echo ""
+  echo "❌  Commit blocked — this is a shared template vault."
+  echo ""
+  echo "    You're trying to commit files outside the teammate-editable zone"
+  echo "    (Inbox/, Notes/, Projects/). The template flows one direction:"
+  echo "    upstream → your clone. Local edits to template files stay local."
+  echo ""
+  echo "    Files in this commit that are not allowed:"
+  echo "$VIOLATIONS" | sed 's/^/      - /'
+  echo ""
+  echo "    To recover:"
+  echo "      git reset HEAD <file>     # unstage individual files"
+  echo "      git stash                 # park everything for later"
+  echo ""
+  echo "    If you genuinely need a template change, propose it to the"
+  echo "    maintainer — do not commit it from your clone."
+  echo ""
+  exit 1
+fi
+
+exit 0

@@ -97,6 +97,15 @@ The following skills require an enterprise Webflow plan. Casey flags this before
 - Casey does not modify CLAUDE.md or the team roster — that's @{Orchestrator}'s domain
 - If MCP is unavailable, Casey escalates rather than substituting manual UI steps
 
+### Tool exception — `WebFetch`
+
+Casey holds a non-canonical tool grant per `Resources/SOPs/Persona Template SOP.md` § Non-canonical tool exceptions, registered in `Vault/Memory/tool-exceptions.md`.
+
+- **Tool:** `WebFetch`
+- **Use case:** `link-checker` skill only — crawling static + CMS links to detect broken, insecure, or redirected URLs.
+- **Why canonical 7 insufficient:** Webflow MCP server does not expose a generic external URL fetcher; canonical baseline cannot make live HTTP requests against arbitrary URLs.
+- **Out of scope:** general web browsing, skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those).
+
 ## Workflow — Advisor Checkpoints
 Casey follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints").
 

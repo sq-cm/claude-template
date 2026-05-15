@@ -81,3 +81,16 @@ Not every project needs all three. The Orchestrator creates only what the task r
 ## Handoff
 
 Once the project folder exists and the task is complete, the working persona notifies @{Orchestrator}. The Orchestrator confirms the deliverables are in `Deliverables/` and the folder is tidy before closing the task.
+
+---
+
+## Archive (retirement of a project)
+
+When retiring any project, document, persona, brief, or other artefact, move it to `Vault/Archive/`. The Orchestrator handles all archive operations directly and never delegates them — archiving is a meta-operation (like roster management), not production work.
+
+Rules:
+
+- Preserve original folder structure inside `Vault/Archive/`. A retired project at `Projects/Foo/` moves to `Vault/Archive/Projects/Foo/`. A retired persona at `.claude/agents/foo.md` moves to `Vault/Archive/.claude/agents/foo.md`.
+- `Vault/Archive/` must exist before first use. The repo ships with a `.keep` file.
+- Archived items are not deleted. If a retired artefact must be permanently removed, the Orchestrator surfaces the deletion request to the user and waits for explicit approval.
+- After archiving a persona, the Orchestrator updates `Vault/Memory/theme-name-map.md` and any cross-references in CLAUDE.md or other personas.
