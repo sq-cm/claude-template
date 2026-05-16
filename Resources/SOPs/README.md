@@ -14,7 +14,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Repo Consultation SOP.md`](Repo%20Consultation%20SOP.md)     | When and how to consult Resources/Git repos for best practices; conflict resolution with the Senior Adviser  |
 | [`Repo Setup SOP.md`](Repo%20Setup%20SOP.md)                   | How to clone and refresh repos in Resources/Git/ — core set vs on-demand, failure handling, staleness policy |
 | [`Roster Drift SOP.md`](Roster%20Drift%20SOP.md)               | Pre-hire/fire/swap checklist to keep CLAUDE.md, .claude/agents/, and theme-name-map.md in sync               |
-| [`Tate Sam Handoff SOP.md`](Tate%20Sam%20Handoff%20SOP.md)     | Clean boundary between Sam (routes) and Tate (tracks); escalation triggers                                   |
+| [`Orchestrator PM Handoff SOP.md`](Orchestrator%20PM%20Handoff%20SOP.md) | Clean boundary between @{Orchestrator} (routes) and @{ProjectManager} (tracks); escalation triggers     |
 | [`Theme Setup SOP.md`](Theme%20Setup%20SOP.md)                 | First-time theme application — initial onboarding flow to apply a naming theme to a fresh vault              |
 | [`Theme-Swap SOP.md`](Theme-Swap%20SOP.md)                     | Live theme replacement — step-by-step process for swapping an already-applied theme to a different one       |
 

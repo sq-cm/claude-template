@@ -29,7 +29,7 @@ Hi, what can the team help me with today?
 
 That's it. Sam responds immediately. No API keys to wire up, no bootstrapping.
 
-For full setup instructions (including secrets hygiene, path verification, and automated setup via a single Claude prompt): see [Resources/Onboarding/setup-guide.md](Resources/Onboarding/setup-guide.md). New users: start with [Resources/Onboarding/team-onboarding-guide.md](Resources/Onboarding/team-onboarding-guide.md).
+For full setup instructions (install script, secrets hygiene, git hooks, theme application, repo index, optional Caveman mode): see [Resources/Onboarding/SETUP.md](Resources/Onboarding/SETUP.md). New users: start with [Resources/Onboarding/team-onboarding-guide.md](Resources/Onboarding/team-onboarding-guide.md).
 
 ---
 
@@ -159,7 +159,7 @@ Claude - TEMPLATE/
 ├── Resources/
 │   ├── Git/                           ← cloned reference repos (git-ignored)
 │   ├── Learn/                         ← interactive onboarding guide (index.html)
-│   ├── Onboarding/                    ← SETUP.md, setup-guide.md, team-onboarding-guide.md
+│   ├── Onboarding/                    ← SETUP.md, team-onboarding-guide.md
 │   ├── Research/                      ← Senior Researcher's role research briefs
 │   └── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
 ├── Vault/

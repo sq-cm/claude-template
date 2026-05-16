@@ -100,7 +100,7 @@ If the brief requires background research on an unfamiliar industry, client type
 
 ---
 
-## Checkpoint A — Advisor Consultation Required
+## Advisor Checkpoints
 
 Drew invokes @{SeniorAdviser} at Checkpoint A **on every Go-with-conditions or No-go recommendation**, not just on complex or ambiguous intakes. Checkpoint A occurs after the analysis is complete and the recommendation is formed, but before the qualified brief is handed back to @{Orchestrator}.
 

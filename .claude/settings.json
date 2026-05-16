@@ -55,6 +55,16 @@
     "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"$CLAUDE_PROJECT_DIR\"; else echo \"$CLAUDE_PROJECT_DIR\" | sed 's|\\\\|/|g; s|^\\([A-Za-z]\\):|/\\L\\1|'; fi)/.claude/statusline.sh\""
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/session-start-onboarding.sh\""
+          }
+        ]
+      }
+    ],
     "WorktreeCreate": [
       {
         "hooks": [

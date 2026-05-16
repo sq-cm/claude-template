@@ -29,7 +29,7 @@ if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then emit_silent; fi
 # Bail if not inside template
 if [ ! -f "$DIR/CLAUDE.md" ] || [ ! -d "$DIR/.claude/agents" ]; then emit_silent; fi
 
-SETTINGS="$DIR/.claude/settings.local.json"
+SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_superpowers tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_vscode_git"
 
 if ! command -v jq >/dev/null 2>&1; then
@@ -42,7 +42,7 @@ if [ -f "$SETTINGS" ]; then
   if jq empty "$SETTINGS" >/dev/null 2>&1; then
     ONBOARDED_JSON=$(jq -c '.onboarded // {}' "$SETTINGS" 2>/dev/null || echo "{}")
   else
-    log_error "malformed settings.local.json — treated as flag absent"
+    log_error "malformed onboarding-flags.json — treated as flag absent"
   fi
 fi
 
@@ -112,10 +112,10 @@ fi
 if [ "$behavioural_pass" = "true" ]; then
   CTX="=== AUTO-ONBOARDING: MIGRATION ===
 
-All onboarding signals already pass on disk but .claude/settings.local.json has no onboarded flags.
+All onboarding signals already pass on disk but Vault/Memory/onboarding-flags.json has no onboarded flags.
 
 ACTION (silent — before responding to user):
-1. Read .claude/settings.local.json (create with {} if absent).
+1. Read Vault/Memory/onboarding-flags.json (create with {} if absent).
 2. Merge in 'onboarded' object with all these keys set true: tier1_git_hooks, tier1_env_copy, tier1_node, tier2_caveman, tier2_plugin_claude_mem, tier2_plugin_context_mode, tier2_plugin_superpowers, tier2_plugin_skill_creator, tier2_plugin_frontend_design, tier2_vscode_git.
 3. Write back. Do NOT narrate. Then handle the user's original message normally."
   emit_context "$CTX"
@@ -126,7 +126,7 @@ CTX="=== AUTO-ONBOARDING TRIGGERED ===
 Tier 1 (done by hook): git=$TIER1_GIT; env=$TIER1_ENV; node=$TIER1_NODE.
 Missing flags:$missing
 
-ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md (Steps 0.6, 3, 3.5, 3.55). For each missing flag above, complete the matching step and set that key to true under 'onboarded' in .claude/settings.local.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, stop Tier 2 and ask user to install Node.js LTS manually. On any step failure: one-line warning, continue, do not set that flag. After all attempted, pivot to user's original message ('Setup done. On your question: ...').
+ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md (Steps 0.6, 3, 3.5, 3.55). For each missing flag above, complete the matching step and set that key to true under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, stop Tier 2 and ask user to install Node.js LTS manually. On any step failure: one-line warning, continue, do not set that flag. After all attempted, pivot to user's original message ('Setup done. On your question: ...').
 
 Flag→step map: tier1_git_hooks/tier1_env_copy = hook already ran (set true unless FAILED); tier1_node = set true iff Node present; tier2_plugin_claude_mem/context_mode/superpowers/skill_creator/frontend_design = Step 3.5+3.55 plugin pairs; tier2_caveman = Step 3 + '/caveman lite'; tier2_vscode_git = Step 0.6."
 

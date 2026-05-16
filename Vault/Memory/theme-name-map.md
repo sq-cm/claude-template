@@ -27,6 +27,7 @@ CompetitiveIntelligenceSpecialist: Kai
 MarketResearchSpecialist: Reid
 BusinessAnalyst: Drew
 MetaAdsSpecialist: Luca
+MobileDeveloper: Milo
 ```
 
 ## File Path Convention
@@ -58,6 +59,7 @@ Persona files live at `.claude/agents/[role-slug].md`. Use the explicit map belo
 | MarketResearchSpecialist | `market-research-specialist.md` |
 | BusinessAnalyst | `business-analyst.md` |
 | MetaAdsSpecialist | `meta-ads-specialist.md` |
+| MobileDeveloper | `mobile-developer.md` |
 
 > **Note:** `Orchestrator` is the only token with no corresponding `.claude/agents/` file. Its behaviour is defined in `CLAUDE.md` directly. All other tokens must have a matching agent file.
 

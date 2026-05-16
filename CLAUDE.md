@@ -96,6 +96,19 @@ Root is reserved for named top-level folders only:
 
 **New folders must not be created at root level.** If a new category of persistent storage is needed, create it under `Vault/`. The Orchestrator enforces this on any folder-creation request.
 
+> **Tool/VCS directories carve-out:** dotfolders managed by external tooling (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) are exempt from the folder rule. Dotfiles (`.gitignore`, `.gitattributes`, `.env`, `.env.example`) are likewise exempt from the permitted-files table below — repo conventions only.
+
+The following root-level files are permitted (repo conventions, not storage folders):
+
+| File | Purpose |
+| ------------ | ----------------------------------------------------------- |
+| `CLAUDE.md` | Project instructions for Claude Code |
+| `README.md` | Human-readable repo overview |
+| `install.sh` | Installer script (bash) for new team members |
+| `install.bat` | Installer script (Windows) for new team members |
+| `.env` | API keys and secrets (git-ignored) |
+| `.env.example` | Template for `.env` — safe to commit |
+
 API keys and secrets live in `.env` at the vault root (git-ignored). Copy `.env.example` to `.env` before first use.
 
 ---
@@ -117,5 +130,5 @@ Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via 
 | Advisor checkpoints · Odin fallback | [Advisor Checkpoints SOP](Resources/SOPs/Advisor%20Checkpoints%20SOP.md) · [Odin Fallback SOP](Resources/SOPs/Odin%20Fallback%20SOP.md) |
 | QA Gate (Quinn verdicts) | [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) |
 | Repo consultation · setup | [Repo Consultation SOP](Resources/SOPs/Repo%20Consultation%20SOP.md) · [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md) |
-| Routing/tracking boundary (Sam ↔ Tate) | [Tate Sam Handoff SOP](Resources/SOPs/Tate%20Sam%20Handoff%20SOP.md) |
+| Routing/tracking boundary (Orchestrator ↔ Project Manager) | [Orchestrator PM Handoff SOP](Resources/SOPs/Orchestrator%20PM%20Handoff%20SOP.md) |
 | All SOPs index | [Resources/SOPs/README.md](Resources/SOPs/README.md) |

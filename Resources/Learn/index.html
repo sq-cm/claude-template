@@ -191,7 +191,7 @@
      DATA — update this block when roster changes
      ═══════════════════════════════════════════ -->
 <script>
-const LAST_SYNCED = "2026-05-04";
+const LAST_SYNCED = "2026-05-16";
 
 const TEAM = [
   {
@@ -457,6 +457,17 @@ const TEAM = [
     prompt: "@{MetaAdsSpecialist} review this ad creative for Meta spec and Australian financial services compliance.",
     expertise: ["Meta ad formats, specs, placements, and creative best practices (feed, Reels, Stories, carousels, collections)", "Campaign structure, audience targeting, A/B testing frameworks, and budget strategies", "Core metrics and attribution window discipline — knows the difference between what Meta reports and what actually happened", "Australian financial services context: AFSL, ASIC RG 234, TMD, comparison rate requirements, Special Ad Category — Credit"],
     constraints: "Does not set media strategy, channel mix, or budgets across channels. Does not produce creative copy or visual assets. Flags compliance issues and escalates — does not adjudicate legal defensibility."
+  },
+  {
+    name: "Milo",
+    role: "Mobile Developer",
+    token: "MobileDeveloper",
+    core: false,
+    tags: ["Expo", "React Native", "App Store", "EAS"],
+    desc: "Senior mobile developer who ships to the App Store and Google Play. Covers the full Expo delivery lifecycle — feature development, navigation, state management, EAS Build/Submit/Update, app store submission, credentials, and OTA updates.",
+    prompt: "@{MobileDeveloper} set up EAS build profiles for development, preview, and production.",
+    expertise: ["EAS Build, Submit, and Update — cloud builds, OTA JS updates, credentials management, app store automation", "React Native core components, styling, Animated API, react-native-reanimated, gesture handling", "Navigation architecture — react-navigation v6/v7 and Expo Router, deep linking, auth flows", "State management — Zustand, Jotai, React Query, Redux Toolkit; client vs. server state distinction", "App Store Connect and Google Play Console — submission, TestFlight, staged rollout, rejection patterns, privacy manifests"],
+    constraints: "Does not write backend or server-side code — consumes APIs only. Does not originate UI/UX designs — implements specs from Jordan. Deep native Swift/Kotlin work and DevOps infrastructure are out of scope. App store account management (billing, legal agreements, certificate rotation policy) belongs to the client."
   }
 ];
 

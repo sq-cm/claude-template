@@ -12,7 +12,7 @@ This SOP governs replacing AI team member names with characters from a user-chos
 
 **Scope:** Names and file paths only. Persona file *contents* (Identity, Personality Traits, Expertise Areas, Constraints) are never modified — only the name header, `@Name` address tag, cross-references to other team members, and file/folder paths.
 
-**Name map:** `Vault/Memory/theme-name-map.md` is the source of truth for current and original names. The Orchestrator fails loudly if this file is missing or appears out of sync with the filesystem. The `Original` column is immutable — it always holds the factory defaults (Sam, Harper, Ryan, etc.) regardless of how many re-themes have been applied.
+**Name map:** `Vault/Memory/theme-name-map.md` is the source of truth for current names. Format is a YAML block (`RoleToken: CurrentName`) followed by an explicit role-token-to-file-path table. The Orchestrator fails loudly if this file is missing or appears out of sync with the filesystem. Factory defaults (Sam, Harper, Ryan, etc.) are recorded in `Vault/Memory/theme-change-log.md` as the baseline entry — that log is the audit trail for theme operations.
 
 **Triggers:**
 - `"Set theme to [X]"` / `"Re-theme to [X]"` — apply a new theme (replaces current names)
@@ -44,17 +44,19 @@ The Orchestrator runs pre-flight checks, then routes to the Senior Researcher.
 
 ### Step 2 — Senior Researcher researches
 
-The Orchestrator routes to @{SeniorResearcher}: *"Research [theme]. Find 20 characters and assign them to our 20 roles using archetype matching. Return a confirmation table."*
+The Orchestrator routes to @{SeniorResearcher}: *"Research [theme]. Find N characters (where N = current roster size; check `Vault/Memory/theme-name-map.md`) and assign them to our roles using archetype matching. Return a confirmation table."*
 
 The Senior Researcher:
 1. Checks theme is appropriate — flags to the Orchestrator if the theme contains culturally sensitive, offensive, or contentious characters before proceeding
 2. Searches Wikipedia or the web for a character list for the theme
-3. Selects exactly 20 characters — if fewer than 20 clearly distinct characters exist, flags this to @{Orchestrator} and asks whether to (a) broaden to related characters from the same universe, or (b) pick a different theme
+3. Counts the current roster from `Vault/Memory/theme-name-map.md` YAML block — this is the authoritative N (roster grows over time; do not hard-code). Selects exactly N characters — if fewer than N clearly distinct characters exist, flags this to @{Orchestrator} and asks whether to (a) broaden to related characters from the same universe, or (b) pick a different theme
 4. Assigns each character to a role using the archetype guide below — if two characters fit the same role equally well, picks the one with stronger narrative fit and notes the reasoning
 5. Checks for idempotency — if the proposed mapping is identical to the current `theme-name-map.md`, returns "already applied" and no changes are made
 6. Returns a mapping table to @{Orchestrator}
 
 #### Archetype-to-Role Guide
+
+Illustrative archetypes for the canonical core roles. For any role not listed (later hires), @{SeniorResearcher} derives the archetype from the persona's `description` field in `.claude/agents/[role-slug].md` and the role's research brief in `Resources/Research/`.
 
 | Role | Archetype to look for |
 |------|-----------------------|
@@ -78,6 +80,8 @@ The Senior Researcher:
 | Project Manager | Coordinator, task-master, timeline keeper |
 | Creative Director | Visionary leader, taste-maker, aesthetic judge |
 | Email Developer | Craftsperson, inbox engineer, cross-client tester |
+
+> **Note:** This table reflects the founding 20 roles. The live roster (`Vault/Memory/theme-name-map.md`) is authoritative — any later additions (e.g. Business Analyst, Mobile Developer, etc.) use archetypes derived from their persona/brief at theme-application time.
 
 ### Step 3 — Orchestrator presents dry-run preview
 
@@ -115,33 +119,34 @@ On confirmation, the Orchestrator performs the following in order:
 #### 4a — Back up and update name map
 
 1. Copy current `Vault/Memory/theme-name-map.md` to `Vault/Memory/theme-name-map-[YYYYMMDD-HHMM].md` (timestamped backup)
-2. Update `Vault/Memory/theme-name-map.md` — set `Current` column to new names; `Original` column is never changed
+2. Update `Vault/Memory/theme-name-map.md` — replace YAML values with new names. Role tokens (keys) are immutable; only the names (values) change.
 
-Name map format:
-```
-| Role | Original | Current |
-|------|----------|---------|
-| Orchestrator | Sam | [NewName] |
-| HR Lead | Harper | [NewName] |
+Name map format (canonical YAML — do not introduce alternate schemas):
+```yaml
+Orchestrator: [NewName]
+HRLead: [NewName]
+SeniorResearcher: [NewName]
 ...
 ```
+
+The accompanying explicit role-token-to-file-path table below the YAML stays untouched — file paths are role-based, not name-based.
 
 #### 4b — Find-replace names in all .md files
 
 Perform a grep-and-replace sweep across **all** `.md` files in the vault. Process these files explicitly:
-1. `CLAUDE.md` — roster table (names + file paths atomically), hiring pipeline references, Advisor Checkpoints section
-2. All 20 persona files — headers (`# Name — Role`), `@Name` addressing, cross-references, `Basis` section links
-3. `Resources/SOPs/Advisor Checkpoints SOP.md` — audience list, file path references
-4. `Resources/SOPs/Project Folder SOP.md` — any name references
-5. `Resources/Onboarding/SETUP.md` — directory tree, Option B embedded template
+1. `CLAUDE.md` — any name references (file paths are role-token-based and need no rename)
+2. All persona files in `.claude/agents/` — headers (`# Name — Role`), `@Name` addressing, cross-references
+3. All SOPs in `Resources/SOPs/` that mention names — most use `@{RoleToken}` and need no rename; check `Advisor Checkpoints SOP.md`, `Persona Template SOP.md`, `Orchestrator PM Handoff SOP.md`
+4. `Resources/Onboarding/SETUP.md`, `Resources/Onboarding/team-onboarding-guide.md` — directory tree and any prose name references
+5. `Resources/Learn/index.html` — `TEAM` array name fields and `LAST_SYNCED` constant
 
 Names are case-sensitive — match exact capitalisation. If a character name contains special characters (e.g. "Björn"), normalise for file/folder names (`bjorn-researcher.md`) but preserve the display name in markdown headers (`# Björn — Senior Researcher`).
 
-#### 4e — Log operation
+#### 4c — Log operation
 
 Append to `Vault/Memory/theme-change-log.md`:
 ```
-[YYYY-MM-DD HH:MM] Applied theme: [ThemeName] — replaced [PreviousTheme or "defaults"]
+| YYYY-MM-DD | Applied | [PreviousTheme or "defaults"] | [ThemeName] | N | [notes] |
 ```
 
 ### Step 5 — Orchestrator announces
@@ -160,19 +165,19 @@ User sends:
 
 ### Step 2 — Orchestrator presents dry-run preview
 
-The Orchestrator reads `Vault/Memory/theme-name-map.md` and shows:
+The Orchestrator reads `Vault/Memory/theme-change-log.md` to find the most recent baseline (or chosen prior-theme row) and shows:
 
 | Role | Current Name | Reverts To |
 |------|-------------|------------|
-| Orchestrator | [current] | Sam |
-| HR Lead | [current] | Harper |
+| Orchestrator | [current] | [original from log] |
+| HR Lead | [current] | [original from log] |
 ...
 
 User confirms before any changes are made.
 
 ### Step 3 — Orchestrator executes
 
-Same as Workflow A Step 4, but uses `Original` column values as the new names.
+Same as Workflow A Step 4, but uses the baseline values from `theme-change-log.md` as the new names.
 
 Appends to `Vault/Memory/theme-change-log.md`:
 ```
@@ -186,7 +191,7 @@ Appends to `Vault/Memory/theme-change-log.md`:
 - Roles never change — only names
 - `@Name` syntax must be updated in every persona's "How to Address" section
 - Roster table file paths must be updated atomically with folder/file renames — never update one without the other
-- `Original` column in name map is immutable across all re-themes
+- Role tokens (YAML keys) in name map are immutable across all re-themes; only names (values) change
 - Wikilinks and Obsidian backlinks are **out of scope** — Obsidian manages link integrity separately
 - Windows path length limit (260 chars) — if a new name would push a path over this limit, the Senior Researcher must propose a shorter alternative
 
@@ -199,8 +204,8 @@ Before any mutation, the Orchestrator creates `Vault/Memory/.theme-lock`. On com
 ### Partial failure recovery
 If a rename or find-replace fails mid-batch, the Orchestrator halts immediately, reports the last successful step, and instructs the user to either (a) resume from that step manually, or (b) restore the previous state using the most recent timestamped map backup. The Orchestrator does not attempt to auto-recover.
 
-### Missing Original column (legacy vaults)
-If `Original` column is absent from the map on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn, Finn, Remi, Ellis, Nova, Axel, Juno, Dex, Jordan, Tate, Vera, Rory) before proceeding.
+### Missing baseline (legacy vaults)
+If `Vault/Memory/theme-change-log.md` has no baseline entry on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names (Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn, Finn, Remi, Ellis, Nova, Axel, Juno, Dex, Jordan, Tate, Vera, Rory, Kai, Reid, Drew, Luca, Milo) before proceeding. Note: this list reflects the roster at last SOP update; for accuracy check `Vault/Memory/theme-name-map.md` and ask the user about any roles added since.
 
 ### Collision normalisation
 For the collision check in pre-flight, compare names case-insensitively and strip Unicode diacritics (e.g. "Björn" and "bjorn" are treated as equivalent). If a collision is detected, the Senior Researcher proposes an alternative.
@@ -211,12 +216,13 @@ For the collision check in pre-flight, compare names case-insensitively and stri
 
 - [ ] Pre-flight checks passed (map exists, no drift, no collisions)
 - [ ] Dry-run preview confirmed by user
-- [ ] `Vault/Memory/theme-name-map.md` `Current` column updated
+- [ ] `Vault/Memory/theme-name-map.md` YAML values updated; role tokens unchanged
 - [ ] Timestamped backup of previous map exists
 - [ ] All `@Name` references updated in persona files
 - [ ] All `Basis` section file path links updated in persona files
-- [ ] CLAUDE.md roster table shows new names and correct file paths (in sync with folders)
-- [ ] `Resources/SOPs/Advisor Checkpoints SOP.md` audience list updated
-- [ ] `Resources/Onboarding/SETUP.md` directory tree and Option B template updated
+- [ ] CLAUDE.md name references updated (file paths are role-based and need no change)
+- [ ] SOPs that reference names directly are updated (most use `@{RoleToken}` and need no rename)
+- [ ] `Resources/Onboarding/SETUP.md` directory tree and `Resources/Onboarding/team-onboarding-guide.md` prose names updated
+- [ ] `Resources/Learn/index.html` `TEAM` array name fields and `LAST_SYNCED` updated
 - [ ] Operation logged to `Vault/Memory/theme-change-log.md`
 - [ ] Routing works — sending `@[NewOrchestratorName]` reaches the Orchestrator's equivalent

@@ -127,3 +127,38 @@ Or just describe what you need — Sam will intercept and route.
 | `Vault/Memory/MEMORY.md` | Persistent cross-session memory |
 | `Vault/Memory/theme-name-map.md` | Current name → role mapping |
 | `Resources/SOPs/` | All standard operating procedures |
+
+---
+
+## Appendix — Caveman Mode (optional)
+
+Caveman mode reduces Claude's output tokens by ~65% by stripping filler, articles, and pleasantries while keeping full technical accuracy. The recommended default is **lite** — terse but readable. Auto-onboarding installs this automatically; the manual install is documented here for completeness.
+
+### Install
+
+**Claude Code (plugin):**
+```
+claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman
+```
+
+**Claude Code (standalone hooks):**
+
+macOS/Linux:
+```bash
+bash <(curl -s https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.sh)
+```
+
+Windows:
+```powershell
+irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.ps1 | iex
+```
+
+### Levels
+
+| Command | Style |
+|---------|-------|
+| `/caveman lite` | Drop filler, keep grammar. Professional but no fluff. |
+| `/caveman` | Drop articles, fragments OK. Default grunt mode. |
+| `/caveman ultra` | Maximum compression. Telegraphic. |
+
+Set lite as default per session with `/caveman lite`. Repo & docs: [github.com/JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman).
