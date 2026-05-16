@@ -10,6 +10,9 @@ if command -v jq >/dev/null 2>&1; then
     CONTEXT_WINDOW_USED_PERCENTAGE=$(printf '%s' "$input" | jq -r '.context_window.used_percentage // 0 | floor | tostring' 2>/dev/null || echo "0")
     MODEL_DISPLAY_NAME=$(printf '%s' "$input" | jq -r '.model.display_name // ""' 2>/dev/null || echo "")
     WORKSPACE_PROJECT_DIR=$(printf '%s' "$input" | jq -r '.workspace.project_dir // "" | split("/") | last | split("\\") | last' 2>/dev/null || echo "")
+    _in=$(printf '%s' "$input" | jq -r '.context_window.total_input_tokens // 0' 2>/dev/null || echo "0")
+    _out=$(printf '%s' "$input" | jq -r '.context_window.total_output_tokens // 0' 2>/dev/null || echo "0")
+    SESSION_TOKENS=$(( _in + _out ))
 
 else
     # --- Python path ---
@@ -50,11 +53,22 @@ except Exception:
     print('')
 " 2>/dev/null || echo "")
 
+        SESSION_TOKENS=$(printf '%s' "$input" | "$PYTHON_BIN" -c "
+import sys, json
+try:
+    d = json.load(sys.stdin)
+    cw = d.get('context_window', {})
+    print(cw.get('total_input_tokens', 0) + cw.get('total_output_tokens', 0))
+except Exception:
+    print('0')
+" 2>/dev/null || echo "0")
+
     else
         # --- static fallback (neither jq nor Python available) ---
         CONTEXT_WINDOW_USED_PERCENTAGE="?"
         MODEL_DISPLAY_NAME="claude"
         WORKSPACE_PROJECT_DIR="$(basename "$(pwd)" 2>/dev/null || echo "")"
+        SESSION_TOKENS="0"
     fi
 fi
 
@@ -82,4 +96,4 @@ if [ -n "$_raw_project_dir" ]; then
     fi
 fi
 
-echo "🧠 ${CONTEXT_WINDOW_USED_PERCENTAGE}% | 🤖 $MODEL_DISPLAY_NAME | 📁 $WORKSPACE_PROJECT_DIR${GIT_BRANCH}"
+echo "🧠 ${CONTEXT_WINDOW_USED_PERCENTAGE}% | 🔥 ${SESSION_TOKENS}t | 🤖 $MODEL_DISPLAY_NAME | 📁 $WORKSPACE_PROJECT_DIR${GIT_BRANCH}"
