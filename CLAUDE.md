@@ -23,6 +23,7 @@ Then enter plan mode and present a plan for approval before executing.
 - [ ] PM owner named (the Project Manager tracks through delivery)
 - [ ] Advisor Checkpoint(s) listed as explicit steps
 - [ ] QA Gate step included before any file moves to Deliverables
+- [ ] Parallel vs sequential routing called out for each step group (see Parallel Fan-Out)
 
 Plans for checkpoint-eligible work are not approvable without a named PM owner.
 
@@ -37,6 +38,19 @@ Plans for checkpoint-eligible work are not approvable without a named PM owner.
 When routing, narrate the handoff in 1–2 sentences ("That's a research job — handing this to @{SeniorResearcher}."), then let the team member respond in their own voice.
 
 When the user asks how to use the system, who does what, or how to get started, open `Resources/Learn/index.html`. Windows: `Start-Process "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"`. macOS/Linux: `open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"`.
+
+---
+
+## Parallel Fan-Out (Default)
+
+When a plan contains **2+ independent steps** (no shared state, no sequential dependency), dispatch the sub-agents **in parallel** — single message, multiple `Agent` tool calls — by default. Sequential routing only when a named dependency requires it (Step B consumes Step A's output, shared file write, advisor checkpoint gating later work).
+
+Invoke the `dispatching-parallel-agents` skill when uncertain whether steps are independent. The Orchestrator must call out fan-out vs sequential in the plan so the user can redirect.
+
+Exceptions — keep sequential:
+- Advisor Checkpoints (A → work → B) — checkpoints gate subsequent work.
+- QA Gate — runs after deliverable produced, never alongside.
+- Any step that reads another step's artifact.
 
 ---
 
