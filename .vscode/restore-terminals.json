@@ -1,0 +1,31 @@
+{
+  "artificialDelayMilliseconds": 300,
+  "keepExistingTerminalsOpen": false,
+  "runOnStartup": true,
+  "terminals": [
+    {
+      "splitTerminals": [
+        {
+          "name": "Resume",
+          "commands": ["claude --resume"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "Agents",
+          "commands": ["claude agents"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "Claude",
+          "commands": ["claude"]
+        }
+      ]
+    }
+  ]
+}
