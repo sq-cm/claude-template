@@ -1,7 +1,7 @@
 {
   "claudeCode.initialPermissionMode": "plan",
   "claudeCode.autosave": true,
-  "claudeCode.preferredLocation": "panel",
+  "claudeCode.useTerminal": true,
   "claudeCode.respectGitIgnore": true,
   "claudeCode.allowDangerouslySkipPermissions": false,
   "terminal.integrated.hideOnStartup": "always",
