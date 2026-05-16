@@ -2,6 +2,10 @@
 
 Everything needed to deploy a new instance of this vault from scratch.
 
+> **Auto-onboarding is on.** The first time you open this folder in Claude Code, a SessionStart hook detects missing setup and runs onboarding automatically — silent where possible, narrated only for slash-command installs (plugins, Caveman). If you've already onboarded (signals: git hooks active, `.env` present, plugins installed), the hook back-fills flags silently and you'll see nothing.
+>
+> If you prefer the manual flow, follow the steps below — they still work, and explain what the hook does under the hood. Maintainers should `export CLAUDE_TEMPLATE_MAINTAINER=1` to suppress the hook entirely.
+
 ---
 
 ## Step 0 — Run the install script
