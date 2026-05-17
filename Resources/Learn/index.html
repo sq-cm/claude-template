@@ -475,6 +475,7 @@ const SLASH_COMMANDS = [
   { name: "/humaniser", type: "skill", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
   { name: "/grill-me", type: "skill", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
   { name: "/log-session", type: "skill", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
+  { name: "/handoff-save", type: "command", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive) — current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
   { name: "/onboard", type: "command", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs recommended plugins (context-mode, superpowers, skill-creator, frontend-design), and installs VS Code extensions.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
   { name: "/import-repos", type: "command", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." }
 ];
@@ -869,6 +870,7 @@ const FAQ = [
 │   ├── commands/<br>
 │   │   ├── onboard.md             ← /onboard command (run first)<br>
 │   │   ├── log-session.md         ← /log-session command<br>
+│   │   ├── handoff-save.md        ← /handoff-save command<br>
 │   │   └── import-repos.md        ← /import-repos command<br>
 │   ├── skills/                    ← skill instruction sets (grill-me, humaniser, etc.)<br>
 │   └── settings.json<br>
@@ -895,7 +897,8 @@ const FAQ = [
 │   ├── Bases/                     ← Obsidian Bases files<br>
 │   ├── Categories/                ← category definitions<br>
 │   ├── Logs/<br>
-│   │   └── Sessions/              ← /log-session outputs<br>
+│   │   ├── Sessions/              ← /log-session outputs<br>
+│   │   └── Handoffs/              ← /handoff-save outputs (synced cross-machine)<br>
 │   ├── Memory/                    ← persistent memory + theme map<br>
 │   │   ├── MEMORY.md<br>
 │   │   ├── theme-name-map.md<br>
