@@ -235,7 +235,7 @@ Print the following block exactly:
 
 **Want to try something straight away? Here are five sample projects — just copy and send any one of them.**
 
-The `Projects/` folder contains 5 half-finished sample projects. Each one teaches a different workflow layer. No setup needed. Work through them in order — each builds on what the previous one introduced.
+The `Resources/Onboarding/Demos/` folder contains 5 half-finished sample projects. Each one teaches a different workflow layer. No setup needed. Work through them in order — each builds on what the previous one introduced.
 
 | # | Project | What it teaches |
 |---|---------|-----------------|

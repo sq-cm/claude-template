@@ -99,7 +99,7 @@ The new team member is immediately available. No code changes, no config — jus
 
 ## Sample projects
 
-`Projects/` contains 5 half-finished sample projects. Each teaches a different workflow layer. Work through them after setup to learn the system by doing.
+`Resources/Onboarding/Demos/` contains 5 half-finished sample projects. Each teaches a different workflow layer. Work through them after setup to learn the system by doing.
 
 | # | Project | Teaches |
 |---|---------|---------|
@@ -155,11 +155,12 @@ Claude - TEMPLATE/
 ├── Inbox/                             ← staging area for unrouted material
 ├── Notes/                             ← daily notes, canvas files, clippings
 ├── Projects/
-│   └── [5 sample onboarding projects]/
+│   └── Template/                      ← blank project scaffold (copy when starting new work)
 ├── Resources/
 │   ├── Git/                           ← cloned reference repos (git-ignored)
 │   ├── Learn/                         ← interactive onboarding guide (index.html)
 │   ├── Onboarding/                    ← SETUP.md, team-onboarding-guide.md
+│   │   └── Demos/                     ← 5 sample onboarding projects
 │   ├── Research/                      ← Senior Researcher's role research briefs
 │   └── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
 ├── Vault/

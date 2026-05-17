@@ -80,9 +80,9 @@ Not every project needs all three. The Orchestrator creates only what the task r
 
 `Projects/Template/` is reserved as a blank scaffold for reference. The Orchestrator never uses it as a working project folder — always create a new named folder.
 
-## Demo projects (exemption)
+## Demo projects
 
-The five `Demo - [Name] - [Type]/` folders are pedagogical fixtures, not real projects. They are exempt from the date-prefix naming convention — the `Demo` prefix replaces the date. Their internal structure (`01 Briefs / 02 Working / 03 Deliverables`) still follows the standard.
+Demo projects (for learning the system) live under `Resources/Onboarding/Demos/` — not in `Projects/`. See that folder's README for the index.
 
 ---
 
