@@ -239,11 +239,11 @@ The `Projects/` folder contains 5 half-finished sample projects. Each one teache
 
 | # | Project | What it teaches |
 |---|---------|-----------------|
-| 1 | `Demo — Bloom Bakery — SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
-| 2 | `Demo — Meridian Law — Homepage UX Review` | Cross-functional handoff: {UXUIDesigner} + {Copywriter} + {QAComplianceReviewer}, multi-file report assembly |
-| 3 | `Demo — NovaStar Gym — Social Media Calendar` | Multi-specialist creative: {ContentStrategist} → {SocialMediaManager} → {VisualAIProducer}, calendar format |
-| 4 | `Demo — Thornwood Coffee — Brand Copywriting` | **Core orchestration mechanic**: {SeniorAdviser} Checkpoint A + B, repo consultation |
-| 5 | `Demo — Velora Studio — Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
+| 1 | `Demo - Bloom Bakery - SEO Audit` | Standard audit pipeline: {Orchestrator} → {SEOSpecialist} → {QAComplianceReviewer} → Deliverables |
+| 2 | `Demo - Meridian Law - Homepage UX Review` | Cross-functional handoff: {UXUIDesigner} + {Copywriter} + {QAComplianceReviewer}, multi-file report assembly |
+| 3 | `Demo - NovaStar Gym - Social Media Calendar` | Multi-specialist creative: {ContentStrategist} → {SocialMediaManager} → {VisualAIProducer}, calendar format |
+| 4 | `Demo - Thornwood Coffee - Brand Copywriting` | **Core orchestration mechanic**: {SeniorAdviser} Checkpoint A + B, repo consultation |
+| 5 | `Demo - Velora Studio - Hire Paid Media Specialist` | **Full hiring pipeline**: {Orchestrator} gap → {SeniorResearcher} brief → {HRLead} persona → roster update |
 
 Each project has a `README.md` with learning objectives and exact completion steps.
 
@@ -253,35 +253,35 @@ To begin any project, just copy and send the prompt below.
 
 ---
 
-**1. Demo — Bloom Bakery — SEO Audit**
+**1. Demo - Bloom Bakery - SEO Audit**
 > I'd like to continue the Bloom Bakery SEO audit.
 
 *The Orchestrator routes to the SEO Specialist, who picks up from the draft. The QA Compliance Reviewer reviews before delivery.*
 
 ---
 
-**2. Demo — Meridian Law — Homepage UX Review**
+**2. Demo - Meridian Law - Homepage UX Review**
 > I want to continue the Meridian Law UX review.
 
 *The Orchestrator routes to the UX/UI Designer for sections 4–7, then the QA Compliance Reviewer evaluates the WCAG checklist. Both outputs compile into one final report.*
 
 ---
 
-**3. Demo — NovaStar Gym — Social Media Calendar**
+**3. Demo - NovaStar Gym - Social Media Calendar**
 > Continue the NovaStar Gym social calendar — I need Weeks 2 through 4.
 
 *The Orchestrator routes to Sage (content strategy), then the Social Media Manager (copy) and Cleo (visual prompts). Week 1 is the format template.*
 
 ---
 
-**4. Demo — Thornwood Coffee — Brand Copywriting** ★ *teaches @{SeniorAdviser} checkpoints*
+**4. Demo - Thornwood Coffee - Brand Copywriting** ★ *teaches @{SeniorAdviser} checkpoints*
 > Continue the Thornwood Coffee brand copy — I need Remi to finish the audience section, then Finn to complete the headlines.
 
 *Remi hands off to Finn. The Senior Adviser Checkpoint A fires before drafting; Checkpoint B fires before delivery. This project is the core quality gate mechanic.*
 
 ---
 
-**5. Demo — Velora Studio — Hire Paid Media Specialist** ★ *teaches the hiring pipeline*
+**5. Demo - Velora Studio - Hire Paid Media Specialist** ★ *teaches the hiring pipeline*
 > I want to run the paid media specialist hiring pipeline.
 
 *The Orchestrator confirms the gap, routes to the Senior Researcher (research brief), then the HR Lead (persona file), then updates the roster. This is the most important meta-workflow — it teaches how the team grows.*

@@ -46,7 +46,7 @@ Your message
      ↓
   Senior Adviser (checkpoint) ← Opus advisor consulted before/after durable work
      ↓
-  Deliverable             ← lands in Projects/[project]/Deliverables/
+  Deliverable             ← lands in Projects/[project]/03 Deliverables/
 ```
 
 **Key files:**
@@ -103,11 +103,11 @@ The new team member is immediately available. No code changes, no config — jus
 
 | # | Project | Teaches |
 |---|---------|---------|
-| 1 | Bloom Bakery — SEO Audit | Standard audit pipeline (Alex → Quinn → Deliverables) |
-| 2 | Meridian Law — Homepage UX Review | Cross-functional handoff + WCAG compliance |
-| 3 | NovaStar Gym — Social Media Calendar | Multi-specialist creative (Sage → {SocialMediaManager} → Cleo) |
-| 4 | Thornwood Coffee — Brand Copywriting | {SeniorAdviser} Checkpoint A+B + repo consultation |
-| 5 | Velora Studio — Hire Paid Media Specialist | Full hiring pipeline end-to-end |
+| 1 | Bloom Bakery - SEO Audit | Standard audit pipeline (Alex → Quinn → 03 Deliverables) |
+| 2 | Meridian Law - Homepage UX Review | Cross-functional handoff + WCAG compliance |
+| 3 | NovaStar Gym - Social Media Calendar | Multi-specialist creative (Sage → {SocialMediaManager} → Cleo) |
+| 4 | Thornwood Coffee - Brand Copywriting | {SeniorAdviser} Checkpoint A+B + repo consultation |
+| 5 | Velora Studio - Hire Paid Media Specialist | Full hiring pipeline end-to-end |
 
 Each project has a `README.md` with learning objectives and completion steps.
 

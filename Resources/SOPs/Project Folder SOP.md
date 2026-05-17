@@ -63,12 +63,16 @@ The Orchestrator creates the minimum structure needed. A typical project folder:
 
 ```
 Projects/[project name]/
-├── Briefs/          ← input briefs, docx files, reference assets
-├── Deliverables/    ← final outputs ready for handoff
-└── Working/         ← drafts, iterations, intermediate files
+├── 01 Briefs/          ← input briefs, docx files, reference assets
+├── 02 Working/         ← drafts, iterations, intermediate files
+└── 03 Deliverables/    ← final outputs ready for handoff
 ```
 
-Not every project needs all three. The Orchestrator creates only what the task requires.
+Numeric prefixes enforce workflow order in alphabetical file listings — Briefs → Working → Deliverables. Without prefixes, `Deliverables` sorts above `Working`, inverting the pipeline.
+
+Not every project needs all three. The Orchestrator creates only what the task requires; gaps are fine (e.g., a copy-only project may have just `02 Working/`). Numbers stay fixed — they signal pipeline position, not presence.
+
+**Tooling note:** any script or glob matching project subfolders should match by suffix (`*Briefs`, `*Working`, `*Deliverables`), not exact name, to survive future prefix changes.
 
 ---
 
@@ -76,11 +80,15 @@ Not every project needs all three. The Orchestrator creates only what the task r
 
 `Projects/Template/` is reserved as a blank scaffold for reference. The Orchestrator never uses it as a working project folder — always create a new named folder.
 
+## Demo projects (exemption)
+
+The five `Demo - [Name] - [Type]/` folders are pedagogical fixtures, not real projects. They are exempt from the date-prefix naming convention — the `Demo` prefix replaces the date. Their internal structure (`01 Briefs / 02 Working / 03 Deliverables`) still follows the standard.
+
 ---
 
 ## Handoff
 
-Once the project folder exists and the task is complete, the working persona notifies @{Orchestrator}. The Orchestrator confirms the deliverables are in `Deliverables/` and the folder is tidy before closing the task.
+Once the project folder exists and the task is complete, the working persona notifies @{Orchestrator}. The Orchestrator confirms the deliverables are in `03 Deliverables/` and the folder is tidy before closing the task.
 
 ---
 
@@ -90,7 +98,7 @@ When retiring any project, document, persona, brief, or other artefact, move it 
 
 Rules:
 
-- Preserve original folder structure inside `Vault/Archive/`. A retired project at `Projects/Foo/` moves to `Vault/Archive/Projects/Foo/`. A retired persona at `.claude/agents/foo.md` moves to `Vault/Archive/.claude/agents/foo.md`.
+- Preserve original folder structure inside `Vault/Archive/`. A retired project at `Projects/Foo/` moves to `Vault/Archive/Projects/Foo/`. A retired persona at `.claude/agents/foo.md` moves to `Vault/Archive/.claude/agents/foo.md`. Numeric prefixes on subfolders (`01 Briefs/` etc.) are preserved on archive — do not strip.
 - `Vault/Archive/` must exist before first use. The repo ships with a `.keep` file.
 - Archived items are not deleted. If a retired artefact must be permanently removed, the Orchestrator surfaces the deletion request to the user and waits for explicit approval.
 - After archiving a persona, the Orchestrator updates `Vault/Memory/theme-name-map.md` and any cross-references in CLAUDE.md or other personas.

@@ -1,6 +1,6 @@
 # SOP — QA Gate
 
-**Purpose:** Define how the QA Compliance Reviewer (Quinn) gates files before they move to `Deliverables/`.
+**Purpose:** Define how the QA Compliance Reviewer (Quinn) gates files before they move to `03 Deliverables/`.
 **Audience:** The Orchestrator (must add QA step to every plan), all working personas (deliverable producers), Quinn (reviewer).
 **Status:** Active. Owned by the Orchestrator.
 
@@ -8,13 +8,13 @@
 
 ## When the QA Gate runs
 
-Before any file moves to a `Deliverables/` folder, Quinn must be spawned as a sub-agent to review it.
+Before any file moves to a `03 Deliverables/` folder, Quinn must be spawned as a sub-agent to review it.
 
-Quinn must also be spawned for any durable artefact change that meets project-eligible criteria (per Project Folder SOP) even when no `Deliverables/` folder is involved — e.g. SOP edits, persona edits, audit close-outs.
+Quinn must also be spawned for any durable artefact change that meets project-eligible criteria (per Project Folder SOP) even when no `03 Deliverables/` folder is involved — e.g. SOP edits, persona edits, audit close-outs.
 
 ## Plan-positioning rule
 
-Every project plan must include a QA Gate step explicitly. The step is positioned **after Checkpoint B** and **before** any file moves to `Deliverables/`. Plans that omit the QA Gate step are not approvable.
+Every project plan must include a QA Gate step explicitly. The step is positioned **after Checkpoint B** and **before** any file moves to `03 Deliverables/`. Plans that omit the QA Gate step are not approvable.
 
 ## Routing
 
@@ -28,7 +28,7 @@ Quinn returns one of three formal verdicts:
 
 | Verdict | Effect |
 |---|---|
-| **PASS** | File may move to `Deliverables/`. |
+| **PASS** | File may move to `03 Deliverables/`. |
 | **FLAGGED** | Specific issues returned to the producing persona for revision. After revision, Quinn re-reviews. |
 | **BLOCKED** | File does not move until all blocking issues are resolved. May require routing back to Checkpoint A. |
 

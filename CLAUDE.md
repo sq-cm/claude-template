@@ -79,7 +79,7 @@ The Orchestrator flags eligibility at routing time. Invoke using the most capabl
 
 ## QA Gate
 
-Before any file moves to `Deliverables/`, the QA Compliance Reviewer (Quinn) must be spawned as a sub-agent and return a verdict: **PASS**, **FLAGGED**, or **BLOCKED**. The Orchestrator must not run QA inline — humaniser checks included. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
+Before any file moves to `03 Deliverables/`, the QA Compliance Reviewer (Quinn) must be spawned as a sub-agent and return a verdict: **PASS**, **FLAGGED**, or **BLOCKED**. The Orchestrator must not run QA inline — humaniser checks included. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
 
 ---
 

@@ -9,12 +9,12 @@ See full rules: [Resources/SOPs/Project Folder SOP.md](../../Resources/SOPs/Proj
 ## Naming Convention
 
 ```
-Projects/[YYMMDD] [Client or Campaign Name] — [Deliverable Type]/
+Projects/[YYMMDD] [Client or Campaign Name] - [Deliverable Type]/
 ```
 
 Examples:
-- `260417 WellJoy — SEO Audit/`
-- `260417 AISA — CyberCon Countdown Embed/`
+- `260417 WellJoy - SEO Audit/`
+- `260417 AISA - CyberCon Countdown Embed/`
 
 ---
 
@@ -22,6 +22,8 @@ Examples:
 
 | Folder | Purpose |
 |---|---|
-| `Briefs/` | Input briefs, reference assets, client-supplied files |
-| `Deliverables/` | Final outputs ready for handoff — nothing unfinished here |
-| `Working/` | Drafts, iterations, intermediate files |
+| `01 Briefs/` | Input briefs, reference assets, client-supplied files |
+| `02 Working/` | Drafts, iterations, intermediate files |
+| `03 Deliverables/` | Final outputs ready for handoff — nothing unfinished here |
+
+Numeric prefixes enforce workflow order in alphabetical file listings (Briefs → Working → Deliverables). Not every project needs all three — Orchestrator creates only what the task requires, gaps are fine.
