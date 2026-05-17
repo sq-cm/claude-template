@@ -477,6 +477,7 @@ const SLASH_COMMANDS = [
   { name: "/log-session", type: "skill", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
   { name: "/handoff-save", type: "command", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive) — current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
   { name: "/onboard", type: "command", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs recommended plugins (context-mode, superpowers, skill-creator, frontend-design), and installs VS Code extensions.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
+  { name: "/update", type: "command", desc: "Pulls latest template changes from origin/main using the two-branch rebase model: fast-forwards main as upstream mirror, rebases local/main on top. Guards against missing local/main and uncommitted changes. Surfaces any conflicts with --continue / --abort instructions.", when: "Whenever the template repo receives updates you want to pull in. Safe to re-run." },
   { name: "/import-repos", type: "command", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." }
 ];
 
@@ -810,23 +811,26 @@ const FAQ = [
 
     <section class="section">
       <h2 class="section-title">Keeping your vault updated</h2>
-      <p class="section-intro">When the template repo receives updates, run this command from your vault root to pull them in without overwriting your personal work.</p>
+      <p class="section-intro">When the template repo receives updates, run <code>/update</code> from your vault root. It pulls them in using the two-branch model without overwriting your personal work.</p>
       <div class="steps-list" style="border-radius:12px;overflow:hidden;">
         <div class="step-item">
           <div class="step-num" style="background:#2d6a4f;">1</div>
           <div class="step-content">
             <h3>Run the update command</h3>
+            <pre>/update</pre>
+            <p style="margin-top:8px;">Fetches latest from origin, fast-forwards <code>main</code> as a clean upstream mirror, then rebases your personal <code>local/main</code> branch on top. Guards against missing <code>local/main</code> (run <code>/onboard</code> first) and uncommitted changes.</p>
+            <p style="margin-top:8px;">Equivalent raw git command if you prefer manual execution:</p>
             <pre>git fetch origin && git checkout main && git merge --ff-only origin/main && git checkout local/main && git rebase main</pre>
-            <p style="margin-top:8px;">This fetches the latest template, fast-forwards <code>main</code> as a clean upstream mirror, then rebases your personal <code>local/main</code> branch on top.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num" style="background:#2d6a4f;">2</div>
           <div class="step-content">
             <h3>If rebase hits a conflict</h3>
-            <p>Git will pause and show which file conflicted. Resolve it, then:</p>
+            <p>Git pauses and shows which file conflicted. Resolve it, then:</p>
             <pre>git add [file] && git rebase --continue</pre>
             <p style="margin-top:8px;">To abort and return to your previous state: <code>git rebase --abort</code></p>
+            <p style="margin-top:8px;">Your personal files (Projects/, Vault/Memory/, Inbox/) are never affected — conflicts only appear when both you and the template edited the same core file.</p>
           </div>
         </div>
       </div>
@@ -869,6 +873,7 @@ const FAQ = [
 │   ├── agents/                    ← persona files for all 23 team members<br>
 │   ├── commands/<br>
 │   │   ├── onboard.md             ← /onboard command (run first)<br>
+│   │   ├── update.md              ← /update command (pull template updates)<br>
 │   │   ├── log-session.md         ← /log-session command<br>
 │   │   ├── handoff-save.md        ← /handoff-save command<br>
 │   │   └── import-repos.md        ← /import-repos command<br>
