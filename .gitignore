@@ -14,6 +14,11 @@ desktop.ini
 .claude/settings.local.json
 .claude/settings.local.jsonc
 .claude/worktrees/
+.claude/todos/
+.claude/shell-snapshots/
+.claude/projects/
+.claude/statsig/
+.claude/ide/
 
 # Obsidian internals
 .obsidian/workspace
@@ -31,6 +36,11 @@ Resources/Git/*/
 *.bak
 ~$*
 *~
+*.swp
+*.swo
+
+# Editor / IDE
+.idea/
 
 # Build / runtime artefacts
 node_modules/
@@ -43,6 +53,15 @@ env/
 dist/
 build/
 out/
+*.tsbuildinfo
+.next/
+.turbo/
+coverage/
+.nyc_output/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Logs
 *.log
@@ -55,13 +74,14 @@ entities.json
 Vault/Logs/Palace/
 
 # Personal work — local only, backed by Google Drive
-Inbox/
-Notes/
-Projects/
+/Inbox/
+/Notes/
+/Projects/
 Vault/Archive/
 Vault/Attachments/
 Vault/Audits/
 Vault/Bases/
 Vault/Categories/
 Vault/Exports/
+Vault/Logs/Handoffs/
 Vault/Logs/Sessions/
