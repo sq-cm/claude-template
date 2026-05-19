@@ -6,8 +6,8 @@
     {
       "splitTerminals": [
         {
-          "name": "Resume",
-          "commands": ["claude --resume"]
+          "name": "Claude",
+          "commands": ["claude"]
         }
       ]
     },
