@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Implementation Plan — Sample Client CRM Integration</title>
+  <noscript><style>.theme-toggle{display:none}</style></noscript>
+  <style>
+/* === Custom Properties === */
+
+:root {
+  --paper: #f9f9f8;
+  --ink: #1a1a1a;
+  --ink-muted: #6b6b6b;
+  --accent: #2563eb;
+  --rule: #e2e2e0;
+  --surface: #f2f2f0;
+  --surface-strong: #e8e8e5;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --measure: 72ch;
+  --container: 1080px;
+}
+
+/* === Dark Mode === */
+
+[data-theme="dark"] {
+  --paper: #0c0c0c;
+  --ink: #ededed;
+  --ink-muted: #9a9a9a;
+  --accent: #60a5fa;
+  --rule: #2a2a2a;
+  --surface: #161616;
+  --surface-strong: #1f1f1f;
+}
+
+/* === Reduced Motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Reset === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Base === */
+
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* === Type === */
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+h1 { font-size: 2rem;    margin-bottom: var(--space-4); }
+h2 { font-size: 1.5rem;  margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h3 { font-size: 1.2rem;  margin-top: var(--space-5); margin-bottom: var(--space-2); }
+h4 { font-size: 1rem;    margin-top: var(--space-4); margin-bottom: var(--space-1); }
+
+p {
+  max-width: var(--measure);
+  margin-bottom: var(--space-3);
+  color: var(--ink);
+}
+
+ul, ol {
+  max-width: var(--measure);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+li { margin-bottom: var(--space-1); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  max-width: 100%;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: var(--space-5) 0;
+}
+
+/* === Focus === */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* === Tables === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-4);
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--rule);
+}
+
+td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* === Components === */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  max-width: var(--measure);
+}
+
+.callout--note { border-left-color: var(--accent); }
+
+.callout--warn {
+  border-left-color: #d97706;
+  background: color-mix(in srgb, #d97706 8%, var(--surface));
+}
+
+.callout--ok {
+  border-left-color: #16a34a;
+  background: color-mix(in srgb, #16a34a 8%, var(--surface));
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+/* --- KPI --- */
+
+.kpi {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  min-width: 10ch;
+}
+
+.kpi__value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.kpi__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* --- Timeline --- */
+
+.timeline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 var(--space-4);
+  margin-bottom: var(--space-5);
+  position: relative;
+}
+
+.timeline__row {
+  display: contents;
+}
+
+.timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.timeline__line {
+  width: 1px;
+  flex: 1;
+  background: var(--rule);
+  min-height: var(--space-4);
+}
+
+.timeline__content {
+  padding-bottom: var(--space-4);
+}
+
+.timeline__content p:last-child { margin-bottom: 0; }
+
+/* --- Tabs (radio-input pattern, keyboard navigable) --- */
+
+.tabs {
+  margin-bottom: var(--space-5);
+}
+
+.tabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.tabs__nav input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tabs__nav label {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tabs__nav label:hover { color: var(--ink); }
+
+.tabs__nav input[type="radio"]:checked + label {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tabs__nav input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.tab-panel { display: none; }
+.tab-panel--active { display: block; }
+
+/* --- Collapsible (native details/summary) --- */
+
+details {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  margin-bottom: var(--space-2);
+}
+
+summary {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  color: var(--ink-muted);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--rule);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+details > *:not(summary) {
+  padding: var(--space-3);
+}
+
+/* --- Diff Table --- */
+
+.diff-table th:first-child,
+.diff-table td:first-child {
+  width: 50%;
+  border-right: 2px solid var(--rule);
+}
+
+.diff-table thead th { background: var(--surface-strong); }
+
+.diff-table td.removed { background: color-mix(in srgb, #dc2626 8%, var(--paper)); }
+.diff-table td.added   { background: color-mix(in srgb, #16a34a 8%, var(--paper)); }
+
+/* --- Risk Table --- */
+
+.risk-table .risk--high   { color: #dc2626; font-weight: 600; }
+.risk-table .risk--medium { color: #d97706; font-weight: 600; }
+.risk-table .risk--low    { color: #16a34a; font-weight: 600; }
+
+/* --- Footer Meta --- */
+
+.footer-meta {
+  margin-top: var(--space-7);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.footer-meta__item { white-space: nowrap; }
+
+/* === Print === */
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --ink-muted: #444444;
+    --rule: #cccccc;
+    --surface: #f5f5f5;
+    --surface-strong: #ebebeb;
+  }
+
+  body {
+    padding: 0;
+    max-width: 100%;
+    font-size: 11pt;
+  }
+
+  h1 { font-size: 20pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 12pt; }
+  h4 { font-size: 11pt; }
+
+  a { color: var(--ink); }
+
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--ink-muted);
+    word-break: break-all;
+  }
+
+  .callout,
+  .kpi,
+  .diff-table,
+  .risk-table {
+    break-inside: avoid;
+  }
+
+  .timeline__row { break-inside: avoid; }
+
+  table tr { break-inside: avoid; }
+
+  details { break-inside: avoid; }
+
+  details { display: block; }
+  details > *:not(summary) { display: block !important; }
+  summary { list-style: none; cursor: default; }
+  summary::before { display: none; }
+  summary::-webkit-details-marker { display: none; }
+
+  .tabs__nav { display: none; }
+  .tab-panel { display: block !important; }
+  .tab-panel + .tab-panel { margin-top: var(--space-4); border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+
+  .footer-meta { border-top: 1px solid var(--rule); }
+
+  .theme-toggle { display: none; }
+}
+
+/* --- Theme Toggle --- */
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover { background: var(--surface-strong); }
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* === Page-specific === */
+
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin-bottom: var(--space-5);
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.doc-meta__item strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.svg-diagram {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: var(--space-5);
+}
+
+.svg-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+  </style>
+</head>
+<body>
+
+  <main>
+
+  <!-- Header -->
+  <h1>Implementation Plan: CRM Data Pipeline</h1>
+  <p class="doc-meta">
+    <span class="doc-meta__item"><strong>Client:</strong> Sample Client Co.</span>
+    <span class="doc-meta__item"><strong>Project:</strong> CRM Integration v2</span>
+    <span class="doc-meta__item"><strong>Prepared by:</strong> Studio Quarantine</span>
+    <span class="doc-meta__item"><strong>Version:</strong> 1.0</span>
+    <span class="doc-meta__item"><strong>Date:</strong> 2026-05-23</span>
+  </p>
+
+  <!-- Goal statement -->
+  <div class="callout callout--note">
+    <h3 style="margin-top:0; margin-bottom: var(--space-2);">Goal</h3>
+    <p>Connect Sample Client Co.'s existing e-commerce platform to their new CRM (HubSpot) via a serverless ETL pipeline. Purchaser records, order history, and support ticket data must sync bi-directionally with &lt;5 minute latency. The system must be fully operational and monitored before the Q3 campaign launch on <strong>2026-08-01</strong>.</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <span class="kpi__value">3</span>
+      <span class="kpi__label">Phases</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">10w</span>
+      <span class="kpi__label">Duration</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">&lt;5m</span>
+      <span class="kpi__label">Sync Latency</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">3</span>
+      <span class="kpi__label">Integrations</span>
+    </div>
+  </div>
+
+  <!-- Phase timeline (horizontal SVG) -->
+  <h2>Phase Timeline</h2>
+
+  <div class="svg-diagram">
+    <svg viewBox="0 0 900 140" xmlns="http://www.w3.org/2000/svg" aria-labelledby="phase-timeline-title" role="img">
+      <title id="phase-timeline-title">Phase timeline</title>
+      <!-- Track -->
+      <line x1="60" y1="60" x2="840" y2="60" stroke="var(--rule)" stroke-width="2"/>
+
+      <!-- Phase 1 -->
+      <circle cx="120" cy="60" r="10" fill="var(--accent)"/>
+      <text x="120" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">Phase 1</text>
+      <text x="120" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">Discovery &amp; Schema</text>
+      <text x="120" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="var(--ink-muted)">Jun 2 – Jun 27</text>
+
+      <!-- Connector 1-2 -->
+      <line x1="130" y1="60" x2="418" y2="60" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/>
+
+      <!-- Phase 2 -->
+      <circle cx="450" cy="60" r="10" fill="var(--accent)"/>
+      <text x="450" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">Phase 2</text>
+      <text x="450" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">Pipeline Build</text>
+      <text x="450" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="var(--ink-muted)">Jun 30 – Jul 18</text>
+
+      <!-- Connector 2-3 -->
+      <line x1="460" y1="60" x2="748" y2="60" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/>
+
+      <!-- Phase 3 -->
+      <circle cx="780" cy="60" r="10" fill="var(--accent)"/>
+      <text x="780" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">Phase 3</text>
+      <text x="780" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">UAT &amp; Launch</text>
+      <text x="780" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="var(--ink-muted)">Jul 21 – Aug 1</text>
+
+      <!-- Start label -->
+      <text x="60" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="var(--ink-muted)">START</text>
+      <line x1="60" y1="44" x2="60" y2="56" stroke="var(--rule)" stroke-width="1"/>
+
+      <!-- End label -->
+      <text x="840" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="var(--ink-muted)">GO-LIVE</text>
+      <line x1="840" y1="44" x2="840" y2="56" stroke="var(--rule)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- Milestone detail: vertical timeline -->
+  <h2>Milestones</h2>
+
+  <div class="timeline">
+
+    <div class="timeline__row">
+      <div class="timeline__marker">
+        <div class="timeline__dot"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <h4>Phase 1 — Discovery &amp; Schema design <small>Jun 2 – Jun 27</small></h4>
+        <p>Audit existing e-commerce database schema. Map field correspondence to HubSpot CRM objects (Contacts, Deals, Tickets). Agree normalisation rules for legacy data. Deliverable: approved field-mapping spreadsheet signed off by Sample Client Co. CTO.</p>
+      </div>
+    </div>
+
+    <div class="timeline__row">
+      <div class="timeline__marker">
+        <div class="timeline__dot"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <h4>Phase 2 — Pipeline build &amp; integration <small>Jun 30 – Jul 18</small></h4>
+        <p>Implement three Lambda functions: ingest, transform, and load. Configure HubSpot webhook receivers. Stand up SQS dead-letter queues for error capture. Integration tests against staging environment. Deliverable: green CI pipeline on <code>main</code>.</p>
+      </div>
+    </div>
+
+    <div class="timeline__row">
+      <div class="timeline__marker">
+        <div class="timeline__dot"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <h4>Phase 3 — UAT &amp; Go-live <small>Jul 21 – Aug 1</small></h4>
+        <p>Sample Client Co. QA team runs acceptance test suite against production-mirror data. Latency benchmarked under load. Runbook reviewed by ops. CloudWatch alarms active. Go/no-go call: Jul 31. Go-live: Aug 1.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Data-flow diagram -->
+  <h2>System Data-Flow</h2>
+  <p>The pipeline moves data in both directions. Purchases trigger downstream CRM updates; CRM contact edits propagate back to the commerce layer via webhook.</p>
+
+  <div class="svg-diagram">
+    <svg viewBox="0 0 860 200" xmlns="http://www.w3.org/2000/svg" aria-labelledby="data-flow-title" role="img">
+      <title id="data-flow-title">System data-flow diagram</title>
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="var(--ink-muted)"/>
+        </marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+
+      <!-- Boxes -->
+      <!-- E-commerce platform -->
+      <rect x="10" y="70" width="140" height="60" rx="6" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="80" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">E-Commerce</text>
+      <text x="80" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">Platform</text>
+
+      <!-- Ingest Lambda -->
+      <rect x="195" y="70" width="130" height="60" rx="6" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="260" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">Ingest</text>
+      <text x="260" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">Lambda</text>
+
+      <!-- Transform Lambda -->
+      <rect x="370" y="70" width="130" height="60" rx="6" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="435" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">Transform</text>
+      <text x="435" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">Lambda</text>
+
+      <!-- Load Lambda -->
+      <rect x="545" y="70" width="130" height="60" rx="6" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="610" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">Load</text>
+      <text x="610" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">Lambda</text>
+
+      <!-- HubSpot -->
+      <rect x="720" y="70" width="130" height="60" rx="6" fill="color-mix(in srgb, var(--accent) 8%, var(--surface))" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="785" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink)" font-weight="600">HubSpot</text>
+      <text x="785" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">CRM</text>
+
+      <!-- SQS DLQ (below) -->
+      <rect x="370" y="158" width="130" height="36" rx="6" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="435" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink-muted)">SQS DLQ</text>
+
+      <!-- Forward arrows (blue) -->
+      <line x1="150" y1="100" x2="192" y2="100" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+      <line x1="325" y1="100" x2="367" y2="100" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+      <line x1="500" y1="100" x2="542" y2="100" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+      <line x1="675" y1="100" x2="717" y2="100" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+
+      <!-- Error path to DLQ -->
+      <line x1="435" y1="130" x2="435" y2="155" stroke="var(--ink-muted)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+
+      <!-- Return webhook (muted, below main path) -->
+      <path d="M720,135 Q720,160 610,160 Q500,160 500,135" fill="none" stroke="var(--ink-muted)" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow)"/>
+      <text x="615" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="var(--ink-muted)">webhook return</text>
+
+      <!-- Labels -->
+      <text x="171" y="93" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="var(--accent)">events</text>
+      <text x="346" y="93" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="var(--accent)">raw JSON</text>
+      <text x="521" y="93" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="var(--accent)">normalised</text>
+      <text x="696" y="93" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="var(--accent)">API call</text>
+    </svg>
+  </div>
+
+  <!-- Risk callout summary -->
+  <div class="callout callout--warn">
+    <h4 style="margin-top:0; margin-bottom: var(--space-1);">Risks requiring attention</h4>
+    <p>Three risks are rated High. See the risk register below. The HubSpot API rate limit is the most likely blocker — implement exponential back-off in the Load Lambda before Phase 2 review.</p>
+  </div>
+
+  <!-- Implementation notes (tabbed: Frontend / Backend / Infra) -->
+  <h2>Implementation Notes</h2>
+
+  <div class="tabs" id="impl-tabs">
+    <ul class="tabs__nav" role="tablist">
+      <li role="presentation">
+        <input type="radio" name="impl-tab" id="tab-frontend" checked>
+        <label for="tab-frontend" role="tab" aria-selected="true" aria-controls="panel-frontend">Frontend</label>
+      </li>
+      <li role="presentation">
+        <input type="radio" name="impl-tab" id="tab-backend">
+        <label for="tab-backend" role="tab" aria-selected="false" aria-controls="panel-backend">Backend</label>
+      </li>
+      <li role="presentation">
+        <input type="radio" name="impl-tab" id="tab-infra">
+        <label for="tab-infra" role="tab" aria-selected="false" aria-controls="panel-infra">Infra</label>
+      </li>
+    </ul>
+
+    <div id="panel-frontend" class="tab-panel tab-panel--active" role="tabpanel" aria-labelledby="tab-frontend">
+      <h4>Frontend</h4>
+      <p>No direct frontend work in v1. The HubSpot embedded forms will replace the current Typeform widgets in Phase 3. Sample Client Co. dev team is responsible for the embed swap — SQ provides the HubSpot portal IDs and form keys.</p>
+      <p>Post-launch: a lightweight order-status widget will query the Load Lambda's read endpoint. Auth via signed JWT. See <code>GET /api/order-status/:id</code> in the API spec appendix.</p>
+      <details>
+        <summary>Widget endpoint contract</summary>
+        <pre><code>GET /api/order-status/:orderId
+Authorization: Bearer &lt;signed-jwt&gt;
+
+200 OK
+{
+  "orderId": "ORD-88123",
+  "status": "fulfilled",
+  "hsContactId": "8812933",
+  "syncedAt": "2026-07-28T11:04:22+10:00"
+}</code></pre>
+      </details>
+    </div>
+
+    <div id="panel-backend" class="tab-panel" role="tabpanel" aria-labelledby="tab-backend">
+      <h4>Backend</h4>
+      <p>Three Lambda functions, each independently deployable. Runtime: Node.js 22.x. Each function ships with its own unit test suite (Vitest). Integration tests run against a mocked HubSpot API (msw).</p>
+
+      <details>
+        <summary>Transform Lambda — field-mapping snippet (high risk: normalisation logic)</summary>
+        <pre><code>// transform/mapContact.js
+// RISK: legacy records may carry null email — guard before HubSpot upsert
+export function mapContact(rawRecord) {
+  if (!rawRecord?.email) {
+    throw new TransformError('Missing email', { rawRecord });
+  }
+  return {
+    properties: {
+      email:      rawRecord.email.toLowerCase().trim(),
+      firstname:  rawRecord.first_name ?? '',
+      lastname:   rawRecord.last_name  ?? '',
+      phone:      rawRecord.mobile ?? rawRecord.phone ?? '',
+      // SQ custom property: original platform ID
+      sq_platform_id: String(rawRecord.id),
+    }
+  };
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>Load Lambda — HubSpot rate-limit back-off (high risk)</summary>
+        <pre><code>// load/hubspotClient.js
+// HubSpot API: 100 req/10s burst, 40,000 req/day
+// Implement exponential back-off on 429 responses
+const MAX_RETRIES = 4;
+
+export async function upsertContact(payload, attempt = 0) {
+  const res = await fetch('https://api.hubapi.com/crm/v3/objects/contacts/upsert', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${process.env.HS_ACCESS_TOKEN}`,
+               'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  if (res.status === 429 && attempt &lt; MAX_RETRIES) {
+    const delay = Math.pow(2, attempt) * 500;
+    await new Promise(r => setTimeout(r, delay));
+    return upsertContact(payload, attempt + 1);
+  }
+
+  if (!res.ok) throw new LoadError(await res.text(), { status: res.status });
+  return res.json();
+}</code></pre>
+      </details>
+    </div>
+
+    <div id="panel-infra" class="tab-panel" role="tabpanel" aria-labelledby="tab-infra">
+      <h4>Infrastructure</h4>
+      <p>All resources provisioned via Terraform (module: <code>sq-crm-pipeline</code>). State stored in S3 with DynamoDB lock table. Region: <code>ap-southeast-2</code>. Environments: <code>staging</code>, <code>prod</code>.</p>
+      <ul>
+        <li>EventBridge rule triggers Ingest Lambda on e-commerce order events.</li>
+        <li>SQS FIFO queue between Ingest and Transform — deduplication window 5 minutes.</li>
+        <li>Dead-letter queue retention: 14 days. CloudWatch alarm on DLQ depth &gt; 0.</li>
+        <li>Secrets Manager holds <code>HS_ACCESS_TOKEN</code> — rotated every 90 days.</li>
+        <li>Lambda concurrency limits: Ingest 50, Transform 20, Load 10 (HubSpot rate ceiling).</li>
+      </ul>
+      <details>
+        <summary>Terraform resource summary</summary>
+        <pre><code>module "sq_crm_pipeline" {
+  source      = "./modules/sq-crm-pipeline"
+  environment = var.environment
+  region      = "ap-southeast-2"
+
+  ingest_concurrency   = 50
+  transform_concurrency = 20
+  load_concurrency     = 10
+
+  dlq_retention_days   = 14
+  alert_email          = "ops@sampleclient.com"
+}</code></pre>
+      </details>
+    </div>
+  </div>
+
+  <!-- Risk register -->
+  <h2>Risk Register</h2>
+
+  <table class="risk-table">
+    <thead>
+      <tr>
+        <th>Risk</th>
+        <th>Likelihood</th>
+        <th>Impact</th>
+        <th>Mitigation</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>HubSpot API rate limit exceeded under load</td>
+        <td class="risk--high">High</td>
+        <td class="risk--high">High</td>
+        <td>Exponential back-off in Load Lambda; concurrency cap; daily quota monitoring in CloudWatch</td>
+        <td>SQ Backend</td>
+      </tr>
+      <tr>
+        <td>Legacy records with null email field</td>
+        <td class="risk--high">High</td>
+        <td class="risk--medium">Medium</td>
+        <td>Guard in Transform Lambda; route null-email records to DLQ for manual review before migration</td>
+        <td>SQ Backend</td>
+      </tr>
+      <tr>
+        <td>Phase 1 sign-off delayed by client stakeholder availability</td>
+        <td class="risk--medium">Medium</td>
+        <td class="risk--high">High</td>
+        <td>Field-mapping doc shared Jun 13 (mid-phase) for async review; escalation path to CTO if no sign-off by Jun 25</td>
+        <td>SQ PM</td>
+      </tr>
+      <tr>
+        <td>HubSpot portal tier lacks custom property limit</td>
+        <td class="risk--low">Low</td>
+        <td class="risk--medium">Medium</td>
+        <td>Audit HubSpot portal tier in Phase 1 week 1; escalate to client if property headroom is insufficient</td>
+        <td>Sample Client CTO</td>
+      </tr>
+      <tr>
+        <td>Terraform state lock conflict between environments</td>
+        <td class="risk--low">Low</td>
+        <td class="risk--low">Low</td>
+        <td>Separate state buckets per environment; workspace isolation enforced in CI</td>
+        <td>SQ Infra</td>
+      </tr>
+    </tbody>
+  </table>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-meta" role="contentinfo">
+    <span class="footer-meta__item">Rendered: 2026-05-23T15:40:00+10:00</span>
+    <span class="footer-meta__item">Source hash: EXAMPLE</span>
+    <span class="footer-meta__item">Produced by Studio Quarantine · 2026-05-23</span>
+  </footer>
+
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    // Theme bootstrap: read localStorage, fall back to OS preference
+    (function () {
+      var KEY = 'html-deliverable-theme';
+      var html = document.documentElement;
+      var btn  = document.getElementById('theme-toggle');
+      var sun  = document.getElementById('icon-sun');
+      var moon = document.getElementById('icon-moon');
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          sun.style.display  = 'none';
+          moon.style.display = '';
+        } else {
+          sun.style.display  = '';
+          moon.style.display = 'none';
+        }
+      }
+
+      var stored = localStorage.getItem(KEY);
+      if (stored) {
+        applyTheme(stored);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      }
+
+      btn.addEventListener('click', function () {
+        var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(current);
+        localStorage.setItem(KEY, current);
+      });
+    }());
+
+    // Tab switching — syncs radio state to panel visibility and aria-selected
+    (function () {
+      var tabs = document.querySelectorAll('.tabs');
+      tabs.forEach(function (tabGroup) {
+        var radios = tabGroup.querySelectorAll('input[type="radio"]');
+        function activate(radio) {
+          var panels = tabGroup.querySelectorAll('.tab-panel');
+          panels.forEach(function (p) { p.classList.remove('tab-panel--active'); });
+          var target = document.getElementById('panel-' + radio.id.replace('tab-', ''));
+          if (target) target.classList.add('tab-panel--active');
+          // Sync aria-selected on all labels in this tab group
+          radios.forEach(function (r) {
+            var lbl = tabGroup.querySelector('label[for="' + r.id + '"]');
+            if (lbl) lbl.setAttribute('aria-selected', r === radio ? 'true' : 'false');
+          });
+        }
+        radios.forEach(function (r) {
+          r.addEventListener('change', function () { activate(r); });
+          if (r.checked) activate(r);
+        });
+      });
+    }());
+  </script>
+
+</body>
+</html>

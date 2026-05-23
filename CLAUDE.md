@@ -83,6 +83,18 @@ Before any file moves to `03 Deliverables/`, the QA Compliance Reviewer (Quinn) 
 
 ---
 
+## HTML Deliverable Companion
+
+Six deliverable types may ship with an interactive HTML companion via the `html-deliverable` skill: audit reports, status reports, implementation plans, comparisons, research/concept explainers, incident post-mortems.
+
+After Quinn passes the MD QA, the producing persona offers:
+
+> "Want this as an interactive HTML companion? Say the word."
+
+Skill owns workflow, drift policy, footer spec, and the second QA pass. See `.claude/skills/html-deliverable/SKILL.md`. This rule applies only to MD↔HTML companion pairs; standalone HTML (prototypes, embeds, one-offs) is unaffected.
+
+---
+
 ## Memory
 
 Persistent memory lives in `Vault/Memory/` — **not** the Claude Code default path. Every team member writes — mid-task, the moment something valuable surfaces — by creating a separate file in `Vault/Memory/` and adding a one-line pointer to `Vault/Memory/MEMORY.md`. `MEMORY.md` loads at session start via hook.

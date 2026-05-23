@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEO &amp; Site Audit — Sample Client · Studio Quarantine</title>
+  <noscript><style>.theme-toggle{display:none}</style></noscript>
+  <style>
+/* === Custom Properties === */
+
+:root {
+  --paper: #f9f9f8;
+  --ink: #1a1a1a;
+  --ink-muted: #6b6b6b;
+  --accent: #2563eb;
+  --rule: #e2e2e0;
+  --surface: #f2f2f0;
+  --surface-strong: #e8e8e5;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --measure: 72ch;
+  --container: 1080px;
+}
+
+/* === Dark Mode === */
+
+[data-theme="dark"] {
+  --paper: #0c0c0c;
+  --ink: #ededed;
+  --ink-muted: #9a9a9a;
+  --accent: #60a5fa;
+  --rule: #2a2a2a;
+  --surface: #161616;
+  --surface-strong: #1f1f1f;
+}
+
+/* === Reduced Motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Reset === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Base === */
+
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* === Type === */
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+h1 { font-size: 2rem;    margin-bottom: var(--space-4); }
+h2 { font-size: 1.5rem;  margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h3 { font-size: 1.2rem;  margin-top: var(--space-5); margin-bottom: var(--space-2); }
+h4 { font-size: 1rem;    margin-top: var(--space-4); margin-bottom: var(--space-1); }
+
+p {
+  max-width: var(--measure);
+  margin-bottom: var(--space-3);
+  color: var(--ink);
+}
+
+ul, ol {
+  max-width: var(--measure);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+li { margin-bottom: var(--space-1); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  max-width: 100%;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: var(--space-5) 0;
+}
+
+/* === Focus === */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* === Tables === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-4);
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--rule);
+}
+
+td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* === Components === */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  max-width: var(--measure);
+}
+
+.callout--note { border-left-color: var(--accent); }
+
+.callout--warn {
+  border-left-color: #d97706;
+  background: color-mix(in srgb, #d97706 8%, var(--surface));
+}
+
+.callout--ok {
+  border-left-color: #16a34a;
+  background: color-mix(in srgb, #16a34a 8%, var(--surface));
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+/* --- KPI --- */
+
+.kpi {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  min-width: 10ch;
+}
+
+.kpi__value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.kpi__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* --- Timeline --- */
+
+.timeline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 var(--space-4);
+  margin-bottom: var(--space-5);
+  position: relative;
+}
+
+.timeline__row {
+  display: contents;
+}
+
+.timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.timeline__line {
+  width: 1px;
+  flex: 1;
+  background: var(--rule);
+  min-height: var(--space-4);
+}
+
+.timeline__content {
+  padding-bottom: var(--space-4);
+}
+
+.timeline__content p:last-child { margin-bottom: 0; }
+
+/* --- Tabs (radio-input pattern, keyboard navigable) --- */
+
+.tabs {
+  margin-bottom: var(--space-5);
+}
+
+.tabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.tabs__nav input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tabs__nav label {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tabs__nav label:hover { color: var(--ink); }
+
+.tabs__nav input[type="radio"]:checked + label {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tabs__nav input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.tab-panel { display: none; }
+.tab-panel--active { display: block; }
+
+/* --- Collapsible (native details/summary) --- */
+
+details {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  margin-bottom: var(--space-2);
+}
+
+summary {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  color: var(--ink-muted);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--rule);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+details > *:not(summary) {
+  padding: var(--space-3);
+}
+
+/* --- Diff Table --- */
+
+.diff-table th:first-child,
+.diff-table td:first-child {
+  width: 50%;
+  border-right: 2px solid var(--rule);
+}
+
+.diff-table thead th { background: var(--surface-strong); }
+
+.diff-table td.removed { background: color-mix(in srgb, #dc2626 8%, var(--paper)); }
+.diff-table td.added   { background: color-mix(in srgb, #16a34a 8%, var(--paper)); }
+
+/* --- Risk Table --- */
+
+.risk-table .risk--high   { color: #dc2626; font-weight: 600; }
+.risk-table .risk--medium { color: #d97706; font-weight: 600; }
+.risk-table .risk--low    { color: #16a34a; font-weight: 600; }
+
+/* --- Footer Meta --- */
+
+.footer-meta {
+  margin-top: var(--space-7);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.footer-meta__item { white-space: nowrap; }
+
+/* === Print === */
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --ink-muted: #444444;
+    --rule: #cccccc;
+    --surface: #f5f5f5;
+    --surface-strong: #ebebeb;
+  }
+
+  body {
+    padding: 0;
+    max-width: 100%;
+    font-size: 11pt;
+  }
+
+  h1 { font-size: 20pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 12pt; }
+  h4 { font-size: 11pt; }
+
+  a { color: var(--ink); }
+
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--ink-muted);
+    word-break: break-all;
+  }
+
+  .callout,
+  .kpi,
+  .diff-table,
+  .risk-table {
+    break-inside: avoid;
+  }
+
+  .timeline__row { break-inside: avoid; }
+
+  table tr { break-inside: avoid; }
+
+  details { break-inside: avoid; }
+
+  details { display: block; }
+  details > *:not(summary) { display: block !important; }
+  summary { list-style: none; cursor: default; }
+  summary::before { display: none; }
+  summary::-webkit-details-marker { display: none; }
+
+  .tabs__nav { display: none; }
+  .tab-panel { display: block !important; }
+  .tab-panel + .tab-panel { margin-top: var(--space-4); border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+
+  .footer-meta { border-top: 1px solid var(--rule); }
+
+  .theme-toggle { display: none; }
+
+  .toc-layout { display: block; }
+  .toc { display: none; }
+}
+
+/* --- Theme Toggle --- */
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover { background: var(--surface-strong); }
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* --- Table of Contents --- */
+
+.toc-layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: var(--space-6);
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.toc {
+  position: sticky;
+  top: var(--space-5);
+  max-height: calc(100vh - var(--space-8));
+  overflow-y: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.toc__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc__list li { margin-bottom: 2px; }
+
+.toc__link {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+  padding: 3px var(--space-2);
+  border-left: 2px solid transparent;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  text-decoration: none;
+  transition: color 0.12s, border-left-color 0.12s, background 0.12s;
+}
+
+.toc__link:hover,
+.toc__link:focus-visible {
+  color: var(--ink);
+  background: var(--surface-strong);
+  text-decoration: none;
+}
+
+.toc__link--active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .toc-layout {
+    grid-template-columns: 1fr;
+  }
+  .toc {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    order: -1;
+  }
+}
+
+/* === Page-specific === */
+
+.report-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin-bottom: var(--space-5);
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.report-meta__item strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.severity-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.severity-badge--high {
+  background: color-mix(in srgb, #dc2626 12%, var(--paper));
+  color: #dc2626;
+}
+
+.severity-badge--medium {
+  background: color-mix(in srgb, #d97706 12%, var(--paper));
+  color: #d97706;
+}
+
+.severity-badge--low {
+  background: color-mix(in srgb, #16a34a 12%, var(--paper));
+  color: #16a34a;
+}
+
+.finding {
+  margin-bottom: var(--space-5);
+}
+
+.finding__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.finding__header h3 {
+  margin: 0;
+}
+
+.finding__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+@media (max-width: 680px) {
+  .finding__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.finding__section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-1);
+}
+
+.coverage-table td:first-child {
+  font-weight: 500;
+}
+
+.coverage-table td:last-child {
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+  </style>
+</head>
+<body>
+
+<div class="toc-layout">
+
+  <main>
+
+  <!-- =========================================================
+       HEADER
+  ========================================================== -->
+  <h1>SEO &amp; Site Audit</h1>
+
+  <div class="report-meta">
+    <span class="report-meta__item"><strong>Client</strong> Sample Client Pty Ltd</span>
+    <span class="report-meta__item"><strong>Site</strong> sampleclient.com.au</span>
+    <span class="report-meta__item"><strong>Audit date</strong> 2026-05-20</span>
+    <span class="report-meta__item"><strong>Prepared by</strong> Studio Quarantine</span>
+    <span class="report-meta__item"><strong>Auditor</strong> Jordan (UX/UI) · Alex (SEO)</span>
+  </div>
+
+  <!-- =========================================================
+       TL;DR — KPI SUMMARY
+  ========================================================== -->
+  <h2 id="s-summary">Summary</h2>
+
+  <p>A structural and technical SEO audit of sampleclient.com.au covering 48 pages crawled across desktop and mobile. Six high-severity findings, four medium, and three resolved since the previous review. Immediate action required on crawlability and Core Web Vitals before the planned campaign launch.</p>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <span class="kpi__value">6</span>
+      <span class="kpi__label">High severity</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">4</span>
+      <span class="kpi__label">Medium severity</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">3</span>
+      <span class="kpi__label">Resolved</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">48</span>
+      <span class="kpi__label">Pages crawled</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">62</span>
+      <span class="kpi__label">Core Web Vitals score</span>
+    </div>
+  </div>
+
+  <div class="callout callout--warn">
+    <p><strong>Priority action:</strong> Three pages critical to the paid campaign are currently returning 4xx errors due to a misconfigured redirect chain. These must be resolved before the campaign goes live on 2026-06-02.</p>
+  </div>
+
+  <!-- =========================================================
+       FINDINGS — HIGH SEVERITY
+  ========================================================== -->
+  <h2 id="s-high">High Severity Findings</h2>
+
+  <!-- Finding H1 -->
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--high">High</span>
+      <h3>H1 — Broken redirect chain on three campaign landing pages</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>The URLs <code>/services/growth</code>, <code>/services/retention</code>, and <code>/services/strategy</code> were migrated in April but the old redirect rules now chain through three hops before resolving — or return 404 on mobile user agents.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Google drops pages from its index after sustained 4xx responses. Paid traffic sent to these URLs will land on an error page, wasting budget and damaging Quality Score.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Flatten to a single 301 redirect directly to the current canonical URL. Test with both desktop and mobile user agents before campaign activation.</p>
+      </div>
+    </div>
+    <details>
+      <summary>Technical detail — redirect chain trace</summary>
+      <pre>/services/growth  →  301  /services/growth/  →  301  /growth-services/  →  404 (mobile UA)
+/services/retention  →  301  /services/retention/  →  301  /retention-services/  →  404 (mobile UA)
+/services/strategy  →  301  /old-strategy  →  301  /services/strategy-consulting/  →  200</pre>
+      <p>Confirmed with <code>curl -L -I -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)"</code>. The Webflow publish pipeline is appending a trailing slash that conflicts with the existing Cloudflare redirect rules.</p>
+    </details>
+  </div>
+
+  <!-- Finding H2 -->
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--high">High</span>
+      <h3>H2 — Largest Contentful Paint exceeds 4s on mobile for all service pages</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>LCP measures 4.2–5.8s on Moto G4 (4G throttled) for all six /services/* pages. The LCP element is a full-bleed hero image served as PNG at 2400px wide with no responsive <code>srcset</code>.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Google's Core Web Vitals threshold is 2.5s. Pages failing LCP are demoted in mobile search rankings. This is the primary drag on the site's 62/100 CWV score.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Convert hero images to WebP, implement <code>srcset</code> with 400/800/1200px breakpoints, add <code>fetchpriority="high"</code> to the LCP image element, and preload the above-fold image in <code>&lt;head&gt;</code>.</p>
+      </div>
+    </div>
+    <details>
+      <summary>Technical detail — image asset analysis</summary>
+      <p>Hero image at <code>/assets/hero-services.png</code>: 2400 × 1350px, 1.4 MB. No WebP variant. No <code>srcset</code>. <code>loading="lazy"</code> incorrectly applied to the LCP element (should be <code>eager</code>). Estimated savings with WebP + correct sizing: ~1.1 MB, projected LCP improvement to 2.1–2.6s based on comparable migrations.</p>
+    </details>
+  </div>
+
+  <!-- Finding H3 -->
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--high">High</span>
+      <h3>H3 — Duplicate title tags across 11 blog posts</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>Eleven blog posts share identical <code>&lt;title&gt;</code> values — all reading "Insights | Sample Client". The CMS template is missing the post-title variable in its head template.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Duplicate titles prevent Google from distinguishing post intent. Click-through rate from search is suppressed because the SERP title defaults to the URL slug rather than the post headline.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Update the CMS blog template to populate <code>&lt;title&gt;</code> from the post title field using the pattern: <code>[Post Title] | Insights | Sample Client</code>. Max 60 characters recommended.</p>
+      </div>
+    </div>
+    <details>
+      <summary>Affected URLs (11 pages)</summary>
+      <ul>
+        <li>/insights/how-to-build-a-retention-strategy</li>
+        <li>/insights/five-growth-levers-for-b2b</li>
+        <li>/insights/customer-lifetime-value-explained</li>
+        <li>/insights/when-to-hire-a-growth-consultant</li>
+        <li>/insights/product-led-growth-vs-sales-led</li>
+        <li>/insights/retention-benchmarks-2025</li>
+        <li>/insights/onboarding-flow-design-principles</li>
+        <li>/insights/churn-prediction-models-compared</li>
+        <li>/insights/nps-vs-csat-which-metric-matters</li>
+        <li>/insights/case-study-saas-growth-12-months</li>
+        <li>/insights/quarterly-review-template-download</li>
+      </ul>
+    </details>
+  </div>
+
+  <!-- Finding H4 (condensed) -->
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--high">High</span>
+      <h3>H4 — robots.txt blocking /services/* from Googlebot</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>A <code>Disallow: /services/</code> rule in <code>robots.txt</code> is preventing all service pages from being crawled. This appears to be a legacy rule carried over from the staging environment.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Service pages are the commercial core of the site. If they cannot be crawled, they cannot rank. Google Search Console confirms zero impressions for /services/* in the past 28 days.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Remove the <code>Disallow: /services/</code> rule. Verify in GSC that pages are submitted for re-indexing. Establish a robots.txt review as part of the deployment checklist going forward.</p>
+      </div>
+    </div>
+    <details>
+      <summary>Current robots.txt (relevant excerpt)</summary>
+      <pre>User-agent: *
+Disallow: /admin/
+Disallow: /staging/
+Disallow: /services/      ← remove this line
+Disallow: /wp-admin/
+
+Sitemap: https://sampleclient.com.au/sitemap.xml</pre>
+    </details>
+  </div>
+
+  <!-- Findings H5, H6 condensed -->
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--high">High</span>
+      <h3>H5 — Missing structured data on all service pages</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>No <code>Service</code>, <code>Organization</code>, or <code>BreadcrumbList</code> schema markup exists anywhere on the site. Competitors rank with rich results (service cards, sitelinks) in the same keyword set.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Structured data is a primary driver of rich results eligibility. Without it, the site cannot compete for the enhanced SERP features its competitors currently occupy.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Implement <code>Service</code> schema on each service page and <code>Organization</code> schema on the homepage. Add <code>BreadcrumbList</code> to all interior pages. Use JSON-LD embedded in the <code>&lt;head&gt;</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--high">High</span>
+      <h3>H6 — No canonical tags on paginated blog archive</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>The blog archive at <code>/insights/</code> paginates to <code>/insights/?page=2</code> etc. without canonical tags. All paginated variants are treated as separate pages by Googlebot, diluting PageRank.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Pagination without canonicalisation causes index bloat and splits link equity across near-duplicate pages.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Add <code>&lt;link rel="canonical"&gt;</code> to each paginated page pointing to itself (self-referencing canonical). Add <code>rel="next"</code> / <code>rel="prev"</code> for pagination signals.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FINDINGS — MEDIUM SEVERITY
+  ========================================================== -->
+  <h2 id="s-medium">Medium Severity Findings</h2>
+
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--medium">Medium</span>
+      <h3>M1 — Alt text missing on 23 images across the blog</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>23 inline images in blog posts have empty or absent <code>alt</code> attributes. Most are illustrative diagrams and charts, not decorative.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Missing alt text is both an accessibility failure (WCAG 1.1.1) and an SEO gap — Google Images cannot index image content without descriptive alt text.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Audit all blog images and add descriptive alt text. For purely decorative images, use <code>alt=""</code> explicitly. Update the content brief template to require alt text as a mandatory field.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--medium">Medium</span>
+      <h3>M2 — Internal linking: 14 service sub-pages have zero inbound internal links</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>14 pages under <code>/services/*/</code> are reachable only via the sitemap. No page on the site links to them organically.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Orphaned pages receive no PageRank from the internal link graph, suppressing their ranking potential regardless of content quality.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Identify 2–3 relevant parent pages or blog posts that should contextually reference each orphaned page. Add in-text links. Update the main services navigation to include tier-2 pages.</p>
+      </div>
+    </div>
+    <details>
+      <summary>14 orphaned pages</summary>
+      <ul>
+        <li>/services/growth/demand-generation</li>
+        <li>/services/growth/paid-acquisition</li>
+        <li>/services/growth/conversion-optimisation</li>
+        <li>/services/retention/customer-success</li>
+        <li>/services/retention/loyalty-programs</li>
+        <li>/services/retention/churn-reduction</li>
+        <li>/services/strategy/go-to-market</li>
+        <li>/services/strategy/market-entry</li>
+        <li>/services/strategy/competitive-analysis</li>
+        <li>/services/strategy/pricing-strategy</li>
+        <li>/services/strategy/product-strategy</li>
+        <li>/services/strategy/partnership-development</li>
+        <li>/services/strategy/international-expansion</li>
+        <li>/services/strategy/board-advisory</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--medium">Medium</span>
+      <h3>M3 — Meta descriptions missing or auto-generated on 19 pages</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>19 pages have meta descriptions that are either absent or generated by pulling the first sentence of body copy — resulting in descriptions that are truncated, off-topic, or duplicate.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Google uses meta descriptions as the default SERP snippet. Poor descriptions reduce CTR, which is a soft ranking signal.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Write unique meta descriptions for all commercial pages (services, homepage, about, contact) at 130–155 characters with a clear value proposition and implicit CTA.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="finding__header">
+      <span class="severity-badge severity-badge--medium">Medium</span>
+      <h3>M4 — Heading hierarchy broken on 8 pages (multiple H1s, skipped levels)</h3>
+    </div>
+    <div class="finding__body">
+      <div>
+        <p class="finding__section-label">What we found</p>
+        <p>Eight pages contain 2–3 H1 elements each. Several pages jump from H2 directly to H4, skipping H3 entirely. This appears to be a visual styling override applied at the CMS level.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Why it matters</p>
+        <p>Broken heading hierarchy is an accessibility issue (WCAG 1.3.1) and weakens semantic signals for Googlebot. Screen reader users rely on heading structure for page navigation.</p>
+      </div>
+      <div>
+        <p class="finding__section-label">Recommendation</p>
+        <p>Audit heading structure across all pages. Enforce single H1 per page. Apply visual size variations via CSS class rather than semantic heading level. Update the CMS rich-text component's allowed heading levels.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       RESOLVED FINDINGS
+  ========================================================== -->
+  <h2 id="s-resolved">Resolved Since Last Review</h2>
+
+  <div class="callout callout--ok">
+    <p><strong>R1 — Sitemap XML errors resolved.</strong> The sitemap previously contained 12 URLs returning 301 redirects. These have been updated to canonical final destinations. All 48 submitted URLs now return 200.</p>
+  </div>
+
+  <div class="callout callout--ok">
+    <p><strong>R2 — HTTPS mixed content warnings cleared.</strong> All 6 mixed-content warnings (HTTP asset references on HTTPS pages) identified in the previous audit have been resolved. The site now loads with a clean HTTPS certificate across all pages.</p>
+  </div>
+
+  <div class="callout callout--ok">
+    <p><strong>R3 — Contact form accessible via keyboard.</strong> The contact page form previously trapped keyboard focus. This has been corrected — all form fields and the submit button are now reachable and operable via keyboard, and focus order matches visual order.</p>
+  </div>
+
+  <!-- =========================================================
+       COVERAGE TABLE
+  ========================================================== -->
+  <h2 id="s-coverage">Audit Coverage</h2>
+
+  <p>The following areas were included in this audit. Out-of-scope items are noted for a follow-up engagement.</p>
+
+  <table class="coverage-table">
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Technical crawlability (robots.txt, redirects, status codes)</td>
+        <td><span class="severity-badge severity-badge--high">Audited</span></td>
+        <td>48 pages crawled via Screaming Frog 21.0</td>
+      </tr>
+      <tr>
+        <td>Core Web Vitals (LCP, CLS, FID/INP)</td>
+        <td><span class="severity-badge severity-badge--high">Audited</span></td>
+        <td>PageSpeed Insights field data + lab data, mobile and desktop</td>
+      </tr>
+      <tr>
+        <td>On-page SEO (titles, meta descriptions, headings, structured data)</td>
+        <td><span class="severity-badge severity-badge--high">Audited</span></td>
+        <td>All 48 pages</td>
+      </tr>
+      <tr>
+        <td>Internal link graph and orphan detection</td>
+        <td><span class="severity-badge severity-badge--high">Audited</span></td>
+        <td>Screaming Frog inlink report</td>
+      </tr>
+      <tr>
+        <td>Accessibility — WCAG 2.1 AA automated checks</td>
+        <td><span class="severity-badge severity-badge--medium">Partial</span></td>
+        <td>Axe automated scan only; manual testing out of scope for this engagement</td>
+      </tr>
+      <tr>
+        <td>Backlink profile analysis</td>
+        <td><span class="severity-badge severity-badge--low">Not included</span></td>
+        <td>Scheduled for Phase 2</td>
+      </tr>
+      <tr>
+        <td>Keyword gap analysis</td>
+        <td><span class="severity-badge severity-badge--low">Not included</span></td>
+        <td>Scheduled for Phase 2</td>
+      </tr>
+      <tr>
+        <td>Content quality and E-E-A-T assessment</td>
+        <td><span class="severity-badge severity-badge--low">Not included</span></td>
+        <td>Requires separate content audit engagement</td>
+      </tr>
+    </tbody>
+  </table>
+
+  </main>
+
+  <!-- TOC right rail -->
+  <aside class="toc" aria-label="Table of contents">
+    <p class="toc__title">Contents</p>
+    <ul class="toc__list">
+      <li><a class="toc__link" href="#s-summary">Summary</a></li>
+      <li><a class="toc__link" href="#s-high">High Severity</a></li>
+      <li><a class="toc__link" href="#s-medium">Medium Severity</a></li>
+      <li><a class="toc__link" href="#s-resolved">Resolved</a></li>
+      <li><a class="toc__link" href="#s-coverage">Coverage</a></li>
+    </ul>
+  </aside>
+
+</div><!-- /.toc-layout -->
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+  <footer class="footer-meta" role="contentinfo">
+    <span class="footer-meta__item">Rendered: 2026-05-23T15:40:00+10:00</span>
+    <span class="footer-meta__item">Source hash: EXAMPLE</span>
+    <span class="footer-meta__item">Produced by Studio Quarantine · 2026-05-23</span>
+  </footer>
+
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    // Theme bootstrap: read localStorage, fall back to OS preference
+    (function () {
+      var KEY = 'html-deliverable-theme';
+      var html = document.documentElement;
+      var btn  = document.getElementById('theme-toggle');
+      var sun  = document.getElementById('icon-sun');
+      var moon = document.getElementById('icon-moon');
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          sun.style.display  = 'none';
+          moon.style.display = '';
+        } else {
+          sun.style.display  = '';
+          moon.style.display = 'none';
+        }
+      }
+
+      var stored = localStorage.getItem(KEY);
+      if (stored) {
+        applyTheme(stored);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      }
+
+      btn.addEventListener('click', function () {
+        var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(current);
+        localStorage.setItem(KEY, current);
+      });
+    }());
+
+    // TOC scroll-spy via IntersectionObserver
+    (function () {
+      var links = document.querySelectorAll('.toc__link');
+      if (!links.length || !('IntersectionObserver' in window)) return;
+
+      var headings = Array.from(links).map(function (l) {
+        return document.querySelector(l.getAttribute('href'));
+      }).filter(Boolean);
+
+      var active = null;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = '#' + entry.target.id;
+            links.forEach(function (l) {
+              l.classList.toggle('toc__link--active', l.getAttribute('href') === id);
+            });
+            active = id;
+          }
+        });
+      }, { rootMargin: '0px 0px -60% 0px', threshold: 0 });
+
+      headings.forEach(function (h) { observer.observe(h); });
+    }());
+  </script>
+
+</body>
+</html>

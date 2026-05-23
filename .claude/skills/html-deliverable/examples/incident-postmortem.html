@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Incident Post-Mortem — Sample Client Site Outage · 2026-05-18 · Studio Quarantine</title>
+  <noscript><style>.theme-toggle{display:none}</style></noscript>
+  <style>
+/* === Custom Properties === */
+
+:root {
+  --paper: #f9f9f8;
+  --ink: #1a1a1a;
+  --ink-muted: #6b6b6b;
+  --accent: #2563eb;
+  --rule: #e2e2e0;
+  --surface: #f2f2f0;
+  --surface-strong: #e8e8e5;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --measure: 72ch;
+  --container: 1080px;
+}
+
+/* === Dark Mode === */
+
+[data-theme="dark"] {
+  --paper: #0c0c0c;
+  --ink: #ededed;
+  --ink-muted: #9a9a9a;
+  --accent: #60a5fa;
+  --rule: #2a2a2a;
+  --surface: #161616;
+  --surface-strong: #1f1f1f;
+}
+
+/* === Reduced Motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Reset === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Base === */
+
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* === Type === */
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+h1 { font-size: 2rem;    margin-bottom: var(--space-4); }
+h2 { font-size: 1.5rem;  margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h3 { font-size: 1.2rem;  margin-top: var(--space-5); margin-bottom: var(--space-2); }
+h4 { font-size: 1rem;    margin-top: var(--space-4); margin-bottom: var(--space-1); }
+
+p {
+  max-width: var(--measure);
+  margin-bottom: var(--space-3);
+  color: var(--ink);
+}
+
+ul, ol {
+  max-width: var(--measure);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+li { margin-bottom: var(--space-1); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  max-width: 100%;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: var(--space-5) 0;
+}
+
+/* === Focus === */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* === Tables === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-4);
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--rule);
+}
+
+td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* === Components === */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  max-width: var(--measure);
+}
+
+.callout--note { border-left-color: var(--accent); }
+
+.callout--warn {
+  border-left-color: #d97706;
+  background: color-mix(in srgb, #d97706 8%, var(--surface));
+}
+
+.callout--ok {
+  border-left-color: #16a34a;
+  background: color-mix(in srgb, #16a34a 8%, var(--surface));
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+/* --- KPI --- */
+
+.kpi {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  min-width: 10ch;
+}
+
+.kpi__value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.kpi__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* --- Timeline --- */
+
+.timeline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 var(--space-4);
+  margin-bottom: var(--space-5);
+  position: relative;
+}
+
+.timeline__row {
+  display: contents;
+}
+
+.timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.timeline__line {
+  width: 1px;
+  flex: 1;
+  background: var(--rule);
+  min-height: var(--space-4);
+}
+
+.timeline__content {
+  padding-bottom: var(--space-4);
+}
+
+.timeline__content p:last-child { margin-bottom: 0; }
+
+/* --- Tabs (radio-input pattern, keyboard navigable) --- */
+
+.tabs {
+  margin-bottom: var(--space-5);
+}
+
+.tabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.tabs__nav input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tabs__nav label {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tabs__nav label:hover { color: var(--ink); }
+
+.tabs__nav input[type="radio"]:checked + label {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tabs__nav input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.tab-panel { display: none; }
+.tab-panel--active { display: block; }
+
+/* --- Collapsible (native details/summary) --- */
+
+details {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  margin-bottom: var(--space-2);
+}
+
+summary {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  color: var(--ink-muted);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--rule);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+details > *:not(summary) {
+  padding: var(--space-3);
+}
+
+/* --- Diff Table --- */
+
+.diff-table th:first-child,
+.diff-table td:first-child {
+  width: 50%;
+  border-right: 2px solid var(--rule);
+}
+
+.diff-table thead th { background: var(--surface-strong); }
+
+.diff-table td.removed { background: color-mix(in srgb, #dc2626 8%, var(--paper)); }
+.diff-table td.added   { background: color-mix(in srgb, #16a34a 8%, var(--paper)); }
+
+/* --- Risk Table --- */
+
+.risk-table .risk--high   { color: #dc2626; font-weight: 600; }
+.risk-table .risk--medium { color: #d97706; font-weight: 600; }
+.risk-table .risk--low    { color: #16a34a; font-weight: 600; }
+
+/* --- Footer Meta --- */
+
+.footer-meta {
+  margin-top: var(--space-7);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.footer-meta__item { white-space: nowrap; }
+
+/* === Print === */
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --ink-muted: #444444;
+    --rule: #cccccc;
+    --surface: #f5f5f5;
+    --surface-strong: #ebebeb;
+  }
+
+  body {
+    padding: 0;
+    max-width: 100%;
+    font-size: 11pt;
+  }
+
+  h1 { font-size: 20pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 12pt; }
+  h4 { font-size: 11pt; }
+
+  a { color: var(--ink); }
+
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--ink-muted);
+    word-break: break-all;
+  }
+
+  .callout,
+  .kpi,
+  .diff-table,
+  .risk-table {
+    break-inside: avoid;
+  }
+
+  .timeline__row { break-inside: avoid; }
+
+  table tr { break-inside: avoid; }
+
+  details { break-inside: avoid; }
+
+  details { display: block; }
+  details > *:not(summary) { display: block !important; }
+  summary { list-style: none; cursor: default; }
+  summary::before { display: none; }
+  summary::-webkit-details-marker { display: none; }
+
+  .tabs__nav { display: none; }
+  .tab-panel { display: block !important; }
+  .tab-panel + .tab-panel { margin-top: var(--space-4); border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+
+  .footer-meta { border-top: 1px solid var(--rule); }
+
+  .theme-toggle { display: none; }
+
+  .toc-layout { display: block; }
+  .toc { display: none; }
+}
+
+/* --- Theme Toggle --- */
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover { background: var(--surface-strong); }
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* --- Table of Contents --- */
+
+.toc-layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: var(--space-6);
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.toc {
+  position: sticky;
+  top: var(--space-5);
+  max-height: calc(100vh - var(--space-8));
+  overflow-y: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.toc__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc__list li { margin-bottom: 2px; }
+
+.toc__link {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+  padding: 3px var(--space-2);
+  border-left: 2px solid transparent;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  text-decoration: none;
+  transition: color 0.12s, border-left-color 0.12s, background 0.12s;
+}
+
+.toc__link:hover,
+.toc__link:focus-visible {
+  color: var(--ink);
+  background: var(--surface-strong);
+  text-decoration: none;
+}
+
+.toc__link--active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .toc-layout {
+    grid-template-columns: 1fr;
+  }
+  .toc {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    order: -1;
+  }
+}
+
+/* === Page-specific === */
+
+.incident-banner {
+  background: color-mix(in srgb, #dc2626 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, #dc2626 30%, var(--rule));
+  border-left: 6px solid #dc2626;
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.incident-banner__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #dc2626;
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.incident-banner__title::before {
+  content: "■";
+  font-size: 0.8rem;
+}
+
+.incident-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-2) var(--space-5);
+  font-size: 0.875rem;
+  margin-top: var(--space-3);
+}
+
+.incident-meta-grid dt {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 2px;
+}
+
+.incident-meta-grid dd {
+  color: var(--ink);
+  font-weight: 500;
+  margin: 0 0 var(--space-2);
+}
+
+.timeline__time {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+
+.timeline__phase {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  margin-bottom: var(--space-1);
+}
+
+.phase--detection  { background: color-mix(in srgb, #d97706 15%, var(--paper)); color: #92400e; }
+.phase--escalation { background: color-mix(in srgb, #dc2626 15%, var(--paper)); color: #991b1b; }
+.phase--mitigation { background: color-mix(in srgb, #2563eb 15%, var(--paper)); color: #1e40af; }
+.phase--resolution { background: color-mix(in srgb, #16a34a 15%, var(--paper)); color: #14532d; }
+.phase--followup   { background: var(--surface-strong); color: var(--ink-muted); }
+
+.timeline__dot--detection  { background: #d97706; }
+.timeline__dot--escalation { background: #dc2626; }
+.timeline__dot--mitigation { background: #2563eb; }
+.timeline__dot--resolution { background: #16a34a; }
+.timeline__dot--followup   { background: var(--ink-muted); }
+
+.action-status--done    { color: #16a34a; font-weight: 600; }
+.action-status--open    { color: #d97706; font-weight: 600; }
+.action-status--overdue { color: #dc2626; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<div class="toc-layout">
+
+  <main>
+
+  <!-- =========================================================
+       INCIDENT SUMMARY BANNER
+  ========================================================== -->
+  <div class="incident-banner" role="region" aria-label="Incident summary">
+    <div class="incident-banner__title">INC-2026-0089 — Production Site Outage</div>
+    <p style="margin-bottom: var(--space-3); max-width: var(--measure);">
+      Complete outage of sampleclient.com.au for 47 minutes on 2026-05-18. Root cause: a Cloudflare WAF rule deployed without staging validation blocked all requests matching the new checkout URL pattern, affecting 100% of production traffic.
+    </p>
+    <dl class="incident-meta-grid">
+      <div>
+        <dt>Date</dt>
+        <dd>2026-05-18 (Sunday)</dd>
+      </div>
+      <div>
+        <dt>Detection time</dt>
+        <dd>14:03 AEST</dd>
+      </div>
+      <div>
+        <dt>Resolution time</dt>
+        <dd>14:50 AEST</dd>
+      </div>
+      <div>
+        <dt>Duration</dt>
+        <dd>47 minutes</dd>
+      </div>
+      <div>
+        <dt>Severity</dt>
+        <dd style="color: #dc2626; font-weight: 700;">P1 — Full outage</dd>
+      </div>
+      <div>
+        <dt>Affected services</dt>
+        <dd>sampleclient.com.au (all pages)</dd>
+      </div>
+      <div>
+        <dt>Impacted users</dt>
+        <dd>~1,200 (estimated from analytics)</dd>
+      </div>
+      <div>
+        <dt>Post-mortem owner</dt>
+        <dd>Dev (Studio Quarantine)</dd>
+      </div>
+    </dl>
+  </div>
+
+  <!-- =========================================================
+       KPI STRIP
+  ========================================================== -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <span class="kpi__value" style="color: #dc2626;">47 min</span>
+      <span class="kpi__label">Total downtime</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">14 min</span>
+      <span class="kpi__label">Detection lag</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">33 min</span>
+      <span class="kpi__label">Time to mitigate</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi__value">~1,200</span>
+      <span class="kpi__label">Users impacted</span>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TIMELINE
+  ========================================================== -->
+  <h2 id="s-timeline">Incident Timeline</h2>
+
+  <div class="timeline" role="list">
+
+    <!-- 13:49 — Deploy event -->
+    <div class="timeline__row" role="listitem">
+      <div class="timeline__marker" aria-hidden="true">
+        <div class="timeline__dot timeline__dot--followup"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <p class="timeline__time">13:49 AEST</p>
+        <span class="timeline__phase phase--followup">Pre-incident</span>
+        <h3 style="margin-top: var(--space-1);">WAF rule update deployed to production</h3>
+        <p>Dev deployed an updated Cloudflare WAF ruleset to production as part of planned security hardening. The ruleset had been reviewed internally but was not tested on a staging environment because the staging Cloudflare zone does not mirror production WAF configuration.</p>
+        <details>
+          <summary>Deployment log excerpt</summary>
+          <pre>[13:49:02] cloudflare-waf-deploy: uploading ruleset v1.4.2
+[13:49:08] ruleset uploaded: 14 rules active
+[13:49:11] purge cache: OK
+[13:49:12] deploy complete — no errors reported</pre>
+        </details>
+      </div>
+    </div>
+
+    <!-- 14:03 — Detection -->
+    <div class="timeline__row" role="listitem">
+      <div class="timeline__marker" aria-hidden="true">
+        <div class="timeline__dot timeline__dot--detection"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <p class="timeline__time">14:03 AEST</p>
+        <span class="timeline__phase phase--detection">Detection</span>
+        <h3 style="margin-top: var(--space-1);">Uptime monitor fires P1 alert — 100% of requests returning 403</h3>
+        <p>Uptime Robot fires a P1 alert: all monitored URLs are returning HTTP 403 Forbidden. No prior anomaly detected — the outage was binary (working → not working) with no degraded-service window. Alert fires to Slack (#alerts) and PagerDuty.</p>
+        <p>Detection lag of 14 minutes is within the 5-minute polling interval plus alerting latency. Uptime Robot polls every 5 minutes; actual outage onset is estimated as 13:49 based on WAF deploy timestamp.</p>
+        <details>
+          <summary>Uptime Robot alert payload</summary>
+          <pre>{
+  "monitorID": "m123456789",
+  "monitorURL": "https://sampleclient.com.au",
+  "alertType": "down",
+  "alertTypeFriendlyName": "Down",
+  "alertDetails": "HTTP 403 Forbidden",
+  "alertDateTime": "2026-05-18T14:03:22+10:00",
+  "monitorAlertContacts": ["slack-alerts", "pagerduty-p1"]
+}</pre>
+        </details>
+      </div>
+    </div>
+
+    <!-- 14:07 — Escalation -->
+    <div class="timeline__row" role="listitem">
+      <div class="timeline__marker" aria-hidden="true">
+        <div class="timeline__dot timeline__dot--escalation"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <p class="timeline__time">14:07 AEST</p>
+        <span class="timeline__phase phase--escalation">Escalation</span>
+        <h3 style="margin-top: var(--space-1);">Dev confirms scope — full 403 on all pages — escalates to PM and client</h3>
+        <p>Dev manually confirms via browser and curl that all pages across desktop and mobile are returning 403. Webflow is confirmed healthy (Webflow status page: all green). Suspicion immediately falls on the Cloudflare WAF deploy made 18 minutes prior.</p>
+        <p>PM (Tate) notified via Slack. Sample Client on-call contact notified by phone — they confirm no changes made on their end.</p>
+        <details>
+          <summary>Confirmation commands run</summary>
+          <pre>curl -I https://sampleclient.com.au
+HTTP/2 403
+server: cloudflare
+cf-ray: 8a3b2c1d0e9f4a5b-SYD
+
+curl -I https://sampleclient.com.au/services/growth
+HTTP/2 403
+server: cloudflare
+
+curl -I https://sampleclient.com.au/about
+HTTP/2 403
+server: cloudflare</pre>
+        </details>
+      </div>
+    </div>
+
+    <!-- 14:12 — Investigation -->
+    <div class="timeline__row" role="listitem">
+      <div class="timeline__marker" aria-hidden="true">
+        <div class="timeline__dot timeline__dot--escalation"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <p class="timeline__time">14:12 AEST</p>
+        <span class="timeline__phase phase--escalation">Investigation</span>
+        <h3 style="margin-top: var(--space-1);">Root cause identified — WAF rule 14 blocking all requests</h3>
+        <p>Cloudflare dashboard Firewall Events log reviewed. Rule 14 ("Block suspicious checkout parameter injection") shows 100% of incoming requests matching — including homepage and static asset requests. Rule uses a broad regex that inadvertently matches the Cloudflare Rocket Loader query parameter appended to all page requests.</p>
+        <details>
+          <summary>Cloudflare Firewall Events — top entries</summary>
+          <pre>14:12 — Rule: "Block suspicious checkout parameter injection"
+  Action: Block (403)
+  Requests matched in last 10 min: 2,847
+  Sample matched URI: / ?__cf_chl_rt_tk=xYz123 (Rocket Loader token)
+  Rule regex: .*[?&amp;](id|token|key|session)=[A-Za-z0-9]{16,}.*
+  Match reason: __cf_chl_rt_tk= matches (token|key) pattern</pre>
+        </details>
+      </div>
+    </div>
+
+    <!-- 14:17 — Mitigation begins -->
+    <div class="timeline__row" role="listitem">
+      <div class="timeline__marker" aria-hidden="true">
+        <div class="timeline__dot timeline__dot--mitigation"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <p class="timeline__time">14:17 AEST</p>
+        <span class="timeline__phase phase--mitigation">Mitigation</span>
+        <h3 style="margin-top: var(--space-1);">Rule 14 disabled in Cloudflare dashboard</h3>
+        <p>Dev disables Rule 14 in the Cloudflare WAF via the dashboard. Cloudflare propagates rule changes globally in approximately 30 seconds.</p>
+        <details>
+          <summary>Mitigation action log</summary>
+          <pre>[14:17:03] cloudflare dashboard: rule ID cf-custom-014 status → disabled
+[14:17:34] cloudflare propagation complete (confirmed via API: {"success":true})
+[14:17:38] manual check: GET https://sampleclient.com.au → HTTP 200 OK
+[14:17:41] manual check: GET https://sampleclient.com.au/services/growth → HTTP 200 OK</pre>
+        </details>
+      </div>
+    </div>
+
+    <!-- 14:22 — Uptime confirmed -->
+    <div class="timeline__row" role="listitem">
+      <div class="timeline__marker" aria-hidden="true">
+        <div class="timeline__dot timeline__dot--resolution"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <p class="timeline__time">14:22 AEST</p>
+        <span class="timeline__phase phase--resolution">Partial resolution</span>
+        <h3 style="margin-top: var(--space-1);">Uptime Robot clears — site confirmed up across all monitored URLs</h3>
+        <p>Uptime Robot fires an "Up" alert across all 8 monitored URLs. Dev completes a manual smoke test of 12 pages including homepage, all service pages, contact form (submit), and the blog archive. All return 200 with expected content.</p>
+      </div>
+    </div>
+
+    <!-- 14:50 — All-clear -->
+    <div class="timeline__row" role="listitem">
+      <div class="timeline__marker" aria-hidden="true">
+        <div class="timeline__dot timeline__dot--resolution"></div>
+        <div class="timeline__line"></div>
+      </div>
+      <div class="timeline__content">
+        <p class="timeline__time">14:50 AEST</p>
+        <span class="timeline__phase phase--resolution">Resolution</span>
+        <h3 style="margin-top: var(--space-1);">Incident declared resolved — client and PM notified</h3>
+        <p>PM (Tate) sends all-clear to Sample Client contact. Google Search Console submitted for crawl re-evaluation of affected URLs. Analytics confirm traffic recovering to normal levels (~140 active users, consistent with Sunday afternoon baseline).</p>
+        <details>
+          <summary>Client communication sent (summary)</summary>
+          <pre>To: [sample-client-contact]@sampleclient.com.au
+Subject: [RESOLVED] sampleclient.com.au — outage 14:03–14:50 AEST
+
+Hi [Name],
+
+The outage affecting sampleclient.com.au between 14:03 and 14:50 AEST
+today has been fully resolved. The site is live and operating normally.
+
+Root cause: a Cloudflare security rule deployed this afternoon inadvertently
+blocked all site traffic. The rule has been disabled and the site is confirmed
+healthy across all pages.
+
+A full post-mortem report will follow within 48 hours.
+
+Tate / Studio Quarantine</pre>
+        </details>
+      </div>
+    </div>
+
+  </div><!-- /.timeline -->
+
+  <!-- =========================================================
+       ROOT CAUSE
+  ========================================================== -->
+  <h2 id="s-rca">Root Cause Analysis</h2>
+
+  <div class="callout callout--warn">
+    <p><strong>Root cause:</strong> A Cloudflare WAF rule deployed to production used a broad regular expression (<code>.*[?&amp;](id|token|key|session)=[A-Za-z0-9]{16,}.*</code>) intended to block malicious checkout parameter injection. The regex matched Cloudflare's own Rocket Loader query string (<code>__cf_chl_rt_tk=</code>), which is appended to all page requests by Cloudflare. Because Rocket Loader tokens are 16+ alphanumeric characters matching the <code>token</code> capture group, every page request was blocked.</p>
+    <p><strong>Contributing factor:</strong> The WAF rule was not validated against a staging environment before production deployment. The staging Cloudflare zone does not have Rocket Loader enabled, so the conflict would not have been detected even if staging had been used.</p>
+    <p><strong>This is not a novel failure mode.</strong> Overly broad WAF rules are a known category of self-inflicted outage. The absence of a pre-deploy validation step (or a canary deployment window) was the controllable failure.</p>
+  </div>
+
+  <!-- =========================================================
+       FIVE WHYS
+  ========================================================== -->
+  <h2 id="s-five-whys">Five Whys</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Why?</th>
+        <th>Answer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Why did the site go down?</td>
+        <td>Cloudflare WAF returned 403 for all requests.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Why did WAF return 403 for all requests?</td>
+        <td>Rule 14 matched Cloudflare Rocket Loader query strings present on every page request.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Why did Rule 14 match Rocket Loader strings?</td>
+        <td>The regex was too broad — it matched any query parameter with a 16+ character alphanumeric value, not just malicious checkout parameters.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Why was the regex too broad?</td>
+        <td>The rule was written and reviewed without testing against real production traffic patterns, including Cloudflare-injected parameters.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Why was it not tested against production traffic patterns?</td>
+        <td>No WAF deployment checklist existed. There was no requirement to validate rules in a shadow/log-only mode before activating them.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- =========================================================
+       FOLLOW-UP ACTIONS
+  ========================================================== -->
+  <h2 id="s-actions">Follow-Up Actions</h2>
+
+  <table class="risk-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Action</th>
+        <th>Owner</th>
+        <th>Due</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Draft WAF deployment checklist: (a) test in log-only mode for 24h before activating, (b) validate against Cloudflare-injected params (Rocket Loader, Bot Management, Challenge tokens), (c) require PM sign-off before production activation.</td>
+        <td>Dev</td>
+        <td>2026-05-25</td>
+        <td><span class="action-status--open">Open</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Enable Rocket Loader on the staging Cloudflare zone to mirror production configuration. Document the staging/production parity gap in the infrastructure runbook.</td>
+        <td>Dev</td>
+        <td>2026-05-25</td>
+        <td><span class="action-status--open">Open</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Narrow Rule 14 regex to target only the specific checkout parameter (<code>[?&amp;]checkout_token=</code>) rather than a generic 16-char alphanumeric pattern. Have revised regex peer-reviewed before re-deployment.</td>
+        <td>Dev</td>
+        <td>2026-05-28</td>
+        <td><span class="action-status--open">Open</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Add a synthetic transaction monitor (Uptime Robot advanced check) that submits the contact form and validates a 200 response — tests functional path, not just status code.</td>
+        <td>Dev / Tate</td>
+        <td>2026-05-30</td>
+        <td><span class="action-status--open">Open</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Reduce Uptime Robot polling interval from 5 minutes to 1 minute for the production domain. Current 5-minute interval means a P1 outage can go undetected for up to 9 minutes after onset.</td>
+        <td>Dev</td>
+        <td>2026-05-25</td>
+        <td><span class="action-status--open">Open</span></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Add GSC coverage check to post-incident runbook: after any outage, submit affected URLs for re-crawl and monitor index coverage report for 7 days.</td>
+        <td>Alex</td>
+        <td>2026-05-25</td>
+        <td><span class="action-status--done">Done</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Client post-mortem debrief call — walk Sample Client through this report, confirm no ongoing commercial impact, and confirm acceptance of the follow-up action plan.</td>
+        <td>Tate</td>
+        <td>2026-05-22</td>
+        <td><span class="action-status--done">Done</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- =========================================================
+       WHAT WENT WELL
+  ========================================================== -->
+  <h2 id="s-well">What Went Well</h2>
+
+  <div class="callout callout--ok">
+    <p><strong>Detection was systematic.</strong> The outage was detected via automated monitoring — not a client report. This is the intended behaviour.</p>
+  </div>
+
+  <div class="callout callout--ok">
+    <p><strong>Root cause was isolated in under 10 minutes.</strong> The Cloudflare Firewall Events log provided a clear trail directly to the offending rule. No guesswork was required.</p>
+  </div>
+
+  <div class="callout callout--ok">
+    <p><strong>Communication was clear and timely.</strong> Client was notified within 4 minutes of confirmation, received a plain-language summary, and an all-clear within 5 minutes of resolution.</p>
+  </div>
+
+  <!-- =========================================================
+       WHAT WENT POORLY
+  ========================================================== -->
+  <h2 id="s-poorly">What Went Poorly</h2>
+
+  <div class="callout callout--warn">
+    <p><strong>No pre-deploy validation step.</strong> The WAF rule went live without any log-only validation period. This is the single controllable failure that caused the outage.</p>
+  </div>
+
+  <div class="callout callout--warn">
+    <p><strong>Staging zone does not mirror production.</strong> Even if a staging check had been in the process, it would not have caught this bug because Rocket Loader is not active on staging. Infrastructure parity is a known gap that has not been addressed.</p>
+  </div>
+
+  <div class="callout callout--warn">
+    <p><strong>14-minute detection lag on a Sunday P1.</strong> 14 minutes is acceptable but not ideal. Reducing polling to 1-minute intervals (Action 5) will close this gap for future incidents.</p>
+  </div>
+
+  </main>
+
+  <!-- TOC right rail -->
+  <aside class="toc" aria-label="Table of contents">
+    <p class="toc__title">Contents</p>
+    <ul class="toc__list">
+      <li><a class="toc__link" href="#s-timeline">Timeline</a></li>
+      <li><a class="toc__link" href="#s-rca">Root Cause</a></li>
+      <li><a class="toc__link" href="#s-five-whys">Five Whys</a></li>
+      <li><a class="toc__link" href="#s-actions">Follow-Up Actions</a></li>
+      <li><a class="toc__link" href="#s-well">What Went Well</a></li>
+      <li><a class="toc__link" href="#s-poorly">What Went Poorly</a></li>
+    </ul>
+  </aside>
+
+</div><!-- /.toc-layout -->
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+  <footer class="footer-meta" role="contentinfo">
+    <span class="footer-meta__item">Rendered: 2026-05-23T15:40:00+10:00</span>
+    <span class="footer-meta__item">Source hash: EXAMPLE</span>
+    <span class="footer-meta__item">Produced by Studio Quarantine · 2026-05-23</span>
+  </footer>
+
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    // Theme bootstrap: read localStorage, fall back to OS preference
+    (function () {
+      var KEY = 'html-deliverable-theme';
+      var html = document.documentElement;
+      var btn  = document.getElementById('theme-toggle');
+      var sun  = document.getElementById('icon-sun');
+      var moon = document.getElementById('icon-moon');
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          sun.style.display  = 'none';
+          moon.style.display = '';
+        } else {
+          sun.style.display  = '';
+          moon.style.display = 'none';
+        }
+      }
+
+      var stored = localStorage.getItem(KEY);
+      if (stored) {
+        applyTheme(stored);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      }
+
+      btn.addEventListener('click', function () {
+        var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(current);
+        localStorage.setItem(KEY, current);
+      });
+    }());
+
+    // TOC scroll-spy via IntersectionObserver
+    (function () {
+      var links = document.querySelectorAll('.toc__link');
+      if (!links.length || !('IntersectionObserver' in window)) return;
+
+      var headings = Array.from(links).map(function (l) {
+        return document.querySelector(l.getAttribute('href'));
+      }).filter(Boolean);
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = '#' + entry.target.id;
+            links.forEach(function (l) {
+              l.classList.toggle('toc__link--active', l.getAttribute('href') === id);
+            });
+          }
+        });
+      }, { rootMargin: '0px 0px -60% 0px', threshold: 0 });
+
+      headings.forEach(function (h) { observer.observe(h); });
+    }());
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explainer — Rate Limiting in the SQ API Gateway</title>
+  <noscript><style>.theme-toggle{display:none}</style></noscript>
+  <style>
+/* === Custom Properties === */
+
+:root {
+  --paper: #f9f9f8;
+  --ink: #1a1a1a;
+  --ink-muted: #6b6b6b;
+  --accent: #2563eb;
+  --rule: #e2e2e0;
+  --surface: #f2f2f0;
+  --surface-strong: #e8e8e5;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --measure: 72ch;
+  --container: 1080px;
+}
+
+/* === Dark Mode === */
+
+[data-theme="dark"] {
+  --paper: #0c0c0c;
+  --ink: #ededed;
+  --ink-muted: #9a9a9a;
+  --accent: #60a5fa;
+  --rule: #2a2a2a;
+  --surface: #161616;
+  --surface-strong: #1f1f1f;
+}
+
+/* === Reduced Motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Reset === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Base === */
+
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* === Type === */
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+h1 { font-size: 2rem;    margin-bottom: var(--space-4); }
+h2 { font-size: 1.5rem;  margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h3 { font-size: 1.2rem;  margin-top: var(--space-5); margin-bottom: var(--space-2); }
+h4 { font-size: 1rem;    margin-top: var(--space-4); margin-bottom: var(--space-1); }
+
+p {
+  max-width: var(--measure);
+  margin-bottom: var(--space-3);
+  color: var(--ink);
+}
+
+ul, ol {
+  max-width: var(--measure);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+li { margin-bottom: var(--space-1); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  max-width: 100%;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: var(--space-5) 0;
+}
+
+/* === Focus === */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* === Tables === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-4);
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--rule);
+}
+
+td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* === Components === */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  max-width: var(--measure);
+}
+
+.callout--note { border-left-color: var(--accent); }
+
+.callout--warn {
+  border-left-color: #d97706;
+  background: color-mix(in srgb, #d97706 8%, var(--surface));
+}
+
+.callout--ok {
+  border-left-color: #16a34a;
+  background: color-mix(in srgb, #16a34a 8%, var(--surface));
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+/* --- KPI --- */
+
+.kpi {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  min-width: 10ch;
+}
+
+.kpi__value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.kpi__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* --- Timeline --- */
+
+.timeline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 var(--space-4);
+  margin-bottom: var(--space-5);
+  position: relative;
+}
+
+.timeline__row {
+  display: contents;
+}
+
+.timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.timeline__line {
+  width: 1px;
+  flex: 1;
+  background: var(--rule);
+  min-height: var(--space-4);
+}
+
+.timeline__content {
+  padding-bottom: var(--space-4);
+}
+
+.timeline__content p:last-child { margin-bottom: 0; }
+
+/* --- Tabs (radio-input pattern, keyboard navigable) --- */
+
+.tabs {
+  margin-bottom: var(--space-5);
+}
+
+.tabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.tabs__nav input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tabs__nav label {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tabs__nav label:hover { color: var(--ink); }
+
+.tabs__nav input[type="radio"]:checked + label {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tabs__nav input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.tab-panel { display: none; }
+.tab-panel--active { display: block; }
+
+/* --- Collapsible (native details/summary) --- */
+
+details {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  margin-bottom: var(--space-2);
+}
+
+summary {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  color: var(--ink-muted);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--rule);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+details > *:not(summary) {
+  padding: var(--space-3);
+}
+
+/* --- Diff Table --- */
+
+.diff-table th:first-child,
+.diff-table td:first-child {
+  width: 50%;
+  border-right: 2px solid var(--rule);
+}
+
+.diff-table thead th { background: var(--surface-strong); }
+
+.diff-table td.removed { background: color-mix(in srgb, #dc2626 8%, var(--paper)); }
+.diff-table td.added   { background: color-mix(in srgb, #16a34a 8%, var(--paper)); }
+
+/* --- Risk Table --- */
+
+.risk-table .risk--high   { color: #dc2626; font-weight: 600; }
+.risk-table .risk--medium { color: #d97706; font-weight: 600; }
+.risk-table .risk--low    { color: #16a34a; font-weight: 600; }
+
+/* --- Footer Meta --- */
+
+.footer-meta {
+  margin-top: var(--space-7);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.footer-meta__item { white-space: nowrap; }
+
+/* === Print === */
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --ink-muted: #444444;
+    --rule: #cccccc;
+    --surface: #f5f5f5;
+    --surface-strong: #ebebeb;
+  }
+
+  body {
+    padding: 0;
+    max-width: 100%;
+    font-size: 11pt;
+  }
+
+  h1 { font-size: 20pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 12pt; }
+  h4 { font-size: 11pt; }
+
+  a { color: var(--ink); }
+
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--ink-muted);
+    word-break: break-all;
+  }
+
+  .callout,
+  .kpi,
+  .diff-table,
+  .risk-table {
+    break-inside: avoid;
+  }
+
+  .timeline__row { break-inside: avoid; }
+
+  table tr { break-inside: avoid; }
+
+  details { break-inside: avoid; }
+
+  details { display: block; }
+  details > *:not(summary) { display: block !important; }
+  summary { list-style: none; cursor: default; }
+  summary::before { display: none; }
+  summary::-webkit-details-marker { display: none; }
+
+  .tabs__nav { display: none; }
+  .tab-panel { display: block !important; }
+  .tab-panel + .tab-panel { margin-top: var(--space-4); border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+
+  .footer-meta { border-top: 1px solid var(--rule); }
+
+  .theme-toggle { display: none; }
+
+  .toc-layout { display: block; }
+  .toc { display: none; }
+}
+
+/* --- Theme Toggle --- */
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover { background: var(--surface-strong); }
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* --- Table of Contents --- */
+
+.toc-layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: var(--space-6);
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.toc {
+  position: sticky;
+  top: var(--space-5);
+  max-height: calc(100vh - var(--space-8));
+  overflow-y: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.toc__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc__list li { margin-bottom: 2px; }
+
+.toc__link {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+  padding: 3px var(--space-2);
+  border-left: 2px solid transparent;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  text-decoration: none;
+  transition: color 0.12s, border-left-color 0.12s, background 0.12s;
+}
+
+.toc__link:hover,
+.toc__link:focus-visible {
+  color: var(--ink);
+  background: var(--surface-strong);
+  text-decoration: none;
+}
+
+.toc__link--active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .toc-layout {
+    grid-template-columns: 1fr;
+  }
+  .toc {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    order: -1;
+  }
+}
+
+/* === Page-specific === */
+
+/* Glossary term links */
+.term {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  cursor: help;
+}
+
+/* Definition list */
+dl.glossary {
+  max-width: var(--measure);
+}
+
+dl.glossary dt {
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: var(--space-3);
+  font-size: 0.95rem;
+}
+
+dl.glossary dd {
+  color: var(--ink-muted);
+  margin-left: 0;
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--rule);
+  font-size: 0.9rem;
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-1);
+}
+
+/* FAQ section */
+.faq-section details {
+  margin-bottom: var(--space-2);
+}
+
+.faq-section summary {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+  </style>
+</head>
+<body>
+
+<div class="toc-layout">
+
+  <main>
+
+  <!-- Page header -->
+  <h1>Rate Limiting in the SQ API Gateway</h1>
+
+  <!-- TL;DR -->
+  <div class="callout callout--note" style="max-width: 100%;">
+    <h3 style="margin-top:0; margin-bottom: var(--space-1);">TL;DR</h3>
+    <p>The SQ API Gateway applies a <a href="#s-token-bucket" class="term">token bucket</a> rate limiter at the edge — 100 requests per 10-second window per API key. Requests that exceed the limit receive <code>HTTP 429</code> with a <code>Retry-After</code> header. Implement <a href="#s-exponential-backoff" class="term">exponential back-off</a> in every client. Do not retry immediately on 429 — it compounds the problem.</p>
+  </div>
+
+      <!-- Overview -->
+      <h2 id="s-overview">Overview</h2>
+      <p>Rate limiting prevents any single API key from monopolising gateway capacity. Without it, a burst of automated requests from one integration starves other callers and can cascade into upstream service failures.</p>
+      <p>The SQ API Gateway uses a <a href="#def-token-bucket" class="term" id="s-token-bucket">token bucket</a> algorithm. Each API key has its own bucket that refills at a constant rate. Requests consume tokens. When the bucket empties, requests are rejected until it refills.</p>
+
+      <details>
+        <summary>Deep dive: why token bucket over fixed-window counting?</summary>
+        <p>Fixed-window counters reset at clock boundaries. A client that fires 100 requests at 09:59:59 and another 100 at 10:00:01 effectively sends 200 requests in 2 seconds — the window boundary creates a burst seam. Token bucket avoids this: tokens refill continuously at 10/second, so a burst consumes the reserve but the refill rate stays constant regardless of clock alignment.</p>
+        <p>The downside is that token bucket allows short bursts above the nominal rate (up to the bucket capacity). The SQ gateway caps bucket capacity at 100 tokens, so the maximum instantaneous burst is 100 requests — the full 10-second allowance consumed in under a second.</p>
+      </details>
+
+      <!-- How it works -->
+      <h2 id="s-how-it-works">How it works</h2>
+      <p>Each incoming request is keyed on the <code>X-Api-Key</code> header. The rate limiter checks the token count for that key in Redis, decrements by 1 if tokens are available, or rejects with <code>429</code> if the bucket is empty.</p>
+
+      <details>
+        <summary>Sequence: token bucket check per request</summary>
+        <p>Simplified Redis Lua script executed atomically on each request:</p>
+        <pre><code>-- rate_limit.lua
+local key      = KEYS[1]          -- "rl:{api_key}"
+local capacity = tonumber(ARGV[1]) -- 100
+local refill   = tonumber(ARGV[2]) -- 10 tokens/second
+local now      = tonumber(ARGV[3]) -- unix timestamp (ms)
+
+local data     = redis.call("HMGET", key, "tokens", "last_refill")
+local tokens   = tonumber(data[1]) or capacity
+local last     = tonumber(data[2]) or now
+
+-- Refill
+local elapsed  = math.max(0, now - last)
+tokens = math.min(capacity, tokens + elapsed / 1000 * refill)
+
+if tokens &lt; 1 then
+  return 0   -- reject
+end
+
+tokens = tokens - 1
+redis.call("HMSET", key, "tokens", tokens, "last_refill", now)
+redis.call("PEXPIRE", key, 10000)
+return 1     -- allow</code></pre>
+      </details>
+
+      <!-- Current limits -->
+      <h2 id="s-limits">Current limits</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Plan tier</th>
+            <th>Bucket capacity</th>
+            <th>Refill rate</th>
+            <th>Daily ceiling</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Standard</td>
+            <td>100 tokens</td>
+            <td>10 / second</td>
+            <td>40,000 req/day</td>
+          </tr>
+          <tr>
+            <td>Business</td>
+            <td>500 tokens</td>
+            <td>50 / second</td>
+            <td>200,000 req/day</td>
+          </tr>
+          <tr>
+            <td>Enterprise</td>
+            <td>Custom</td>
+            <td>Custom</td>
+            <td>Negotiated</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details>
+        <summary>Daily ceiling enforcement</summary>
+        <p>The daily ceiling is a separate fixed counter keyed on <code>rl:daily:{api_key}:{date}</code>, incremented on every allowed request and expiring at midnight UTC. When the daily ceiling is reached, requests return <code>429</code> with a <code>Retry-After</code> value equal to seconds remaining until midnight. The token bucket and daily counter are checked in sequence — both must pass.</p>
+      </details>
+
+      <!-- Handling 429s -->
+      <h2 id="s-429">Handling 429 responses</h2>
+
+      <div class="callout callout--warn">
+        <h4 style="margin-top:0; margin-bottom: var(--space-1);">Never retry immediately on 429</h4>
+        <p>An immediate retry when the bucket is empty consumes a network round-trip, returns another 429, and — if you are in a tight loop — can trigger IP-level throttling at the load balancer. Always respect <code>Retry-After</code> or use <a href="#def-exponential-backoff" class="term" id="s-exponential-backoff">exponential back-off</a> with jitter.</p>
+      </div>
+
+      <p>The gateway sets three headers on every response to help clients self-regulate:</p>
+      <ul>
+        <li><code>X-RateLimit-Limit</code> — bucket capacity for this key</li>
+        <li><code>X-RateLimit-Remaining</code> — tokens remaining after this request</li>
+        <li><code>Retry-After</code> — seconds to wait before retrying (only on 429)</li>
+      </ul>
+
+      <!-- Implementation — tabbed by language -->
+      <h2 id="s-implementation">Implementation</h2>
+      <p>The same back-off pattern applies across languages. Tab between implementations below.</p>
+
+      <div class="tabs" id="impl-tabs">
+        <ul class="tabs__nav" role="tablist">
+          <li role="presentation">
+            <input type="radio" name="impl-tab" id="tab-js" checked>
+            <label for="tab-js" role="tab" aria-selected="true" aria-controls="panel-js">JavaScript</label>
+          </li>
+          <li role="presentation">
+            <input type="radio" name="impl-tab" id="tab-python">
+            <label for="tab-python" role="tab" aria-selected="false" aria-controls="panel-python">Python</label>
+          </li>
+          <li role="presentation">
+            <input type="radio" name="impl-tab" id="tab-curl">
+            <label for="tab-curl" role="tab" aria-selected="false" aria-controls="panel-curl">Shell / curl</label>
+          </li>
+        </ul>
+
+        <div id="panel-js" class="tab-panel tab-panel--active" role="tabpanel" aria-labelledby="tab-js">
+          <pre><code>// Exponential back-off with jitter — JavaScript (fetch)
+const MAX_RETRIES = 5;
+
+async function sqRequest(url, options, attempt = 0) {
+  const res = await fetch(url, options);
+
+  if (res.status === 429 && attempt &lt; MAX_RETRIES) {
+    const retryAfter = parseInt(res.headers.get('Retry-After') ?? '1', 10);
+    const base  = retryAfter * 1000;
+    const jitter = Math.random() * 500;
+    const delay = Math.min(base * Math.pow(2, attempt) + jitter, 30_000);
+    await new Promise(resolve => setTimeout(resolve, delay));
+    return sqRequest(url, options, attempt + 1);
+  }
+
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}</code></pre>
+        </div>
+
+        <div id="panel-python" class="tab-panel" role="tabpanel" aria-labelledby="tab-python">
+          <pre><code># Exponential back-off with jitter — Python (httpx)
+import httpx, time, random
+
+MAX_RETRIES = 5
+
+def sq_request(url: str, headers: dict, attempt: int = 0) -> dict:
+    res = httpx.get(url, headers=headers)
+
+    if res.status_code == 429 and attempt &lt; MAX_RETRIES:
+        retry_after = int(res.headers.get("Retry-After", 1))
+        base  = retry_after * (2 ** attempt)
+        jitter = random.uniform(0, 0.5)
+        time.sleep(min(base + jitter, 30))
+        return sq_request(url, headers, attempt + 1)
+
+    res.raise_for_status()
+    return res.json()</code></pre>
+        </div>
+
+        <div id="panel-curl" class="tab-panel" role="tabpanel" aria-labelledby="tab-curl">
+          <pre><code>#!/bin/sh
+# Shell script with manual retry loop
+# Note: 'Retry-After' header not parsed — uses fixed 5s back-off for demo
+MAX=5
+ATTEMPT=0
+
+while [ $ATTEMPT -lt $MAX ]; do
+  HTTP_CODE=$(curl -s -o /tmp/sq_resp.json -w "%{http_code}" \
+    -H "X-Api-Key: $SQ_API_KEY" \
+    "https://api.sampleclient.com/v1/orders")
+
+  if [ "$HTTP_CODE" = "200" ]; then
+    cat /tmp/sq_resp.json
+    exit 0
+  elif [ "$HTTP_CODE" = "429" ]; then
+    ATTEMPT=$((ATTEMPT + 1))
+    DELAY=$((5 * (2 ** (ATTEMPT - 1))))
+    echo "Rate limited. Waiting ${DELAY}s (attempt $ATTEMPT)..." &gt;&amp;2
+    sleep "$DELAY"
+  else
+    echo "Error: HTTP $HTTP_CODE" &gt;&amp;2
+    exit 1
+  fi
+done
+
+echo "Max retries reached" &gt;&amp;2
+exit 1</code></pre>
+        </div>
+      </div>
+
+      <!-- Response headers reference -->
+      <h2 id="s-headers">Response headers reference</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Header</th>
+            <th>Example</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>X-RateLimit-Limit</code></td>
+            <td><code>100</code></td>
+            <td>Bucket capacity for this API key's tier</td>
+          </tr>
+          <tr>
+            <td><code>X-RateLimit-Remaining</code></td>
+            <td><code>73</code></td>
+            <td>Tokens remaining after this request was processed</td>
+          </tr>
+          <tr>
+            <td><code>X-RateLimit-Reset</code></td>
+            <td><code>1748000460</code></td>
+            <td>Unix timestamp when the bucket will be full (approximate)</td>
+          </tr>
+          <tr>
+            <td><code>Retry-After</code></td>
+            <td><code>3</code></td>
+            <td>Only present on 429 — seconds until the client may retry</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Glossary -->
+      <h2 id="s-glossary">Glossary</h2>
+
+      <dl class="glossary" id="glossary">
+        <dt id="def-token-bucket">Token bucket</dt>
+        <dd>A rate-limiting algorithm where each caller has a "bucket" that holds up to a fixed number of tokens. Tokens are consumed by requests and refilled at a constant rate. When the bucket is empty, requests are rejected until tokens replenish. Allows short bursts up to the bucket capacity.</dd>
+
+        <dt id="def-exponential-backoff">Exponential back-off</dt>
+        <dd>A retry strategy where the wait time between retries increases exponentially with each failed attempt — typically <code>base * 2^attempt</code> — usually with added random jitter. Prevents multiple clients from retrying simultaneously and worsening congestion.</dd>
+
+        <dt id="def-jitter">Jitter</dt>
+        <dd>A small random value added to a retry delay. Without jitter, multiple clients that all received a 429 at the same moment would all retry at the same moment after their back-off interval — producing another burst. Jitter spreads retry timing and smooths load.</dd>
+
+        <dt id="def-dlq">Dead-letter queue (DLQ)</dt>
+        <dd>A message queue that receives messages that could not be processed successfully after a defined number of retries. In the rate-limiting context, a DLQ stores failed API calls for later inspection and manual reprocessing rather than silently dropping them.</dd>
+
+        <dt id="def-rate-limit-window">Rate-limit window</dt>
+        <dd>The time period over which requests are counted. A 10-second window means the gateway tracks all requests in any rolling 10-second span. Distinct from a fixed window, which resets on clock boundaries.</dd>
+      </dl>
+
+      <!-- FAQ -->
+      <h2 id="s-faq">FAQ</h2>
+
+      <div class="faq-section">
+
+        <details>
+          <summary>Why do I get 429 even when I'm under 100 requests per 10 seconds?</summary>
+          <p>Two possibilities: (a) your requests are bursty — 100 requests fired in 200ms exhausts the bucket even though the 10-second average is low; or (b) you are sharing an API key across multiple workers, and combined they exceed the bucket. Split your workers across separate API keys or add pre-emptive throttling (check <code>X-RateLimit-Remaining</code> and slow down as it approaches zero).</p>
+        </details>
+
+        <details>
+          <summary>Does the daily ceiling reset at midnight UTC or local time?</summary>
+          <p>UTC. The key <code>rl:daily:{api_key}:{date}</code> uses the UTC date as the date component and expires at the next UTC midnight. If your workload spikes at midnight local time in a UTC+10 timezone, you are hitting the window boundary at 10:00 UTC — plan accordingly.</p>
+        </details>
+
+        <details>
+          <summary>Can I request a temporary rate-limit increase for a campaign launch?</summary>
+          <p>Yes — contact SQ ops at least 5 business days before the launch date. Provide: expected peak requests/second, duration of the elevated period, and the API key(s) affected. Ad-hoc increases are available on Business and Enterprise tiers only. Standard tier must upgrade first.</p>
+        </details>
+
+        <details>
+          <summary>Is the Redis token bucket state shared across gateway nodes?</summary>
+          <p>Yes. All gateway nodes share a single Redis cluster (ElastiCache, two replicas). The Lua script runs atomically via <code>EVAL</code>, so the token count is consistent across nodes. There is a theoretical race window of &lt;1ms per request — in practice this means the effective burst ceiling is capacity + (number of gateway nodes − 1) at peak, which is acceptable.</p>
+        </details>
+
+        <details>
+          <summary>What happens if Redis is unavailable?</summary>
+          <p>The gateway fails open by default — requests are allowed through without rate-limit checking. An alert fires within 30 seconds and the ops runbook calls for Redis recovery before the next major event window. This decision was made deliberately: a hard fail-closed would take down all API consumers, which is worse than a brief window of unthrottled traffic.</p>
+        </details>
+
+      </div>
+
+  </main>
+
+  <!-- TOC right rail -->
+  <aside class="toc" aria-label="Table of contents">
+    <p class="toc__title">Contents</p>
+    <ul class="toc__list">
+      <li><a class="toc__link" href="#s-overview">Overview</a></li>
+      <li><a class="toc__link" href="#s-how-it-works">How it works</a></li>
+      <li><a class="toc__link" href="#s-limits">Current limits</a></li>
+      <li><a class="toc__link" href="#s-429">Handling 429s</a></li>
+      <li><a class="toc__link" href="#s-implementation">Implementation</a></li>
+      <li><a class="toc__link" href="#s-headers">Response headers</a></li>
+      <li><a class="toc__link" href="#s-glossary">Glossary</a></li>
+      <li><a class="toc__link" href="#s-faq">FAQ</a></li>
+    </ul>
+  </aside>
+
+</div><!-- /.toc-layout -->
+
+  <!-- Footer -->
+  <footer class="footer-meta" role="contentinfo">
+    <span class="footer-meta__item">Rendered: 2026-05-23T15:40:00+10:00</span>
+    <span class="footer-meta__item">Source hash: EXAMPLE</span>
+    <span class="footer-meta__item">Produced by Studio Quarantine · 2026-05-23</span>
+  </footer>
+
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    // Theme bootstrap: read localStorage, fall back to OS preference
+    (function () {
+      var KEY = 'html-deliverable-theme';
+      var html = document.documentElement;
+      var btn  = document.getElementById('theme-toggle');
+      var sun  = document.getElementById('icon-sun');
+      var moon = document.getElementById('icon-moon');
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          sun.style.display  = 'none';
+          moon.style.display = '';
+        } else {
+          sun.style.display  = '';
+          moon.style.display = 'none';
+        }
+      }
+
+      var stored = localStorage.getItem(KEY);
+      if (stored) {
+        applyTheme(stored);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      }
+
+      btn.addEventListener('click', function () {
+        var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(current);
+        localStorage.setItem(KEY, current);
+      });
+    }());
+
+    // TOC scroll-spy via IntersectionObserver
+    (function () {
+      var links = document.querySelectorAll('.toc__link');
+      if (!links.length || !('IntersectionObserver' in window)) return;
+
+      var headings = Array.from(links).map(function (l) {
+        return document.querySelector(l.getAttribute('href'));
+      }).filter(Boolean);
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = '#' + entry.target.id;
+            links.forEach(function (l) {
+              l.classList.toggle('toc__link--active', l.getAttribute('href') === id);
+            });
+          }
+        });
+      }, { rootMargin: '0px 0px -60% 0px', threshold: 0 });
+
+      headings.forEach(function (h) { observer.observe(h); });
+    }());
+
+    // Tab switching — syncs radio state to panel visibility and aria-selected
+    (function () {
+      var tabs = document.querySelectorAll('.tabs');
+      tabs.forEach(function (tabGroup) {
+        var radios = tabGroup.querySelectorAll('input[type="radio"]');
+        function activate(radio) {
+          var panels = tabGroup.querySelectorAll('.tab-panel');
+          panels.forEach(function (p) { p.classList.remove('tab-panel--active'); });
+          var target = document.getElementById('panel-' + radio.id.replace('tab-', ''));
+          if (target) target.classList.add('tab-panel--active');
+          radios.forEach(function (r) {
+            var lbl = tabGroup.querySelector('label[for="' + r.id + '"]');
+            if (lbl) lbl.setAttribute('aria-selected', r === radio ? 'true' : 'false');
+          });
+        }
+        radios.forEach(function (r) {
+          r.addEventListener('change', function () { activate(r); });
+          if (r.checked) activate(r);
+        });
+      });
+    }());
+  </script>
+
+</body>
+</html>

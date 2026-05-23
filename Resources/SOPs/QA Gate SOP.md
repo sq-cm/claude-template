@@ -37,3 +37,38 @@ Quinn's report cites specific lines, standards, and revision points where applic
 ## Re-review
 
 If Quinn returns FLAGGED or BLOCKED, the producing persona revises and re-submits. There is no limit on re-review rounds, but the Orchestrator should escalate to the user if Quinn flags the same issue twice with no resolution path.
+
+---
+
+## HTML Deliverable QA Checklist
+
+Quinn's second pass for HTML companions produced by the `html-deliverable` skill. Runs only after MD QA has issued PASS on the source — never against unreviewed or FLAGGED Markdown.
+
+### Authoritative checklist
+
+Quinn applies BLOCK and FLAG rules verbatim from `Resources/Build Standards/html-deliverable-standards.md`. The build standards file is the single source of truth — no rules duplicated here, to prevent drift between gate and standards.
+
+### Additional gate-level checks
+
+Two checks that belong to the gate, not the build:
+
+- **Footer hash matches source MD.** Recompute SHA-1 of MD (LF-normalised, trailing whitespace stripped per line). Compare first 8 chars to footer hash. **BLOCK** on mismatch — means HTML was rendered from a different MD version than the one on disk.
+- **No new claims.** HTML must introduce no findings, numbers, or recommendations absent from approved MD. HTML renders approved content; it does not editorialise. **BLOCK** on additions.
+
+### Verdict format
+
+PASS, FLAGGED, or BLOCKED — same protocol as MD QA. Verdict includes: file path reviewed, source MD path and hash checked, list of checks run, and any FLAG/BLOCK items with specific location and rule violated. Vague verdicts are not acceptable.
+
+### Sequence
+
+```
+MD produced → humaniser → Quinn MD QA (PASS) → HTML rendered →
+Quinn HTML QA (this section) → sibling pair moves to 03 Deliverables/
+```
+
+Both gates issue independent PASS verdicts. HTML rendering does not begin while MD QA is FLAGGED or BLOCKED.
+
+### Cross-references
+
+- Build standards (authoritative rules): `Resources/Build Standards/html-deliverable-standards.md`
+- Skill (workflow, drift policy, footer spec): `.claude/skills/html-deliverable/SKILL.md`

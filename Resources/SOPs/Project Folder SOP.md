@@ -74,6 +74,47 @@ Not every project needs all three. The Orchestrator creates only what the task r
 
 **Tooling note:** any script or glob matching project subfolders should match by suffix (`*Briefs`, `*Working`, `*Deliverables`), not exact name, to survive future prefix changes.
 
+### Sibling pair convention for HTML companions
+
+For six deliverable types, `03 Deliverables/` holds a matched file pair — same stem name,
+two extensions:
+
+```
+03 Deliverables/
+  <name>.md     ← canonical source of truth
+  <name>.html   ← render of approved MD content
+```
+
+**In-scope deliverable types:**
+
+1. **Audit reports** — findings, risk tables, prioritised recommendations.
+2. **Status reports** — progress dashboards, KPI summaries, traffic-light tables.
+3. **Implementation plans** — phased timelines, dependency maps, milestone trackers.
+4. **Comparisons** — side-by-side option analyses, diff tables, scored matrices.
+5. **Research / concept explainers** — tabbed sections, annotated references, structured arguments.
+6. **Incident post-mortems** — timelines, root-cause trees, corrective action tables.
+
+**MD is canonical. HTML is a render.** Within a companion pair, the HTML file is never edited
+directly — when the MD changes, the HTML is rebuilt from the updated MD using the
+`html-deliverable` skill.
+
+This rule applies **only** to MD↔HTML companion pairs in the six in-scope types above.
+Standalone HTML — prototypes via the `prototype` skill, Webflow embeds, one-off interactive
+artefacts, anything not paired with an MD source of truth — is unaffected and edited directly
+as normal.
+
+**Rebuild trigger (summary):** rebuild when sections move, findings change, data is corrected,
+numbers or recommendations change. Skip rebuild for typo fixes, humaniser tweaks, and
+prose-only edits with no semantic shift. The authoritative drift checklist is in
+`.claude/skills/html-deliverable/SKILL.md` — that file governs ambiguous calls (PM judges
+when the call is unclear).
+
+**Cross-references:**
+
+- Skill (drift checklist, footer spec, full workflow): `.claude/skills/html-deliverable/SKILL.md`
+- Build standards (technical constraints): `Resources/Build Standards/html-deliverable-standards.md`
+- QA checklist (HTML QA pass): `Resources/SOPs/QA Gate SOP.md` — HTML Deliverable QA Checklist section
+
 ---
 
 ## Template subfolder

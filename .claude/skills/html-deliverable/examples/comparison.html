@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comparison — Search Platform Selection · Sample Client Co.</title>
+  <noscript><style>.theme-toggle{display:none}</style></noscript>
+  <style>
+/* === Custom Properties === */
+
+:root {
+  --paper: #f9f9f8;
+  --ink: #1a1a1a;
+  --ink-muted: #6b6b6b;
+  --accent: #2563eb;
+  --rule: #e2e2e0;
+  --surface: #f2f2f0;
+  --surface-strong: #e8e8e5;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --measure: 72ch;
+  --container: 1080px;
+}
+
+/* === Dark Mode === */
+
+[data-theme="dark"] {
+  --paper: #0c0c0c;
+  --ink: #ededed;
+  --ink-muted: #9a9a9a;
+  --accent: #60a5fa;
+  --rule: #2a2a2a;
+  --surface: #161616;
+  --surface-strong: #1f1f1f;
+}
+
+/* === Reduced Motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Reset === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Base === */
+
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* === Type === */
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+h1 { font-size: 2rem;    margin-bottom: var(--space-4); }
+h2 { font-size: 1.5rem;  margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h3 { font-size: 1.2rem;  margin-top: var(--space-5); margin-bottom: var(--space-2); }
+h4 { font-size: 1rem;    margin-top: var(--space-4); margin-bottom: var(--space-1); }
+
+p {
+  max-width: var(--measure);
+  margin-bottom: var(--space-3);
+  color: var(--ink);
+}
+
+ul, ol {
+  max-width: var(--measure);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+li { margin-bottom: var(--space-1); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  max-width: 100%;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: var(--space-5) 0;
+}
+
+/* === Focus === */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* === Tables === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-4);
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--rule);
+}
+
+td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* === Components === */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  max-width: var(--measure);
+}
+
+.callout--note { border-left-color: var(--accent); }
+
+.callout--warn {
+  border-left-color: #d97706;
+  background: color-mix(in srgb, #d97706 8%, var(--surface));
+}
+
+.callout--ok {
+  border-left-color: #16a34a;
+  background: color-mix(in srgb, #16a34a 8%, var(--surface));
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+/* --- KPI --- */
+
+.kpi {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  min-width: 10ch;
+}
+
+.kpi__value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.kpi__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* --- Timeline --- */
+
+.timeline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 var(--space-4);
+  margin-bottom: var(--space-5);
+  position: relative;
+}
+
+.timeline__row {
+  display: contents;
+}
+
+.timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.timeline__line {
+  width: 1px;
+  flex: 1;
+  background: var(--rule);
+  min-height: var(--space-4);
+}
+
+.timeline__content {
+  padding-bottom: var(--space-4);
+}
+
+.timeline__content p:last-child { margin-bottom: 0; }
+
+/* --- Tabs (radio-input pattern, keyboard navigable) --- */
+
+.tabs {
+  margin-bottom: var(--space-5);
+}
+
+.tabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.tabs__nav input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tabs__nav label {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tabs__nav label:hover { color: var(--ink); }
+
+.tabs__nav input[type="radio"]:checked + label {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tabs__nav input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.tab-panel { display: none; }
+.tab-panel--active { display: block; }
+
+/* --- Collapsible (native details/summary) --- */
+
+details {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  margin-bottom: var(--space-2);
+}
+
+summary {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  color: var(--ink-muted);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--rule);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+details > *:not(summary) {
+  padding: var(--space-3);
+}
+
+/* --- Diff Table --- */
+
+.diff-table th:first-child,
+.diff-table td:first-child {
+  width: 50%;
+  border-right: 2px solid var(--rule);
+}
+
+.diff-table thead th { background: var(--surface-strong); }
+
+.diff-table td.removed { background: color-mix(in srgb, #dc2626 8%, var(--paper)); }
+.diff-table td.added   { background: color-mix(in srgb, #16a34a 8%, var(--paper)); }
+
+/* --- Risk Table --- */
+
+.risk-table .risk--high   { color: #dc2626; font-weight: 600; }
+.risk-table .risk--medium { color: #d97706; font-weight: 600; }
+.risk-table .risk--low    { color: #16a34a; font-weight: 600; }
+
+/* --- Footer Meta --- */
+
+.footer-meta {
+  margin-top: var(--space-7);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.footer-meta__item { white-space: nowrap; }
+
+/* === Print === */
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --ink-muted: #444444;
+    --rule: #cccccc;
+    --surface: #f5f5f5;
+    --surface-strong: #ebebeb;
+  }
+
+  body {
+    padding: 0;
+    max-width: 100%;
+    font-size: 11pt;
+  }
+
+  h1 { font-size: 20pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 12pt; }
+  h4 { font-size: 11pt; }
+
+  a { color: var(--ink); }
+
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--ink-muted);
+    word-break: break-all;
+  }
+
+  .callout,
+  .kpi,
+  .diff-table,
+  .risk-table {
+    break-inside: avoid;
+  }
+
+  .timeline__row { break-inside: avoid; }
+
+  table tr { break-inside: avoid; }
+
+  details { break-inside: avoid; }
+
+  details { display: block; }
+  details > *:not(summary) { display: block !important; }
+  summary { list-style: none; cursor: default; }
+  summary::before { display: none; }
+  summary::-webkit-details-marker { display: none; }
+
+  .tabs__nav { display: none; }
+  .tab-panel { display: block !important; }
+  .tab-panel + .tab-panel { margin-top: var(--space-4); border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+
+  .footer-meta { border-top: 1px solid var(--rule); }
+
+  .theme-toggle { display: none; }
+}
+
+/* --- Theme Toggle --- */
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover { background: var(--surface-strong); }
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* === Page-specific === */
+
+.decision-header {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--rule);
+}
+
+.decision-header h1 {
+  margin-bottom: var(--space-2);
+}
+
+.criteria-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.criteria-list li {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 3px var(--space-2);
+}
+
+/* Three-column comparison grid */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+@media (max-width: 700px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.option-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.option-card--recommended {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+}
+
+.option-card__name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.option-card__tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: var(--surface-strong);
+  color: var(--ink-muted);
+}
+
+.option-card--recommended .option-card__tag {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.option-card__section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-1);
+}
+
+.option-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.option-card__list li {
+  margin-bottom: var(--space-1);
+  padding-left: 18px;
+  position: relative;
+}
+
+.option-card__list--pros li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.option-card__list--cons li::before {
+  content: "−";
+  position: absolute;
+  left: 0;
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.option-card__estimates {
+  font-size: 0.85rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  color: var(--ink);
+}
+
+.option-card__estimates dt {
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.strength-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+}
+
+.strength-bar__label {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.strength-bar__track {
+  flex: 1;
+  height: 6px;
+  background: var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.strength-bar__fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+/* Quadrant chart */
+.quadrant-wrap {
+  margin-bottom: var(--space-5);
+  overflow-x: auto;
+}
+
+/* Trade-off table — extends diff-table */
+.tradeoff-table th,
+.tradeoff-table td {
+  text-align: center;
+}
+
+.tradeoff-table th:first-child,
+.tradeoff-table td:first-child {
+  text-align: left;
+  width: auto;
+  border-right: none;
+}
+
+.tradeoff-cell--good   { color: #16a34a; font-weight: 600; }
+.tradeoff-cell--ok     { color: #d97706; }
+.tradeoff-cell--poor   { color: #dc2626; }
+  </style>
+</head>
+<body>
+
+  <main>
+
+  <!-- Decision header -->
+  <div class="decision-header">
+    <h1>Search Platform Selection</h1>
+    <p style="color: var(--ink-muted); max-width: var(--measure); margin-bottom: var(--space-3);">
+      Sample Client Co. needs a site-search solution for their product catalogue (approx. 80,000 SKUs). Three approaches evaluated against the criteria below.
+    </p>
+    <ul class="criteria-list" aria-label="Evaluation criteria">
+      <li>Relevance quality</li>
+      <li>Integration complexity</li>
+      <li>Monthly cost at scale</li>
+      <li>Time-to-live</li>
+      <li>Ops overhead</li>
+      <li>Vendor lock-in risk</li>
+    </ul>
+  </div>
+
+  <!-- Three-column approach cards -->
+  <h2>Approaches</h2>
+
+  <div class="comparison-grid" role="list">
+
+    <!-- Option A: Algolia -->
+    <div class="option-card" role="listitem">
+      <div>
+        <p class="option-card__name">Algolia</p>
+        <span class="option-card__tag">SaaS managed</span>
+      </div>
+
+      <div>
+        <p class="option-card__section-label">Pros</p>
+        <ul class="option-card__list option-card__list--pros">
+          <li>Fastest time-to-live (&lt; 1 week)</li>
+          <li>Excellent relevance out of the box</li>
+          <li>Comprehensive dashboard + analytics</li>
+          <li>React InstantSearch library</li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="option-card__section-label">Cons</p>
+        <ul class="option-card__list option-card__list--cons">
+          <li>Highest monthly cost at 80k SKUs</li>
+          <li>Strong vendor lock-in on query DSL</li>
+          <li>Record limit pricing can surprise</li>
+        </ul>
+      </div>
+
+      <dl class="option-card__estimates">
+        <dt>Monthly cost</dt>  <dd>~$1,200/mo (Scale plan)</dd>
+        <dt>Integration</dt>   <dd>3–5 days</dd>
+        <dt>Timeline to live</dt> <dd>1 week</dd>
+      </dl>
+
+      <div class="strength-bar">
+        <span class="strength-bar__label">Recommendation strength</span>
+        <div class="strength-bar__track" aria-label="Recommendation strength: 65%">
+          <div class="strength-bar__fill" style="width: 65%"></div>
+        </div>
+        <span style="font-size:0.8rem; color: var(--ink-muted);">65%</span>
+      </div>
+    </div>
+
+    <!-- Option B: Typesense (recommended) -->
+    <div class="option-card option-card--recommended" role="listitem">
+      <div>
+        <p class="option-card__name">Typesense Cloud</p>
+        <span class="option-card__tag">Recommended</span>
+      </div>
+
+      <div>
+        <p class="option-card__section-label">Pros</p>
+        <ul class="option-card__list option-card__list--pros">
+          <li>Open-source core — low lock-in risk</li>
+          <li>3–4× cheaper than Algolia at scale</li>
+          <li>Comparable relevance for product search</li>
+          <li>Self-host option if budget tightens</li>
+          <li>Strong typo tolerance built-in</li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="option-card__section-label">Cons</p>
+        <ul class="option-card__list option-card__list--cons">
+          <li>Smaller ecosystem than Algolia</li>
+          <li>ML-ranking less mature</li>
+          <li>Smaller community / fewer integrations</li>
+        </ul>
+      </div>
+
+      <dl class="option-card__estimates">
+        <dt>Monthly cost</dt>  <dd>~$320/mo (RAM-2 node)</dd>
+        <dt>Integration</dt>   <dd>5–8 days</dd>
+        <dt>Timeline to live</dt> <dd>2 weeks</dd>
+      </dl>
+
+      <div class="strength-bar">
+        <span class="strength-bar__label">Recommendation strength</span>
+        <div class="strength-bar__track" aria-label="Recommendation strength: 88%">
+          <div class="strength-bar__fill" style="width: 88%"></div>
+        </div>
+        <span style="font-size:0.8rem; color: var(--ink-muted);">88%</span>
+      </div>
+    </div>
+
+    <!-- Option C: Elasticsearch self-hosted -->
+    <div class="option-card" role="listitem">
+      <div>
+        <p class="option-card__name">Elasticsearch</p>
+        <span class="option-card__tag">Self-hosted</span>
+      </div>
+
+      <div>
+        <p class="option-card__section-label">Pros</p>
+        <ul class="option-card__list option-card__list--pros">
+          <li>Maximum flexibility and control</li>
+          <li>No per-record pricing ceiling</li>
+          <li>Proven at very large catalogue scale</li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="option-card__section-label">Cons</p>
+        <ul class="option-card__list option-card__list--cons">
+          <li>Highest ops overhead (cluster tuning)</li>
+          <li>Longest time-to-live (4–6 weeks)</li>
+          <li>Requires dedicated DevOps resource</li>
+          <li>Relevance tuning requires expertise</li>
+        </ul>
+      </div>
+
+      <dl class="option-card__estimates">
+        <dt>Monthly cost</dt>  <dd>~$480/mo (EC2 + EBS)</dd>
+        <dt>Integration</dt>   <dd>3–4 weeks</dd>
+        <dt>Timeline to live</dt> <dd>5–6 weeks</dd>
+      </dl>
+
+      <div class="strength-bar">
+        <span class="strength-bar__label">Recommendation strength</span>
+        <div class="strength-bar__track" aria-label="Recommendation strength: 40%">
+          <div class="strength-bar__fill" style="width: 40%"></div>
+        </div>
+        <span style="font-size:0.8rem; color: var(--ink-muted);">40%</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quadrant chart -->
+  <h2>Position Chart</h2>
+  <p>Axes: <strong>Cost efficiency</strong> (left = expensive, right = cost-effective) vs. <strong>Implementation speed</strong> (bottom = slow, top = fast).</p>
+
+  <div class="quadrant-wrap">
+    <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg" style="max-width:500px; display:block;" aria-labelledby="quadrant-title" role="img">
+      <title id="quadrant-title">Quadrant chart: cost efficiency vs implementation speed</title>
+      <!-- Axes -->
+      <line x1="60" y1="20" x2="60" y2="330" stroke="var(--rule)" stroke-width="1.5"/>
+      <line x1="60" y1="330" x2="480" y2="330" stroke="var(--rule)" stroke-width="1.5"/>
+
+      <!-- Axis labels -->
+      <text x="270" y="370" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink-muted)">Cost efficiency →</text>
+      <text x="20" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="var(--ink-muted)" transform="rotate(-90,20,175)">Implementation speed →</text>
+
+      <!-- Quadrant grid lines -->
+      <line x1="60" y1="175" x2="480" y2="175" stroke="var(--rule)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="270" y1="20" x2="270" y2="330" stroke="var(--rule)" stroke-width="1" stroke-dasharray="4 4"/>
+
+      <!-- Algolia: fast speed, poor cost efficiency => top-left -->
+      <circle cx="140" cy="80" r="28" fill="color-mix(in srgb, var(--accent) 12%, var(--paper))" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="140" y="76" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink)" font-weight="600">Algolia</text>
+      <text x="140" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="var(--ink-muted)">fast / costly</text>
+
+      <!-- Typesense: good speed, good cost efficiency => top-right -->
+      <circle cx="370" cy="100" r="32" fill="color-mix(in srgb, var(--accent) 18%, var(--paper))" stroke="var(--accent)" stroke-width="2"/>
+      <text x="370" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink)" font-weight="700">Typesense</text>
+      <text x="370" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="var(--accent)">★ recommended</text>
+
+      <!-- Elasticsearch: slow, moderate cost => bottom-center -->
+      <circle cx="240" cy="270" r="28" fill="color-mix(in srgb, var(--ink-muted) 10%, var(--paper))" stroke="var(--ink-muted)" stroke-width="1.5"/>
+      <text x="240" y="266" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="var(--ink)" font-weight="600">Elastic</text>
+      <text x="240" y="280" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="var(--ink-muted)">slow / flexible</text>
+    </svg>
+  </div>
+
+  <!-- Trade-off summary table (diff-table style) -->
+  <h2>Trade-off Summary</h2>
+
+  <table class="tradeoff-table">
+    <thead>
+      <tr>
+        <th style="text-align:left">Criterion</th>
+        <th>Algolia</th>
+        <th>Typesense</th>
+        <th>Elasticsearch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Relevance quality</td>
+        <td class="tradeoff-cell--good">Excellent</td>
+        <td class="tradeoff-cell--good">Very good</td>
+        <td class="tradeoff-cell--ok">Good (requires tuning)</td>
+      </tr>
+      <tr>
+        <td>Monthly cost (80k SKUs)</td>
+        <td class="tradeoff-cell--poor">~$1,200</td>
+        <td class="tradeoff-cell--good">~$320</td>
+        <td class="tradeoff-cell--ok">~$480</td>
+      </tr>
+      <tr>
+        <td>Time-to-live</td>
+        <td class="tradeoff-cell--good">1 week</td>
+        <td class="tradeoff-cell--ok">2 weeks</td>
+        <td class="tradeoff-cell--poor">5–6 weeks</td>
+      </tr>
+      <tr>
+        <td>Vendor lock-in</td>
+        <td class="tradeoff-cell--poor">High</td>
+        <td class="tradeoff-cell--good">Low (OSS core)</td>
+        <td class="tradeoff-cell--good">Low</td>
+      </tr>
+      <tr>
+        <td>Ops overhead</td>
+        <td class="tradeoff-cell--good">None</td>
+        <td class="tradeoff-cell--good">Minimal</td>
+        <td class="tradeoff-cell--poor">High</td>
+      </tr>
+      <tr>
+        <td>Integration complexity</td>
+        <td class="tradeoff-cell--good">Low</td>
+        <td class="tradeoff-cell--ok">Low–medium</td>
+        <td class="tradeoff-cell--poor">High</td>
+      </tr>
+      <tr>
+        <td>Self-host option</td>
+        <td class="tradeoff-cell--poor">No</td>
+        <td class="tradeoff-cell--good">Yes</td>
+        <td class="tradeoff-cell--good">Yes (default)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Recommendation -->
+  <h2>Recommendation</h2>
+
+  <div class="callout callout--ok" style="max-width: 100%;">
+    <h3 style="margin-top:0; margin-bottom: var(--space-2);">Proceed with Typesense Cloud</h3>
+    <p>Typesense Cloud delivers near-Algolia relevance at 27% of the cost, carries minimal vendor lock-in risk (the OSS core means a self-hosted migration path is viable), and hits the Q3 campaign deadline with a 2-week integration timeline vs. Elasticsearch's 5–6 weeks.</p>
+    <p>Algolia is the right answer if campaign launch were in two days — it isn't. Elasticsearch is appropriate only if Sample Client Co. expects catalogue growth beyond 1M SKUs and has dedicated ops capacity. Neither condition applies in v1.</p>
+    <p><strong>Next step:</strong> SQ to spin up a Typesense Cloud trial with a 5,000-record test index. Sample Client Co. stakeholder sign-off required before Phase 1 starts.</p>
+  </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-meta" role="contentinfo">
+    <span class="footer-meta__item">Rendered: 2026-05-23T15:40:00+10:00</span>
+    <span class="footer-meta__item">Source hash: EXAMPLE</span>
+    <span class="footer-meta__item">Produced by Studio Quarantine · 2026-05-23</span>
+  </footer>
+
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <script>
+    // Theme bootstrap: read localStorage, fall back to OS preference
+    (function () {
+      var KEY = 'html-deliverable-theme';
+      var html = document.documentElement;
+      var btn  = document.getElementById('theme-toggle');
+      var sun  = document.getElementById('icon-sun');
+      var moon = document.getElementById('icon-moon');
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          sun.style.display  = 'none';
+          moon.style.display = '';
+        } else {
+          sun.style.display  = '';
+          moon.style.display = 'none';
+        }
+      }
+
+      var stored = localStorage.getItem(KEY);
+      if (stored) {
+        applyTheme(stored);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      }
+
+      btn.addEventListener('click', function () {
+        var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(current);
+        localStorage.setItem(KEY, current);
+      });
+    }());
+  </script>
+
+</body>
+</html>
