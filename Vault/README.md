@@ -8,7 +8,6 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 | -------------- | ---------------------------------------------------------------------------------------- |
 | `Memory/`      | Orchestrator's persistent memory store. See CLAUDE.md § Memory for read/write rules.     |
 | `Archive/`     | Retired projects, personas, briefs, artefacts. Preserves original folder structure.      |
-| `Audits/`      | Vault audit reports and source findings.                                                 |
 | `Logs/`        | Append-only operational logs. Example folder; create on first use.                       |
 | `Templates/`   | Reusable note templates (daily note, weekly note, etc.).                                 |
 | `Scripts/`     | Vault-local automation scripts (e.g. theme sync).                                        |

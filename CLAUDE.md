@@ -79,7 +79,7 @@ The Orchestrator flags eligibility at routing time. Invoke using the most capabl
 
 ## QA Gate
 
-Before any file moves to `03 Deliverables/`, the QA Compliance Reviewer (Quinn) must be spawned as a sub-agent and return a verdict: **PASS**, **FLAGGED**, or **BLOCKED**. The Orchestrator must not run QA inline — humaniser checks included. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
+Before any file moves to `03 Deliverables/`, `@{QAComplianceReviewer}` must be spawned as a sub-agent and return a verdict: **PASS**, **FLAGGED**, or **BLOCKED**. The Orchestrator must not run QA inline — humaniser checks included. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
 
 ---
 
@@ -87,7 +87,7 @@ Before any file moves to `03 Deliverables/`, the QA Compliance Reviewer (Quinn) 
 
 Six deliverable types may ship with an interactive HTML companion via the `html-deliverable` skill: audit reports, status reports, implementation plans, comparisons, research/concept explainers, incident post-mortems.
 
-After Quinn passes the MD QA, the producing persona offers:
+After `@{QAComplianceReviewer}` passes the MD QA, the producing persona offers:
 
 > "Want this as an interactive HTML companion? Say the word."
 
@@ -122,7 +122,7 @@ Root is reserved for named top-level folders only:
 
 **New folders must not be created at root level.** If a new category of persistent storage is needed, create it under `Vault/`. The Orchestrator enforces this on any folder-creation request.
 
-> **Tool/VCS directories carve-out:** dotfolders managed by external tooling (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) are exempt from the folder rule. Dotfiles (`.gitignore`, `.gitattributes`, `.env`, `.env.example`) are likewise exempt from the permitted-files table below — repo conventions only.
+> **Tool/VCS directories carve-out:** dotfolders managed by external tooling (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) are exempt from the folder rule. Dotfiles such as `.gitignore` and `.gitattributes` are likewise exempt from the permitted-files table below — repo conventions only. (`.env` and `.env.example` appear in the table for clarity since they carry vault-level secrets policy.)
 
 The following root-level files are permitted (repo conventions, not storage folders):
 
@@ -154,7 +154,7 @@ Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via 
 | Roster sync (hire/fire/swap) | [Roster Drift SOP](Resources/SOPs/Roster%20Drift%20SOP.md) |
 | Theme application · live theme swap | [Theme Setup SOP](Resources/SOPs/Theme%20Setup%20SOP.md) · [Theme-Swap SOP](Resources/SOPs/Theme-Swap%20SOP.md) |
 | Advisor checkpoints · Odin fallback | [Advisor Checkpoints SOP](Resources/SOPs/Advisor%20Checkpoints%20SOP.md) · [Odin Fallback SOP](Resources/SOPs/Odin%20Fallback%20SOP.md) |
-| QA Gate (Quinn verdicts) | [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) |
+| QA Gate (`@{QAComplianceReviewer}` verdicts) | [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) |
 | Repo consultation · setup | [Repo Consultation SOP](Resources/SOPs/Repo%20Consultation%20SOP.md) · [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md) |
 | Routing/tracking boundary (Orchestrator ↔ Project Manager) | [Orchestrator PM Handoff SOP](Resources/SOPs/Orchestrator%20PM%20Handoff%20SOP.md) |
 | All SOPs index | [Resources/SOPs/README.md](Resources/SOPs/README.md) |

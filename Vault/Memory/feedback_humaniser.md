@@ -1,7 +1,8 @@
 ---
-name: Run humaniser on all content output
+name: feedback-humaniser
 description: All written content deliverables must be processed through the humaniser skill before finalising
-type: feedback
+metadata:
+  type: feedback
 ---
 
 Run `/humaniser` on every written content deliverable before marking complete — reverse briefs, proposals, copy, emails, reports, any client-facing or durable written artifact.
