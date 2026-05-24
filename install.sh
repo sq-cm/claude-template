@@ -29,6 +29,7 @@ fi
 
 # 2a. Ensure hook files are executable (no-op on Windows; harmless)
 chmod +x .githooks/pre-commit .githooks/pre-push 2>/dev/null || true
+chmod +x .claude/hooks/*.sh 2>/dev/null || true
 
 # 3. Copy env file if not present
 if [ ! -f .env ]; then
