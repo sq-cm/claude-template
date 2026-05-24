@@ -6,6 +6,8 @@ _Use this index to find relevant repos for a task. Max 3 repos per task consulta
 
 ## Domain Index
 
+<!-- Domain Index is intentionally empty in the template seed. Each vault populates it per the example repos in IMPORT.md. Audits should not flag this as a defect. -->
+
 | Repo | Description | Tags | GitHub URL |
 |------|-------------|------|------------|
 

@@ -1,7 +1,8 @@
 ---
-name: QA routing — spawn Quinn as sub-agent
+name: feedback-qa-routing
 description: Quinn (QA Compliance Reviewer) must be spawned as a sub-agent for all deliverable reviews, including humaniser checks. Orchestrator must not run these checks directly.
-type: feedback
+metadata:
+  type: feedback
 ---
 
 Always spawn Quinn (QA Compliance Reviewer) as a sub-agent before any file moves to Deliverables. This includes humaniser output review — do not run humaniser in the main conversation and call it done.

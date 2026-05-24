@@ -1,3 +1,10 @@
+---
+name: reference-email-build-standards
+description: Pointer — Rory's technical email build standards extracted to Resources/Build Standards/email-build-standards.md on 2026-05-15 after Checkpoint A
+metadata:
+  type: reference
+---
+
 # Reference: Email Build Standards Extraction
 
 **Date:** 2026-05-15

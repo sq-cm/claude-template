@@ -73,6 +73,11 @@ mempalace.yaml
 entities.json
 Vault/Logs/Palace/
 
+# Per-vault append-only memory logs — diverge per machine, not part of template seed
+Vault/Memory/theme-change-log.md
+Vault/Memory/odin-misses.md
+Vault/Memory/repo-conflicts.md
+
 # Personal work — local only, backed by Google Drive
 /Inbox/
 /Notes/
