@@ -143,6 +143,8 @@ API keys and secrets live in `.env` at the vault root (git-ignored). Copy `.env.
 
 Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via `Resources/Git/INDEX.md` — max 3 per task. Narrate which repos were checked. On conflict with CLAUDE.md, an SOP, or a persona constraint: pause, invoke the Senior Adviser, log the ruling to `Vault/Memory/repo-conflicts.md`.
 
+**Empty-index case.** On a fresh clone the index is empty by design. When empty, repo consultation is a no-op — narrate the skip ("INDEX.md empty — repo consultation skipped") and proceed. See the [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md) to populate.
+
 ---
 
 ## Authoritative References
