@@ -3,6 +3,7 @@
 Maps role tokens to current team member names. Update this file to swap team members.
 
 ```yaml
+Studio: Studio Quarantine  # Replace with your studio name; loaded at session start as {{Studio}}
 Orchestrator: Sam
 HRLead: Harper
 SeniorResearcher: Ryan
@@ -29,6 +30,10 @@ BusinessAnalyst: Drew
 MetaAdsSpecialist: Luca
 MobileDeveloper: Milo
 ```
+
+## Studio Variable
+
+Studio name is used in HTML deliverable footers and other branded outputs via the `{{Studio}}` token. Change it to your studio's name before producing client deliverables.
 
 ## File Path Convention
 

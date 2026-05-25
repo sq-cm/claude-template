@@ -236,7 +236,7 @@ Every rendered HTML deliverable carries a `<footer class="footer-meta">` immedia
 <footer class="footer-meta">
   <span class="footer-meta__item">Rendered: 2026-05-23T14:35:00+10:00</span>
   <span class="footer-meta__item">Source hash: a3f9d12b</span>
-  <span class="footer-meta__item">Produced by Studio Quarantine · 2026-05-23</span>
+  <span class="footer-meta__item">Produced by {{Studio}} · <date></span>
 </footer>
 ```
 
@@ -250,7 +250,7 @@ Every rendered HTML deliverable carries a `<footer class="footer-meta">` immedia
 
 This normalisation is mandatory. Without it, Windows checkouts and git line-ending conversions produce false hash drift. Pinning the normalisation ensures the hash is deterministic across environments.
 
-**Attribution:** Plain text exactly as shown — `Produced by Studio Quarantine · <date>`. No logo. No inline colour. No CSS beyond what the shell's `.footer-meta` class already provides.
+**Attribution:** Plain text exactly as shown — `Produced by {{Studio}} · <date>`. No logo. No inline colour. No CSS beyond what the shell's `.footer-meta` class already provides.
 
 The hash is the drift indicator: if the hash in the footer does not match a fresh hash of the current MD file (with normalisation applied), the HTML is stale and requires rebuild per the drift policy in `SKILL.md`.
 
