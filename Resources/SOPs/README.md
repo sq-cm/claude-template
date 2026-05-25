@@ -17,6 +17,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Orchestrator PM Handoff SOP.md`](Orchestrator%20PM%20Handoff%20SOP.md) | Clean boundary between @{Orchestrator} (routes) and @{ProjectManager} (tracks); escalation triggers     |
 | [`Theme Setup SOP.md`](Theme%20Setup%20SOP.md)                 | First-time theme application — initial onboarding flow to apply a naming theme to a fresh vault              |
 | [`Theme-Swap SOP.md`](Theme-Swap%20SOP.md)                     | Live theme replacement — step-by-step process for swapping an already-applied theme to a different one       |
+| [`Memory Protocol SOP.md`](Memory%20Protocol%20SOP.md)         | Two-stage write protocol for `Vault/Memory/`: session notes → `/memory-reconcile` → tracked `notes/<YYYY-MM>/` |
 
 ### Theme SOP scope boundary
 

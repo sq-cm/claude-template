@@ -6,7 +6,9 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 
 | Subfolder      | Purpose                                                                                  |
 | -------------- | ---------------------------------------------------------------------------------------- |
-| `Memory/`      | Orchestrator's persistent memory store. See CLAUDE.md § Memory for read/write rules.     |
+| `Memory/`      | Orchestrator's persistent memory store. See CLAUDE.md § Memory for the two-stage write protocol. |
+| `Memory/Sessions/` | Per-clone, gitignored. Stage-1 destination for new memories — pending `/memory-reconcile`. |
+| `Memory/Notes/<YYYY-MM>/` | Tracked. Stage-2 destination after reconcile; `MEMORY.md` points here.       |
 | `Archive/`     | Retired projects, personas, briefs, artefacts. Preserves original folder structure.      |
 | `Logs/`        | Append-only operational logs. Example folder; create on first use.                       |
 | `Templates/`   | Reusable note templates (daily note, weekly note, etc.).                                 |
