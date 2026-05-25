@@ -4,7 +4,7 @@ date: 2026-05-24
 type: recommendations
 lens: distribution + small-team safety
 audience: cloning teams of 2-5 in creative/marketing studios
-status: Pass 1 P0s shipped 2026-05-25 — Pass 1 P1s and Pass 2 pending triage
+status: Pass 1 complete (v2.3.0); Pass 2 in flight — P2.2/P2.4/P2.5/P2.6 shipped, P2.1 deferred, P2.3 pending
 ---
 
 # Strategic Vault Recommendations
@@ -166,6 +166,7 @@ Net: 24 → ~16.
 **Verify.** Fresh clone, new operator names correct persona for a sample brief within one read of the roster.
 
 ### P2.2 — Persona skill scaffolding
+**Status.** Shipped 2026-05-25 via PR #19.
 **Diagnosis.** Only Casey (Webflow Developer) has explicit "Skills I reach for" section. Other technical personas rely on `using-superpowers` 1% heuristic. SEO Specialist (Alex) has zero skill references — most skill-naked production persona.
 **Recommendation.** Adopt Casey's pattern across all technical personas. Three bullets minimum per persona: named skills with one-line trigger. Build missing skills first (see P2.3).
 **DRI.** Ellis. **Checkpoint-eligible: no** (pattern application).
@@ -184,6 +185,7 @@ Net: 24 → ~16.
 **Verify.** Each skill passes write-a-skill rubric and surfaces via natural-language triggers on fresh clone.
 
 ### P2.4 — Vault structure documentation gap
+**Status.** Shipped via PR #4 (2026-05-24 audit pass). CLAUDE.md delegates to `Vault/README.md`; README documents all 8 subfolders. Verified 2026-05-25: docs and `ls Vault/` match.
 **Diagnosis.** CLAUDE.md lists `Vault/Archive/`, `Logs/`, `Memory/`, `Templates/`. Actual `Vault/` adds `Attachments/`, `Bases/`, `Categories/`, `Scripts/`. Three of those are Obsidian artifacts (unstated dependency); `Scripts/` is genuinely undocumented.
 **Recommendation.** Either document the four extras in CLAUDE.md + Vault/README.md, OR strip Obsidian-only folders from template seed and note Obsidian as optional companion.
 **DRI.** Sam. **Checkpoint-eligible: no.**
@@ -191,6 +193,7 @@ Net: 24 → ~16.
 **Verify.** Vault structure docs and `ls Vault/` match.
 
 ### P2.5 — `.env.example` documentation
+**Status.** Shipped 2026-05-25 via PR #20.
 **Diagnosis.** Variable names with no context — `GOOGLE_API_KEY`, `GOOGLE_CLIENT_ID`, etc. No indication of what each unlocks, where to get it, or whether required vs optional.
 **Recommendation.** Inline-comment each variable: 1 line "what it unlocks", 1 line "where to get it", 1 line "required/optional".
 **DRI.** Drew. **Checkpoint-eligible: no.**
@@ -198,6 +201,7 @@ Net: 24 → ~16.
 **Verify.** Fresh-clone operator can complete `.env` without out-of-band help.
 
 ### P2.6 — `sync-theme.sh` executable bit + relative path
+**Status.** Shipped 2026-05-25 via PR #21.
 **Diagnosis.** `Vault/Scripts/sync-theme.sh` mode 644. `./sync-theme.sh` fails; only `bash sync-theme.sh` works. 2026-05-24 chmod sweep missed this. Separately: `.claude/settings.json` has relative `../../Shared Projects` path that breaks on teammate's machine.
 **Recommendation.** Extend install.sh chmod sweep to cover `Vault/Scripts/*.sh`. Move `Shared Projects` path to `settings.local.json` (already gitignored) or document the required parent-directory layout.
 **DRI.** Axel. **Checkpoint-eligible: no** (mechanical).
