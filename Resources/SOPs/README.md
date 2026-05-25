@@ -15,18 +15,8 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Repo Setup SOP.md`](Repo%20Setup%20SOP.md)                   | How to clone and refresh repos in Resources/Git/ — core set vs on-demand, failure handling, staleness policy |
 | [`Roster Drift SOP.md`](Roster%20Drift%20SOP.md)               | Pre-hire/fire/swap checklist to keep CLAUDE.md, .claude/agents/, and theme-name-map.md in sync               |
 | [`Orchestrator PM Handoff SOP.md`](Orchestrator%20PM%20Handoff%20SOP.md) | Clean boundary between @{Orchestrator} (routes) and @{ProjectManager} (tracks); escalation triggers     |
-| [`Theme Setup SOP.md`](Theme%20Setup%20SOP.md)                 | First-time theme application — initial onboarding flow to apply a naming theme to a fresh vault              |
-| [`Theme-Swap SOP.md`](Theme-Swap%20SOP.md)                     | Live theme replacement — step-by-step process for swapping an already-applied theme to a different one       |
+| [`Theme SOP.md`](Theme%20SOP.md)                               | All name-related operations — apply a theme, change a theme, revert to defaults, swap one member, archive a retired member |
 | [`Memory Protocol SOP.md`](Memory%20Protocol%20SOP.md)         | Two-stage write protocol for `Vault/Memory/`: session notes → `/memory-reconcile` → tracked `notes/<YYYY-MM>/` |
-
-### Theme SOP scope boundary
-
-The two Theme SOPs are not interchangeable:
-
-- **Theme Setup SOP** runs once when a fresh vault is first themed. No prior theme exists; no swap log entry is created.
-- **Theme-Swap SOP** runs every subsequent time. Assumes an active theme is in place and replaces it; appends to `Vault/Memory/theme-change-log.md`.
-
-If unsure which applies: check `Vault/Memory/theme-change-log.md`. Empty or absent → Setup. Has entries → Swap.
 
 ## Ownership
 

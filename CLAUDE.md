@@ -154,7 +154,7 @@ Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via 
 | Persona structure · hiring pipeline · tool exceptions | [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) |
 | Project folders · archive lifecycle | [Project Folder SOP](Resources/SOPs/Project%20Folder%20SOP.md) |
 | Roster sync (hire/fire/swap) | [Roster Drift SOP](Resources/SOPs/Roster%20Drift%20SOP.md) |
-| Theme application · live theme swap | [Theme Setup SOP](Resources/SOPs/Theme%20Setup%20SOP.md) · [Theme-Swap SOP](Resources/SOPs/Theme-Swap%20SOP.md) |
+| Theme application · live theme swap · revert · archive | [Theme SOP](Resources/SOPs/Theme%20SOP.md) |
 | Advisor checkpoints · Odin fallback | [Advisor Checkpoints SOP](Resources/SOPs/Advisor%20Checkpoints%20SOP.md) · [Odin Fallback SOP](Resources/SOPs/Odin%20Fallback%20SOP.md) |
 | QA Gate (`@{QAComplianceReviewer}` verdicts) | [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) |
 | Repo consultation · setup | [Repo Consultation SOP](Resources/SOPs/Repo%20Consultation%20SOP.md) · [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md) |

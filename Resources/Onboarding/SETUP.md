@@ -72,7 +72,7 @@ Default names are already set in `Vault/Memory/theme-name-map.md`. Skip to Step 
 **Option B — Apply a naming theme**
 Ask Sam: `apply a [theme] naming theme to the team` — e.g. Norse mythology, Greek gods, Pokémon.
 Sam will route to Ryan (research) → Harper (persona renaming) → Sam (execution).
-See `Resources/SOPs/Theme Setup SOP.md` for the full workflow.
+See `Resources/SOPs/Theme SOP.md` for the full workflow.
 
 ---
 
