@@ -275,7 +275,7 @@ Every rendered HTML file carries a `<footer class="footer-meta" role="contentinf
 
 1. **Render timestamp** — `Rendered: <ISO 8601, local timezone>`. Example: `Rendered: 2026-05-23T15:32:00+10:00`.
 2. **Content hash** — `Source hash: <8 chars>`. First 8 characters of the SHA-1 hash of the source MD file. Before hashing, normalise the MD content to LF line endings and strip trailing whitespace from each line. This normalisation prevents false drift on Windows checkouts or git line-ending conversions.
-3. **Studio attribution** — `Produced by Studio Quarantine · <date>`. No logo. No colour. No styling commitment beyond the base shell in v1.
+3. **Studio attribution** — `Produced by {{Studio}} · <date>`. No logo. No colour. No styling commitment beyond the base shell in v1.
 
 Label punctuation is canonical — `Rendered:` and `Source hash:` (with colon and single space). QA blocks footers that omit either label or use a different prefix.
 
