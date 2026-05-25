@@ -97,7 +97,7 @@ Skill owns workflow, drift policy, footer spec, and the second QA pass. See `.cl
 
 ## Memory
 
-Persistent memory lives in `Vault/Memory/` — **not** the Claude Code default path. Every team member writes — mid-task, the moment something valuable surfaces — by creating a separate file in `Vault/Memory/` and adding a one-line pointer to `Vault/Memory/MEMORY.md`. `MEMORY.md` loads at session start via hook.
+Persistent memory lives in `Vault/Memory/`. `MEMORY.md` is the canonical index, loaded at session start. Never write to `MEMORY.md` directly — write a session note to `Vault/Memory/Sessions/`, then run `/memory-reconcile`. Sam prompts at end-of-turn when `Sessions/` is non-empty. See [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
 
 ---
 
@@ -157,4 +157,5 @@ Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via 
 | QA Gate (`@{QAComplianceReviewer}` verdicts) | [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) |
 | Repo consultation · setup | [Repo Consultation SOP](Resources/SOPs/Repo%20Consultation%20SOP.md) · [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md) |
 | Routing/tracking boundary (Orchestrator ↔ Project Manager) | [Orchestrator PM Handoff SOP](Resources/SOPs/Orchestrator%20PM%20Handoff%20SOP.md) |
+| Memory write protocol · `/memory-reconcile` contract | [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md) |
 | All SOPs index | [Resources/SOPs/README.md](Resources/SOPs/README.md) |
