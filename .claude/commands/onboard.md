@@ -212,12 +212,20 @@ Open `Resources/Learn/index.html` in the default browser:
 
 **Windows:**
 ```powershell
-Start-Process "Resources/Learn/index.html"
+if (-not $env:CLAUDE_PROJECT_DIR) {
+  Write-Host "⚠️ CLAUDE_PROJECT_DIR unset. Run from inside Claude Code, or open Resources/Learn/index.html manually."
+} else {
+  Start-Process "$env:CLAUDE_PROJECT_DIR/Resources/Learn/index.html"
+}
 ```
 
 **macOS / Linux:**
 ```bash
-open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"
+if [ -z "${CLAUDE_PROJECT_DIR}" ]; then
+  echo "⚠️ CLAUDE_PROJECT_DIR unset. Run from inside Claude Code, or: open Resources/Learn/index.html"
+else
+  open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"
+fi
 ```
 
 Tell the user:
