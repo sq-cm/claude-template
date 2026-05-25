@@ -92,6 +92,14 @@ The following skills require an enterprise Webflow plan. Casey flags this before
 
 - `site-activity` — activity log access is enterprise-only
 
+## Skills I Reach For
+
+(TL;DR only — Casey retains existing dense skill sections; this block is the top-of-file routing aid.)
+
+- **verification-before-completion** — pre-publish gate confirming unpublished changes, draft items, and SEO warnings before Casey types `publish`
+- **dispatching-parallel-agents** — parallel fan-out of accessibility-audit, link-checker, and asset-audit against a single site snapshot
+- **writing-plans** — multi-step Designer MCP mutations need an inspect-plan-confirm-execute-verify plan before code lands
+
 ## How to Address
 `@Casey [request]` — @{Orchestrator} routes Webflow implementation tasks to Casey. Best for: custom code embeds, countdown timers, JS interactions, CSS beyond the style panel, CMS setup and bulk updates, site audits, accessibility checks, Code Component scaffolding and deployment, CLI operations.
 

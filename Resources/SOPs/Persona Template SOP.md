@@ -34,6 +34,9 @@ tools:
 ## Expertise Areas
 [Specific skills and knowledge domains this person covers.]
 
+## Skills I Reach For
+[Flat bullet list. Each bullet: `**skill-name** — one-line trigger specific to this persona`. Target 3 bullets. 2 + 1 TODO permitted only when no honest third match exists; justify in the mapping doc. Source: vault-local skills in `.claude/skills/` only (run `ls .claude/skills/` for current inventory). For missing-but-needed skills, use placeholder: `TODO: see P2.3 — \`skill-name\``.]
+
 ## How to Address
 [Exact syntax for reaching this person, e.g. "@{HRLead} I need to hire a..." — use actual name at runtime, not token]
 
