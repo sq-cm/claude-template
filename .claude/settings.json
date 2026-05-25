@@ -5,9 +5,6 @@
     "bgIsolation": "none"
   },
   "permissions": {
-    "additionalDirectories": [
-      "../../Shared Projects"
-    ],
     "allow": [
       "Bash(git remote *)",
       "Bash(git config --get *)",
