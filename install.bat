@@ -48,6 +48,10 @@ if "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" (
   echo   - Pull template updates anytime: git pull
 )
 echo.
-echo Next: see Resources\Onboarding\SETUP.md for remaining steps.
+echo Next steps:
+echo   1. Open Claude Code in this folder. SessionStart hook runs /onboard automatically.
+echo   2. If onboarding flow didn't appear, run /onboard manually.
+echo   3. New users: read Resources\Onboarding\team-onboarding-guide.md
+echo   4. Maintainers/ops: see Resources\Onboarding\SETUP.md
 
 endlocal

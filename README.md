@@ -29,7 +29,9 @@ Hi, what can the team help me with today?
 
 That's it. Sam responds immediately. No API keys to wire up, no bootstrapping.
 
-For full setup instructions (install script, secrets hygiene, git hooks, theme application, repo index, optional Caveman mode): see [Resources/Onboarding/SETUP.md](Resources/Onboarding/SETUP.md). New users: start with [Resources/Onboarding/team-onboarding-guide.md](Resources/Onboarding/team-onboarding-guide.md).
+**New users: start with [Resources/Onboarding/team-onboarding-guide.md](Resources/Onboarding/team-onboarding-guide.md)** — how to talk to the team, what each persona does, sample workflows.
+
+Maintainers/ops: see [Resources/Onboarding/SETUP.md](Resources/Onboarding/SETUP.md) for install script, secrets hygiene, git hooks, theme application, repo index, optional Caveman mode.
 
 ---
 
