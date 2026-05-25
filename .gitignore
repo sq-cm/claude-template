@@ -78,6 +78,13 @@ Vault/Memory/theme-change-log.md
 Vault/Memory/odin-misses.md
 Vault/Memory/repo-conflicts.md
 
+# Per-clone state — written by hooks, machine-local
+Vault/Memory/onboarding-flags.json
+Vault/Memory/onboarding-errors.md
+Vault/Memory/.theme-lock
+Vault/Memory/theme-name-map-*.md
+Vault/Memory/Sessions/
+
 # Personal work — local only, backed by Google Drive
 /Inbox/
 /Notes/
