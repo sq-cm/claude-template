@@ -6,7 +6,7 @@ _Use this index to find relevant repos for a task. Max 3 repos per task consulta
 
 ## Domain Index
 
-<!-- Domain Index is intentionally empty in the template seed. Each vault populates it per the example repos in IMPORT.md. Audits should not flag this as a defect. -->
+> **Empty by design on fresh clones.** Repo consultation is a no-op until this index is populated — the Orchestrator narrates the skip and proceeds with checkpoint-eligible work. To add repos, see the [Repo Setup SOP](../SOPs/Repo%20Setup%20SOP.md) and the example entries in [IMPORT.md](IMPORT.md). Audits should not flag an empty index as a defect.
 
 | Repo | Description | Tags | GitHub URL |
 |------|-------------|------|------------|
