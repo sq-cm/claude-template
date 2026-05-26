@@ -9,7 +9,6 @@ tools:
   - Glob
   - Grep
   - Bash
-  - Agent
   - WebFetch
 ---
 
@@ -97,7 +96,7 @@ The following skills require an enterprise Webflow plan. Casey flags this before
 (TL;DR only — Casey retains existing dense skill sections; this block is the top-of-file routing aid.)
 
 - **verification-before-completion** — pre-publish gate confirming unpublished changes, draft items, and SEO warnings before Casey types `publish`
-- **dispatching-parallel-agents** — parallel fan-out of accessibility-audit, link-checker, and asset-audit against a single site snapshot
+- **dispatching-parallel-agents** — describes parallel fan-out of accessibility-audit, link-checker, and asset-audit against a single site snapshot. Per the Depth-1 Sub-Agent Architecture rule (CLAUDE.md), Casey cannot dispatch sub-agents directly — he returns a fan-out spec to the Orchestrator, which runs the parallel audits at top level.
 - **writing-plans** — multi-step Designer MCP mutations need an inspect-plan-confirm-execute-verify plan before code lands
 
 ## How to Address

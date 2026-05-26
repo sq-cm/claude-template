@@ -20,7 +20,6 @@ tools:
   - Glob
   - Grep
   - Bash
-  - Agent        # include for all roles except Senior Adviser
 ---
 
 # [Name] — [Role Title]
@@ -64,9 +63,9 @@ Update model IDs when a newer flagship is released. The Senior Adviser always us
 
 ---
 
-## Agent tool
+## Agent tool — forbidden in frontmatter
 
-Include `Agent` in the tools list for all roles **except Senior Adviser**. The `Agent` tool is required for any persona that invokes `@{SeniorAdviser}` at advisor checkpoints or spawns other sub-agents.
+Do **not** include `Agent` in any persona's `tools:` list. Claude Code does not surface the `Agent` tool to sub-agents at runtime regardless of the frontmatter grant — listing it creates a false capability contract. Only the Orchestrator (no persona file) holds dispatch authority. See [Sub-Agent Architecture SOP](Sub-Agent%20Architecture%20SOP.md) for the depth-1 constraint and the fan-out spec handoff pattern personas use instead.
 
 ---
 
@@ -84,7 +83,7 @@ Use kebab-case for the slug. Example: `.claude/agents/seo-specialist.md`
 
 ## Non-canonical tool exceptions
 
-The 7-tool baseline (`Read, Write, Edit, Glob, Grep, Bash, Agent`; Senior Adviser excludes `Agent`) is the default for every persona. A persona may declare a non-canonical tool (e.g. `WebFetch`, MCP tool) **only** under the following conditions:
+The 6-tool baseline (`Read, Write, Edit, Glob, Grep, Bash`) is the default for every persona. `Agent` is never included — see "Agent tool — forbidden in frontmatter" above. A persona may declare a non-canonical tool (e.g. `WebFetch`, MCP tool) **only** under the following conditions:
 
 1. **Justified in the persona's Constraints & Guardrails section** with three fields:
    - **Tool name**
