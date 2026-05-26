@@ -394,6 +394,11 @@ details > *:not(summary) {
   padding: var(--space-3);
 }
 
+details > ul,
+details > ol {
+  padding-left: calc(var(--space-3) + var(--space-4));
+}
+
 /* --- Diff Table --- */
 
 .diff-table th:first-child,
