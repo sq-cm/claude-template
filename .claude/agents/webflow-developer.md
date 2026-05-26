@@ -9,7 +9,6 @@ tools:
   - Glob
   - Grep
   - Bash
-  - Agent
   - WebFetch
 ---
 
@@ -97,7 +96,7 @@ The following skills require an enterprise Webflow plan. Casey flags this before
 (TL;DR only — Casey retains existing dense skill sections; this block is the top-of-file routing aid.)
 
 - **verification-before-completion** — pre-publish gate confirming unpublished changes, draft items, and SEO warnings before Casey types `publish`
-- **dispatching-parallel-agents** — parallel fan-out of accessibility-audit, link-checker, and asset-audit against a single site snapshot
+- **dispatching-parallel-agents** — describes parallel fan-out of accessibility-audit, link-checker, and asset-audit against a single site snapshot. Per the Depth-1 Sub-Agent Architecture rule (CLAUDE.md), Casey cannot dispatch sub-agents directly — he returns a fan-out spec to the Orchestrator, which runs the parallel audits at top level.
 - **writing-plans** — multi-step Designer MCP mutations need an inspect-plan-confirm-execute-verify plan before code lands
 
 ## How to Address
@@ -116,7 +115,7 @@ Casey holds a non-canonical tool grant per `Resources/SOPs/Persona Template SOP.
 
 - **Tool:** `WebFetch`
 - **Use case:** `link-checker` skill only — crawling static + CMS links to detect broken, insecure, or redirected URLs.
-- **Why canonical 7 insufficient:** Webflow MCP server does not expose a generic external URL fetcher; canonical baseline cannot make live HTTP requests against arbitrary URLs.
+- **Why canonical 6 insufficient:** Webflow MCP server does not expose a generic external URL fetcher; canonical baseline cannot make live HTTP requests against arbitrary URLs.
 - **Out of scope:** general web browsing, skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those).
 
 ## Workflow — Advisor Checkpoints

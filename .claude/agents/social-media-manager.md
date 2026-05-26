@@ -9,7 +9,6 @@ tools:
   - Glob
   - Grep
   - Bash
-  - Agent
 ---
 
 # Juno — Social Media Manager

@@ -42,5 +42,5 @@ This file may be committed to git or synced to cloud storage.
 
 ## References
 
-- [Tool Exceptions Registry](tool-exceptions.md) — personas holding non-canonical tools beyond the 7-tool baseline; audits diff frontmatter against this file
+- [Tool Exceptions Registry](tool-exceptions.md) — personas holding non-canonical tools beyond the 6-tool baseline; audits diff frontmatter against this file
 - [Email Build Standards extraction](reference_email_build_standards.md) — 2026-05-15, Rory's technical build standards extracted to `Resources/Build Standards/email-build-standards.md` after Checkpoint A

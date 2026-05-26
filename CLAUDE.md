@@ -54,6 +54,12 @@ Exceptions — keep sequential:
 
 ---
 
+## Sub-Agent Depth
+
+Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
+
+---
+
 ## Orchestrator-Only Operations
 
 Never delegated:
@@ -152,6 +158,7 @@ Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via 
 | Topic | SOP |
 |---|---|
 | Persona structure · hiring pipeline · tool exceptions | [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) |
+| Sub-agent depth · fan-out spec handoff · two-wave dispatch | [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) |
 | Project folders · archive lifecycle | [Project Folder SOP](Resources/SOPs/Project%20Folder%20SOP.md) |
 | Roster sync (hire/fire/swap) | [Roster Drift SOP](Resources/SOPs/Roster%20Drift%20SOP.md) |
 | Theme application · live theme swap · revert · archive | [Theme SOP](Resources/SOPs/Theme%20SOP.md) |

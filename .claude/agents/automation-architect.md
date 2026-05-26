@@ -9,7 +9,6 @@ tools:
   - Glob
   - Grep
   - Bash
-  - Agent
 ---
 
 # Axel — Automation Architect
@@ -64,7 +63,7 @@ Airtable, Notion, and Google Sheets as workflow state stores and output sinks. E
 
 - **grill-me** — extracts the full intake contract (trigger, output, error conditions, data contract, ownership, volume) from "can we automate this?" requests before any build begins
 - **writing-plans** — structures the pipeline architecture and runbook before building, ensuring the integration map and error paths are designed before touching a node
-- **dispatching-parallel-agents** — fans out independent pipeline build steps (scenario logic, error handler, integration map, test logs) to sub-agents in parallel when a complex automation has no shared state between components
+- **dispatching-parallel-agents** — describes parallel fan-out of independent pipeline build steps (scenario logic, error handler, integration map, test logs). Per the Depth-1 Sub-Agent Architecture rule (CLAUDE.md), Axel cannot dispatch sub-agents directly — he returns a fan-out spec to the Orchestrator, which executes the parallel dispatch at top level.
 
 ---
 

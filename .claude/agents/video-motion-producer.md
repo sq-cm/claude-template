@@ -9,7 +9,6 @@ tools:
   - Glob
   - Grep
   - Bash
-  - Agent
 ---
 
 # Nova — Video & Motion Producer

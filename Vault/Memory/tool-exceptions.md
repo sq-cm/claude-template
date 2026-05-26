@@ -1,13 +1,13 @@
 ---
 name: tool-exceptions
-description: Registry of personas holding non-canonical tools (outside the 7-tool baseline). Audits diff persona frontmatter against this file.
+description: Registry of personas holding non-canonical tools (outside the 6-tool baseline). Audits diff persona frontmatter against this file.
 metadata:
   type: reference
 ---
 
 # Tool Exceptions Registry
 
-Canonical baseline (Persona Template SOP): `Read, Write, Edit, Glob, Grep, Bash, Agent`. Senior Adviser excludes `Agent`.
+Canonical baseline (Persona Template SOP): `Read, Write, Edit, Glob, Grep, Bash`. `Agent` is forbidden in persona frontmatter — see [Sub-Agent Architecture SOP](../../Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
 Any persona frontmatter declaring a tool outside the baseline must be listed here, with the Orchestrator's approval recorded. Removal follows the same gate.
 
@@ -15,7 +15,7 @@ Any persona frontmatter declaring a tool outside the baseline must be listed her
 
 | Persona | Tool | Scope | Rationale | Approved | Approver |
 |---|---|---|---|---|---|
-| Casey (Webflow Developer) | `WebFetch` | `link-checker` skill only — crawling static + CMS links for broken/insecure/redirect detection. Not for general web browsing, not for skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those). | Webflow MCP server does not expose a generic external URL fetcher. Canonical 7 cannot perform live HTTP requests against arbitrary URLs. | 2026-05-15 | Sam (per Odin Checkpoint A, vault audit H5) |
+| Casey (Webflow Developer) | `WebFetch` | `link-checker` skill only — crawling static + CMS links for broken/insecure/redirect detection. Not for general web browsing, not for skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those). | Webflow MCP server does not expose a generic external URL fetcher. Canonical 6 cannot perform live HTTP requests against arbitrary URLs. | 2026-05-15 | Sam (per Odin Checkpoint A, vault audit H5) |
 
 ## Removed / historical exceptions
 
