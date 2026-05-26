@@ -115,7 +115,7 @@ Casey holds a non-canonical tool grant per `Resources/SOPs/Persona Template SOP.
 
 - **Tool:** `WebFetch`
 - **Use case:** `link-checker` skill only — crawling static + CMS links to detect broken, insecure, or redirected URLs.
-- **Why canonical 7 insufficient:** Webflow MCP server does not expose a generic external URL fetcher; canonical baseline cannot make live HTTP requests against arbitrary URLs.
+- **Why canonical 6 insufficient:** Webflow MCP server does not expose a generic external URL fetcher; canonical baseline cannot make live HTTP requests against arbitrary URLs.
 - **Out of scope:** general web browsing, skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those).
 
 ## Workflow — Advisor Checkpoints

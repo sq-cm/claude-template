@@ -88,7 +88,7 @@ The 6-tool baseline (`Read, Write, Edit, Glob, Grep, Bash`) is the default for e
 1. **Justified in the persona's Constraints & Guardrails section** with three fields:
    - **Tool name**
    - **Specific use case(s)** — concrete tasks the persona performs with it
-   - **Why the canonical 7 are insufficient** — what breaks without it
+   - **Why the canonical 6 are insufficient** — what breaks without it
 
 2. **Registered in the tool-exceptions registry.** Every non-canonical tool grant must appear in `Vault/Memory/tool-exceptions.md` with the persona name, tool name, scope, and rationale. Audits diff persona frontmatter against this registry.
 
