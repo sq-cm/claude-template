@@ -5,5 +5,33 @@
   "claudeCode.respectGitIgnore": true,
   "claudeCode.allowDangerouslySkipPermissions": false,
   "terminal.integrated.hideOnStartup": "always",
-  "terminal.integrated.defaultLocation": "editor"
+  "terminal.integrated.defaultLocation": "editor",
+  "workbench.colorTheme": "Cobalt2",
+  "workbench.iconTheme": "material-icon-theme",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.associations": {
+    "*.base": "yaml"
+  },
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.git": true
+  },
+  "search.exclude": {
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.git": true
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
+    "editor.trimAutoWhitespace": false
+  }
 }
