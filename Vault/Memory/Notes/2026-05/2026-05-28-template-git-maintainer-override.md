@@ -17,3 +17,5 @@ Committing or pushing template files (anything outside `Inbox/`, `Notes/`, `Proj
 The assistant prepares staged changes + commit message file, hands off the `!` command, then resumes (push handled same way; `gh pr merge` is a GitHub API call and is NOT gated — assistant can do that directly).
 
 Gotcha: `git commit -F .git/COMMIT_EDITMSG` may pull a **stale** message from a prior session — write the message to a fresh file and use `-F` on that.
+
+**Shell scoping gotcha (2026-05-28):** `CLAUDE_TEMPLATE_MAINTAINER=1 git checkout … && git add … && git commit …` only sets the env var for the **first** command. The inline `VAR=value cmd` prefix is single-command scope — subsequent `&&`-chained git commands run without the override and the pre-commit hook blocks them. Fix: `export CLAUDE_TEMPLATE_MAINTAINER=1 && git …` (sticks for the chain), or prefix every git invocation, or wrap the chain in `env CLAUDE_TEMPLATE_MAINTAINER=1 bash -c '…'`.
