@@ -34,6 +34,7 @@ This file may be committed to git or synced to cloud storage.
 ## Project context
 
 - [P1.2 onboarding fragility shipped (PR #15)](Notes/2026-05/2026-05-25-p1-2-onboarding-fragility.md) — 2026-05-25, `/onboard` env guards + install.sh/bat tail + README/SETUP routing; CLAUDE.md intentionally not edited
+- [Template git ops need maintainer override](Notes/2026-05/2026-05-28-template-git-maintainer-override.md) — 2026-05-28, commit/push to template files needs `CLAUDE_TEMPLATE_MAINTAINER=1`; auto-mode classifier blocks the assistant from applying it, so the maintainer runs guarded git ops via `!`-prefixed shell
 
 ## Audits
 
@@ -44,3 +45,4 @@ This file may be committed to git or synced to cloud storage.
 
 - [Tool Exceptions Registry](tool-exceptions.md) — personas holding non-canonical tools beyond the 6-tool baseline; audits diff frontmatter against this file
 - [Email Build Standards extraction](reference_email_build_standards.md) — 2026-05-15, Rory's technical build standards extracted to `Resources/Build Standards/email-build-standards.md` after Checkpoint A
+- [Claude Code permission modes + Bash allowlist syntax](Notes/2026-05/2026-05-28-claude-code-permission-syntax.md) — 2026-05-28, `auto` ignored at project scope (use `acceptEdits`); `Bash(x *)` ≡ `Bash(x:*)`, `:*` end-only; excluded `find` and `git branch:*` from safe allowlists (PR #25)
