@@ -1,6 +1,6 @@
 # Claude Team Workspace Template
 
-**An AI agency in a folder.** Drop this into Claude Code and you have a 20-person team ready to take work — researchers, copywriters, SEO specialists, developers, designers, and more — all coordinated by a single orchestrator named Sam.
+**An AI agency in a folder.** Drop this into Claude Code and you have a 24-person team ready to take work — researchers, copywriters, SEO specialists, developers, designers, and more — all coordinated by a single orchestrator named Sam.
 
 ---
 
@@ -149,7 +149,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ```
 Claude - TEMPLATE/
 ├── .claude/
-│   ├── agents/                        ← persona files for all 20 team members
+│   ├── agents/                        ← persona files for all 24 team members
 │   ├── commands/
 │   │   ├── onboard.md                 ← /onboard command (run first)
 │   │   └── import-repos.md            ← /import-repos command
