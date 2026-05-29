@@ -29,7 +29,7 @@ Agent(
 )
 ```
 
-> **Model note:** Use the most capable model available at invocation time. As of 2026, that is `claude-opus-4-7`. Update this when a newer flagship model is released — Odin's value comes from reasoning depth, not a specific model ID.
+> **Model note:** Use the most capable model available at invocation time. As of 2026, that is `claude-opus-4-8`. Update this when a newer flagship model is released — Odin's value comes from reasoning depth, not a specific model ID.
 
 The consulting persona narrates the checkpoint in their own voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 

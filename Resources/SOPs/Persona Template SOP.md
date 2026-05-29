@@ -55,9 +55,8 @@ tools:
 
 | Role | Model |
 |---|---|
-| Senior Adviser | `claude-opus-4-7` — quality gate, must be most capable |
-| HR Lead, Project Manager | `claude-haiku-4-5-20251001` — structured template work, lightweight tracking |
-| All other specialists | `claude-sonnet-4-6` |
+| Senior Adviser | `claude-opus-4-8` — quality gate, must be most capable |
+| All other team members | `claude-sonnet-4-6` |
 
 Update model IDs when a newer flagship is released. The Senior Adviser always uses the most capable available model.
 

@@ -85,7 +85,7 @@ Open `Vault/Memory/MEMORY.md` and add a first entry:
 
 - Vault deployed from template
 - Theme: [default / name of theme applied]
-- Active team size: 20
+- Active team size: 24
 - Notes: [anything worth remembering from setup]
 ```
 
@@ -103,7 +103,7 @@ See `Resources/SOPs/Repo Setup SOP.md` for how to clone repos and add index entr
 
 ## Step 6 — Verify the vault
 
-Ask Sam: `check the roster` — Sam will confirm all 20 team members are present and correctly linked.
+Ask Sam: `check the roster` — Sam will confirm all 24 team members are present and correctly linked.
 
 ---
 
