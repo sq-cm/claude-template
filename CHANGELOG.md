@@ -6,6 +6,7 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-05-29
 
+- chore(gitignore): untrack per-clone audit sweeps and strategic recommendations (#34)
 - feat(settings): enable remote control by default for clones (#32)
 - chore(install): set core.fileMode=false on clone (#31)
 - chore(model): move roster to Opus 4.8/Sonnet 4.6, 200k default for clones (#30)

@@ -89,6 +89,10 @@ Vault/Memory/Sessions/
 Vault/Memory/Notes/
 !Vault/Memory/Notes/.gitkeep
 
+# Per-clone work products — audit sweeps and strategic recommendations; not template seed
+Vault/Memory/audit_*
+Vault/Memory/recommendations_*
+
 # Personal work — local only, backed by Google Drive
 /Inbox/
 /Notes/
