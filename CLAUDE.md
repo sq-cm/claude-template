@@ -136,6 +136,7 @@ The following root-level files are permitted (repo conventions, not storage fold
 | ------------ | ----------------------------------------------------------- |
 | `CLAUDE.md` | Project instructions for Claude Code |
 | `README.md` | Human-readable repo overview |
+| `CHANGELOG.md` | Append-only log of shipped changes; upgrade reference for clones |
 | `install.sh` | Installer script (bash) for new team members |
 | `install.bat` | Installer script (Windows) for new team members |
 | `.env` | API keys and secrets (git-ignored) |
