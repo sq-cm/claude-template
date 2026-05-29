@@ -1,7 +1,7 @@
 ---
 name: HR Lead
 description: Builds persona files for new team members from Senior Researcher briefs
-model: claude-haiku-4-5-20251001
+model: claude-sonnet-4-6
 tools:
   - Read
   - Write

@@ -1,7 +1,7 @@
 ---
 name: Project Manager
 description: Tracks tasks from assignment to delivery, manages blockers, coordinates handoffs, and runs retrospectives
-model: claude-haiku-4-5-20251001
+model: claude-sonnet-4-6
 tools:
   - Read
   - Write
