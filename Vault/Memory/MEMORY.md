@@ -31,11 +31,6 @@ This file may be committed to git or synced to cloud storage.
 - [Theme change log](theme-change-log.md) — append-only log of all theme operations; see `Resources/SOPs/Theme SOP.md` for workflow
 - [Odin misses log](odin-misses.md) — append-only log of issues Odin's checkpoints failed to catch; used to improve checkpoint prompts and SOP coverage
 
-## Audits
-
-- [Full-vault audit + remediation, 2026-05-24](audit_2026-05-24_full-sweep.md) — 6-agent parallel audit, Odin synthesis, 8 fixes shipped via PR #4 (executable-bit discipline, frontmatter normalization, log untracking, token replacement)
-- [Full-vault audit + remediation, 2026-05-16](audit_2026-05-16_full-sweep.md) — 6-agent parallel audit, 2 blindspot scans, Odin synthesis, 13 fixes landed across SOPs/personas/hooks/onboarding
-
 ## References
 
 - [Tool Exceptions Registry](tool-exceptions.md) — personas holding non-canonical tools beyond the 6-tool baseline; audits diff frontmatter against this file
