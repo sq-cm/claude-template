@@ -32,6 +32,12 @@ chmod +x .githooks/pre-commit .githooks/pre-push 2>/dev/null || true
 chmod +x .claude/hooks/*.sh 2>/dev/null || true
 chmod +x Vault/Scripts/*.sh 2>/dev/null || true
 chmod +x .claude/statusline.sh 2>/dev/null || true
+
+# 2b. Ignore working-tree exec-bit changes (stops phantom mode-diff noise).
+#     Local-only config — git can't version it, so each clone sets it here.
+#     Pairs with the 100755 index modes above; does not alter the index.
+git config core.fileMode false
+echo "✓ core.fileMode=false (exec-bit diff noise suppressed)"
 find .claude/skills -name '*.sh' -exec chmod +x {} + 2>/dev/null || true
 
 # 3. Copy env file if not present

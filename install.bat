@@ -27,6 +27,11 @@ if "%RESOLVED_HOOKS%"==".githooks" (
   exit /b 1
 )
 
+:: 2a. Ignore working-tree exec-bit changes (stops phantom mode-diff noise on Windows).
+::     Local-only config -- git can't version it, so each clone sets it here.
+git config core.fileMode false
+echo [OK] core.fileMode=false (exec-bit diff noise suppressed)
+
 :: 3. Copy env file if not present
 if not exist .env (
   copy .env.example .env >nul
