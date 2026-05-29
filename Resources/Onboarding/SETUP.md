@@ -162,3 +162,28 @@ irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.p
 | `/caveman ultra` | Maximum compression. Telegraphic. |
 
 Set lite as default per session with `/caveman lite`. Repo & docs: [github.com/JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman).
+
+---
+
+## Appendix — Remote Control (optional)
+
+Remote control lets you drive a running Claude Code session from claude.ai on the web or the mobile app — start a task, steer it mid-flight, or approve a prompt from your phone while the session is live on your machine.
+
+It is on by default. The vault ships with `remoteControlAtStartup: true` in `.claude/settings.json`, and clones inherit that setting via the install script. Nothing extra to configure.
+
+### Settings at a glance
+
+| Setting | File | Value | Effect |
+|---------|------|-------|--------|
+| `remoteControlAtStartup` | `.claude/settings.json` | `true` | Starts remote-control listener when Claude Code launches |
+| `claudeCode.useTerminal` | `.vscode/settings.json` | `true` | Launches Claude in the VS Code integrated terminal, which is required for the startup flag to fire |
+
+The VS Code entry matters: Claude Code's native panel mode bypasses the terminal startup sequence, so `remoteControlAtStartup` would silently do nothing without it. With `useTerminal: true`, the flag fires as expected.
+
+### One manual prerequisite
+
+The setting wires up the listener, but it can only route to your session if you are signed into the same claude.ai account in the browser or app. That's the only step that can't be automated — sign in once and it stays put.
+
+### Managing it
+
+To check status or turn remote control off for the current session, run `/remote-control`.
