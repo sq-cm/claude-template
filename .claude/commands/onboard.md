@@ -186,7 +186,27 @@ Install four plugins via the plugin marketplace. Run each pair sequentially.
 /plugin install frontend-design
 ```
 
-Report: "context-mode, superpowers, skill-creator, frontend-design installed ✓ — restart Claude Code to activate."
+**plannotator** (visual plan & diff review):
+
+Plannotator needs its binary installed first, then the plugin. Detect platform and install the binary:
+
+**Windows:**
+```powershell
+irm https://plannotator.ai/install.ps1 | iex
+```
+
+**macOS / Linux / WSL:**
+```bash
+curl -fsSL https://plannotator.ai/install.sh | bash
+```
+
+Then add the marketplace and install the plugin:
+```
+/plugin marketplace add backnotprop/plannotator
+/plugin install plannotator@plannotator
+```
+
+Report: "context-mode, superpowers, skill-creator, frontend-design, plannotator installed ✓ — restart Claude Code to activate."
 
 If any plugin command fails, print a warning for that plugin and continue with the rest:
 
