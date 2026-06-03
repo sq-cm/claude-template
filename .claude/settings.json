@@ -1,14 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "opus",
-  "tui": "fullscreen",
-  "enableAllProjectMcpServers": true,
-  "remoteControlAtStartup": true,
-  "worktree": {
-    "bgIsolation": "none"
-  },
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Bash(git remote *)",
       "Bash(git config --get *)",
@@ -76,12 +68,11 @@
       "Edit(Inbox/**)",
       "Edit(Projects/**)",
       "Edit(Notes/**)"
-    ]
+    ],
+    "defaultMode": "acceptEdits"
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"$CLAUDE_PROJECT_DIR\"; else echo \"$CLAUDE_PROJECT_DIR\" | sed 's|\\\\|/|g; s|^\\([A-Za-z]\\):|/\\L\\1|'; fi)/.claude/statusline.sh\""
-  },
+  "model": "opus",
+  "enableAllProjectMcpServers": true,
   "hooks": {
     "SessionStart": [
       {
@@ -127,9 +118,25 @@
           {
             "type": "command",
             "command": "echo '=== Memory index loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/MEMORY.md\" ] && cat \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/MEMORY.md\" || echo 'Warning: MEMORY.md not found'"
+          },
+          {
+            "type": "command",
+            "command": "echo '=== Local context loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/context.md\" ] && cat \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/context.md\" || echo 'No local context.md yet — run install or /memory-reconcile to create it from context.example.md'"
           }
         ]
       }
     ]
+  },
+  "worktree": {
+    "bgIsolation": "none"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"$CLAUDE_PROJECT_DIR\"; else echo \"$CLAUDE_PROJECT_DIR\" | sed 's|\\\\|/|g; s|^\\([A-Za-z]\\):|/\\L\\1|'; fi)/.claude/statusline.sh\""
+  },
+  "tui": "fullscreen",
+  "remoteControlAtStartup": true,
+  "enabledPlugins": {
+    "plannotator@plannotator": true
   }
 }

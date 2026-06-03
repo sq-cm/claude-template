@@ -73,4 +73,4 @@ After resolving, re-run all four checks before proceeding.
 
 ## Logging
 
-No log entry required for a clean check. If drift is found and resolved, append a dated entry to `Vault/Memory/roster-drift-log.md` (create the file on first run) with: date, what was corrected, and the triggering operation. Ensure a one-line pointer to this log exists under `## System logs` in `Vault/Memory/MEMORY.md`.
+No log entry required for a clean check. If drift is found and resolved, append a dated entry to `Vault/Memory/roster-drift-log.md` (create the file on first run) with: date, what was corrected, and the triggering operation. Ensure a one-line pointer to this log exists under `## System logs` in `Vault/Memory/context.md` (per-clone local memory — not the tracked `MEMORY.md`).

@@ -1,6 +1,6 @@
 # Minimum Viable Roster (MVR)
 
-This document is for **clone operators** — if you're running a small creative/marketing studio (2–5 people), this guide helps you decide which AI team members to keep and which to remove from your vault clone. The template upstream keeps all 27 personas; cuts happen in your clone only, via [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md).
+This document is for **clone operators** — if you're running a small creative/marketing studio (2–5 people), this guide helps you decide which AI team members to keep and which to remove from your vault clone. The template upstream keeps all 28 personas; cuts happen in your clone only, via [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md).
 
 ---
 
@@ -57,7 +57,7 @@ Add these as you grow to 3–5 people and need deeper expertise.
 
 ---
 
-## Tier 4 — Full studio 5+ (16)
+## Tier 4 — Full studio 5+ (17)
 
 Add as your team grows and client scope broadens.
 
@@ -86,6 +86,8 @@ Add as your team grows and client scope broadens.
 **{MetaAdsSpecialist} Luca** — `meta-ads-specialist.md`. Meta platform strategy and compliance. Add only if paid social is a primary studio service. Skip if ads are handled externally or via a larger team.
 
 **{MobileDeveloper} Milo** — `mobile-developer.md`. React Native and app store delivery. Add only if mobile app development is in scope. Skip entirely for web-only studios.
+
+**{LegalComplianceWriter} Lex** — `legal-compliance-writer.md`. Drafts T&Cs, privacy policies, cookie notices, disclaimers, and NDAs across AU/US/EU — pre-counsel drafts for human lawyer review, never legal advice. Holds a scoped WebFetch grant for live statute/regulator lookups. Add when client work recurrently needs policy and compliance copy. Skip if legal documents are rare or always outsourced to a law firm.
 
 The next three are the **AI-Cinema unit** — a narrative AI-film pipeline (character films, music videos) built on Higgsfield/Seedance. They are a unit: keep or cut all three together. Distinct from Cleo (commercial images) and Nova (commercial video) — add them only when narrative character-film work is in scope, not for commercial marketing assets.
 

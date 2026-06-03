@@ -1,19 +1,22 @@
 # Memory Index
 
 <!--
-This file is the Orchestrator's persistent memory store for this vault.
+This file is the SHIPPED, git-tracked vault-operations index — maintainer-curated and the
+same for every install. It is loaded into context on every prompt.
 
-What gets logged here:
-- Decisions and context that should survive session resets
-- Theme change logs and name maps (if a theme has been applied)
-- Recurring preferences, project conventions, or user instructions
-- Links to durable artifacts worth remembering across sessions
+READ-ONLY for downstream clones. Do NOT write local facts here — local memory (reconciled
+session notes, the onboarding bootstrap entry, per-clone decisions) belongs in `context.md`
+(git-ignored). Writing local entries here causes rebase conflicts on `/update` that drop
+`<<<<<<< HEAD` markers into this file and corrupt every subsequent prompt.
+
+Who edits this file: only the template maintainer, when shipping durable changes to the
+vault's operating knowledge (governance pointers, workflow rules, references). `/memory-reconcile`
+NEVER writes here — it targets `context.md`. See CLAUDE.md § Memory and the Memory Protocol SOP.
 
 Format: freeform markdown. Use H2 headings to separate topics.
-The Orchestrator reads and writes this file directly — do not delete entries without archiving them first.
 
 SECURITY: Do not store API keys, passwords, or credentials here.
-This file may be committed to git or synced to cloud storage.
+This file is committed to git.
 -->
 
 ## Workflow preferences

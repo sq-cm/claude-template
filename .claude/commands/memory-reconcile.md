@@ -1,10 +1,12 @@
 ---
-description: Reconcile session notes in Vault/Memory/Sessions/ into MEMORY.md and Vault/Memory/Notes/<YYYY-MM>/
+description: Reconcile session notes in Vault/Memory/Sessions/ into context.md and Vault/Memory/Notes/<YYYY-MM>/
 ---
 
 # /memory-reconcile
 
-Move pending session notes from `Vault/Memory/Sessions/` (gitignored, ephemeral) into the tracked notes archive at `Vault/Memory/Notes/<YYYY-MM>/` and update `Vault/Memory/MEMORY.md` with pointer lines.
+Move pending session notes from `Vault/Memory/Sessions/` (gitignored, ephemeral) into the per-clone notes archive at `Vault/Memory/Notes/<YYYY-MM>/` (gitignored) and update `Vault/Memory/context.md` with pointer lines.
+
+**Write target is `context.md`, never `MEMORY.md`.** `MEMORY.md` is the shipped, git-tracked vault-operations index, maintainer-curated and identical for every install — writing to it here causes rebase conflicts on `/update`. `context.md` is git-ignored per-clone local memory, so reconciled facts never participate in template updates. See `Resources/SOPs/Memory Protocol SOP.md`.
 
 This is the Stage-2 step of the memory write protocol defined in CLAUDE.md and `Resources/SOPs/Memory Protocol SOP.md`. Sam (the Orchestrator) surfaces a reminder to run this whenever `Vault/Memory/Sessions/` contains files at end of turn.
 
@@ -54,12 +56,18 @@ mv "Vault/Memory/Sessions/<filename>" "Vault/Memory/Notes/<YYYY-MM>/<filename>"
 
 If the destination file already exists (idempotent re-run case), skip the move and continue — the pointer step below will re-check `MEMORY.md`.
 
-### 5. Update MEMORY.md
+### 5. Update context.md
+
+If `Vault/Memory/context.md` does not exist (a clone that skipped install/onboarding), create it first by copying the tracked seed:
+
+```bash
+[ -f Vault/Memory/context.md ] || cp Vault/Memory/context.example.md Vault/Memory/context.md
+```
 
 For each moved note:
 
 1. Read the note's `type`, `scope`, and `topic` frontmatter.
-2. Find the matching H2 section in `MEMORY.md` using this routing:
+2. Find the matching H2 section in `context.md` using this routing:
    - `type: feedback` → `## Workflow preferences` (or `## Workflow corrections` if the scope is a correction)
    - `type: project` → `## Project context` (create if missing)
    - `type: reference` → `## References`
@@ -69,7 +77,7 @@ For each moved note:
    ```markdown
    - [<topic>](notes/<YYYY-MM>/<filename>) — <one-line description from note body>
    ```
-4. **Conflict rule:** if a pointer to this filename already exists in `MEMORY.md`, leave the existing one in place. If two new notes route to the same H2 section, **append both pointers** as separate lines — do not merge prose.
+4. **Conflict rule:** if a pointer to this filename already exists in `context.md`, leave the existing one in place. If two new notes route to the same H2 section, **append both pointers** as separate lines — do not merge prose.
 5. If no section matches and no fallback applies, append to `## Uncategorised` (create the section if missing) for triage on the next reconcile.
 
 ### 6. Report
@@ -77,7 +85,7 @@ For each moved note:
 After processing all notes, report:
 
 - Number of notes moved
-- Per-section MEMORY.md additions (one line each)
+- Per-section context.md additions (one line each)
 - Any rejected notes and reasons
 - Any idempotent skips (file already at destination)
 
@@ -88,13 +96,14 @@ After processing all notes, report:
 | Symptom | Cause | Recovery |
 |---|---|---|
 | Note has invalid frontmatter | Drift from schema | Auto-move to `Sessions/_rejected/`; fix and re-stage manually |
-| Destination file exists | Re-run on partial state | Skip move; re-check MEMORY.md pointer |
-| MEMORY.md pointer duplicates | Re-run after pointer added | Skip duplicate; leave existing |
-| No matching section in MEMORY.md | New topic | File to `## Uncategorised`; route on next reconcile |
+| Destination file exists | Re-run on partial state | Skip move; re-check context.md pointer |
+| context.md pointer duplicates | Re-run after pointer added | Skip duplicate; leave existing |
+| No matching section in context.md | New topic | File to `## Uncategorised`; route on next reconcile |
 
 ---
 
 ## Related
 
-- `CLAUDE.md` → `## Memory` (canonical protocol)
+- `CLAUDE.md` → `## Memory` (canonical protocol — MEMORY.md vs context.md split)
 - `Resources/SOPs/Memory Protocol SOP.md` (frontmatter schema, deeper rationale)
+- `Vault/Memory/context.example.md` (the tracked seed copied to `context.md`)

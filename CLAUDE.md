@@ -103,7 +103,12 @@ Skill owns workflow, drift policy, footer spec, and the second QA pass. See `.cl
 
 ## Memory
 
-Persistent memory lives in `Vault/Memory/`. `MEMORY.md` is the canonical index, loaded at session start. Never write to `MEMORY.md` directly — write a session note to `Vault/Memory/Sessions/`, then run `/memory-reconcile`. Sam prompts at end-of-turn when `Sessions/` is non-empty. See [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
+Persistent memory lives in `Vault/Memory/`, split across two files, both loaded into context each prompt:
+
+- **`MEMORY.md`** — the shipped **vault-operations index**. Git-tracked, maintainer-curated, identical for every install. Read-only for cloners; only the template maintainer edits it. Never write local facts here — doing so causes rebase conflicts on `/update` that corrupt the file loaded into context.
+- **`context.md`** — this clone's **local team memory**. Git-ignored (seeded from `context.example.md` on install). The sole write target for reconciled session notes and the onboarding bootstrap entry.
+
+To record a local fact, write a session note to `Vault/Memory/Sessions/`, then run `/memory-reconcile` — it folds the note into `context.md`, never `MEMORY.md`. Sam prompts at end-of-turn when `Sessions/` is non-empty. See [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
 
 ---
 
