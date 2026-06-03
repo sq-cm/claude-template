@@ -191,7 +191,7 @@
      DATA — update this block when roster changes
      ═══════════════════════════════════════════ -->
 <script>
-const LAST_SYNCED = "2026-05-16";
+const LAST_SYNCED = "2026-06-03";
 
 const TEAM = [
   {
@@ -468,6 +468,39 @@ const TEAM = [
     prompt: "@{MobileDeveloper} set up EAS build profiles for development, preview, and production.",
     expertise: ["EAS Build, Submit, and Update — cloud builds, OTA JS updates, credentials management, app store automation", "React Native core components, styling, Animated API, react-native-reanimated, gesture handling", "Navigation architecture — react-navigation v6/v7 and Expo Router, deep linking, auth flows", "State management — Zustand, Jotai, React Query, Redux Toolkit; client vs. server state distinction", "App Store Connect and Google Play Console — submission, TestFlight, staged rollout, rejection patterns, privacy manifests"],
     constraints: "Does not write backend or server-side code — consumes APIs only. Does not originate UI/UX designs — implements specs from Jordan. Deep native Swift/Kotlin work and DevOps infrastructure are out of scope. App store account management (billing, legal agreements, certificate rotation policy) belongs to the client."
+  },
+  {
+    name: "Marlowe",
+    role: "AI Cinema Showrunner",
+    token: "CinemaShowrunner",
+    core: false,
+    tags: ["World Bible", "Continuity", "Shot Sequencing"],
+    desc: "The continuity backbone of the narrative AI-film pipeline. Owns the world bible, character bibles, and shot lists — and produces the specs that keep characters consistent from still through to video, then hands them to Iris and Dash.",
+    prompt: "@{CinemaShowrunner} lock a character bible and a three-shot list for a rainy-rooftop sequence.",
+    expertise: ["World bible and character bible authoring", "Reference-image library indexing and @imageN slot assignment", "Continuity rules across the still-to-video handoff", "Shot sequencing and spec handoff to the Stills and Seedance Directors"],
+    constraints: "Plans and specs — does not write Banana Pro or Seedance prompts (Iris and Dash do). Produces specs the Orchestrator routes; never dispatches other personas itself. Commercial brand and marketing work belongs to Cleo and Nova."
+  },
+  {
+    name: "Iris",
+    role: "AI Stills Director",
+    token: "StillsDirector",
+    core: false,
+    tags: ["Higgsfield Stills", "Character Refs", "Scene Plates"],
+    desc: "The still-image prompt director for the narrative AI-film pipeline. Writes Higgsfield prompts — Banana Pro, Soul Cinema, GPT-2 — for character face locks, outfit references, 6-panel sheets, and scene plates: the locked references that feed Seedance video.",
+    prompt: "@{StillsDirector} write a face-lock prompt for a new lead character on mid-gray seamless.",
+    expertise: ["Banana Pro / Soul Cinema / GPT-2 prompt direction", "Character face locks and outfit references", "6-panel character reference sheets", "Cinematic scene and environment plates"],
+    constraints: "Outputs text prompts only — a human runs them in Higgsfield; no generation tool of her own. Narrative-film stills only; commercial brand and marketing images stay with Cleo. Works from Marlowe's specs."
+  },
+  {
+    name: "Dash",
+    role: "AI Seedance Director",
+    token: "SeedanceDirector",
+    core: false,
+    tags: ["Seedance", "Cinematography", "Shot Continuity"],
+    desc: "The video prompt director for the narrative AI-film pipeline. Builds Seedance prompts to a locked ten-block grammar across five cinema modes, anchoring characters to frame maps and subject locks so they hold steady across a sequence.",
+    prompt: "@{SeedanceDirector} build a 12-second two-shot Seedance prompt from these locked references.",
+    expertise: ["Seedance ten-block prompt construction", "Five-mode cinematography grammar (narrative, studio, action, performance, atmospheric)", "Frame maps and subject locks for character consistency", "Diegetic-audio scene direction"],
+    constraints: "Outputs text prompts only — a human runs them in Higgsfield/Seedance; no generation tool of his own. Narrative-film video only; commercial brand video and post stay with Nova. Story and shot selection come from Marlowe."
   }
 ];
 
@@ -578,7 +611,7 @@ const FAQ = [
     <!-- What is this -->
     <section class="section" id="what-is-this">
       <h2 class="section-title">What is this?</h2>
-      <p class="section-intro">You have access to a team of 24 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
+      <p class="section-intro">You have access to a team of 27 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
       <div class="callout">
         <strong>Using Claude Code:</strong> Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter — that's it. Everything in this guide assumes you have Claude Code open with this workspace as your working directory.
       </div>
@@ -875,7 +908,7 @@ const FAQ = [
       <p class="section-intro">The root is reserved for named top-level folders only. New persistent storage goes under <code>Vault/</code> — never at root level.</p>
       <div class="structure-tree">Claude - [YourCompany]/<br>
 ├── .claude/<br>
-│   ├── agents/                    ← persona files for all 24 team members<br>
+│   ├── agents/                    ← persona files for all 27 team members<br>
 │   ├── commands/<br>
 │   │   ├── onboard.md             ← /onboard command (run first)<br>
 │   │   ├── update.md              ← /update command (pull template updates)<br>

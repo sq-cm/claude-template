@@ -1,6 +1,6 @@
 # Minimum Viable Roster (MVR)
 
-This document is for **clone operators** — if you're running a small creative/marketing studio (2–5 people), this guide helps you decide which AI team members to keep and which to remove from your vault clone. The template upstream keeps all 24 personas; cuts happen in your clone only, via [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md).
+This document is for **clone operators** — if you're running a small creative/marketing studio (2–5 people), this guide helps you decide which AI team members to keep and which to remove from your vault clone. The template upstream keeps all 27 personas; cuts happen in your clone only, via [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md).
 
 ---
 
@@ -57,7 +57,7 @@ Add these as you grow to 3–5 people and need deeper expertise.
 
 ---
 
-## Tier 4 — Full studio 5+ (13)
+## Tier 4 — Full studio 5+ (16)
 
 Add as your team grows and client scope broadens.
 
@@ -86,6 +86,14 @@ Add as your team grows and client scope broadens.
 **{MetaAdsSpecialist} Luca** — `meta-ads-specialist.md`. Meta platform strategy and compliance. Add only if paid social is a primary studio service. Skip if ads are handled externally or via a larger team.
 
 **{MobileDeveloper} Milo** — `mobile-developer.md`. React Native and app store delivery. Add only if mobile app development is in scope. Skip entirely for web-only studios.
+
+The next three are the **AI-Cinema unit** — a narrative AI-film pipeline (character films, music videos) built on Higgsfield/Seedance. They are a unit: keep or cut all three together. Distinct from Cleo (commercial images) and Nova (commercial video) — add them only when narrative character-film work is in scope, not for commercial marketing assets.
+
+**{CinemaShowrunner} Marlowe** — `cinema-showrunner.md`. World bible, character continuity, and shot sequencing for narrative AI-film. Add when you run a character-driven AI-cinema pipeline. Skip for commercial-marketing-only studios.
+
+**{StillsDirector} Iris** — `stills-director.md`. Higgsfield still-image prompt direction (Banana Pro / Soul Cinema / GPT-2) — the locked references that feed video. Add alongside Marlowe and Dash. Skip if you don't do character-film stills.
+
+**{SeedanceDirector} Dash** — `seedance-director.md`. Seedance video prompt direction with frame-map and subject-lock continuity. Add alongside Marlowe and Iris. Skip if you don't produce Seedance video.
 
 ---
 

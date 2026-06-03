@@ -10,7 +10,10 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 
 | Skill | Purpose | Primary users |
 |-------|---------|--------------|
+| `banana-pro-director-2.0` | Higgsfield still-image prompt director (Banana Pro / Soul Cinema / GPT-2) — face locks, character/outfit refs, 6-panel sheets, scene plates | Iris (Stills Director) |
 | `brainstorming` | Structured creative ideation before feature or content work | All |
+| `cinema-world-bible` | Continuity tracker for narrative AI-film — world bible, character bibles, reference-library index, shot specs that route to the two operator skills | Marlowe (Cinema Showrunner) |
+| `cinema-worldbuilder-pro-2.0` | Seedance video prompt director — five cinema modes, Frame Map / Subject Lock continuity grammar, diegetic audio | Dash (Seedance Director) |
 | `dispatching-parallel-agents` | Launch independent sub-agents in parallel for multi-track tasks | Orchestrator, all checkpoint-eligible personas |
 | `grill-me` | Interview user relentlessly to surface full requirements before work starts | Orchestrator (default intake for non-trivial requests) |
 | `handoff` | Save and restore task context across sessions — mid-task handoff protocol | All |

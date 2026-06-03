@@ -8,7 +8,7 @@ This document is for you if someone handed you access to this system and you wan
 
 Think of it as a group chat with a team of specialists — except the specialists are AI, they're available any time, and they already know their jobs.
 
-There's a coordinator — the **Orchestrator** — who receives everything you send and routes it to the right person. Behind the Orchestrator is a team of 24 specialists: a copywriter, a content strategist, a UX designer, an SEO specialist, a social media manager, a brand strategist, and more. Each one has a defined area of expertise and clear limits on what they will and won't do. They don't overstep each other's lanes, and they hand work off cleanly between them.
+There's a coordinator — the **Orchestrator** — who receives everything you send and routes it to the right person. Behind the Orchestrator is a team of 27 specialists: a copywriter, a content strategist, a UX designer, an SEO specialist, a social media manager, a brand strategist, and more. Each one has a defined area of expertise and clear limits on what they will and won't do. They don't overstep each other's lanes, and they hand work off cleanly between them.
 
 You don't manage the routing. You just talk to the Orchestrator — or directly to whoever you need — and the work gets done.
 

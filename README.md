@@ -1,6 +1,6 @@
 # Claude Team Workspace Template
 
-**An AI agency in a folder.** Drop this into Claude Code and you have a 24-person team ready to take work — researchers, copywriters, SEO specialists, developers, designers, and more — all coordinated by a single orchestrator named Sam.
+**An AI agency in a folder.** Drop this into Claude Code and you have a 27-person team ready to take work — researchers, copywriters, SEO specialists, developers, designers, and more — all coordinated by a single orchestrator named Sam.
 
 ---
 
@@ -82,6 +82,14 @@ Your message
 | [Project Manager](.claude/agents/project-manager.md) | Delivery tracking, pipeline status, handoff coordination, timelines |
 | [Creative Director](.claude/agents/creative-director.md) | Campaign concepts, creative territories, cross-channel coherence |
 | [Email Developer](.claude/agents/email-developer.md) | HTML email production, ESP integration, multi-client rendering |
+| [Competitive Intelligence Specialist](.claude/agents/competitive-intelligence-specialist.md) | Competitor tracking, battlecards, win/loss synthesis, landscape analysis |
+| [Market Research Specialist](.claude/agents/market-research-specialist.md) | Primary/secondary research, audience insights, survey design, market sizing |
+| [Business Analyst](.claude/agents/business-analyst.md) | Brief and RFQ qualification — gap analysis, scope definition, go/no-go framing |
+| [Meta Ads Specialist](.claude/agents/meta-ads-specialist.md) | Meta paid social — ad specs, compliance review, campaign performance interpretation |
+| [Mobile Developer](.claude/agents/mobile-developer.md) | Cross-platform iOS/Android apps with Expo and React Native, EAS build/submit, store delivery |
+| [AI Cinema Showrunner](.claude/agents/cinema-showrunner.md) | World bible, character continuity, shot sequencing — specs the narrative AI-film pipeline |
+| [AI Stills Director](.claude/agents/stills-director.md) | Higgsfield still prompts — character face locks, outfit refs, 6-panel sheets, scene plates |
+| [AI Seedance Director](.claude/agents/seedance-director.md) | Seedance video prompts — frame maps and subject locks for shot-to-shot character consistency |
 | [Senior Adviser](.claude/agents/senior-adviser.md) | Checkpoint reviewer — consulted before and after durable work |
 
 ---
@@ -149,7 +157,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ```
 Claude - TEMPLATE/
 ├── .claude/
-│   ├── agents/                        ← persona files for all 24 team members
+│   ├── agents/                        ← persona files for all 27 team members
 │   ├── commands/
 │   │   ├── onboard.md                 ← /onboard command (run first)
 │   │   └── import-repos.md            ← /import-repos command
