@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "model": "opus",
+  "tui": "fullscreen",
   "enableAllProjectMcpServers": true,
   "remoteControlAtStartup": true,
   "worktree": {
