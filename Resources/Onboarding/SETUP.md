@@ -78,18 +78,22 @@ See `Resources/SOPs/Theme SOP.md` for the full workflow.
 
 ## Step 4 — Bootstrap memory
 
-Open `Vault/Memory/MEMORY.md` and add a first entry:
+`install.sh` / `install.bat` already created `Vault/Memory/context.md` from the tracked seed (`context.example.md`). Open `Vault/Memory/context.md` and fill in the `## Session Bootstrap` block:
 
 ```markdown
 ## Session Bootstrap — [YYYY-MM-DD]
 
 - Vault deployed from template
 - Theme: [default / name of theme applied]
-- Active team size: 27
+- Active team size: 28
 - Notes: [anything worth remembering from setup]
 ```
 
-This anchors the memory file for future sessions.
+This anchors your local memory for future sessions.
+
+> **`context.md` vs `MEMORY.md`.** `context.md` is your clone's **local** team memory — git-ignored, the write target for the bootstrap entry above and for `/memory-reconcile`. `MEMORY.md` is the shipped, git-tracked **vault-operations index**, maintainer-curated and the same for every install. Never hand-edit `MEMORY.md` for local facts — doing so causes rebase conflicts on `/update`. Both files load into context every prompt.
+
+> **Migrating an existing clone (one-time).** If your clone predates the memory split, local entries you added to `MEMORY.md` are now in the maintainer-owned tracked file and will conflict on your next `/update`. Move them into `Vault/Memory/context.md`, then run `git checkout MEMORY.md` to restore the shipped index. New clones skip this — `install` already created `context.md`.
 
 ---
 
@@ -103,7 +107,7 @@ See `Resources/SOPs/Repo Setup SOP.md` for how to clone repos and add index entr
 
 ## Step 6 — Verify the vault
 
-Ask Sam: `check the roster` — Sam will confirm all 27 team members are present and correctly linked.
+Ask Sam: `check the roster` — Sam will confirm all 28 team members are present and correctly linked.
 
 ---
 
@@ -162,6 +166,35 @@ irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.p
 | `/caveman ultra` | Maximum compression. Telegraphic. |
 
 Set lite as default per session with `/caveman lite`. Repo & docs: [github.com/JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman).
+
+---
+
+## Appendix — Recommended plugins
+
+Auto-onboarding installs a set of recommended Claude Code plugins (onboard.md Step 3.5 + 3.55). If you onboarded manually or a plugin failed, install them yourself:
+
+| Plugin | Install |
+|--------|---------|
+| claude-mem | `/plugin marketplace add thedotmack/claude-mem` → `/plugin install claude-mem` |
+| context-mode | `/plugin marketplace add mksglu/context-mode` → `/plugin install context-mode` |
+| superpowers | `/plugin marketplace add obra/superpowers` → `/plugin install superpowers` |
+| skill-creator | `/plugin marketplace add anthropics/claude-plugins-official/plugins/skill-creator` → `/plugin install skill-creator` |
+| frontend-design | `/plugin marketplace add anthropics/claude-plugins-official/plugins/frontend-design` → `/plugin install frontend-design` |
+| plannotator | binary first (below), then `/plugin marketplace add backnotprop/plannotator` → `/plugin install plannotator@plannotator` |
+
+**plannotator** ([github.com/backnotprop/plannotator](https://github.com/backnotprop/plannotator)) adds visual review of agent plans and code diffs — approve/deny plans with inline annotations, review git diffs and PRs, send feedback back to the agent. It needs its binary installed before the plugin:
+
+**Windows:**
+```powershell
+irm https://plannotator.ai/install.ps1 | iex
+```
+
+**macOS / Linux / WSL:**
+```bash
+curl -fsSL https://plannotator.ai/install.sh | bash
+```
+
+Restart Claude Code after any plugin install.
 
 ---
 

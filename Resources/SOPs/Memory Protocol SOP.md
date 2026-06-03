@@ -10,9 +10,19 @@ supersedes: (none — new SOP for P0.1 from 2026-05-24 strategic audit)
 
 **Audience.** All personas who write to `Vault/Memory/`, plus Sam (Orchestrator) who reconciles.
 
-**Why this exists.** Direct concurrent writes to `Vault/Memory/MEMORY.md` corrupt the file that the SessionStart hook loads as prompt context. Two failure modes — parallel sub-agents in one session racing on the same anchor, and multi-clone git merge conflicts — both produce `<<<<<<< HEAD` markers in loaded context, breaking every subsequent agent prompt.
+**Why this exists.** Direct concurrent writes to the memory index corrupt the file that the prompt-submit hook loads as context. Two failure modes — parallel sub-agents in one session racing on the same anchor, and multi-clone git merge conflicts — both produce `<<<<<<< HEAD` markers in loaded context, breaking every subsequent agent prompt.
 
-This SOP defines the two-stage write protocol that eliminates both races.
+Two safeguards eliminate both races:
+
+1. **Two-stage write protocol** (below) — serialises writes through `/memory-reconcile`, never concurrent direct edits.
+2. **Split index** — reconciled local memory lands in `context.md` (git-ignored, per-clone), **not** `MEMORY.md` (git-tracked, maintainer-owned, shipped with the template). This is what eliminates the multi-clone merge-conflict mode: cloners never write the tracked file, so `/update` rebases cleanly.
+
+| File | Tracked? | Who writes | Purpose |
+|---|---|---|---|
+| `MEMORY.md` | Tracked | Template maintainer only | Shipped vault-operations index — same for every install |
+| `context.md` | Git-ignored (seed: `context.example.md`) | `/memory-reconcile` + onboarding bootstrap | This clone's local team memory |
+
+Both files load into context on every prompt.
 
 ---
 
@@ -39,7 +49,7 @@ When you (any persona) surface something worth remembering mid-task:
 
 3. **Body** is freeform markdown. Link related memories with `[[name]]` where `name` matches another note's filename without extension.
 
-4. **Do not edit `MEMORY.md` directly** mid-task. Ever. Sam will reconcile your note in batch via `/memory-reconcile`.
+4. **Do not edit `context.md` or `MEMORY.md` directly** mid-task. Ever. Sam will reconcile your note into `context.md` in batch via `/memory-reconcile`.
 
 `Vault/Memory/Sessions/` is gitignored. Session notes are ephemeral until reconciled.
 
@@ -75,7 +85,7 @@ The command:
 1. Reads each file in `Vault/Memory/Sessions/`.
 2. Validates frontmatter against the schema. Rejects non-conforming notes to `Sessions/_rejected/`.
 3. Moves valid notes to `Vault/Memory/Notes/<YYYY-MM>/<original-filename>` (tracked).
-4. Appends pointer lines to `MEMORY.md` under the matching topical H2 section. New sections created if no match; uncategorised items go to `## Uncategorised`.
+4. Appends pointer lines to `context.md` (never `MEMORY.md`) under the matching topical H2 section. Creates `context.md` from `context.example.md` first if absent. New sections created if no match; uncategorised items go to `## Uncategorised`.
 5. On conflict (two notes touch the same section), appends both pointers as separate lines. **Never merges prose.**
 6. Is idempotent — re-running on a partial state skips already-moved files and already-added pointers.
 
@@ -89,7 +99,7 @@ The Orchestrator must surface a reminder when `Vault/Memory/Sessions/` contains 
 
 > "N unreconciled session notes — run `/memory-reconcile`?"
 
-Without this prompt the protocol silently rots: notes accumulate in `Sessions/`, never make it to `MEMORY.md`, and disappear on the next clone refresh.
+Without this prompt the protocol silently rots: notes accumulate in `Sessions/`, never make it to `context.md`, and disappear on the next clone refresh.
 
 The reminder runs lightly — one line, no escalation. The user decides when to reconcile.
 
@@ -105,23 +115,24 @@ The new protocol applies only to **memories created after this SOP shipped (2026
 
 | File | Pattern | Why |
 |---|---|---|
-| `MEMORY.md` | Curated index, edited by Sam at reconcile | The canonical entry point |
+| `MEMORY.md` | Maintainer-curated shipped index; edited only by the template maintainer | Git-tracked, same for every install — cloners never write it |
+| `context.md` | Per-clone local index; the `/memory-reconcile` + bootstrap target | Git-ignored, seeded from `context.example.md`; absorbs all local writes |
 | `theme-name-map.md` | Direct edit (theme swaps) | Hook-loaded; needs a stable path |
 | `feedback_*.md` | Direct edit by Sam on user feedback | Singleton, single-writer |
 | `theme-change-log.md`, `odin-misses.md`, `repo-conflicts.md` | Append-only single-writer logs | Already gitignored per-clone |
-| `audit_*.md` | Created by audit runs, indexed in MEMORY.md | Maintainer history; consider archiving on cloner side |
+| `audit_*.md` | Created by audit runs, indexed in `context.md` | Maintainer history; consider archiving on cloner side |
 
 ---
 
 ## Conflict rules
 
-1. **Two session notes touch the same MEMORY.md section.** Append both pointers as separate lines. Do not merge prose. Sam may consolidate manually in a later pass if the topic warrants it.
+1. **Two session notes touch the same context.md section.** Append both pointers as separate lines. Do not merge prose. Sam may consolidate manually in a later pass if the topic warrants it.
 
 2. **A session note's topic doesn't match any existing section.** Append to `## Uncategorised`. Sam triages on the next reconcile and either creates a new section or files under an existing one.
 
-3. **A pointer to the same filename already exists in MEMORY.md.** Skip — the existing pointer is canonical.
+3. **A pointer to the same filename already exists in context.md.** Skip — the existing pointer is canonical.
 
-4. **A destination file already exists in `notes/<YYYY-MM>/`.** Skip move (idempotent re-run case). Re-check pointer in MEMORY.md.
+4. **A destination file already exists in `notes/<YYYY-MM>/`.** Skip move (idempotent re-run case). Re-check pointer in context.md.
 
 ---
 
@@ -141,5 +152,6 @@ If a destination file is malformed (rare — would require manual edit of a `not
 
 - `CLAUDE.md` → `## Memory` (canonical protocol summary)
 - `.claude/commands/memory-reconcile.md` (the slash command procedure)
-- `Vault/Memory/MEMORY.md` (the canonical index)
+- `Vault/Memory/MEMORY.md` (shipped vault-operations index, maintainer-curated)
+- `Vault/Memory/context.md` (per-clone local memory, reconcile target; seed: `context.example.md`)
 - `Resources/SOPs/README.md` (SOP index)

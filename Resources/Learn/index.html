@@ -470,6 +470,17 @@ const TEAM = [
     constraints: "Does not write backend or server-side code — consumes APIs only. Does not originate UI/UX designs — implements specs from Jordan. Deep native Swift/Kotlin work and DevOps infrastructure are out of scope. App store account management (billing, legal agreements, certificate rotation policy) belongs to the client."
   },
   {
+    name: "Lex",
+    role: "Legal & Compliance Writer",
+    token: "LegalComplianceWriter",
+    core: false,
+    tags: ["T&Cs", "Privacy Policy", "AU / US / EU", "Pre-Counsel Drafts"],
+    desc: "Drafts the studio's recurring legal copy — terms & conditions, privacy policies, cookie notices, disclaimers, and NDAs — across Australian, US, and EU regimes. A drafter, not a lawyer: every output is a pre-counsel draft for human lawyer review, carries a dated disclaimer, and never states legal advice or a lawful/unlawful conclusion.",
+    prompt: "@{LegalComplianceWriter} draft a privacy policy for an AU SaaS product that also serves EU users.",
+    expertise: ["Privacy law drafting — AU Privacy Act / APPs, US CCPA/CPRA, EU GDPR + ePrivacy cookie consent", "Consumer and advertising law — Australian Consumer Law / ACCC, FTC advertising and endorsement rules", "Contract structure — NDAs, SOWs, MSAs, service agreements, EULAs, acceptable-use policies", "Risk identification and escalation — flags 'get a lawyer' triggers by pattern, not just on request"],
+    constraints: "Drafts for human counsel review only — never legal advice, never a lawful/unlawful conclusion (UPL boundary). No document ships without the verbatim dated disclaimer. Holds a scoped WebFetch grant: read-only lookups against a fixed regulator/legislation domain allowlist; flags 'could not verify currency' rather than drafting silently from stale knowledge. Monetary escalation thresholds are studio-set placeholders."
+  },
+  {
     name: "Marlowe",
     role: "AI Cinema Showrunner",
     token: "CinemaShowrunner",
@@ -509,7 +520,7 @@ const SLASH_COMMANDS = [
   { name: "/grill-me", type: "skill", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
   { name: "/log-session", type: "skill", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
   { name: "/handoff-save", type: "command", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive) — current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
-  { name: "/memory-reconcile", type: "skill", desc: "Folds session notes from Vault/Memory/Sessions/ into the canonical Vault/Memory/MEMORY.md index and per-month Notes/ archive. Two-stage write protocol — Sam never writes MEMORY.md directly.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
+  { name: "/memory-reconcile", type: "skill", desc: "Folds session notes from Vault/Memory/Sessions/ into your per-clone Vault/Memory/context.md index and per-month Notes/ archive. Two-stage write protocol — writes land in context.md (git-ignored), never the tracked MEMORY.md.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
   { name: "/onboard", type: "command", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs recommended plugins (context-mode, superpowers, skill-creator, frontend-design), and installs VS Code extensions.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
   { name: "/update", type: "command", desc: "Pulls latest template changes from origin/main using the two-branch rebase model: fast-forwards main as upstream mirror, rebases local/main on top. Guards against missing local/main and uncommitted changes. Surfaces any conflicts with --continue / --abort instructions.", when: "Whenever the template repo receives updates you want to pull in. Safe to re-run." },
   { name: "/import-repos", type: "command", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." }
@@ -611,7 +622,7 @@ const FAQ = [
     <!-- What is this -->
     <section class="section" id="what-is-this">
       <h2 class="section-title">What is this?</h2>
-      <p class="section-intro">You have access to a team of 27 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
+      <p class="section-intro">You have access to a team of 28 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
       <div class="callout">
         <strong>Using Claude Code:</strong> Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter — that's it. Everything in this guide assumes you have Claude Code open with this workspace as your working directory.
       </div>
@@ -908,7 +919,7 @@ const FAQ = [
       <p class="section-intro">The root is reserved for named top-level folders only. New persistent storage goes under <code>Vault/</code> — never at root level.</p>
       <div class="structure-tree">Claude - [YourCompany]/<br>
 ├── .claude/<br>
-│   ├── agents/                    ← persona files for all 27 team members<br>
+│   ├── agents/                    ← persona files for all 28 team members<br>
 │   ├── commands/<br>
 │   │   ├── onboard.md             ← /onboard command (run first)<br>
 │   │   ├── update.md              ← /update command (pull template updates)<br>
@@ -944,7 +955,8 @@ const FAQ = [
 │   │   ├── Sessions/              ← /log-session outputs<br>
 │   │   └── Handoffs/              ← /handoff-save outputs (synced cross-machine)<br>
 │   ├── Memory/                    ← persistent memory + theme map<br>
-│   │   ├── MEMORY.md<br>
+│   │   ├── MEMORY.md               ← shipped vault-ops index (tracked, maintainer-owned)<br>
+│   │   ├── context.md              ← your local team memory (git-ignored; seed: context.example.md)<br>
 │   │   ├── theme-name-map.md<br>
 │   │   ├── theme-change-log.md<br>
 │   │   └── repo-conflicts.md<br>

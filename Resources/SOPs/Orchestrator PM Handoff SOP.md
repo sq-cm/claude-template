@@ -49,7 +49,7 @@
 3. **Handoff failure** — Checkpoint B not run before "done" declared
 4. **Capacity signal** — team member flags they cannot complete the task as routed
 
-@{Orchestrator} resolves all escalations. @{ProjectManager} documents the escalation in `Vault/Memory/MEMORY.md` under `## Pipeline`.
+@{Orchestrator} resolves all escalations. @{ProjectManager} documents the escalation in `Vault/Memory/context.md` under `## Pipeline` (per-clone local memory — not the tracked `MEMORY.md`).
 
 ---
 
@@ -59,6 +59,6 @@ If @{Orchestrator} and @{ProjectManager} disagree on task ownership or scope:
 
 1. Both parties state their position in one sentence
 2. Invoke @{SeniorAdviser}: provide both positions and ask for ruling
-3. Apply @{SeniorAdviser}'s ruling; log to `Vault/Memory/MEMORY.md`
+3. Apply @{SeniorAdviser}'s ruling; log to `Vault/Memory/context.md`
 
 There is no default winner. @{SeniorAdviser} decides.

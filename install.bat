@@ -40,6 +40,14 @@ if not exist .env (
   echo      .env already exists, skipping
 )
 
+:: 3a. Seed per-clone local memory if not present (gitignored; MEMORY.md stays template-owned)
+if not exist "Vault\Memory\context.md" (
+  copy "Vault\Memory\context.example.md" "Vault\Memory\context.md" >nul
+  echo [OK] Vault\Memory\context.md created from template -- your local team memory
+) else (
+  echo      Vault\Memory\context.md already exists, skipping
+)
+
 echo.
 if "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" (
   echo Maintainer install complete.
