@@ -29,6 +29,7 @@ MarketResearchSpecialist: Reid
 BusinessAnalyst: Drew
 MetaAdsSpecialist: Luca
 MobileDeveloper: Milo
+LegalComplianceWriter: Lex
 CinemaShowrunner: Marlowe
 StillsDirector: Iris
 SeedanceDirector: Dash
@@ -68,6 +69,7 @@ Persona files live at `.claude/agents/[role-slug].md`. Use the explicit map belo
 | BusinessAnalyst | `business-analyst.md` |
 | MetaAdsSpecialist | `meta-ads-specialist.md` |
 | MobileDeveloper | `mobile-developer.md` |
+| LegalComplianceWriter | `legal-compliance-writer.md` |
 | CinemaShowrunner | `cinema-showrunner.md` |
 | StillsDirector | `stills-director.md` |
 | SeedanceDirector | `seedance-director.md` |

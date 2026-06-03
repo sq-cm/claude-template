@@ -260,7 +260,7 @@ If a rename, find-replace, or script step fails mid-batch, the Orchestrator halt
 
 ### Missing baseline (legacy vaults)
 
-If `Vault/Memory/theme-change-log.md` has no baseline entry on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names. For reference, the factory defaults at last SOP update were: Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn, Finn, Remi, Ellis, Nova, Axel, Juno, Dex, Jordan, Tate, Vera, Rory, Kai, Reid, Drew, Luca, Milo. Check `Vault/Memory/theme-name-map.md` for any roles added since.
+If `Vault/Memory/theme-change-log.md` has no baseline entry on a revert attempt, the Orchestrator halts and asks the user to confirm the original default names. For reference, the factory defaults at last SOP update were: Sam, Harper, Ryan, Alex, Casey, Cleo, Odin, Sage, Quinn, Finn, Remi, Ellis, Nova, Axel, Juno, Dex, Jordan, Tate, Vera, Rory, Kai, Reid, Drew, Luca, Milo, Lex, Marlowe, Iris, Dash. Check `Vault/Memory/theme-name-map.md` for any roles added since.
 
 ---
 

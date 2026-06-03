@@ -1,6 +1,6 @@
 # Claude Team Workspace Template
 
-**An AI agency in a folder.** Drop this into Claude Code and you have a 27-person team ready to take work — researchers, copywriters, SEO specialists, developers, designers, and more — all coordinated by a single orchestrator named Sam.
+**An AI agency in a folder.** Drop this into Claude Code and you have a 28-person team ready to take work — researchers, copywriters, SEO specialists, developers, designers, and more — all coordinated by a single orchestrator named Sam.
 
 ---
 
@@ -87,6 +87,7 @@ Your message
 | [Business Analyst](.claude/agents/business-analyst.md) | Brief and RFQ qualification — gap analysis, scope definition, go/no-go framing |
 | [Meta Ads Specialist](.claude/agents/meta-ads-specialist.md) | Meta paid social — ad specs, compliance review, campaign performance interpretation |
 | [Mobile Developer](.claude/agents/mobile-developer.md) | Cross-platform iOS/Android apps with Expo and React Native, EAS build/submit, store delivery |
+| [Legal & Compliance Writer](.claude/agents/legal-compliance-writer.md) | Drafts T&Cs, privacy policies, disclaimers, NDAs across AU/US/EU — pre-counsel drafts for human lawyer review, never legal advice |
 | [AI Cinema Showrunner](.claude/agents/cinema-showrunner.md) | World bible, character continuity, shot sequencing — specs the narrative AI-film pipeline |
 | [AI Stills Director](.claude/agents/stills-director.md) | Higgsfield still prompts — character face locks, outfit refs, 6-panel sheets, scene plates |
 | [AI Seedance Director](.claude/agents/seedance-director.md) | Seedance video prompts — frame maps and subject locks for shot-to-shot character consistency |
@@ -157,7 +158,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ```
 Claude - TEMPLATE/
 ├── .claude/
-│   ├── agents/                        ← persona files for all 27 team members
+│   ├── agents/                        ← persona files for all 28 team members
 │   ├── commands/
 │   │   ├── onboard.md                 ← /onboard command (run first)
 │   │   └── import-repos.md            ← /import-repos command
