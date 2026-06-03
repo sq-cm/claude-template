@@ -4,6 +4,11 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-06-03
+
+- chore(settings): set `tui` to fullscreen in vault settings (#37)
+- chore(vscode): sync recommended extensions with installed set (#36)
+
 ## 2026-05-29
 
 - docs: sync stale team count (24) and model assignments (Opus 4.8 / Sonnet 4.6, no Haiku tier) across SETUP, Learn, and Persona Template SOP (#35)
