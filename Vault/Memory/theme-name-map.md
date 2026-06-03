@@ -29,6 +29,9 @@ MarketResearchSpecialist: Reid
 BusinessAnalyst: Drew
 MetaAdsSpecialist: Luca
 MobileDeveloper: Milo
+CinemaShowrunner: Marlowe
+StillsDirector: Iris
+SeedanceDirector: Dash
 ```
 
 ## Studio Variable
@@ -65,6 +68,9 @@ Persona files live at `.claude/agents/[role-slug].md`. Use the explicit map belo
 | BusinessAnalyst | `business-analyst.md` |
 | MetaAdsSpecialist | `meta-ads-specialist.md` |
 | MobileDeveloper | `mobile-developer.md` |
+| CinemaShowrunner | `cinema-showrunner.md` |
+| StillsDirector | `stills-director.md` |
+| SeedanceDirector | `seedance-director.md` |
 
 > **Note:** `Orchestrator` is the only token with no corresponding `.claude/agents/` file. Its behaviour is defined in `CLAUDE.md` directly. All other tokens must have a matching agent file.
 

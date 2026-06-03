@@ -6,6 +6,8 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-06-03
 
+- feat(team): add AI-Cinema unit — three personas (Marlowe/Cinema Showrunner, Iris/Stills Director, Dash/Seedance Director), the `cinema-world-bible` continuity skill, and the installed `banana-pro-director-2.0` + `cinema-worldbuilder-pro-2.0` Higgsfield/Seedance prompt skills; roster 24→27 (PR pending)
+- docs(roster): add full trio entries to README team table, Learn guide persona cards, and minimum-viable-roster; backfill 5 roles missing from the README table (Competitive Intelligence, Market Research, Business Analyst, Meta Ads, Mobile Developer); bump Learn `LAST_SYNCED` to 2026-06-03 (PR pending)
 - chore(settings): set `tui` to fullscreen in vault settings (#37)
 - chore(vscode): sync recommended extensions with installed set (#36)
 
