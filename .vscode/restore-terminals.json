@@ -6,16 +6,16 @@
     {
       "splitTerminals": [
         {
-          "name": "Claude",
-          "commands": ["claude"]
+          "name": "Agents",
+          "commands": ["claude agents"]
         }
       ]
     },
     {
       "splitTerminals": [
         {
-          "name": "Agents",
-          "commands": ["claude agents"]
+          "name": "Claude",
+          "commands": ["claude"]
         }
       ]
     }
