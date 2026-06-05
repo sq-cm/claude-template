@@ -63,6 +63,8 @@ The `@Name` format goes directly to that person, bypassing Sam's routing step. U
 
 The Orchestrator will loop in the Social Media Manager, Sage, and Cleo in sequence. You'll see the work handed off and built up in stages.
 
+**Want to write better requests?** There's a one-page cheat sheet that gives you a fill-in-the-blank formula and a 10-second checklist for any request you send the team. See [Prompt Formula Cheat Sheet](../Learn/prompt-formula-cheat-sheet.md).
+
 ---
 
 ## When someone new is needed
