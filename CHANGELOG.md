@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-06-05
+
+- feat(learn): add `Resources/Learn/prompt-formula-cheat-sheet.md` and its `.html` companion (MD↔HTML pair) — one prompt formula of 5 slots plus a "Done when" finish line, carried across the slot table, fill-in-the-blank template, and three worked examples (Design/Content/Code); includes an `@{RoleToken}` routing micro-tip, a copy-template button, and cross-links in both directions. Restyles `Resources/Learn/index.html` to the html-deliverable design system (CSS custom properties, dark/light theme toggle sharing the `html-deliverable-theme` key, color-mix tinted components), adds a "Write better prompts" section linking the cheat sheet, and bumps `LAST_SYNCED` to 2026-06-05 (#43)
+
 ## 2026-06-03
 
 - fix(memory): split vault memory into `MEMORY.md` (tracked, maintainer-owned vault-operations index) and `context.md` (git-ignored, per-clone local team memory). `/memory-reconcile` and the onboarding bootstrap now write to `context.md`, never the tracked file — eliminating the rebase conflicts that put `<<<<<<< HEAD` markers into the prompt-loaded index on `/update`. Adds tracked seed `context.example.md`, install-time copy step (sh + bat), and a UserPromptSubmit loader for `context.md`. Synced across CLAUDE.md, Memory Protocol SOP, Roster Drift SOP, PM Handoff SOP, SETUP, and Learn guide (PR pending)

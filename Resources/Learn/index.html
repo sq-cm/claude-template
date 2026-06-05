@@ -1,31 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Team — Onboarding Guide</title>
+<noscript><style>.theme-toggle{display:none}</style></noscript>
 <style>
+  /* === Custom Properties === */
+
+  :root {
+    --paper: #f9f9f8;
+    --ink: #1a1a1a;
+    --ink-muted: #6b6b6b;
+    --accent: #2563eb;
+    --rule: #e2e2e0;
+    --surface: #f2f2f0;
+    --surface-strong: #e8e8e5;
+    --card: #ffffff;
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+    --space-1: 8px;
+    --space-2: 12px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+    --space-7: 64px;
+    --space-8: 96px;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+  }
+
+  /* === Dark Mode === */
+
+  [data-theme="dark"] {
+    --paper: #0c0c0c;
+    --ink: #ededed;
+    --ink-muted: #9a9a9a;
+    --accent: #60a5fa;
+    --rule: #2a2a2a;
+    --surface: #161616;
+    --surface-strong: #1f1f1f;
+    --card: #161616;
+  }
+
+  /* === Reduced Motion === */
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   /* ── Reset & Base ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 16px; scroll-behavior: smooth; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; background: #f8f8f6; line-height: 1.6; }
+  html { font-size: 16px; scroll-behavior: smooth; background-color: var(--paper); color: var(--ink); }
+  body { font-family: var(--font-sans); color: var(--ink); background: var(--paper); line-height: 1.6; }
+
+  /* === Focus === */
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
 
   /* ── Layout ── */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
   /* ── Hero ── */
-  .hero { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 48px 0 36px; }
-  .hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
-  .hero p { font-size: 1.1rem; color: #555; max-width: 640px; }
-  .hero .last-synced { margin-top: 12px; font-size: 0.8rem; color: #999; }
+  .hero { background: var(--card); border-bottom: 1px solid var(--rule); padding: 48px 0 36px; }
+  .hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; color: var(--ink); }
+  .hero p { font-size: 1.1rem; color: var(--ink-muted); max-width: 640px; }
+  .hero .last-synced { margin-top: 12px; font-size: 0.8rem; color: var(--ink-muted); }
 
   /* ── Tab Switcher ── */
-  .tab-bar { background: #fff; border-bottom: 1px solid #e8e8e4; position: sticky; top: 0; z-index: 100; }
+  .tab-bar { background: var(--card); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 100; }
   .tab-bar .container { display: flex; gap: 0; }
-  .tab-btn { padding: 14px 28px; font-size: 0.95rem; font-weight: 500; color: #666; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; transition: color 0.15s, border-color 0.15s; }
-  .tab-btn:hover { color: #1a1a1a; }
-  .tab-btn.active { color: #1a1a1a; border-bottom-color: #1a1a1a; }
-  .tab-btn:focus-visible { outline: 2px solid #0066cc; outline-offset: -2px; }
+  .tab-btn { padding: 14px 28px; font-size: 0.95rem; font-weight: 500; color: var(--ink-muted); background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; transition: color 0.15s, border-color 0.15s; }
+  .tab-btn:hover { color: var(--ink); }
+  .tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+  .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius-sm); }
 
   /* ── Tab Panels ── */
   .tab-panel { display: none; padding: 48px 0 80px; }
@@ -33,147 +97,185 @@
 
   /* ── Sections ── */
   .section { margin-bottom: 56px; }
-  .section-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e8e8e4; }
-  .section-intro { color: #555; margin-bottom: 24px; max-width: 680px; }
+  .section-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); color: var(--ink); }
+  .section-intro { color: var(--ink-muted); margin-bottom: 24px; max-width: 680px; }
 
   /* ── Callout ── */
-  .callout { background: #f0f4ff; border: 1px solid #c7d4f5; border-radius: 8px; padding: 14px 18px; font-size: 0.9rem; color: #2a3a6b; margin-bottom: 24px; max-width: 680px; }
-  .callout strong { color: #1a2a5b; }
+  .callout { background: color-mix(in srgb, var(--accent) 8%, var(--surface)); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule)); border-radius: var(--radius-md); padding: 14px 18px; font-size: 0.9rem; color: var(--ink); margin-bottom: 24px; max-width: 680px; }
+  .callout strong { color: var(--ink); }
 
   /* ── Addressing Syntax ── */
   .syntax-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-  .syntax-card { background: #fff; border: 1px solid #e8e8e4; border-radius: 10px; padding: 20px; }
-  .syntax-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 8px; }
-  .syntax-card .example { background: #f4f4f0; border-radius: 6px; padding: 10px 14px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; color: #1a1a1a; margin-bottom: 8px; line-height: 1.5; }
-  .syntax-card p { font-size: 0.9rem; color: #555; }
-  .syntax-note { font-size: 0.82rem; color: #777; margin-top: 6px; font-style: italic; }
+  .syntax-card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; }
+  .syntax-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 8px; }
+  .syntax-card .example { background: var(--surface); border-radius: 6px; padding: 10px 14px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink); margin-bottom: 8px; line-height: 1.5; }
+  .syntax-card p { font-size: 0.9rem; color: var(--ink-muted); }
+  .syntax-note { font-size: 0.82rem; color: var(--ink-muted); margin-top: 6px; font-style: italic; }
 
   /* ── Worked Example ── */
-  .example-flow { display: flex; flex-direction: column; gap: 0; background: #fff; border: 1px solid #e8e8e4; border-radius: 12px; overflow: hidden; }
-  .example-step { padding: 18px 24px; border-bottom: 1px solid #f0f0ec; }
+  .example-flow { display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .example-step { padding: 18px 24px; border-bottom: 1px solid var(--rule); }
   .example-step:last-child { border-bottom: none; }
-  .step-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #999; margin-bottom: 4px; }
-  .step-label span { display: inline-block; background: #1a1a1a; color: #fff; border-radius: 4px; padding: 1px 7px; font-size: 0.7rem; margin-right: 6px; }
+  .step-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); margin-bottom: 4px; }
+  .step-label span { display: inline-block; background: var(--ink); color: var(--paper); border-radius: 4px; padding: 1px 7px; font-size: 0.7rem; margin-right: 6px; }
   .step-label span.routing { background: #6b7c93; }
-  .step-label span.persona { background: #2d6a4f; }
-  .step-body { font-size: 0.95rem; color: #333; }
-  .step-body strong { color: #1a1a1a; }
+  .step-label span.persona { background: #16a34a; }
+  .step-body { font-size: 0.95rem; color: var(--ink); }
+  .step-body strong { color: var(--ink); }
 
   /* ── Roster Filters ── */
   .roster-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
-  .roster-search { flex: 1; min-width: 220px; max-width: 380px; padding: 10px 16px; border: 1px solid #d8d8d4; border-radius: 8px; font-size: 0.95rem; background: #fff; outline: none; transition: border-color 0.15s; }
-  .roster-search:focus { border-color: #1a1a1a; }
+  .roster-search { flex: 1; min-width: 220px; max-width: 380px; padding: 10px 16px; border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 0.95rem; background: var(--card); color: var(--ink); outline: none; transition: border-color 0.15s; font-family: var(--font-sans); }
+  .roster-search:focus { border-color: var(--ink); }
   .filter-btns { display: flex; gap: 8px; }
-  .filter-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: 500; border: 1px solid #d8d8d4; border-radius: 20px; background: #fff; color: #555; cursor: pointer; transition: all 0.15s; }
-  .filter-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
-  .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-  .roster-count { font-size: 0.85rem; color: #888; margin-top: 4px; width: 100%; }
+  .filter-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--rule); border-radius: 20px; background: var(--card); color: var(--ink-muted); cursor: pointer; transition: all 0.15s; }
+  .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .filter-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .roster-count { font-size: 0.85rem; color: var(--ink-muted); margin-top: 4px; width: 100%; }
 
   /* ── Roster Grid ── */
   .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .persona-card { background: #fff; border: 1px solid #e8e8e4; border-radius: 12px; overflow: hidden; transition: box-shadow 0.15s; }
+  .persona-card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; transition: box-shadow 0.15s; }
   .persona-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
   .persona-card.hidden { display: none; }
 
   .card-header { padding: 18px 20px 14px; }
   .card-name-row { display: flex; align-items: center; gap: 8px; }
-  .card-name { font-size: 1.05rem; font-weight: 700; }
-  .core-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: #e8f5ee; color: #2d6a4f; border: 1px solid #b8ddc8; border-radius: 20px; padding: 2px 8px; white-space: nowrap; }
-  .card-role { font-size: 0.85rem; color: #666; margin-top: 2px; }
-  .card-token { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.75rem; color: #888; margin-top: 4px; }
+  .card-name { font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+  .core-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: color-mix(in srgb, #16a34a 12%, var(--surface)); color: color-mix(in srgb, #16a34a 70%, var(--ink)); border: 1px solid color-mix(in srgb, #16a34a 25%, var(--rule)); border-radius: 20px; padding: 2px 8px; white-space: nowrap; }
+  .card-role { font-size: 0.85rem; color: var(--ink-muted); margin-top: 2px; }
+  .card-token { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); margin-top: 4px; }
   .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  .tag { font-size: 0.75rem; font-weight: 500; background: #f0f0ec; color: #555; border-radius: 20px; padding: 3px 10px; }
+  .tag { font-size: 0.75rem; font-weight: 500; background: var(--surface); color: var(--ink-muted); border-radius: 20px; padding: 3px 10px; }
 
   .card-body { padding: 0 20px 14px; }
-  .card-desc { font-size: 0.875rem; color: #555; line-height: 1.55; }
+  .card-desc { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.55; }
 
-  .card-footer { padding: 12px 20px; border-top: 1px solid #f0f0ec; background: #fafaf8; }
-  .sample-prompt-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 6px; }
-  .sample-prompt-text { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: #333; background: #f4f4f0; border-radius: 6px; padding: 8px 10px; line-height: 1.5; }
+  .card-footer { padding: 12px 20px; border-top: 1px solid var(--rule); background: var(--surface); }
+  .sample-prompt-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 6px; }
+  .sample-prompt-text { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); background: var(--surface-strong); border-radius: 6px; padding: 8px 10px; line-height: 1.5; }
 
-  .card-expand { width: 100%; padding: 10px 20px; background: none; border: none; border-top: 1px solid #f0f0ec; font-size: 0.82rem; color: #666; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; }
-  .card-expand:hover { background: #f8f8f6; color: #1a1a1a; }
-  .card-expand:focus-visible { outline: 2px solid #0066cc; }
+  .card-expand { width: 100%; padding: 10px 20px; background: none; border: none; border-top: 1px solid var(--rule); font-size: 0.82rem; color: var(--ink-muted); cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); }
+  .card-expand:hover { background: var(--surface); color: var(--ink); }
+  .card-expand:focus-visible { outline: 2px solid var(--accent); border-radius: var(--radius-sm); }
   .expand-arrow { transition: transform 0.2s; font-size: 0.7rem; }
   .expand-arrow.open { transform: rotate(180deg); }
 
-  .card-details { display: none; padding: 14px 20px 16px; border-top: 1px solid #f0f0ec; background: #fafaf8; }
+  .card-details { display: none; padding: 14px 20px 16px; border-top: 1px solid var(--rule); background: var(--surface); }
   .card-details.open { display: block; }
-  .card-details h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 6px; margin-top: 12px; }
+  .card-details h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 6px; margin-top: 12px; }
   .card-details h4:first-child { margin-top: 0; }
-  .card-details ul { padding-left: 16px; font-size: 0.875rem; color: #444; }
+  .card-details ul { padding-left: 16px; font-size: 0.875rem; color: var(--ink-muted); }
   .card-details ul li { margin-bottom: 3px; }
-  .card-details .constraint-note { font-size: 0.875rem; color: #666; font-style: italic; }
+  .card-details .constraint-note { font-size: 0.875rem; color: var(--ink-muted); font-style: italic; }
 
-  .copy-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 5px 12px; font-size: 0.78rem; font-weight: 500; background: #1a1a1a; color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: background 0.15s; }
-  .copy-btn:hover { background: #333; }
-  .copy-btn:focus-visible { outline: 2px solid #0066cc; }
-  .copy-btn.copied { background: #2d6a4f; }
+  .copy-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 5px 12px; font-size: 0.78rem; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-family: var(--font-sans); }
+  .copy-btn:hover { background: var(--ink-muted); }
+  .copy-btn:focus-visible { outline: 2px solid var(--accent); border-radius: var(--radius-sm); }
+  .copy-btn.copied { background: #16a34a; }
 
   /* ── Slash Commands ── */
   .ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-  .ref-card { background: #fff; border: 1px solid #e8e8e4; border-radius: 10px; padding: 18px 20px; }
+  .ref-card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px; }
   .ref-card-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-  .ref-card-name { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.9rem; font-weight: 600; color: #1a1a1a; }
+  .ref-card-name { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600; color: var(--ink); }
   .type-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 20px; padding: 2px 8px; white-space: nowrap; }
-  .type-badge.skill { background: #f0f0ff; color: #4040a0; border: 1px solid #c8c8f0; }
-  .type-badge.command { background: #fff4e0; color: #8a5a00; border: 1px solid #f0d090; }
-  .ref-card-desc { font-size: 0.875rem; color: #555; margin-bottom: 10px; }
-  .ref-card-when { font-size: 0.8rem; color: #777; border-top: 1px solid #f0f0ec; padding-top: 8px; margin-top: 8px; }
-  .ref-card-when strong { color: #555; }
+  .type-badge.skill { background: color-mix(in srgb, #6366f1 10%, var(--surface)); color: color-mix(in srgb, #6366f1 80%, var(--ink)); border: 1px solid color-mix(in srgb, #6366f1 25%, var(--rule)); }
+  .type-badge.command { background: color-mix(in srgb, #d97706 10%, var(--surface)); color: color-mix(in srgb, #d97706 80%, var(--ink)); border: 1px solid color-mix(in srgb, #d97706 25%, var(--rule)); }
+  .ref-card-desc { font-size: 0.875rem; color: var(--ink-muted); margin-bottom: 10px; }
+  .ref-card-when { font-size: 0.8rem; color: var(--ink-muted); border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; }
+  .ref-card-when strong { color: var(--ink-muted); }
+
+  /* ── Prompt Formula card ── */
+  .formula-card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; max-width: 680px; text-decoration: none; display: block; transition: box-shadow 0.15s, border-color 0.15s; }
+  .formula-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: var(--accent); text-decoration: none; }
+  .formula-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 10px; }
+  .formula-card__slots { font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+  .formula-card__body { font-size: 0.9rem; color: var(--ink-muted); margin-bottom: 14px; line-height: 1.55; }
+  .formula-card__link { font-size: 0.9rem; font-weight: 600; color: var(--accent); }
 
   /* ── Start Here ── */
-  .start-here-grid { display: flex; flex-direction: column; gap: 0; background: #fff; border: 1px solid #e8e8e4; border-radius: 12px; overflow: hidden; }
-  .project-row { padding: 18px 24px; border-bottom: 1px solid #f0f0ec; }
+  .start-here-grid { display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .project-row { padding: 18px 24px; border-bottom: 1px solid var(--rule); }
   .project-row:last-child { border-bottom: none; }
   .project-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
-  .project-num { font-size: 0.75rem; font-weight: 700; color: #999; }
-  .project-name { font-size: 0.95rem; font-weight: 600; color: #1a1a1a; }
-  .project-star { font-size: 0.78rem; color: #c08000; font-weight: 600; }
-  .project-teaches { font-size: 0.82rem; color: #777; margin-bottom: 10px; }
-  .project-prompt { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: #333; background: #f4f4f0; border-radius: 6px; padding: 8px 12px; line-height: 1.5; margin-bottom: 8px; }
-  .real-task-note { margin-top: 20px; padding: 14px 18px; background: #fafaf8; border: 1px solid #e8e8e4; border-radius: 8px; font-size: 0.875rem; color: #555; }
-  .real-task-note strong { color: #1a1a1a; }
+  .project-num { font-size: 0.75rem; font-weight: 700; color: var(--ink-muted); }
+  .project-name { font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+  .project-star { font-size: 0.78rem; color: color-mix(in srgb, #d97706 80%, var(--ink)); font-weight: 600; }
+  .project-teaches { font-size: 0.82rem; color: var(--ink-muted); margin-bottom: 10px; }
+  .project-prompt { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); background: var(--surface); border-radius: 6px; padding: 8px 12px; line-height: 1.5; margin-bottom: 8px; }
+  .real-task-note { margin-top: 20px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 0.875rem; color: var(--ink-muted); }
+  .real-task-note strong { color: var(--ink); }
 
   /* ── FAQ ── */
-  .faq-list { display: flex; flex-direction: column; gap: 0; background: #fff; border: 1px solid #e8e8e4; border-radius: 12px; overflow: hidden; }
-  .faq-item { border-bottom: 1px solid #f0f0ec; }
+  .faq-list { display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .faq-item { border-bottom: 1px solid var(--rule); }
   .faq-item:last-child { border-bottom: none; }
-  .faq-question { width: 100%; padding: 16px 24px; background: none; border: none; font-size: 0.95rem; font-weight: 600; color: #1a1a1a; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .faq-question:hover { background: #fafaf8; }
-  .faq-question:focus-visible { outline: 2px solid #0066cc; }
-  .faq-arrow { font-size: 0.7rem; color: #999; transition: transform 0.2s; flex-shrink: 0; }
+  .faq-question { width: 100%; padding: 16px 24px; background: none; border: none; font-size: 0.95rem; font-weight: 600; color: var(--ink); cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--font-sans); }
+  .faq-question:hover { background: var(--surface); }
+  .faq-question:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius-sm); }
+  .faq-arrow { font-size: 0.7rem; color: var(--ink-muted); transition: transform 0.2s; flex-shrink: 0; }
   .faq-arrow.open { transform: rotate(180deg); }
-  .faq-answer { display: none; padding: 0 24px 18px; font-size: 0.9rem; color: #444; line-height: 1.6; }
+  .faq-answer { display: none; padding: 0 24px 18px; font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6; }
   .faq-answer.open { display: block; }
-  .faq-answer code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; background: #f4f4f0; padding: 2px 6px; border-radius: 4px; }
+  .faq-answer code { font-family: var(--font-mono); font-size: 0.82rem; background: var(--surface); padding: 2px 6px; border-radius: var(--radius-sm); color: var(--ink); }
 
   /* ── Admin Tab ── */
-  .steps-list { counter-reset: step; display: flex; flex-direction: column; gap: 0; background: #fff; border: 1px solid #e8e8e4; border-radius: 12px; overflow: hidden; }
-  .step-item { counter-increment: step; padding: 20px 24px; border-bottom: 1px solid #f0f0ec; display: flex; gap: 16px; }
+  .steps-list { counter-reset: step; display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .step-item { counter-increment: step; padding: 20px 24px; border-bottom: 1px solid var(--rule); display: flex; gap: 16px; }
   .step-item:last-child { border-bottom: none; }
-  .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #1a1a1a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; margin-top: 1px; }
-  .step-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
-  .step-content p { font-size: 0.9rem; color: #555; }
-  .step-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; background: #f4f4f0; padding: 2px 6px; border-radius: 4px; }
-  .step-content pre { background: #f4f4f0; border-radius: 8px; padding: 12px 16px; margin-top: 8px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; overflow-x: auto; line-height: 1.6; }
-  .verify-box { margin-top: 12px; background: #f0f4ff; border: 1px solid #c7d4f5; border-radius: 8px; padding: 12px 16px; }
-  .verify-box p { font-size: 0.85rem; color: #2a3a6b; margin-bottom: 6px; }
-  .verify-box pre { background: #e4ecff; border-radius: 6px; }
-  .verify-expected { font-size: 0.82rem; color: #4a5a8b; margin-top: 8px; font-style: italic; }
+  .step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--ink); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; margin-top: 1px; }
+  .step-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+  .step-content p { font-size: 0.9rem; color: var(--ink-muted); }
+  .step-content code { font-family: var(--font-mono); font-size: 0.82rem; background: var(--surface); padding: 2px 6px; border-radius: var(--radius-sm); color: var(--ink); }
+  .step-content pre { background: var(--surface); border-radius: var(--radius-md); padding: 12px 16px; margin-top: 8px; font-family: var(--font-mono); font-size: 0.82rem; overflow-x: auto; line-height: 1.6; color: var(--ink); border: 1px solid var(--rule); }
+  .verify-box { margin-top: 12px; background: color-mix(in srgb, var(--accent) 8%, var(--surface)); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule)); border-radius: var(--radius-md); padding: 12px 16px; }
+  .verify-box p { font-size: 0.85rem; color: var(--ink); margin-bottom: 6px; }
+  .verify-box pre { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); border-radius: 6px; border-color: color-mix(in srgb, var(--accent) 20%, var(--rule)); }
+  .verify-expected { font-size: 0.82rem; color: var(--ink-muted); margin-top: 8px; font-style: italic; }
 
-  .caveman-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e8e8e4; border-radius: 10px; overflow: hidden; }
-  .caveman-table th { background: #f4f4f0; text-align: left; padding: 10px 16px; font-size: 0.82rem; font-weight: 700; color: #555; }
-  .caveman-table td { padding: 10px 16px; font-size: 0.875rem; border-top: 1px solid #f0f0ec; vertical-align: top; }
-  .caveman-table td:first-child { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; }
+  .caveman-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .caveman-table th { background: var(--surface); text-align: left; padding: 10px 16px; font-size: 0.82rem; font-weight: 700; color: var(--ink-muted); }
+  .caveman-table td { padding: 10px 16px; font-size: 0.875rem; border-top: 1px solid var(--rule); vertical-align: top; color: var(--ink); }
+  .caveman-table td:first-child { font-family: var(--font-mono); font-size: 0.82rem; }
 
-  .structure-tree { background: #f4f4f0; border-radius: 10px; padding: 20px 24px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82rem; line-height: 1.8; overflow-x: auto; }
+  .structure-tree { background: var(--surface); border-radius: 10px; padding: 20px 24px; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.8; overflow-x: auto; color: var(--ink); border: 1px solid var(--rule); }
 
   /* ── Notice ── */
-  .notice { background: #fffbf0; border: 1px solid #f0e08a; border-radius: 8px; padding: 12px 16px; font-size: 0.875rem; color: #6b5900; margin-bottom: 24px; }
+  .notice { background: color-mix(in srgb, #d97706 8%, var(--surface)); border: 1px solid color-mix(in srgb, #d97706 30%, var(--rule)); border-radius: var(--radius-md); padding: 12px 16px; font-size: 0.875rem; color: var(--ink); margin-bottom: 24px; }
 
   /* ── Empty state ── */
-  .empty-state { grid-column: 1 / -1; text-align: center; padding: 48px; color: #999; font-size: 0.95rem; }
+  .empty-state { grid-column: 1 / -1; text-align: center; padding: 48px; color: var(--ink-muted); font-size: 0.95rem; }
+
+  /* ── Theme Toggle ── */
+  .theme-toggle {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 100;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .theme-toggle:hover { background: var(--surface-strong); }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+  }
+
+  .theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
 
   /* ── Responsive ── */
   @media (max-width: 600px) {
@@ -191,7 +293,7 @@
      DATA — update this block when roster changes
      ═══════════════════════════════════════════ -->
 <script>
-const LAST_SYNCED = "2026-06-03";
+const LAST_SYNCED = "2026-06-05";
 
 const TEAM = [
   {
@@ -684,6 +786,17 @@ const FAQ = [
       </div>
     </section>
 
+    <!-- Write better prompts -->
+    <section class="section" id="prompt-formula">
+      <h2 class="section-title">Write better prompts</h2>
+      <p class="section-intro">One formula covers every prompt you'll send this team: five slots and a finish line that turn a vague ask into a working brief.</p>
+      <a class="formula-card" href="prompt-formula-cheat-sheet.html" aria-label="Open the prompt formula cheat sheet">
+        <div class="formula-card__slots">Context · Goal · Insight · Output spec · Constraints · Done when</div>
+        <div class="formula-card__body">Fill these five slots and the finish line in order and the team gets everything it needs to work without back-and-forth. Each slot feeds the next — context anchors the goal, the goal makes the constraints meaningful.</div>
+        <div class="formula-card__link">Open the cheat sheet →</div>
+      </a>
+    </section>
+
     <!-- Roster -->
     <section class="section" id="roster">
       <h2 class="section-title">Meet the team</h2>
@@ -823,7 +936,7 @@ const FAQ = [
           <div class="step-content">
             <h3>Apply a theme (optional)</h3>
             <p>Rename the team with characters from a chosen universe. This can be done now or any time later — just send: <code>"Set theme to [theme]"</code>. Sam matches characters to roles, shows a preview, and asks for confirmation before changing anything. To revert: <code>"reset theme"</code>.</p>
-            <p style="margin-top:12px;font-size:0.85rem;font-weight:700;color:#555;">12 built-in themes — or name your own:</p>
+            <p style="margin-top:12px;font-size:0.85rem;font-weight:700;color:var(--ink-muted);">12 built-in themes — or name your own:</p>
             <table class="caveman-table" style="margin-top:8px;">
               <thead><tr><th>#</th><th>Theme</th><th>Sample names</th></tr></thead>
               <tbody>
@@ -841,7 +954,7 @@ const FAQ = [
                 <tr><td>12</td><td>Game of Thrones</td><td>Jon, Daenerys, Tyrion, Cersei, Arya, Sansa, Brienne, Jaime, Theon, Davos</td></tr>
               </tbody>
             </table>
-            <p style="margin-top:10px;font-size:0.875rem;color:#555;">To pick a theme, send the number or name — or describe your own universe and Sam will research fitting names.</p>
+            <p style="margin-top:10px;font-size:0.875rem;color:var(--ink-muted);">To pick a theme, send the number or name — or describe your own universe and Sam will research fitting names.</p>
           </div>
         </li>
         <li class="step-item">
@@ -856,7 +969,7 @@ const FAQ = [
 
     <section class="section">
       <h2 class="section-title">For small teams</h2>
-      <p class="section-intro">Running a 2–5 person studio? See <a href="../../Resources/Onboarding/minimum-viable-roster.md" style="color:#0066cc;text-decoration:underline;">Minimum Viable Roster</a> for guidance on which personas to keep and which to remove from your clone.</p>
+      <p class="section-intro">Running a 2–5 person studio? See <a href="../../Resources/Onboarding/minimum-viable-roster.md" style="color:var(--accent);text-decoration:underline;">Minimum Viable Roster</a> for guidance on which personas to keep and which to remove from your clone.</p>
     </section>
 
     <section class="section">
@@ -864,7 +977,7 @@ const FAQ = [
       <p class="section-intro">When the template repo receives updates, run <code>/update</code> from your vault root. It pulls them in using the two-branch model without overwriting your personal work.</p>
       <div class="steps-list" style="border-radius:12px;overflow:hidden;">
         <div class="step-item">
-          <div class="step-num" style="background:#2d6a4f;">1</div>
+          <div class="step-num" style="background:#16a34a;">1</div>
           <div class="step-content">
             <h3>Run the update command</h3>
             <pre>/update</pre>
@@ -874,7 +987,7 @@ const FAQ = [
           </div>
         </div>
         <div class="step-item">
-          <div class="step-num" style="background:#2d6a4f;">2</div>
+          <div class="step-num" style="background:#16a34a;">2</div>
           <div class="step-content">
             <h3>If rebase hits a conflict</h3>
             <p>Git pauses and shows which file conflicted. Resolve it, then:</p>
@@ -1209,6 +1322,59 @@ buildRoster();
 buildCommands();
 buildProjects();
 buildFaq();
+</script>
+
+<!-- Theme toggle — outside <main>, immediately before </body> -->
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+  <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+  <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+
+<script>
+(function () {
+  // --- Theme bootstrap ---
+  var KEY = 'html-deliverable-theme';
+  var html = document.documentElement;
+  var btn  = document.getElementById('theme-toggle');
+  var sun  = document.getElementById('icon-sun');
+  var moon = document.getElementById('icon-moon');
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      sun.style.display  = 'none';
+      moon.style.display = '';
+    } else {
+      sun.style.display  = '';
+      moon.style.display = 'none';
+    }
+  }
+
+  var stored = localStorage.getItem(KEY);
+  if (stored) {
+    applyTheme(stored);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme('dark');
+  }
+
+  btn.addEventListener('click', function () {
+    var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(current);
+    localStorage.setItem(KEY, current);
+  });
+}());
 </script>
 
 </body>

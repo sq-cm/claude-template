@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prompt Formula Cheat Sheet</title>
+  <noscript><style>.theme-toggle{display:none}.cs-copy-btn{display:none}</style></noscript>
+  <style>
+/* === Custom Properties === */
+
+:root {
+  --paper: #f9f9f8;
+  --ink: #1a1a1a;
+  --ink-muted: #6b6b6b;
+  --accent: #2563eb;
+  --rule: #e2e2e0;
+  --surface: #f2f2f0;
+  --surface-strong: #e8e8e5;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --measure: 72ch;
+  --container: 1080px;
+}
+
+/* === Dark Mode === */
+/* Applied via [data-theme="dark"] attribute — JS-toggled. OS preference is the
+   bootstrap default. @media prefers-color-scheme is NOT used here. */
+
+[data-theme="dark"] {
+  --paper: #0c0c0c;
+  --ink: #ededed;
+  --ink-muted: #9a9a9a;
+  --accent: #60a5fa;
+  --rule: #2a2a2a;
+  --surface: #161616;
+  --surface-strong: #1f1f1f;
+}
+
+/* === Reduced Motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Reset === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Base === */
+
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* === Type === */
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+h1 { font-size: 2rem;    margin-bottom: var(--space-4); }
+h2 { font-size: 1.5rem;  margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h3 { font-size: 1.2rem;  margin-top: var(--space-5); margin-bottom: var(--space-2); }
+h4 { font-size: 1rem;    margin-top: var(--space-4); margin-bottom: var(--space-1); }
+
+p {
+  max-width: var(--measure);
+  margin-bottom: var(--space-3);
+  color: var(--ink);
+}
+
+ul, ol {
+  max-width: var(--measure);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+li { margin-bottom: var(--space-1); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  max-width: 100%;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: var(--space-5) 0;
+}
+
+/* === Focus === */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* === Tables === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-4);
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--rule);
+}
+
+td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* === Components === */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  max-width: var(--measure);
+}
+
+.callout--note { border-left-color: var(--accent); }
+
+.callout--warn {
+  border-left-color: #d97706;
+  background: color-mix(in srgb, #d97706 8%, var(--surface));
+}
+
+.callout--ok {
+  border-left-color: #16a34a;
+  background: color-mix(in srgb, #16a34a 8%, var(--surface));
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+/* --- KPI --- */
+
+.kpi {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  min-width: 10ch;
+}
+
+.kpi__value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.kpi__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* --- Tabs (radio-input pattern, keyboard navigable) --- */
+
+.tabs {
+  margin-bottom: var(--space-5);
+}
+
+.tabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.tabs__nav input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tabs__nav label {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tabs__nav label:hover { color: var(--ink); }
+
+.tabs__nav input[type="radio"]:checked + label {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tabs__nav input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.tab-panel { display: none; }
+.tab-panel--active { display: block; }
+
+/* --- Footer Meta --- */
+
+.footer-meta {
+  margin-top: var(--space-7);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.footer-meta__item { white-space: nowrap; }
+
+/* --- Theme Toggle --- */
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover { background: var(--surface-strong); }
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+.theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* --- Table of Contents --- */
+
+.toc-layout {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: var(--space-6);
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.toc {
+  position: sticky;
+  top: var(--space-5);
+  max-height: calc(100vh - var(--space-8));
+  overflow-y: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.toc__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc__list li { margin-bottom: 2px; }
+
+.toc__link {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+  padding: 3px var(--space-2);
+  border-left: 2px solid transparent;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  text-decoration: none;
+  transition: color 0.12s, border-left-color 0.12s, background 0.12s;
+}
+
+.toc__link:hover,
+.toc__link:focus-visible {
+  color: var(--ink);
+  background: var(--surface-strong);
+  text-decoration: none;
+}
+
+.toc__link--active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .toc-layout {
+    grid-template-columns: 1fr;
+  }
+  .toc {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    order: -1;
+  }
+}
+
+/* === Print === */
+
+@media print {
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --ink-muted: #444444;
+    --rule: #cccccc;
+    --surface: #f5f5f5;
+    --surface-strong: #ebebeb;
+  }
+
+  body {
+    padding: 0;
+    max-width: 100%;
+    font-size: 11pt;
+  }
+
+  h1 { font-size: 20pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 12pt; }
+  h4 { font-size: 11pt; }
+
+  a { color: var(--ink); }
+
+  .callout { break-inside: avoid; }
+  table tr { break-inside: avoid; }
+
+  .tabs__nav { display: none; }
+  .tab-panel { display: block !important; }
+  .tab-panel + .tab-panel { margin-top: var(--space-4); border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+
+  .footer-meta { border-top: 1px solid var(--rule); }
+  .theme-toggle { display: none; }
+  .toc-layout { display: block; }
+  .toc { display: none; }
+}
+
+/* === Page-specific === */
+
+/* Formula table: number column narrow, description column wider */
+.cs-formula-table {
+  max-width: 100%;
+}
+
+.cs-formula-table td:first-child {
+  width: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.cs-formula-table td:nth-child(2) {
+  font-weight: 600;
+  width: 14ch;
+}
+
+/* Responsive: stack table cells on narrow screens */
+@media (max-width: 560px) {
+  .cs-formula-table thead { display: none; }
+  .cs-formula-table tr { display: block; margin-bottom: var(--space-3); border-bottom: 2px solid var(--rule); padding-bottom: var(--space-2); }
+  .cs-formula-table td { display: block; border-bottom: none; padding: 2px var(--space-2); }
+  .cs-formula-table td:first-child { text-align: left; }
+}
+
+/* Fill-in template callout */
+.cs-template-callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-4);
+  max-width: var(--measure);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.cs-template-callout p {
+  max-width: 100%;
+  margin-bottom: var(--space-2);
+}
+
+.cs-template-callout p:last-child { margin-bottom: 0; }
+
+/* Slot highlights: [bracketed placeholders] */
+.cs-slot {
+  display: inline-block;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule));
+  border-radius: var(--radius-sm);
+  padding: 0.05em 0.4em;
+  font-weight: 600;
+  font-size: 0.92em;
+  font-family: var(--font-mono);
+}
+
+/* Example cards */
+.cs-examples-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  max-width: var(--measure);
+  margin-bottom: var(--space-5);
+}
+
+/* Responsive: side-by-side on wider screens */
+@media (min-width: 700px) {
+  .cs-examples-grid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+  }
+  .cs-examples-grid .cs-example-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+.cs-example-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+  break-inside: avoid;
+}
+
+.cs-example-card__header {
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-strong);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.cs-example-card__body {
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.cs-example-card__body p {
+  max-width: 100%;
+  margin-bottom: var(--space-2);
+}
+
+.cs-example-card__body p:last-child { margin-bottom: 0; }
+
+/* Micro-tips list */
+.cs-tips-list {
+  list-style: none;
+  padding: 0;
+  max-width: var(--measure);
+  margin-bottom: var(--space-4);
+}
+
+.cs-tips-list li {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.95rem;
+  align-items: baseline;
+}
+
+.cs-tips-list li:last-child { border-bottom: none; }
+
+.cs-tips-list li::before {
+  content: "—";
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Checklist */
+.cs-checklist {
+  list-style: none;
+  padding: 0;
+  max-width: var(--measure);
+  margin-bottom: var(--space-4);
+}
+
+.cs-checklist li {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+
+.cs-checklist__box {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--rule);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: var(--paper);
+}
+
+.cs-checklist__hint {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* Copy button for fill-in template */
+.cs-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--space-3);
+  padding: 0.3em 0.8em;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--rule));
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.cs-copy-btn:hover {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+
+.cs-copy-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media print {
+  .cs-copy-btn { display: none; }
+}
+  </style>
+</head>
+<body>
+
+<div class="toc-layout">
+
+  <main>
+
+    <h1>Prompt Formula Cheat Sheet</h1>
+    <p>One formula. Five slots and a finish line. Get useful output the first time.</p>
+
+    <!-- Section 1: The Formula -->
+    <h2 id="s-formula">The Formula: 5 Slots + a Finish Line</h2>
+    <p>Fill these in order. Each slot feeds the next.</p>
+
+    <table class="cs-formula-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Slot</th>
+          <th>What goes here</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Context</strong></td>
+          <td>What you're working on and where it fits: the project, the product, the situation</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Goal</strong></td>
+          <td>The measurable outcome — what changes, and by how much</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Insight</strong></td>
+          <td>The problem or observation driving the ask: what's broken, missing, or what you've noticed about how people behave</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Output spec</strong></td>
+          <td>How many, what format, who it's for</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Constraints &amp; anti-goals</strong></td>
+          <td>Hard limits + what you do not want to see in the response</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Done when</strong></td>
+          <td>A verifiable completion check — an observable result, passing test, or measurable state</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 2: Fill-in Template -->
+    <h2 id="s-template">Fill-in-the-Blank Template</h2>
+
+    <div class="cs-template-callout">
+      <p>I'm <span class="cs-slot">[task]</span> for <span class="cs-slot">[context]</span> to achieve <span class="cs-slot">[measurable goal]</span>, where <span class="cs-slot">[insight/problem]</span>.</p>
+      <p>Generate <span class="cs-slot">[N]</span> <span class="cs-slot">[output type]</span> in <span class="cs-slot">[format]</span> that <span class="cs-slot">[success criteria]</span>.</p>
+      <p>Constraints: <span class="cs-slot">[limits]</span>. Avoid: <span class="cs-slot">[anti-goals]</span>.</p>
+      <p>Done when: <span class="cs-slot">[verifiable completion check]</span>.</p>
+      <button class="cs-copy-btn" id="cs-copy-template" type="button" aria-label="Copy blank template to clipboard">Copy template</button>
+    </div>
+
+    <!-- Section 3: Three Examples -->
+    <h2 id="s-examples">Three Examples</h2>
+
+    <div class="cs-examples-grid">
+
+      <div class="cs-example-card">
+        <div class="cs-example-card__header">Design</div>
+        <div class="cs-example-card__body">
+          <p>I'm designing a Weekly Insights screen for a budgeting app to <strong>increase 2-week retention by 15%</strong>, where most users drop off because they don't feel a sense of progress.</p>
+          <p>Generate <strong>3</strong> distinct design directions in <strong>annotated wireframe descriptions</strong> that make progress clear and motivate users to return week over week.</p>
+          <p>Constraints: must work within the existing 4-tab nav; no new onboarding steps. Avoid: gamification patterns (badges, streaks) — we tested these and they backfire with our audience.</p>
+          <p>Done when: each of the 3 directions includes an annotated wireframe description that names the specific progress signal used and explains how it fits within the existing nav structure.</p>
+        </div>
+      </div>
+
+      <div class="cs-example-card">
+        <div class="cs-example-card__header">Content</div>
+        <div class="cs-example-card__body">
+          <p>I'm writing a <strong>5-email welcome sequence</strong> for a B2B SaaS product to <strong>lift trial-to-paid conversion from 18% to 25% within 14 days</strong>, where new users activate the core feature but then stall because they don't see a path to their first result.</p>
+          <p>Generate <strong>5</strong> email subjects + body outlines in <strong>plain text with send-day labels</strong> that walk a first-time user from signup to their first exported report.</p>
+          <p>Constraints: each email under 180 words; no discounts. Avoid: generic "here's what you can do" feature lists — every email must reference one user job, not a product capability.</p>
+          <p>Done when: all 5 emails have a subject line, send-day label, and body outline; each body references a single user job; no email exceeds the 180-word constraint.</p>
+        </div>
+      </div>
+
+      <div class="cs-example-card">
+        <div class="cs-example-card__header">Code</div>
+        <div class="cs-example-card__body">
+          <p>I'm fixing a <strong>broken date filter</strong> in <code>src/components/ReportTable.tsx</code> to <strong>eliminate the "Invalid Date" console error</strong> that blocks 100% of Safari users from viewing reports, where <code>Date.parse()</code> fails on the <code>YYYY-MM-DD</code> strings returned by <code>/api/reports</code>.</p>
+          <p>Generate <strong>1</strong> corrected function in <strong>TypeScript</strong> with an inline comment explaining the change.</p>
+          <p>Constraints: do not change the component's prop interface. Avoid: third-party date libraries — this codebase has a policy against adding dependencies for single-use parsing.</p>
+          <p>Done when: the ReportTable renders in Safari 17 without a console error and the existing <code>report-table.test.ts</code> suite passes.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section 4: Micro-Tips -->
+    <h2 id="s-tips">Claude Code Micro-Tips</h2>
+
+    <ul class="cs-tips-list">
+      <li><span><strong>Route and scope in one message.</strong> Addressing a specialist directly with <code>@{RoleToken}</code> (e.g. <code>@{Copywriter}</code>) plus the formula gets the right team member a complete brief in one send. Open requests with no <code>@</code> go to Sam for routing.</span></li>
+      <li><span><strong>Reference files by path.</strong> "Fix the bug in <code>src/utils/auth.ts</code> line 42" beats "fix the auth bug."</span></li>
+      <li><span><strong>Share relevant background up front.</strong> Drip-feeding context mid-task causes course corrections that cost more than the original prompt.</span></li>
+      <li><span><strong>Ask for a plan first on big work.</strong> "Show me the approach before writing any code" catches wrong assumptions before they're baked in.</span></li>
+      <li><span><strong>Correct course early.</strong> If a direction feels off after the first response, redirect immediately rather than letting a wrong approach accumulate.</span></li>
+      <li><span><strong>Paste errors verbatim.</strong> The exact error string, stack trace included, is faster than a description of what went wrong.</span></li>
+    </ul>
+
+    <!-- Section 5: Checklist -->
+    <h2 id="s-checklist">10-Second Pre-Send Checklist</h2>
+    <p>Before you hit send, check five things:</p>
+
+    <ul class="cs-checklist">
+      <li>
+        <span class="cs-checklist__box" aria-hidden="true"></span>
+        <span>Does my prompt include a number or metric in the goal?<span class="cs-checklist__hint">not "improve" — "increase by X%"</span></span>
+      </li>
+      <li>
+        <span class="cs-checklist__box" aria-hidden="true"></span>
+        <span>Have I said what format I want?<span class="cs-checklist__hint">bullet list, table, code block, annotated wireframe, etc.</span></span>
+      </li>
+      <li>
+        <span class="cs-checklist__box" aria-hidden="true"></span>
+        <span>Have I named at least one thing to avoid?</span>
+      </li>
+      <li>
+        <span class="cs-checklist__box" aria-hidden="true"></span>
+        <span>Is this a single task (not two or more asks bundled into one prompt)?</span>
+      </li>
+      <li>
+        <span class="cs-checklist__box" aria-hidden="true"></span>
+        <span>Would a new colleague know what "done" looks like from this prompt alone?<span class="cs-checklist__hint">that's your "Done when:" line</span></span>
+      </li>
+    </ul>
+
+    <p style="color: var(--ink-muted); font-size: 0.9rem;">If any answer is no, fix that slot before sending.</p>
+
+    <p style="color: var(--ink-muted); font-size: 0.85rem; margin-top: var(--space-4);">Part of the <a href="index.html">AI Team Onboarding Guide</a>.</p>
+
+    <!-- Footer -->
+    <footer class="footer-meta" role="contentinfo">
+      <span class="footer-meta__item">Rendered: 2026-06-05T14:01:01+10:00</span>
+      <span class="footer-meta__item">Source hash: b1264287</span>
+      <span class="footer-meta__item">Produced by Studio Quarantine · 2026-06-05</span>
+    </footer>
+
+  </main>
+
+  <!-- TOC right rail -->
+  <aside class="toc" aria-label="Table of contents">
+    <p class="toc__title">Contents</p>
+    <ul class="toc__list">
+      <li><a class="toc__link" href="#s-formula">The Formula: 5 Slots + a Finish Line</a></li>
+      <li><a class="toc__link" href="#s-template">Fill-in-the-Blank Template</a></li>
+      <li><a class="toc__link" href="#s-examples">Three Examples</a></li>
+      <li><a class="toc__link" href="#s-tips">Claude Code Micro-Tips</a></li>
+      <li><a class="toc__link" href="#s-checklist">10-Second Pre-Send Checklist</a></li>
+    </ul>
+  </aside>
+
+</div><!-- /.toc-layout -->
+
+<!-- Theme toggle — outside <main>, immediately before </body> -->
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+  <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+  <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+
+<script>
+(function () {
+  // --- Theme bootstrap ---
+  var KEY = 'html-deliverable-theme';
+  var html = document.documentElement;
+  var btn  = document.getElementById('theme-toggle');
+  var sun  = document.getElementById('icon-sun');
+  var moon = document.getElementById('icon-moon');
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      sun.style.display  = 'none';
+      moon.style.display = '';
+    } else {
+      sun.style.display  = '';
+      moon.style.display = 'none';
+    }
+  }
+
+  var stored = localStorage.getItem(KEY);
+  if (stored) {
+    applyTheme(stored);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme('dark');
+  }
+
+  btn.addEventListener('click', function () {
+    var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(current);
+    localStorage.setItem(KEY, current);
+  });
+}());
+
+(function () {
+  // --- TOC scroll-spy ---
+  var links = document.querySelectorAll('.toc__link');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+
+  var headings = Array.from(links).map(function (l) {
+    return document.querySelector(l.getAttribute('href'));
+  }).filter(Boolean);
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = '#' + entry.target.id;
+        links.forEach(function (l) {
+          l.classList.toggle('toc__link--active', l.getAttribute('href') === id);
+        });
+      }
+    });
+  }, { rootMargin: '0px 0px -60% 0px', threshold: 0 });
+
+  headings.forEach(function (h) { observer.observe(h); });
+}());
+
+(function () {
+  // --- Copy blank template to clipboard ---
+  var btn = document.getElementById('cs-copy-template');
+  if (!btn) return;
+
+  var TEMPLATE_TEXT = [
+    'I\'m [task] for [context] to achieve [measurable goal], where [insight/problem].',
+    'Generate [N] [output type] in [format] that [success criteria].',
+    'Constraints: [limits]. Avoid: [anti-goals].',
+    'Done when: [verifiable completion check].'
+  ].join('\n');
+
+  var LABEL_DEFAULT = 'Copy template';
+  var LABEL_COPIED  = '✓ Copied';
+
+  btn.addEventListener('click', function () {
+    var copied = false;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(TEMPLATE_TEXT).then(function () {
+        showCopied();
+      }).catch(function () {
+        fallbackCopy();
+      });
+    } else {
+      fallbackCopy();
+    }
+
+    function fallbackCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = TEMPLATE_TEXT;
+      ta.style.position = 'fixed';
+      ta.style.opacity  = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); copied = true; } catch (e) {}
+      document.body.removeChild(ta);
+      if (copied) showCopied();
+    }
+
+    function showCopied() {
+      btn.textContent = LABEL_COPIED;
+      setTimeout(function () { btn.textContent = LABEL_DEFAULT; }, 2000);
+    }
+  });
+}());
+</script>
+
+</body>
+</html>
