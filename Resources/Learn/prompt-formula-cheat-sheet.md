@@ -61,6 +61,7 @@ Fill these in order. Each slot feeds the next.
 - **Ask for a plan first on big work.** "Show me the approach before writing any code" catches wrong assumptions before they're baked in.
 - **Correct course early.** If a direction feels off after the first response, redirect immediately rather than letting a wrong approach accumulate.
 - **Paste errors verbatim.** The exact error string, stack trace included, is faster than a description of what went wrong.
+- **Keep the tool reference handy.** Keyboard shortcuts, built-in slash commands, and MCP setup live in the community-maintained [Claude Code Cheat Sheet](https://cc.storyfox.cz/) — updated with each Claude Code release.
 
 ---
 
