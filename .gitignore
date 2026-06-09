@@ -109,3 +109,8 @@ Vault/Categories/
 Vault/Exports/
 Vault/Logs/Handoffs/
 Vault/Logs/Sessions/
+
+# Personal learning workspaces (teach skill) — local only, backed by Google Drive.
+# README kept tracked so fresh clones get the folder + explainer.
+Vault/Learning/*
+!Vault/Learning/README.md
