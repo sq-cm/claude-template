@@ -24,9 +24,9 @@ ls -1 Vault/Memory/Sessions/*.md 2>/dev/null
 
 If the output is empty, report "No pending session notes — nothing to reconcile." and stop.
 
-### 2. Read frontmatter and validate
+### 2. Read frontmatter — validate, infer-and-fill, or reject
 
-For each session note, read its frontmatter. Required fields:
+The frontmatter schema is **canonical** (see `Resources/SOPs/Memory Protocol SOP.md`) — do **not** loosen the required fields or enums. Required YAML frontmatter:
 
 - `type` — must be one of `feedback`, `project`, `reference`, `user`, `system`
 - `scope` — must be one of `workflow`, `theme`, `audit`, `persona`, `tooling`, `other`
@@ -34,11 +34,19 @@ For each session note, read its frontmatter. Required fields:
 - `persona` — persona slug (e.g. `axel`)
 - `topic` — one-line summary
 
-Reject any note that fails validation. Move rejected notes to `Vault/Memory/Sessions/_rejected/` and log to `Vault/Memory/reconcile-errors.md` (per-clone, add to `.gitignore` if not already excluded by a broader pattern). Continue with valid notes.
+Write-time discipline drifts (notes get authored with body-prose `**Type:**` or no frontmatter at all). So this step is **self-healing**: it backfills what it can derive and rejects only what it genuinely cannot. For each note, in order:
+
+1. **Conforming** — valid YAML frontmatter, all five fields present and in-enum → use as-is.
+2. **Infer-and-fill** — frontmatter missing, partial, or body-prose → derive the missing fields, then **write the completed YAML frontmatter back into the note file** (prepend, preserving the existing body). This makes the archived note conformant and stops bad examples from propagating to the next author. Inference rules:
+   - `date` ← the leading `YYYY-MM-DD` in the filename (authoritative), else a date in the body.
+   - `persona` ← the author slug if the note states one, else `sam` (reconcile is Sam-run; session notes default to the orchestrator).
+   - `topic` ← the note's H1 / first H2 heading, trimmed to ≤ 100 chars.
+   - `type` / `scope` ← classify from content: roster/persona work → `project` / `persona`; skill/tooling/infra/memory work → `project` (or `system` for an observed-behaviour log) / `tooling`; a standing instruction on how to work → `feedback` / `workflow`; a pointer to an external resource → `reference` / `other`. Fill when the value is defensible from content.
+3. **Reject — loudly, and only when genuinely ambiguous** — if a required field cannot be inferred with reasonable confidence (no derivable `date`, or content too thin to classify `type`): move to `Vault/Memory/Sessions/_rejected/`, log to `Vault/Memory/reconcile-errors.md` (per-clone), **and surface each rejection inline in the run summary with its reason** — never silent. Do **not** reject for *format* drift alone (body-prose or missing frontmatter) when the fields are inferable — backfill those instead.
 
 ### 3. Determine destination
 
-For each valid note, the destination path is:
+For each processed note (conforming or backfilled), the destination path is:
 
 ```
 Vault/Memory/Notes/<YYYY-MM>/<original-filename>
@@ -54,7 +62,7 @@ Create the `<YYYY-MM>` directory if it doesn't exist.
 mv "Vault/Memory/Sessions/<filename>" "Vault/Memory/Notes/<YYYY-MM>/<filename>"
 ```
 
-If the destination file already exists (idempotent re-run case), skip the move and continue — the pointer step below will re-check `MEMORY.md`.
+If the destination file already exists (idempotent re-run case), skip the move and continue — the pointer step below will re-check `context.md`.
 
 ### 5. Update context.md
 
@@ -85,8 +93,9 @@ For each moved note:
 After processing all notes, report:
 
 - Number of notes moved
+- Any notes **backfilled** (inferred frontmatter) — list each with the `type`/`scope` that was filled in, so the user can correct a misclassification
 - Per-section context.md additions (one line each)
-- Any rejected notes and reasons
+- Any **rejected** notes and reasons (must appear inline here, not only in the error log)
 - Any idempotent skips (file already at destination)
 
 ---
@@ -95,7 +104,8 @@ After processing all notes, report:
 
 | Symptom | Cause | Recovery |
 |---|---|---|
-| Note has invalid frontmatter | Drift from schema | Auto-move to `Sessions/_rejected/`; fix and re-stage manually |
+| Missing / body-prose / partial frontmatter | Write-time drift, fields inferable | Infer-and-fill, write completed YAML back into the note, proceed (report the backfill) |
+| Required field not inferable (e.g. no derivable date) | Genuinely ambiguous | Loud reject to `Sessions/_rejected/` + log + inline report; fix and re-stage |
 | Destination file exists | Re-run on partial state | Skip move; re-check context.md pointer |
 | context.md pointer duplicates | Re-run after pointer added | Skip duplicate; leave existing |
 | No matching section in context.md | New topic | File to `## Uncategorised`; route on next reconcile |

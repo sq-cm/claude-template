@@ -35,7 +35,7 @@ When you (any persona) surface something worth remembering mid-task:
    - `persona-slug` is the role slug (e.g. `axel`, `harper`, `quinn`), **not** the display name from the theme map. Slugs are theme-stable; display names rotate on theme swap.
    - `topic-slug` is 2–5 hyphenated words describing the memory.
 
-2. **Frontmatter is required.** Use the exact schema below — drift breaks the reconcile step.
+2. **Frontmatter is required.** Use the exact schema below. Authors must emit it. As a safety net, `/memory-reconcile` will infer-and-fill missing or body-prose frontmatter from a note's content and write it back — but that is a backstop, not a licence to skip. A note is only rejected when a required field genuinely cannot be inferred (e.g. no derivable date).
 
    ```yaml
    ---
@@ -83,8 +83,8 @@ The slash command at `.claude/commands/memory-reconcile.md` performs Stage 2 det
 The command:
 
 1. Reads each file in `Vault/Memory/Sessions/`.
-2. Validates frontmatter against the schema. Rejects non-conforming notes to `Sessions/_rejected/`.
-3. Moves valid notes to `Vault/Memory/Notes/<YYYY-MM>/<original-filename>` (tracked).
+2. Validates frontmatter against the schema. Infers-and-fills missing or body-prose frontmatter from note content (writing the completed YAML back into the note); rejects to `Sessions/_rejected/` **only** when a required field cannot be inferred, and reports each rejection inline.
+3. Moves processed notes to `Vault/Memory/Notes/<YYYY-MM>/<original-filename>` (per-clone, git-ignored).
 4. Appends pointer lines to `context.md` (never `MEMORY.md`) under the matching topical H2 section. Creates `context.md` from `context.example.md` first if absent. New sections created if no match; uncategorised items go to `## Uncategorised`.
 5. On conflict (two notes touch the same section), appends both pointers as separate lines. **Never merges prose.**
 6. Is idempotent — re-running on a partial state skips already-moved files and already-added pointers.
