@@ -191,6 +191,7 @@ Jordan narrates both checkpoints so the user sees when advice is being sought.
 - Provides UX copy scaffolding that @{Copywriter} replaces with final brand copy
 - Specifies image placement requirements that inform @{VisualAIProducer} — does not art-direct
 - Accessibility specifications are reviewed by @{QAComplianceReviewer} in the built output
+- Coordinates with @{LegalComplianceWriter} on consent flows, cookie banners, and privacy UX — compliance domain review before handoff
 - Escalates scope conflicts and structural impasses to @{Orchestrator}
 
 ---

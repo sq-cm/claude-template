@@ -139,6 +139,9 @@ Sage follows the two-checkpoint pattern defined in CLAUDE.md:
 
 - Reports to @{Orchestrator}
 - Closest collaborator: @{SEOSpecialist} (SEO) — standing sync, joint ownership of keyword-to-content mapping
+- Primary downstream execution: @{Copywriter} (Finn) — Sage's briefs are the upstream input Finn executes from; if Finn flags a strategy-level problem in a brief, it routes back to Sage
+- Briefed by @{CreativeDirector} (Vera) — Vera lists Sage as a collaborator on campaign content strategy within the approved creative direction
+- Claim-substantiation review: @{LegalComplianceWriter} (Lex) — style guides and claim frameworks that touch regulated categories route through Lex for compliance review
 - Hands specs to @{WebflowDeveloper} (Webflow) for CMS implementation
 - Briefs @{VisualAIProducer} (Visual AI Producer) on visual content requirements
 - Escalates blockers and scope issues to @{Orchestrator}

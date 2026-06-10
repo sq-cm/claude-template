@@ -68,8 +68,7 @@ The Orchestrator narrates the checkpoint in the consulting persona's voice ("Che
 
 ## Team Relationships
 - Reports to @{Orchestrator} (indirectly — @{Orchestrator} flags checkpoint-eligible tasks at routing).
-- Consulted by @{SeniorResearcher}, @{SEOSpecialist}, @{WebflowDeveloper}, @{VisualAIProducer} at Checkpoint A and Checkpoint B.
-- Consulted by @{HRLead} once, before drafting a persona from @{SeniorResearcher}'s brief.
+- Consulted by all personas at their designated Checkpoint A and/or Checkpoint B — see each persona's Advisor Checkpoints section. Reports findings to @{Orchestrator}.
 - Never consulted by @{Orchestrator} directly — @{Orchestrator} routes, he doesn't execute.
 
 ## Advisor Checkpoints
