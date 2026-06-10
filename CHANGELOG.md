@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-06-10
+
+- chore(model): switch the Senior Adviser (Odin) from `claude-opus-4-8` to `claude-fable-5`. Treats Fable 5 as the new flagship, so the standing "Senior Adviser always uses the most capable model" governance is unchanged and stays true. Swaps the dispatch override (`model: "fable"`) in `Resources/SOPs/Advisor Checkpoints SOP.md` and `Resources/SOPs/Repo Consultation SOP.md`, the frontmatter + model note + example in `.claude/agents/senior-adviser.md`, the model-assignment table in `Resources/SOPs/Persona Template SOP.md`, and the checkpoint-dispatch note in `CLAUDE.md`; rewrites the residual "Opus" prose in the Advisor Checkpoints SOP to model-agnostic flagship wording, and syncs the historical `senior-adviser-brief.md`. The Orchestrator session model is unchanged — set per-session via `/model` or per-clone via `.claude/settings.local.json` (PR pending)
+
 ## 2026-06-09
 
 - docs(learn): add `/teach`, `/html-deliverable`, and `/prototype` to the Learn guide's Slash Commands section (`Resources/Learn/index.html`, `SLASH_COMMANDS` array, 8→11 cards). Closes the onboarding gap where production skills — most notably `/teach` (shipped #46 but undocumented everywhere) — were absent while only operational/housekeeping commands were listed. Coverage stays curated, not exhaustive: `.claude/skills/README.md` remains the full catalog (#48)

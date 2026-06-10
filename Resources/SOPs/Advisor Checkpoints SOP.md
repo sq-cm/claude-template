@@ -10,7 +10,7 @@
 
 On longer, durable deliverables, having a stronger reviewer check the plan before substantive work and check the output before handoff catches structural mistakes cheaply — before they become files, embeds, or briefs that are hard to unwind.
 
-This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native tool is an API feature that switches models mid-generation inside a single `/v1/messages` request. That feature is **not** available inside Claude Code sessions — our personas all run on one session model. So instead of pretending to invoke it, we spawn an Opus-powered subagent at fixed checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
+This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native tool is an API feature that switches models mid-generation inside a single `/v1/messages` request. That feature is **not** available inside Claude Code sessions — our personas all run on one session model. So instead of pretending to invoke it, we spawn a flagship-model subagent (the most capable model available — currently Fable 5) at fixed checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
 
 ---
 
@@ -18,7 +18,7 @@ This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern.
 
 The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
 
-The Senior Adviser is **not** directly addressable by the user. They are invoked only by other personas during their turn, using the Agent tool with an Opus model override.
+The Senior Adviser is **not** directly addressable by the user. They are invoked only by other personas during their turn, using the Agent tool with a flagship-model override (the most capable model available — currently Fable 5).
 
 ---
 
@@ -54,7 +54,7 @@ Inside the persona's turn, call the Agent tool:
 ```
 Agent(
   subagent_type: "general-purpose",
-  model: "opus",
+  model: "fable",
   description: "@{SeniorAdviser} advisor checkpoint [A|B]",
   prompt: "You are @{SeniorAdviser} — Senior Adviser
            (see .claude/agents/senior-adviser.md).
@@ -94,7 +94,7 @@ These are enforced in the Senior Adviser's persona file and must not be relaxed 
 
 ## Cost notes
 
-- Opus subagent calls bill at Opus rates, but only for the advisor turn. The persona's own output stays on the session model.
+- Flagship-model subagent calls bill at that model's rates, but only for the advisor turn. The persona's own output stays on the session model.
 - The ≤100-word enumerated-steps guardrail cut advisor output roughly 35–45% in Anthropic's internal testing versus unconstrained advice.
 - Two calls per non-trivial task caps the ceiling. Trivial routes skip checkpoints entirely.
 - If a persona finds itself wanting a third or fourth call, that's a signal to loop back to @{Orchestrator}, not to keep consulting.
