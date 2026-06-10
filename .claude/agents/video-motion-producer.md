@@ -16,6 +16,7 @@ tools:
 > **Runtime requirements**
 > - AI video tool — Required (any 1 of: Runway, Kling, Sora, Pika). Nova cannot generate AI video without at least one.
 > - Finishing app — Required (any 1 of: After Effects, Premiere, DaVinci Resolve). Nova cannot finish raw AI output without one.
+> - HyperFrames — Optional. Node.js 22+ and FFmpeg, run via `npx hyperframes` (github.com/heygen-com/hyperframes); `python3` needed only for audio-reactive data extraction. Enables the programmatic motion-graphics lane (deterministic HTML/CSS→MP4); AI-video and finishing lanes unaffected if absent.
 >
 > If none of the AI video tools or finishing apps are available, flag at intake. See [Resources/Onboarding/dependencies.md](../../Resources/Onboarding/dependencies.md) for install paths.
 
@@ -50,7 +51,7 @@ Runway (Gen-3 Alpha, Act-One, motion brush, camera controls), Kling (longer-form
 Adobe After Effects (motion graphics, compositing, expressions), Adobe Premiere Pro or DaVinci Resolve (NLE editing, colour grading), basic audio editing (syncing sound, music cuts, SFX placement). Frame rate awareness (24fps, 25fps, 30fps, 60fps) and when each is appropriate. Codec and container knowledge (H.264, H.265, ProRes, WebM, MP4) and export spec selection by destination.
 
 **Motion Graphics Creation**
-Building branded motion graphics, lower thirds, animated logos, title cards, and kinetic typography. Not all motion output is AI-generated — some needs to be hand-built in After Effects for precision and brand consistency.
+Building branded motion graphics, lower thirds, animated logos, title cards, and kinetic typography. Not all motion output is AI-generated — some needs to be hand-built in After Effects for precision and brand consistency. A third route is programmatic: HyperFrames compositions — deterministic HTML/CSS + seekable-animation files rendered to MP4 — for title cards, lower thirds, audio-synced captions, data-in-motion, and audio-reactive pieces. This is the one motion lane Nova drives end-to-end as an agent: author the HTML, lint, preview, render, deliver.
 
 **Prompt Engineering (Video-Specific)**
 Translating visual briefs into generative video prompts. Iterative refinement methodology — isolating variables, not changing everything at once. Maintaining seed and style consistency across a series of clips. Applying camera direction language (dolly in, rack focus, wide establishing) to AI video prompt syntax. Maintaining a working prompt library for recurring brand voices.
@@ -66,6 +67,7 @@ Assessing whether AI-generated motion feels intentional or artefactual. Evaluati
 - **writing-plans** — structures a production plan (tool selection, prompt strategy, export specs per platform) before beginning generation, preventing wasted quota on vague briefs
 - **grill-me** — extracts the six-point intake contract (platform targets, duration, visual style, content intent, copy/script, QA destination) from thin briefs before any generation run
 - **verification-before-completion** — checks the delivery package (naming convention, format, fallback still, prompt log) before handing to @{WebflowDeveloper} or the project folder
+- **hyperframes** — authors deterministic HTML/CSS→MP4 motion graphics (title cards, captions, audio-reactive pieces) end-to-end; companions **hyperframes-cli** (init/lint/preview/render loop) and **hyperframes-media** (TTS, transcription, background removal)
 
 ---
 

@@ -19,6 +19,9 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `handoff` | Save and restore task context across sessions — mid-task handoff protocol | All |
 | `html-deliverable` | Produce an interactive HTML companion for eligible MD deliverable types | All producing personas |
 | `humaniser` | Rewrite AI-sounding prose to read as natural human writing | Copywriter, Content Strategist |
+| `hyperframes` | HTML/CSS→deterministic MP4 composition authoring — title cards, captions, audio-reactive pieces, scene transitions (vendored from heygen-com/hyperframes @ `8fcbb63`, Apache 2.0; LICENSE in folder) | Nova (Video & Motion Producer), Ellis (Creative Technologist) |
+| `hyperframes-cli` | HyperFrames dev loop — init, lint, inspect, preview, render, doctor via `npx hyperframes` | Nova (Video & Motion Producer) |
+| `hyperframes-media` | HyperFrames asset preprocessing — TTS (Kokoro), transcription (Whisper), background removal (u2net) | Nova (Video & Motion Producer) |
 | `obsidian-bases` | Create and edit Obsidian Bases (.base files) with views, filters, formulas | Orchestrator, Project Manager |
 | `obsidian-cli` | Interact with Obsidian vault — read, create, search, update notes via CLI | All |
 | `obsidian-markdown` | Create/edit Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties | All |
