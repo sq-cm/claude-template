@@ -6,6 +6,7 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-06-10
 
+- chore(statusline): add a `*fable*` case to `.claude/statusline.sh` — model emoji 📖 and cost rates ($10/1M in, $50/1M out) for `claude-fable-5`, so a session running on Fable shows the right glyph and cost estimate instead of the generic 🤖 fallback and Sonnet-rate default. Surfaced by Odin's checkpoint review of the Fable switch (PR pending)
 - chore(model): switch the Senior Adviser (Odin) from `claude-opus-4-8` to `claude-fable-5`. Treats Fable 5 as the new flagship, so the standing "Senior Adviser always uses the most capable model" governance is unchanged and stays true. Swaps the dispatch override (`model: "fable"`) in `Resources/SOPs/Advisor Checkpoints SOP.md` and `Resources/SOPs/Repo Consultation SOP.md`, the frontmatter + model note + example in `.claude/agents/senior-adviser.md`, the model-assignment table in `Resources/SOPs/Persona Template SOP.md`, and the checkpoint-dispatch note in `CLAUDE.md`; rewrites the residual "Opus" prose in the Advisor Checkpoints SOP to model-agnostic flagship wording, and syncs the historical `senior-adviser-brief.md`. The Orchestrator session model is unchanged — set per-session via `/model` or per-clone via `.claude/settings.local.json` (PR pending)
 
 ## 2026-06-09

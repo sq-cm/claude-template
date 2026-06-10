@@ -113,10 +113,11 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# Model emoji — Opus 👑, Sonnet 🎭, Haiku 🍃, fallback 🤖
+# Model emoji — Fable 📖, Opus 👑, Sonnet 🎭, Haiku 🍃, fallback 🤖
 # ---------------------------------------------------------------------------
 _model_lc=$(printf '%s' "${MODEL_ID}${MODEL_DISPLAY_NAME}" | tr '[:upper:]' '[:lower:]')
 case "$_model_lc" in
+    *fable*)  MODEL_EMOJI="📖" ;;
     *opus*)   MODEL_EMOJI="👑" ;;
     *sonnet*) MODEL_EMOJI="🎭" ;;
     *haiku*)  MODEL_EMOJI="🍃" ;;
@@ -129,6 +130,7 @@ esac
 # ---------------------------------------------------------------------------
 _model_lc=$(printf '%s' "${MODEL_ID}${MODEL_DISPLAY_NAME}" | tr '[:upper:]' '[:lower:]')
 case "$_model_lc" in
+    *fable*)  IN_RATE=10;   OUT_RATE=50 ;;
     *opus*)   IN_RATE=15;   OUT_RATE=75 ;;
     *sonnet*) IN_RATE=3;    OUT_RATE=15 ;;
     *haiku*)  IN_RATE=0.80; OUT_RATE=4  ;;
