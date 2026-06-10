@@ -55,7 +55,8 @@ Your message
 - `CLAUDE.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
 - `.claude/agents/[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
-- `.claude/skills/` — reusable skill modules (brainstorming, planning, debugging, code review, etc.)
+- `.claude/skills/` — reusable skill modules: brainstorming, html-deliverable, HyperFrames video rendering, the /teach tutor, cinema prompt skills, and more; see `.claude/skills/README.md` for the full catalog
+- `CHANGELOG.md` — append-only log of shipped template changes; your upgrade reference when pulling updates via `/update`
 
 ---
 
@@ -148,6 +149,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 - [Claude Code](https://claude.ai/code) — the CLI or desktop app
 - Access to Claude models. @{SeniorAdviser} checkpoints use **Fable** — confirm your plan includes Fable access.
 - No external API keys required for basic use
+- Optional: HyperFrames video rendering (Nova's programmatic motion-graphics lane) needs Node.js 22+ and FFmpeg — all other work runs without them
 
 **OS note:** Example paths in `CLAUDE.md` and persona files use Windows-style absolute paths (`J:\My Drive\...`). Update the memory path in `CLAUDE.md` to match your OS and file system before first use.
 
@@ -159,28 +161,32 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 Claude - TEMPLATE/
 ├── .claude/
 │   ├── agents/                        ← persona files for all 28 team members
-│   ├── commands/
-│   │   ├── onboard.md                 ← /onboard command (run first)
-│   │   └── import-repos.md            ← /import-repos command
-│   └── skills/                        ← reusable skill modules
+│   ├── commands/                      ← slash commands (/onboard, /update, /memory-reconcile, …)
+│   └── skills/                        ← 21 reusable skill modules (see its README.md)
 ├── Inbox/                             ← staging area for unrouted material
 ├── Notes/                             ← daily notes, canvas files, clippings
 ├── Projects/
 │   └── Template/                      ← blank project scaffold (copy when starting new work)
 ├── Resources/
+│   ├── Assets/                        ← shared images and demo assets
+│   ├── Build Standards/               ← extracted technical build standards
 │   ├── Git/                           ← cloned reference repos (git-ignored)
 │   ├── Learn/                         ← interactive onboarding guide (index.html)
 │   ├── Onboarding/                    ← SETUP.md, team-onboarding-guide.md
 │   │   └── Demos/                     ← 5 sample onboarding projects
+│   ├── Platform Specs/                ← platform ad-spec references (currently Meta ads)
 │   ├── Research/                      ← Senior Researcher's role research briefs
 │   └── SOPs/                          ← Advisor Checkpoints, Repo Consultation, etc.
-├── Vault/
+├── Vault/                             ← persistent internal storage (full map: Vault/README.md)
 │   ├── Archive/                       ← retired projects and personas
+│   ├── Learning/                      ← personal /teach workspaces (git-ignored)
 │   ├── Logs/                          ← clone failure logs, import logs
 │   ├── Memory/                        ← persistent session memory
 │   └── Templates/                     ← daily and weekly note templates
 ├── CLAUDE.md                          ← orchestrator rules + team roster
 ├── README.md                          ← this file
+├── CHANGELOG.md                       ← shipped-change log (upgrade reference)
+├── install.sh / install.bat           ← installer scripts for new team members
 └── .env.example                       ← API key template
 ```
 
