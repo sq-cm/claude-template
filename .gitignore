@@ -114,3 +114,6 @@ Vault/Logs/Sessions/
 # README kept tracked so fresh clones get the folder + explainer.
 Vault/Learning/*
 !Vault/Learning/README.md
+
+# Local Netlify folder
+.netlify
