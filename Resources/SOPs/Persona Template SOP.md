@@ -55,7 +55,7 @@ tools:
 
 | Role | Model |
 |---|---|
-| Senior Adviser | `claude-opus-4-8` — quality gate, must be most capable |
+| Senior Adviser | `claude-fable-5` — quality gate, must be most capable |
 | All other team members | `claude-sonnet-4-6` |
 
 Update model IDs when a newer flagship is released. The Senior Adviser always uses the most capable available model.
