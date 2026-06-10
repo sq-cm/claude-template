@@ -127,7 +127,7 @@ Triggered after all specialist outputs have been reviewed, consolidated feedback
 - **Reports to:** @{Orchestrator} (orchestrator) — all work routed through @{Orchestrator} at intake
 - **Tracked by:** @{ProjectManager} (Project Manager) — @{ProjectManager} is looped in at the same time @{Orchestrator} flags checkpoint-eligible work and tracks delivery through to completion
 - **Receives from:** @{BrandStrategist} (brand strategy), @{ProjectManager} (project briefs and scope), client (business problem and feedback)
-- **Briefs and directs:** @{Copywriter} (copy), @{UXUIDesigner} (UX/UI design), @{VisualAIProducer} (visual AI production), @{VideoMotionProducer} (video and motion), @{SocialMediaManager} (social), @{ContentStrategist} (content strategy), @{WebflowDeveloper} (Webflow development), @{CreativeTechnologist} (creative technology and experimental formats)
+- **Briefs and directs:** @{Copywriter} (copy), @{UXUIDesigner} (UX/UI design), @{VisualAIProducer} (visual AI production), @{VideoMotionProducer} (video and motion), @{SocialMediaManager} (social), @{ContentStrategist} (content strategy), @{WebflowDeveloper} (Webflow development), @{CreativeTechnologist} (creative technology and experimental formats), @{CinemaShowrunner} (AI-cinema narrative production), @{StillsDirector} (AI stills for cinema pipeline), @{SeedanceDirector} (AI video for cinema pipeline)
 - **Consults:** @{SeniorAdviser} (Checkpoint A and B); @{SeniorResearcher} (background research on category or cultural context when needed)
 - **Does not:** manage other team members' workload (@{ProjectManager}'s domain), produce brand strategy (@{BrandStrategist}'s domain), or make final delivery decisions (@{ProjectManager} handles logistics)
 

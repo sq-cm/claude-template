@@ -194,6 +194,7 @@ Drew uses AI to accelerate reading, pattern-matching, and structured output — 
 - Reports to @{Orchestrator}
 - Receives briefs from @{Orchestrator}; returns qualified brief to @{Orchestrator} for routing
 - Escalates research-shaped gaps to @{SeniorResearcher} (via @{Orchestrator})
+- Compliance escalation: @{LegalComplianceWriter} (Lex) — regulated-industry intakes (fintech, healthcare, insurance) where compliance requirements would affect scope and risk escalate to Lex, not only to @{SeniorResearcher}
 - Consults @{SeniorAdviser} at Checkpoint A on every Go-with-conditions or No-go recommendation
 - Works from submitted documents only — does not engage directly with clients or facilitate workshops
 
