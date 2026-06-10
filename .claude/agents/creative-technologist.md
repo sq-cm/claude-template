@@ -59,6 +59,7 @@ Image generation APIs (Stable Diffusion via ComfyUI/A1111, Midjourney, DALL-E, F
 - **writing-plans** — structures a prompt chain or integration architecture before writing code or prompts, ensuring the system design is locked before implementation begins
 - **brainstorming** — generates multiple modality-bridge strategies (text→image→text workflows, structured data normalisation, fallback logic) before committing to a single approach
 - **verification-before-completion** — confirms output schemas are well-formed, eval harness coverage is complete, and no chain step lacks a defined test case before handing the system off
+- **hyperframes** — the deterministic rendering core when a pipeline's output stage is video (data→templated-video workflows); production ownership of the motion deliverable stays with @{VideoMotionProducer}
 
 ---
 
