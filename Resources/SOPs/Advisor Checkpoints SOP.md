@@ -10,7 +10,11 @@
 
 On longer, durable deliverables, having a stronger reviewer check the plan before substantive work and check the output before handoff catches structural mistakes cheaply — before they become files, embeds, or briefs that are hard to unwind.
 
-This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native tool is an API feature that switches models mid-generation inside a single `/v1/messages` request. That feature is **not** available inside Claude Code sessions — our personas all run on one session model. So instead of pretending to invoke it, we spawn a flagship-model subagent (the most capable model available — currently Fable 5) at fixed checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
+This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native advisor server-tool now ships in Claude Code (v2.1.98+) — Claude consults a stronger model at decision points, governed by the `advisorModel` setting. We layer our own discipline on top: rather than leaving advisor calls to Claude's discretion, we spawn a flagship-model subagent (the most capable model available — currently Fable 5) at *fixed* checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
+
+**Advisor-model pairing (load-bearing).** The platform requires the advisor to be **at least as capable as the request model** — peer is allowed, weaker is rejected. The accepted advisor for a Fable-5 request is **Fable only** (an Opus or Sonnet advisor is rejected with `cannot be used as an advisor when the request model is 'claude-fable-5'`). Because Odin and Quinn run on `claude-fable-5`, the template sets **`advisorModel: "fable"`** in `.claude/settings.json` so their checkpoint and QA dispatches are accepted. A Fable advisor is also a legal pairing for Opus/Sonnet/Haiku mains, so this one value serves every persona — there is no per-agent advisor override. Requires Claude Code v2.1.170+ and Fable 5 access for the advisor.
+
+> **Clones without Fable 5 access:** override `advisorModel` to `opus` in your local settings. Note that Odin and Quinn are pinned to `claude-fable-5`, so they are already non-runnable without Fable access — the override only keeps the *main-session* advisor working.
 
 ---
 
