@@ -1,0 +1,16 @@
+// Recommended keybindings — sequential left-to-right tab switching.
+// VS Code does NOT load keybindings from .vscode/ (workspace keybindings are
+// unsupported — see microsoft/vscode#4504). To apply these:
+//   1. Cmd+Shift+P (Ctrl+Shift+P on Windows) → "Preferences: Open Keyboard Shortcuts (JSON)"
+//   2. Merge the entries below into your user keybindings.json.
+// This switches Ctrl+Tab from most-recently-used order to visible tab order.
+[
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    }
+]
