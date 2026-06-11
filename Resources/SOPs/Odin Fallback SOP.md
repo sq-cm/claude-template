@@ -13,6 +13,8 @@ Invoke this fallback when an Advisor Checkpoint call:
 - Returns a blank or clearly truncated response (< 3 enumerated items)
 - Does not complete within a reasonable session window
 
+> **Not this fallback:** a deterministic `cannot be used as an advisor when the request model is 'claude-fable-5'` error is a *config* failure, not a transient outage — retrying will fail identically. It means the `advisorModel` setting is weaker than the Fable-5 request model. Fix is `advisorModel: "fable"` (see Advisor Checkpoints SOP § pairing); the template sets this, so it should not recur. Do not substitute self-review for it — correct the setting and re-dispatch.
+
 ---
 
 ## Fallback Procedure

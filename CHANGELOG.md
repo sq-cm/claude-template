@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-06-11
+
+- fix(config): set `advisorModel: "fable"` in `.claude/settings.json` so Fable-5 governance personas dispatch without the advisor-pairing rejection. Claude Code auto-injects a native `advisor` server-tool into every request (main session *and* dispatched subagents), and the platform requires the advisor to be at least as capable as the request model — a Fable-5 request rejects an Opus/Sonnet advisor with `cannot be used as an advisor when the request model is 'claude-fable-5'`. Since Odin and Quinn are pinned to `claude-fable-5` (PRs #51, #53) while `advisorModel` had been left at `opus`, every Odin checkpoint and Quinn QA dispatch failed deterministically (0 tokens, instant 400). A Fable advisor is a legal pairing for *every* main model (Haiku/Sonnet/Opus/Fable), so one value serves all personas — there is no per-agent advisor override. Corrects the now-false claim in `Resources/SOPs/Advisor Checkpoints SOP.md` that the native advisor tool "is not available inside Claude Code" (it ships since v2.1.98) and documents the pairing rule + the Fable-access/`v2.1.170+` preconditions; adds an Odin Fallback SOP note distinguishing this config failure from a transient outage (do not self-review-substitute — fix the setting). Clones without Fable 5 access should override `advisorModel` to `opus` locally; their fable-5-pinned Odin/Quinn are already non-runnable without Fable access regardless (#59)
+
 ## 2026-06-10
 
 - chore(gitignore): ignore `.netlify/` — local Netlify CLI state folder, per-clone tooling artifact (#58)
