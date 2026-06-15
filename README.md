@@ -12,7 +12,7 @@ The **Orchestrator** is the single point of contact for every request. They neve
 
 The team grows with you. When you hit a capability gap, a built-in **hiring pipeline** kicks in: the Senior Researcher researches the role, the HR Lead builds the persona, the Orchestrator announces the new hire and updates the roster. No new infrastructure needed — just new files.
 
-Quality gates are built in too. A Fable-powered advisor — the **Senior Adviser** — is consulted at checkpoints before and after substantive work, catching problems before they reach you.
+Quality gates are built in too. An Opus-powered advisor — the **Senior Adviser** — is consulted at checkpoints before and after substantive work, catching problems before they reach you.
 
 ---
 
@@ -46,7 +46,7 @@ Your message
      ↓
   Team member             ← persona file defines who they are, what they do, what they won't
      ↓
-  Senior Adviser (checkpoint) ← Fable advisor consulted before/after durable work
+  Senior Adviser (checkpoint) ← Opus advisor consulted before/after durable work
      ↓
   Deliverable             ← lands in Projects/[project]/03 Deliverables/
 ```
@@ -147,7 +147,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) — the CLI or desktop app
-- Access to Claude models. @{SeniorAdviser} checkpoints use **Fable** — confirm your plan includes Fable access.
+- Access to Claude models. @{SeniorAdviser} and @{QAComplianceReviewer} run on **Opus** — confirm your plan includes Opus access.
 - No external API keys required for basic use
 - Optional: HyperFrames video rendering (Nova's programmatic motion-graphics lane) needs Node.js 22+ and FFmpeg — all other work runs without them
 

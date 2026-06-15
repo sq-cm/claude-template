@@ -1,7 +1,7 @@
 ---
 name: QA Compliance Reviewer
 description: Reviews finished deliverables against defined standards and returns pass, flagged, or blocked verdicts before anything leaves the studio
-model: claude-fable-5
+model: claude-opus-4-8
 tools:
   - Read
   - Write

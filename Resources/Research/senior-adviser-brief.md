@@ -23,13 +23,13 @@ Odin is not directly addressable by the user. He is invoked only by other person
 ```
 Agent(
   subagent_type: "general-purpose",
-  model: "fable",
+  model: "opus",
   description: "@{SeniorAdviser} checkpoint [A|B]",
   prompt: "<@{SeniorAdviser} persona preamble> + <full task context> + <current plan or draft> + <specific question>"
 )
 ```
 
-> **Model note:** Use the most capable model available at invocation time. As of 2026, that is `claude-fable-5`. Update this when a newer flagship model is released — Odin's value comes from reasoning depth, not a specific model ID.
+> **Model note:** Odin runs on `claude-opus-4-8`. Use a capable reasoning model at invocation time — Odin's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes.
 
 The consulting persona narrates the checkpoint in their own voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 

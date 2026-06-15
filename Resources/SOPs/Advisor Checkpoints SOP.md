@@ -10,11 +10,11 @@
 
 On longer, durable deliverables, having a stronger reviewer check the plan before substantive work and check the output before handoff catches structural mistakes cheaply — before they become files, embeds, or briefs that are hard to unwind.
 
-This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native advisor server-tool now ships in Claude Code (v2.1.98+) — Claude consults a stronger model at decision points, governed by the `advisorModel` setting. We layer our own discipline on top: rather than leaving advisor calls to Claude's discretion, we spawn a flagship-model subagent (the most capable model available — currently Fable 5) at *fixed* checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
+This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native advisor server-tool now ships in Claude Code (v2.1.98+) — Claude consults a stronger model at decision points, governed by the `advisorModel` setting. We layer our own discipline on top: rather than leaving advisor calls to Claude's discretion, we spawn a strong-model subagent (currently `claude-opus-4-8`) at *fixed* checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
 
-**Advisor-model pairing (load-bearing).** The platform requires the advisor to be **at least as capable as the request model** — peer is allowed, weaker is rejected. The accepted advisor for a Fable-5 request is **Fable only** (an Opus or Sonnet advisor is rejected with `cannot be used as an advisor when the request model is 'claude-fable-5'`). Because Odin and Quinn run on `claude-fable-5`, the template sets **`advisorModel: "fable"`** in `.claude/settings.json` so their checkpoint and QA dispatches are accepted. A Fable advisor is also a legal pairing for Opus/Sonnet/Haiku mains, so this one value serves every persona — there is no per-agent advisor override. Requires Claude Code v2.1.170+ and Fable 5 access for the advisor.
+**Advisor-model pairing (load-bearing).** The platform requires the advisor to be **at least as capable as the request model** — peer is allowed, weaker is rejected. Odin and Quinn run on `claude-opus-4-8`, and the default advisor pairs at the same tier, so their checkpoint and QA dispatches are accepted without any `advisorModel` override. If you promote a gatekeeper to a stronger flagship (e.g. Fable 5), you must also set `advisorModel` to at least that tier in `.claude/settings.json`, or dispatches fail with `cannot be used as an advisor when the request model is '<model>'`.
 
-> **Clones without Fable 5 access:** override `advisorModel` to `opus` in your local settings. Note that Odin and Quinn are pinned to `claude-fable-5`, so they are already non-runnable without Fable access — the override only keeps the *main-session* advisor working.
+> **Stronger-flagship clones:** if you pin Odin/Quinn above Opus (e.g. Fable 5), raise `advisorModel` to that tier or higher in your settings — otherwise their dispatches are rejected. Default Opus needs no override.
 
 ---
 
@@ -22,7 +22,7 @@ This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern.
 
 The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
 
-The Senior Adviser is **not** directly addressable by the user. They are invoked only by other personas during their turn, using the Agent tool with a flagship-model override (the most capable model available — currently Fable 5).
+The Senior Adviser is **not** directly addressable by the user. They are invoked only by other personas during their turn, using the Agent tool with a strong-model override (currently `claude-opus-4-8`).
 
 ---
 
@@ -58,7 +58,7 @@ Inside the persona's turn, call the Agent tool:
 ```
 Agent(
   subagent_type: "general-purpose",
-  model: "fable",
+  model: "opus",
   description: "@{SeniorAdviser} advisor checkpoint [A|B]",
   prompt: "You are @{SeniorAdviser} — Senior Adviser
            (see .claude/agents/senior-adviser.md).
