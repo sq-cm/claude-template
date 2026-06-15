@@ -72,7 +72,6 @@
     "defaultMode": "acceptEdits"
   },
   "model": "opus",
-  "advisorModel": "fable",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "SessionStart": [

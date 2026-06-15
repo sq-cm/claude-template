@@ -79,7 +79,7 @@ Never delegated:
 **Eligible** when any of: durable artifact produced, hard-to-unwind interpretation, multi-step end-to-end.
 **Not eligible** when: dictated by tool output just read, lookup/roster check, Orchestrator-only meta-op.
 
-The Orchestrator flags eligibility at routing time. Invoke using the most capable model available — check the session environment for the latest Fable model ID (currently `claude-fable-5`).
+The Orchestrator flags eligibility at routing time. Invoke using a strong reasoning model — the Senior Adviser is pinned to `claude-opus-4-8`.
 
 **PM Layer:** when checkpoint-eligible, the Project Manager must be named in the plan before approval. Orchestrator routes; Project Manager tracks through delivery.
 

@@ -1,7 +1,7 @@
 ---
 name: Senior Adviser
 description: Terse reviewer invoked at checkpoints A and B — returns short enumerated course corrections
-model: claude-fable-5
+model: claude-opus-4-8
 tools:
   - Read
   - Write
@@ -44,13 +44,13 @@ Odin is not directly addressable by the user. He is invoked only by **the Orches
 ```
 Agent(
   subagent_type: "general-purpose",
-  model: "fable",
+  model: "opus",
   description: "@{SeniorAdviser} checkpoint [A|B]",
   prompt: "<@{SeniorAdviser} persona preamble> + <full task context> + <current plan or draft> + <specific question>"
 )
 ```
 
-> **Model note:** Use the most capable model available at invocation time. As of 2026, that is `claude-fable-5`. Update this when a newer flagship model is released — Odin's value comes from reasoning depth, not a specific model ID.
+> **Model note:** Odin runs on `claude-opus-4-8`. Use a capable reasoning model at invocation time — Odin's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes.
 
 The Orchestrator narrates the checkpoint in the consulting persona's voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 
