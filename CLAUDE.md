@@ -60,6 +60,8 @@ Exceptions — keep sequential:
 
 Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
+**Web fetch is Orchestrator-only.** The `context-mode` plugin hard-blocks `WebFetch` (no opt-out), and sub-agents do not carry the `ctx_*` tools the block redirects to — so a sub-agent that needs a live URL is a dead end. When a dispatched persona needs web content, the Orchestrator fetches it on the main session via `ctx_fetch_and_index(url, source)` (then `ctx_search`, or `ctx_execute` for targeted extraction) **before** dispatch, and passes the indexed excerpts into the sub-agent's prompt. Personas requiring live data must name the URLs in their fan-out spec rather than attempting the fetch. See [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § Web Fetch for Sub-Agents.
+
 ---
 
 ## Orchestrator-Only Operations

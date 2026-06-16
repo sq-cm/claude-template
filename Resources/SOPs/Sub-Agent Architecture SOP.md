@@ -35,6 +35,23 @@ If a persona's brief calls for parallel sub-agent dispatch, the persona must:
 
 Personas must **never** silently downgrade to solo desk synthesis when a brief specified sub-agent dispatch. Flag the limitation explicitly in the deliverable.
 
+## Web Fetch for Sub-Agents
+
+Sub-agents cannot fetch live web content. Two compounding reasons:
+
+1. **The `context-mode` plugin hard-blocks `WebFetch`.** Its PreToolUse hook (`hooks/core/routing.mjs`) denies `WebFetch` unconditionally and redirects to `ctx_fetch_and_index`. There is no env var, config file, or per-tool allowlist to disable it, and a `deny` from a plugin hook cannot be overridden by a counter-hook in vault settings. The block lives in the per-machine plugin install (`~/.claude/plugins/`), not in this repo — it is version-pinned and wiped on plugin upgrade, so patching it is not durable.
+2. **Sub-agents lack the redirect target.** The `ctx_*` MCP tools the block points to are only available on the main (Orchestrator) session, not inside a dispatched `Agent`. So the redirect is unreachable for a sub-agent — a dead end either way.
+
+**Pattern — Orchestrator pre-fetches.** When a dispatched persona needs web content:
+
+1. The persona names the required URLs in its **fan-out spec** (see below) rather than attempting any fetch itself.
+2. The Orchestrator, on the main session, runs `ctx_fetch_and_index(url, source)` for each URL — then `ctx_search(queries)` to pull relevant passages, or `ctx_execute(language, code)` for targeted extraction (`console.log` only what's needed).
+3. The Orchestrator passes the indexed excerpts into the sub-agent's prompt as context.
+
+This keeps web fetch a privileged main-session pre-step — consistent with the depth-1 architecture, where the Orchestrator already owns the operations sub-agents cannot perform. It survives plugin upgrades and ships through the vault git tree with no per-machine patching.
+
+> Personas must **never** silently skip required live data or fabricate it when blocked. Flag the missing fetch in the fan-out spec so the Orchestrator supplies it.
+
 ## Frontmatter Rule
 
 Persona YAML frontmatter must **not** list `Agent` under `tools:`. The grant is non-functional and listing it creates false expectations. See [Persona Template SOP](Persona%20Template%20SOP.md) for canonical tool baseline.
@@ -54,4 +71,5 @@ If the sub-agent returns a successful `Agent` invocation, depth-2 dispatch is no
 
 ## Change Log
 
+- **2026-06-16** — Added "Web Fetch for Sub-Agents" section. Documented that `context-mode` hard-blocks `WebFetch` with no opt-out and sub-agents lack the `ctx_*` redirect target; codified the Orchestrator-pre-fetch pattern (`ctx_fetch_and_index` on main session, excerpts passed into sub-agent prompts). CLAUDE.md § Sub-Agent Depth updated with the rule; SOP added to SOPs README index.
 - **2026-05-26** — SOP created. Constraint discovered during Lumen demo dispatch. Six personas patched (Reid, Kai, Ryan, Odin, Axel, Casey); CLAUDE.md updated with stub; Persona Template SOP updated to forbid `Agent` in frontmatter.
