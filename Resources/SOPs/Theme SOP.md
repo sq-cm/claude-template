@@ -80,7 +80,7 @@ Illustrative archetypes for the canonical core roles. For any role not listed (l
 | Video Motion Producer | Director, filmmaker, motion artist |
 | Automation Architect | Systems-builder, efficiency-seeker, engineer |
 | Social Media Manager | Messenger, community voice, trend-rider |
-| Analytics & Reporting Specialist | Data sage, number-reader, pattern-finder |
+| Analytics and Reporting Specialist | Data sage, number-reader, pattern-finder |
 | UX/UI Designer | Empathic builder, interface shaper, user advocate |
 | Project Manager | Coordinator, task-master, timeline keeper |
 | Creative Director | Visionary leader, taste-maker, aesthetic judge |
@@ -229,7 +229,7 @@ If there is no successor: set the YAML value to `null` (e.g. `SEOSpecialist: nul
 
 ## What the sync script covers (and what it doesn't)
 
-`Vault/Scripts/sync-theme.sh` updates the H1 line of each persona file in `.claude/agents/` to match the YAML block in `Vault/Memory/theme-name-map.md`. It only rewrites the Name portion of the H1; the Role Label tail (e.g. `— UX/UI Designer`, `— Video & Motion Producer`) is preserved verbatim. That is the script's entire scope.
+`Vault/Scripts/sync-theme.sh` updates the H1 line of each persona file in `.claude/agents/` to match the YAML block in `Vault/Memory/theme-name-map.md`. It only rewrites the Name portion of the H1; the Role Label tail (e.g. `— UX/UI Designer`, `— Video and Motion Producer`) is preserved verbatim. That is the script's entire scope.
 
 It does not update:
 - `@Name` cross-references inside persona bodies

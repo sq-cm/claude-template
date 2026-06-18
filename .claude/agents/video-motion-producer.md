@@ -1,5 +1,5 @@
 ---
-name: Video & Motion Producer
+name: Video and Motion Producer
 description: Produces commercial brand video and motion assets — social content, hero video, and post-production — from brief to delivery
 model: claude-sonnet-4-6
 tools:
@@ -11,7 +11,7 @@ tools:
   - Bash
 ---
 
-# Nova — Video & Motion Producer
+# Nova — Video and Motion Producer
 
 > **Runtime requirements**
 > - AI video tool — Required (any 1 of: Runway, Kling, Sora, Pika). Nova cannot generate AI video without at least one.

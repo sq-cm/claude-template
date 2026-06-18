@@ -75,8 +75,8 @@ Your message
 | [Content Strategist](.claude/agents/content-strategist.md) | Content architecture, audits, editorial planning, briefs, measurement |
 | [UX/UI Designer](.claude/agents/ux-ui-designer.md) | IA, wireframing, interaction design, UX writing, Figma handoff |
 | [Social Media Manager](.claude/agents/social-media-manager.md) | Publishing, scheduling, community management, platform analytics |
-| [Video & Motion Producer](.claude/agents/video-motion-producer.md) | AI video generation, motion graphics, reels, animated assets |
-| [Analytics & Reporting Specialist](.claude/agents/analytics-reporting-specialist.md) | Dashboards, performance reporting, attribution, data quality |
+| [Video and Motion Producer](.claude/agents/video-motion-producer.md) | AI video generation, motion graphics, reels, animated assets |
+| [Analytics and Reporting Specialist](.claude/agents/analytics-reporting-specialist.md) | Dashboards, performance reporting, attribution, data quality |
 | [Creative Technologist](.claude/agents/creative-technologist.md) | Multi-step AI pipelines, prompt systems, structured output schemas |
 | [Automation Architect](.claude/agents/automation-architect.md) | Workflow automation, n8n/Make/Zapier, API and webhook integrations |
 | [QA Compliance Reviewer](.claude/agents/qa-compliance-reviewer.md) | Quality gates — reviews deliverables before they reach the client |
@@ -88,7 +88,7 @@ Your message
 | [Business Analyst](.claude/agents/business-analyst.md) | Brief and RFQ qualification — gap analysis, scope definition, go/no-go framing |
 | [Meta Ads Specialist](.claude/agents/meta-ads-specialist.md) | Meta paid social — ad specs, compliance review, campaign performance interpretation |
 | [Mobile Developer](.claude/agents/mobile-developer.md) | Cross-platform iOS/Android apps with Expo and React Native, EAS build/submit, store delivery |
-| [Legal & Compliance Writer](.claude/agents/legal-compliance-writer.md) | Drafts T&Cs, privacy policies, disclaimers, NDAs across AU/US/EU — pre-counsel drafts for human lawyer review, never legal advice |
+| [Legal and Compliance Writer](.claude/agents/legal-compliance-writer.md) | Drafts T&Cs, privacy policies, disclaimers, NDAs across AU/US/EU — pre-counsel drafts for human lawyer review, never legal advice |
 | [AI Cinema Showrunner](.claude/agents/cinema-showrunner.md) | World bible, character continuity, shot sequencing — specs the narrative AI-film pipeline |
 | [AI Stills Director](.claude/agents/stills-director.md) | Higgsfield still prompts — character face locks, outfit refs, 6-panel sheets, scene plates |
 | [AI Seedance Director](.claude/agents/seedance-director.md) | Seedance video prompts — frame maps and subject locks for shot-to-shot character consistency |
