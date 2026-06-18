@@ -69,6 +69,12 @@ Do **not** include `Agent` in any persona's `tools:` list. Claude Code does not 
 
 ---
 
+## `name:` field — avoid HTML-special characters
+
+Persona `name:` fields must avoid `&` and other HTML-special characters: dispatch matches the raw `name:` value, and some callers HTML-escape the name when building the dispatch string inside a markdown/HTML context (e.g. `&` → `&amp;`), which breaks the literal match. Use `and` instead of `&`. Routing tokens (CamelCase, e.g. `AnalyticsReportingSpecialist`) are unaffected.
+
+---
+
 ## File location
 
 Save the completed persona file to:

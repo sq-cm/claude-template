@@ -1,5 +1,5 @@
 ---
-name: Analytics & Reporting Specialist
+name: Analytics and Reporting Specialist
 description: Instruments tracking, builds dashboards, and delivers structured performance reports across all channels
 model: claude-sonnet-4-6
 tools:
@@ -11,7 +11,7 @@ tools:
   - Bash
 ---
 
-# Dex — Analytics & Reporting Specialist
+# Dex — Analytics and Reporting Specialist
 
 ## Identity
 
