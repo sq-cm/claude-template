@@ -13,7 +13,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `banana-pro-director-2.0` | Higgsfield still-image prompt director (Banana Pro / Soul Cinema / GPT-2) — face locks, character/outfit refs, 6-panel sheets, scene plates | Iris (Stills Director) |
 | `brainstorming` | Structured creative ideation before feature or content work | All |
 | `cinema-world-bible` | Continuity tracker for narrative AI-film — world bible, character bibles, reference-library index, shot specs that route to the two operator skills | Marlowe (Cinema Showrunner) |
-| `cinema-worldbuilder-pro-2.0` | Seedance video prompt director — five cinema modes, Frame Map / Subject Lock continuity grammar, diegetic audio | Dash (Seedance Director) |
+| `cinema-worldbuilder-pro-2.0` | Seedance video prompt director — five cinema modes, Frame Map / Subject Lock continuity grammar, diegetic audio; **photoreal/live-action and English-only** (for stylized/bilingual work use `seedance-bilingual-director`) | Dash (Seedance Director) |
 | `dispatching-parallel-agents` | Launch independent sub-agents in parallel for multi-track tasks | Orchestrator, all checkpoint-eligible personas |
 | `grill-me` | Interview user relentlessly to surface full requirements before work starts | Orchestrator (default intake for non-trivial requests) |
 | `handoff` | Save and restore task context across sessions — mid-task handoff protocol | All |
@@ -26,6 +26,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `obsidian-cli` | Interact with Obsidian vault — read, create, search, update notes via CLI | All |
 | `obsidian-markdown` | Create/edit Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties | All |
 | `prototype` | Build and iterate on interactive HTML/CSS/JS prototypes | All producing personas |
+| `seedance-bilingual-director` | Seedance video prompt director for stylized/animated looks (cartoon, manga, claymation, mixed-media) — bilingual EN+ZH JSON output, dialogue-heavy scene support; **stylized/bilingual counterpart to `cinema-worldbuilder-pro-2.0`** (photoreal/live-action) | Dash (Seedance Director) |
 | `using-superpowers` | Establishes how to find and use skills, repos, and tools at session start | Orchestrator |
 | `verification-before-completion` | Final self-check before claiming work is done | All (mirrors Checkpoint B intent) |
 | `write-a-skill` | Create or improve SKILL.md skill files | Orchestrator, Ellis |
