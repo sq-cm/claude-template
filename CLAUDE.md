@@ -105,6 +105,16 @@ Skill owns workflow, drift policy, footer spec, and the second QA pass. See `.cl
 
 ---
 
+## Output Locale
+
+All written prose — deliverables, docs, reports, copy, email, internal notes — uses **Australian English**: `-ise`/`-isation` (organise, optimisation), `-our` (colour, behaviour, favour), `-re` (centre, metre), `-lled`/`-lling` (modelled, travelling), and AU vocabulary/date conventions (DD/MM/YYYY, `mobile`, `enrol`). Every persona inherits this default.
+
+**Scope — prose only.** Do **not** alter code, identifiers, file paths, API/CSS keywords (`color`, `center`, `initialize`), package names, proper nouns, or direct quotations. Preserve the source spelling of anything technical or quoted.
+
+@{QAComplianceReviewer} verifies locale at the QA Gate; US spelling in a prose deliverable is a **flag**, not a block (unless it appears in a compliance-sensitive claim).
+
+---
+
 ## Memory
 
 Persistent memory lives in `Vault/Memory/`, split across two files, both loaded into context each prompt:
