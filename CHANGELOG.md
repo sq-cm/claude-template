@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-06-18
+
+- feat(skills): add `seedance-bilingual-director` skill — Seedance video prompt director for stylized/animated looks (cartoon, manga, claymation, mixed-media), bilingual EN+ZH JSON output, and dialogue-heavy scenes; wired to Dash (Seedance Director) as an alternate tool alongside `cinema-worldbuilder-pro-2.0` with an explicit selection rule (stylized/bilingual → `seedance-bilingual-director`; photoreal/live-action/English-only → `cinema-worldbuilder-pro-2.0`). Ported from an Inbox candidate and reconciled to studio conventions: renamed from a persona-slug-colliding draft name, trigger-disambiguated descriptions so the two Seedance skills never fire on the same intent, brand-name boundary applied (no tool/platform names in prompt output), transcript workflow extracted to a sibling `references/pipeline-integration.md` note; original candidate archived to `Resources/Research/seedance-2-skill-original-candidate.md` (the raw video transcript was lost during archiving to a filesystem/Drive-sync glitch — its durable workflow content survives in the references note)
+
 ## 2026-06-11
 
 - feat(vscode): add `.vscode/keybindings.recommended.jsonc` — reference keybindings switching `Ctrl+Tab` / `Ctrl+Shift+Tab` from most-recently-used order to sequential left-to-right tab order (`workbench.action.nextEditor` / `previousEditor`). VS Code does not load keybindings from `.vscode/` (workspace keybindings are unsupported — microsoft/vscode#4504), so the file is documentation: each user merges the two entries into their user `keybindings.json` once via `Preferences: Open Keyboard Shortcuts (JSON)`. `.jsonc` extension keeps editors from flagging the header comments as strict-JSON errors
