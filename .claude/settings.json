@@ -65,9 +65,13 @@
       "Write(Inbox/**)",
       "Write(Projects/**)",
       "Write(Notes/**)",
+      "Write(Resources/**)",
+      "Write(Vault/**)",
       "Edit(Inbox/**)",
       "Edit(Projects/**)",
-      "Edit(Notes/**)"
+      "Edit(Notes/**)",
+      "Edit(Resources/**)",
+      "Edit(Vault/**)"
     ],
     "defaultMode": "auto"
   },
