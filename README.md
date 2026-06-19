@@ -1,12 +1,12 @@
 # Claude Team Workspace Template
 
-**An AI agency in a folder.** Drop this into Claude Code and you have a 28-person team ready to take work — researchers, copywriters, SEO specialists, developers, designers, and more — all coordinated by a single orchestrator named Sam.
+**A governance framework for AI-assisted work.** One orchestrator receives every request, routes it to the right specialist persona, and runs it through quality checkpoints before the output reaches you — all within a single coordinated session. The 28-role roster is how you address the team, not a promise of agents running in parallel.
 
 ---
 
 ## What this is
 
-Most AI setups give you one assistant. This gives you a team.
+Most AI setups give you one assistant with no governance layer. This gives you a structured pipeline — routing, specialist roles, and checkpoints — modelled as a team so you can address it naturally.
 
 The **Orchestrator** is the single point of contact for every request. They never do the work themselves. Instead, they route each task to the right specialist: SEO audits go to the SEO Specialist, brand copy goes to Finn, UX reviews go to Jordan. Each team member has a detailed persona file defining their expertise, voice, constraints, and relationships.
 
