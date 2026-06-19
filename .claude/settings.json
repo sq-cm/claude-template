@@ -117,15 +117,15 @@
           },
           {
             "type": "command",
-            "command": "echo '=== Theme map loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/theme-name-map.md\" ] && cat \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/theme-name-map.md\" || echo 'Warning: Theme map not found'"
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Theme map loaded\" \"Vault/Memory/theme-name-map.md\""
           },
           {
             "type": "command",
-            "command": "echo '=== Memory index loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/MEMORY.md\" ] && cat \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/MEMORY.md\" || echo 'Warning: MEMORY.md not found'"
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Memory index loaded\" \"Vault/Memory/MEMORY.md\""
           },
           {
             "type": "command",
-            "command": "echo '=== Local context loaded ===' && [ -f \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/context.md\" ] && cat \"${CLAUDE_PROJECT_DIR:-.}/Vault/Memory/context.md\" || echo 'No local context.md yet — run install or /memory-reconcile to create it from context.example.md'"
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Local context loaded\" \"Vault/Memory/context.md\" \"No local context.md yet — run install or /memory-reconcile to create it from context.example.md\""
           }
         ]
       }
