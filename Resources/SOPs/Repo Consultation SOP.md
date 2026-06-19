@@ -27,8 +27,8 @@ Repo consultation happens at **Checkpoint A** (pre-work) for any checkpoint-elig
 If repo guidance contradicts CLAUDE.md, an SOP, or a persona constraint:
 
 1. **Do not silently override either source.**
-2. **Pause the task.**
-3. **Invoke @{SeniorAdviser}** with both the repo guidance and the conflicting instruction:
+2. **Pause the task and return the conflict to the Orchestrator.** The working persona never invokes @{SeniorAdviser} itself (depth-1 sub-agent rule).
+3. **The Orchestrator invokes @{SeniorAdviser}** with both the repo guidance and the conflicting instruction:
 
 ```
 Agent(
