@@ -22,11 +22,13 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `hyperframes` | HTML/CSS→deterministic MP4 composition authoring — title cards, captions, audio-reactive pieces, scene transitions (vendored from heygen-com/hyperframes @ `8fcbb63`, Apache 2.0; LICENSE in folder) | Nova (Video and Motion Producer), Ellis (Creative Technologist) |
 | `hyperframes-cli` | HyperFrames dev loop — init, lint, inspect, preview, render, doctor via `npx hyperframes` | Nova (Video and Motion Producer) |
 | `hyperframes-media` | HyperFrames asset preprocessing — TTS (Kokoro), transcription (Whisper), background removal (u2net) | Nova (Video and Motion Producer) |
+| `improve` | Read-only codebase auditor and implementation-plan generator — surveys a repo as a senior adviser, produces prioritised self-contained plans for executor agents to implement; never modifies source code itself | All |
 | `obsidian-bases` | Create and edit Obsidian Bases (.base files) with views, filters, formulas | Orchestrator, Project Manager |
 | `obsidian-cli` | Interact with Obsidian vault — read, create, search, update notes via CLI | All |
 | `obsidian-markdown` | Create/edit Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties | All |
 | `prototype` | Build and iterate on interactive HTML/CSS/JS prototypes | All producing personas |
 | `seedance-bilingual-director` | Seedance video prompt director for stylized/animated looks (cartoon, manga, claymation, mixed-media) — bilingual EN+ZH JSON output, dialogue-heavy scene support; **stylized/bilingual counterpart to `cinema-worldbuilder-pro-2.0`** (photoreal/live-action) | Dash (Seedance Director) |
+| `teach` | Personal-tutor skill — runs inline by the Orchestrator (CLAUDE.md carve-out: exempt from routing, QA Gate, PM tracking, and Advisor Checkpoints); teaches any topic across stateful sessions with lessons, reference docs, and learning records stored git-ignored under `Vault/Learning/<topic>/` | Orchestrator |
 | `using-superpowers` | Establishes how to find and use skills, repos, and tools at session start | Orchestrator |
 | `verification-before-completion` | Final self-check before claiming work is done | All (mirrors Checkpoint B intent) |
 | `write-a-skill` | Create or improve SKILL.md skill files | Orchestrator, Ellis |
