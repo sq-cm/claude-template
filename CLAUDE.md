@@ -91,6 +91,8 @@ The Orchestrator flags eligibility at routing time. Invoke using a strong reason
 
 Before any file moves to `03 Deliverables/`, `@{QAComplianceReviewer}` must be spawned as a sub-agent and return a verdict: **PASS**, **FLAGGED**, or **BLOCKED**. The Orchestrator must not run QA inline — humaniser checks included. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
 
+**Scope (narrow — default).** The Gate fires on the Deliverables move only. A maintainer may opt into a broader scope that also gates durable artefact changes (SOP/persona/infra edits, audit close-outs) — see the [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) § When the QA Gate runs. Revisit once a fast-path lane exists.
+
 ---
 
 ## HTML Deliverable Companion
