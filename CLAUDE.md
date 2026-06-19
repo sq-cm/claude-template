@@ -86,7 +86,7 @@ Exceptions — keep sequential:
 
 ## Sub-Agent Depth
 
-Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
+Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. The `improve` skill, which fans out its own sub-agents, therefore runs on the Orchestrator session as a meta-operation rather than being routed — see [§ Orchestrator-Only Operations](#orchestrator-only-operations). Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
 **Web fetch is Orchestrator-only.** The `context-mode` plugin hard-blocks `WebFetch` (no opt-out), and sub-agents do not carry the `ctx_*` tools the block redirects to — so a sub-agent that needs a live URL is a dead end. When a dispatched persona needs web content, the Orchestrator fetches it on the main session via `ctx_fetch_and_index(url, source)` (then `ctx_search`, or `ctx_execute` for targeted extraction) **before** dispatch, and passes the indexed excerpts into the sub-agent's prompt. Personas requiring live data must name the URLs in their fan-out spec rather than attempting the fetch. This redirect applies whenever `context-mode` is active and covers the main (Orchestrator) session too — so the `WebFetch(domain:…)` grants in `.claude/settings.json` are inert while the plugin is active and serve only as a fallback for clones where it is absent or disabled. See [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § Web Fetch for Sub-Agents.
 
@@ -101,6 +101,9 @@ Never delegated:
 - Editing this CLAUDE.md file
 - Resolving conflicts between team members' outputs
 - Proposing and creating project folders
+- Running `improve` and similar read-only audit/meta-skills (see below)
+
+> **`improve` and similar meta-skills.** The `improve` audit skill (`.claude/skills/improve/`) is strictly read-only on source and fans out its own parallel sub-agents (Phase 2). It runs on the Orchestrator session as a meta-operation — never routed to a persona, so its fan-out is a legal depth-1 dispatch (a routed persona would attempt a forbidden depth-2 dispatch). Because it never mutates source, and its `plans/` output is an internal planning artefact (git-ignored) rather than a client Deliverable, that output does not move to `03 Deliverables/` and is exempt from the QA Gate — an optional Advisor checkpoint on the audit's prioritisation is available when wanted. Unlike the `/teach` carve-out (delegatable work done inline), this is a meta-operation that was never delegatable to begin with.
 
 ---
 
