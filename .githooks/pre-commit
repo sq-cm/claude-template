@@ -9,6 +9,13 @@
 set -e
 
 if [ "$CLAUDE_TEMPLATE_MAINTAINER" = "1" ]; then
+  # Run the vault consistency validator in WARN mode (Odin correction 1+2+3).
+  # Output is printed for visibility, but a non-zero exit is swallowed so the
+  # hook never blocks a maintainer commit. The validator's own exit code remains
+  # honest for CLI/CI use — only the hook swallows it here.
+  echo "--- validate.sh (WARN mode — failures are advisory, not blocking) ---"
+  bash "$(git rev-parse --show-toplevel)/Vault/Scripts/validate.sh" || true
+  echo "---"
   exit 0
 fi
 

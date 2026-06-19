@@ -53,6 +53,7 @@ These skills are not stored in this directory. They are provided at runtime by t
 
 ## Notes
 
+- Before committing template changes, run `Vault/Scripts/validate.sh` — the read-only consistency checker for persona roster, token references, tool lists, doc counts, and seed files.
 - Vault-local skills are available immediately in any session — no plugin required
 - Plugin-provided skills require the `superpowers` plugin; see `Resources/Learn/onboard.md` Step 3.55
 - Skill files follow the SKILL.md format — see `write-a-skill` for authoring guidance
