@@ -1,7 +1,7 @@
 # SOP — Odin Fallback (Adviser Unavailable)
 
 **Purpose:** Define team behaviour when an Advisor Checkpoint cannot complete — model unavailable, timeout, or empty response.
-**Audience:** All team members who invoke @{SeniorAdviser} at checkpoints.
+**Audience:** The Orchestrator, who dispatches @{SeniorAdviser} on a persona's behalf and owns the retry. The consulting persona still performs the self-review substitute when the adviser is unavailable.
 **Status:** Active. Owned by the Orchestrator.
 
 ---
@@ -21,11 +21,11 @@ Invoke this fallback when an Advisor Checkpoint call:
 
 ### Step 1 — Retry once
 
-Re-invoke the @{SeniorAdviser} agent call with identical prompt. If it succeeds, continue normal workflow. Log nothing.
+The Orchestrator re-invokes the @{SeniorAdviser} agent call with identical prompt. If it succeeds, continue normal workflow. Log nothing.
 
 ### Step 2 — Self-review if retry fails
 
-If the second call also fails, the calling persona performs a structured self-review in place of @{SeniorAdviser}:
+If the Orchestrator's second call also fails, the Orchestrator reports the adviser unavailable to the consulting persona, which then performs a structured self-review in place of @{SeniorAdviser}:
 
 1. Re-read the plan or deliverable as if seeing it for the first time
 2. Answer these three questions explicitly in their response:

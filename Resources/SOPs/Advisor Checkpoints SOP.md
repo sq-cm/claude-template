@@ -22,7 +22,7 @@ This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern.
 
 The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
 
-The Senior Adviser is **not** directly addressable by the user. They are invoked only by other personas during their turn, using the Agent tool with a strong-model override (currently `claude-opus-4-8`).
+The Senior Adviser is **not** directly addressable by the user. They are invoked only by **the Orchestrator**, via the Agent tool with a strong-model override (currently `claude-opus-4-8`). Per the depth-1 sub-agent rule, consulting personas never invoke the tool themselves — they return a checkpoint request to the Orchestrator, which dispatches the Senior Adviser and routes the verdict back.
 
 ---
 
@@ -44,8 +44,8 @@ The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible 
 
 ## The two checkpoints
 
-1. **Checkpoint A — before substantive work.** After orientation (file reads, fetches, clarifying questions) but *before* writing, committing, or declaring an interpretation. The persona consults the Senior Adviser with their intended approach.
-2. **Checkpoint B — before declaring done.** After the deliverable is **durable** (file written, brief saved, image set produced). The persona consults the Senior Adviser for a final review before handoff back to the Orchestrator.
+1. **Checkpoint A — before substantive work.** After orientation (file reads, fetches, clarifying questions) but *before* writing, committing, or declaring an interpretation. The persona returns a checkpoint request to the Orchestrator with their intended approach; the Orchestrator dispatches the Senior Adviser and routes the verdict back.
+2. **Checkpoint B — before declaring done.** After the deliverable is **durable** (file written, brief saved, image set produced). The persona returns a checkpoint request to the Orchestrator for a final review before handoff; the Orchestrator dispatches the Senior Adviser and routes the verdict back.
 
 **Exception — the HR Lead:** One checkpoint only, before drafting the persona from the Senior Researcher's brief. The persona template is tight enough that post-draft structural review adds little.
 
@@ -53,7 +53,7 @@ The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible 
 
 ## How to invoke the Senior Adviser
 
-Inside the persona's turn, call the Agent tool:
+On receiving a persona's checkpoint request, the Orchestrator dispatches the Agent call — passing the Senior Adviser persona preamble plus the persona's context and question:
 
 ```
 Agent(
@@ -70,9 +70,21 @@ Agent(
 )
 ```
 
-Narrate the checkpoint in the persona's own voice so the user can see when advice is being sought:
+The Orchestrator narrates the checkpoint in the consulting persona's voice so the user can see when advice is being sought:
 
 > "Checkpoint A — consulting @{SeniorAdviser} before drafting."
+
+---
+
+## Checkpoint-request contract
+
+The checkpoint is a three-leg handoff. The consulting persona never calls the `Agent` tool — it requests, and the Orchestrator dispatches.
+
+- **Persona → Orchestrator (the request):** the task context, a pointer to the current plan or draft, the specific question, and which checkpoint this is (A or B).
+- **Orchestrator → Odin (the dispatch):** the Senior Adviser persona preamble plus the persona's request, dispatched via the `Agent` tool (the block above).
+- **Odin → Orchestrator → persona (the return):** Odin's ≤100-word enumerated verdict, which the Orchestrator routes back to the persona, narrated in the persona's voice.
+
+If a dispatch fails, the Orchestrator owns the retry per the [Odin Fallback SOP](Odin%20Fallback%20SOP.md) (Step 1).
 
 ---
 

@@ -8,6 +8,8 @@
 
 Claude Code does not surface the `Agent` tool to sub-agents at runtime, regardless of what the persona's YAML frontmatter declares. **Sub-agents are depth-1 only — they cannot recursively dispatch further sub-agents.** Verified empirically 2026-05-26 by direct dispatch (sub-agent reported `"Tools available in this invocation: Read, Write, Edit, Bash, advisor. No Agent tool exists."`).
 
+> **Annotation (correction).** That quoted string is a 2026-05-26 capture and reflects the tool set of that dispatch, not the current baseline. The current six-tool baseline is `Read, Write, Edit, Glob, Grep, Bash` (no `advisor` tool) per the [Persona Template SOP](Persona%20Template%20SOP.md). The quote is preserved verbatim as evidence; the load-bearing point it establishes — that no `Agent` tool exists for sub-agents — still holds.
+
 This is a Claude Code platform constraint, not a configuration bug. It cannot be worked around with frontmatter, settings, or skill instructions.
 
 ## Implications
