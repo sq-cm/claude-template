@@ -13,14 +13,18 @@ Any persona frontmatter declaring a tool outside the baseline must be listed her
 
 ## Active exceptions
 
+> **Intentionally empty.** No persona currently exceeds the 6-tool canonical baseline (`Read, Write, Edit, Glob, Grep, Bash`). This empty state is by design, not an un-run audit — a diff-audit finding the table empty should treat it as "no active exceptions to register," not "audit found nothing." The two former entries (Casey/`WebFetch`, Lex/`WebFetch`) were removed on 2026-06-19 (plan 004) and recorded in the Removed / historical section below.
+
 | Persona | Tool | Scope | Rationale | Approved | Approver |
 |---|---|---|---|---|---|
-| Casey (Webflow Developer) | `WebFetch` | `link-checker` skill only — crawling static + CMS links for broken/insecure/redirect detection. Not for general web browsing, not for skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those). | Webflow MCP server does not expose a generic external URL fetcher. Canonical 6 cannot perform live HTTP requests against arbitrary URLs. | 2026-05-15 | Sam (per Odin Checkpoint A, vault audit H5) |
-| Lex (Legal and Compliance Writer) | `WebFetch` | Read-only statute/regulator-source lookups against a fixed 10-domain allowlist only (oaic.gov.au, legislation.gov.au, accc.gov.au, acma.gov.au, ftc.gov, cppa.ca.gov, congress.gov, edpb.europa.eu, eur-lex.europa.eu, ico.org.uk). No form submission, no fetch outside the list; flag-and-stop if a source is unreachable. Not for general browsing. | Law is a moving target (e.g. AU Privacy Act reform, Dec 2024 Royal Assent); static training-data knowledge produces stale citations. Canonical 6 cannot retrieve current statute/regulator text, and silent static-data drafting is the role's core failure mode. | 2026-06-03 | Sam (per Odin Checkpoint A, hire pipeline) |
+| _(none)_ | | | | | |
 
 ## Removed / historical exceptions
 
-_None yet._
+| Persona | Tool | Scope (when active) | Reason removed | Removed | Plan |
+|---|---|---|---|---|---|
+| Casey (Webflow Developer) | `WebFetch` | `link-checker` skill only — crawling static + CMS links for broken/insecure/redirect detection. Not for general web browsing, not for skills-repo update checks (used `Bash` + `git` against `Resources/Git/` clones for those). | `context-mode` hard-blocks `WebFetch` for sub-agents with no opt-out; Casey runs only as a sub-agent, so the grant was impossible to use at runtime. Live link-crawl is now routed via the Orchestrator pre-fetch pattern (`ctx_fetch_and_index` at top level, crawl results passed into Casey's prompt). | 2026-06-19 | 004 |
+| Lex (Legal and Compliance Writer) | `WebFetch` | Read-only statute/regulator-source lookups against a fixed 10-domain allowlist only (oaic.gov.au, legislation.gov.au, accc.gov.au, acma.gov.au, ftc.gov, cppa.ca.gov, congress.gov, edpb.europa.eu, eur-lex.europa.eu, ico.org.uk). No form submission, no fetch outside the list; flag-and-stop if a source unreachable. | `context-mode` hard-blocks `WebFetch` for sub-agents with no opt-out; Lex runs only as a sub-agent, so the grant was impossible to use at runtime. Currency-of-law retrieval is now routed via the Orchestrator pre-fetch pattern (`ctx_fetch_and_index` against the allowlist at top level, excerpts passed into Lex's prompt); the CURRENCY WARNING fallback fires when no excerpt block is present. | 2026-06-19 | 004 |
 
 ## How to add an entry
 
