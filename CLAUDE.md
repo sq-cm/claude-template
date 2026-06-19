@@ -29,6 +29,34 @@ Then enter plan mode and present a plan for approval before executing.
 
 Plans for checkpoint-eligible work are not approvable without a named PM owner.
 
+For genuinely light work the full pipeline above is disproportionate — use the **Fast-Path Lane** below instead. When eligibility is ambiguous, take the full pipeline (fail safe, not fast).
+
+---
+
+## Fast-Path Lane
+
+An on-ramp for light work, so small tasks have a sanctioned route instead of bypassing the framework entirely. The default pipeline (`grill-me` → plan → Checkpoint A → work → Checkpoint B → QA Gate) is right for durable, hard-to-unwind work — and disproportionate for a typo fix or a roster lookup. The fast-path lane keeps such work inside the framework at a cost that matches its size.
+
+**Eligible only when ALL of these hold:**
+- Single-file or single-answer output.
+- Reversible, low blast-radius.
+- One persona, no fan-out.
+- Produces no client Deliverable (nothing destined for `03 Deliverables/`).
+- Not a governance-artefact edit — SOP, persona, and CLAUDE.md changes keep the full checkpoints (and CLAUDE.md edits remain an Orchestrator-only op regardless).
+
+Examples: terminology/typo fix, roster check, a quick reformat, a single factual question, a minor copy tweak.
+
+**When eligibility is ambiguous, take the full pipeline** — fail safe, not fast.
+
+**The lane bypasses:** `grill-me`, plan mode and approval, Advisor Checkpoints A/B, and the QA Gate.
+
+**The lane keeps (non-negotiable):**
+- **Routing.** The Orchestrator still routes to a persona — fast-path work is delegated, never carried out by the Orchestrator inline. (The only inline-by-Orchestrator carve-out remains `/teach`; Orchestrator-Only Operations are unchanged.)
+- **Locale + humaniser sanity-check.** Any prose shown to the user still gets an inline Australian-English and humaniser pass before it lands. "Working-only" is not a licence to skip this — light copy can reach the user without ever becoming a Deliverable. This is a quick inline check, not the QA Gate.
+- **Destination.** Fast-path output never lands in `03 Deliverables/`. In-project light work → that project's `02 Working/`. Standalone light work → inline in the reply, or `Inbox/` if a file is genuinely produced. Never `Notes/` (reserved purpose).
+
+**Escalation.** If scope grows mid-task — new constraints, it becomes a durable deliverable, or it needs fan-out — stop the fast-path and re-enter the full pipeline. Promoting any fast-path artefact into `03 Deliverables/` requires the full QA Gate first.
+
 ---
 
 ## Addressing the Team
@@ -91,7 +119,7 @@ The Orchestrator flags eligibility at routing time. Invoke using a strong reason
 
 Before any file moves to `03 Deliverables/`, `@{QAComplianceReviewer}` must be spawned as a sub-agent and return a verdict: **PASS**, **FLAGGED**, or **BLOCKED**. The Orchestrator must not run QA inline — humaniser checks included. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
 
-**Scope (narrow — default).** The Gate fires on the Deliverables move only. A maintainer may opt into a broader scope that also gates durable artefact changes (SOP/persona/infra edits, audit close-outs) — see the [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) § When the QA Gate runs. Revisit once a fast-path lane exists.
+**Scope (narrow — default).** The Gate fires on the Deliverables move only. A maintainer may opt into a broader scope that also gates durable artefact changes (SOP/persona/infra edits, audit close-outs) — see the [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) § When the QA Gate runs. The [Fast-Path Lane](#fast-path-lane) now exists, making the broader scope less punishing — revisit the broad-scope opt-in against it.
 
 ---
 
