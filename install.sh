@@ -8,13 +8,17 @@ set -e
 
 echo "=== Vault install ==="
 
-if [ "$CLAUDE_TEMPLATE_MAINTAINER" = "1" ]; then
+if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then
   echo "  Maintainer mode detected (CLAUDE_TEMPLATE_MAINTAINER=1)"
   echo "  Push will remain enabled."
 else
   # 1. Block push to upstream (this is someone else's template repo)
-  git remote set-url --push origin no_push
-  echo "✓ Push to upstream blocked (fetch-only)"
+  if git remote get-url origin >/dev/null 2>&1; then
+    git remote set-url --push origin no_push
+    echo "✓ Push to upstream blocked (fetch-only)"
+  else
+    echo "  (no 'origin' remote — skipping push-block)"
+  fi
 fi
 
 # 2. Activate git hooks
@@ -57,7 +61,7 @@ else
 fi
 
 echo ""
-if [ "$CLAUDE_TEMPLATE_MAINTAINER" = "1" ]; then
+if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then
   echo "Maintainer install complete."
   echo "  - pre-commit + pre-push hooks honour CLAUDE_TEMPLATE_MAINTAINER=1 → your commits and pushes work normally."
   echo "  - Set CLAUDE_TEMPLATE_MAINTAINER=1 in your shell profile (e.g. ~/.bashrc, ~/.zshrc) so it persists."
