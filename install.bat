@@ -27,7 +27,14 @@ if "%RESOLVED_HOOKS%"==".githooks" (
   exit /b 1
 )
 
-:: 2a. Ignore working-tree exec-bit changes (stops phantom mode-diff noise on Windows).
+:: 2a. Executable bits -- Windows note.
+::     install.sh runs chmod +x on .githooks/, .claude/hooks/*.sh, Vault/Scripts/*.sh,
+::     and .claude/skills/**/*.sh after this block. Exec bits do not exist on Windows,
+::     so that step is a deliberate no-op here. Executable permissions are managed via
+::     the committed git index mode (100755) and .gitattributes; no working-tree chmod
+::     is required on Windows and none is attempted.
+::
+:: 2b. Ignore working-tree exec-bit changes (stops phantom mode-diff noise on Windows).
 ::     Local-only config -- git can't version it, so each clone sets it here.
 git config core.fileMode false
 echo [OK] core.fileMode=false (exec-bit diff noise suppressed)
