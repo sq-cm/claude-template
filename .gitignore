@@ -117,3 +117,7 @@ Vault/Learning/*
 
 # Local Netlify folder
 .netlify
+
+# improve skill output — advisor plans, local only (not template seed)
+/plans/
+/advisor-plans/
