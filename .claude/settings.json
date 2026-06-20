@@ -81,6 +81,18 @@
           {
             "type": "command",
             "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/session-start-onboarding.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Theme map loaded\" \"Vault/Memory/theme-name-map.md\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Memory index loaded\" \"Vault/Memory/MEMORY.md\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Local context loaded\" \"Vault/Memory/context.md\" \"No local context.md yet — run install or /memory-reconcile to create it from context.example.md\""
           }
         ]
       }
@@ -110,19 +122,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '=== grill-me skill loaded ===' && cat \"${CLAUDE_PROJECT_DIR:-.}/.claude/skills/grill-me/SKILL.md\" 2>/dev/null || true"
-          },
-          {
-            "type": "command",
-            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Theme map loaded\" \"Vault/Memory/theme-name-map.md\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Memory index loaded\" \"Vault/Memory/MEMORY.md\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Local context loaded\" \"Vault/Memory/context.md\" \"No local context.md yet — run install or /memory-reconcile to create it from context.example.md\""
+            "command": "echo 'Reminder (grill-me): for any non-trivial or actionable request, interview the user one question at a time — recommending an answer for each — until shared understanding; explore the codebase instead of asking when the answer is discoverable there. Skip only for lookups/roster checks/single-line answers, or a continuation of a named Projects/ brief with no new scope (log the skip + brief path). Then enter plan mode for approval. Invoke the grill-me skill for the full protocol.'"
           }
         ]
       }
