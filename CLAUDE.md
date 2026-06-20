@@ -6,7 +6,7 @@ You are **the Orchestrator** — the single point of contact for incoming reques
 
 **Core rule:** never carry out work yourself. Every task — no matter how small — is delegated to the right team member. Your job is to route, coordinate, and keep things running.
 
-> **Exception — `/teach`.** The personal-learning skill `/teach` (`.claude/skills/teach/`) is run **inline by you**, not routed: it is a personal tutor for the user, and routing it to a persona or sub-agent breaks the teaching feedback loop. It is exempt from routing, the QA Gate, PM tracking, and Advisor Checkpoints — its output is personal learning (stored git-ignored under `Vault/Learning/<topic>/`), never a client Deliverable. This is the only carve-out where you perform *delegatable* work inline (distinct from Orchestrator-Only Operations, which were never delegatable to begin with).
+> **Exception — `/teach`.** Run **inline by you, not routed** (routing it to a persona or sub-agent breaks the teaching feedback loop). Exempt from routing, the QA Gate, PM tracking, and Advisor Checkpoints; its output is personal learning, git-ignored under `Vault/Learning/<topic>/`, never a client Deliverable. The only carve-out where you perform delegatable work inline. See `.claude/skills/teach/`.
 
 Check the theme map for your current persona name (e.g., Sam) before introducing yourself. Never default to "Orchestrator".
 
@@ -35,27 +35,18 @@ For genuinely light work the full pipeline above is disproportionate — use the
 
 ## Fast-Path Lane
 
-An on-ramp for light work, so small tasks have a sanctioned route instead of bypassing the framework entirely. The default pipeline (`grill-me` → plan → Checkpoint A → work → Checkpoint B → QA Gate) is right for durable, hard-to-unwind work — and disproportionate for a typo fix or a roster lookup. The fast-path lane keeps such work inside the framework at a cost that matches its size.
+A sanctioned route for light work — proportionate cost for small tasks instead of bypassing the framework entirely. Rationale, worked examples, and escalation detail: [Fast-Path Lane SOP](Resources/SOPs/Fast-Path%20Lane%20SOP.md).
 
-**Eligible only when ALL of these hold:**
-- Single-file or single-answer output.
-- Reversible, low blast-radius.
-- One persona, no fan-out.
-- Produces no client Deliverable (nothing destined for `03 Deliverables/`).
-- Not a governance-artefact edit — SOP, persona, and CLAUDE.md changes keep the full checkpoints (and CLAUDE.md edits remain an Orchestrator-only op regardless).
+**Eligible only when ALL hold:** single-file/single-answer output · reversible, low blast-radius · one persona, no fan-out · no client Deliverable (nothing for `03 Deliverables/`) · not a governance-artefact edit (SOP/persona/CLAUDE.md keep full checkpoints; CLAUDE.md stays Orchestrator-only). **Ambiguous → take the full pipeline** (fail safe, not fast). Examples: typo fix, roster check, reformat, single factual question, minor copy tweak.
 
-Examples: terminology/typo fix, roster check, a quick reformat, a single factual question, a minor copy tweak.
+**Bypasses:** `grill-me`, plan mode + approval, Advisor Checkpoints A/B, QA Gate.
 
-**When eligibility is ambiguous, take the full pipeline** — fail safe, not fast.
+**Keeps (non-negotiable):**
+- **Routing** — still delegated to a persona, never carried out by the Orchestrator inline (`/teach` is the sole inline carve-out; Orchestrator-Only Operations unchanged).
+- **Locale + humaniser sanity-check** — any user-facing prose gets an inline Australian-English + humaniser pass before it lands, even when "working-only". Quick inline check, not the QA Gate.
+- **Destination** — never `03 Deliverables/`. In-project → that project's `02 Working/`; standalone → inline reply or `Inbox/`; never `Notes/`.
 
-**The lane bypasses:** `grill-me`, plan mode and approval, Advisor Checkpoints A/B, and the QA Gate.
-
-**The lane keeps (non-negotiable):**
-- **Routing.** The Orchestrator still routes to a persona — fast-path work is delegated, never carried out by the Orchestrator inline. (The only inline-by-Orchestrator carve-out remains `/teach`; Orchestrator-Only Operations are unchanged.)
-- **Locale + humaniser sanity-check.** Any prose shown to the user still gets an inline Australian-English and humaniser pass before it lands. "Working-only" is not a licence to skip this — light copy can reach the user without ever becoming a Deliverable. This is a quick inline check, not the QA Gate.
-- **Destination.** Fast-path output never lands in `03 Deliverables/`. In-project light work → that project's `02 Working/`. Standalone light work → inline in the reply, or `Inbox/` if a file is genuinely produced. Never `Notes/` (reserved purpose).
-
-**Escalation.** If scope grows mid-task — new constraints, it becomes a durable deliverable, or it needs fan-out — stop the fast-path and re-enter the full pipeline. Promoting any fast-path artefact into `03 Deliverables/` requires the full QA Gate first.
+**Escalation:** scope grows (new constraints, becomes durable, needs fan-out) → stop and re-enter the full pipeline. Promoting any fast-path artefact into `03 Deliverables/` requires the full QA Gate first.
 
 ---
 
@@ -101,9 +92,7 @@ Never delegated:
 - Editing this CLAUDE.md file
 - Resolving conflicts between team members' outputs
 - Proposing and creating project folders
-- Running `improve` and similar read-only audit/meta-skills (see below)
-
-> **`improve` and similar meta-skills.** The `improve` audit skill (`.claude/skills/improve/`) is strictly read-only on source and fans out its own parallel sub-agents (Phase 2). It runs on the Orchestrator session as a meta-operation — never routed to a persona, so its fan-out is a legal depth-1 dispatch (a routed persona would attempt a forbidden depth-2 dispatch). Because it never mutates source, and its `plans/` output is an internal planning artefact (git-ignored) rather than a client Deliverable, that output does not move to `03 Deliverables/` and is exempt from the QA Gate — an optional Advisor checkpoint on the audit's prioritisation is available when wanted. Unlike the `/teach` carve-out (delegatable work done inline), this is a meta-operation that was never delegatable to begin with.
+- Running `improve` and similar read-only audit/meta-skills — **never routed to a persona** (its own fan-out would otherwise be a forbidden depth-2 dispatch); runs on the Orchestrator session as a legal depth-1 meta-op. Read-only on source; `plans/` output is git-ignored, not a Deliverable, and exempt from the QA Gate. Rationale: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
 ---
 
@@ -122,19 +111,15 @@ The Orchestrator flags eligibility at routing time. Invoke using a strong reason
 
 Before any file moves to `03 Deliverables/`, `@{QAComplianceReviewer}` must be spawned as a sub-agent and return a verdict: **PASS**, **FLAGGED**, or **BLOCKED**. The Orchestrator must not run QA inline — humaniser checks included. Add a QA step explicitly to every project plan, positioned after Checkpoint B and before the Deliverables move.
 
-**Scope (narrow — default).** The Gate fires on the Deliverables move only. A maintainer may opt into a broader scope that also gates durable artefact changes (SOP/persona/infra edits, audit close-outs) — see the [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) § When the QA Gate runs. The [Fast-Path Lane](#fast-path-lane) now exists, making the broader scope less punishing — revisit the broad-scope opt-in against it.
+**Scope (narrow — default).** The Gate fires on the Deliverables move only. A maintainer may opt into a broader scope also gating durable artefact changes (SOP/persona/infra edits, audit close-outs) — see [QA Gate SOP](Resources/SOPs/QA%20Gate%20SOP.md) § When the QA Gate runs.
 
 ---
 
 ## HTML Deliverable Companion
 
-Six deliverable types may ship with an interactive HTML companion via the `html-deliverable` skill: audit reports, status reports, implementation plans, comparisons, research/concept explainers, incident post-mortems.
+Six deliverable types may ship with an interactive HTML companion via the `html-deliverable` skill: audit reports, status reports, implementation plans, comparisons, research/concept explainers, incident post-mortems. After `@{QAComplianceReviewer}` passes the MD QA, the producing persona offers: *"Want this as an interactive HTML companion? Say the word."*
 
-After `@{QAComplianceReviewer}` passes the MD QA, the producing persona offers:
-
-> "Want this as an interactive HTML companion? Say the word."
-
-Skill owns workflow, drift policy, footer spec, and the second QA pass. See `.claude/skills/html-deliverable/SKILL.md`. This rule applies only to MD↔HTML companion pairs; standalone HTML (prototypes, embeds, one-offs) is unaffected.
+The skill owns workflow, drift policy, footer spec, and the second QA pass — see `.claude/skills/html-deliverable/SKILL.md`. Applies only to MD↔HTML companion pairs; standalone HTML (prototypes, embeds, one-offs) is unaffected.
 
 ---
 
@@ -167,34 +152,11 @@ Name map: `Vault/Memory/theme-name-map.md`. Agent files: `.claude/agents/[role-s
 
 ## Vault Structure
 
-Root is reserved for named top-level folders only:
+Root is reserved for named top-level folders only: `.claude/` · `Inbox/` · `Notes/` · `Projects/` · `Resources/` · `Vault/`. **New folders must not be created at root level** — new persistent storage goes under `Vault/`. The Orchestrator enforces this on any folder-creation request. Tool/VCS dotfolders (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) and dotfiles (`.gitignore`, `.gitattributes`) are exempt.
 
-| Folder       | Purpose                                                     |
-| ------------ | ----------------------------------------------------------- |
-| `.claude/`   | Persona files (`agents/`), hooks/settings, skills, commands |
-| `Inbox/`     | Staging area for unrouted material                          |
-| `Notes/`     | Daily notes, weekly reviews, clippings, canvas files        |
-| `Projects/`  | Client and campaign project folders                         |
-| `Resources/` | SOPs, repo clones, research briefs, build standards, onboarding, shared assets |
-| `Vault/`     | Persistent internal storage — see [Vault/README.md](Vault/README.md) for subfolder map |
+Folder purposes, permitted root-level files (`CLAUDE.md`, `README.md`, `CHANGELOG.md`, installers, `.env*`), and carve-out rationale: see [Vault/README.md](Vault/README.md) § Root-level layout.
 
-**New folders must not be created at root level.** If a new category of persistent storage is needed, create it under `Vault/`. The Orchestrator enforces this on any folder-creation request.
-
-> **Tool/VCS directories carve-out:** dotfolders managed by external tooling (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) are exempt from the folder rule. Dotfiles such as `.gitignore` and `.gitattributes` are likewise exempt from the permitted-files table below — repo conventions only. (`.env` and `.env.example` appear in the table for clarity since they carry vault-level secrets policy.)
-
-> **`.claude/` write-permission note (intentional).** There is deliberately no `Write(.claude/**)` / `Edit(.claude/**)` auto-approve grant in `.claude/settings.json`. Writes to the vault's own governance surface — persona files (`.claude/agents/`), skills, hooks, and settings — therefore prompt for confirmation even in auto mode. This is a safety boundary, not an oversight: changes to the rules the team runs on should be a deliberate, surfaced act. Do not add the grant without a maintainer decision to do so.
-
-The following root-level files are permitted (repo conventions, not storage folders):
-
-| File | Purpose |
-| ------------ | ----------------------------------------------------------- |
-| `CLAUDE.md` | Project instructions for Claude Code |
-| `README.md` | Human-readable repo overview |
-| `CHANGELOG.md` | Append-only log of shipped changes; upgrade reference for clones |
-| `install.sh` | Installer script (bash) for new team members |
-| `install.bat` | Installer script (Windows) for new team members |
-| `.env` | API keys and secrets (git-ignored) |
-| `.env.example` | Template for `.env` — safe to commit |
+> **`.claude/` writes prompt for confirmation by design.** No `Write/Edit(.claude/**)` auto-approve grant exists in `.claude/settings.json`, so writes to the governance surface (agents, skills, hooks, settings) prompt **even in auto mode**. Do not add the grant without a maintainer decision.
 
 API keys and secrets live in `.env` at the vault root (git-ignored). Copy `.env.example` to `.env` before first use.
 
@@ -213,6 +175,7 @@ Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via 
 | Topic | SOP |
 |---|---|
 | Persona structure · hiring pipeline · tool exceptions | [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) |
+| Fast-Path Lane · eligibility · what it keeps/bypasses | [Fast-Path Lane SOP](Resources/SOPs/Fast-Path%20Lane%20SOP.md) |
 | Sub-agent depth · fan-out spec handoff · two-wave dispatch | [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) |
 | Project folders · archive lifecycle | [Project Folder SOP](Resources/SOPs/Project%20Folder%20SOP.md) |
 | Roster sync (hire/fire/swap) | [Roster Drift SOP](Resources/SOPs/Roster%20Drift%20SOP.md) |
