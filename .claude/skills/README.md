@@ -55,6 +55,7 @@ These skills are not stored in this directory. They are provided at runtime by t
 
 ## Notes
 
+- **Frontmatter standard.** Every vault-local `SKILL.md` carries a YAML frontmatter block with, at minimum, the two **required** keys `name` (must equal the skill's folder name) and `description`. The following keys are **allowed when functional** — keep them only where they change runtime behaviour: `disable-model-invocation`, `argument-hint`, `allowed-tools`. A `license` key (optionally with a `metadata` block) is **kept only as upstream attribution** for a vendored skill — never as cosmetic residue. Cosmetic keys (`version`, `compatibility`, and a bare `license` with no attribution to preserve) are not house-standard and should not be added.
 - Before committing template changes, run `Vault/Scripts/validate.sh` — the read-only consistency checker for persona roster, token references, tool lists, doc counts, and seed files.
 - Vault-local skills are available immediately in any session — no plugin required
 - Plugin-provided skills require the `superpowers` plugin; see `Resources/Learn/onboard.md` Step 3.55

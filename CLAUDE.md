@@ -182,6 +182,8 @@ Root is reserved for named top-level folders only:
 
 > **Tool/VCS directories carve-out:** dotfolders managed by external tooling (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) are exempt from the folder rule. Dotfiles such as `.gitignore` and `.gitattributes` are likewise exempt from the permitted-files table below — repo conventions only. (`.env` and `.env.example` appear in the table for clarity since they carry vault-level secrets policy.)
 
+> **`.claude/` write-permission note (intentional).** There is deliberately no `Write(.claude/**)` / `Edit(.claude/**)` auto-approve grant in `.claude/settings.json`. Writes to the vault's own governance surface — persona files (`.claude/agents/`), skills, hooks, and settings — therefore prompt for confirmation even in auto mode. This is a safety boundary, not an oversight: changes to the rules the team runs on should be a deliberate, surfaced act. Do not add the grant without a maintainer decision to do so.
+
 The following root-level files are permitted (repo conventions, not storage folders):
 
 | File | Purpose |
