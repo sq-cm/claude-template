@@ -8,6 +8,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | [`Advisor Checkpoints SOP.md`](Advisor%20Checkpoints%20SOP.md) | When and how team members consult the Senior Adviser (Checkpoint A and B)                                    |
 | [`Odin Fallback SOP.md`](Odin%20Fallback%20SOP.md)             | Team behaviour when Odin is unavailable — retry, self-review, logging                                        |
+| [`Fast-Path Lane SOP.md`](Fast-Path%20Lane%20SOP.md)           | The light-work lane — eligibility reasoning, what it keeps/bypasses, escalation, worked examples             |
 | [`Persona Template SOP.md`](Persona%20Template%20SOP.md)       | Required sections and file-location convention for every persona file                                        |
 | [`Project Folder SOP.md`](Project%20Folder%20SOP.md)           | When to create a project folder, naming convention, structure, archive lifecycle                             |
 | [`QA Gate SOP.md`](QA%20Gate%20SOP.md)                         | Quinn's review verdicts (PASS / FLAGGED / BLOCKED) and plan-positioning rule for the QA step                 |
