@@ -81,12 +81,14 @@ For each moved note:
    - `type: reference` → `## References`
    - `type: user` → `## User profile` (create if missing)
    - `type: system` → `## System logs`
-3. Append a pointer line of the form:
+3. Append a pointer line — **exactly one line**: link plus a hook of **≤12 words**. No multi-sentence prose, no paragraph summaries — the full detail already lives in the moved note and is retrievable on demand. `context.md` is cat'd into context **every prompt**, so each extra sentence is a permanent per-prompt tax. Form:
    ```markdown
-   - [<topic>](notes/<YYYY-MM>/<filename>) — <one-line description from note body>
+   - [<topic>](notes/<YYYY-MM>/<filename>) — <≤12-word hook>
    ```
 4. **Conflict rule:** if a pointer to this filename already exists in `context.md`, leave the existing one in place. If two new notes route to the same H2 section, **append both pointers** as separate lines — do not merge prose.
 5. If no section matches and no fallback applies, append to `## Uncategorised` (create the section if missing) for triage on the next reconcile.
+6. **Prune-on-fold (`## Project context` only).** This is the section that grows every session. After appending, ensure **every** entry in it is a single line. If a prior entry spans multiple sentences or lines, collapse it to the one-line form — keep its link, distil a ≤12-word hook from it, discard the rest (the detail stays in the linked note). See the `PRUNE POLICY` note in the `context.md` header comment.
+7. **Live-state entry.** `## Project context` may keep **one** expanded entry, prefixed `**Live state (<date>):**`, for the current in-flight thread. When a newer `project` note folds in and supersedes it, demote the previous live-state to a one-line pointer and promote the new note (or, if the new note isn't the active thread, just append it as a one-liner — default to one-liner).
 
 ### 6. Report
 
@@ -95,6 +97,7 @@ After processing all notes, report:
 - Number of notes moved
 - Any notes **backfilled** (inferred frontmatter) — list each with the `type`/`scope` that was filled in, so the user can correct a misclassification
 - Per-section context.md additions (one line each)
+- Any prior `## Project context` entries **collapsed** by prune-on-fold (and any live-state demotion/promotion)
 - Any **rejected** notes and reasons (must appear inline here, not only in the error log)
 - Any idempotent skips (file already at destination)
 
@@ -109,6 +112,7 @@ After processing all notes, report:
 | Destination file exists | Re-run on partial state | Skip move; re-check context.md pointer |
 | context.md pointer duplicates | Re-run after pointer added | Skip duplicate; leave existing |
 | No matching section in context.md | New topic | File to `## Uncategorised`; route on next reconcile |
+| `## Project context` bloated (multi-line entries) | Pointers authored as paragraphs, never pruned | Prune-on-fold (step 5.6) collapses each to a one-line hook; detail stays in the linked note |
 
 ---
 
