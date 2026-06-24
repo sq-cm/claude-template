@@ -67,6 +67,28 @@ PROP-[PROP-SLUG]                       for prop references
 
 ---
 
+## Higgsfield Elements name mapping
+
+Every locked reference that will be passed as a Seedance reference input must have a corresponding asset in the operator's Higgsfield "Elements" library. The slug in this index is the canonical identifier — the operator names the Higgsfield Elements entry with the **exact same slug** so that shot specs, build queues, and handoff notes can all refer to a single unambiguous identifier.
+
+**Important — this is an index and operator-handoff convention, not prompt-body syntax.** Slugs are never written as `@slug` into a Banana Pro or Seedance prompt body. banana-pro-director-2.0 explicitly prohibits `@image` tags in prompt bodies (attachment happens in the Higgsfield UI directly). The mapping below records the relationship between the slug (what this skill tracks), the @imageN position (what cinema-worldbuilder-pro places in the Seedance prompt body), and the Higgsfield Elements name (what the operator loads in the UI at generation time).
+
+```
+Slug (library index)  →  @imageN slot (Seedance prompt)  →  Higgsfield Elements name (UI)
+```
+
+| Slug | @imageN slot | Higgsfield Elements name | Status | Notes |
+|---|---|---|---|---|
+| `[SLUG]` | @image[N] | [exact name as entered in Higgsfield Elements UI] | PENDING / LOCKED | |
+
+**Rules:**
+- The Higgsfield Elements name must match the slug exactly (case-insensitive matching is fine; spaces replaced with hyphens is fine — but the token must be recognisable as the slug).
+- The @imageN slot is assigned by the shot spec, not here — this column is a reference lookup, not an authoritative slot assignment. Authoritative slot assignments live in the Slot assignment log below and in individual shot specs.
+- When an asset is renamed in Higgsfield, update both the Elements name column here **and** the slug column. Slug and Elements name must remain in sync.
+- This mapping sits above the @imageN grammar: slug → @imageN → Elements name. The @imageN ordering (CWP / cinema-worldbuilder-pro grammar) governs what goes in the prompt body; this index governs what the operator loads in the UI to match it.
+
+---
+
 ## Slot assignment log
 
 When a shot spec is written, record the @imageN assignments here so any future shot in the same sequence can maintain slot consistency.

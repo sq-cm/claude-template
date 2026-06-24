@@ -402,18 +402,19 @@ echo ""
 # Check 7 — doc counts match README assertions
 #
 # Live agent count: ls .claude/agents/*.md | wc -l → expect 28
-# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 23
+# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 25
 #
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
-# "21 reusable skill modules" or similar) — not the prose mention around line 58.
-# Expected: check 7 FAILs today (README says 21, disk has 23). This is CORRECT and intended.
-# Do NOT fix the count — that is plan 008's job.
+# "N reusable skill modules") — not the prose mention around line 58.
+# Count reconciled at 25 (Higgsfield commercial-ad workflow build: added
+# seedance-commercial-director + shotlist-html-companion). README.md line ~165 and
+# this constant move together when a skill is added or removed.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 7: Doc counts match README assertions ---"
 check7_pass=true
 
 EXPECTED_AGENT_COUNT=28
-EXPECTED_SKILL_COUNT=23
+EXPECTED_SKILL_COUNT=25
 
 # Live counts
 live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | wc -l | tr -d ' ')
