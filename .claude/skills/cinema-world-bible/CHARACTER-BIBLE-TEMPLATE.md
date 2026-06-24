@@ -11,7 +11,7 @@
 
 ## Identity spec (locked visual descriptor)
 
-This is the text spec that banana-pro-director uses at Mode 0 (face lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
+This is the text spec that banana-pro-director-2.0 uses at Mode 0 (face lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
 
 **Build:**
 (e.g., slim with refined proportions / athletic / full / slight — described by silhouette and proportion, never by size numbers)
