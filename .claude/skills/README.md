@@ -28,6 +28,8 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `obsidian-markdown` | Create/edit Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties | All |
 | `prototype` | Build and iterate on interactive HTML/CSS/JS prototypes | All producing personas |
 | `seedance-bilingual-director` | Seedance video prompt director for stylized/animated looks (cartoon, manga, claymation, mixed-media) — bilingual EN+ZH JSON output, dialogue-heavy scene support; **stylized/bilingual counterpart to `cinema-worldbuilder-pro-2.0`** (photoreal/live-action) | Dash (Seedance Director) |
+| `seedance-commercial-director` | Seedance video prompt director for the **commercial-ad lane** — photoreal/English, twelve-block grammar adding Product Surface + Brand Grade blocks; route on intent (ad/product/brand), **not** CWP narrative or its M2 mode | Dash (Seedance Director) |
+| `shotlist-html-companion` | Render a shotlist / Seedance prompt-set as a single self-contained editable HTML — per-scene checkboxes (localStorage), copy-per-prompt, edit-once style prefix; single-pass, routes through `html-deliverable` | All producing personas |
 | `teach` | Personal-tutor skill — runs inline by the Orchestrator (CLAUDE.md carve-out: exempt from routing, QA Gate, PM tracking, and Advisor Checkpoints); teaches any topic across stateful sessions with lessons, reference docs, and learning records stored git-ignored under `Vault/Learning/<topic>/` | Orchestrator |
 | `using-superpowers` | Establishes how to find and use skills, repos, and tools at session start | Orchestrator |
 | `verification-before-completion` | Final self-check before claiming work is done | All (mirrors Checkpoint B intent) |

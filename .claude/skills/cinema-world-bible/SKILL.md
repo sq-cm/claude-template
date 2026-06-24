@@ -105,6 +105,18 @@ Each entry records:
 - Which banana-pro mode built it (Mode 0 / 1 / 2 / 3B)
 - Notes (wardrobe state, conditions, which character it belongs to)
 
+**Higgsfield Elements name mapping — slug convention:**
+
+Every locked asset that feeds a Seedance prompt must exist in the operator's Higgsfield "Elements" library. The slug is the stable identifier: the operator names the Elements entry with the exact same slug so the library index, shot specs, and handoff notes all point to one unambiguous token.
+
+This is an index and operator-handoff convention only — slugs are never written as `@slug` into a Banana Pro or Seedance prompt body. banana-pro-director-2.0 explicitly prohibits `@image` tags in prompt bodies (attachment happens in the Higgsfield UI directly). The mapping is:
+
+```
+Slug (library index)  →  @imageN slot (Seedance prompt body)  →  Higgsfield Elements name (UI)
+```
+
+The @imageN ordering (cinema-worldbuilder-pro / CWP grammar) governs what appears in the Seedance prompt body. This slug index sits one level above that, mapping slug → @imageN → Elements name. The reference library template's "Higgsfield Elements name mapping" section is the authoritative record; the Slot assignment log records per-shot @imageN assignments.
+
 Slot assignment for Seedance (max 9 references per prompt):
 - When building a shot spec, assign @imageN slots from the index. Record the assignment in the shot spec. Canonical character references always take priority over environment plates when slot count is constrained.
 
@@ -163,6 +175,30 @@ The shot spec does NOT contain:
 
 ---
 
+### 6. Build a schematic map
+
+Text cannot hold a location. A schematic map can — and size and position stay consistent take after take. Build a schematic map for any location where prop or subject placement must be reproducible across shots.
+
+Use the schematic map template: [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLATE.md)
+
+A schematic map is a top-down spatial diagram of a single location. It records the GPT-Image-2 prompt used to generate the diagram, the locked spatial facts extracted from it (which prop is where, at what size relative to a human figure), and a link to the generated diagram image.
+
+**Relationship to the Frame Map (cinema-worldbuilder-pro):**
+- The schematic map is a **world-space prep artefact** — it records where props and landmarks physically sit in the location geometry (e.g., "fire hydrant at kerb; skydancer anchored 2× person-height to its right on the same line"). It is produced once per location, before shot prompting begins.
+- The Frame Map (owned by cinema-worldbuilder-pro / CWP) is a **screen-space per-shot grammar** — it records where each character sits in the frame (left / centre / right, foreground / midground / background) for a specific Seedance prompt.
+- The schematic map informs the Frame Map. The Frame Map does not replace it. Do not duplicate the schematic map's world-space spatial facts inside a Frame Map entry; reference the schematic map instead.
+
+Steps:
+1. Identify the location and list every prop or landmark that must stay spatially consistent
+2. Write the GPT-Image-2 schematic prompt (top-down view, labelled diagram, clean linework — no shading, no perspective)
+3. Generate the diagram and save it to the project folder
+4. Extract locked spatial facts from the diagram (position, relative size, clearance distances) and record them in the template
+5. Attach the schematic map file path to the world bible's location entry and to any shot spec that uses this location
+
+Deliver: a completed schematic map markdown file, saved to the project folder, with the generated diagram image linked or embedded.
+
+---
+
 ## Quick start
 
 **New project:** "Start a world bible for [project name]." → Skill fills the world bible template.
@@ -174,6 +210,8 @@ The shot spec does NOT contain:
 **Pre-video checklist:** "Run the continuity checklist for [shot description]." → Skill runs the checklist and flags any gaps before the shot spec routes to cinema-worldbuilder-pro.
 
 **Shot spec:** "Write a shot spec for [scene description]." → Skill fills the shot spec template and hands it to the appropriate skill.
+
+**Schematic map:** "Build a schematic map for [location name]." → Skill fills the schematic map template, records the GPT-Image-2 diagram prompt, and locks the spatial facts for that location.
 
 ---
 
@@ -189,8 +227,11 @@ The shot spec does NOT contain:
 | Write Banana Pro prompt | Never | banana-pro-director |
 | Write Seedance prompt | Never | cinema-worldbuilder-pro |
 | Assign @imageN slots for a shot | Yes — in the shot spec | cinema-worldbuilder-pro uses these |
+| Map slug → @imageN → Higgsfield Elements name | Yes — Elements name mapping in reference library | Operator loads matching asset in Higgsfield UI |
 | Track M-mode consistency | Yes — world bible | cinema-worldbuilder-pro enforces in prompt |
 | Run pre-video continuity check | Yes | — |
+| Build schematic map (world-space prop layout) | Yes — schematic map template | — |
+| Frame Map (screen-space character position per shot) | Schematic map informs it | cinema-worldbuilder-pro owns Frame Map grammar |
 
 ---
 
@@ -198,5 +239,6 @@ The shot spec does NOT contain:
 
 - [WORLD-BIBLE-TEMPLATE.md](WORLD-BIBLE-TEMPLATE.md) — project-level world record
 - [CHARACTER-BIBLE-TEMPLATE.md](CHARACTER-BIBLE-TEMPLATE.md) — per-character identity and wardrobe record
-- [REFERENCE-LIBRARY-TEMPLATE.md](REFERENCE-LIBRARY-TEMPLATE.md) — reference-image index and slot assignments
+- [REFERENCE-LIBRARY-TEMPLATE.md](REFERENCE-LIBRARY-TEMPLATE.md) — reference-image index, slot assignments, and Higgsfield Elements name mapping
 - [SHOT-SPEC-TEMPLATE.md](SHOT-SPEC-TEMPLATE.md) — shot brief for handoff to banana-pro-director or cinema-worldbuilder-pro
+- [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLATE.md) — top-down spatial diagram spec for locking prop position and size per location
