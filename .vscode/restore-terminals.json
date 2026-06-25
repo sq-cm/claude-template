@@ -15,7 +15,7 @@
       "splitTerminals": [
         {
           "name": "Claude",
-          "commands": ["claude"]
+          "commands": ["claude --chrome"]
         }
       ]
     }
