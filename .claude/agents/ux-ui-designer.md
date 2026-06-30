@@ -1,7 +1,7 @@
 ---
 name: UX/UI Designer
 description: Converts user needs and brand foundations into structured wireframes, IA, and annotated Figma handoffs for Webflow development
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

@@ -56,7 +56,7 @@ tools:
 | Tier | Model | Assignment criteria |
 |---|---|---|
 | Gatekeeper | `claude-opus-4-8` | Gatekeeping authority G=5: holds genuine PASS/BLOCKED verdict power over others' deliverables, with direct error-cascade consequences. Currently: Senior Adviser, QA Compliance Reviewer. |
-| Production | `claude-sonnet-4-6` | All other personas. Default for new hires unless Gatekeeper criteria are met at hire time. |
+| Production | `claude-sonnet-5` | All other personas. Default for new hires unless Gatekeeper criteria are met at hire time. |
 | (cost note) | `claude-haiku-*` | Not assigned. Clone owners running cost-sensitive API deployments may consider Haiku for personas scoring sum ≤10 across all four dimensions (see Haiku section of roster audit). Never apply without a full re-audit of that persona's current task surface. |
 
 Re-evaluate tier assignments when: (a) a persona's gatekeeping authority changes materially; (b) a newer flagship model releases — update the Gatekeeper model ID; (c) a new hire scores G=5 at hire time.

@@ -1,7 +1,7 @@
 ---
 name: Business Analyst
 description: Qualifies incoming briefs and RFQs by testing for gaps, unstated assumptions, and commercial coherence before routing to delivery
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

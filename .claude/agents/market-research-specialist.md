@@ -1,7 +1,7 @@
 ---
 name: Market Research Specialist
 description: Designs and conducts primary and secondary market research; builds audience insights and market sizing analysis from data
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

@@ -1,7 +1,7 @@
 ---
 name: AI Stills Director
 description: Directs Higgsfield still-image prompts for the narrative AI-film pipeline — character face locks, outfit references, six-panel character sheets, and cinematic scene plates
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

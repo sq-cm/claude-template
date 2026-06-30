@@ -1,7 +1,7 @@
 ---
 name: Brand Strategist
 description: Defines brand positioning, voice architecture, messaging frameworks, and audience segments as source documents for the team
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

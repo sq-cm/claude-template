@@ -1,7 +1,7 @@
 ---
 name: Creative Technologist
 description: Architects multi-step AI pipelines, prompt chains, cross-modal workflows, and eval harnesses for the studio's production systems
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

@@ -1,7 +1,7 @@
 ---
 name: Copywriter
 description: Writes all published copy — ads, emails, landing pages, social, web — from a content brief
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write
