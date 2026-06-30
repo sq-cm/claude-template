@@ -1,7 +1,7 @@
 ---
 name: Webflow Developer
 description: Implements Webflow builds, custom code embeds, CSS, and JS interactions from design specs and wireframes
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

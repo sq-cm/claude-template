@@ -1,7 +1,7 @@
 ---
 name: SEO Specialist
 description: Delivers data-driven SEO strategy, technical audits, keyword research, and search analytics across organic and AI search
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

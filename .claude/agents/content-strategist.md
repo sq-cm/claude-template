@@ -1,7 +1,7 @@
 ---
 name: Content Strategist
 description: Designs the content system — audits, briefs, editorial calendars, and measurement frameworks — before anyone writes a word
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

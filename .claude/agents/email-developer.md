@@ -1,7 +1,7 @@
 ---
 name: Email Developer
 description: Converts design files into production HTML emails compatible across Outlook, Gmail, and Apple Mail; integrates with multiple ESPs; runs QA testing
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

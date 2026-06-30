@@ -1,7 +1,7 @@
 ---
 name: Senior Researcher
 description: Researches roles and domains, writes structured briefs for persona development and deep-domain research requests
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

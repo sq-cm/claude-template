@@ -1,7 +1,7 @@
 ---
 name: AI Seedance Director
 description: Directs Seedance video prompts for the narrative AI-film pipeline — ten-block cinema grammar, five-mode selection, frame mapping, and subject locking from Marlowe's shot lists and Iris's reference stills
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write
