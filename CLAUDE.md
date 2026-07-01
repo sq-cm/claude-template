@@ -79,7 +79,12 @@ Exceptions — keep sequential:
 
 Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. The `improve` skill, which fans out its own sub-agents, therefore runs on the Orchestrator session as a meta-operation rather than being routed — see [§ Orchestrator-Only Operations](#orchestrator-only-operations). Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
-**Web fetch is Orchestrator-only.** The `context-mode` plugin hard-blocks `WebFetch` (no opt-out), and sub-agents do not carry the `ctx_*` tools the block redirects to — so a sub-agent that needs a live URL is a dead end. When a dispatched persona needs web content, the Orchestrator fetches it on the main session via `ctx_fetch_and_index(url, source)` (then `ctx_search`, or `ctx_execute` for targeted extraction) **before** dispatch, and passes the indexed excerpts into the sub-agent's prompt. Personas requiring live data must name the URLs in their fan-out spec rather than attempting the fetch. This redirect applies whenever `context-mode` is active and covers the main (Orchestrator) session too — so the `WebFetch(domain:…)` grants in `.claude/settings.json` are inert while the plugin is active and serve only as a fallback for clones where it is absent or disabled. See [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § Web Fetch for Sub-Agents.
+**Web fetch & visual eval are Orchestrator-mediated.** A dispatched persona **must not** fetch live web content or drive a browser itself — even though those tools (`WebFetch`, `ctx_*`, Playwright `browser_*`) are technically reachable from inside a sub-agent. Self-service is prohibited by policy, and the environment actively polices it at the point of attempt (persona refusal plus the auto-mode classifier). When a persona needs live data, it names the URL or artefact and what it needs judged in its fan-out spec; the Orchestrator supplies it from the main session:
+
+- **Lane A — research / URL-read.** Orchestrator runs `ctx_fetch_and_index(url, source)` then `ctx_search` (or `ctx_execute` for targeted extraction) and injects the excerpts into the sub-agent's prompt.
+- **Lane B — visual pixel-test.** Orchestrator runs Playwright (`browser_navigate` + `browser_take_screenshot`) and injects the screenshot into the sub-agent's prompt for the persona's visual judgement.
+
+Render happens above the dispatch boundary; judgement happens within it. The `WebFetch(domain:…)` grants in `.claude/settings.json` remain inert while `context-mode` is active. See [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § Web Fetch & Visual Eval for Sub-Agents.
 
 ---
 
