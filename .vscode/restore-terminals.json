@@ -7,7 +7,7 @@
       "splitTerminals": [
         {
           "name": "Agents",
-          "commands": ["claude agents"]
+          "commands": ["claude agents --model claude-fable-5"]
         }
       ]
     },
@@ -15,7 +15,7 @@
       "splitTerminals": [
         {
           "name": "Claude",
-          "commands": ["claude --chrome"]
+          "commands": ["claude --chrome --model claude-fable-5"]
         }
       ]
     }
