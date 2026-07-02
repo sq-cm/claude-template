@@ -283,7 +283,10 @@ for fpath in "$AGENTS_DIR"/*.md; do
 
     # Extract YAML frontmatter: content between first and second ---
     # Use awk to capture only the first ---…--- block (stops at second ---)
+    # Strip a trailing \r first so CRLF files match the fence and list markers
+    # identically to LF files — correctness must not depend on line endings.
     frontmatter=$(awk '
+        { sub(/\r$/, "") }
         /^---$/ { count++; if (count == 2) exit; next }
         count == 1 { print }
     ' "$fpath")
@@ -291,14 +294,39 @@ for fpath in "$AGENTS_DIR"/*.md; do
     # Extract only lines under the tools: key until next non-list line
     # (handles both "tools: [A, B]" and list-form "  - Tool")
     tools_section=$(echo "$frontmatter" | awk '
+        { sub(/\r$/, "") }
         /^tools:/ { in_tools=1; line=$0; sub(/^tools:[ \t]*/, "", line); if (line != "") print line; next }
         in_tools && /^  - / { sub(/^  - /, ""); print; next }
         in_tools && /^[a-zA-Z]/ { exit }
         in_tools && /^\[/ { gsub(/[\[\]]/, ""); gsub(/,/, "\n"); print; exit }
     ')
 
-    # Normalise: split comma-separated or newline-separated values
-    tool_list=$(echo "$tools_section" | tr ',' '\n' | sed 's/^[ \t]*//;s/[ \t]*$//' | grep -v '^$')
+    # Normalise: split comma-separated or newline-separated values.
+    # POSIX [[:space:]] — NOT [ \t], which on BSD/macOS sed is the literal
+    # character class {space, backslash, t} and strips a trailing 't'
+    # (e.g. "Edit" -> "Edi").
+    tool_list=$(echo "$tools_section" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$')
+
+    # Loud-fail (Odin/Checkpoint A corr #4): a persona whose frontmatter or
+    # tools: extraction comes back empty is a parser/file problem, not a
+    # clean pass. Silent success here is exactly what hid the CRLF bug.
+    if [ -z "$frontmatter" ]; then
+        fail "$fname: frontmatter/tools extraction empty — parser or file malformed"
+        check5_pass=false
+        continue
+    fi
+
+    if ! echo "$frontmatter" | grep -q '^tools:'; then
+        fail "$fname: no 'tools:' key found in frontmatter — parser or file malformed"
+        check5_pass=false
+        continue
+    fi
+
+    if [ -z "$tool_list" ]; then
+        fail "$fname: frontmatter/tools extraction empty — parser or file malformed"
+        check5_pass=false
+        continue
+    fi
 
     while IFS= read -r tool; do
         [[ -z "$tool" ]] && continue
