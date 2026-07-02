@@ -311,19 +311,19 @@ for fpath in "$AGENTS_DIR"/*.md; do
     # tools: extraction comes back empty is a parser/file problem, not a
     # clean pass. Silent success here is exactly what hid the CRLF bug.
     if [ -z "$frontmatter" ]; then
-        fail "$fname: frontmatter/tools extraction empty — parser or file malformed"
+        fail "$fname: no YAML frontmatter block parsed — file malformed or missing --- fences"
         check5_pass=false
         continue
     fi
 
     if ! echo "$frontmatter" | grep -q '^tools:'; then
-        fail "$fname: no 'tools:' key found in frontmatter — parser or file malformed"
+        fail "$fname: no 'tools:' key in frontmatter — every persona must declare the explicit tool baseline (Read Write Edit Glob Grep Bash); absent key means inherit-all, which the tool-exceptions audit disallows"
         check5_pass=false
         continue
     fi
 
     if [ -z "$tool_list" ]; then
-        fail "$fname: frontmatter/tools extraction empty — parser or file malformed"
+        fail "$fname: 'tools:' key present but no tool entries extracted — check list formatting"
         check5_pass=false
         continue
     fi
