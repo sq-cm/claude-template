@@ -8,6 +8,7 @@ input=$(cat)
 SESSION_ID=""
 _in=0
 _out=0
+COST_USD=0
 
 if command -v jq >/dev/null 2>&1; then
     # --- jq path ---
@@ -18,6 +19,7 @@ if command -v jq >/dev/null 2>&1; then
     _in=$(printf '%s' "$input" | jq -r '.context_window.total_input_tokens // 0' 2>/dev/null || echo "0")
     _out=$(printf '%s' "$input" | jq -r '.context_window.total_output_tokens // 0' 2>/dev/null || echo "0")
     SESSION_ID=$(printf '%s' "$input" | jq -r '.session_id // ""' 2>/dev/null || echo "")
+    COST_USD=$(printf '%s' "$input" | jq -r '.cost.total_cost_usd // 0' 2>/dev/null || echo "0")
     SESSION_TOKENS=$(( _in + _out ))
 
 else
@@ -45,11 +47,12 @@ try:
     tin = cw.get('total_input_tokens', 0) or 0
     tout = cw.get('total_output_tokens', 0) or 0
     sid = d.get('session_id') or ''
-    print('\t'.join([str(pct), name, mid, proj, str(tin), str(tout), sid]))
+    cost = d.get('cost', {}).get('total_cost_usd', 0) or 0
+    print('\t'.join([str(pct), name, mid, proj, str(tin), str(tout), sid, str(cost)]))
 except Exception:
-    print('0\t\t\t\t0\t0\t')
+    print('0\t\t\t\t0\t0\t\t0')
 " 2>/dev/null)
-        IFS=$'\t' read -r CONTEXT_WINDOW_USED_PERCENTAGE MODEL_DISPLAY_NAME MODEL_ID WORKSPACE_PROJECT_DIR _in _out SESSION_ID <<< "$_parsed"
+        IFS=$'\t' read -r CONTEXT_WINDOW_USED_PERCENTAGE MODEL_DISPLAY_NAME MODEL_ID WORKSPACE_PROJECT_DIR _in _out SESSION_ID COST_USD <<< "$_parsed"
         SESSION_TOKENS=$(( _in + _out ))
     else
         # --- static fallback (neither jq nor Python available) ---
@@ -58,6 +61,7 @@ except Exception:
         MODEL_ID=""
         WORKSPACE_PROJECT_DIR="$(basename "$(pwd)" 2>/dev/null || echo "")"
         SESSION_TOKENS=0
+        COST_USD=0
     fi
 fi
 
@@ -98,6 +102,16 @@ IN_FMT=$(fmt_k "$_in")
 OUT_FMT=$(fmt_k "$_out")
 
 # ---------------------------------------------------------------------------
+# Session cost — Claude Code's own estimate from the payload (matches /usage).
+# Hidden when zero/absent (older CC versions, static fallback).
+# ---------------------------------------------------------------------------
+COST_FMT=""
+case "$COST_USD" in
+    ''|null|0|0.0) ;;
+    *) COST_FMT=" | 💸 \$$(awk -v c="$COST_USD" 'BEGIN{printf "%.2f", c}')" ;;
+esac
+
+# ---------------------------------------------------------------------------
 # Threshold emoji based on context window %
 # ---------------------------------------------------------------------------
 PCT_NUM=$CONTEXT_WINDOW_USED_PERCENTAGE
@@ -125,21 +139,6 @@ case "$_model_lc" in
 esac
 
 # ---------------------------------------------------------------------------
-# Cost estimate — model-aware per-million pricing (input + output approximation)
-# Cache discount not exposed in payload; treats all input as full-rate (upper bound).
-# ---------------------------------------------------------------------------
-_model_lc=$(printf '%s' "${MODEL_ID}${MODEL_DISPLAY_NAME}" | tr '[:upper:]' '[:lower:]')
-case "$_model_lc" in
-    *fable*)  IN_RATE=10;   OUT_RATE=50 ;;
-    *opus*)   IN_RATE=15;   OUT_RATE=75 ;;
-    *sonnet*) IN_RATE=3;    OUT_RATE=15 ;;
-    *haiku*)  IN_RATE=0.80; OUT_RATE=4  ;;
-    *)        IN_RATE=3;    OUT_RATE=15 ;;
-esac
-COST=$(awk -v i="$_in" -v o="$_out" -v ir="$IN_RATE" -v or="$OUT_RATE" \
-    'BEGIN{printf "%.2f", (i*ir + o*or)/1000000}')
-
-# ---------------------------------------------------------------------------
 # Delta since last turn — state in temp dir keyed by session id
 # ---------------------------------------------------------------------------
 DELTA_FMT=""
@@ -159,4 +158,4 @@ fi
 # ---------------------------------------------------------------------------
 # Output
 # ---------------------------------------------------------------------------
-echo "🧠 ${CONTEXT_WINDOW_USED_PERCENTAGE}% | ${BURN_EMOJI} ${IN_FMT}↑ ${OUT_FMT}↓ | ${MODEL_EMOJI} $MODEL_DISPLAY_NAME | 📁 $WORKSPACE_PROJECT_DIR${GIT_BRANCH}"
+echo "🧠 ${CONTEXT_WINDOW_USED_PERCENTAGE}% | ${BURN_EMOJI} ${IN_FMT}↑ ${OUT_FMT}↓${COST_FMT} | ${MODEL_EMOJI} $MODEL_DISPLAY_NAME | 📁 $WORKSPACE_PROJECT_DIR${GIT_BRANCH}"
