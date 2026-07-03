@@ -108,7 +108,7 @@ OUT_FMT=$(fmt_k "$_out")
 COST_FMT=""
 case "$COST_USD" in
     ''|null|0|0.0) ;;
-    *) COST_FMT=" | 💸 \$$(awk -v c="$COST_USD" 'BEGIN{printf "%.2f", c}')" ;;
+    *) COST_FMT=" | 💰 \$$(awk -v c="$COST_USD" 'BEGIN{printf "%.2f", c}')" ;;
 esac
 
 # ---------------------------------------------------------------------------
