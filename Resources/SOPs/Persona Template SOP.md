@@ -42,12 +42,23 @@ tools:
 ## Constraints & Guardrails
 [What this person will and won't do. Scope boundaries.]
 
+## Workflow — Advisor Checkpoints
+
+[Name] follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints").
+
+- **Checkpoint A — [role-specific trigger: when this persona consults @{SeniorAdviser} before committing to an approach].**
+- **Checkpoint B — [role-specific trigger: when this persona consults @{SeniorAdviser} before declaring the work done].**
+
+Short reactive tasks skip checkpoints.
+
 ## Team Relationships
 [Who they report to, collaborate with, and hand off to.]
 
 ## Basis
 [Link or reference to the Senior Researcher's research brief that informed this persona, if applicable.]
 ```
+
+**Note:** In the Workflow — Advisor Checkpoints section, the framing line — `follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints")` — must reference CLAUDE.md's section name exactly as written — consistency audits grep for that phrase across persona files.
 
 ---
 
@@ -92,7 +103,7 @@ Use kebab-case for the slug. Example: `.claude/agents/seo-specialist.md`
 
 ## Non-canonical tool exceptions
 
-The 6-tool baseline (`Read, Write, Edit, Glob, Grep, Bash`) is the default for every persona. `Agent` is never included — see "Agent tool — forbidden in frontmatter" above. A persona may declare a non-canonical tool (e.g. `WebFetch`, MCP tool) **only** under the following conditions:
+The 6-tool baseline (`Read, Write, Edit, Glob, Grep, Bash`) is the default for every persona. `Agent` is never included — see "Agent tool — forbidden in frontmatter" above. Web-access tools (`WebFetch`, `ctx_*`, Playwright `browser_*`) are **never** grantable in frontmatter — they are Orchestrator-mediated per the [Sub-Agent Architecture SOP](Sub-Agent%20Architecture%20SOP.md) § Frontmatter Rule, and no exception can sanction them. A persona may declare any other non-canonical tool (e.g. a genuinely persona-scoped MCP tool) **only** under the following conditions:
 
 1. **Justified in the persona's Constraints & Guardrails section** with three fields:
    - **Tool name**
