@@ -1,5 +1,4 @@
 {
-  "git.enabled": false,
   "claudeCode.initialPermissionMode": "plan",
   "claudeCode.autosave": true,
   "claudeCode.useTerminal": true,
