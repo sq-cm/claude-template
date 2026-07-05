@@ -81,7 +81,7 @@ Exceptions — keep sequential:
 
 Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. For `improve` and other fan-out meta-skills, see [§ Orchestrator-Only Operations](#orchestrator-only-operations). Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
-**Web fetch & visual eval are Orchestrator-mediated.** A dispatched persona **must not** fetch live web content or drive a browser itself — even though those tools (`WebFetch`, `ctx_*`, Playwright `browser_*`) are technically reachable from inside a sub-agent. Self-service is prohibited by policy, and the environment actively polices it at the point of attempt (persona refusal plus the auto-mode classifier). When a persona needs live data, it names the URL or artefact and what it needs judged in its fan-out spec; the Orchestrator supplies it from the main session:
+**Web fetch & visual eval are Orchestrator-mediated.** A dispatched persona **must not** fetch live web content or drive a browser itself — even though those tools (`WebFetch`, `ctx_*`, Playwright `browser_*`) are technically reachable from inside a sub-agent. Self-service is prohibited by policy, and the environment actively polices it at the point of attempt (persona refusal plus the auto-mode classifier). When a persona needs live data, it names the URL or artefact and what it needs judged in its fan-out spec; the Orchestrator supplies it from the main session.
 
 Lane A (research fetch) and Lane B (visual eval) mechanics: [Sub-Agent Architecture SOP § Web Fetch & Visual Eval](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
