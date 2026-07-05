@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 8 read-only checks to verify the vault's structural invariants.
+# Runs 10 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -25,9 +25,13 @@
 #   Check 6  — broken internal markdown link
 #   Check 7  — live agent/skill count does not match README assertion
 #   Check 8  — required seed file missing
+#   Check 9  — settings.json hook/statusLine script path does not exist
+#   Check 10 — persona model: pin missing or outside documented tiers
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
+#   Check 9  — prose `/command` reference with no command file, skill, or built-in
+#   Check 10 — claude-fable-5 pin count differs from FABLE_PIN_COUNT tripwire
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -473,6 +477,113 @@ for sf in "${seed_files[@]}"; do
 done
 
 $check8_pass && pass "All required seed files present"
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 9 — reference integrity: settings.json script paths + command files
+#
+# (a) Every .claude/…/*.sh path embedded in .claude/settings.json "command"
+#     strings (hooks and statusLine alike) must exist relative to repo root.
+#     A renamed hook otherwise fails silently at session start — the same
+#     silent-failure class as the #98 CRLF bug. → FAIL
+# (b) Every `/name` prose reference in CLAUDE.md and .claude/hooks/*.sh should
+#     resolve to .claude/commands/<name>.md, a .claude/skills/<name>/ dir, or a
+#     known built-in. → WARN only (prose legitimately names plugin skills).
+#
+# grep -o over the JSON matches repo style; -E only, never -P.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 9: Reference integrity (settings.json scripts + command files) ---"
+check9_pass=true
+SETTINGS_FILE="$PROJECT_ROOT/.claude/settings.json"
+
+if [ ! -f "$SETTINGS_FILE" ]; then
+    fail ".claude/settings.json not found — cannot verify hook/statusLine script paths"
+    check9_pass=false
+else
+    settings_script_paths=$(grep -Eo '\.claude/[A-Za-z0-9_./-]+\.sh' "$SETTINGS_FILE" | sort -u)
+
+    # Loud-fail: zero extracted paths means the extraction pattern broke or the
+    # hooks were removed — either way, not a clean pass (cf. Check 5's guard).
+    if [ -z "$settings_script_paths" ]; then
+        fail "No .claude/*.sh script paths extracted from settings.json — extraction pattern broken or hooks removed"
+        check9_pass=false
+    fi
+
+    while IFS= read -r script_path; do
+        [ -z "$script_path" ] && continue
+        if [ ! -f "$PROJECT_ROOT/$script_path" ]; then
+            fail "settings.json references missing script: $script_path"
+            check9_pass=false
+        fi
+    done < <(echo "$settings_script_paths")
+fi
+
+$check9_pass && pass "All settings.json script references resolve"
+
+# WARN pass: `/name` prose references in CLAUDE.md and hook scripts
+BUILTIN_COMMANDS="clear model config context usage fast"
+command_refs=$(grep -Eho '`/[a-z][a-z0-9-]+`' "$PROJECT_ROOT/CLAUDE.md" \
+    "$PROJECT_ROOT/.claude/hooks/"*.sh 2>/dev/null | sed 's/`//g; s|^/||' | sort -u)
+while IFS= read -r cmd; do
+    [ -z "$cmd" ] && continue
+    echo "$BUILTIN_COMMANDS" | grep -qw "$cmd" && continue
+    [ -f "$PROJECT_ROOT/.claude/commands/$cmd.md" ] && continue
+    [ -d "$PROJECT_ROOT/.claude/skills/$cmd" ] && continue
+    warn "Prose reference '/$cmd' has no .claude/commands/$cmd.md and is not a built-in or local skill (non-fatal)"
+done < <(echo "$command_refs")
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 10 — persona model: pins match documented tiers
+#
+# Allowed set per Persona Template SOP § Model assignment (post-plan-012).
+# Frontmatter extraction reuses Check 5's CRLF-proof awk idiom.
+#
+# FABLE_PIN_COUNT is a deliberate hire/revert tripwire (same pattern as
+# Check 7's EXPECTED_* constants): any Fable promotion/revert must consciously
+# update it — the full Fable-window revert sets it to 0.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 10: Persona model pins match documented tiers ---"
+check10_pass=true
+ALLOWED_MODELS="claude-fable-5 claude-sonnet-5 claude-opus-4-8"
+FABLE_PIN_COUNT=9
+fable_pin_live=0
+
+for fpath in "$AGENTS_DIR"/*.md; do
+    fname=$(basename "$fpath")
+
+    # Same CRLF-proof first-frontmatter-block extraction as Check 5
+    frontmatter=$(awk '
+        { sub(/\r$/, "") }
+        /^---$/ { count++; if (count == 2) exit; next }
+        count == 1 { print }
+    ' "$fpath")
+
+    model_pin=$(echo "$frontmatter" | sed -n 's/^model:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
+
+    if [ -z "$model_pin" ]; then
+        fail "$fname: no 'model:' pin in frontmatter — every persona must pin a documented tier"
+        check10_pass=false
+        continue
+    fi
+
+    # Exact whole-value match against the allowed set (no -w: pins contain hyphens)
+    case " $ALLOWED_MODELS " in
+        *" $model_pin "*) : ;;
+        *)
+            fail "$fname: model pin '$model_pin' not in documented tiers ($ALLOWED_MODELS) — typo or undocumented model"
+            check10_pass=false
+            ;;
+    esac
+
+    [ "$model_pin" = "claude-fable-5" ] && ((fable_pin_live++))
+done
+
+if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
+    warn "claude-fable-5 pin count is $fable_pin_live, tripwire expects $FABLE_PIN_COUNT — update FABLE_PIN_COUNT in this script on any Fable promotion/revert (that is its job)"
+fi
+
+$check10_pass && pass "All persona model pins match documented tiers"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────
