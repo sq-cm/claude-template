@@ -13,7 +13,7 @@ Invoke this fallback when an Advisor Checkpoint call:
 - Returns a blank or clearly truncated response (< 3 enumerated items)
 - Does not complete within a reasonable session window
 
-> **Not this fallback:** a deterministic `cannot be used as an advisor when the request model is '<model>'` error is a *config* failure, not a transient outage — retrying will fail identically. It means the `advisorModel` setting is weaker than the gatekeeper's request model. Odin and Quinn run on `claude-opus-4-8`, which pairs with the default advisor, so this should not occur unless a gatekeeper is pinned to a stronger flagship without raising `advisorModel` to match (see Advisor Checkpoints SOP § pairing). Do not substitute self-review for it — correct the setting and re-dispatch.
+> **Not this fallback:** a deterministic `cannot be used as an advisor when the request model is '<model>'` error is a *config* failure, not a transient outage — retrying will fail identically. It means the `advisorModel` setting (user-level) is weaker than the gatekeeper's request model. Odin and Quinn run on `claude-fable-5` (Fable 5 availability window; revert to `claude-opus-4-8` when it lapses), so this error occurs when `advisorModel` has not been raised to at least that tier (see Advisor Checkpoints SOP § pairing). Do not substitute self-review for it — correct the setting and re-dispatch.
 
 ---
 

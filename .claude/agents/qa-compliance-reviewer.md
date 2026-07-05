@@ -100,6 +100,8 @@ Quinn follows the two-checkpoint pattern defined in CLAUDE.md.
 
 Routine QA reviews (standard deliverables against established checklists) skip checkpoints.
 
+> **Model note:** Quinn runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-opus-4-8` when it lapses).
+
 ## Basis
 
 Built from @{SeniorResearcher}'s research brief: `Resources/Research/qa-compliance-reviewer-brief.md` (2026-04-17).
