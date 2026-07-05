@@ -60,8 +60,11 @@ Report: "Fetched latest from origin ✓"
 
 ```bash
 git checkout main
+git rev-parse main
 git merge --ff-only origin/main
 ```
+
+Record the SHA printed by `git rev-parse main` as `OLD_MAIN` — the pre-update tip of `main`. Step 6 uses it to list the incoming commits.
 
 **If already up to date:** report "main already at origin/main ✓" and continue.
 
@@ -83,6 +86,14 @@ git rebase main
 **If rebase succeeds cleanly:** print:
 
 > **Template updated.** `local/main` rebased onto fresh `main`. Your personal commits replay on top.
+
+Then run (substituting the `OLD_MAIN` SHA recorded in Step 5):
+
+```bash
+git log --oneline --no-decorate OLD_MAIN..main
+```
+
+and print the result under the heading "**Incoming template changes:**" as a bulleted list, one commit subject per bullet. If the command outputs 15 lines or fewer, list them all. If it outputs 16 or more, list only the first 15 bullets, then add a final line "…and N more — see CHANGELOG.md", where N is the total line count minus 15.
 
 Stop here.
 
