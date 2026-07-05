@@ -35,18 +35,9 @@ synced_count=0
 already_synced=0
 error_count=0
 
-# Look up an agent filename for a token using the markdown path table in the map file.
-# Table format: | Token | `filename.md` |
-get_file_for_token() {
-    local token="$1"
-    awk -F'|' -v tok="$token" '
-        $0 ~ /\.md`/ {
-            t = $2; gsub(/^[ \t]+|[ \t]+$/, "", t)
-            f = $3; gsub(/^[ \t]+|[ \t]+$/, "", f); gsub(/`/, "", f)
-            if (t == tok) { print f; exit }
-        }
-    ' "$MAP_FILE"
-}
+# Shared theme-map parser: get_file_for_token, load_yaml_lines, etc.
+# Schema changes edit lib/map-parse.sh once (validate.sh sources it too).
+source "$SCRIPT_DIR/lib/map-parse.sh"
 
 # Replace the Name portion of an H1 line. Preserves the " — Role Label" tail verbatim.
 # Returns 0 on success and writes the new header to stdout; returns 1 if the header
@@ -66,8 +57,7 @@ rewrite_h1() {
 }
 
 # Extract YAML mappings (lines between ```yaml and ```)
-# Anchor to lines starting with an ASCII letter to avoid catching values that contain a colon.
-yaml_lines=$(sed -n '/```yaml/,/```/p' "$MAP_FILE" | grep -v '```' | grep -E '^[A-Za-z][A-Za-z0-9_]*:')
+yaml_lines=$(load_yaml_lines "$MAP_FILE")
 
 while IFS= read -r line; do
     # Skip empty lines and comments

@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 8 read-only checks to verify the vault's structural invariants.
+# Runs 10 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -25,9 +25,13 @@
 #   Check 6  — broken internal markdown link
 #   Check 7  — live agent/skill count does not match README assertion
 #   Check 8  — required seed file missing
+#   Check 9  — settings.json hook/statusLine script path does not exist
+#   Check 10 — persona model: pin missing or outside documented tiers
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
+#   Check 9  — prose `/command` reference with no command file, skill, or built-in
+#   Check 10 — claude-fable-5 pin count differs from FABLE_PIN_COUNT tripwire
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -79,56 +83,14 @@ if [ ! -f "$MAP_FILE" ]; then
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Shared helpers: extract tokens and path-table entries from the map file
-# (mirrors sync-theme.sh patterns)
+# Shared theme-map parser (also sourced by sync-theme.sh): load_yaml_lines,
+# get_yaml_tokens, get_path_table_files, get_path_table_tokens,
+# get_file_for_token. Schema changes edit lib/map-parse.sh once.
 # ──────────────────────────────────────────────────────────────────────────────
+source "$SCRIPT_DIR/lib/map-parse.sh"
 
-# All YAML token lines (same extraction as sync-theme.sh line 70)
-yaml_lines=$(sed -n '/```yaml/,/```/p' "$MAP_FILE" | grep -v '```' | grep -E '^[A-Za-z][A-Za-z0-9_]*:')
-
-# Extract all tokens from YAML block, excluding Studio and Orchestrator carve-outs
-get_yaml_tokens() {
-    echo "$yaml_lines" | while IFS= read -r line; do
-        [[ -z "$line" || "$line" == \#* ]] && continue
-        line="${line%%#*}"
-        token=$(echo "$line" | cut -d: -f1 | xargs)
-        [[ "$token" == "Studio" ]] && continue
-        [[ "$token" == "Orchestrator" ]] && continue
-        echo "$token"
-    done
-}
-
-# Extract all filename.md values from the path table (awk pattern from sync-theme.sh lines 42-48)
-get_path_table_files() {
-    awk -F'|' '
-        $0 ~ /\.md`/ {
-            f = $3; gsub(/^[ \t]+|[ \t]+$/, "", f); gsub(/`/, "", f)
-            if (f != "") print f
-        }
-    ' "$MAP_FILE"
-}
-
-# Extract all token values from the path table
-get_path_table_tokens() {
-    awk -F'|' '
-        $0 ~ /\.md`/ {
-            t = $2; gsub(/^[ \t]+|[ \t]+$/, "", t)
-            if (t != "") print t
-        }
-    ' "$MAP_FILE"
-}
-
-# Look up filename for a token (sync-theme.sh get_file_for_token)
-get_file_for_token() {
-    local token="$1"
-    awk -F'|' -v tok="$token" '
-        $0 ~ /\.md`/ {
-            t = $2; gsub(/^[ \t]+|[ \t]+$/, "", t)
-            f = $3; gsub(/^[ \t]+|[ \t]+$/, "", f); gsub(/`/, "", f)
-            if (t == tok) { print f; exit }
-        }
-    ' "$MAP_FILE"
-}
+# All YAML token lines
+yaml_lines=$(load_yaml_lines "$MAP_FILE")
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Check 1 — every `filename.md` in the path table exists in .claude/agents/
@@ -435,7 +397,11 @@ echo ""
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
 # "N reusable skill modules") — not the prose mention around line 58.
 # Count reconciled at 26 (ponytail adoption: added code-minimalism-review).
-# README.md line ~165 and this constant move together when a skill is added or removed.
+#
+# EXPECTED_* below are a deliberate tripwire, not redundancy: adding or removing
+# a skill or persona must consciously touch this file, README.md, and the docs
+# together. Do not replace with live-derived counts. (Audit 2026-07-05, Senior
+# Adviser ruling.)
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 7: Doc counts match README assertions ---"
 check7_pass=true
@@ -511,6 +477,113 @@ for sf in "${seed_files[@]}"; do
 done
 
 $check8_pass && pass "All required seed files present"
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 9 — reference integrity: settings.json script paths + command files
+#
+# (a) Every .claude/…/*.sh path embedded in .claude/settings.json "command"
+#     strings (hooks and statusLine alike) must exist relative to repo root.
+#     A renamed hook otherwise fails silently at session start — the same
+#     silent-failure class as the #98 CRLF bug. → FAIL
+# (b) Every `/name` prose reference in CLAUDE.md and .claude/hooks/*.sh should
+#     resolve to .claude/commands/<name>.md, a .claude/skills/<name>/ dir, or a
+#     known built-in. → WARN only (prose legitimately names plugin skills).
+#
+# grep -o over the JSON matches repo style; -E only, never -P.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 9: Reference integrity (settings.json scripts + command files) ---"
+check9_pass=true
+SETTINGS_FILE="$PROJECT_ROOT/.claude/settings.json"
+
+if [ ! -f "$SETTINGS_FILE" ]; then
+    fail ".claude/settings.json not found — cannot verify hook/statusLine script paths"
+    check9_pass=false
+else
+    settings_script_paths=$(grep -Eo '\.claude/[A-Za-z0-9_./-]+\.sh' "$SETTINGS_FILE" | sort -u)
+
+    # Loud-fail: zero extracted paths means the extraction pattern broke or the
+    # hooks were removed — either way, not a clean pass (cf. Check 5's guard).
+    if [ -z "$settings_script_paths" ]; then
+        fail "No .claude/*.sh script paths extracted from settings.json — extraction pattern broken or hooks removed"
+        check9_pass=false
+    fi
+
+    while IFS= read -r script_path; do
+        [ -z "$script_path" ] && continue
+        if [ ! -f "$PROJECT_ROOT/$script_path" ]; then
+            fail "settings.json references missing script: $script_path"
+            check9_pass=false
+        fi
+    done < <(echo "$settings_script_paths")
+fi
+
+$check9_pass && pass "All settings.json script references resolve"
+
+# WARN pass: `/name` prose references in CLAUDE.md and hook scripts
+BUILTIN_COMMANDS="clear model config context usage fast"
+command_refs=$(grep -Eho '`/[a-z][a-z0-9-]+`' "$PROJECT_ROOT/CLAUDE.md" \
+    "$PROJECT_ROOT/.claude/hooks/"*.sh 2>/dev/null | sed 's/`//g; s|^/||' | sort -u)
+while IFS= read -r cmd; do
+    [ -z "$cmd" ] && continue
+    echo "$BUILTIN_COMMANDS" | grep -qw "$cmd" && continue
+    [ -f "$PROJECT_ROOT/.claude/commands/$cmd.md" ] && continue
+    [ -d "$PROJECT_ROOT/.claude/skills/$cmd" ] && continue
+    warn "Prose reference '/$cmd' has no .claude/commands/$cmd.md and is not a built-in or local skill (non-fatal)"
+done < <(echo "$command_refs")
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 10 — persona model: pins match documented tiers
+#
+# Allowed set per Persona Template SOP § Model assignment (post-plan-012).
+# Frontmatter extraction reuses Check 5's CRLF-proof awk idiom.
+#
+# FABLE_PIN_COUNT is a deliberate hire/revert tripwire (same pattern as
+# Check 7's EXPECTED_* constants): any Fable promotion/revert must consciously
+# update it — the full Fable-window revert sets it to 0.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 10: Persona model pins match documented tiers ---"
+check10_pass=true
+ALLOWED_MODELS="claude-fable-5 claude-sonnet-5 claude-opus-4-8"
+FABLE_PIN_COUNT=9
+fable_pin_live=0
+
+for fpath in "$AGENTS_DIR"/*.md; do
+    fname=$(basename "$fpath")
+
+    # Same CRLF-proof first-frontmatter-block extraction as Check 5
+    frontmatter=$(awk '
+        { sub(/\r$/, "") }
+        /^---$/ { count++; if (count == 2) exit; next }
+        count == 1 { print }
+    ' "$fpath")
+
+    model_pin=$(echo "$frontmatter" | sed -n 's/^model:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
+
+    if [ -z "$model_pin" ]; then
+        fail "$fname: no 'model:' pin in frontmatter — every persona must pin a documented tier"
+        check10_pass=false
+        continue
+    fi
+
+    # Exact whole-value match against the allowed set (no -w: pins contain hyphens)
+    case " $ALLOWED_MODELS " in
+        *" $model_pin "*) : ;;
+        *)
+            fail "$fname: model pin '$model_pin' not in documented tiers ($ALLOWED_MODELS) — typo or undocumented model"
+            check10_pass=false
+            ;;
+    esac
+
+    [ "$model_pin" = "claude-fable-5" ] && ((fable_pin_live++))
+done
+
+if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
+    warn "claude-fable-5 pin count is $fable_pin_live, tripwire expects $FABLE_PIN_COUNT — update FABLE_PIN_COUNT in this script on any Fable promotion/revert (that is its job)"
+fi
+
+$check10_pass && pass "All persona model pins match documented tiers"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────
