@@ -1,6 +1,8 @@
 ---
 name: obsidian-bases
 description: Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.
+adapted_from: https://github.com/kepano/obsidian-skills
+upstream_commit: a1dc48e68138490d522c04cbf5822214c6eb1202
 ---
 
 # Obsidian Bases Skill
@@ -22,10 +24,11 @@ Base files use the `.base` extension and contain valid YAML.
 # Global filters apply to ALL views in the base
 filters:
   # Can be a single filter string
-  # OR a recursive filter object with and/or/not
-  and: []
-  or: []
-  not: []
+  # OR a recursive filter object with exactly ONE key: and, or, or not
+  and:
+    - 'status == "active"'
+    - not:
+        - 'file.hasTag("archived")'
 
 # Define formula properties that can be used across all views
 formulas:
@@ -52,8 +55,9 @@ views:
     groupBy:                     # Optional: group results
       property: property_name
       direction: ASC | DESC
-    filters:                     # View-specific filters
-      and: []
+    filters:                     # View-specific filters follow the same rules
+      and:
+        - 'status == "active"'
     order:                       # Properties to display in order
       - file.name
       - property_name
