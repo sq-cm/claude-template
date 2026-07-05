@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # load-context.sh — fences cat'd context files as REFERENCE DATA (plan 005).
 # $1 = label text  $2 = repo-relative path to file  $3 = optional not-found message
-# Must ALWAYS exit 0 — a non-zero UserPromptSubmit hook blocks the prompt.
+# Must ALWAYS exit 0 — a failing SessionStart hook breaks session startup context loading (wired under SessionStart in .claude/settings.json since #88).
 
 set -u
 
