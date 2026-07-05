@@ -55,9 +55,6 @@ if not exist "Vault\Memory\context.md" (
   echo      Vault\Memory\context.md already exists, skipping
 )
 
-:: 4. herdr terminal multiplexer + Claude integration + agent skill (non-fatal)
-powershell -NoProfile -ExecutionPolicy Bypass -File "Vault\Scripts\herdr-launch.ps1" -InstallOnly
-
 echo.
 if "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" (
   echo Maintainer install complete.
