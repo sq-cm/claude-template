@@ -79,56 +79,14 @@ if [ ! -f "$MAP_FILE" ]; then
 fi
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Shared helpers: extract tokens and path-table entries from the map file
-# (mirrors sync-theme.sh patterns)
+# Shared theme-map parser (also sourced by sync-theme.sh): load_yaml_lines,
+# get_yaml_tokens, get_path_table_files, get_path_table_tokens,
+# get_file_for_token. Schema changes edit lib/map-parse.sh once.
 # ──────────────────────────────────────────────────────────────────────────────
+source "$SCRIPT_DIR/lib/map-parse.sh"
 
-# All YAML token lines (same extraction as sync-theme.sh line 70)
-yaml_lines=$(sed -n '/```yaml/,/```/p' "$MAP_FILE" | grep -v '```' | grep -E '^[A-Za-z][A-Za-z0-9_]*:')
-
-# Extract all tokens from YAML block, excluding Studio and Orchestrator carve-outs
-get_yaml_tokens() {
-    echo "$yaml_lines" | while IFS= read -r line; do
-        [[ -z "$line" || "$line" == \#* ]] && continue
-        line="${line%%#*}"
-        token=$(echo "$line" | cut -d: -f1 | xargs)
-        [[ "$token" == "Studio" ]] && continue
-        [[ "$token" == "Orchestrator" ]] && continue
-        echo "$token"
-    done
-}
-
-# Extract all filename.md values from the path table (awk pattern from sync-theme.sh lines 42-48)
-get_path_table_files() {
-    awk -F'|' '
-        $0 ~ /\.md`/ {
-            f = $3; gsub(/^[ \t]+|[ \t]+$/, "", f); gsub(/`/, "", f)
-            if (f != "") print f
-        }
-    ' "$MAP_FILE"
-}
-
-# Extract all token values from the path table
-get_path_table_tokens() {
-    awk -F'|' '
-        $0 ~ /\.md`/ {
-            t = $2; gsub(/^[ \t]+|[ \t]+$/, "", t)
-            if (t != "") print t
-        }
-    ' "$MAP_FILE"
-}
-
-# Look up filename for a token (sync-theme.sh get_file_for_token)
-get_file_for_token() {
-    local token="$1"
-    awk -F'|' -v tok="$token" '
-        $0 ~ /\.md`/ {
-            t = $2; gsub(/^[ \t]+|[ \t]+$/, "", t)
-            f = $3; gsub(/^[ \t]+|[ \t]+$/, "", f); gsub(/`/, "", f)
-            if (t == tok) { print f; exit }
-        }
-    ' "$MAP_FILE"
-}
+# All YAML token lines
+yaml_lines=$(load_yaml_lines "$MAP_FILE")
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Check 1 — every `filename.md` in the path table exists in .claude/agents/
