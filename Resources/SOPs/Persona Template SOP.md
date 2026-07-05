@@ -42,12 +42,23 @@ tools:
 ## Constraints & Guardrails
 [What this person will and won't do. Scope boundaries.]
 
+## Workflow — Advisor Checkpoints
+
+[Name] follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints").
+
+- **Checkpoint A — [role-specific trigger: when this persona consults @{SeniorAdviser} before committing to an approach].**
+- **Checkpoint B — [role-specific trigger: when this persona consults @{SeniorAdviser} before declaring the work done].**
+
+Short reactive tasks skip checkpoints.
+
 ## Team Relationships
 [Who they report to, collaborate with, and hand off to.]
 
 ## Basis
 [Link or reference to the Senior Researcher's research brief that informed this persona, if applicable.]
 ```
+
+**Note:** In the Workflow — Advisor Checkpoints section, the framing line — `follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints")` — must reference CLAUDE.md's section name exactly as written — consistency audits grep for that phrase across persona files.
 
 ---
 
