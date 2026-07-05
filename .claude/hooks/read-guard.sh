@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# read-guard.sh — PreToolUse hook (matcher: Read).
+# Blocks unbounded Read calls on files over LIMIT lines; bounded reads
+# (any `offset` or `limit` in the tool input) always pass, so
+# Edit-prerequisite reads of large files still work via offset/limit.
+# Exit 2 blocks the tool call and feeds stderr back to Claude as guidance.
+# Ported from cc-token-demos/block-huge-reads (Python original), adapted
+# to bash+jq for consistency with this repo's other hooks, with the
+# offset/limit pass-through and a 1000-line threshold per Odin's
+# checkpoint amendments.
+
+LIMIT=1000
+
+INPUT=$(cat)
+
+# jq missing → fail open (never brick the Read tool over a dependency)
+command -v jq >/dev/null 2>&1 || exit 0
+
+FILE_PATH=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
+[ -n "$FILE_PATH" ] || exit 0
+
+# Bounded read (offset or limit supplied) → pass
+BOUNDED=$(printf '%s' "$INPUT" | jq -r '(.tool_input.offset // .tool_input.limit) // empty' 2>/dev/null)
+[ -n "$BOUNDED" ] && exit 0
+
+# Normalise Windows path for Git Bash if needed
+if command -v cygpath >/dev/null 2>&1 && printf '%s' "$FILE_PATH" | grep -q '^[A-Za-z]:'; then
+    FILE_PATH=$(cygpath -u "$FILE_PATH")
+fi
+
+# Unreadable/missing → pass; let the Read tool produce its own error
+[ -f "$FILE_PATH" ] && [ -r "$FILE_PATH" ] || exit 0
+
+LINES=$(wc -l < "$FILE_PATH" 2>/dev/null | tr -d '[:space:]')
+case "$LINES" in ''|*[!0-9]*) exit 0 ;; esac
+
+if [ "$LINES" -gt "$LIMIT" ]; then
+    echo "BLOCKED: $(basename "$FILE_PATH") is $LINES lines (unbounded-read limit $LIMIT). Re-read with offset/limit for the section you need, use Grep to locate it, or use ctx_execute_file to derive the answer in the sandbox." >&2
+    exit 2
+fi
+
+exit 0

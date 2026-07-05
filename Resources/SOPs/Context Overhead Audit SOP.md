@@ -1,0 +1,24 @@
+# Context Overhead Audit SOP
+
+Every enabled plugin, hook, MCP server, and memory file loads into context on **every session**, regardless of task size — fixed overhead that compounds across all sessions and silently erodes the working context window. This SOP is the recurring habit that keeps that overhead earning its keep.
+
+## When to run
+
+- Monthly, or
+- Whenever the statusline session cost looks high for routine work, or
+- After installing/enabling any new plugin, MCP server, or always-on hook.
+
+## Procedure
+
+1. **Measure.** Run `/context` at the start of a fresh session. Note the fixed overhead breakdown: system prompt, tool schemas, skills, MCP servers, memory.
+2. **Audit both scopes** — most overhead does *not* live in this repo:
+   - **Project scope:** `enabledPlugins` in `.claude/settings.json`, project hooks, and `.mcp.json` if one exists.
+   - **User-global scope:** `~/.claude/settings.json` (`C:\Users\<you>\.claude\` on Windows) — global plugins, hooks, and MCP servers load in every project's sessions, not just this vault's.
+3. **Check memory weight.** `Vault/Memory/MEMORY.md` and `context.md` load every prompt. If either has grown past ~150 lines, run `/memory-reconcile` housekeeping and prune stale entries per the [Memory Protocol SOP](Memory%20Protocol%20SOP.md).
+4. **Decide per item:** still earning its per-session token cost? If a plugin/server hasn't been used in a month of sessions, disable it — re-enabling later is one settings line.
+5. **Log.** Note anything disabled (and why) in a session note under `Vault/Memory/Sessions/` so `/memory-reconcile` folds it into local memory.
+
+## What this is not
+
+- Not a licence to strip governance hooks (SessionStart context loaders, validators) — those are load-bearing, not overhead.
+- Not a one-off: the value is in the recurrence. Fixed overhead only ever grows between audits.
