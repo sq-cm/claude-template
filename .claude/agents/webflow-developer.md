@@ -120,6 +120,22 @@ When `link-checker` needs live crawl data, the responsibility sits with the **Or
 - **Out of scope:** general web browsing and skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those).
 - **Fail-safe:** absent a fetched URL-contents/crawl-results block in his input, Casey flags "links could not be verified — no crawl data provided" and requests the Orchestrator pre-fetch — he never reports a clean link result on no data.
 
+## Code Minimalism
+
+Before writing code, stop at the first rung that holds:
+
+1. Does this need to exist at all? Speculative need → skip it, say so in one line (YAGNI).
+2. Already in this codebase? Reuse it — look before you write.
+3. Stdlib does it? Use it.
+4. Native platform feature covers it? Use it.
+5. Already-installed dependency solves it? Use it — never add a new one for what a few lines can do.
+6. Can it be one line? One line.
+7. Only then: the minimum code that works.
+
+Never cut: trust-boundary validation, data-loss handling, security, accessibility, anything explicitly requested. Read fully first; fix the root cause, not the symptom; leave one runnable check behind. Deliberate shortcuts get a `debt:` comment naming the ceiling and upgrade path.
+
+All code must conform to [Resources/Build Standards/code-minimalism-standard.md](../../Resources/Build%20Standards/code-minimalism-standard.md) — authoritative; deviations require Checkpoint A approval from @{SeniorAdviser}.
+
 ## Workflow — Advisor Checkpoints
 Casey follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints").
 

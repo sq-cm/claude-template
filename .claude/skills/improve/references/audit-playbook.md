@@ -65,6 +65,7 @@ The goal is not a percentage — it's *which untested code is dangerous*.
 - God objects/modules: files an order of magnitude larger than the repo median that everything touches; functions with double-digit parameters or deep conditional nesting.
 - Inconsistent patterns: three ways of doing data fetching / error handling / styling in the same repo — pick the winner (the one the team converged on most recently) and plan the consolidation.
 - Abstraction mismatches: premature abstractions with a single implementation, or missing abstractions where the same change always requires touching N files in lockstep.
+- **Over-engineering sub-lens**: decision-ladder violations — code that skips the cheaper options (reuse an existing internal utility, reach for stdlib, use a native-platform capability) and goes straight to a custom build. Speculative abstraction — an interface/config/plugin point with exactly one implementation, one caller, or a setting nobody has ever changed. New third-party dependency pulled in for what a few lines of code or the stdlib already covers. Hand-rolled reimplementations of stdlib functionality (custom deep-clone, custom debounce, custom UUID, etc.) where the standard version would do.
 
 ## 6. Dependencies & Migrations
 

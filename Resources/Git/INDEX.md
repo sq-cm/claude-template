@@ -10,6 +10,7 @@ _Use this index to find relevant repos for a task. Max 3 repos per task consulta
 
 | Repo | Description | Tags | GitHub URL |
 |------|-------------|------|------------|
+| `ponytail` | YAGNI decision ladder + minimalism-review patterns for coding agents. Reference-only, no local clone — adopted 2026-07 as code-minimalism-standard + code-minimalism-review skill. | `best-practices, claude-code, skills` | https://github.com/DietrichGebert/ponytail |
 
 
 ---
