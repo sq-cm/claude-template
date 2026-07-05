@@ -1042,7 +1042,8 @@ const FAQ = [
 │   │   ├── update.md              ← /update command (pull template updates)<br>
 │   │   ├── log-session.md         ← /log-session command<br>
 │   │   ├── handoff-save.md        ← /handoff-save command<br>
-│   │   └── import-repos.md        ← /import-repos command<br>
+│   │   ├── import-repos.md        ← /import-repos command<br>
+│   │   └── memory-reconcile.md    ← /memory-reconcile command<br>
 │   ├── skills/                    ← skill instruction sets (grill-me, humaniser, etc.)<br>
 │   └── settings.json<br>
 ├── Inbox/                         ← staging area for unrouted material<br>
@@ -1051,18 +1052,20 @@ const FAQ = [
 │   ├── Template/                  ← blank project folder template<br>
 │   └── [Your client projects]/<br>
 ├── Resources/<br>
+│   ├── Assets/                    ← images, sam-routing.gif<br>
+│   ├── Build Standards/           ← code, email + HTML deliverable standards<br>
 │   ├── Git/                       ← cloned reference repos (git-ignored)<br>
 │   ├── Learn/                     ← this guide<br>
-│   ├── Onboarding/                ← SETUP.md, setup-guide.md, team-onboarding-guide.md<br>
+│   ├── Onboarding/                ← SETUP.md, dependencies.md, minimum-viable-roster.md, team-onboarding-guide.md<br>
 │   │   └── Demos/                 ← 5 sample onboarding projects<br>
 │   │       ├── Demo - Bloom Bakery - SEO Audit/<br>
 │   │       ├── Demo - Meridian Law - Homepage UX Review/<br>
 │   │       ├── Demo - NovaStar Gym - Social Media Calendar/<br>
 │   │       ├── Demo - Thornwood Coffee - Brand Copywriting/<br>
 │   │       └── Demo - Velora Studio - Hire Paid Media Specialist/<br>
-│   ├── SOPs/                      ← Advisor Checkpoints, Repo Consultation, etc.<br>
+│   ├── Platform Specs/            ← ad-platform spec references<br>
 │   ├── Research/                  ← Senior Researcher's role research briefs<br>
-│   └── sam-routing.gif<br>
+│   └── SOPs/                      ← Advisor Checkpoints, Repo Consultation, etc.<br>
 ├── Vault/<br>
 │   ├── Archive/                   ← retired projects and personas<br>
 │   ├── Attachments/               ← media and file attachments<br>
@@ -1078,7 +1081,9 @@ const FAQ = [
 │   │   ├── theme-change-log.md<br>
 │   │   └── repo-conflicts.md<br>
 │   ├── Scripts/<br>
-│   │   └── sync-theme.sh          ← theme sync utility<br>
+│   │   ├── lib/                   ← shared helpers (map-parse.sh)<br>
+│   │   ├── sync-theme.sh          ← theme sync utility<br>
+│   │   └── validate.sh            ← template consistency checker<br>
 │   └── Templates/                 ← note templates<br>
 ├── CLAUDE.md                      ← orchestrator rules + team roster<br>
 ├── README.md<br>
