@@ -226,38 +226,3 @@ The setting wires up the listener, but it can only route to your session if you 
 ### Managing it
 
 To check status or turn remote control off for the current session, run `/remote-control`.
-
----
-
-## Appendix — Startup terminal: herdr
-
-VS Code opens a "Herdr" terminal on startup (the restore-terminals extension, driven by `.vscode/restore-terminals.json`) running `Vault/Scripts/herdr-launch.ps1`. That script self-installs [herdr](https://herdr.dev) — an agent multiplexer — if it is not already on `PATH` (the Windows build is a preview beta), then self-installs the Claude Code integration hook (`~/.claude/hooks/herdr-agent-state.ps1` on Windows, `herdr-agent-state.sh` on macOS/Linux, plus hook entries in `~/.claude/settings.json`, backing up `settings.json` to `settings.json.herdr-backup` first) and the user-level herdr agent skill (`~/.claude/skills/herdr/`), before launching `herdr`. `install.sh`/`install.bat` run the same check-and-install logic (via `--install-only` / `-InstallOnly`, no launch) so a fresh clone has herdr ready before the first startup terminal opens.
-
-**macOS/Linux:** the default shell doesn't understand PowerShell, so `.vscode/restore-terminals.json`'s command will print `powershell: command not found`. Swap it to:
-
-```json
-"commands": ["bash Vault/Scripts/herdr-launch.sh"]
-```
-
-**Working directory:** the command runs relative to the workspace root (VS Code's default terminal cwd). A shell profile (`.bashrc`/`.zshrc`/PowerShell profile) that changes cwd on launch will break the relative path — keep profiles cwd-neutral for this terminal, or point the command at an absolute path.
-
-**Manual install / uninstall:**
-
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -c "irm https://herdr.dev/install.ps1 | iex"
-```
-
-```bash
-# macOS/Linux
-curl -fsSL https://herdr.dev/install.sh | sh
-```
-
-```bash
-# Remove the Claude Code integration
-herdr integration uninstall claude
-```
-
-Both launcher scripts and the installers are non-fatal offline: if herdr.dev is unreachable, they print one warning line with the manual command and continue — herdr simply isn't installed until network returns, and nothing else in the session is affected.
-
-**Known race (accepted):** on a very first clone, `install.sh`/`install.bat` and the startup terminal may run within moments of each other. Both guard on `command -v herdr` (or `Get-Command herdr`) independently, so the window for a duplicate install attempt is tiny; worst case is one extra harmless install attempt, never a corrupted state.

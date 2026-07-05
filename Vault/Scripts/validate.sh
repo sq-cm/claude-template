@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 11 read-only checks to verify the vault's structural invariants.
+# Runs 10 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -32,7 +32,6 @@
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
 #   Check 9  — prose `/command` reference with no command file, skill, or built-in
 #   Check 10 — claude-fable-5 pin count differs from FABLE_PIN_COUNT tripwire
-#   Check 11 — herdr not on PATH (WARN-only, never FAILs)
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -585,13 +584,6 @@ if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
 fi
 
 $check10_pass && pass "All persona model pins match documented tiers"
-echo ""
-
-# ──────────────────────────────────────────────────────────────────────────────
-# Check 11 — herdr on PATH (WARN-only)
-# ──────────────────────────────────────────────────────────────────────────────
-echo "--- Check 11: herdr on PATH (WARN-only) ---"
-command -v herdr >/dev/null 2>&1 && pass "herdr found on PATH" || warn "herdr not on PATH — VS Code startup terminal self-installs it, or run install.sh / install.bat (non-fatal)"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────

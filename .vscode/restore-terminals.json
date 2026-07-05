@@ -1,13 +1,21 @@
 {
-  "artificialDelayMilliseconds": 100,
+  "artificialDelayMilliseconds": 300,
   "keepExistingTerminalsOpen": false,
   "runOnStartup": true,
   "terminals": [
     {
       "splitTerminals": [
         {
-          "name": "Herdr",
-          "commands": ["powershell -NoProfile -ExecutionPolicy Bypass -File \"Vault/Scripts/herdr-launch.ps1\""]
+          "name": "Agents",
+          "commands": ["claude agents --model claude-fable-5"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "Claude",
+          "commands": ["claude --chrome --model claude-fable-5"]
         }
       ]
     }
