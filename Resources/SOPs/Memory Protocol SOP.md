@@ -10,12 +10,13 @@ supersedes: (none — new SOP for P0.1 from 2026-05-24 strategic audit)
 
 **Audience.** All personas who write to `Vault/Memory/`, plus Sam (Orchestrator) who reconciles.
 
-**Why this exists.** Direct concurrent writes to the memory index corrupt the file that the prompt-submit hook loads as context. Two failure modes — parallel sub-agents in one session racing on the same anchor, and multi-clone git merge conflicts — both produce `<<<<<<< HEAD` markers in loaded context, breaking every subsequent agent prompt.
+**Why this exists.** Direct concurrent writes to the memory index corrupt the file that the prompt-submit hook loads as context. Three failure modes — parallel sub-agents in one session racing on the same anchor, multi-clone git merge conflicts, and two concurrent sessions on one clone both running `/memory-reconcile` against `context.md` — each corrupts the loaded context in its own way: the first two produce `<<<<<<< HEAD` markers, the third produces duplicated or interleaved append lines from an unsequenced write race. In every case, every subsequent agent prompt loads a broken file.
 
-Two safeguards eliminate both races:
+Three safeguards eliminate all three races:
 
 1. **Two-stage write protocol** (below) — serialises writes through `/memory-reconcile`, never concurrent direct edits.
 2. **Split index** — reconciled local memory lands in `context.md` (git-ignored, per-clone), **not** `MEMORY.md` (git-tracked, maintainer-owned, shipped with the template). This is what eliminates the multi-clone merge-conflict mode: cloners never write the tracked file, so `/update` rebases cleanly.
+3. **Single-writer reconcile rule** — `/memory-reconcile` runs from one session at a time on a given clone. This eliminates the concurrent-session race: see [Concurrent sessions (one clone)](#concurrent-sessions-one-clone) below.
 
 | File | Tracked? | Who writes | Purpose |
 |---|---|---|---|
@@ -104,6 +105,20 @@ The Orchestrator must surface a reminder when `Vault/Memory/Sessions/` contains 
 Without this prompt the protocol silently rots: notes accumulate in `Sessions/`, never make it to `context.md`, and disappear on the next clone refresh.
 
 The reminder runs lightly — one line, no escalation. The user decides when to reconcile.
+
+---
+
+## Concurrent sessions (one clone)
+
+Running multiple Claude Code terminal sessions against one vault clone is a supported pattern — one project per session, and never two sessions open against the same `Projects/` folder at once. `Projects/` subfolders are git-ignored and disjoint per project, so parallel sessions on different projects have no file contention. Repo-level conflict is off the table too: the pre-commit guard allowlists commits to `Inbox/`, `Notes/`, and `Projects/` only — all git-ignored — so no local commit can change template state underneath a running session.
+
+**Session notes are safe concurrently.** The `<ISO8601>-<persona-slug>-<topic-slug>.md` filename scheme (Stage 1) means two sessions writing notes at the same time land at different paths — no collision, no coordination required.
+
+**`/memory-reconcile` is single-writer.** Run it from one session at a time. If several sessions each have unreconciled notes, pick one — ideally at a natural break or end of day — and reconcile there; skip the prompt in the others. Idempotency (Stage 2, point 6) protects re-running a *crashed* reconcile; it does **not** make *concurrent* reconciles safe. Two sessions appending to `context.md` at the same moment is the third failure mode above, and idempotency doesn't prevent it — only sequencing does.
+
+**Expect double nudges.** The deterministic trigger described under Stage 2 (`.claude/hooks/memory-pending.sh` on `PreCompact`/`SessionEnd`) fires per session, so multiple concurrent sessions can each surface the "run `/memory-reconcile`" reminder independently. Treat that as one job, not several — act in one session and disregard the rest.
+
+**Staleness resolves at the next prompt.** Both memory files load into context on every prompt, so once a sibling session's reconcile lands in `context.md`, other sessions pick it up at their very next prompt. Any lag is one prompt long — cosmetic, not a data-integrity problem.
 
 ---
 
