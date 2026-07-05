@@ -29,6 +29,8 @@ Then enter plan mode and present a plan for approval before executing.
 
 Plans for checkpoint-eligible work are not approvable without a named PM owner.
 
+**Effort dial.** Run high/xhigh reasoning effort for plan mode, Advisor Checkpoints, and architecture decisions; drop to medium/low once a plan is approved and execution begins, and for Fast-Path work. Set via `/model` or `--effort`. Effort does not propagate to sub-agents, and persona/adviser model pins are unaffected.
+
 For genuinely light work the full pipeline above is disproportionate — use the **Fast-Path Lane** below instead. When eligibility is ambiguous, take the full pipeline (fail safe, not fast).
 
 ---
@@ -138,6 +140,12 @@ All written prose — deliverables, docs, reports, copy, email, internal notes �
 
 ---
 
+## Output Economy
+
+Minimal prose in responses — lead with the outcome, prefer bullets, no preamble or recap, no restating known context. Applies to conversational output; deliverable documents follow their own briefs.
+
+---
+
 ## Memory
 
 Persistent memory lives in `Vault/Memory/`, split across two files, both loaded into context each prompt:
@@ -190,4 +198,5 @@ Before checkpoint-eligible work, consult relevant repos in `Resources/Git/` via 
 | Repo consultation · setup | [Repo Consultation SOP](Resources/SOPs/Repo%20Consultation%20SOP.md) · [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md) |
 | Routing/tracking boundary (Orchestrator ↔ Project Manager) | [Orchestrator PM Handoff SOP](Resources/SOPs/Orchestrator%20PM%20Handoff%20SOP.md) |
 | Memory write protocol · `/memory-reconcile` contract | [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md) |
+| Context overhead audit (`/context` habit · plugin/memory review) | [Context Overhead Audit SOP](Resources/SOPs/Context%20Overhead%20Audit%20SOP.md) |
 | All SOPs index | [Resources/SOPs/README.md](Resources/SOPs/README.md) |

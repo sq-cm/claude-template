@@ -25,7 +25,6 @@
       "Bash(stat *)",
       "Bash(mktemp *)",
       "Bash(cygpath *)",
-      "Bash(jq *)",
       "Bash(pip3 show *)",
       "Bash(npm ls *)",
       "Bash(npm view *)",
@@ -36,11 +35,6 @@
       "Bash(cargo tree *)",
       "Bash(ls)",
       "Bash(ls *)",
-      "Bash(cat *)",
-      "Bash(head *)",
-      "Bash(tail *)",
-      "Bash(grep *)",
-      "Bash(rg *)",
       "Bash(pwd)",
       "Bash(which *)",
       "Bash(tree)",
@@ -70,11 +64,31 @@
       "Edit(Resources/**)",
       "Edit(Vault/**)"
     ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./**/.env)",
+      "Read(./**/node_modules/**)",
+      "Read(./**/dist/**)",
+      "Read(./**/coverage/**)",
+      "Read(./**/*.min.js)",
+      "Read(./**/*.lock)"
+    ],
     "defaultMode": "auto"
   },
   "model": "claude-fable-5",
   "enableAllProjectMcpServers": true,
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/read-guard.sh\""
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
