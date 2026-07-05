@@ -67,6 +67,18 @@ The Orchestrator will loop in the Social Media Manager, Sage, and Cleo in sequen
 
 ---
 
+## Working on more than one project at once
+
+If you're juggling more than one project, open a separate Claude Code session — a new terminal window — for each one. Keep it simple: one project per session, and don't open two sessions against the same project at the same time.
+
+Working this way is entirely safe. Projects don't interfere with each other, and there's nothing extra you need to do to keep them apart.
+
+The one thing to watch for: if more than one of your open sessions suggests reconciling memory around the same time, only do it in one of them — skip the prompt in the others. It's a housekeeping step, not something that needs doing twice.
+
+Want the detail on why this works the way it does? See the [Memory Protocol SOP](../SOPs/Memory%20Protocol%20SOP.md).
+
+---
+
 ## When someone new is needed
 
 If you ask for something and no one on the current team can cover it, the Orchestrator will tell you there's a gap and ask if you want to bring someone on. If you say yes, the system runs a short hiring process: the Senior Researcher researches the role, the HR Lead builds the persona, and the Orchestrator announces the new hire and adds them to the team. The whole thing usually takes one session.
