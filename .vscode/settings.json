@@ -6,7 +6,7 @@
   "claudeCode.allowDangerouslySkipPermissions": false,
   "terminal.integrated.hideOnStartup": "always",
   "terminal.integrated.defaultLocation": "editor",
-  "workbench.colorTheme": "Cobalt2",
+  "workbench.colorTheme": "Bearded Theme Monokai Metallian",
   "workbench.iconTheme": "material-icon-theme",
   "files.eol": "\n",
   "files.insertFinalNewline": true,
