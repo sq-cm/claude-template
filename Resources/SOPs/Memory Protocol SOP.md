@@ -91,6 +91,8 @@ The command:
 
 Full procedure in the command file.
 
+**Deterministic trigger.** In addition to Sam's end-of-turn prompt, the reconcile nudge now fires deterministically: `.claude/hooks/memory-pending.sh` is wired to the `PreCompact` and `SessionEnd` hook events in `.claude/settings.json`. When a session compacts or ends with unreconciled notes in `Vault/Memory/Sessions/`, the hook emits a one-line reminder to run `/memory-reconcile` — regardless of whether the model remembered to prompt. The hook is read-only (it counts top-level `.md` notes and echoes; it never writes into `Vault/Memory/`), and it does not run the reconcile itself — the fold step still needs model judgement.
+
 ---
 
 ## End-of-turn check (Sam)
