@@ -136,7 +136,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'Reminder (grill-me): for any non-trivial or actionable request, interview the user one question at a time — recommending an answer for each — until shared understanding; explore the codebase instead of asking when the answer is discoverable there. Skip only for lookups/roster checks/single-line answers, or a continuation of a named Projects/ brief with no new scope (log the skip + brief path). Then enter plan mode for approval. Invoke the grill-me skill for the full protocol.'"
+            "command": "echo 'Reminder: grill-me + plan mode apply per CLAUDE.md § Default Mode (one question at a time, recommend answers, explore before asking).'"
           }
         ]
       }

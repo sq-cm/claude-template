@@ -79,14 +79,13 @@ Exceptions — keep sequential:
 
 ## Sub-Agent Depth
 
-Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. The `improve` skill, which fans out its own sub-agents, therefore runs on the Orchestrator session as a meta-operation rather than being routed — see [§ Orchestrator-Only Operations](#orchestrator-only-operations). Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
+Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. For `improve` and other fan-out meta-skills, see [§ Orchestrator-Only Operations](#orchestrator-only-operations). Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
-**Web fetch & visual eval are Orchestrator-mediated.** A dispatched persona **must not** fetch live web content or drive a browser itself — even though those tools (`WebFetch`, `ctx_*`, Playwright `browser_*`) are technically reachable from inside a sub-agent. Self-service is prohibited by policy, and the environment actively polices it at the point of attempt (persona refusal plus the auto-mode classifier). When a persona needs live data, it names the URL or artefact and what it needs judged in its fan-out spec; the Orchestrator supplies it from the main session:
+**Web fetch & visual eval are Orchestrator-mediated.** A dispatched persona **must not** fetch live web content or drive a browser itself — even though those tools (`WebFetch`, `ctx_*`, Playwright `browser_*`) are technically reachable from inside a sub-agent. Self-service is prohibited by policy, and the environment actively polices it at the point of attempt (persona refusal plus the auto-mode classifier). When a persona needs live data, it names the URL or artefact and what it needs judged in its fan-out spec; the Orchestrator supplies it from the main session.
 
-- **Lane A — research / URL-read.** Orchestrator runs `ctx_fetch_and_index(url, source)` then `ctx_search` (or `ctx_execute` for targeted extraction) and injects the excerpts into the sub-agent's prompt.
-- **Lane B — visual pixel-test.** Orchestrator runs Playwright (`browser_navigate` + `browser_take_screenshot`) and injects the screenshot into the sub-agent's prompt for the persona's visual judgement.
+Lane A (research fetch) and Lane B (visual eval) mechanics: [Sub-Agent Architecture SOP § Web Fetch & Visual Eval](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
-Render happens above the dispatch boundary; judgement happens within it. The `WebFetch(domain:…)` grants in `.claude/settings.json` remain inert while `context-mode` is active. See [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § Web Fetch & Visual Eval for Sub-Agents.
+Render happens above the dispatch boundary; judgement happens within it. The `WebFetch(domain:…)` grants in `.claude/settings.json` remain inert while `context-mode` is active.
 
 ---
 

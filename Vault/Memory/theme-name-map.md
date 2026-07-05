@@ -35,9 +35,11 @@ StillsDirector: Iris
 SeedanceDirector: Dash
 ```
 
+<!-- maintainer doc — stripped from session injection by load-context.sh
 ## Studio Variable
 
 Studio name is used in HTML deliverable footers and other branded outputs via the `{{Studio}}` token. Change it to your studio's name before producing client deliverables.
+-->
 
 ## File Path Convention
 
@@ -76,6 +78,7 @@ Persona files live at `.claude/agents/[role-slug].md`. Use the explicit map belo
 
 > **Note:** `Orchestrator` is the only token with no corresponding `.claude/agents/` file. Its behaviour is defined in `CLAUDE.md` directly. All other tokens must have a matching agent file.
 
+<!-- maintainer doc — stripped from session injection by load-context.sh
 ## How to Use
 
 When you want to swap a team member:
@@ -83,7 +86,9 @@ When you want to swap a team member:
 1. Update the YAML above with the new person's name
 2. Example: `Orchestrator: NewOrchestratorName`
 3. Sam automatically translates `@{Orchestrator}` → `@NewOrchestratorName` at session start
+-->
 
+<!-- maintainer doc — stripped from session injection by load-context.sh
 ## Theme Swaps
 
 To completely rebrand the team (e.g., use a different name theme):
@@ -91,3 +96,4 @@ To completely rebrand the team (e.g., use a different name theme):
 - Update all name values above
 - File paths stay role-based — no files or folders are renamed
 - All @{RoleToken} routing automatically uses the new names
+-->
