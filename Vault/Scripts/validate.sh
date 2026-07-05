@@ -393,7 +393,11 @@ echo ""
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
 # "N reusable skill modules") — not the prose mention around line 58.
 # Count reconciled at 26 (ponytail adoption: added code-minimalism-review).
-# README.md line ~165 and this constant move together when a skill is added or removed.
+#
+# EXPECTED_* below are a deliberate tripwire, not redundancy: adding or removing
+# a skill or persona must consciously touch this file, README.md, and the docs
+# together. Do not replace with live-derived counts. (Audit 2026-07-05, Senior
+# Adviser ruling.)
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 7: Doc counts match README assertions ---"
 check7_pass=true
