@@ -5,7 +5,8 @@ license: MIT
 metadata:
   author: shadcn
   version: "1.0.0"
-  upstream_commit: 03369ee
+  adapted_from: https://github.com/shadcn/improve
+  upstream_commit: 03369ee6d7cafbfcecc4346539b05b3dc0a603bb
 ---
 
 <!--
