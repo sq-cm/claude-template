@@ -5,7 +5,16 @@ license: MIT
 metadata:
   author: shadcn
   version: "1.0.0"
+  upstream_commit: 03369ee
 ---
+
+<!--
+Source: https://github.com/shadcn/improve (MIT). Synced against upstream commit `03369ee`
+(2026-06-15) on 05/07/2026 — verified to include the secret-leakage hardening, the --issues
+public-repo visibility check, the Hard Rule 1 plans/ vs advisor-plans/ fix, and stale-ADR
+flagging. Vault adaptation: the over-engineering sub-lens in references/audit-playbook.md
+(from the ponytail decision-ladder adoption) is local, not upstream.
+-->
 
 # Improve
 
