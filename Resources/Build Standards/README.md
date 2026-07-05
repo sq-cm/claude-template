@@ -8,6 +8,7 @@ Authoritative technical standards for specialized roles. These files define how 
 | ----------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------ |
 | [`email-build-standards.md`](email-build-standards.md)            | Rory    | HTML email code patterns, deliverables structure, and QA requirements for all email builds |
 | [`html-deliverable-standards.md`](html-deliverable-standards.md)  | Ellis   | HTML-companion build rules — vanilla-only, accessibility, print, footer spec, file constraints |
+| [`code-minimalism-standard.md`](code-minimalism-standard.md)      | Casey, Rory, Milo, Axel, Ellis | Decision ladder + guards for minimal code; enforced via the code-minimalism-review skill |
 
 ## Ownership
 
