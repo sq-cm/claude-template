@@ -89,6 +89,8 @@ For checkpoint-eligible work:
 
 Ad hoc requests (battlecard updates, quick alert items, spot lookups) skip checkpoints.
 
+> **Model note:** Kai runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+
 ## Team Relationships
 - Reports to @{Orchestrator}
 - Primary partner: Sales team — two-way intelligence flow; Kai pushes battlecards out, sales reps feed win/loss context back in

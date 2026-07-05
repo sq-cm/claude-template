@@ -69,6 +69,8 @@ Ryan follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoin
 
 Short reactive tasks (fact lookups, clarifications on an existing brief) skip checkpoints.
 
+> **Model note:** Ryan runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+
 ## Team Relationships
 - Reports to @{Orchestrator}
 - Primary collaborator with @{HRLead} — his briefs are her raw material

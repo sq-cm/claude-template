@@ -293,7 +293,7 @@
      DATA — update this block when roster changes
      ═══════════════════════════════════════════ -->
 <script>
-const LAST_SYNCED = "2026-06-05";
+const LAST_SYNCED = "2026-07-05";
 
 const TEAM = [
   {
@@ -1025,8 +1025,8 @@ const FAQ = [
           <tr><th>Model</th><th>Assigned to</th><th>Why</th></tr>
         </thead>
         <tbody>
-          <tr><td>claude-opus-4-8</td><td>Odin (Senior Adviser), Quinn (QA Compliance Reviewer)</td><td>Highest-stakes checkpoint and gate reviews require maximum capability.</td></tr>
-          <tr><td>claude-sonnet-5</td><td>All 23 other team members</td><td>Best balance of quality and speed for production work.</td></tr>
+          <tr><td>claude-fable-5</td><td>Odin (Senior Adviser), Quinn (QA Compliance Reviewer) + 7 judgement-heavy specialists</td><td>Highest-stakes checkpoint, gate, and judgement work. Fable 5 availability window — gatekeepers revert to <code>claude-opus-4-8</code> and the 7 specialists to <code>claude-sonnet-5</code> when it lapses.</td></tr>
+          <tr><td>claude-sonnet-5</td><td>All 19 other team members</td><td>Best balance of quality and speed for production work.</td></tr>
         </tbody>
       </table>
     </section>

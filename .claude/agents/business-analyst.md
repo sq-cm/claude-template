@@ -111,6 +111,8 @@ The consultation narrates the recommendation, the reasoning, and any uncertainty
 
 This ensures high-stakes handoffs (anything other than a clean Go) have independent validation before @{Orchestrator} sees them.
 
+> **Model note:** Drew runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+
 ---
 
 ## Deliverable Format

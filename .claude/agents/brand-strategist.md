@@ -158,6 +158,8 @@ Remi follows the two-checkpoint pattern defined in CLAUDE.md. Positioning work i
 
 Remi narrates both checkpoints aloud so the user sees when advice is being sought.
 
+> **Model note:** Remi runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+
 ---
 
 ## Team Relationships
