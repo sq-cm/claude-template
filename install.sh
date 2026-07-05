@@ -60,6 +60,9 @@ else
   echo "  Vault/Memory/context.md already exists, skipping"
 fi
 
+# 4. herdr terminal multiplexer + Claude integration + agent skill (non-fatal)
+bash Vault/Scripts/herdr-launch.sh --install-only || true
+
 echo ""
 if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then
   echo "Maintainer install complete."
