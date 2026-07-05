@@ -8,6 +8,12 @@ Everything needed to deploy a new instance of this vault from scratch.
 
 ---
 
+## See it work first
+
+Before configuring anything, take five minutes with one of the worked demos under `Demos/` — `Demo - Bloom Bakery - SEO Audit` is the fullest example of the pipeline — and skim its brief, working files and deliverable to see the routing and QA flow end-to-end. [Demos/README.md](Demos/README.md) indexes all five demos and explains how to run one yourself. Then come back and carry on from Step 0 — the install below is still required before any real work.
+
+---
+
 ## Step 0 — Run the install script
 
 After cloning, run once from the vault root:
