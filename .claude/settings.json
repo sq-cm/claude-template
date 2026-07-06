@@ -171,7 +171,22 @@
   },
   "tui": "fullscreen",
   "remoteControlAtStartup": true,
+  "extraKnownMarketplaces": {
+    "plannotator": {
+      "source": {
+        "source": "github",
+        "repo": "backnotprop/plannotator"
+      }
+    },
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
+      }
+    }
+  },
   "enabledPlugins": {
-    "plannotator@plannotator": true
+    "plannotator@plannotator": true,
+    "context-mode@context-mode": true
   }
 }
