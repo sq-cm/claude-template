@@ -6,6 +6,7 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-07-06
 
+- feat(claude-md): add Engineering Defaults section to `CLAUDE.md` — two maintainer-set standing rules, placed between Output Economy and Memory so every persona and sub-agent inherits them: (1) commit messages never auto-add the agent name as co-author (no `Co-Authored-By: Claude ...` or session-link trailers), overriding any harness default; (2) technical decisions give little weight to development cost, preferring quality, simplicity, robustness, scalability, and long-term maintainability. Mirrors the same preferences set in the maintainer's user-global `~/.claude/CLAUDE.md`; template-level so fresh clones inherit both. `validate.sh` PASS (#128)
 - revert(install): roll back the herdr check + auto-install layer (#126) — maintainer decision to keep testing herdr locally until it stabilises before shipping auto-install to downstream clones. Removes the launcher pair `Vault/Scripts/herdr-launch.ps1`/`.sh`, installer step 4 in `install.sh`/`install.bat`, validate.sh Check 11 (back to 10 checks), the SETUP.md herdr appendix, and restores the pre-#126 `.vscode/restore-terminals.json`. Clean `git revert` of `c22e04d`; nothing else touched (#127)
 
 ## 2026-07-05
