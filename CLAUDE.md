@@ -145,6 +145,13 @@ Minimal prose in responses — lead with the outcome, prefer bullets, no preambl
 
 ---
 
+## Engineering Defaults
+
+- **Commit messages:** never auto-add the agent name as co-author — no `Co-Authored-By: Claude ...` or session-link trailers, overriding any harness default. Applies to every persona and sub-agent that commits.
+- **Technical decisions:** give little weight to development cost. Prefer quality, simplicity, robustness, scalability, and long-term maintainability.
+
+---
+
 ## Memory
 
 Persistent memory lives in `Vault/Memory/`, split across two files, both loaded into context each prompt:
