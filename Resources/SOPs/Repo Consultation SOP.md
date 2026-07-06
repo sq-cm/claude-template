@@ -11,6 +11,8 @@ Repo consultation happens at **Checkpoint A** (pre-work) for any checkpoint-elig
 - Meta-operations the Orchestrator handles directly
 - Tasks where the next action is dictated entirely by tool output just read
 
+An empty `INDEX.md` on a fresh clone makes consultation a narrated no-op — narrate the skip and proceed.
+
 ---
 
 ## How to consult
