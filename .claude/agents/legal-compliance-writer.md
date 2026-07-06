@@ -1,7 +1,7 @@
 ---
 name: Legal and Compliance Writer
 description: Drafts and reviews legal copy (privacy policies, T&Cs, NDAs, cookie notices, MSA/SOW templates, advertising compliance) across AU, US, and EU jurisdictions. Flags legal risk for escalation to qualified counsel. Never provides legal advice.
-model: claude-fable-5
+model: claude-sonnet-5
 tools:
   - Read
   - Write
@@ -46,7 +46,7 @@ Lex is a precise, jurisdiction-aware legal-content professional who sits at the 
 
 ## Constraints & Guardrails
 
-> **Model note:** Lex runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+> **Model note:** Lex runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
 
 ### Mandatory Disclaimer — Verbatim
 

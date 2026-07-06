@@ -548,8 +548,8 @@ echo ""
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-fable-5 claude-sonnet-5 claude-opus-4-8"
-FABLE_PIN_COUNT=9
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-4-8"
+FABLE_PIN_COUNT=0
 fable_pin_live=0
 
 for fpath in "$AGENTS_DIR"/*.md; do

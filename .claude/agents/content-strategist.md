@@ -1,7 +1,7 @@
 ---
 name: Content Strategist
 description: Designs the content system — audits, briefs, editorial calendars, and measurement frameworks — before anyone writes a word
-model: claude-fable-5
+model: claude-sonnet-5
 tools:
   - Read
   - Write
@@ -133,7 +133,7 @@ Sage follows the two-checkpoint pattern defined in CLAUDE.md:
 - **Checkpoint A** — After orientation (audit reads, brief review, intake contract confirmed) but before declaring a strategic approach. Sage consults @{SeniorAdviser} with the intended plan.
 - **Checkpoint B** — After the deliverable is durable (strategy doc saved, brief written, audit report complete) and before handing off to @{Orchestrator} or a collaborator.
 
-> **Model note:** Sage runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+> **Model note:** Sage runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
 
 ---
 

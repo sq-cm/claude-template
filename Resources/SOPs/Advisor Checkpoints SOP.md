@@ -10,11 +10,11 @@
 
 On longer, durable deliverables, having a stronger reviewer check the plan before substantive work and check the output before handoff catches structural mistakes cheaply — before they become files, embeds, or briefs that are hard to unwind.
 
-This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native advisor server-tool now ships in Claude Code (v2.1.98+) — Claude consults a stronger model at decision points, governed by the `advisorModel` setting. We layer our own discipline on top: rather than leaving advisor calls to Claude's discretion, we spawn a strong-model subagent (currently `claude-fable-5`; Fable 5 availability window — revert to `claude-opus-4-8` when it lapses) at *fixed* checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
+This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native advisor server-tool now ships in Claude Code (v2.1.98+) — Claude consults a stronger model at decision points, governed by the `advisorModel` setting. We layer our own discipline on top: rather than leaving advisor calls to Claude's discretion, we spawn a strong-model subagent (currently `claude-opus-4-8`) at *fixed* checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
 
-**Advisor-model pairing (load-bearing).** The platform requires the advisor to be **at least as capable as the request model** — peer is allowed, weaker is rejected. Odin and Quinn run on `claude-fable-5` (Fable 5 availability window; revert to `claude-opus-4-8` when it lapses), which requires `advisorModel` raised to the same tier — a user-level setting, per CHANGELOG #103. With `advisorModel` at Fable tier, their checkpoint and QA dispatches are accepted; if the setting is weaker than the gatekeeper tier, dispatches fail with `cannot be used as an advisor when the request model is '<model>'`.
+**Advisor-model pairing (load-bearing).** The platform requires the advisor to be **at least as capable as the request model** — peer is allowed, weaker is rejected. Odin and Quinn run on `claude-opus-4-8` (gatekeeper tier), which pairs with the default advisor — no `advisorModel` override is required. If a clone pins the gatekeepers above the advisor tier, `advisorModel` (a user-level setting, per CHANGELOG #103) must be raised to match; otherwise dispatches fail with `cannot be used as an advisor when the request model is '<model>'`.
 
-> **Reverted clones:** the shipped default is Fable 5 with `advisorModel` raised to match. Clones that *revert* the gatekeepers to `claude-opus-4-8` (e.g. when the Fable window lapses) can drop the override — default Opus pairs with the default advisor and needs none.
+> **Promoted clones:** the shipped default is `claude-opus-4-8`, which pairs with the default advisor and needs no override. Clones that *promote* the gatekeepers above the advisor tier (as done during the Fable 5 availability window) must raise `advisorModel` to match.
 
 ---
 
@@ -22,7 +22,7 @@ This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern.
 
 The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
 
-The Senior Adviser is **not** directly addressable by the user. They are invoked only by **the Orchestrator**, via the Agent tool with a strong-model override (currently `claude-fable-5`; Fable 5 availability window — revert to `claude-opus-4-8` when it lapses). Per the depth-1 sub-agent rule, consulting personas never invoke the tool themselves — they return a checkpoint request to the Orchestrator, which dispatches the Senior Adviser and routes the verdict back.
+The Senior Adviser is **not** directly addressable by the user. They are invoked only by **the Orchestrator**, via the Agent tool with a strong-model override (currently `claude-opus-4-8`). Per the depth-1 sub-agent rule, consulting personas never invoke the tool themselves — they return a checkpoint request to the Orchestrator, which dispatches the Senior Adviser and routes the verdict back.
 
 ---
 
@@ -58,7 +58,7 @@ On receiving a persona's checkpoint request, the Orchestrator dispatches the Age
 ```
 Agent(
   subagent_type: "general-purpose",
-  model: "claude-fable-5",  # match the gatekeeper tier; see § pairing
+  model: "claude-opus-4-8",  # match the gatekeeper tier; see § pairing
   description: "@{SeniorAdviser} advisor checkpoint [A|B]",
   prompt: "You are @{SeniorAdviser} — Senior Adviser
            (see .claude/agents/senior-adviser.md).

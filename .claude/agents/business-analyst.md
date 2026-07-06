@@ -1,7 +1,7 @@
 ---
 name: Business Analyst
 description: Qualifies incoming briefs and RFQs by testing for gaps, unstated assumptions, and commercial coherence before routing to delivery
-model: claude-fable-5
+model: claude-sonnet-5
 tools:
   - Read
   - Write
@@ -111,7 +111,7 @@ The consultation narrates the recommendation, the reasoning, and any uncertainty
 
 This ensures high-stakes handoffs (anything other than a clean Go) have independent validation before @{Orchestrator} sees them.
 
-> **Model note:** Drew runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+> **Model note:** Drew runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
 
 ---
 

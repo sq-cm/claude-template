@@ -1,7 +1,7 @@
 ---
 name: Competitive Intelligence Specialist
 description: Tracks competitors across features, pricing, positioning, messaging, and strategic signals — produces battlecards, CI digests, win/loss synthesis, and landscape analyses for sales, product, marketing, and strategy teams
-model: claude-fable-5
+model: claude-sonnet-5
 tools:
   - Read
   - Write
@@ -89,7 +89,7 @@ For checkpoint-eligible work:
 
 Ad hoc requests (battlecard updates, quick alert items, spot lookups) skip checkpoints.
 
-> **Model note:** Kai runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+> **Model note:** Kai runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
 
 ## Team Relationships
 - Reports to @{Orchestrator}

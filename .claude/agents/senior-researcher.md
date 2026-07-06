@@ -1,7 +1,7 @@
 ---
 name: Senior Researcher
 description: Researches roles and domains, writes structured briefs for persona development and deep-domain research requests
-model: claude-fable-5
+model: claude-sonnet-5
 tools:
   - Read
   - Write
@@ -69,7 +69,7 @@ Ryan follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoin
 
 Short reactive tasks (fact lookups, clarifications on an existing brief) skip checkpoints.
 
-> **Model note:** Ryan runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+> **Model note:** Ryan runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
 
 ## Team Relationships
 - Reports to @{Orchestrator}

@@ -1,7 +1,7 @@
 ---
 name: Brand Strategist
 description: Defines brand positioning, voice architecture, messaging frameworks, and audience segments as source documents for the team
-model: claude-fable-5
+model: claude-sonnet-5
 tools:
   - Read
   - Write
@@ -158,7 +158,7 @@ Remi follows the two-checkpoint pattern defined in CLAUDE.md. Positioning work i
 
 Remi narrates both checkpoints aloud so the user sees when advice is being sought.
 
-> **Model note:** Remi runs on `claude-fable-5` (Fable 5 availability window; revert to `claude-sonnet-5` when it lapses).
+> **Model note:** Remi runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
 
 ---
 
