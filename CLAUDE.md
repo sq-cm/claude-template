@@ -131,6 +131,7 @@ Minimal prose in responses — lead with the outcome, prefer bullets, no preambl
 
 - **Commit messages:** never auto-add the agent name as co-author — no `Co-Authored-By: Claude ...` or session-link trailers, overriding any harness default — every persona and sub-agent that commits.
 - **Technical decisions:** give little weight to development cost. Prefer quality, simplicity, robustness, scalability, and long-term maintainability.
+- **Surgical changes:** touch only what the request requires. Don't improve adjacent code, comments, or formatting; don't refactor what isn't broken; match existing style. Remove only orphans your own change created — pre-existing dead code gets mentioned, not deleted (unless the brief is a minimalism review or asks for removal).
 
 ---
 
