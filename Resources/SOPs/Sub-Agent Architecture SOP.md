@@ -71,7 +71,7 @@ Persona YAML frontmatter must **not** list `Agent` under `tools:`. The grant is 
 
 The `improve` audit skill (`.claude/skills/improve/`) is strictly read-only on source and fans out its own parallel sub-agents (Phase 2). It runs on the **Orchestrator session as a meta-operation — never routed to a persona.** This is the depth-1 reason, not a convenience: a routed persona running `improve` would attempt a forbidden depth-2 dispatch, so the only legal home for it is the Orchestrator's own session.
 
-Because it never mutates source, and its `plans/` output is an internal planning artefact (git-ignored) rather than a client Deliverable, that output does not move to `03 Deliverables/` and is exempt from the QA Gate. An optional Advisor checkpoint on the audit's prioritisation is available when wanted.
+Because it never mutates source, and its `Vault/Plans/` output is an internal planning artefact (git-ignored) rather than a client Deliverable, that output does not move to `03 Deliverables/` and is exempt from the QA Gate. An optional Advisor checkpoint on the audit's prioritisation is available when wanted.
 
 This differs from the `/teach` carve-out: `/teach` is delegatable work the Orchestrator performs inline; `improve` is a meta-operation that was never delegatable to begin with. CLAUDE.md § Orchestrator-Only Operations carries the operative one-liner; this section is the rationale.
 
