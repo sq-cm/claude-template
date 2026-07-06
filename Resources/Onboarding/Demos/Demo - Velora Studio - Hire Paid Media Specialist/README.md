@@ -7,7 +7,7 @@ A hiring pipeline exercise. Velora Studio has a paid media campaign to run — a
 - How the Orchestrator identifies and escalates a capability gap
 - How the Senior Researcher researches a professional role and writes a brief
 - How the HR Lead reads the Senior Researcher's brief and builds a persona file from the template
-- How the Orchestrator announces a new hire and updates the Active Team Roster in CLAUDE.md
+- How the Orchestrator announces a new hire and updates the team roster in `Vault/Memory/theme-name-map.md` (root `CLAUDE.md` only points to it)
 - **This is the most important meta-workflow** — it teaches how the team grows
 
 ## What's already done
@@ -31,7 +31,7 @@ A hiring pipeline exercise. Velora Studio has a paid media campaign to run — a
 ### Step 3 — Orchestrator announces and updates the roster
 8. Open `02 Working/roster-announcement-template.md`
 9. Fill in the announcement
-10. Update the **Active Team Roster** table in your `CLAUDE.md` to include Reed
+10. Update `Vault/Memory/theme-name-map.md` to include Reed (name map entry + file-path table row) — root `CLAUDE.md` stays untouched; its `## Theme & Roster` section just points to the name map
 
 ## How to start
 Tell the Orchestrator: *"I want to run the paid media specialist hiring pipeline."*

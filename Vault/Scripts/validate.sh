@@ -398,7 +398,7 @@ echo ""
 #
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
 # "N reusable skill modules") — not the prose mention around line 58.
-# Count reconciled at 24 (ponytail adoption: added code-minimalism-review).
+# Count reconciled at 24 via #144/#145.
 #
 # EXPECTED_* below are a deliberate tripwire, not redundancy: adding or removing
 # a skill or persona must consciously touch this file, README.md, and the docs

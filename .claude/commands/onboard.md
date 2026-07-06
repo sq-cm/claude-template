@@ -123,11 +123,11 @@ After install, refresh PATH and retry `node --version`. If install fails, print:
 /plugin install caveman@caveman
 ```
 
-The vault's `.claude/settings.json` already declares the caveman marketplace and enables `caveman@caveman` — if Claude Code already prompted the user to install it when they trusted this folder, skip the commands above and just confirm the plugin is installed. `autoUpdate` is `false` (matching every other declared marketplace — see the accepted-risk note in `Resources/Onboarding/SETUP.md`), so run `/plugin marketplace update` manually if you want the latest.
+The vault's `.claude/settings.json` already declares the caveman marketplace and enables `caveman@caveman` — if Claude Code already prompted the user to install it when they trusted this folder, skip the commands above and just confirm the plugin is installed. `autoUpdate` is explicitly `false` (see the accepted-risk note in `Resources/Onboarding/SETUP.md`), so run `/plugin marketplace update` manually if you want the latest.
 
 After install completes, activate lite mode by invoking: `/caveman lite`
 
-Report: "Caveman installed (plugin, auto-updating) and set to lite mode."
+Report: "Caveman installed (plugin) and set to lite mode."
 
 ---
 
@@ -205,7 +205,7 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 /plugin install plannotator@plannotator
 ```
 
-Report: "context-mode, superpowers, obsidian, impeccable, marketing-skills, document-skills, skill-creator, frontend-design, plannotator installed ✓ — restart Claude Code to activate."
+Report: "All plugins declared in `.claude/settings.json` `enabledPlugins` installed ✓ — restart Claude Code to activate."
 
 If any plugin command fails, print a warning for that plugin and continue with the rest:
 
@@ -224,7 +224,7 @@ Pinned release: `backnotprop/plannotator` tag `v0.9.3`. Download the platform-ma
 gh release download v0.9.3 --repo backnotprop/plannotator --pattern "plannotator-win32-x64.exe*"
 $expected = (Get-Content plannotator-win32-x64.exe.sha256).Split(" ")[0]
 $actual = (Get-FileHash plannotator-win32-x64.exe -Algorithm SHA256).Hash
-if ($expected -ieq $actual) { Move-Item plannotator-win32-x64.exe "$env:LOCALAPPDATA\plannotator\plannotator.exe" -Force } else { Write-Host "⚠️ checksum mismatch — aborting install" }
+if ($expected -ieq $actual) { New-Item -ItemType Directory -Force -Path "$env:LOCALAPPDATA\plannotator" | Out-Null; Move-Item plannotator-win32-x64.exe "$env:LOCALAPPDATA\plannotator\plannotator.exe" -Force } else { Write-Host "⚠️ checksum mismatch — aborting install" }
 ```
 
 **macOS (arm64) / Linux (x64) — substitute the asset name for your platform:**
