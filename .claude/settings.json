@@ -208,6 +208,12 @@
         "source": "github",
         "repo": "coreyhaines31/marketingskills"
       }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
     }
   },
   "enabledPlugins": {
@@ -217,6 +223,7 @@
     "superpowers@claude-plugins-official": true,
     "caveman@caveman": true,
     "impeccable@impeccable": true,
-    "marketing-skills@marketingskills": true
+    "marketing-skills@marketingskills": true,
+    "document-skills@anthropic-agent-skills": true
   }
 }
