@@ -25,6 +25,8 @@ Three safeguards eliminate all three races:
 
 Both files load into context on every prompt.
 
+`Projects/<name>/HISTORY.md` (§ Project-scoped memory, below) is a third, distinct reconcile-written surface — deliberately a different filename so the "never write `MEMORY.md`" rule stays unambiguous. It is never injected into every prompt (it's read on demand), so it carries none of `context.md`'s budget pressure.
+
 ---
 
 ## Stage 1 — Write a session note
@@ -45,8 +47,11 @@ When you (any persona) surface something worth remembering mid-task:
    date: YYYY-MM-DD
    persona: <persona-slug>
    topic: <one-line summary, ≤ 100 chars>
+   project: <optional — exact Projects/<name>/ folder name>
    ---
    ```
+
+   `project` is optional. Set it when the note is about a specific foldered project — it routes the note into that project's own `HISTORY.md` at reconcile time (see § Project-scoped memory below) instead of only a `context.md` pointer.
 
 3. **Body** is freeform markdown. Link related memories with `[[name]]` where `name` matches another note's filename without extension.
 
@@ -96,9 +101,31 @@ Full procedure in the command file.
 
 ---
 
+## Project-scoped memory (HISTORY.md)
+
+**Purpose.** `context.md` carries a hard 3 KB injected budget (below), so anything specific to one project competes with every other project for that same rent-controlled space. Project-scoped memory gives each foldered project its own durable log — `Projects/<name>/HISTORY.md` — that travels inside the folder itself. It survives folder handoffs, carries no size budget of its own, and takes the pressure off `context.md`, which then holds only a one-line pointer per active project instead of accumulating project detail directly.
+
+**The `project:` field.** Optional Stage-1 frontmatter (see above). Set it to the exact `Projects/<name>/` folder name a note is about. `/memory-reconcile` validates it — the folder must exist — and rejects to `Sessions/_rejected/` (logged, reported inline) when it doesn't, the same treatment as any other unresolvable required field.
+
+**Routing summary.** Full mechanics live in `.claude/commands/memory-reconcile.md` (step 2 validation, step 5.2 routing) — cited here, not duplicated. In outline: a note with a valid `project:` field appends a self-contained entry to that project's `HISTORY.md` under `## Decision log`, optionally updates `## Gotchas`, then rewrites `## Live state` last, and ensures a one-line `context.md` pointer to the `HISTORY.md` file (deduped by path, not filename). A note without `project:` behaves exactly as before this section existed.
+
+**Self-contained entry style.** Decision-log entries must read standalone for a handoff recipient — no "see `Vault/Memory/...`" pointers, since `HISTORY.md` travels with the folder and the recipient may not have (or need) access to the rest of the vault's memory. Each entry: a `### YYYY-MM-DD — <topic>` heading, 3–6 lines of what/why/outcome, and a trailing `<!-- src: <session-note-filename> -->` anchor comment.
+
+**Dedup anchor.** The anchor comment is the idempotency key — if it already exists anywhere in the file, the append is skipped. This is what makes a crash between the decision-log append and the `## Live state` rewrite safe to recover from by simply re-running the reconcile.
+
+**Rejection rule.** An invalid `project:` value (no matching folder) is rejected exactly like a note with a genuinely unresolvable required field — never silently dropped, never silently reassigned to a different project.
+
+**Write order.** Decision log (and Gotchas, if applicable) append first; `## Live state` rewrites last, because it is a destructive replace rather than an append and must never run ahead of the durable log entry it's summarising.
+
+**Load rule.** Sam reads a project's `HISTORY.md` before routing new work into that project — it is the fast way to pick up prior decisions and known gotchas without re-deriving them. Dispatch specs to sub-agents working inside a foldered project should instruct the persona to read `HISTORY.md` first, same as they'd be pointed at a brief.
+
+**Lifecycle.** Archival is automatic in the sense that the file travels inside its `Projects/<name>/` folder — there is nothing separate to move. When a project goes inactive, its `context.md` pointer demotes at the next reconcile like any other stale `## Project context` entry (§ Context budget & auto-archival, below); the `HISTORY.md` file itself stays put, untouched, ready to be read again if the project reopens. **Grandfathered folders** — those created before this feature shipped — have no `HISTORY.md` yet; one is seeded from the `Projects/Template/HISTORY.md` skeleton on first touch (the first note that reconciles against that project). There is no bulk backfill — it happens on demand only, project by project, as notes about it are reconciled.
+
+---
+
 ## Context budget & auto-archival
 
-`context.md` is injected into context at every session start, so it carries a hard budget: **3 KB injected** (comment-stripped), roughly the live-state entry plus a month of one-line pointers. `/memory-reconcile` enforces it at fold time (step 5.8 of the command):
+`context.md` is injected into context at every session start, so it carries a hard budget: **3 KB injected** (comment-stripped), roughly the live-state entry plus a month of one-line pointers. `/memory-reconcile` enforces it at fold time (step 5.9 of the command):
 
 - **Superseded** pointers (a newer note replaces, reverts, or closes them) demote immediately.
 - Over budget, the **oldest** `## Project context` pointers demote until the file fits.
@@ -182,7 +209,8 @@ If a destination file is malformed (rare — would require manual edit of a `not
 ## Related
 
 - `CLAUDE.md` → `## Memory` (canonical protocol summary)
-- `.claude/commands/memory-reconcile.md` (the slash command procedure)
+- `.claude/commands/memory-reconcile.md` (the slash command procedure, incl. `project:` routing detail)
 - `Vault/Memory/MEMORY.md` (shipped vault-operations index, maintainer-curated)
 - `Vault/Memory/context.md` (per-clone local memory, reconcile target; seed: `context.example.md`)
+- `Resources/SOPs/Project Folder SOP.md` (the `HISTORY.md` skeleton and its place inside a project folder)
 - `Resources/SOPs/README.md` (SOP index)

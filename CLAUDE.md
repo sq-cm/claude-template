@@ -140,6 +140,8 @@ Persistent memory lives in `Vault/Memory/` — `MEMORY.md` (shipped index, git-t
 
 To record a local fact: session note to `Vault/Memory/Sessions/`, then `/memory-reconcile` — folds into `context.md`, never `MEMORY.md`. Sam prompts at end-of-turn when `Sessions/` is non-empty. Full protocol: [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
 
+Project-scoped memory lives in `Projects/<name>/HISTORY.md` — self-contained, travels with the folder on handoff/archive; `project:`-tagged session notes fold there, and `context.md` keeps one pointer line per active project. Read a project's `HISTORY.md` before routing work in it. Detail: [Memory Protocol SOP § Project-scoped memory](Resources/SOPs/Memory%20Protocol%20SOP.md).
+
 ---
 
 ## Theme & Roster
