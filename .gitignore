@@ -1,7 +1,6 @@
 # Secrets — never commit
-.env
-.env.local
-.env.*.local
+.env*
+!.env.example
 
 # OS noise
 .DS_Store

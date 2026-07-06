@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
-# read-guard.sh — PreToolUse hook (matcher: Read).
+# read-guard.sh — PreToolUse hook (matcher: Read|Grep).
 # Blocks unbounded Read calls on files over LIMIT lines; bounded reads
 # (any `offset` or `limit` in the tool input) always pass, so
 # Edit-prerequisite reads of large files still work via offset/limit.
-# Exit 2 blocks the tool call and feeds stderr back to Claude as guidance.
+# Also blocks Grep calls whose `path` or `glob` targets a .env* file —
+# Grep is otherwise allowed unconditionally, so without this check its
+# content mode can return secret values that the Read-only deny rules
+# never see. Exit 2 blocks the tool call and feeds stderr back to Claude
+# as guidance.
 # Ported from cc-token-demos/block-huge-reads (Python original), adapted
 # to bash+jq for consistency with this repo's other hooks, with the
 # offset/limit pass-through and a 1000-line threshold per Odin's
-# checkpoint amendments.
+# checkpoint amendments. Grep .env* guard added per 2026-07-06 drift audit.
 
 LIMIT=1000
 
@@ -15,6 +19,16 @@ INPUT=$(cat)
 
 # jq missing → fail open (never brick the Read tool over a dependency)
 command -v jq >/dev/null 2>&1 || exit 0
+
+TOOL_NAME=$(printf '%s' "$INPUT" | jq -r '.tool_name // empty' 2>/dev/null)
+
+if [ "$TOOL_NAME" = "Grep" ]; then
+    GREP_PATH=$(printf '%s' "$INPUT" | jq -r '.tool_input.path // empty' 2>/dev/null)
+    GREP_GLOB=$(printf '%s' "$INPUT" | jq -r '.tool_input.glob // empty' 2>/dev/null)
+    case "$GREP_PATH" in *.env*) echo "BLOCKED: Grep path targets a .env* file — secrets must not be searched or read this way." >&2; exit 2 ;; esac
+    case "$GREP_GLOB" in *.env*) echo "BLOCKED: Grep glob targets .env* files — secrets must not be searched or read this way." >&2; exit 2 ;; esac
+    exit 0
+fi
 
 FILE_PATH=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
 [ -n "$FILE_PATH" ] || exit 0
