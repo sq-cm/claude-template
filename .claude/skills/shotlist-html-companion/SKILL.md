@@ -11,6 +11,8 @@ description: |
 
 # Shotlist HTML Companion
 
+> **Output Locale (vault rule):** All prose output uses Australian English — `-ise`/`-isation`, `-our`, `-re`, DD/MM/YYYY. Prose only: never alter code, identifiers, file paths, API/CSS keywords (`color`, `center`), package names, proper nouns, or quotations. When rewriting existing text, preserve AU spellings — do not normalise toward US English.
+
 ## Scope and distinction
 
 This skill turns an **approved shotlist or Seedance prompt set** into a single self-contained editable HTML file. It is **not** a substitute for the `html-deliverable` skill, which covers audit reports, status reports, implementation plans, comparisons, research explainers, and incident post-mortems. If the deliverable is one of those six types, route to `html-deliverable` instead.
