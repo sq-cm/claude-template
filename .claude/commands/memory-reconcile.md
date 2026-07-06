@@ -89,6 +89,7 @@ For each moved note:
 5. If no section matches and no fallback applies, append to `## Uncategorised` (create the section if missing) for triage on the next reconcile.
 6. **Prune-on-fold (`## Project context` only).** This is the section that grows every session. After appending, ensure **every** entry in it is a single line. If a prior entry spans multiple sentences or lines, collapse it to the one-line form — keep its link, distil a ≤12-word hook from it, discard the rest (the detail stays in the linked note). See the `PRUNE POLICY` note in the `context.md` header comment.
 7. **Live-state entry.** `## Project context` may keep **one** expanded entry, prefixed `**Live state (<date>):**`, for the current in-flight thread. When a newer `project` note folds in and supersedes it, demote the previous live-state to a one-line pointer and promote the new note (or, if the new note isn't the active thread, just append it as a one-liner — default to one-liner).
+8. **Budget check — `context.md` carries a 3 KB injected budget.** After all folds, measure the injected size: `perl -0777 -pe 's/<!--.*?-->//gs' Vault/Memory/context.md | wc -c`. While the result exceeds **3,072 bytes**, demote the oldest pointer line in `## Project context` (by note date): cut it from `context.md` and append it verbatim to `Vault/Memory/Notes/archive-index.md` under a `## <YYYY-MM>` heading matching the note's month (create file/heading if absent). Never demote: the live-state entry, any pointer tagged `[standing]`, or entries outside `## Project context`. If the file is still over budget once no eligible pointers remain, stop and report the over-budget state instead of looping. Demotion is a **move, not a deletion** — the pointer stays greppable in the archive index and the linked note remains the source of truth. Additionally, when a newly folded note supersedes an existing pointer (states it replaces, reverts, or closes it), demote the superseded pointer immediately regardless of budget.
 
 ### 6. Report
 
@@ -98,6 +99,7 @@ After processing all notes, report:
 - Any notes **backfilled** (inferred frontmatter) — list each with the `type`/`scope` that was filled in, so the user can correct a misclassification
 - Per-section context.md additions (one line each)
 - Any prior `## Project context` entries **collapsed** by prune-on-fold (and any live-state demotion/promotion)
+- Any pointers **demoted** to `Notes/archive-index.md` (supersession or budget), listed one per line
 - Any **rejected** notes and reasons (must appear inline here, not only in the error log)
 - Any idempotent skips (file already at destination)
 
@@ -113,6 +115,7 @@ After processing all notes, report:
 | context.md pointer duplicates | Re-run after pointer added | Skip duplicate; leave existing |
 | No matching section in context.md | New topic | File to `## Uncategorised`; route on next reconcile |
 | `## Project context` bloated (multi-line entries) | Pointers authored as paragraphs, never pruned | Prune-on-fold (step 5.6) collapses each to a one-line hook; detail stays in the linked note |
+| `context.md` over budget after fold | Pointer count grew past the 3 KB injected budget | Step 5.8 demotes oldest non-`[standing]` Project-context pointers to `Notes/archive-index.md` |
 
 ---
 

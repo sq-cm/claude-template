@@ -22,7 +22,6 @@ This file is committed to git.
 ## Workflow preferences
 
 - [Run humaniser on all content output](feedback_humaniser.md) — apply `/humaniser` to every written deliverable before finalising; no exceptions for short docs
-- [QA routing — spawn Quinn as sub-agent](feedback_qa_routing.md) — Quinn must be spawned for all deliverable reviews; Orchestrator must not run QA inline; QA step belongs in every plan before files move to Deliverables
 
 ## Theme
 
@@ -37,4 +36,3 @@ This file is committed to git.
 ## References
 
 - [Tool Exceptions Registry](tool-exceptions.md) — personas holding non-canonical tools beyond the 6-tool baseline; audits diff frontmatter against this file
-- [Email Build Standards extraction](reference_email_build_standards.md) — 2026-05-15, Rory's technical build standards extracted to `Resources/Build Standards/email-build-standards.md` after Checkpoint A

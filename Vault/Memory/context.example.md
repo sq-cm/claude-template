@@ -17,6 +17,11 @@ This file is git-ignored, so it never participates in template updates. Write he
 Format: freeform markdown. Use the H2 headings below so `/memory-reconcile` always finds a
 home for its pointer lines (it routes by note `type` — see the Memory Protocol SOP).
 
+PRUNE POLICY: keep entries as ONE-LINE pointers (link + <=12-word hook). Budget: 3 KB
+injected — /memory-reconcile auto-demotes the oldest Project-context pointers to
+Notes/archive-index.md when exceeded. Tag operative rulings `[standing]` to exempt them.
+Full detail lives in the linked Notes/YYYY-MM/ files. Only the live-state entry stays expanded.
+
 SECURITY: Do not store API keys, passwords, or credentials here.
 This file may be synced to cloud storage.
 -->

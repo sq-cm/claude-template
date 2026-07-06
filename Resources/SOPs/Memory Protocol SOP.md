@@ -96,6 +96,20 @@ Full procedure in the command file.
 
 ---
 
+## Context budget & auto-archival
+
+`context.md` is injected into context at every session start, so it carries a hard budget: **3 KB injected** (comment-stripped), roughly the live-state entry plus a month of one-line pointers. `/memory-reconcile` enforces it at fold time (step 5.8 of the command):
+
+- **Superseded** pointers (a newer note replaces, reverts, or closes them) demote immediately.
+- Over budget, the **oldest** `## Project context` pointers demote until the file fits.
+- **Exempt:** the live-state entry, pointers tagged `[standing]`, and all sections other than `## Project context`.
+
+Demoted pointers move verbatim to `Vault/Memory/Notes/archive-index.md` (git-ignored, never injected), grouped by month — a grep surface over the archive, not a second memory file. The note files under `Vault/Memory/Notes/<YYYY-MM>/` remain the source of truth throughout; demotion never deletes information, it only stops paying per-session rent on it. If the file is still over budget once no eligible pointers remain, the reconcile stops and reports the over-budget state.
+
+**The `[standing]` tag.** Suffix a pointer's hook with `[standing]` when it records an operative ruling, unresolved gotcha, or action-on-trigger item (e.g. a revert checklist) rather than completed work. Tagged pointers survive budget eviction; remove the tag when the ruling is codified into CLAUDE.md/an SOP or the trigger fires. Nothing writes to `MEMORY.md` — that file remains maintainer-only, unchanged by this rule.
+
+---
+
 ## End-of-turn check (Sam)
 
 The Orchestrator must surface a reminder when `Vault/Memory/Sessions/` contains files at end-of-turn:
