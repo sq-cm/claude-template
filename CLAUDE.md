@@ -88,8 +88,10 @@ Never delegated:
 
 ## Advisor Checkpoints
 
-**Eligible** when any of: durable artifact produced, hard-to-unwind interpretation, multi-step end-to-end.
-**Not eligible** when: dictated by tool output just read, lookup/roster check, Orchestrator-only meta-op.
+**Eligible** when any of: durable artefact produced, hard-to-unwind interpretation, multi-step end-to-end.
+**Not eligible** when: dictated by tool output just read, lookup/roster check, or an administrative Orchestrator-only meta-op (roster review, hiring/firing/archiving, folder creation, read-only audit skills).
+
+Governance-artefact edits — any CLAUDE.md, SOP, or persona file — stay checkpoint-eligible even though the Orchestrator executes them itself; being Orchestrator-only never exempts an edit from Checkpoints A and B.
 
 The Orchestrator flags eligibility at routing time. The Senior Adviser is pinned to `claude-fable-5` (revert to `claude-opus-4-8` when the availability window lapses).
 
