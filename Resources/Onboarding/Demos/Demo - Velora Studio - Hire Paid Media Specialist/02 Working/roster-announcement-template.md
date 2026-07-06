@@ -16,20 +16,19 @@ Routing: any request for paid search, paid social, campaign setup, budget manage
 
 ## Roster Update
 
-The Active Team Roster in `CLAUDE.md` has been updated:
+The team roster in `Vault/Memory/theme-name-map.md` has been updated:
 
 | Role Token | Current Name | Role | File |
 |---|---|---|---|
 | `@{PaidMediaSpecialist}` | Reed | Paid Media Specialist | .claude/agents/paid-media-specialist.md |
 
-*(Copy this row into the Active Team Roster table in your CLAUDE.md and add `PaidMediaSpecialist: Reed` to `Vault/Memory/theme-name-map.md`)*
+*(Add `PaidMediaSpecialist: Reed` to the name map and this row to the file-path table in `Vault/Memory/theme-name-map.md` — that's the only file to update. Root `CLAUDE.md`'s `## Theme & Roster` section just points to the name map and never changes per-hire.)*
 
 ---
 
 ## Next steps
 
 - [ ] Persona file saved to `.claude/agents/paid-media-specialist.md`
-- [ ] CLAUDE.md Active Team Roster updated
-- [ ] `Vault/Memory/theme-name-map.md` updated with new role token
+- [ ] `Vault/Memory/theme-name-map.md` updated with new role token (name map entry + file-path table row)
 - [ ] Orchestrator announcement logged (this file)
 - [ ] First task routed: Velora Studio paid media campaign
