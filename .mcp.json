@@ -2,15 +2,15 @@
   "mcpServers": {
     "analytics-mcp": {
       "command": "uvx",
-      "args": ["--python", "3.12", "analytics-mcp"],
+      "args": ["--python", "3.12", "analytics-mcp==0.6.0"],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "${USERPROFILE}/.config/claude-google/adc.json",
-        "GOOGLE_PROJECT_ID": "sq-claude-integrations"
+        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID}"
       }
     },
     "gsc": {
       "command": "npx",
-      "args": ["-y", "mcp-server-gsc"],
+      "args": ["-y", "mcp-server-gsc@0.3.0"],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "${USERPROFILE}/.config/claude-google/adc.json"
       }

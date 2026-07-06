@@ -5,12 +5,7 @@
       "Bash(git remote *)",
       "Bash(git config --get *)",
       "Bash(git config --list)",
-      "Bash(git checkout *)",
-      "Bash(git pull *)",
       "Bash(git fetch *)",
-      "Bash(git merge *)",
-      "Bash(git rebase *)",
-      "Bash(git stash *)",
       "Bash(git status)",
       "Bash(git status *)",
       "Bash(git log *)",
@@ -65,8 +60,8 @@
       "Edit(Vault/**)"
     ],
     "deny": [
-      "Read(./.env)",
-      "Read(./**/.env)",
+      "Read(./.env*)",
+      "Read(./**/.env*)",
       "Read(./**/node_modules/**)",
       "Read(./**/dist/**)",
       "Read(./**/coverage/**)",
@@ -80,7 +75,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Read",
+        "matcher": "Read|Grep",
         "hooks": [
           {
             "type": "command",
