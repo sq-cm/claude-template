@@ -146,22 +146,13 @@ Caveman mode reduces Claude's output tokens by ~65% by stripping filler, article
 
 ### Install
 
-**Claude Code (plugin):**
+The vault's `.claude/settings.json` declares the caveman marketplace (with `autoUpdate: true`) and enables the plugin — Claude Code prompts to install it when you trust the folder, and keeps it updated automatically on startup. Manual install, if the prompt was dismissed:
+
 ```
 claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman
 ```
 
-**Claude Code (standalone hooks):**
-
-macOS/Linux:
-```bash
-bash <(curl -s https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.sh)
-```
-
-Windows:
-```powershell
-irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.ps1 | iex
-```
+> The old standalone-hooks installer (`hooks/install.sh` / `hooks/install.ps1`) no longer exists upstream — the plugin is the only supported install path.
 
 ### Levels
 
