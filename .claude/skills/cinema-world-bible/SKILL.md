@@ -1,6 +1,6 @@
 ---
 name: cinema-world-bible
-description: Continuity tracker and prep system for narrative AI-film pipelines. Maintains the world bible, character bibles, reference-image library index, and shot specs that keep characters consistent across sequences. Use when building or updating a world bible, character bible, reference library, shot spec, or continuity checklist — or when the user says "lock a character," "world bible," "continuity," "shot list," "reference library," "bible," or any equivalent. Produces specs that route to banana-pro-director-2.0 and cinema-worldbuilder-pro-2.0 — it does not write those prompts itself.
+description: Continuity tracker and prep system for narrative AI-film pipelines. Maintains the world bible, character bibles, reference-image library index, and shot specs that keep characters consistent across sequences. Use when building or updating a world bible, character bible, reference library, shot spec, or continuity checklist — or when the user says "lock a character," "world bible," "continuity," "shot list," "reference library," "bible," or any equivalent. Produces specs that route to banana-pro-director-2.0, cinema-worldbuilder-pro-2.0, or seedance-commercial-director (commercial briefs) — it does not write those prompts itself.
 ---
 
 # Cinema World Bible

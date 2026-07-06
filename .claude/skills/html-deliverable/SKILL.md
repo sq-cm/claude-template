@@ -6,6 +6,7 @@ description: |
   "implementation plan", "comparison", "research explainer", "incident post-mortem",
   "make it HTML", "interactive HTML version", or "HTML companion". Produces a
   sibling-pair — <name>.md (canonical) + <name>.html (render) — in the same folder.
+  For shotlists or Seedance prompt sets, use shotlist-html-companion instead.
 ---
 
 # HTML-as-deliverable workflow
