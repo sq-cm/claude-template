@@ -123,7 +123,7 @@ After install, refresh PATH and retry `node --version`. If install fails, print:
 /plugin install caveman@caveman
 ```
 
-The vault's `.claude/settings.json` already declares the caveman marketplace with `autoUpdate: true` and enables `caveman@caveman` — if Claude Code already prompted the user to install it when they trusted this folder, skip the commands above and just confirm the plugin is installed. Auto-update keeps the plugin current on startup; no manual update step needed.
+The vault's `.claude/settings.json` already declares the caveman marketplace and enables `caveman@caveman` — if Claude Code already prompted the user to install it when they trusted this folder, skip the commands above and just confirm the plugin is installed. `autoUpdate` is `false` (matching every other declared marketplace — see the accepted-risk note in `Resources/Onboarding/SETUP.md`), so run `/plugin marketplace update` manually if you want the latest.
 
 After install completes, activate lite mode by invoking: `/caveman lite`
 
@@ -133,36 +133,29 @@ Report: "Caveman installed (plugin, auto-updating) and set to lite mode."
 
 ## Step 3.5 — Install claude-mem
 
-Install claude-mem via the plugin marketplace:
+claude-mem is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins` — see that file for the canonical roster) and auto-installs on first launch after the trust prompt. Run the manual steps below only if auto-install failed (check `/plugin`).
 
 ```
 /plugin marketplace add thedotmack/claude-mem
-```
-
-Then install the plugin:
-
-```
-/plugin install claude-mem
+/plugin install claude-mem@claude-mem
 ```
 
 Report: "claude-mem installed ✓ — restart Claude Code to activate memory hooks."
 
 If the plugin command fails or is unavailable, print:
 
-> ⚠️ claude-mem skipped — plugin marketplace unavailable. Install manually: `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem`
+> ⚠️ claude-mem skipped — plugin marketplace unavailable. Install manually: `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@claude-mem`
 
 ---
 
 ## Step 3.55 — Install recommended plugins
 
-Install the plugins below via the plugin marketplace. Run each pair sequentially.
-
-> **Note:** context-mode, superpowers, obsidian, and plannotator are declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) and auto-install on first launch after the trust prompt. Run their manual steps below only if auto-install failed (check `/plugin`).
+The full recommended plugin roster is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) and auto-installs on first launch after the trust prompt. Run the manual steps below only for whichever plugin failed to auto-install (check `/plugin`).
 
 **context-mode** (context-window management):
 ```
 /plugin marketplace add mksglu/context-mode
-/plugin install context-mode
+/plugin install context-mode@context-mode
 ```
 
 **superpowers** (skill collection):
@@ -176,43 +169,72 @@ Install the plugins below via the plugin marketplace. Run each pair sequentially
 /plugin install obsidian@obsidian-skills
 ```
 
+**impeccable** (design QA):
+```
+/plugin marketplace add pbakaus/impeccable
+/plugin install impeccable@impeccable
+```
+
+**marketing-skills**:
+```
+/plugin marketplace add coreyhaines31/marketingskills
+/plugin install marketing-skills@marketingskills
+```
+
+**document-skills**:
+```
+/plugin marketplace add anthropics/skills
+/plugin install document-skills@anthropic-agent-skills
+```
+
 **skill-creator** (create and improve skills):
 ```
 /plugin marketplace add anthropics/claude-plugins-official/plugins/skill-creator
-/plugin install skill-creator
+/plugin install skill-creator@claude-plugins-official
 ```
 
 **frontend-design** (production UI generation):
 ```
 /plugin marketplace add anthropics/claude-plugins-official/plugins/frontend-design
-/plugin install frontend-design
+/plugin install frontend-design@claude-plugins-official
 ```
 
-**plannotator** (visual plan & diff review):
-
-Plannotator needs its binary installed first, then the plugin. Detect platform and install the binary:
-
-**Windows:**
-```powershell
-irm https://plannotator.ai/install.ps1 | iex
-```
-
-**macOS / Linux / WSL:**
-```bash
-curl -fsSL https://plannotator.ai/install.sh | bash
-```
-
-Then add the marketplace and install the plugin:
+**plannotator** (visual plan & diff review — plugin registration only; the binary is a separate optional step, see Step 3.56):
 ```
 /plugin marketplace add backnotprop/plannotator
 /plugin install plannotator@plannotator
 ```
 
-Report: "context-mode, superpowers, obsidian, skill-creator, frontend-design, plannotator installed ✓ — restart Claude Code to activate."
+Report: "context-mode, superpowers, obsidian, impeccable, marketing-skills, document-skills, skill-creator, frontend-design, plannotator installed ✓ — restart Claude Code to activate."
 
 If any plugin command fails, print a warning for that plugin and continue with the rest:
 
 > ⚠️ [plugin-name] skipped — install manually: `/plugin marketplace add [source]` then `/plugin install [plugin-name]`
+
+---
+
+## Step 3.56 — Install plannotator binary (optional, user-confirmed)
+
+Not auto-run by the SessionStart onboarding hook — plannotator's plugin (Step 3.55) works without this, and installing a binary onto the user's machine needs explicit consent. Ask the user: "Install the plannotator binary for visual plan/diff review? (optional)" Only proceed on a yes.
+
+Pinned release: `backnotprop/plannotator` tag `v0.9.3`. Download the platform-matching asset via `gh release download` and verify its SHA-256 against the published `.sha256` sibling before running it — do not pipe an installer script from a URL.
+
+**Windows:**
+```powershell
+gh release download v0.9.3 --repo backnotprop/plannotator --pattern "plannotator-win32-x64.exe*"
+$expected = (Get-Content plannotator-win32-x64.exe.sha256).Split(" ")[0]
+$actual = (Get-FileHash plannotator-win32-x64.exe -Algorithm SHA256).Hash
+if ($expected -ieq $actual) { Move-Item plannotator-win32-x64.exe "$env:LOCALAPPDATA\plannotator\plannotator.exe" -Force } else { Write-Host "⚠️ checksum mismatch — aborting install" }
+```
+
+**macOS (arm64) / Linux (x64) — substitute the asset name for your platform:**
+```bash
+ASSET="plannotator-darwin-arm64"   # or plannotator-linux-x64, etc.
+gh release download v0.9.3 --repo backnotprop/plannotator --pattern "${ASSET}*"
+echo "$(cat ${ASSET}.sha256 | cut -d' ' -f1)  ${ASSET}" | sha256sum -c - && chmod +x "$ASSET" && sudo mv "$ASSET" /usr/local/bin/plannotator
+```
+
+Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch/failure: "⚠️ plannotator binary skipped — checksum did not match / download failed. Retry manually or report to the maintainer."
 
 ---
 

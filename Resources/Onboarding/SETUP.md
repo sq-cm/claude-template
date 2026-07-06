@@ -146,7 +146,7 @@ Caveman mode reduces Claude's output tokens by ~65% by stripping filler, article
 
 ### Install
 
-The vault's `.claude/settings.json` declares the caveman marketplace (with `autoUpdate: true`) and enables the plugin — Claude Code prompts to install it when you trust the folder, and keeps it updated automatically on startup. Manual install, if the prompt was dismissed:
+The vault's `.claude/settings.json` declares the caveman marketplace and enables the plugin — Claude Code prompts to install it when you trust the folder. `autoUpdate` is `false`, matching every other declared marketplace (see the accepted-risk note below) — update it manually with `/plugin marketplace update` when you want the latest. Manual install, if the prompt was dismissed:
 
 ```
 claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman
@@ -168,30 +168,30 @@ Set lite as default per session with `/caveman lite`. Repo & docs: [github.com/J
 
 ## Appendix — Recommended plugins
 
-Auto-onboarding installs a set of recommended Claude Code plugins (onboard.md Step 3.5 + 3.55). If you onboarded manually or a plugin failed, install them yourself:
+Auto-onboarding installs the recommended Claude Code plugins (onboard.md Steps 3.5 + 3.55). The canonical, current roster — plugin IDs, marketplace sources, and enabled state — lives in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`); do not restate it here. If you onboarded manually or a plugin failed, `.claude/commands/onboard.md` Steps 3.5 and 3.55 give the exact `/plugin marketplace add` + `/plugin install` command pair for each declared plugin.
 
-| Plugin | Install |
-|--------|---------|
-| claude-mem | `/plugin marketplace add thedotmack/claude-mem` → `/plugin install claude-mem` |
-| context-mode | `/plugin marketplace add mksglu/context-mode` → `/plugin install context-mode` |
-| superpowers | `/plugin marketplace add obra/superpowers` → `/plugin install superpowers` |
-| skill-creator | `/plugin marketplace add anthropics/claude-plugins-official/plugins/skill-creator` → `/plugin install skill-creator` |
-| frontend-design | `/plugin marketplace add anthropics/claude-plugins-official/plugins/frontend-design` → `/plugin install frontend-design` |
-| plannotator | binary first (below), then `/plugin marketplace add backnotprop/plannotator` → `/plugin install plannotator@plannotator` |
-
-**plannotator** ([github.com/backnotprop/plannotator](https://github.com/backnotprop/plannotator)) adds visual review of agent plans and code diffs — approve/deny plans with inline annotations, review git diffs and PRs, send feedback back to the agent. It needs its binary installed before the plugin:
-
-**Windows:**
-```powershell
-irm https://plannotator.ai/install.ps1 | iex
-```
-
-**macOS / Linux / WSL:**
-```bash
-curl -fsSL https://plannotator.ai/install.sh | bash
-```
+**plannotator** ([github.com/backnotprop/plannotator](https://github.com/backnotprop/plannotator)) adds visual review of agent plans and code diffs — approve/deny plans with inline annotations, review git diffs and PRs, send feedback back to the agent. Its Claude Code plugin registers automatically like the rest of the roster; the plannotator *binary* is a separate, optional, user-confirmed install (`.claude/commands/onboard.md` Step 3.56) — pipe-to-shell installers were replaced with a pinned-release, checksum-verified download (see accepted-risk note below for why pinning applies differently here vs. the GitHub-sourced plugin marketplaces).
 
 Restart Claude Code after any plugin install.
+
+### Accepted risk — unpinned GitHub-sourced plugin marketplaces
+
+Every marketplace in `.claude/settings.json` `extraKnownMarketplaces` sourced from GitHub (`plannotator`, `context-mode`, `obsidian-skills`, `caveman`, `impeccable`, `marketingskills`, `anthropic-agent-skills`, `claude-mem`) tracks its repo's default branch at HEAD, not a pinned commit or tag. This was a deliberate fallback, not an oversight: `git clone --branch <sha>` rejects commit SHAs, Claude Code's marketplace mechanism only accepts branch or tag refs, and none of these repos publish tags — so commit-pinning was tested and is not currently achievable through the marketplace system. `autoUpdate` is `false` on every entry (including caveman, previously `true`) so a fresh trust-prompt install always uses whatever is at HEAD at trust time, and updates only happen when a maintainer explicitly runs `/plugin marketplace update`.
+
+The trade-off accepted in its place: each repo's HEAD commit was reviewed as of **2026-07-06** and recorded below. Anyone auditing what code actually ran can diff against these SHAs; anyone updating a marketplace should re-review and update this list.
+
+| Repo | Reviewed HEAD SHA (2026-07-06) |
+|------|---------------------------------|
+| backnotprop/plannotator | `82f5648ccb1fc718407fbc794e8a40c95c94a536` |
+| mksglu/context-mode | `f267bdae970f0b01652a2ab413793318ed02065a` |
+| kepano/obsidian-skills | `a1dc48e68138490d522c04cbf5822214c6eb1202` |
+| JuliusBrussee/caveman | `0d95a81d35a9f2d123a5e9430d1cfc43d55f1bb0` |
+| pbakaus/impeccable | `88f52ac4e6a5ce99d39a0f5d89e7ac3a168910f5` |
+| coreyhaines31/marketingskills | `30dbd7f793b86f0ec2f007757b333afac93c24db` |
+| anthropics/skills | `9d2f1ae187231d8199c64b5b762e1bdf2244733d` |
+| thedotmack/claude-mem | `804504b351cabbe45c63fa8692ff09c57e0d03e6` |
+
+This is the single place this SHA list is recorded — other docs link here rather than restating it.
 
 ---
 

@@ -30,7 +30,7 @@ if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then emit_silent; fi
 if [ ! -f "$DIR/CLAUDE.md" ] || [ ! -d "$DIR/.claude/agents" ]; then emit_silent; fi
 
 SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
-REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_superpowers tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_plannotator tier2_vscode_git"
+REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_superpowers tier2_plugin_impeccable tier2_plugin_marketing_skills tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_plannotator tier2_vscode_git"
 
 if ! command -v jq >/dev/null 2>&1; then
   log_error "jq not found on PATH — auto-onboarding disabled"
@@ -99,7 +99,7 @@ behavioural_pass=true
 [ "$NODE_OK" = "true" ] || behavioural_pass=false
 PLUGINS_DIR="${HOME:-$USERPROFILE}/.claude/plugins"
 if [ -d "$PLUGINS_DIR" ] && command -v find >/dev/null 2>&1; then
-  for p in claude-mem context-mode superpowers skill-creator frontend-design plannotator; do
+  for p in claude-mem context-mode obsidian superpowers impeccable marketing-skills document-skills skill-creator frontend-design plannotator caveman; do
     if ! find "$PLUGINS_DIR" -maxdepth 2 -type d -iname "$p" 2>/dev/null | grep -q .; then
       behavioural_pass=false
       break
@@ -116,7 +116,7 @@ All onboarding signals already pass on disk but Vault/Memory/onboarding-flags.js
 
 ACTION (silent — before responding to user):
 1. Read Vault/Memory/onboarding-flags.json (create with {} if absent).
-2. Merge in 'onboarded' object with all these keys set true: tier1_git_hooks, tier1_env_copy, tier1_node, tier2_caveman, tier2_plugin_claude_mem, tier2_plugin_context_mode, tier2_plugin_superpowers, tier2_plugin_skill_creator, tier2_plugin_frontend_design, tier2_plugin_plannotator, tier2_vscode_git.
+2. Merge in 'onboarded' object with all these keys set true: tier1_git_hooks, tier1_env_copy, tier1_node, tier2_caveman, tier2_plugin_claude_mem, tier2_plugin_context_mode, tier2_plugin_obsidian, tier2_plugin_superpowers, tier2_plugin_impeccable, tier2_plugin_marketing_skills, tier2_plugin_document_skills, tier2_plugin_skill_creator, tier2_plugin_frontend_design, tier2_plugin_plannotator, tier2_vscode_git.
 3. Write back. Do NOT narrate. Then handle the user's original message normally."
   emit_context "$CTX"
 fi
@@ -128,6 +128,6 @@ Missing flags:$missing
 
 ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md (Steps 0.6, 3, 3.5, 3.55). For each missing flag above, complete the matching step and set that key to true under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, stop Tier 2 and ask user to install Node.js LTS manually. On any step failure: one-line warning, continue, do not set that flag. After all attempted, pivot to user's original message ('Setup done. On your question: ...').
 
-Flag→step map: tier1_git_hooks/tier1_env_copy = hook already ran (set true unless FAILED); tier1_node = set true iff Node present; tier2_plugin_claude_mem/context_mode/superpowers/skill_creator/frontend_design/plannotator = Step 3.5+3.55 plugin pairs; tier2_caveman = Step 3 + '/caveman lite'; tier2_vscode_git = Step 0.6."
+Flag→step map: tier1_git_hooks/tier1_env_copy = hook already ran (set true unless FAILED); tier1_node = set true iff Node present; tier2_plugin_claude_mem/context_mode/obsidian/superpowers/impeccable/marketing_skills/document_skills/skill_creator/frontend_design/plannotator = Step 3.5+3.55 plugin pairs (plannotator's binary install is a separate optional Step 3.56 — do not auto-run it; the plugin registration flag here covers only the Claude Code plugin, which auto-installs per settings.json); tier2_caveman = Step 3 + '/caveman lite'; tier2_vscode_git = Step 0.6."
 
 emit_context "$CTX"

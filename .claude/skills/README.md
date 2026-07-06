@@ -39,30 +39,12 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 
 ## Plugin-Provided Skills
 
-These skills are not stored in this directory. They are provided at runtime by marketplace plugins declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) — fresh clones auto-install them after a one-time trust prompt. Onboarding Step 3.55 remains the manual fallback. They will not work without their plugin.
+These skills are not stored in this directory. They are provided at runtime by marketplace plugins — the canonical, current roster is `.claude/settings.json` `enabledPlugins` (do not restate it here; it drifts as plugins are added or removed). Fresh clones auto-install the declared plugins after a one-time trust prompt; `.claude/commands/onboard.md` Step 3.55 is the manual fallback. A plugin's skills will not work without that plugin installed — run `/plugin` to see what is currently active and what each installed plugin provides.
 
-**`superpowers` plugin** (`claude-plugins-official` marketplace):
+Two plugins are worth a standing note beyond "check `/plugin`":
 
-| Skill | Rationale |
-|-------|-----------|
-| `executing-plans` | Execute a written implementation plan in a fresh agent context — requires plugin's agent-dispatch capability |
-| `finishing-a-development-branch` | Pre-merge checklist for code work (tests, cleanup, PR readiness) — wraps plugin git tooling |
-| `receiving-code-review` | Process incoming code review feedback before implementing — requires plugin review-state tooling |
-| `requesting-code-review` | Request structured code review before merging — requires plugin review-state tooling |
-| `subagent-driven-development` | Execute implementation plans with parallel sub-agents in current session — requires plugin sub-agent runtime |
-| `systematic-debugging` | Structured debugging protocol before writing fixes — requires plugin diagnostic tooling |
-| `test-driven-development` | Write tests before implementation code — requires plugin test-runner integration |
-| `using-git-worktrees` | Isolate feature work in a git worktree — requires plugin worktree management tooling |
-
-**`obsidian` plugin** (`obsidian-skills` marketplace, kepano/obsidian-skills, MIT) — replaces the formerly vault-local copies, which were content-identical to upstream; the plugin keeps them auto-updated:
-
-| Skill | Rationale |
-|-------|-----------|
-| `obsidian-bases` | Create and edit Obsidian Bases (.base files) with views, filters, formulas |
-| `obsidian-cli` | Interact with Obsidian vault — read, create, search, update notes via CLI |
-| `obsidian-markdown` | Create/edit Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties |
-| `json-canvas` | Create and edit JSON Canvas (.canvas) files |
-| `defuddle` | Extract clean markdown from web pages via Defuddle CLI |
+- **`obsidian` plugin** (`obsidian-skills` marketplace, kepano/obsidian-skills, MIT) replaces the formerly vault-local copies of the Obsidian skills (`obsidian-bases`, `obsidian-cli`, `obsidian-markdown`, `json-canvas`, `defuddle`), which were content-identical to upstream — the plugin keeps them auto-updated instead of the vault carrying a static snapshot.
+- **`superpowers` plugin** (`claude-plugins-official` marketplace) supplies several skills that wrap the plugin's own runtime capabilities (agent-dispatch, git-worktree management, review-state tracking) rather than being self-contained — they will not function if the plugin is disabled, unlike most vault-local skills above.
 
 ---
 
