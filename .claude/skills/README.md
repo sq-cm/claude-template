@@ -15,7 +15,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `cinema-world-bible` | Continuity tracker for narrative AI-film — world bible, character bibles, reference-library index, shot specs that route to the two operator skills | Marlowe (Cinema Showrunner) |
 | `cinema-worldbuilder-pro-2.0` | Seedance video prompt director — five cinema modes, Frame Map / Subject Lock continuity grammar, diegetic audio; **photoreal/live-action and English-only** (for stylized/bilingual work use `seedance-bilingual-director`) | Dash (Seedance Director) |
 | `code-minimalism-review` | Over-engineering review of diffs — five tags (delete/stdlib/native/yagni/shrink); findings only, applies nothing (adapted from ponytail, MIT) | Webflow Developer, Email Developer, Mobile Developer, Automation Architect, Creative Technologist |
-| `dispatching-parallel-agents` | Launch independent sub-agents in parallel for multi-track tasks | Orchestrator, all checkpoint-eligible personas |
+| `dispatching-parallel-agents` | Launch independent sub-agents in parallel for multi-track tasks | Orchestrator only (depth-1 wall — personas needing fan-out return a spec to the Orchestrator) |
 | `grill-me` | Interview user relentlessly to surface full requirements before work starts | Orchestrator (default intake for non-trivial requests) |
 | `handoff` | Save and restore task context across sessions — mid-task handoff protocol | All |
 | `html-deliverable` | Produce an interactive HTML companion for eligible MD deliverable types | All producing personas |
