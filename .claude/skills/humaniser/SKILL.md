@@ -23,7 +23,11 @@ allowed-tools:
 Source: derived skill, version 2.8.2, MIT. Content based on Wikipedia's "Signs of
 AI writing" guide. Exact upstream repo/commit unknown at pin time (2026-07-06) —
 if identified, record it here; treat as vault-maintained until then.
+Vault adaptation (plan 029): AU-English locale note added before the Task
+section — carry over on re-sync.
 -->
+
+> **Output Locale (vault rule):** All prose output uses Australian English — `-ise`/`-isation`, `-our`, `-re`, DD/MM/YYYY. Prose only: never alter code, identifiers, file paths, API/CSS keywords (`color`, `center`), package names, proper nouns, or quotations. When rewriting existing text, preserve AU spellings — do not normalise toward US English.
 
 # Humanizer: Remove AI Writing Patterns
 

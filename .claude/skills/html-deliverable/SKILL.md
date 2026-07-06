@@ -11,6 +11,8 @@ description: |
 
 # HTML-as-deliverable workflow
 
+> **Output Locale (vault rule):** All prose output uses Australian English — `-ise`/`-isation`, `-our`, `-re`, DD/MM/YYYY. Prose only: never alter code, identifiers, file paths, API/CSS keywords (`color`, `center`), package names, proper nouns, or quotations. When rewriting existing text, preserve AU spellings — do not normalise toward US English.
+
 ## When to use
 
 Six deliverable types are in scope:
