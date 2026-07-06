@@ -24,9 +24,6 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `hyperframes-cli` | HyperFrames dev loop — init, lint, inspect, preview, render, doctor via `npx hyperframes` | Nova (Video and Motion Producer) |
 | `hyperframes-media` | HyperFrames asset preprocessing — TTS (Kokoro), transcription (Whisper), background removal (u2net) | Nova (Video and Motion Producer) |
 | `improve` | Read-only codebase auditor and implementation-plan generator — surveys a repo as a senior adviser, produces prioritised self-contained plans for executor agents to implement; never modifies source code itself | Orchestrator (meta-op — runs on the Orchestrator session, not routed; `plans/` are internal artefacts, not Deliverables; see CLAUDE.md § Orchestrator-Only Operations) |
-| `obsidian-bases` | Create and edit Obsidian Bases (.base files) with views, filters, formulas | Orchestrator, Project Manager |
-| `obsidian-cli` | Interact with Obsidian vault — read, create, search, update notes via CLI | All |
-| `obsidian-markdown` | Create/edit Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties | All |
 | `prototype` | Build and iterate on interactive HTML/CSS/JS prototypes | All producing personas |
 | `seedance-bilingual-director` | Seedance video prompt director for stylized/animated looks (cartoon, manga, claymation, mixed-media) — bilingual EN+ZH JSON output, dialogue-heavy scene support; **stylized/bilingual counterpart to `cinema-worldbuilder-pro-2.0`** (photoreal/live-action) | Dash (Seedance Director) |
 | `seedance-commercial-director` | Seedance video prompt director for the **commercial-ad lane** — photoreal/English, twelve-block grammar adding Product Surface + Brand Grade blocks; route on intent (ad/product/brand), **not** CWP narrative or its M2 mode | Dash (Seedance Director) |
@@ -41,7 +38,9 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 
 ## Plugin-Provided Skills
 
-These skills are not stored in this directory. They are provided at runtime by the `superpowers` plugin (installed in onboarding Step 3.55). They will not work without the plugin.
+These skills are not stored in this directory. They are provided at runtime by marketplace plugins declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) — fresh clones auto-install them after a one-time trust prompt. Onboarding Step 3.55 remains the manual fallback. They will not work without their plugin.
+
+**`superpowers` plugin** (`claude-plugins-official` marketplace):
 
 | Skill | Rationale |
 |-------|-----------|
@@ -54,6 +53,16 @@ These skills are not stored in this directory. They are provided at runtime by t
 | `test-driven-development` | Write tests before implementation code — requires plugin test-runner integration |
 | `using-git-worktrees` | Isolate feature work in a git worktree — requires plugin worktree management tooling |
 
+**`obsidian` plugin** (`obsidian-skills` marketplace, kepano/obsidian-skills, MIT) — replaces the formerly vault-local copies, which were content-identical to upstream; the plugin keeps them auto-updated:
+
+| Skill | Rationale |
+|-------|-----------|
+| `obsidian-bases` | Create and edit Obsidian Bases (.base files) with views, filters, formulas |
+| `obsidian-cli` | Interact with Obsidian vault — read, create, search, update notes via CLI |
+| `obsidian-markdown` | Create/edit Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties |
+| `json-canvas` | Create and edit JSON Canvas (.canvas) files |
+| `defuddle` | Extract clean markdown from web pages via Defuddle CLI |
+
 ---
 
 ## Notes
@@ -61,7 +70,7 @@ These skills are not stored in this directory. They are provided at runtime by t
 - **Frontmatter standard.** Every vault-local `SKILL.md` carries a YAML frontmatter block with, at minimum, the two **required** keys `name` (must equal the skill's folder name) and `description`. The following keys are **allowed when functional** — keep them only where they change runtime behaviour: `disable-model-invocation`, `argument-hint`, `allowed-tools`. A `license` key (optionally with a `metadata` block) is **kept only as upstream attribution** for a vendored skill — never as cosmetic residue. Cosmetic keys (`version`, `compatibility`, and a bare `license` with no attribution to preserve) are not house-standard and should not be added.
 - Before committing template changes, run `Vault/Scripts/validate.sh` — the read-only consistency checker for persona roster, token references, tool lists, doc counts, and seed files.
 - Vault-local skills are available immediately in any session — no plugin required
-- Plugin-provided skills require the `superpowers` plugin; see `.claude/commands/onboard.md` Step 3.55
+- Plugin-provided skills require their plugin — auto-installed via `.claude/settings.json`; manual fallback in `.claude/commands/onboard.md` Step 3.55
 - Skill files follow the SKILL.md format — see `write-a-skill` for authoring guidance
 - To add a new vault-local skill: drop a valid SKILL.md directory here; it becomes available in the next session
 - Version pinning: skills here are unpinned (copied at vault creation). To lock a version, note the source repo and commit in the skill's own SKILL.md

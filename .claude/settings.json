@@ -183,10 +183,18 @@
         "source": "github",
         "repo": "mksglu/context-mode"
       }
+    },
+    "obsidian-skills": {
+      "source": {
+        "source": "github",
+        "repo": "kepano/obsidian-skills"
+      }
     }
   },
   "enabledPlugins": {
     "plannotator@plannotator": true,
-    "context-mode@context-mode": true
+    "context-mode@context-mode": true,
+    "obsidian@obsidian-skills": true,
+    "superpowers@claude-plugins-official": true
   }
 }

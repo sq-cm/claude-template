@@ -394,7 +394,7 @@ echo ""
 # Check 7 — doc counts match README assertions
 #
 # Live agent count: ls .claude/agents/*.md | wc -l → expect 28
-# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 26
+# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 23
 #
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
 # "N reusable skill modules") — not the prose mention around line 58.
@@ -409,7 +409,7 @@ echo "--- Check 7: Doc counts match README assertions ---"
 check7_pass=true
 
 EXPECTED_AGENT_COUNT=28
-EXPECTED_SKILL_COUNT=26
+EXPECTED_SKILL_COUNT=23
 
 # Live counts
 live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | grep -cv '/CLAUDE\.md$' | tr -d ' ')
