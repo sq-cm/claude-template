@@ -22,6 +22,12 @@ injected — /memory-reconcile auto-demotes the oldest Project-context pointers 
 Notes/archive-index.md when exceeded. Tag operative rulings `[standing]` to exempt them.
 Full detail lives in the linked Notes/YYYY-MM/ files. Only the live-state entry stays expanded.
 
+`## Project context` holds ONE line per ACTIVE project, pointing at that project's own
+`Projects/<name>/HISTORY.md` — not the detail itself. Project history (decisions, gotchas,
+live state) accrues in that file, written by /memory-reconcile from notes carrying a
+`project:` frontmatter field; it is read on demand, never injected, so it has no size budget.
+See Resources/SOPs/Memory Protocol SOP.md § Project-scoped memory.
+
 SECURITY: Do not store API keys, passwords, or credentials here.
 This file may be synced to cloud storage.
 -->
@@ -44,6 +50,10 @@ This file may be synced to cloud storage.
 ## Workflow corrections
 
 ## Project context
+
+<!-- Example (once a project has an active HISTORY.md) — one line, dedup by path:
+- [Client Onboarding Revamp](Projects/Client%20Onboarding%20Revamp/HISTORY.md) — mid-build, webhook auth pending
+-->
 
 ## References
 
