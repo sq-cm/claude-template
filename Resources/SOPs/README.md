@@ -20,6 +20,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Theme SOP.md`](Theme%20SOP.md)                               | All name-related operations — apply a theme, change a theme, revert to defaults, swap one member, archive a retired member |
 | [`Memory Protocol SOP.md`](Memory%20Protocol%20SOP.md)         | Two-stage write protocol for `Vault/Memory/`: session notes → `/memory-reconcile` → tracked `notes/<YYYY-MM>/` |
 | [`Context Overhead Audit SOP.md`](Context%20Overhead%20Audit%20SOP.md) | Recurring `/context` audit of per-session fixed overhead — plugins, hooks, MCP servers, memory files, both project and user-global scopes |
+| [`Folder-Tier CLAUDE.md SOP.md`](Folder-Tier%20CLAUDE.md%20SOP.md) | Lazy-loaded folder-level CLAUDE.md files — placement test, verified load semantics, canonical folder list, Orchestrator-only governance, QA carve-out |
 
 ## Ownership
 
