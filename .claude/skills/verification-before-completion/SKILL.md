@@ -1,15 +1,17 @@
 ---
 name: verification-before-completion
-description: Use before claiming any deliverable is complete, ready to send, or approved — requires checking against the brief, QA criteria, and humaniser pass before making any success claims; evidence before assertions always
+description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
 ---
 
 # Verification Before Completion
 
 ## Overview
 
-Claiming work is complete without checking it is dishonesty, not efficiency.
+Claiming work is complete without verification is dishonesty, not efficiency.
 
 **Core principle:** Evidence before claims, always.
+
+**Violating the letter of this rule is violating the spirit of this rule.**
 
 ## The Iron Law
 
@@ -17,86 +19,121 @@ Claiming work is complete without checking it is dishonesty, not efficiency.
 NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 ```
 
-If you haven't checked the output against requirements in this message, you cannot claim it's done.
+If you haven't run the verification command in this message, you cannot claim it passes.
 
 ## The Gate Function
 
 ```
-BEFORE claiming any deliverable is complete or ready:
+BEFORE claiming any status or expressing satisfaction:
 
-1. IDENTIFY: What checklist proves this claim?
-2. CHECK: Run through it in full — no skipping
-3. READ: Does output match the brief exactly?
-4. VERIFY: Are QA and humaniser requirements met?
-   - If NO: State actual gaps with specifics
+1. IDENTIFY: What command proves this claim?
+2. RUN: Execute the FULL command (fresh, complete)
+3. READ: Full output, check exit code, count failures
+4. VERIFY: Does output confirm the claim?
+   - If NO: State actual status with evidence
    - If YES: State claim WITH evidence
-5. ONLY THEN: Mark complete
+5. ONLY THEN: Make the claim
 
-Skip any step = claiming without knowing
+Skip any step = lying, not verifying
 ```
 
 ## Common Failures
 
 | Claim | Requires | Not Sufficient |
 |-------|----------|----------------|
-| Copy is finalised | Humaniser pass confirmed | Draft reviewed once |
-| Brief requirements met | Line-by-line checklist | Feels on-brief |
-| SEO deliverable ready | All keyword targets verified | Keywords mentioned somewhere |
-| Strategy approved | Every success metric addressed | Deck looks complete |
-| Research complete | All brief questions answered | Sources gathered |
-| Agent output ready | Output reviewed against spec | Agent reported success |
+| Tests pass | Test command output: 0 failures | Previous run, "should pass" |
+| Linter clean | Linter output: 0 errors | Partial check, extrapolation |
+| Build succeeds | Build command: exit 0 | Linter passing, logs look good |
+| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
+| Regression test works | Red-green cycle verified | Test passes once |
+| Agent completed | VCS diff shows changes | Agent reports "success" |
+| Requirements met | Line-by-line checklist | Tests passing |
 
-## Red Flags — STOP
+## Red Flags - STOP
 
 - Using "should", "probably", "seems to"
-- Expressing satisfaction before checking ("Great!", "Perfect!", "Done!")
-- About to send or hand off without a final read
-- Trusting agent success reports without review
-- Relying on a partial check
+- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
+- About to commit/push/PR without verification
+- Trusting agent success reports
+- Relying on partial verification
 - Thinking "just this once"
+- Tired and wanting work over
+- **ANY wording implying success without having run verification**
 
 ## Rationalization Prevention
 
 | Excuse | Reality |
 |--------|---------|
-| "Should be on-brief" | Check the brief |
+| "Should work now" | RUN the verification |
 | "I'm confident" | Confidence ≠ evidence |
 | "Just this once" | No exceptions |
-| "Agent said done" | Verify independently |
-| "Humaniser can wait" | It can't — it's mandatory |
-| "Close enough" | Brief said what it said |
+| "Linter passed" | Linter ≠ compiler |
+| "Agent said success" | Verify independently |
+| "I'm tired" | Exhaustion ≠ excuse |
+| "Partial check is enough" | Partial proves nothing |
+| "Different words so rule doesn't apply" | Spirit over letter |
 
 ## Key Patterns
 
-**Copy/content:**
+**Tests:**
 ```
-✅ Run humaniser → confirm pass → "Copy is ready"
-❌ "Looks good" / "Should be fine"
-```
-
-**Brief compliance:**
-```
-✅ Re-read brief → create checklist → verify each item → report gaps or completion
-❌ "Covers the main points"
+✅ [Run test command] [See: 34/34 pass] "All tests pass"
+❌ "Should pass now" / "Looks correct"
 ```
 
-**Research deliverable:**
+**Regression tests (TDD Red-Green):**
 ```
-✅ Map each brief question to an answer in the output → confirm all answered
-❌ "Found plenty of sources"
+✅ Write → Run (pass) → Revert fix → Run (MUST FAIL) → Restore → Run (pass)
+❌ "I've written a regression test" (without red-green verification)
+```
+
+**Build:**
+```
+✅ [Run build] [See: exit 0] "Build passes"
+❌ "Linter passed" (linter doesn't check compilation)
+```
+
+**Requirements:**
+```
+✅ Re-read plan → Create checklist → Verify each → Report gaps or completion
+❌ "Tests pass, phase complete"
 ```
 
 **Agent delegation:**
 ```
-✅ Agent reports done → review output against spec → report actual state
-❌ Trust agent report alone
+✅ Agent reports success → Check VCS diff → Verify changes → Report actual state
+❌ Trust agent report
 ```
+
+## Why This Matters
+
+From 24 failure memories:
+- your human partner said "I don't believe you" - trust broken
+- Undefined functions shipped - would crash
+- Missing requirements shipped - incomplete features
+- Time wasted on false completion → redirect → rework
+- Violates: "Honesty is a core value. If you lie, you'll be replaced."
 
 ## When To Apply
 
-**Always before:**
-- Any success or completion claim
-- Any expression of satisfaction with output
-- Handing off to another team member
-- Sending anything to a client
-- Moving to the next task
+**ALWAYS before:**
+- ANY variation of success/completion claims
+- ANY expression of satisfaction
+- ANY positive statement about work state
+- Committing, PR creation, task completion
+- Moving to next task
+- Delegating to agents
+
+**Rule applies to:**
+- Exact phrases
+- Paraphrases and synonyms
+- Implications of success
+- ANY communication suggesting completion/correctness
+
+## The Bottom Line
+
+**No shortcuts for verification.**
+
+Run the command. Read the output. THEN claim the result.
+
+This is non-negotiable.
