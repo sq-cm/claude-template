@@ -1,6 +1,6 @@
 ---
 name: find-skills
-description: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.
+description: Helps users discover and install agent skills on explicit request — "find a skill for X", "install a skill", "is there a skill that can...". Explicit invocation tool — do not fire automatically on ordinary "how do I do X" requests; those follow the normal intake pipeline.
 ---
 
 <!--
@@ -9,6 +9,8 @@ commit ceea008 on 06/07/2026 (straight copy). Vault adaptation: "Vault note" blo
 added below — installs into this template's .claude/skills/ are maintainer decisions
 and prompt for confirmation by design; discovery/search steps unchanged.
 Re-sync rule: carry the Vault note over any future upstream replace.
+Second adaptation (drift-audit F19): description narrowed to explicit skill-ecosystem
+requests so discovery doesn't compete with grill-me intake.
 -->
 
 # Find Skills

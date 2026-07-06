@@ -190,7 +190,7 @@ The new protocol applies only to **memories created after this SOP shipped (2026
 
 3. **A pointer to the same filename already exists in context.md.** Skip — the existing pointer is canonical.
 
-4. **A destination file already exists in `notes/<YYYY-MM>/`.** Skip move (idempotent re-run case). Re-check pointer in context.md.
+4. **A destination file already exists in `Notes/<YYYY-MM>/`.** Skip move (idempotent re-run case). Re-check pointer in context.md.
 
 ---
 
@@ -202,7 +202,7 @@ The reconcile is designed to be resumable. If `/memory-reconcile` crashes mid-ru
 2. The session notes still in `Sessions/` are untouched.
 3. Re-run `/memory-reconcile`. Already-moved files are skipped; remaining files process normally.
 
-If a destination file is malformed (rare — would require manual edit of a `notes/<YYYY-MM>/` file mid-reconcile), the reconcile reports the failure and continues with the next note. Manual fix required.
+If a destination file is malformed (rare — would require manual edit of a `Notes/<YYYY-MM>/` file mid-reconcile), the reconcile reports the failure and continues with the next note. Manual fix required.
 
 ---
 
