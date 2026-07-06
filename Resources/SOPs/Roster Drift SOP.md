@@ -47,7 +47,7 @@ For every `.claude/agents/[role].md` file:
 ### Check 3 — theme-name-map.md internal consistency
 
 Within `theme-name-map.md`:
-- [ ] Every role token in the YAML name map appears in the file-path table (except `Orchestrator`, which has no agent file by design)
+- [ ] Every role token in the YAML name map appears in the file-path table (except `Orchestrator`, which has no agent file by design, and `Studio`, which is a studio-name constant, not a role)
 - [ ] Every role token in the file-path table appears in the YAML name map
 - [ ] Role token spelling matches exactly between the two
 

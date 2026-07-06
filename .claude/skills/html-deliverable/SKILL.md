@@ -292,7 +292,7 @@ Steps must run in order:
 2. Humaniser pass on MD.
 3. Quinn (QA Compliance Reviewer) QA on MD — must PASS before HTML is rendered.
 4. HTML rendered from approved MD.
-5. Quinn second pass on HTML against the HTML checklist (see `Resources/SOPs/QA Gate SOP.md` — Quinn's HTML checklist addendum). Checks include: links resolve, no JS console errors, prints cleanly, accessibility floor met (`<details>`/`<summary>` for disclosure, keyboard nav for tabs, `prefers-reduced-motion` respected).
+5. Quinn second pass on HTML against the HTML checklist (see `Resources/SOPs/QA Gate SOP.md` § HTML Deliverable QA Checklist). Checks include: links resolve, no JS console errors, prints cleanly, accessibility floor met (`<details>`/`<summary>` for disclosure, keyboard nav for tabs, `prefers-reduced-motion` respected).
 
 HTML is not shipped until both QA gates pass.
 

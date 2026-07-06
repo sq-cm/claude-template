@@ -112,7 +112,7 @@ On confirmation, the Orchestrator performs the following in order:
 **3c. Cross-file find-replace (manual).** The script only covers persona H1 headers. The Orchestrator must perform a manual sweep across the following for any name references:
 1. `CLAUDE.md` — name references (file paths are role-token-based and need no rename).
 2. All persona files in `.claude/agents/` — `@Name` addressing, cross-references to other team members. (The H1 is already handled by the script.)
-3. SOPs in `Resources/SOPs/` that mention names directly — most use `@{RoleToken}` and need no rename; check `Advisor Checkpoints SOP.md`, `Persona Template SOP.md`, `Orchestrator PM Handoff SOP.md`.
+3. SOPs in `Resources/SOPs/` — most use `@{RoleToken}`, but several carry display names directly. Don't rely on a fixed list: grep the folder for each current display name (the vault-wide grep in the final check below catches stragglers).
 4. `Resources/Onboarding/SETUP.md`, `Resources/Onboarding/team-onboarding-guide.md` — directory tree and any prose name references.
 5. `Resources/Learn/index.html` and any sibling JS/data files in `Resources/Learn/` — `TEAM` array name fields and the `LAST_SYNCED` constant.
 6. `Notes/` — daily notes or weekly reviews may reference personas by name; sweep these too.

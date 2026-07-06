@@ -106,7 +106,7 @@ For each moved note:
    - `type: system` → `## System logs`
 4. Append a pointer line — **exactly one line**: link plus a hook of **≤12 words**. No multi-sentence prose, no paragraph summaries — the full detail already lives in the moved note and is retrievable on demand. `context.md` is cat'd into context **every prompt**, so each extra sentence is a permanent per-prompt tax. Form:
    ```markdown
-   - [<topic>](notes/<YYYY-MM>/<filename>) — <≤12-word hook>
+   - [<topic>](Notes/<YYYY-MM>/<filename>) — <≤12-word hook>
    ```
 5. **Conflict rule:** if a pointer to this filename already exists in `context.md`, leave the existing one in place. If two new notes route to the same H2 section, **append both pointers** as separate lines — do not merge prose.
 6. If no section matches and no fallback applies, append to `## Uncategorised` (create the section if missing) for triage on the next reconcile.

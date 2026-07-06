@@ -12,6 +12,8 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 | `Learning/`    | Personal `/teach` workspaces, one subfolder per topic. Git-ignored except `README.md` (data is personal, Drive-backed, never pushed). |
 | `Archive/`     | Retired projects, personas, briefs, artefacts. Preserves original folder structure.      |
 | `Logs/`        | Append-only operational logs. Example folder; create on first use.                       |
+| `Plans/`       | Output home for `improve`, advisor plans, and `writing-plans` artefacts. Git-ignored (per-clone working plans, never Deliverables). |
+| `Specs/`       | Output home for `brainstorming` design specs. Git-ignored.                               |
 | `Templates/`   | Reusable note templates (daily note, weekly note, etc.).                                 |
 | `Scripts/`     | Vault-local automation scripts (e.g. theme sync).                                        |
 | `Categories/`  | Obsidian-managed staging — note categorisation; empty placeholder until vault use begins.|

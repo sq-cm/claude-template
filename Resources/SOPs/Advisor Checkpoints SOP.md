@@ -30,7 +30,7 @@ The Senior Adviser is **not** directly addressable by the user. They are invoked
 
 A task is **checkpoint-eligible** when it meets any of:
 
-- Produces a durable artifact (research brief, persona file, audit report, code embed, generated image set).
+- Produces a durable artefact (research brief, persona file, audit report, code embed, generated image set).
 - Involves committing to an interpretation or approach that's hard to unwind.
 - Takes more than a few steps end-to-end.
 
