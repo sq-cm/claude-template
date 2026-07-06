@@ -59,9 +59,12 @@ Fill these in order. Each slot feeds the next.
 - **Reference files by path.** "Fix the bug in `src/utils/auth.ts` line 42" beats "fix the auth bug."
 - **Share relevant background up front.** Drip-feeding context mid-task causes course corrections that cost more than the original prompt.
 - **Ask for a plan first on big work.** "Show me the approach before writing any code" catches wrong assumptions before they're baked in.
+- **Describe the destination, not the driving.** On tricky problems, "think this through thoroughly" beats spelling out the steps you'd take yourself. The team member often finds a better route than the one you'd prescribe.
 - **Correct course early.** If a direction feels off after the first response, redirect immediately rather than letting a wrong approach accumulate.
 - **Paste errors verbatim.** The exact error string, stack trace included, is faster than a description of what went wrong.
 - **Keep the tool reference handy.** Keyboard shortcuts, built-in slash commands, and MCP setup live in the community-maintained [Claude Code Cheat Sheet](https://cc.storyfox.cz/) — updated with each Claude Code release.
+- **Show, don't just describe.** If you have a past output you liked (an email, a table, a paragraph in the right tone), paste it in as a sample. One good example steers format and tone better than three sentences of description.
+- **Say why a constraint exists.** "No date libraries: codebase policy" gets honoured more reliably than "no date libraries", because the team member can apply the reasoning to edge cases you didn't anticipate.
 
 ---
 
@@ -71,7 +74,7 @@ Before you hit send, check five things:
 
 - [ ] Does my prompt include a number or metric in the goal? *(not "improve" — "increase by X%")*
 - [ ] Have I said what format I want? *(bullet list, table, code block, annotated wireframe, etc.)*
-- [ ] Have I named at least one thing to avoid?
+- [ ] Have I named at least one thing to avoid? *(and paired it with what you want instead: "plain language, not marketing speak")*
 - [ ] Is this a single task (not two or more asks bundled into one prompt)?
 - [ ] Would a new colleague know what "done" looks like from this prompt alone? *(that's your "Done when:" line)*
 
