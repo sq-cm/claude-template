@@ -3,6 +3,16 @@ name: writing-plans
 description: Use when you have a spec or requirements for a multi-step task, before touching code
 ---
 
+<!--
+Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upstream
+v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025):
+plan save path repointed to Vault/Plans/ (git-ignored), dead superpowers:* sub-skill
+dependencies (using-git-worktrees, subagent-driven-development, executing-plans)
+remapped to Orchestrator-dispatch language, depth-1 guard added directing routed
+personas to return reviewer dispatch to the Orchestrator instead of dispatching it
+themselves. Re-sync rule: carry these adaptations over any future upstream replace.
+-->
+
 # Writing Plans
 
 ## Overview
@@ -13,9 +23,12 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** If working in an isolated worktree, it should have been created via the `superpowers:using-git-worktrees` skill at execution time.
+> **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona, do not dispatch the reviewer sub-agents this skill mentions — return the reviewer prompt as a fan-out spec to the Orchestrator (CLAUDE.md § Sub-Agent Depth).
 
-**Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+**Context:** If working in an isolated worktree, it should have been created by the Orchestrator at execution time.
+
+**Save plans to:** `Vault/Plans/YYYY-MM-DD-<feature-name>.md`
+- Create the folder if absent; it is git-ignored by design.
 - (User preferences for plan location override this default)
 
 ## Scope Check
@@ -58,7 +71,7 @@ independently testable deliverable.
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** Execute this plan task-by-task. In this vault, per-task sub-agent dispatch is the Orchestrator's job — a routed persona executes inline and returns to the Orchestrator between tasks. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -157,18 +170,18 @@ If you find issues, fix them inline. No need to re-review — just fix and move 
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `Vault/Plans/<filename>.md`. Two execution options:**
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+**1. Orchestrator-dispatched (recommended)** - return this plan to the Orchestrator, who dispatches a fresh sub-agent per task with review between tasks
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+**2. Inline execution** - execute tasks in this session, batch execution with checkpoints
 
 **Which approach?"**
 
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Fresh subagent per task + two-stage review
+**If Orchestrator-dispatched chosen:**
+- Return the plan to the Orchestrator
+- Fresh sub-agent per task + two-stage review
 
-**If Inline Execution chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:executing-plans
+**If Inline execution chosen:**
+- Execute tasks in this session task-by-task
 - Batch execution with checkpoints for review

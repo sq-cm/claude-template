@@ -19,6 +19,12 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+<!--
+Source: derived skill, version 2.8.2, MIT. Content based on Wikipedia's "Signs of
+AI writing" guide. Exact upstream repo/commit unknown at pin time (2026-07-06) —
+if identified, record it here; treat as vault-maintained until then.
+-->
+
 # Humanizer: Remove AI Writing Patterns
 
 You are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia's "Signs of AI writing" page, maintained by WikiProject AI Cleanup.

@@ -3,6 +3,15 @@ name: brainstorming
 description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
 ---
 
+<!--
+Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upstream
+v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025):
+spec save path repointed to Vault/Specs/ (git-ignored, no commit), depth-1 guard added
+directing routed personas to return reviewer dispatch to the Orchestrator instead of
+dispatching it themselves. Re-sync rule: carry these adaptations over any future
+upstream replace.
+-->
+
 # Brainstorming Ideas Into Designs
 
 Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
@@ -12,6 +21,8 @@ Start by understanding the current project context, then ask questions one at a 
 <HARD-GATE>
 Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity.
 </HARD-GATE>
+
+> **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona, do not dispatch the reviewer sub-agents this skill mentions — return the reviewer prompt as a fan-out spec to the Orchestrator (CLAUDE.md § Sub-Agent Depth).
 
 ## Anti-Pattern: "This Is Too Simple To Need A Design"
 
@@ -26,7 +37,7 @@ You MUST create a task for each of these items and complete them in order:
 3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
-6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
+6. **Write design doc** — save to `Vault/Specs/YYYY-MM-DD-<topic>-design.md` (git-ignored — do not commit)
 7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 8. **User reviews written spec** — ask user to review the spec file before proceeding
 9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
@@ -103,10 +114,10 @@ digraph brainstorming {
 
 **Documentation:**
 
-- Write the validated design (spec) to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
+- Write the validated design (spec) to `Vault/Specs/YYYY-MM-DD-<topic>-design.md`
   - (User preferences for spec location override this default)
 - Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+- The spec is git-ignored (`Vault/Specs/`) — do not commit it.
 
 **Spec Self-Review:**
 After writing the spec document, look at it with fresh eyes:
@@ -121,7 +132,7 @@ Fix any issues inline. No need to re-review — just fix and move on.
 **User Review Gate:**
 After the spec review loop passes, ask the user to review the written spec before proceeding:
 
-> "Spec written and committed to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
+> "Spec written to `Vault/Specs/<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
 
 Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
 
