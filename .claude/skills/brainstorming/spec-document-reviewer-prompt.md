@@ -1,10 +1,12 @@
 # Spec Document Reviewer Prompt Template
 
+**Vault note:** dispatch is Orchestrator-only; a routed persona returns this filled template upstream instead of dispatching.
+
 Use this template when dispatching a spec document reviewer subagent.
 
 **Purpose:** Verify the spec is complete, consistent, and ready for implementation planning.
 
-**Dispatch after:** Spec document is written to docs/superpowers/specs/
+**Dispatch after:** Spec document is written to `Vault/Specs/`
 
 ```
 Subagent (general-purpose):

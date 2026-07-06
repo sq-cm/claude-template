@@ -1,5 +1,7 @@
 # Plan Document Reviewer Prompt Template
 
+**Vault note:** dispatch is Orchestrator-only; a routed persona returns this filled template upstream instead of dispatching.
+
 Use this template when dispatching a plan document reviewer subagent.
 
 **Purpose:** Verify the plan is complete, matches the spec, and has proper task decomposition.

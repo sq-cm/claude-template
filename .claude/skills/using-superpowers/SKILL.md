@@ -3,6 +3,15 @@ name: using-superpowers
 description: Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions
 ---
 
+<!--
+Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upstream
+v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025):
+routing table unprefixed the `superpowers:`-scoped brainstorming route to the installed
+`brainstorming` skill, and replaced the systematic-debugging route (whose upstream
+target is not installed here) with a non-referencing equivalent. Re-sync rule: carry
+these adaptations over any future upstream replace.
+-->
+
 <SUBAGENT-STOP>
 If you were dispatched as a subagent to execute a specific task, ignore this skill.
 </SUBAGENT-STOP>
@@ -27,8 +36,8 @@ Then announce "Using [skill] to [purpose]" and follow the skill exactly. If it h
 
 When multiple skills apply, process skills come first — they set the approach, then implementation skills (frontend-design, etc.) carry it out. Brainstorming and systematic-debugging are Superpowers' most common process skills, but the rule holds for any of them.
 
-- "Let's build X" → superpowers:brainstorming first, then implementation skills.
-- "Fix this bug" → superpowers:systematic-debugging first, then domain skills.
+- "Let's build X" → brainstorming first, then implementation skills.
+- "Fix this bug" → systematic root-cause investigation first (reproduce, isolate, then fix), then domain skills.
 
 ## Red Flags
 

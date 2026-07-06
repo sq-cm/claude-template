@@ -3,6 +3,13 @@ name: verification-before-completion
 description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
 ---
 
+<!--
+Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upstream
+v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025): added a
+clause to the "Agent delegation" block noting agent dispatch is Orchestrator-only in
+this vault. Re-sync rule: carry this adaptation over any future upstream replace.
+-->
+
 # Verification Before Completion
 
 ## Overview
@@ -104,6 +111,7 @@ Skip any step = lying, not verifying
 ✅ Agent reports success → Check VCS diff → Verify changes → Report actual state
 ❌ Trust agent report
 ```
+(In this vault, agent dispatch is Orchestrator-only — for a routed persona, "check the diff" applies to work returned to you.)
 
 ## Why This Matters
 

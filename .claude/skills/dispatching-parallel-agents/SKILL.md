@@ -3,6 +3,14 @@ name: dispatching-parallel-agents
 description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
 ---
 
+<!--
+Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upstream
+v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025): none
+beyond this header — mechanics are correct for the Orchestrator (this vault's only
+dispatcher); the audience/wording fix for non-Orchestrator readers is a separate plan
+(026). Re-sync rule: carry this header over any future upstream replace.
+-->
+
 # Dispatching Parallel Agents
 
 ## Overview
