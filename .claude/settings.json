@@ -202,6 +202,12 @@
         "source": "github",
         "repo": "pbakaus/impeccable"
       }
+    },
+    "marketingskills": {
+      "source": {
+        "source": "github",
+        "repo": "coreyhaines31/marketingskills"
+      }
     }
   },
   "enabledPlugins": {
@@ -210,6 +216,7 @@
     "obsidian@obsidian-skills": true,
     "superpowers@claude-plugins-official": true,
     "caveman@caveman": true,
-    "impeccable@impeccable": true
+    "impeccable@impeccable": true,
+    "marketing-skills@marketingskills": true
   }
 }
