@@ -6,16 +6,16 @@
     {
       "splitTerminals": [
         {
-          "name": "Agents",
-          "commands": ["claude agents --model claude-fable-5"]
+          "name": "Neo",
+          "commands": ["herdr"]
         }
       ]
     },
     {
       "splitTerminals": [
         {
-          "name": "Claude",
-          "commands": ["claude --chrome --model claude-fable-5"]
+          "name": "Agents",
+          "commands": ["claude agents"]
         }
       ]
     }
