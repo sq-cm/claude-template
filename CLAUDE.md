@@ -82,7 +82,7 @@ Never delegated:
 - Editing any CLAUDE.md file — root or folder-tier ([Folder-Tier CLAUDE.md SOP](Resources/SOPs/Folder-Tier%20CLAUDE.md%20SOP.md))
 - Resolving conflicts between team members' outputs
 - Proposing and creating project folders
-- Running `improve` and similar read-only audit/meta-skills — never routed to a persona (would force a depth-2 dispatch). Read-only on source; `plans/` output is git-ignored, not a Deliverable, QA-exempt. Rationale: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
+- Running `improve` and similar read-only audit/meta-skills — never routed to a persona (would force a depth-2 dispatch). Read-only on source; `Vault/Plans/` output is git-ignored, not a Deliverable, QA-exempt. Rationale: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
 ---
 
