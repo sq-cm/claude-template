@@ -45,7 +45,7 @@ Personas must **never** silently downgrade to solo desk synthesis when a brief s
 
 **Enforcement.** Probe testing confirmed the environment actively polices persona self-browsing at the point of attempt: restricted personas asked to fetch or navigate on their own refused the request as a boundary violation, and the auto-mode classifier independently blocked a dispatch that attempted it. Treat this as a live guardrail — attempts are caught at the point of attempt. (This SOP records that attempts are policed; it does not record how the policing was probed, and that detail is out of scope here.)
 
-**Scope note.** The refusal/classifier boundary above applies to **sub-agent dispatch only**. The Orchestrator running `ctx_*` tools or Playwright directly on the **main session** is unaffected by it and is, in fact, the sanctioned mechanism both lanes below depend on. Do not read the guardrail as reaching main-session Orchestrator activity — it doesn't.
+**Scope note.** The refusal/classifier boundary above applies to **sub-agent dispatch only**. The Orchestrator running `ctx_*` tools or Playwright directly on the **main session** is unaffected by it and is, in fact, the sanctioned mechanism both lanes below depend on. Do not read the guardrail as reaching main-session Orchestrator activity — it doesn't. The main-session `WebFetch(domain:…)` grants in `.claude/settings.json` are a context-mode-absent fallback — inert while the plugin is active.
 
 **Lane A — research / URL-read.** When a dispatched persona needs the contents of a live page:
 
