@@ -10,6 +10,8 @@
 
 Before any file moves to a `03 Deliverables/` folder, Quinn must be spawned as a sub-agent to review it.
 
+**Exemption:** the folder-tier `CLAUDE.md` inside `03 Deliverables/` is folder infrastructure, not a deliverable — it never goes to Quinn and is exempt from the Gate; see [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md).
+
 **Optional broad scope (upgrade path) — not the default** *(supersedes the prior mandatory broad reading)*. A maintainer may extend the Gate to durable artefact changes that meet project-eligible criteria (per the Project Folder SOP) — SOP edits, persona edits, audit close-outs — even when no `03 Deliverables/` folder is involved. The shipped default is narrow (Deliverables only). To adopt the broad scope, state it here and in CLAUDE.md § QA Gate. Revisit once the fast-path lane (S2) exists, which makes broad scope less operationally costly.
 
 ## Plan-positioning rule

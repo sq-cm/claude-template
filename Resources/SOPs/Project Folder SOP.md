@@ -95,6 +95,8 @@ Numeric prefixes enforce workflow order in alphabetical file listings — Briefs
 
 Not every project needs all three. The Orchestrator creates only what the task requires; gaps are fine (e.g., a copy-only project may have just `02 Working/`). Numbers stay fixed — they signal pipeline position, not presence.
 
+`03 Deliverables/` also carries a folder-tier `CLAUDE.md` — ships with `Projects/Template/`, so every new project folder inherits it. See [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md) for load semantics and governance. Where `03 Deliverables/` is added to an existing project folder later, copy the folder-tier `CLAUDE.md` in from `Projects/Template/03 Deliverables/`.
+
 **Tooling note:** any script or glob matching project subfolders should match by suffix (`*Briefs`, `*Working`, `*Deliverables`), not exact name, to survive future prefix changes.
 
 ### Sibling pair convention for HTML companions

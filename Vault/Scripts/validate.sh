@@ -117,6 +117,7 @@ check2_pass=true
 path_table_files=$(get_path_table_files)
 for fpath in "$AGENTS_DIR"/*.md; do
     fname=$(basename "$fpath")
+    [ "$fname" = "CLAUDE.md" ] && continue  # folder-tier CLAUDE.md is not a persona (Folder-Tier CLAUDE.md SOP)
     if echo "$path_table_files" | grep -qxF "$fname"; then
         : # found — silent
     else
@@ -242,6 +243,7 @@ BASELINE="Read Write Edit Glob Grep Bash"
 
 for fpath in "$AGENTS_DIR"/*.md; do
     fname=$(basename "$fpath")
+    [ "$fname" = "CLAUDE.md" ] && continue  # folder-tier CLAUDE.md is not a persona (Folder-Tier CLAUDE.md SOP)
 
     # Extract YAML frontmatter: content between first and second ---
     # Use awk to capture only the first ---…--- block (stops at second ---)
@@ -410,7 +412,7 @@ EXPECTED_AGENT_COUNT=28
 EXPECTED_SKILL_COUNT=26
 
 # Live counts
-live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | wc -l | tr -d ' ')
+live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | grep -cv '/CLAUDE\.md$' | tr -d ' ')
 live_skill_count=$(find "$PROJECT_ROOT/.claude/skills" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
 
 # Check agent count expectation
@@ -551,6 +553,7 @@ fable_pin_live=0
 
 for fpath in "$AGENTS_DIR"/*.md; do
     fname=$(basename "$fpath")
+    [ "$fname" = "CLAUDE.md" ] && continue  # folder-tier CLAUDE.md is not a persona (Folder-Tier CLAUDE.md SOP)
 
     # Same CRLF-proof first-frontmatter-block extraction as Check 5
     frontmatter=$(awk '

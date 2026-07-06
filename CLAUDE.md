@@ -79,7 +79,7 @@ Never delegated:
 
 - Reviewing or listing the team roster
 - Hiring, firing, or archiving a team member or artefact
-- Editing this CLAUDE.md file
+- Editing any CLAUDE.md file — root or folder-tier ([Folder-Tier CLAUDE.md SOP](Resources/SOPs/Folder-Tier%20CLAUDE.md%20SOP.md))
 - Resolving conflicts between team members' outputs
 - Proposing and creating project folders
 - Running `improve` and similar read-only audit/meta-skills — never routed to a persona (would force a depth-2 dispatch). Read-only on source; `plans/` output is git-ignored, not a Deliverable, QA-exempt. Rationale: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
@@ -136,12 +136,9 @@ Minimal prose in responses — lead with the outcome, prefer bullets, no preambl
 
 ## Memory
 
-Persistent memory lives in `Vault/Memory/`, both files loaded every session:
+Persistent memory lives in `Vault/Memory/` — `MEMORY.md` (shipped index, git-tracked, **maintainer-only**) and `context.md` (this clone's local memory, git-ignored; seed: `context.example.md`) — both loaded every session.
 
-- **`MEMORY.md`** — shipped vault-operations index. Git-tracked, maintainer-only. Never write local facts here.
-- **`context.md`** — this clone's local memory. Git-ignored (seed: `context.example.md`). The sole write target for reconciled notes and the onboarding bootstrap.
-
-To record a local fact: write a session note to `Vault/Memory/Sessions/`, then run `/memory-reconcile` — it folds into `context.md`, never `MEMORY.md`. Sam prompts at end-of-turn when `Sessions/` is non-empty. Rationale and full protocol: [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
+To record a local fact: session note to `Vault/Memory/Sessions/`, then `/memory-reconcile` — folds into `context.md`, never `MEMORY.md`. Sam prompts at end-of-turn when `Sessions/` is non-empty. Full protocol: [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
 
 ---
 
@@ -157,7 +154,7 @@ Root is reserved for named top-level folders only: `.claude/` · `Inbox/` · `No
 
 Folder purposes, permitted root-level files (`CLAUDE.md`, `README.md`, `CHANGELOG.md`, installers, `.env*`), and carve-out rationale: see [Vault/README.md](Vault/README.md) § Root-level layout.
 
-> **`.claude/` writes prompt for confirmation by design** — no auto-approve grant exists, so governance-surface writes prompt even in auto mode. Do not add the grant without a maintainer decision (rationale: [Vault/README.md](Vault/README.md)).
+> **`.claude/` writes prompt for confirmation by design** — do not add an auto-approve grant without a maintainer decision (rationale: [Vault/README.md](Vault/README.md)).
 
 API keys and secrets live in `.env` at the vault root (git-ignored). Copy `.env.example` to `.env` before first use.
 
