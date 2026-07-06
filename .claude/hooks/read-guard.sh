@@ -6,8 +6,10 @@
 # Also blocks Grep calls whose `path` or `glob` targets a .env* file —
 # Grep is otherwise allowed unconditionally, so without this check its
 # content mode can return secret values that the Read-only deny rules
-# never see. Exit 2 blocks the tool call and feeds stderr back to Claude
-# as guidance.
+# never see. `.env.example` is exempt (exact basename match, checked
+# before the .env* block) — it is git-tracked, secrets-free, and
+# onboarding directs users/agents to copy and fill it. Exit 2 blocks
+# the tool call and feeds stderr back to Claude as guidance.
 # Ported from cc-token-demos/block-huge-reads (Python original), adapted
 # to bash+jq for consistency with this repo's other hooks, with the
 # offset/limit pass-through and a 1000-line threshold per Odin's
@@ -25,13 +27,22 @@ TOOL_NAME=$(printf '%s' "$INPUT" | jq -r '.tool_name // empty' 2>/dev/null)
 if [ "$TOOL_NAME" = "Grep" ]; then
     GREP_PATH=$(printf '%s' "$INPUT" | jq -r '.tool_input.path // empty' 2>/dev/null)
     GREP_GLOB=$(printf '%s' "$INPUT" | jq -r '.tool_input.glob // empty' 2>/dev/null)
-    case "$GREP_PATH" in *.env*) echo "BLOCKED: Grep path targets a .env* file — secrets must not be searched or read this way." >&2; exit 2 ;; esac
-    case "$GREP_GLOB" in *.env*) echo "BLOCKED: Grep glob targets .env* files — secrets must not be searched or read this way." >&2; exit 2 ;; esac
+    # .env.example exemption — checked before the broad .env* block
+    case "$(basename "$GREP_PATH" 2>/dev/null)" in .env.example) exit 0 ;; esac
+    case "$GREP_GLOB" in .env.example|*/.env.example) exit 0 ;; esac
+    case "$GREP_PATH" in *.env*) echo "BLOCKED: Grep path targets a .env* file — secrets must not be searched or read this way. (.env.example is the readable exception.)" >&2; exit 2 ;; esac
+    case "$GREP_GLOB" in *.env*) echo "BLOCKED: Grep glob targets .env* files — secrets must not be searched or read this way. (.env.example is the readable exception.)" >&2; exit 2 ;; esac
     exit 0
 fi
 
 FILE_PATH=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
 [ -n "$FILE_PATH" ] || exit 0
+
+# .env.example exemption for Read — checked before the broad .env* block
+case "$(basename "$FILE_PATH" 2>/dev/null)" in
+    .env.example) exit 0 ;;
+    .env*) echo "BLOCKED: $(basename "$FILE_PATH") matches .env* — secrets must not be read this way. (.env.example is the readable exception.)" >&2; exit 2 ;;
+esac
 
 # Bounded read (offset or limit supplied) → pass
 BOUNDED=$(printf '%s' "$INPUT" | jq -r '(.tool_input.offset // .tool_input.limit) // empty' 2>/dev/null)
