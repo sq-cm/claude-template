@@ -162,7 +162,7 @@ Claude - TEMPLATE/
 ├── .claude/
 │   ├── agents/                        ← persona files for all 28 team members
 │   ├── commands/                      ← slash commands (/onboard, /update, /memory-reconcile, …)
-│   └── skills/                        ← 25 reusable skill modules (see its README.md)
+│   └── skills/                        ← 26 reusable skill modules (see its README.md)
 ├── Inbox/                             ← staging area for unrouted material
 ├── Notes/                             ← daily notes, canvas files, clippings
 ├── Projects/
