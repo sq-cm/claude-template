@@ -16,6 +16,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `cinema-worldbuilder-pro-2.0` | Seedance video prompt director — five cinema modes, Frame Map / Subject Lock continuity grammar, diegetic audio; **photoreal/live-action and English-only** (for stylized/bilingual work use `seedance-bilingual-director`) | Dash (Seedance Director) |
 | `code-minimalism-review` | Over-engineering review of diffs — five tags (delete/stdlib/native/yagni/shrink); findings only, applies nothing (adapted from ponytail, MIT) | Webflow Developer, Email Developer, Mobile Developer, Automation Architect, Creative Technologist |
 | `dispatching-parallel-agents` | Launch independent sub-agents in parallel for multi-track tasks | Orchestrator only (depth-1 wall — personas needing fan-out return a spec to the Orchestrator) |
+| `find-skills` | Discover and recommend installable agent skills from the skills.sh ecosystem (`npx skills find`) — vault adaptation: project-level installs stay maintainer-gated, never `-y` (vendored from vercel-labs/skills @ `ceea008`) | Orchestrator |
 | `grill-me` | Interview user relentlessly to surface full requirements before work starts | Orchestrator (default intake for non-trivial requests) |
 | `handoff` | Save and restore task context across sessions — mid-task handoff protocol | All |
 | `html-deliverable` | Produce an interactive HTML companion for eligible MD deliverable types | All producing personas |
