@@ -409,7 +409,7 @@ echo "--- Check 7: Doc counts match README assertions ---"
 check7_pass=true
 
 EXPECTED_AGENT_COUNT=28
-EXPECTED_SKILL_COUNT=23
+EXPECTED_SKILL_COUNT=24
 
 # Live counts
 live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | grep -cv '/CLAUDE\.md$' | tr -d ' ')
