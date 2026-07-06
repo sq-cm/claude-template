@@ -886,11 +886,9 @@ const FAQ = [
           <div class="step-num">5</div>
           <div class="step-content">
             <h3>Install Caveman mode</h3>
-            <p>Reduces Claude's output tokens ~65% by stripping filler. Recommended default: <strong>lite</strong>.</p>
-            <p style="margin-top:8px;"><strong>Windows:</strong></p>
-            <pre>irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.ps1 | iex</pre>
-            <p style="margin-top:8px;"><strong>macOS / Linux:</strong></p>
-            <pre>bash &lt;(curl -s https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.sh)</pre>
+            <p>Reduces Claude's output tokens ~65% by stripping filler. Recommended default: <strong>lite</strong>. Declared in the vault's <code>.claude/settings.json</code> with auto-update — accept the install prompt when trusting the folder, or install manually:</p>
+            <pre>/plugin marketplace add JuliusBrussee/caveman
+/plugin install caveman@caveman</pre>
             <p style="margin-top:8px;">Then activate: <code>/caveman lite</code></p>
           </div>
         </li>

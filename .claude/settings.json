@@ -189,12 +189,20 @@
         "source": "github",
         "repo": "kepano/obsidian-skills"
       }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      },
+      "autoUpdate": true
     }
   },
   "enabledPlugins": {
     "plannotator@plannotator": true,
     "context-mode@context-mode": true,
     "obsidian@obsidian-skills": true,
-    "superpowers@claude-plugins-official": true
+    "superpowers@claude-plugins-official": true,
+    "caveman@caveman": true
   }
 }

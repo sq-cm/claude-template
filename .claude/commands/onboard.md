@@ -116,23 +116,18 @@ After install, refresh PATH and retry `node --version`. If install fails, print:
 
 > ⚠️ Caveman skipped — could not install Node.js automatically. Install Node.js LTS manually then re-run `/onboard`.
 
-**Once Node.js is confirmed**, detect platform and run Caveman install:
-- If `$env:OS` contains `Windows` or `$OSTYPE` is unset on Windows → run PowerShell install
-- Otherwise → run bash install
+**Once Node.js is confirmed**, install Caveman as a plugin (its hooks run via Node at session start):
 
-**Windows:**
-```powershell
-irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.ps1 | iex
+```
+/plugin marketplace add JuliusBrussee/caveman
+/plugin install caveman@caveman
 ```
 
-**macOS / Linux:**
-```bash
-bash <(curl -s https://raw.githubusercontent.com/JuliusBrussee/caveman/main/hooks/install.sh)
-```
+The vault's `.claude/settings.json` already declares the caveman marketplace with `autoUpdate: true` and enables `caveman@caveman` — if Claude Code already prompted the user to install it when they trusted this folder, skip the commands above and just confirm the plugin is installed. Auto-update keeps the plugin current on startup; no manual update step needed.
 
 After install completes, activate lite mode by invoking: `/caveman lite`
 
-Report: "Caveman installed and set to lite mode."
+Report: "Caveman installed (plugin, auto-updating) and set to lite mode."
 
 ---
 
