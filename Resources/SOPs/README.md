@@ -18,7 +18,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Roster Drift SOP.md`](Roster%20Drift%20SOP.md)               | Pre-hire/fire/swap checklist to keep CLAUDE.md, .claude/agents/, and theme-name-map.md in sync               |
 | [`Orchestrator PM Handoff SOP.md`](Orchestrator%20PM%20Handoff%20SOP.md) | Clean boundary between @{Orchestrator} (routes) and @{ProjectManager} (tracks); escalation triggers     |
 | [`Theme SOP.md`](Theme%20SOP.md)                               | All name-related operations — apply a theme, change a theme, revert to defaults, swap one member, archive a retired member |
-| [`Memory Protocol SOP.md`](Memory%20Protocol%20SOP.md)         | Two-stage write protocol for `Vault/Memory/`: session notes → `/memory-reconcile` → tracked `notes/<YYYY-MM>/` |
+| [`Memory Protocol SOP.md`](Memory%20Protocol%20SOP.md)         | Two-stage write protocol for `Vault/Memory/`: session notes → `/memory-reconcile` → `context.md` pointers + git-ignored `Notes/<YYYY-MM>/`; project-tagged notes fold into `Projects/<name>/HISTORY.md` |
 | [`Context Overhead Audit SOP.md`](Context%20Overhead%20Audit%20SOP.md) | Recurring `/context` audit of per-session fixed overhead — plugins, hooks, MCP servers, memory files, both project and user-global scopes |
 | [`Folder-Tier CLAUDE.md SOP.md`](Folder-Tier%20CLAUDE.md%20SOP.md) | Lazy-loaded folder-level CLAUDE.md files — placement test, verified load semantics, canonical folder list, Orchestrator-only governance, QA carve-out |
 
