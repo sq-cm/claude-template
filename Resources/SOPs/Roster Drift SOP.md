@@ -13,7 +13,7 @@
 | `Vault/Memory/theme-name-map.md` | Canonical role list. Contains both the role → name YAML and the role → file-path table. Source of truth for token resolution. |
 | `.claude/agents/[role].md` files | Actual persona files on disk |
 
-`CLAUDE.md` `## Active Team Roster` section is a pointer-only; it defers entirely to `theme-name-map.md` and is not a separate source of truth.
+Root `CLAUDE.md`'s `## Theme & Roster` section is pointer-only; it defers entirely to `theme-name-map.md` and is not a separate source of truth.
 
 Drift = the two sources disagree.
 
@@ -73,4 +73,4 @@ After resolving, re-run all four checks before proceeding.
 
 ## Logging
 
-No log entry required for a clean check. If drift is found and resolved, append a dated entry to `Vault/Memory/roster-drift-log.md` (create the file on first run) with: date, what was corrected, and the triggering operation. Ensure a one-line pointer to this log exists under `## System logs` in `Vault/Memory/context.md` (per-clone local memory — not the tracked `MEMORY.md`).
+No log entry required for a clean check. If drift is found and resolved, append a dated entry to `Vault/Memory/roster-drift-log.md` (create the file on first run) with: date, what was corrected, and the triggering operation. Then write a session note to `Vault/Memory/Sessions/` so `/memory-reconcile` folds a one-line pointer to this log under `## System logs` in `context.md` — never edit `context.md` or `MEMORY.md` directly (see the [Memory Protocol SOP](Memory%20Protocol%20SOP.md)).

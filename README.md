@@ -103,7 +103,7 @@ The team is not fixed. When a capability gap appears:
 1. The **Orchestrator** identifies the gap and asks your permission to hire
 2. The **Senior Researcher** researches the role — skills, knowledge domains, collaboration patterns, failure modes
 3. The **HR Lead** reads the Senior Researcher's brief and writes a full persona file
-4. The **Orchestrator** announces the hire and updates the Active Team Roster in `CLAUDE.md`
+4. The **Orchestrator** announces the hire and updates the team roster in `Vault/Memory/theme-name-map.md` (`CLAUDE.md` only points to it)
 
 The new team member is immediately available. No code changes, no config — just a new markdown file.
 
