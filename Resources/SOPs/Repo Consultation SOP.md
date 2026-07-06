@@ -35,7 +35,7 @@ If repo guidance contradicts CLAUDE.md, an SOP, or a persona constraint:
 ```
 Agent(
   subagent_type: "general-purpose",
-  model: "opus",
+  model: "claude-fable-5",  # Fable 5 availability window — revert to "claude-opus-4-8" when it lapses
   description: "@{SeniorAdviser} — repo conflict resolution",
   prompt: "You are @{SeniorAdviser} — Senior Adviser. Respond in ≤100 words, enumerated steps, no explanations.
 
