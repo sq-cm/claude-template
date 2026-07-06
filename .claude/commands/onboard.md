@@ -160,7 +160,9 @@ If the plugin command fails or is unavailable, print:
 
 ## Step 3.55 — Install recommended plugins
 
-Install four plugins via the plugin marketplace. Run each pair sequentially.
+Install the plugins below via the plugin marketplace. Run each pair sequentially.
+
+> **Note:** context-mode, superpowers, obsidian, and plannotator are declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) and auto-install on first launch after the trust prompt. Run their manual steps below only if auto-install failed (check `/plugin`).
 
 **context-mode** (context-window management):
 ```
@@ -170,8 +172,13 @@ Install four plugins via the plugin marketplace. Run each pair sequentially.
 
 **superpowers** (skill collection):
 ```
-/plugin marketplace add obra/superpowers
-/plugin install superpowers
+/plugin install superpowers@claude-plugins-official
+```
+
+**obsidian** (Obsidian vault skills — bases, CLI, markdown, JSON Canvas, defuddle):
+```
+/plugin marketplace add kepano/obsidian-skills
+/plugin install obsidian@obsidian-skills
 ```
 
 **skill-creator** (create and improve skills):
@@ -206,7 +213,7 @@ Then add the marketplace and install the plugin:
 /plugin install plannotator@plannotator
 ```
 
-Report: "context-mode, superpowers, skill-creator, frontend-design, plannotator installed ✓ — restart Claude Code to activate."
+Report: "context-mode, superpowers, obsidian, skill-creator, frontend-design, plannotator installed ✓ — restart Claude Code to activate."
 
 If any plugin command fails, print a warning for that plugin and continue with the rest:
 
