@@ -40,6 +40,8 @@ The Orchestrator does not create a project folder speculatively or mid-task. If 
 
 ## Folder naming convention
 
+Client or campaign work uses:
+
 ```
 Projects/[YYMMDD] [Client or Campaign Name] - [Deliverable Type]/
 ```
@@ -54,6 +56,27 @@ Projects/260417 Su-Bridge - Hero Banner/
 - Use the date the project folder is created (YYMMDD)
 - Client or campaign name first, then a dash and the deliverable type
 - No abbreviations unless they're universally understood within the studio
+
+### Internal-project variant
+
+Work on the vault/template itself or studio operations (audits, infrastructure, SOP/persona work, tooling) — anything with no external client or campaign — uses:
+
+```
+Projects/YYYY-MM-DD-kebab-slug/
+```
+
+Examples:
+```
+Projects/2026-07-05-vault-audit/
+Projects/2026-07-06-context-creep-audit/
+```
+
+- ISO date (folder creation date) + short kebab-case slug, matching the `Vault/Memory/Notes/` convention.
+- Naming only — the variant does not change eligibility. Internal work must still pass the justification test above; multi-file or multi-session internal work (e.g. a vault audit) qualifies, single-file meta-ops still don't get folders.
+- The default folder structure below (`01 Briefs / 02 Working / 03 Deliverables`) applies to internal projects unchanged; the QA Gate keys off `03 Deliverables/`.
+- When in doubt whether work is internal or client, use the client format.
+- The variant flows through archive unchanged (e.g. `Vault/Archive/Projects/2026-07-05-vault-audit/`).
+- Folders created before this variant landed are grandfathered as-is — no renames or restructures.
 
 ---
 
