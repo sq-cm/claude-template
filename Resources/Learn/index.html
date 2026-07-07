@@ -714,7 +714,8 @@ const FAQ = [
 
 <nav class="tab-bar" role="tablist" aria-label="Audience">
   <div class="container">
-    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-user" id="tab-user" data-tab="user">I'm using the team</button>
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-why" id="tab-why" data-tab="why">Why use this?</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-user" id="tab-user" data-tab="user">I'm using the team</button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-admin" id="tab-admin" data-tab="admin">I'm setting this up</button>
   </div>
 </nav>
@@ -722,9 +723,135 @@ const FAQ = [
 <main>
 
 <!-- ══════════════════════════════
+     WHY TAB
+     ══════════════════════════════ -->
+<div class="tab-panel active" id="panel-why" role="tabpanel" aria-labelledby="tab-why">
+  <div class="container">
+
+    <section class="section" id="why-intro">
+      <h2 class="section-title">Why use this?</h2>
+      <p class="section-intro">This isn't a content generator you point at a blank page. It's a small studio of specialists (Sam the Orchestrator at the front desk, 28 named personas behind them) that routes your request to whoever owns that kind of work, checks it before it ships, and remembers what it learned last time.</p>
+    </section>
+
+    <section class="section" id="why-archetypes">
+      <h2 class="section-title">Who this is for</h2>
+      <p class="section-intro">The six profiles below aren't roles you have to pick. They're six reasons people end up using this vault. Find the one closest to you, read what it gets you and the limit that comes with it, then read the round table at the end, where they push back on each other. Nothing here is a guarantee. It's a description of a trade.</p>
+      <div class="syntax-grid">
+        <div class="syntax-card">
+          <h3>Solo founder / consultant</h3>
+          <p><em>Who this is:</em> one person doing the work of a marketing department, with no budget to hire one.</p>
+          <p><strong>What's in it for me:</strong> you get a studio's worth of specialists (copy, SEO, brand strategy, visual production, analytics) without hiring any of them. You're still the only person in the room, but the range in the room just grew. The trade is more skill per hour, not more hours in the day.</p>
+          <p><strong>Best way to use it:</strong> run everyday jobs through the <strong>Fast-Path Lane</strong>: single-file, reversible work skips the full grill-me/plan/checkpoint pipeline, so a quick landing-page tweak doesn't take an afternoon. For anything bigger, let Sam route you to the right specialist (<code>@{Copywriter}</code>, <code>@{BrandStrategist}</code>) instead of trying to do it all in one generic chat.</p>
+          <p><strong>One real limit for them:</strong> this is a single-session tool driven by one Orchestrator, not 28 people working in parallel on your business. You still queue the work; you just don't have to be the one doing every part of it.</p>
+        </div>
+        <div class="syntax-card">
+          <h3>Small agency owner</h3>
+          <p><em>Who this is:</em> running client work through a small team, where a mistake in a deliverable is a client-facing problem, not an internal one.</p>
+          <p><strong>What's in it for me:</strong> a built-in check before anything reaches a client. Every file heading to <code>03 Deliverables/</code> goes through the QA Compliance Reviewer first, and durable or multi-step work gets an Advisor Checkpoint before drafting and before handoff. If a claim needs legal sign-off, there's a dedicated persona for that too.</p>
+          <p><strong>Best way to use it:</strong> treat the <strong>QA Gate</strong> (PASS / FLAGGED / BLOCKED) as non-negotiable before anything ships. It's not optional and not something to ask Sam to skip. Route regulated-category copy through <code>@{LegalComplianceWriter}</code> before it goes near a client. Use the Advisor Checkpoints as your own second opinion, not just a formality.</p>
+          <p><strong>One real limit for them:</strong> Advisor Checkpoints and the QA Gate run on Opus (<code>claude-opus-4-8</code>), real token cost on every checkpoint-eligible job, on top of whatever the specialist work itself costs. Client safety isn't free.</p>
+        </div>
+        <div class="syntax-card">
+          <h3>In-house marketing lead</h3>
+          <p><em>Who this is:</em> owns the brand and content function inside a company, working with the same voice and positioning across many pieces of work over time.</p>
+          <p><strong>What's in it for me:</strong> you can talk to the exact specialist you need instead of re-explaining context every time: <code>@{Copywriter}</code>, <code>@{SEOSpecialist}</code>, <code>@{BrandStrategist}</code> are all addressable directly. The strategy layer isn't disposable either. Brand and content frameworks persist as source-of-truth documents you can point new work back to, instead of re-briefing from scratch each campaign.</p>
+          <p><strong>Best way to use it:</strong> address specialists directly with <code>@{RoleToken}</code> when you know exactly what you need, it skips the general routing conversation. Keep your messaging architecture and content strategy documents (from <code>@{BrandStrategist}</code> and <code>@{ContentStrategist}</code>) as living references other requests can cite, rather than one-off outputs.</p>
+          <p><strong>One real limit for them:</strong> direct addressing still goes through the Orchestrator's routing and, where eligible, the same grill-me/plan/checkpoint pipeline as anyone else. Knowing who you want doesn't bypass the process that keeps the work sound.</p>
+        </div>
+        <div class="syntax-card">
+          <h3>Freelance creative</h3>
+          <p><em>Who this is:</em> handles the actual creative production, video, stills, motion, for clients who expect a polished, presentable outcome, not a raw file.</p>
+          <p><strong>What's in it for me:</strong> a genuine production stack for creative work. Cinema Showrunner, Stills Director, Seedance Director, Visual AI Producer, and Video &amp; Motion Producer cover different parts of visual and motion production, and the HTML Deliverable Companion turns a finished report or plan into something you can hand a client to click through, rather than a plain document.</p>
+          <p><strong>Best way to use it:</strong> brief the right director for the medium, <code>@{CinemaShowrunner}</code> for narrative/video structure, <code>@{StillsDirector}</code> or <code>@{SeedanceDirector}</code> for image and short-form motion, rather than routing everything through one generalist. Offer the HTML companion on eligible deliverable types (audit reports, comparisons, research explainers, and similar) once the Markdown version has passed QA.</p>
+          <p><strong>One real limit for them:</strong> some of this depends on plugin-provided capability, a given generation or visual tool only works if that plugin is installed in your setup. Check before you brief around it.</p>
+        </div>
+        <div class="syntax-card">
+          <h3>Ops / automation person</h3>
+          <p><em>Who this is:</em> less interested in any single piece of output, more interested in making the system itself reliable and repeatable.</p>
+          <p><strong>What's in it for me:</strong> access to the parts that make this a system rather than a chat window: the persona architecture, the slash commands, the memory layer, and the two people whose job is to build and maintain that machinery.</p>
+          <p><strong>Best way to use it:</strong> work with <code>@{AutomationArchitect}</code> and <code>@{CreativeTechnologist}</code> on anything structural. Use <code>/update</code> to pull template improvements (it's a git pull on a two-branch model, not an auto-updating app, you choose when to take it). Use <code>/memory-reconcile</code> to fold session notes into <code>context.md</code>, and consult <code>Resources/Git/INDEX.md</code> before checkpoint-eligible work rather than starting from zero each time.</p>
+          <p><strong>One real limit for them:</strong> sub-agents are depth-1, only the Orchestrator can dispatch them, and every persona you build routes back through Sam rather than talking to each other directly. You're automating a hub-and-spoke system, not a mesh.</p>
+        </div>
+        <div class="syntax-card">
+          <h3>Non-technical team member</h3>
+          <p><em>Who this is:</em> needs to get something done in here without knowing (or wanting to know) how any of it works underneath.</p>
+          <p><strong>What's in it for me:</strong> the guardrails are the product, for you. You don't need to know which of 28 personas does what: Sam figures that out. <code>grill-me</code> asks you one question at a time instead of demanding a perfect brief up front, and plan mode shows you the approach before anything happens, so you're never surprised by the output.</p>
+          <p><strong>Best way to use it:</strong> just describe what you want in plain language and let Sam route it, don't try to pre-guess the right specialist. If you're not sure your request is clear, run <code>/prompt-review</code> first; it'll coach the ask before you send it. Trust the plan-mode pause, it's there so you can redirect before work starts, not after.</p>
+          <p><strong>One real limit for them:</strong> this is a Claude Code template, not a polished SaaS product, there's a genuine learning curve to the conventions (folders, checkpoints, what goes where), even with the guardrails softening it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why-roundtable">
+      <h2 class="section-title">Round-table debate</h2>
+      <p class="section-intro">The six of them, pushing back on each other.</p>
+      <div class="example-flow">
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Agency owner</span></div>
+          <div class="step-body">"Every client deliverable goes through Advisor and QA, that's Opus-level cost twice per job. For a small agency running lean, that adds up fast."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Ops person</span></div>
+          <div class="step-body">"It adds up, but it's not a flat tax, it's scoped to checkpoint-eligible and Deliverables-bound work. Fast-Path work skips both entirely. Reserve the full pipeline for what's actually client-facing, and the cost tracks the risk, not every keystroke."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Freelance creative</span></div>
+          <div class="step-body">"The whole creative stack, Cinema Showrunner, the directors, Visual AI Producer, sounds great until you find out half of it depends on a plugin you haven't installed."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Solo founder</span></div>
+          <div class="step-body">"That's a real gap, not a design flaw you can argue away. The fix is boring: check what's installed before you brief a job around it, the same way you'd check a contractor's kit before handing them a spec."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Marketing lead</span></div>
+          <div class="step-body">"I like addressing <code>@{Copywriter}</code> or <code>@{SEOSpecialist}</code> directly, but I was told that still runs through Sam's routing and the same pipeline as an open request. So what did I actually save?"</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Non-technical team member</span></div>
+          <div class="step-body">"You saved the routing decision, not the process, you told Sam exactly who you want instead of Sam having to work it out. The checkpoints stay because they're tied to the work's stakes, not to how confidently you addressed it."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Ops person</span></div>
+          <div class="step-body">"I want to build automations that call multiple personas at once. I keep hitting the depth-1 limit, sub-agents only get dispatched by the Orchestrator, one layer deep."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Agency owner</span></div>
+          <div class="step-body">"That's not a bug you route around, it's the whole trust model, one point of accountability means nothing forks off and reports back unsupervised. If you need genuine parallelism, that's a Sub-Agent Architecture SOP conversation with Sam, not something to quietly engineer past."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Non-technical team member</span></div>
+          <div class="step-body">"grill-me and plan mode are supposed to make this safe for someone like me, but I still hit unfamiliar folder names and conventions I don't understand."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Marketing lead</span></div>
+          <div class="step-body">"That's fair, it's a template with a structure, not a zero-learning-curve app. The guardrails lower the floor, they don't erase it. <code>/prompt-review</code> and the plan-mode pause exist precisely because the curve is real, not because it isn't."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Solo founder</span></div>
+          <div class="step-body">"28 specialists sounds like a team, but it's genuinely one session working through one Orchestrator, I'm not getting 28 people's worth of throughput."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Freelance creative</span></div>
+          <div class="step-body">"Right, it's breadth, not headcount. You get the range of skills on tap, sequentially, when you need them, that's still a real advantage over doing every discipline yourself from scratch, it's just not the parallel team the number implies."</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Agency owner</span></div>
+          <div class="step-body">"How do I even know the template hasn't drifted from what I'm relying on for client work?"</div>
+        </div>
+        <div class="example-step">
+          <div class="step-label"><span class="persona">Ops person</span></div>
+          <div class="step-body">"<code>/update</code> is the honest answer, and it's deliberately not automatic, it's a git pull on a two-branch model, so you choose when to take upstream changes rather than have them land mid-project. That's slower than an auto-updating app, but it means nothing changes under a live client engagement without you deciding it should."</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════
      USER TAB
      ══════════════════════════════ -->
-<div class="tab-panel active" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
+<div class="tab-panel" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
   <div class="container">
 
     <!-- What is this -->
@@ -1123,8 +1250,8 @@ tabBtns.forEach(btn => {
 (function() {
   const hash = location.hash.replace('#', '');
   const stored = (() => { try { return localStorage.getItem('activeTab'); } catch(e) { return null; } })();
-  const target = (hash === 'user' || hash === 'admin') ? hash : (stored || 'user');
-  if (target !== 'user') activateTab(target);
+  const target = (hash === 'why' || hash === 'user' || hash === 'admin') ? hash : (stored || 'why');
+  if (target !== 'why') activateTab(target);
 })();
 
 // ── Copy to clipboard ──

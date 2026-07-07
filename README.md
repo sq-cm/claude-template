@@ -58,6 +58,8 @@ Your message
 - `.claude/skills/` — reusable skill modules: brainstorming, html-deliverable, HyperFrames video rendering, the /teach tutor, cinema prompt skills, and more; see `.claude/skills/README.md` for the full catalog
 - `CHANGELOG.md` — append-only log of shipped template changes; your upgrade reference when pulling updates via `/update`
 
+See the ["Why use this?"](Resources/Learn/index.html) tab for who this vault is for and what each role gets out of it.
+
 ---
 
 ## The team
