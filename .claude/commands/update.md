@@ -30,6 +30,24 @@ Stop here.
 
 ---
 
+### Step 2.5 — DFS collision guard
+
+Google-Drive (and similar DFS/cloud-sync) mounts can duplicate files under a
+" N" suffix (space + digits), which breaks `git fetch` with invalid refs and
+leaves untracked twin files that would trip the clean-tree check below. Run
+this BEFORE that check, so junk is cleaned up before the tree is inspected:
+
+```bash
+bash Vault/Scripts/git-dfs-guard.sh
+```
+
+The script self-no-ops on clones not affected by this (0/0, no changes).
+Surface its summary line verbatim to the user, e.g.:
+
+> git-dfs-guard: removed 1 junk refs, 1 twin duplicates
+
+---
+
 ## Step 3 — Check for uncommitted changes
 
 Run:
