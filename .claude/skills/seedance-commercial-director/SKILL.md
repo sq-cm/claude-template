@@ -1,6 +1,6 @@
 ---
 name: seedance-commercial-director
-description: "Commercial-ad Seedance video-prompt director for product, brand, and advertising briefs. Photoreal EN prompts with locked twelve-block grammar (ten CWP blocks plus PRODUCT SURFACE and BRAND GRADE), controlled specular on named product surfaces, opt-in beauty highlights for named skin zones, and a commercial-grade colour philosophy. Sibling to cinema-worldbuilder-pro-2.0 — NOT an alternative mode of it. Use whenever the brief is a product ad, brand film, hero commercial, TVC, social ad cut, beauty campaign, fragrance spot, automotive ad, or any shoot whose primary purpose is selling or showcasing a product or brand. Route on INTENT: if the goal is to sell, showcase, or brand → this skill. Narrative/editorial cinema → cinema-worldbuilder-pro-2.0. Stylized/animated/bilingual → seedance-bilingual-director."
+description: "Commercial-ad Seedance video-prompt director for product, brand, and advertising briefs — photoreal EN prompts. Sibling to cinema-worldbuilder-pro-2.0 — NOT an alternative mode of it. Use whenever the brief is a product ad, brand film, hero commercial, TVC, social ad cut, beauty campaign, fragrance spot, automotive ad, or any shoot whose primary purpose is selling or showcasing a product or brand. Route on INTENT: if the goal is to sell, showcase, or brand → this skill. Narrative/editorial cinema → cinema-worldbuilder-pro-2.0. Stylized/animated/bilingual → seedance-bilingual-director."
 ---
 
 # Seedance Commercial Director — Commercial Ad Lane
