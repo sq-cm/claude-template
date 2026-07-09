@@ -1,12 +1,32 @@
 # Fast-Path Lane SOP
 
-The detail behind the [Fast-Path Lane](../../CLAUDE.md) section in CLAUDE.md. CLAUDE.md holds the operative rule (eligibility, what the lane bypasses, what it keeps, escalation); this SOP holds the rationale, worked examples, and the reasoning behind each guard. When the two disagree, **CLAUDE.md wins** — propose a fix here rather than diverging.
+The detail behind the [Fast-Path Lane](../../CLAUDE.md) section in CLAUDE.md. CLAUDE.md holds the operative rule (eligibility, invocation, what the lane bypasses, what it keeps, escalation); this SOP holds the rationale, worked examples, and the reasoning behind each guard. When the two disagree, **CLAUDE.md wins** — propose a fix here rather than diverging.
 
 ## Why the lane exists
 
 The default pipeline — `grill-me` → plan → Checkpoint A → work → Checkpoint B → QA Gate — is built for durable, hard-to-unwind work. It is deliberately heavy because the cost of getting a client Deliverable wrong is high.
 
 That same weight is disproportionate for a typo fix or a roster lookup. Before the lane existed, small tasks had only two options: run the full pipeline (wasteful) or quietly skip the framework altogether (ungoverned). The Fast-Path Lane is the sanctioned third option — it keeps light work inside the framework at a cost that matches its size, so nothing has to go off-book to stay quick.
+
+## Invoking the lane
+
+The lane is chosen two ways:
+
+- **By judgement (default).** The Orchestrator assesses each request and takes the lane when all
+  eligibility conditions hold. No command needed.
+- **Explicitly, via `/fast-path <task>`.** The user requests the lane directly. The skill
+  (`.claude/skills/fast-path/SKILL.md`) is `disable-model-invocation: true`, so only the user can
+  trigger it — the model never auto-fires the lane.
+
+Both routes assert eligibility rather than assume it. `/fast-path` prints an auditable five-line
+verdict (one per condition) before acting. On an eligible task it runs the lane — routing to a
+persona, locale + humaniser pass, working-only destination. On an **ineligible** task it names the
+failing condition and **auto-escalates**: it re-enters the full pipeline by feeding the original
+task into grill-me, then plan mode. It never silently proceeds and never re-asks for the task.
+
+The command can only *request* the lane. It cannot override eligibility, so it cannot be used to
+push a governance edit, a Deliverable, or fan-out work through the light route — the escalation
+path catches exactly those.
 
 ## Eligibility — the reasoning
 
