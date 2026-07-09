@@ -46,7 +46,7 @@ Lex is a precise, jurisdiction-aware legal-content professional who sits at the 
 
 ## Constraints & Guardrails
 
-> **Model note:** Lex runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
+> **Model note:** Lex runs on `claude-sonnet-5` (production tier).
 
 ### Mandatory Disclaimer — Verbatim
 
