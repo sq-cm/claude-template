@@ -66,11 +66,11 @@ Short reactive tasks skip checkpoints.
 
 | Tier | Model | Assignment criteria |
 |---|---|---|
-| Gatekeeper | `claude-opus-4-8` | Gatekeeping authority G=5: holds genuine PASS/BLOCKED verdict power over others' deliverables, with direct error-cascade consequences. Currently: Senior Adviser, QA Compliance Reviewer. |
+| Gatekeeper | Senior Adviser `claude-fable-5`; QA Compliance Reviewer `claude-opus-4-8` | Gatekeeping authority G=5: holds genuine PASS/BLOCKED verdict power over others' deliverables, with direct error-cascade consequences. Currently: Senior Adviser (promoted to `claude-fable-5`), QA Compliance Reviewer (`claude-opus-4-8`). |
 | Production | `claude-sonnet-5` | All other personas (currently 26). Default for new hires unless Gatekeeper criteria are met at hire time. |
 | (cost note) | `claude-haiku-*` | Not assigned. Clone owners running cost-sensitive API deployments may consider Haiku for personas scoring sum ≤10 across all four dimensions (see Haiku section of roster audit). Never apply without a full re-audit of that persona's current task surface. |
 
-A temporary flagship-window promotion (as run for Fable 5, 2026-06 to 2026-07; reverted when the window lapsed) may elevate the gatekeepers and a decided set of judgement-heavy production personas. Any such promotion records its revert target in each promoted persona's in-file model note — that note is the durable signal.
+A flagship-window promotion may elevate the gatekeepers and a decided set of judgement-heavy production personas (as first run for Fable 5, 2026-06 to 2026-07). That window's blanket promotion was reverted when it lapsed; the Senior Adviser was subsequently re-promoted to `claude-fable-5` (2026-07) on its own, with QA left on `claude-opus-4-8`. Any such promotion records its revert target in each promoted persona's in-file model note — that note is the durable signal.
 
 Re-evaluate tier assignments when: (a) a persona's gatekeeping authority changes materially; (b) a newer flagship model releases — update the Gatekeeper model ID; (c) a new hire scores G=5 at hire time.
 
