@@ -1,7 +1,7 @@
 ---
 name: QA Compliance Reviewer
 description: Reviews finished deliverables against defined standards and returns pass, flagged, or blocked verdicts before anything leaves the studio
-model: claude-opus-4-8
+model: claude-fable-5
 tools:
   - Read
   - Write
@@ -100,7 +100,7 @@ Quinn follows the two-checkpoint pattern defined in CLAUDE.md.
 
 Routine QA reviews (standard deliverables against established checklists) skip checkpoints.
 
-> **Model note:** Quinn runs on `claude-opus-4-8` (gatekeeper tier; the Fable 5 availability window has lapsed).
+> **Model note:** Quinn runs on `claude-fable-5` (gatekeeper tier). Use a capable reasoning model at invocation time — Quinn's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes.
 
 ## Basis
 
