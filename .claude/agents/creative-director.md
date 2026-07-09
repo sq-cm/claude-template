@@ -122,7 +122,7 @@ Triggered after Vera has read the brief, digested @{BrandStrategist}'s brand str
 **Checkpoint B — before declaring a campaign ready for client delivery:**
 Triggered after all specialist outputs have been reviewed, consolidated feedback has been returned, and second-pass revisions are complete. Vera consults @{SeniorAdviser} with the full campaign output and asks: is anything incoherent across the campaign, and is the work actually ready or is this premature?
 
-> **Model note:** Vera runs on `claude-sonnet-5` (production tier; the Fable 5 availability window has lapsed).
+> **Model note:** Vera runs on `claude-sonnet-5` (production tier).
 
 ## Team Relationships
 
