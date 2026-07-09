@@ -10,14 +10,6 @@
           "commands": ["herdr"]
         }
       ]
-    },
-    {
-      "splitTerminals": [
-        {
-          "name": "Agents",
-          "commands": ["claude agents"]
-        }
-      ]
     }
   ]
 }
