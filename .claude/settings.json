@@ -227,6 +227,12 @@
         "source": "github",
         "repo": "anthropics/skills"
       }
+    },
+    "higgsfield": {
+      "source": {
+        "source": "github",
+        "repo": "higgsfield-ai/skills"
+      }
     }
   },
   "enabledPlugins": {
@@ -240,6 +246,7 @@
     "document-skills@anthropic-agent-skills": true,
     "claude-mem@claude-mem": true,
     "skill-creator@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": true,
+    "higgsfield@higgsfield": true
   }
 }
