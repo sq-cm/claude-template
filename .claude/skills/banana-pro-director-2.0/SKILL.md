@@ -1,6 +1,6 @@
 ---
 name: banana-pro-director-2.0
-description: "Higgsfield image prompt director for Banana Pro, Soul Cinema, and GPT-2. Modes: (0) face lock for new characters — Banana Pro single-pass (default), GPT-2 single-pass (higher fidelity, higher credits), or Soul Cinema two-pass, all on mid-gray seamless (locked default; white on request) with black camisole/tank baseline, (1) single-image character outfit — Banana Pro or Soul Cinema two-step, (2) 6-panel character sheet, (3) cinematic scene plates with or without characters, (4) GPT-2 detail face/chest-up, (5) outfit replacement — swap a face onto an outfit using two refs. Reads references for hair, makeup, wardrobe, jewelry, identity. Outputs photorealistic prompts with one clean cinema stack — pores, subsurface scattering, strand hair, fabric weave, atmospheric perspective, anamorphic character, theatrical grain. Use for new character builds, character/outfit refs, character sheets, scene plates, environment plates, detail shots, outfit replacement, or any photorealistic still."
+description: "Higgsfield image prompt director for Banana Pro, Soul Cinema, and GPT-2. Modes: (0) face lock for new characters — Banana Pro single-pass (default), GPT-2 single-pass (higher fidelity, higher credits), or Soul Cinema two-pass, all on mid-gray seamless (locked default; white on request) with black camisole/tank baseline, (1) single-image character outfit — Banana Pro or Soul Cinema two-step, optionally preceded by a headless wardrobe test pass for complex/custom fits, (2) 6-panel character sheet, (2B) headless 3-panel Seedance-handoff sheet (studio-local variant), (3) cinematic scene plates with or without characters, (4) GPT-2 detail face/chest-up, (5) outfit replacement — swap a face onto an outfit using two refs. Reads references for hair, makeup, wardrobe, jewelry, identity. Outputs photorealistic prompts with one clean cinema stack — pores, subsurface scattering, strand hair, fabric weave, atmospheric perspective, anamorphic character, theatrical grain. Use for new character builds, character/outfit refs, character sheets, scene plates, environment plates, detail shots, outfit replacement, or any photorealistic still."
 ---
 
 # Banana Pro Director 2.0 — Image Asset Builder
@@ -56,6 +56,10 @@ See the Mode 0 section below. Tool fork: Banana Pro single-pass (default), GPT-2
 Once the character is locked (either confirmed from existing reference upload, or built via Mode 0), the FIRST image generated for any new outfit is a single-image character outfit on a mid-gray seamless studio backdrop (the locked default — white only on explicit request). No 6-panel sheet ever gets built before a base outfit reference exists.
 
 Ask the user to describe the outfit they want — every garment, every accessory, every styling choice. If they upload a wardrobe reference image, study it visual-only. Mirror back the wardrobe spec for confirmation.
+
+<!-- STUDIO-LOCAL BEGIN -->
+**Optional pre-step — wardrobe test pass (studio-local addition, recommended for complex/custom fits):** Before building the outfit onto the canonical character, offer to prove the garment on a headless/invisible-mannequin display first — same headless framing discipline as Mode 2B, no head or face in the test shot, silhouette and fabric are the only subjects. Escalation chain if the silhouette or fabric doesn't hold: **Soul Cinema first** (cheapest, fastest test) → **Banana Pro** if Soul Cinema can't hold the shape → **GPT-2** if Banana Pro still can't resolve fine construction detail (boning, structured seams, complex draping). Once the garment is locked visually on the headless display, composite it onto the canonical character using the approved headless-display image as the wardrobe reference and the character's locked reference sheet (Mode 0 output, or Mode 2/2B sheet) as the character anchor — proceed to Mode 1A or Mode 1B as normal from there. This pre-step is optional and skippable for simple outfits; go straight to the tool-fork question below when the fit is straightforward.
+<!-- STUDIO-LOCAL END -->
 
 **Then — before writing the prompt — ask which tool to build the base in:**
 
@@ -636,6 +640,51 @@ Mid-gray seamless studio backdrop applied uniformly across all six panels — ev
 
 ---
 
+<!-- STUDIO-LOCAL BEGIN -->
+## MODE 2B — HEADLESS 3-PANEL SEEDANCE-HANDOFF SHEET (STUDIO-LOCAL ADDITION)
+
+> This mode is a studio-local addition, not part of the upstream Banana Pro Director 2.0 grammar. It does not renumber or replace Mode 2 (6-panel character sheet). Keep this section self-contained so upstream skill updates diff cleanly against it.
+
+**When to use:** A Seedance-handoff reference sheet, built to anchor Subject Locks for downstream video generation — NOT a general-purpose character reference. Same gate as Mode 2: only built after a single-image base reference exists and is approved.
+
+**Why this exists (distinct from Mode 2):** Seedance locks identity most reliably from a single clean face and pulls silhouette, wardrobe, and posture from panels that carry no face at all. If every panel on the sheet shows a face, Seedance averages across them and the character drifts or slips identity in motion. This mode puts the face in exactly ONE panel and keeps the other two panels headless.
+
+**Layout — one 16:9 frame, three vertical panels, in this fixed order:**
+1. LEFT — headless full-body front (head/face/hair/neck completely absent).
+2. MIDDLE — headless full-body back (same pose rotated 180°, garment back construction, hair fall if visible from behind, footwear — head/face/neck still absent).
+3. RIGHT — face portrait (tight framing crown to top of neckline/collarbone; the ONLY panel with a face; full identity description written once, here).
+
+**Backdrop and lighting:** one continuous mid-gray seamless studio backdrop behind all three panels, all three lit as one cohesive session — matched lighting, matched colour, matched grain, matched fabric rendition. Thin subtle vertical seams separate the panels visually; no border frames, no captions, no text. White seamless only on explicit request, per the studio's mid-gray policy.
+
+**Headless panel language (mandatory, both LEFT and MIDDLE panels):** "The head, face, hair, and neck are completely absent from the frame — no floating hair, no ghosted outline, no cutout edge, no visible cross-section, no stump, no blur, no shadow of a head, the mid-gray seamless backdrop continues cleanly and uninterrupted through the entire space where the head and neck would be." The garment's neckline/collar sits tied and structured naturally at the collarbone "as if worn on an invisible neck," holding its shape and gathered folds intact.
+
+**Relight-from-scratch block (close every panel description with this, adapted per panel):**
+```
+Relight from scratch overriding any reference lighting: one broad diffused soft key light from camera-[left/right] and slightly above, gentle wrap onto the figure and face, a soft triangle of light on the shadow cheek in the face panel and on the shadow side of the body in the two headless panels, subtle low fill from camera-[opposite side] lifting the shadow side, no hard shadow edges, no rim light, no hair light, no kicker — only the gentlest lifted shadow on the off-light side.
+```
+
+**Per-panel realism placement:** subsurface scattering and pore/peach-fuzz detail located explicitly per panel — cheeks and ear edges in the face panel, back of the neck and shoulders in the back-body panel — rather than repeated identically across all three. Skin and fabric render at their true natural tone against the neutral gray, never cool-shifted, matching the studio's mid-gray policy language used elsewhere in this skill.
+
+**Canonical Mode 2B prompt structure:**
+```
+A single 16:9 cinema-character-reference sheet composed as three vertical panels side by side against one continuous mid-gray seamless studio backdrop, all three panels lit as one cohesive studio session with matched lighting, matched color, matched grain, and matched fabric rendition. Thin subtle vertical seams separate the panels visually but the backdrop reads as continuous mid-gray behind all three, no border frames, no captions, no text.
+
+LEFT PANEL — headless full-body front: [pose/outfit/markers]. The head, face, hair, and neck are completely absent from the frame — no floating hair, no ghosted outline, no cutout edge, no visible cross-section, no stump, no blur, no shadow of a head, the mid-gray seamless backdrop continues cleanly and uninterrupted through the entire space where the head and neck would be. The neckline sits tied and structured naturally at the collarbone as if worn on an invisible neck. Full body framing from where the head would be down to below the feet/heels.
+
+MIDDLE PANEL — headless full-body back: same stance rotated 180 degrees. [hair fall / garment back construction / accessories+footwear]. Head, face, hair, and neck completely absent from the frame, as described above — the mid-gray seamless backdrop continues uninterrupted through the space where the head and neck would be.
+
+RIGHT PANEL — head and face portrait: crown to neckline/collarbone. [full identity description]. Body squared to camera, head level, eyes to camera.
+
+Mid-gray seamless studio background across all three panels, even neutral mid-gray, no seam line, no gradient, no falloff to black or white. [Relight-from-scratch block per panel — see above]. Skin reads matte and velvety with a low-contrast milky look, no shine on the forehead, nose bridge, cheekbones, temples, or chin. Skin renders at its true natural tone, never pale, never washed-out, never cool-shifted by the background. Real human skin with visible natural pore texture, fine peach fuzz catching light along the jawline and hairline, subsurface scattering on the cheeks and ear edges in the face panel and on the back of the neck and shoulders in the back-body panel, real fabric weave and drape, real hair rendered strand by strand. Photographed on a 50mm prime at a wide aperture, natural round bokeh, even sharpness across all three panels, soft natural film grain. Photographed not generated.
+```
+
+**Mode 2B is one prompt, one 16:9 frame** — same single-prompt discipline as Mode 2; never deliver three separate prompts.
+
+**Mode 2B vs Mode 2 — when to pick which:** Mode 2 (6-panel) is the general-purpose multi-angle character reference. Mode 2B is purpose-built as a Seedance Subject Lock anchor — offer it specifically when the reference feeds Dash/Seedance, not as a default replacement.
+
+---
+<!-- STUDIO-LOCAL END -->
+
 ## MODE 3 — CINEMATIC SCENE PLATE
 
 **When to use:** Only when the user asks for a scene, an environment, a plate, a moment, or describes a setting. Never proposed proactively.
@@ -818,7 +867,7 @@ The closing realism clause is mandatory. The list of "no X, no Y, no Z" at the v
 
 7. **The prompt narrates THE MOMENT.** What is the character doing right now? What is the camera doing right now? What is the light doing right now? That's the prompt's job. Continuity (room geometry, character identity, broadcast content) is reference work.
 
-8. **The closing realism clause is non-negotiable.** Every Mode 3 prompt ends with the full cinema stack paragraph + the "Real photographic frame... no CGI, no plastic, no AI" close-out. This replaces the old locked tag block.
+8. **The closing realism clause is non-negotiable.** Every Mode 3 prompt ends with the full cinema stack paragraph + the "Real photographic frame... no CGI, no plastic, no AI" close-out. This replaces the old locked tag block. Mode 2B (headless 3-panel Seedance-handoff sheet, studio-local addition) uses the same lean Rembrandt-style close as Mode 2, not the full cinema stack — see the Mode 2B section.
 
 9. **The cinema mode register (M1/M2/M3/M4/M5) is invoked by DESCRIBING the actual look in plain language** in Paragraph 5 — not by writing "M1 Narrative" as a tag, and never by naming camera/lens/stock brands. Example: "Captured with a wide-latitude cinema look and a vintage 55mm-equivalent 2x anamorphic character at a wide aperture — oval bokeh, gentle horizontal squeeze, soft frame-edge falloff, a light diffusion bloom lifting highlights into a soft halation, color-negative daylight film rendition pushed slightly, with fine 35mm grain, in an M1 cinematic narrative register." The M-tag appears as a brief identifier at the end of the description, not as a standalone label.
 
@@ -965,11 +1014,11 @@ These apply to every prompt this skill produces, no exceptions:
 
 Before writing the final prompt, silently catalog:
 
-- [ ] Mode selected (0 face lock / 1 single-image outfit / 2 six-panel / 3A character scene / 3B environment plate / 4 GPT-2 / 5 outfit replacement) and rationale
+- [ ] Mode selected (0 face lock / 1 single-image outfit / 2 six-panel / 2B headless 3-panel Seedance-handoff / 3A character scene / 3B environment plate / 4 GPT-2 / 5 outfit replacement) and rationale
 - [ ] Every uploaded reference image identified and listed by short visual descriptor (this becomes the first bullet of the pre-prompt check)
 - [ ] If Mode 0: text spec for the new character is locked and approved, tool fork has been presented (Banana Pro / GPT-2 / Soul Cinema), user has picked, and the locked baseline wardrobe (plain black camisole for women, plain black ribbed tank for men) is included in the prompt. If Soul Cinema picked, running Step 0.1 (Soul Cinema face plate) before Step 0.2 (Banana Pro 3:4 headshot).
 - [ ] If Mode 1: a Mode 0 face lock exists for the character (if new), OR a locked character reference exists (if existing)
-- [ ] If Mode 2: a Mode 1 base outfit reference exists and is approved (if not, stop and build the base first)
+- [ ] If Mode 2 or 2B: a Mode 1 base outfit reference exists and is approved (if not, stop and build the base first)
 - [ ] If Mode 4: user explicitly asked for face/chest-up and confirmed GPT-2
 - [ ] If Mode 5: two reference images uploaded — outfit reference (becomes @image1) and character reference (becomes @image2), order confirmed with the user
 - [ ] Every character described by visual markers only (hair, makeup, wardrobe, jewelry, body markers, pose, expression)

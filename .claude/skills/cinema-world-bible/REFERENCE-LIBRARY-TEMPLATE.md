@@ -36,6 +36,8 @@ PROP-[PROP-SLUG]                       for prop references
 | `[CHAR-SLUG]-OUTFIT-A-RAINY` | OUTFIT-A-RAINY | PENDING | Mode 1 | | Post-rain state delta |
 | `[CHAR-SLUG]-SHEET-A` | SHEET-A | PENDING | Mode 2 | | Built after OUTFIT-A locked |
 
+**Wardrobe test-pass note:** a garment reference may pass through a mannequin test stage (proven on an invisible mannequin — headless display, no character anchor) before it is composited onto the canonical character. Track this as a Notes-column annotation on the outfit row (e.g., "mannequin-tested, not yet composited to character") rather than a new status value — Status stays PENDING until the character-anchored composite exists and is BUILT/LOCKED. The escalation path across generation tools during the mannequin stage (if one is used) is prompt-craft and belongs to @{StillsDirector}'s domain, not this index.
+
 *(Add rows as outfit states and character sheet variants are built)*
 
 ---

@@ -49,6 +49,27 @@ List every marker that must appear consistently and be noted in every prompt tha
 
 ---
 
+## Voice register
+
+Voice consistency is a context problem, not a tool problem: if the model doesn't have a locked reference for how this character sounds, it improvises a different voice every time. This section is that lock — every Seedance dialogue or voiceover-bearing prompt for this character draws its Sound Bed and phrasing choices from here.
+
+**Register:**
+(e.g., mid-range with a slight sassy edge / low and even / bright and quick)
+
+**Timbre:**
+(the quality of the voice itself — warm and breathy, clipped and precise, rasp on the low end)
+
+**Cadence:**
+(pace and rhythm — clipped short sentences, long unhurried run-ons, deliberate pauses before a point)
+
+**Phrasing patterns:**
+(how this character specifically constructs a sentence — word choice, sentence length, verbal tics — described comparatively where a second character exists, e.g., "Daye leads with the conclusion and backfills the reason; Mira leads with the reason and holds the conclusion back")
+
+**Notes for downstream prompts:**
+(anything that must carry into a Sound Bed or dialogue block — accent markers, things this character would never say, energy under pressure vs. at rest)
+
+---
+
 ## Locked reference images
 
 The reference images that carry this character's identity. Mark each as PENDING (not yet built), BUILT (generated, not finalized), or LOCKED (finalized and indexed).
