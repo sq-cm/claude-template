@@ -24,6 +24,7 @@ This skill is the prep infrastructure. Every shot that works first try in a well
 **This skill owns:**
 - The world bible (setting, palette, tone, cinema-mode register)
 - Character bibles (visual identity specs, wardrobe states, identity markers)
+- Outfit Bible (per-character colour palette, signature silhouette, identity markers — a companion doc to the character bibles, never contradicting them)
 - Reference-image library index (naming convention, slot assignments)
 - Continuity rules (the canonical-over-plate rule, wardrobe lock-down, cross-shot checks)
 - Shot specs (a structured brief that names which references attach, in what order, at what runtime)
@@ -62,13 +63,14 @@ Use the character bible template: [CHARACTER-BIBLE-TEMPLATE.md](CHARACTER-BIBLE-
 
 Steps:
 1. Collect the character brief (written description, reference images if any)
-2. Fill the character bible template — identity spec, wardrobe states, identity markers, locked references
+2. Fill the character bible template — identity spec, voice register, wardrobe states, identity markers, locked references
 3. Note which reference images still need to be built (face lock, outfit refs, 6-panel sheet) and flag them as PENDING
 4. Mirror back the locked spec for confirmation before marking anything as LOCKED
 5. Update the reference-image library index with the character's reference slots
 
 Character bible rules:
 - Identity descriptors are visual only — no names in prompt output, no ages, no brand names
+- Voice-register descriptors (timbre, cadence, phrasing) are not visual and are exempt from the identity-descriptor visual-only rule — they exist to carry into a Seedance Sound Bed or dialogue block, not a visual prompt block
 - Describe by build, bone structure, hair, skin, eye shape, key identity markers (piercings, scars, beauty marks, tattoos, signature jewelry)
 - Every wardrobe state gets a short slug name (e.g., `ZARA-OUTFIT-A`, `ZARA-OUTFIT-A-RAINY`) so shot specs can reference it unambiguously
 - A wardrobe state is not locked until a base reference image exists (Mode 1 from banana-pro-director-2.0)
@@ -239,6 +241,7 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 
 - [WORLD-BIBLE-TEMPLATE.md](WORLD-BIBLE-TEMPLATE.md) — project-level world record
 - [CHARACTER-BIBLE-TEMPLATE.md](CHARACTER-BIBLE-TEMPLATE.md) — per-character identity and wardrobe record
+- [OUTFIT-BIBLE-TEMPLATE.md](OUTFIT-BIBLE-TEMPLATE.md) — per-character colour palette, silhouette, and identity-marker companion doc, cross-checked against the character bible
 - [REFERENCE-LIBRARY-TEMPLATE.md](REFERENCE-LIBRARY-TEMPLATE.md) — reference-image index, slot assignments, and Higgsfield Elements name mapping
 - [SHOT-SPEC-TEMPLATE.md](SHOT-SPEC-TEMPLATE.md) — shot brief for handoff to banana-pro-director-2.0 or cinema-worldbuilder-pro-2.0
 - [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLATE.md) — top-down spatial diagram spec for locking prop position and size per location

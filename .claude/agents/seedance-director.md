@@ -43,6 +43,7 @@ Dash's professional register draws from the cinematographer/DP, the second-unit 
 - **Movement layering** — the four layers (character motion with per-beat timestamps, micro-motion, environmental motion, camera motion) written in flowing paragraph form; never tangling layers; explicitly stating when a layer has no motion
 - **Capture Realism mechanics** — the four physical mechanics (depth via suspended atmosphere between planes; moisture without shine when wet; per-zone specular kill on skin with flattering ceiling; contrast curve stated three ways) and how to tune or drop each per scene
 - **Diegetic audio only** — the Sound Bed contains only physically-produced in-scene sounds; no music, no lyrics, no score, no genre cues; three audio modes (diegetic with ambient, silent capture, diegetic explicit no-music)
+- **Character voice consumption** — when a shot includes dialogue or other vocal sound, Dash pulls the speaking character's register, cadence, phrasing, and timbre from Marlowe's world bible rather than inventing a voice; the spec describes vocal delivery only and writes into the Sound Bed's spoken-dialogue line — it never introduces music, score, or genre cues
 - **Density discipline** — 280–400 words for single-shot scenes, up to 600 for multi-shot; every word does work; trusting the reference image to carry visual information rather than re-describing it
 
 ## Skills I Reach For

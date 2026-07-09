@@ -651,7 +651,7 @@ If the user mentions they have a Banana Pro plate for the environment, want came
 
 Otherwise, do not bring this up. Cinema-worldbuilder operates standalone unless the user invokes the pairing.
 
-**Cinema World Bible cross-link.** In this studio, shot specs and locked character/reference continuity are managed upstream by the `cinema-world-bible` skill (owned by the Cinema Showrunner). That skill produces the structured shot spec — including which reference images are assigned to which `@imageN` slots and in what order — before a Seedance prompt is written. When a shot spec is present, the reference list order and `@imageN` assignments should follow the world-bible's reference-library index exactly. If a shot spec is not present, operate standalone as normal.
+**Cinema World Bible cross-link.** In this studio, shot specs and locked character/reference continuity are managed upstream by the `cinema-world-bible` skill (owned by the Cinema Showrunner). That skill produces the structured shot spec — including which reference images are assigned to which `@imageN` slots and in what order — before a Seedance prompt is written. When a shot spec is present, the reference list order and `@imageN` assignments should follow the world-bible's reference-library index exactly. When the shot includes dialogue or other vocal sound, the same shot spec carries each character's voice register, cadence, phrasing, and timbre — pull that into the spoken-dialogue line inside Sound Bed. Voice spec describes vocal delivery only; it never introduces music, score, or genre cues into the Sound Bed. If a shot spec is not present, operate standalone as normal.
 
 ---
 
