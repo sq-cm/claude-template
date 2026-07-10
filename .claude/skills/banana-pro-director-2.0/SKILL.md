@@ -611,7 +611,6 @@ That's it. Do not add styling description (Soul Cinema reads it from Image 2). D
 - Layout: 3×2 grid, equal cells, thin clean white gutters between panels, horizontal sheet orientation
 - Each panel composed within its cell as if it were its own shot — no cell should feel like a crop of a wider frame
 - Background: same studio backdrop across all six cells (default mid-gray seamless, matching the base reference) for consistency. Only swap to white-across-all-six-panels if the user explicitly asks for a white sheet (see the MID-GRAY SEAMLESS BACKDROP section).
-- Lighting: same three-point key/fill/rim setup across all six cells — identity stays locked when lighting is locked
 - Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI (typically 16:9 for sheets, but specified in UI not prompt)
 
 **Canonical Mode 2 prompt structure:**
