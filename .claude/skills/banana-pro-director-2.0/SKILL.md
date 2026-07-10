@@ -325,7 +325,7 @@ When the user uploads reference images, extract everything visible in the frame 
 
 **When to use:** Any time a character is being developed from scratch and there is no existing canonical reference image of their face. Run this BEFORE any outfit work, any 6-panel sheet, any scene plate. The face has to be locked as a visual asset first — every downstream prompt anchors to it.
 
-**Goal:** Produce the canonical face reference for the character. Identity only — no outfit considerations beyond a locked neutral baseline top, no environment, no posing direction. Just: a clean, locked face on white background with soft soft lighting that makes the skin read matte and cinema-placement-ready.
+**Goal:** Produce the canonical face reference for the character. Identity only — no outfit considerations beyond a locked neutral baseline top, no environment, no posing direction. Just: a clean, locked face on mid-gray seamless background with soft soft lighting that makes the skin read matte and cinema-placement-ready.
 
 **Universal wardrobe lock for Mode 0:** Every face lock prompt — regardless of tool — puts the character in a neutral baseline top:
 - **Women:** plain black thin-strap camisole
