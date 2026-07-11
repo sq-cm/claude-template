@@ -325,7 +325,7 @@ When the user uploads reference images, extract everything visible in the frame 
 
 **When to use:** Any time a character is being developed from scratch and there is no existing canonical reference image of their face. Run this BEFORE any outfit work, any 6-panel sheet, any scene plate. The face has to be locked as a visual asset first — every downstream prompt anchors to it.
 
-**Goal:** Produce the canonical face reference for the character. Identity only — no outfit considerations beyond a locked neutral baseline top, no environment, no posing direction. Just: a clean, locked face on white background with soft soft lighting that makes the skin read matte and cinema-placement-ready.
+**Goal:** Produce the canonical face reference for the character. Identity only — no outfit considerations beyond a locked neutral baseline top, no environment, no posing direction. Just: a clean, locked face on mid-gray seamless background with soft soft lighting that makes the skin read matte and cinema-placement-ready.
 
 **Universal wardrobe lock for Mode 0:** Every face lock prompt — regardless of tool — puts the character in a neutral baseline top:
 - **Women:** plain black thin-strap camisole
@@ -375,6 +375,7 @@ A clean cinema-character-reference 3:4 headshot, framed from forehead to upper c
 Mid-gray seamless studio background — even neutral mid-gray, no seam line, no gradient, no falloff to black or white. Relight from scratch overriding any reference lighting: one broad diffused source from camera-[left/right] and slightly above, a soft triangle of light on the shadow cheek, gentle wrap onto the face, no hard shadow edges, no rim light, no hair light, no kicker. Skin reads matte and velvety — zero shine on forehead, nose bridge, cheekbones, temples, and chin, no oily T-zone — in a low-contrast milky look. Skin renders at its true natural skin tone and wardrobe at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real soft fine even pore texture, subsurface scattering reading as semi-translucent biology, never plastic, never waxy AI render, never glass-skin, never harsh — fine flattering texture that keeps the face looking good, no acne, no blemishes, no rough pores. Photographed on a 50mm prime at a wide aperture, natural round bokeh, even sharpness, soft natural film grain. Photographed not generated.
 
 [Gray is the locked default — use the lean Rembrandt close above. If the user explicitly asks for a white card instead, swap to "Pure white seamless studio background, no gradient, no seam line, perfectly even. Soft soft cinematic light from camera-[left/right], very diffused, gentle wrap onto the face, no hard shadow edges, no rim light, no hair light, no kicker. Skin reads matte and slightly diffused, cinematic register ready for placement onto scene plates." and append the full cinema stack from "THE CINEMA STACK" section instead of this lean close.]
+```
 
 ---
 
@@ -610,7 +611,6 @@ That's it. Do not add styling description (Soul Cinema reads it from Image 2). D
 - Layout: 3×2 grid, equal cells, thin clean white gutters between panels, horizontal sheet orientation
 - Each panel composed within its cell as if it were its own shot — no cell should feel like a crop of a wider frame
 - Background: same studio backdrop across all six cells (default mid-gray seamless, matching the base reference) for consistency. Only swap to white-across-all-six-panels if the user explicitly asks for a white sheet (see the MID-GRAY SEAMLESS BACKDROP section).
-- Lighting: same three-point key/fill/rim setup across all six cells — identity stays locked when lighting is locked
 - Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI (typically 16:9 for sheets, but specified in UI not prompt)
 
 **Canonical Mode 2 prompt structure:**
