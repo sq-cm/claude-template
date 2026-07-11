@@ -1,308 +1,410 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en-AU">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Team — Onboarding Guide</title>
-<noscript><style>.theme-toggle{display:none}</style></noscript>
+<title>The Studio Guide, AI Team Onboarding</title>
 <style>
-  /* === Custom Properties === */
+  :root{
+    --bg:#f7f7f4;
+    --surface:#ffffff;
+    --surface-2:#f0f0ed;
+    --text:#1a1b1e;
+    --text-muted:#5a5d63;
+    --text-faint:#84878d;
+    --border:#e1e1dd;
+    --border-strong:#c9c9c3;
+    --accent:#4338ca;
+    --accent-contrast:#ffffff;
+    --code-bg:#f0f0ed;
+    --ok:#3f7d4a;
+    --radius:14px;
+    --radius-sm:8px;
+    --shadow:0 1px 2px rgba(20,20,20,.06), 0 8px 24px -12px rgba(20,20,20,.14);
+    --focus:#1d5fae;
 
-  :root {
-    --paper: #f9f9f8;
-    --ink: #1a1a1a;
-    --ink-muted: #6b6b6b;
-    --accent: #2563eb;
-    --rule: #e2e2e0;
-    --surface: #f2f2f0;
-    --surface-strong: #e8e8e5;
-    --card: #ffffff;
+    --fam-ops:#3730a3;       --fam-ops-tint:#eceafc;
+    --fam-trust:#0369a1;     --fam-trust-tint:#e6f4fb;
+    --fam-strategy:#0f766e;  --fam-strategy-tint:#e5f5f3;
+    --fam-words:#9f1239;     --fam-words-tint:#fbe9ee;
+    --fam-visual:#86198f;    --fam-visual-tint:#f8e9fa;
+    --fam-build:#6d28d9;     --fam-build-tint:#f0eafd;
+  }
+  html[data-theme="dark"]{
+    --bg:#131418;
+    --surface:#1b1d23;
+    --surface-2:#20222a;
+    --text:#f1f1ef;
+    --text-muted:#a4a7ad;
+    --text-faint:#7d8087;
+    --border:#2b2d35;
+    --border-strong:#3a3d47;
+    --accent:#8b83f6;
+    --accent-contrast:#131418;
+    --code-bg:#20222a;
+    --ok:#6bbd77;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.55);
+    --focus:#7fb4ff;
 
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
-
-    --space-1: 8px;
-    --space-2: 12px;
-    --space-3: 16px;
-    --space-4: 24px;
-    --space-5: 32px;
-    --space-6: 48px;
-    --space-7: 64px;
-    --space-8: 96px;
-
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 16px;
+    --fam-ops:#9490f2;       --fam-ops-tint:#232244;
+    --fam-trust:#5fc4f2;     --fam-trust-tint:#0e2734;
+    --fam-strategy:#4fd6c6;  --fam-strategy-tint:#0d2d29;
+    --fam-words:#f9829f;     --fam-words-tint:#3a1420;
+    --fam-visual:#e19aec;    --fam-visual-tint:#331636;
+    --fam-build:#b39cf5;     --fam-build-tint:#241a3c;
   }
 
-  /* === Dark Mode === */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{
+    margin:0;
+    font-family:-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.55;
+  }
+  a{color:var(--accent);}
+  code{
+    font-family:"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    background:var(--code-bg);
+    border:1px solid var(--border);
+    border-radius:5px;
+    padding:0.1em 0.4em;
+    font-size:0.88em;
+  }
+  :focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
+  .container{max-width:1120px; margin:0 auto; padding:0 24px;}
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap;
+  }
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--text); color:var(--bg);
+    padding:10px 16px; z-index:200; border-radius:0 0 6px 0;
+  }
+  .skip-link:focus{left:0;}
 
-  [data-theme="dark"] {
-    --paper: #0c0c0c;
-    --ink: #ededed;
-    --ink-muted: #9a9a9a;
-    --accent: #60a5fa;
-    --rule: #2a2a2a;
-    --surface: #161616;
-    --surface-strong: #1f1f1f;
-    --card: #161616;
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 24px; max-width:1120px; margin:0 auto; gap:16px; flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; font-size:1.02rem;}
+  .brand-dot{
+    width:10px; height:10px; border-radius:50%;
+    background:linear-gradient(135deg, var(--fam-ops), var(--fam-visual));
+    flex:none;
+  }
+  .quicknav{display:flex; gap:4px; flex-wrap:wrap;}
+  .quicknav a{
+    text-decoration:none; color:var(--text-muted); font-size:0.86rem;
+    padding:7px 11px; border-radius:999px; font-weight:600; min-height:44px; display:inline-flex; align-items:center;
+  }
+  .quicknav a:hover{background:var(--surface-2); color:var(--text);}
+  .topbar-right{display:flex; align-items:center; gap:12px;}
+  .synced-stamp{font-size:0.72rem; color:var(--text-faint); font-family:"SFMono-Regular", Consolas, monospace; white-space:nowrap;}
+  .theme-toggle{
+    border:1px solid var(--border-strong); background:var(--surface);
+    color:var(--text); border-radius:999px; width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex:none;
+  }
+  .theme-toggle:hover{border-color:var(--accent);}
+  .theme-toggle svg{width:17px; height:17px;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:44px 0 20px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--accent); margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(2rem, 4.2vw, 3rem); line-height:1.08; margin:0 0 16px; letter-spacing:-0.02em;
+    max-width:18ch;
+  }
+  .hero-lead{font-size:1.08rem; color:var(--text-muted); max-width:62ch; margin:0 0 22px;}
+  .hero-lead strong{color:var(--text);}
+  .hero-stats{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px;}
+  .stat-chip{
+    background:var(--surface); border:1px solid var(--border); border-radius:999px;
+    padding:8px 14px; font-size:0.82rem; font-weight:600; color:var(--text-muted);
+    display:flex; align-items:center; gap:7px; box-shadow:var(--shadow);
+  }
+  .stat-chip strong{color:var(--text); font-weight:800;}
+  .stat-swatches{display:flex; gap:3px;}
+  .stat-swatches span{width:8px; height:8px; border-radius:2px;}
+
+  details.orient{
+    margin:22px 0 8px;
+    border:1px dashed var(--border-strong);
+    border-radius:var(--radius);
+    background:var(--surface);
+    max-width:62ch;
+  }
+  details.orient summary{
+    cursor:pointer; list-style:none; padding:13px 18px; min-height:44px;
+    font-weight:700; font-size:0.92rem; display:flex; align-items:center; gap:8px;
+    color:var(--text);
+  }
+  details.orient summary::-webkit-details-marker{display:none;}
+  details.orient summary::before{
+    content:"\203A"; display:inline-block; transition:transform .15s ease; font-size:1.1em; color:var(--accent);
+  }
+  details.orient[open] summary::before{transform:rotate(90deg);}
+  details.orient .orient-body{padding:0 18px 16px; color:var(--text-muted); font-size:0.92rem; max-width:65ch;}
+
+  /* ---------- section shell ---------- */
+  section.block{padding:46px 0; scroll-margin-top:76px;}
+  section.block + section.block{border-top:1px solid var(--border);}
+  .block-head{margin-bottom:22px; max-width:70ch;}
+  .block-kicker{
+    font-size:0.76rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em;
+    color:var(--text-muted); margin:0 0 6px;
+  }
+  .block-head h2{font-size:1.7rem; margin:0 0 8px; letter-spacing:-0.01em;}
+  .block-head p{color:var(--text-muted); margin:0; font-size:0.98rem;}
+
+  /* ---------- roster controls ---------- */
+  .roster-controls{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:16px;
+  }
+  .search-wrap{position:relative; flex:1 1 240px; min-width:200px;}
+  .search-wrap input{
+    width:100%; padding:11px 14px 11px 36px; border-radius:999px; min-height:44px;
+    border:1px solid var(--border-strong); background:var(--surface); color:var(--text);
+    font-size:0.92rem;
+  }
+  .search-wrap input:focus-visible{outline:2px solid var(--focus); outline-offset:1px;}
+  .search-wrap svg{
+    position:absolute; left:12px; top:50%; transform:translateY(-50%); width:15px; height:15px;
+    color:var(--text-muted); pointer-events:none;
+  }
+  .seg{
+    display:inline-flex; border:1px solid var(--border-strong); border-radius:999px; overflow:hidden;
+    flex:none;
+  }
+  .seg button{
+    border:none; background:var(--surface); color:var(--text-muted); font-weight:700;
+    font-size:0.85rem; padding:10px 16px; cursor:pointer; min-height:44px;
+  }
+  .seg button[aria-pressed="true"]{background:var(--accent); color:var(--accent-contrast);}
+  .roster-count{font-size:0.82rem; color:var(--text-muted); white-space:nowrap;}
+
+  .family-legend{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .fam-chip{
+    display:inline-flex; align-items:center; gap:6px; border-radius:999px; border:1px solid transparent;
+    padding:8px 12px 8px 10px; font-size:0.78rem; font-weight:700; cursor:pointer; background:var(--surface);
+    border-color:var(--border); min-height:44px;
+  }
+  .fam-chip .dot{width:9px; height:9px; border-radius:50%; flex:none;}
+  .fam-chip[aria-pressed="true"]{border-color:currentColor; background:var(--tint);}
+  .fam-chip[data-fam="ops"]{color:var(--fam-ops);}
+  .fam-chip[data-fam="trust"]{color:var(--fam-trust);}
+  .fam-chip[data-fam="strategy"]{color:var(--fam-strategy);}
+  .fam-chip[data-fam="words"]{color:var(--fam-words);}
+  .fam-chip[data-fam="visual"]{color:var(--fam-visual);}
+  .fam-chip[data-fam="build"]{color:var(--fam-build);}
+  .fam-chip[data-fam="ops"] .dot{background:var(--fam-ops);}
+  .fam-chip[data-fam="trust"] .dot{background:var(--fam-trust);}
+  .fam-chip[data-fam="strategy"] .dot{background:var(--fam-strategy);}
+  .fam-chip[data-fam="words"] .dot{background:var(--fam-words);}
+  .fam-chip[data-fam="visual"] .dot{background:var(--fam-visual);}
+  .fam-chip[data-fam="build"] .dot{background:var(--fam-build);}
+  .fam-chip[data-fam="ops"][aria-pressed="true"]{background:var(--fam-ops-tint);}
+  .fam-chip[data-fam="trust"][aria-pressed="true"]{background:var(--fam-trust-tint);}
+  .fam-chip[data-fam="strategy"][aria-pressed="true"]{background:var(--fam-strategy-tint);}
+  .fam-chip[data-fam="words"][aria-pressed="true"]{background:var(--fam-words-tint);}
+  .fam-chip[data-fam="visual"][aria-pressed="true"]{background:var(--fam-visual-tint);}
+  .fam-chip[data-fam="build"][aria-pressed="true"]{background:var(--fam-build-tint);}
+
+  /* ---------- roster grid ---------- */
+  .roster-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;
+  }
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:18px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px;
+    border-top:3px solid var(--fam-col, var(--accent)); min-width:0;
+  }
+  .card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+  .card-id h3{margin:0; font-size:1.08rem; font-family:inherit;}
+  .card-role{font-size:0.82rem; color:var(--fam-col, var(--text-muted)); font-weight:700; margin:2px 0 0;}
+  .fam-label{
+    font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--fam-col, var(--text-muted)); margin:0;
+  }
+  .token-pill{
+    font-size:0.68rem; font-weight:700; padding:4px 8px; border-radius:6px;
+    background:var(--tint, var(--surface-2)); color:var(--fam-col, var(--text-muted));
+    white-space:nowrap; font-family:"SFMono-Regular", Consolas, monospace; flex:none;
+  }
+  .core-badge{
+    font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--accent); border:1px solid var(--accent); border-radius:5px; padding:2px 6px;
+    align-self:flex-start;
+  }
+  .card-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .card-tags span{
+    font-size:0.72rem; background:var(--surface-2); border:1px solid var(--border); border-radius:5px;
+    padding:3px 7px; color:var(--text-muted);
+  }
+  .card-desc{font-size:0.88rem; color:var(--text-muted); margin:0;}
+  .prompt-box{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm);
+    padding:10px 12px; font-size:0.82rem; display:flex; align-items:flex-start; gap:8px;
+  }
+  .prompt-box p{margin:0; flex:1; font-style:italic;}
+  .copy-btn{
+    flex:none; border:1px solid var(--border-strong); background:var(--surface); color:var(--text);
+    border-radius:6px; font-size:0.72rem; font-weight:700; padding:8px 10px; cursor:pointer; min-height:44px;
+  }
+  .copy-btn:hover{border-color:var(--accent);}
+  .copy-btn.copied{background:var(--ok); color:#fff; border-color:var(--ok);}
+  .card-expand{
+    border:none; background:none; color:var(--fam-col, var(--accent)); font-weight:700; font-size:0.82rem;
+    cursor:pointer; display:flex; align-items:center; gap:6px; padding:8px 0; text-align:left; min-height:44px;
+  }
+  .card-expand .arrow{transition:transform .15s ease; display:inline-block;}
+  .card-expand[aria-expanded="true"] .arrow{transform:rotate(90deg);}
+  .card-details{display:none; font-size:0.85rem; color:var(--text-muted); border-top:1px dashed var(--border); padding-top:10px;}
+  .card-details.open{display:block;}
+  .card-details h4{font-size:0.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--text-faint); margin:0 0 6px;}
+  .card-details ul{margin:0 0 8px; padding-left:18px;}
+  .card-details li{margin-bottom:4px;}
+  .card-details .constraint{font-size:0.82rem; background:var(--surface-2); border-radius:6px; padding:8px 10px;}
+  .card-details .constraint strong{color:var(--text);}
+  .roster-empty{
+    grid-column:1/-1; text-align:center; padding:36px 12px; color:var(--text-muted);
+    border:1px dashed var(--border-strong); border-radius:var(--radius);
   }
 
-  /* === Reduced Motion === */
-
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+  /* ---------- flow ---------- */
+  .flow{display:flex; flex-direction:column; gap:0; max-width:76ch;}
+  .flow-step{display:grid; grid-template-columns:28px 1fr; gap:14px; position:relative;}
+  .flow-step .rail{display:flex; flex-direction:column; align-items:center;}
+  .flow-step .dot2{width:11px; height:11px; border-radius:50%; background:var(--accent); margin-top:6px; flex:none;}
+  .flow-step .line{flex:1; width:2px; background:var(--border); margin-top:4px;}
+  .flow-step:last-child .line{display:none;}
+  .flow-body{padding-bottom:22px; min-width:0;}
+  .flow-who{font-weight:800; font-size:0.85rem; margin:0 0 5px;}
+  .flow-who.you{color:var(--text-muted);}
+  .flow-who.routing{color:var(--accent);}
+  .flow-text{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm);
+    padding:12px 14px; font-size:0.9rem; margin:0;
   }
 
-  /* ── Reset & Base ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 16px; scroll-behavior: smooth; background-color: var(--paper); color: var(--ink); }
-  body { font-family: var(--font-sans); color: var(--ink); background: var(--paper); line-height: 1.6; }
+  /* ---------- addressing / syntax ---------- */
+  .syntax-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:30px;}
+  @media (max-width: 820px){ .syntax-grid{grid-template-columns:1fr;} }
+  .syntax-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);}
+  .syntax-card h4{margin:0 0 10px; font-size:1rem;}
+  .syntax-card .example{background:var(--code-bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; font-family:"SFMono-Regular", Consolas, monospace; font-size:0.8rem; margin:0 0 10px;}
+  .syntax-card p{font-size:0.86rem; color:var(--text-muted); margin:0 0 6px;}
+  .syntax-note{font-size:0.78rem; color:var(--text-faint); font-style:italic;}
 
-  /* === Focus === */
+  /* ---------- who-for ---------- */
+  .who-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;}
+  .who-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:18px; box-shadow:var(--shadow);
+  }
+  .who-card h3{margin:0 0 4px; font-size:1.05rem;}
+  .who-who{font-size:0.82rem; color:var(--text-muted); margin:0 0 10px;}
+  .who-headline{font-weight:700; margin:0 0 8px; font-size:0.98rem;}
+  .who-hook{font-size:0.88rem; margin:0 0 10px;}
+  .who-best{font-size:0.85rem; color:var(--text-muted); margin:0 0 10px;}
+  .who-catch{
+    font-size:0.83rem; color:var(--text-muted); margin:0; padding-top:10px; border-top:1px dashed var(--border);
+  }
+  .who-catch strong{color:var(--text);}
 
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
+  /* ---------- reference ---------- */
+  details.ref-block{
+    border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); margin-bottom:14px;
+  }
+  details.ref-block summary{
+    cursor:pointer; list-style:none; padding:16px 18px; font-weight:700; display:flex;
+    align-items:center; justify-content:space-between; gap:10px; min-height:44px;
+  }
+  details.ref-block summary::-webkit-details-marker{display:none;}
+  .ref-summary-text{display:flex; flex-direction:column; gap:2px;}
+  .ref-summary-text span{font-size:0.82rem; color:var(--text-faint); font-weight:500;}
+  details.ref-block summary .chev{transition:transform .15s ease; color:var(--text-muted); flex:none;}
+  details.ref-block[open] summary .chev{transform:rotate(180deg);}
+  .ref-body{padding:0 18px 18px;}
+
+  .command-group{margin-bottom:24px;}
+  .command-group:last-child{margin-bottom:0;}
+  .command-group-title{font-weight:700; font-size:1rem; margin:0 0 12px; padding-bottom:6px; border-bottom:1px solid var(--border);}
+  .ref-list{display:grid; gap:10px; grid-template-columns:repeat(auto-fill, minmax(280px,1fr));}
+  .ref-item{
+    border:1px solid var(--border); border-radius:var(--radius-sm); padding:11px 13px; background:var(--surface-2);
+  }
+  .ref-item-head{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;}
+  .ref-item-head code{font-weight:700;}
+  .ref-badge{
+    font-size:0.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.03em;
+    padding:2px 7px; border-radius:5px;
+  }
+  .ref-badge.skill{background:var(--fam-strategy-tint); color:var(--fam-strategy); border:1px solid var(--fam-strategy);}
+  .ref-badge.command{background:var(--fam-build-tint); color:var(--fam-build); border:1px solid var(--fam-build);}
+  .plugin-chip, .auto-chip{
+    font-size:0.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.03em;
+    padding:2px 7px; border-radius:5px; background:var(--surface); border:1px solid var(--border-strong); color:var(--text-muted);
+  }
+  .ref-item p{margin:2px 0 0; font-size:0.85rem; color:var(--text-muted);}
+  .ref-when{font-size:0.8rem; margin-top:6px; color:var(--text-muted);}
+  .ref-when strong{color:var(--text);}
+  .cmd-note{font-size:0.85rem; color:var(--text-muted); margin-top:14px;}
+
+  .project-row{border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; background:var(--surface-2); margin-bottom:12px;}
+  .project-row:last-child{margin-bottom:0;}
+  .project-header{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin-bottom:6px;}
+  .project-num{font-weight:800; color:var(--accent); font-family:"SFMono-Regular", Consolas, monospace;}
+  .project-name{font-weight:700; font-size:1rem;}
+  .project-star{font-size:0.7rem; font-weight:700; color:var(--fam-strategy); background:var(--fam-strategy-tint); padding:2px 8px; border-radius:999px;}
+  .project-teaches{font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;}
+  .project-prompt{background:var(--code-bg); border:1px solid var(--border); border-radius:6px; padding:9px 11px; font-family:"SFMono-Regular", Consolas, monospace; font-size:0.8rem; margin-bottom:8px;}
+  .real-task-note{margin-top:6px; padding:14px 16px; background:var(--surface-2); border:1px solid var(--border-strong); border-radius:var(--radius-sm); font-size:0.88rem; color:var(--text-muted);}
+  .real-task-note strong{color:var(--text);}
+
+  .faq-list{display:flex; flex-direction:column; gap:2px;}
+  .faq-item{border-bottom:1px solid var(--border);}
+  .faq-item:last-child{border-bottom:none;}
+  .faq-question{width:100%; min-height:44px; text-align:left; background:none; border:none; padding:14px 2px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:0.96rem; font-weight:700; color:var(--text);}
+  .faq-arrow{color:var(--accent); transition:transform .15s; flex:none;}
+  .faq-arrow.open{transform:rotate(180deg);}
+  .faq-answer{display:none; padding:0 2px 16px 2px; font-size:0.9rem; color:var(--text-muted); max-width:70ch;}
+  .faq-answer.open{display:block;}
+
+  footer.site-footer{
+    padding:30px 0 60px; text-align:center; color:var(--text-muted); font-size:0.8rem;
   }
 
-  /* ── Layout ── */
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  #liveRegion{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;}
 
-  /* ── Hero ── */
-  .hero { background: var(--card); border-bottom: 1px solid var(--rule); padding: 48px 0 36px; }
-  .hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; color: var(--ink); }
-  .hero p { font-size: 1.1rem; color: var(--ink-muted); max-width: 640px; }
-  .hero .last-synced { margin-top: 12px; font-size: 0.8rem; color: var(--ink-muted); }
-
-  /* ── Tab Switcher ── */
-  .tab-bar { background: var(--card); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 100; }
-  .tab-bar .container { display: flex; gap: 0; }
-  .tab-btn { padding: 14px 28px; font-size: 0.95rem; font-weight: 500; color: var(--ink-muted); background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; transition: color 0.15s, border-color 0.15s; }
-  .tab-btn:hover { color: var(--ink); }
-  .tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
-  .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius-sm); }
-
-  /* ── Tab Panels ── */
-  .tab-panel { display: none; padding: 48px 0 80px; }
-  .tab-panel.active { display: block; }
-
-  /* ── Sections ── */
-  .section { margin-bottom: 56px; }
-  .section-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); color: var(--ink); }
-  .section-intro { color: var(--ink-muted); margin-bottom: 24px; max-width: 680px; }
-
-  /* ── Callout ── */
-  .callout { background: color-mix(in srgb, var(--accent) 8%, var(--surface)); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule)); border-radius: var(--radius-md); padding: 14px 18px; font-size: 0.9rem; color: var(--ink); margin-bottom: 24px; max-width: 680px; }
-  .callout strong { color: var(--ink); }
-
-  /* ── Addressing Syntax ── */
-  .syntax-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-  .syntax-card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; }
-  .syntax-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 8px; }
-  .syntax-card .example { background: var(--surface); border-radius: 6px; padding: 10px 14px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink); margin-bottom: 8px; line-height: 1.5; }
-  .syntax-card p { font-size: 0.9rem; color: var(--ink-muted); }
-  .syntax-card .headline { font-size: 1.1rem; font-weight: 700; color: var(--ink); line-height: 1.3; margin: 2px 0 8px; }
-  .syntax-card .hook { font-size: 0.92rem; color: var(--ink); margin-bottom: 10px; }
-  .syntax-card .best-use { font-size: 0.82rem; color: var(--ink-muted); margin-bottom: 8px; }
-  .syntax-card .the-catch { font-size: 0.8rem; color: var(--ink-muted); font-style: italic; border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 4px; }
-  .syntax-note { font-size: 0.82rem; color: var(--ink-muted); margin-top: 6px; font-style: italic; }
-
-  /* ── Worked Example ── */
-  .example-flow { display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
-  .example-step { padding: 18px 24px; border-bottom: 1px solid var(--rule); }
-  .example-step:last-child { border-bottom: none; }
-  .step-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); margin-bottom: 4px; }
-  .step-label span { display: inline-block; background: var(--ink); color: var(--paper); border-radius: 4px; padding: 1px 7px; font-size: 0.7rem; margin-right: 6px; }
-  .step-label span.routing { background: #6b7c93; }
-  .step-label span.persona { background: #16a34a; }
-  .step-body { font-size: 0.95rem; color: var(--ink); }
-  .step-body strong { color: var(--ink); }
-
-  /* ── Roster Filters ── */
-  .roster-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
-  .roster-search { flex: 1; min-width: 220px; max-width: 380px; padding: 10px 16px; border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 0.95rem; background: var(--card); color: var(--ink); outline: none; transition: border-color 0.15s; font-family: var(--font-sans); }
-  .roster-search:focus { border-color: var(--ink); }
-  .filter-btns { display: flex; gap: 8px; }
-  .filter-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--rule); border-radius: 20px; background: var(--card); color: var(--ink-muted); cursor: pointer; transition: all 0.15s; }
-  .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
-  .filter-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .roster-count { font-size: 0.85rem; color: var(--ink-muted); margin-top: 4px; width: 100%; }
-
-  /* ── Roster Grid ── */
-  .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .persona-card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; transition: box-shadow 0.15s; }
-  .persona-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-  .persona-card.hidden { display: none; }
-
-  .card-header { padding: 18px 20px 14px; }
-  .card-name-row { display: flex; align-items: center; gap: 8px; }
-  .card-name { font-size: 1.05rem; font-weight: 700; color: var(--ink); }
-  .core-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: color-mix(in srgb, #16a34a 12%, var(--surface)); color: color-mix(in srgb, #16a34a 70%, var(--ink)); border: 1px solid color-mix(in srgb, #16a34a 25%, var(--rule)); border-radius: 20px; padding: 2px 8px; white-space: nowrap; }
-  .card-role { font-size: 0.85rem; color: var(--ink-muted); margin-top: 2px; }
-  .card-token { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); margin-top: 4px; }
-  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  .tag { font-size: 0.75rem; font-weight: 500; background: var(--surface); color: var(--ink-muted); border-radius: 20px; padding: 3px 10px; }
-
-  .card-body { padding: 0 20px 14px; }
-  .card-desc { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.55; }
-
-  .card-footer { padding: 12px 20px; border-top: 1px solid var(--rule); background: var(--surface); }
-  .sample-prompt-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 6px; }
-  .sample-prompt-text { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); background: var(--surface-strong); border-radius: 6px; padding: 8px 10px; line-height: 1.5; }
-
-  .card-expand { width: 100%; padding: 10px 20px; background: none; border: none; border-top: 1px solid var(--rule); font-size: 0.82rem; color: var(--ink-muted); cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); }
-  .card-expand:hover { background: var(--surface); color: var(--ink); }
-  .card-expand:focus-visible { outline: 2px solid var(--accent); border-radius: var(--radius-sm); }
-  .expand-arrow { transition: transform 0.2s; font-size: 0.7rem; }
-  .expand-arrow.open { transform: rotate(180deg); }
-
-  .card-details { display: none; padding: 14px 20px 16px; border-top: 1px solid var(--rule); background: var(--surface); }
-  .card-details.open { display: block; }
-  .card-details h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 6px; margin-top: 12px; }
-  .card-details h4:first-child { margin-top: 0; }
-  .card-details ul { padding-left: 16px; font-size: 0.875rem; color: var(--ink-muted); }
-  .card-details ul li { margin-bottom: 3px; }
-  .card-details .constraint-note { font-size: 0.875rem; color: var(--ink-muted); font-style: italic; }
-
-  .copy-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 5px 12px; font-size: 0.78rem; font-weight: 500; background: var(--ink); color: var(--paper); border: none; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-family: var(--font-sans); }
-  .copy-btn:hover { background: var(--ink-muted); }
-  .copy-btn:focus-visible { outline: 2px solid var(--accent); border-radius: var(--radius-sm); }
-  .copy-btn.copied { background: #16a34a; }
-
-  /* ── Slash Commands ── */
-  .command-group { margin-top: 26px; }
-  .command-group:first-of-type { margin-top: 0; }
-  .command-group-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
-  .ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-  .ref-card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px; }
-  .ref-card-name-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
-  .ref-card-name { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600; color: var(--ink); }
-  .type-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 20px; padding: 2px 8px; white-space: nowrap; }
-  .type-badge.skill { background: color-mix(in srgb, #6366f1 10%, var(--surface)); color: color-mix(in srgb, #6366f1 80%, var(--ink)); border: 1px solid color-mix(in srgb, #6366f1 25%, var(--rule)); }
-  .type-badge.command { background: color-mix(in srgb, #d97706 10%, var(--surface)); color: color-mix(in srgb, #d97706 80%, var(--ink)); border: 1px solid color-mix(in srgb, #d97706 25%, var(--rule)); }
-  .plugin-chip { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 20px; padding: 2px 8px; white-space: nowrap; background: color-mix(in srgb, #0891b2 10%, var(--surface)); color: color-mix(in srgb, #0891b2 80%, var(--ink)); border: 1px solid color-mix(in srgb, #0891b2 25%, var(--rule)); }
-  .auto-chip { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 20px; padding: 2px 8px; white-space: nowrap; background: color-mix(in srgb, #7c3aed 10%, var(--surface)); color: color-mix(in srgb, #7c3aed 80%, var(--ink)); border: 1px solid color-mix(in srgb, #7c3aed 25%, var(--rule)); }
-  .ref-card-desc { font-size: 0.875rem; color: var(--ink-muted); margin-bottom: 10px; }
-  .ref-card-when { font-size: 0.8rem; color: var(--ink-muted); border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; }
-  .ref-card-when strong { color: var(--ink-muted); }
-
-  /* ── Prompt Formula card ── */
-  .formula-card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; max-width: 680px; text-decoration: none; display: block; transition: box-shadow 0.15s, border-color 0.15s; }
-  .formula-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: var(--accent); text-decoration: none; }
-  .formula-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 10px; }
-  .formula-card__slots { font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
-  .formula-card__body { font-size: 0.9rem; color: var(--ink-muted); margin-bottom: 14px; line-height: 1.55; }
-  .formula-card__link { font-size: 0.9rem; font-weight: 600; color: var(--accent); }
-
-  /* ── Start Here ── */
-  .start-here-grid { display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
-  .project-row { padding: 18px 24px; border-bottom: 1px solid var(--rule); }
-  .project-row:last-child { border-bottom: none; }
-  .project-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
-  .project-num { font-size: 0.75rem; font-weight: 700; color: var(--ink-muted); }
-  .project-name { font-size: 0.95rem; font-weight: 600; color: var(--ink); }
-  .project-star { font-size: 0.78rem; color: color-mix(in srgb, #d97706 80%, var(--ink)); font-weight: 600; }
-  .project-teaches { font-size: 0.82rem; color: var(--ink-muted); margin-bottom: 10px; }
-  .project-prompt { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); background: var(--surface); border-radius: 6px; padding: 8px 12px; line-height: 1.5; margin-bottom: 8px; }
-  .real-task-note { margin-top: 20px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-md); font-size: 0.875rem; color: var(--ink-muted); }
-  .real-task-note strong { color: var(--ink); }
-
-  /* ── FAQ ── */
-  .faq-list { display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
-  .faq-item { border-bottom: 1px solid var(--rule); }
-  .faq-item:last-child { border-bottom: none; }
-  .faq-question { width: 100%; padding: 16px 24px; background: none; border: none; font-size: 0.95rem; font-weight: 600; color: var(--ink); cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--font-sans); }
-  .faq-question:hover { background: var(--surface); }
-  .faq-question:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius-sm); }
-  .faq-arrow { font-size: 0.7rem; color: var(--ink-muted); transition: transform 0.2s; flex-shrink: 0; }
-  .faq-arrow.open { transform: rotate(180deg); }
-  .faq-answer { display: none; padding: 0 24px 18px; font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6; }
-  .faq-answer.open { display: block; }
-  .faq-answer code { font-family: var(--font-mono); font-size: 0.82rem; background: var(--surface); padding: 2px 6px; border-radius: var(--radius-sm); color: var(--ink); }
-
-  /* ── Admin Tab ── */
-  .steps-list { counter-reset: step; display: flex; flex-direction: column; gap: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
-  .step-item { counter-increment: step; padding: 20px 24px; border-bottom: 1px solid var(--rule); display: flex; gap: 16px; }
-  .step-item:last-child { border-bottom: none; }
-  .step-num { flex-shrink: 0; width: 28px; height: 28px; background: var(--ink); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; margin-top: 1px; }
-  .step-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
-  .step-content p { font-size: 0.9rem; color: var(--ink-muted); }
-  .step-content code { font-family: var(--font-mono); font-size: 0.82rem; background: var(--surface); padding: 2px 6px; border-radius: var(--radius-sm); color: var(--ink); }
-  .step-content pre { background: var(--surface); border-radius: var(--radius-md); padding: 12px 16px; margin-top: 8px; font-family: var(--font-mono); font-size: 0.82rem; overflow-x: auto; line-height: 1.6; color: var(--ink); border: 1px solid var(--rule); }
-  .verify-box { margin-top: 12px; background: color-mix(in srgb, var(--accent) 8%, var(--surface)); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule)); border-radius: var(--radius-md); padding: 12px 16px; }
-  .verify-box p { font-size: 0.85rem; color: var(--ink); margin-bottom: 6px; }
-  .verify-box pre { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); border-radius: 6px; border-color: color-mix(in srgb, var(--accent) 20%, var(--rule)); }
-  .verify-expected { font-size: 0.82rem; color: var(--ink-muted); margin-top: 8px; font-style: italic; }
-
-  .caveman-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
-  .caveman-table th { background: var(--surface); text-align: left; padding: 10px 16px; font-size: 0.82rem; font-weight: 700; color: var(--ink-muted); }
-  .caveman-table td { padding: 10px 16px; font-size: 0.875rem; border-top: 1px solid var(--rule); vertical-align: top; color: var(--ink); }
-  .caveman-table td:first-child { font-family: var(--font-mono); font-size: 0.82rem; }
-
-  .structure-tree { background: var(--surface); border-radius: 10px; padding: 20px 24px; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.8; overflow-x: auto; color: var(--ink); border: 1px solid var(--rule); }
-
-  /* ── Notice ── */
-  .notice { background: color-mix(in srgb, #d97706 8%, var(--surface)); border: 1px solid color-mix(in srgb, #d97706 30%, var(--rule)); border-radius: var(--radius-md); padding: 12px 16px; font-size: 0.875rem; color: var(--ink); margin-bottom: 24px; }
-
-  /* ── Empty state ── */
-  .empty-state { grid-column: 1 / -1; text-align: center; padding: 48px; color: var(--ink-muted); font-size: 0.95rem; }
-
-  /* ── Theme Toggle ── */
-  .theme-toggle {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 100;
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-    color: var(--ink);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    transition: background 0.15s, border-color 0.15s;
-  }
-
-  .theme-toggle:hover { background: var(--surface-strong); }
-
-  .theme-toggle:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: var(--radius-md);
-  }
-
-  .theme-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-  /* ── Responsive ── */
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 1.5rem; }
-    .tab-btn { padding: 12px 16px; font-size: 0.85rem; }
-    .roster-grid { grid-template-columns: 1fr; }
-    .syntax-grid { grid-template-columns: 1fr; }
-    .roster-controls { flex-direction: column; align-items: stretch; }
+  @media (max-width:640px){
+    .topbar-inner{flex-wrap:wrap;}
+    .quicknav{order:3; width:100%; justify-content:flex-start;}
+    .container{padding:0 16px;}
   }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
-     DATA — update this block when roster changes
-     ═══════════════════════════════════════════ -->
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<!-- ═══════════ DATA (single source of truth, edit here when roster, commands, projects or FAQ change) ═══════════ -->
 <script>
-const LAST_SYNCED = "2026-07-06";
+const LAST_SYNCED = "2026-07-11";
 
 const TEAM = [
   {
@@ -311,9 +413,9 @@ const TEAM = [
     token: "Orchestrator",
     core: true,
     tags: ["Request Routing", "Team Coordination", "Roster Management"],
-    desc: "The face of the team and single point of contact for every request. Never does the work — routes it to the right person with zero friction.",
+    desc: "The face of the team and single point of contact for every request. Never does the work, routes it to the right person with zero friction.",
     prompt: "Hi, I need help creating a social media strategy for a new client.",
-    expertise: ["Request triage and routing to the right specialist", "Team roster management — hiring, archiving, announcing", "Conflict resolution between team members' outputs", "Meta-operations: editing CLAUDE.md, approving new hires"],
+    expertise: ["Request triage and routing to the right specialist", "Team roster management, hiring, archiving, announcing", "Conflict resolution between team members' outputs", "Meta-operations: editing CLAUDE.md, approving new hires"],
     constraints: "Never does task work. Every substantive request is delegated. Only the Orchestrator may edit CLAUDE.md or update the roster."
   },
   {
@@ -322,10 +424,10 @@ const TEAM = [
     token: "HRLead",
     core: true,
     tags: ["Persona Design", "Role Scoping", "Hiring Pipeline"],
-    desc: "Sharp, people-first HR professional who builds new team member personas from research. Warm but exacting — won't cut corners on a persona.",
+    desc: "Sharp, people-first HR professional who builds new team member personas from research. Warm but exacting, won't cut corners on a persona.",
     prompt: "@{HRLead} I need to hire a paid media specialist.",
     expertise: ["Persona design and character development for AI team members", "Role scoping and constraint-setting", "Translating research briefs into vivid, workable profiles", "Ensuring new hires integrate cleanly with existing team dynamics"],
-    constraints: "Never writes a persona without first reading the Senior Researcher's brief. Does not decide who to hire — the Orchestrator approves all hires."
+    constraints: "Never writes a persona without first reading the Senior Researcher's brief. Does not decide who to hire, the Orchestrator approves all hires."
   },
   {
     name: "Ryan",
@@ -336,7 +438,7 @@ const TEAM = [
     desc: "Methodical, intellectually curious researcher who digs until he finds the real picture. Writes actionable briefs, not bullet-point summaries.",
     prompt: "@{SeniorResearcher} research the email marketing specialist role and write a brief.",
     expertise: ["Mapping real-world skills and knowledge of professionals across industries", "Synthesising research into structured briefs for persona development", "Identifying core competencies that distinguish great practitioners", "Spotting gaps in role definitions before they cause problems downstream"],
-    constraints: "Writes research briefs only — does not build personas. Briefs stored at Resources/Research/."
+    constraints: "Writes research briefs only, does not build personas. Briefs stored at Resources/Research/."
   },
   {
     name: "Alex",
@@ -346,7 +448,7 @@ const TEAM = [
     tags: ["Technical SEO", "Content Strategy", "Link Authority"],
     desc: "Data-driven search strategist. Every recommendation comes with a metric, a priority tier, and a realistic timeline. No vague advice.",
     prompt: "@{SEOSpecialist} run a technical SEO audit on client.com and prioritise the top 5 fixes.",
-    expertise: ["Technical SEO — crawlability, Core Web Vitals, structured data", "Content strategy — topic clusters, keyword research, search intent mapping", "Link authority — backlink analysis, digital PR, disavow management", "Local SEO and multi-location strategy"],
+    expertise: ["Technical SEO, crawlability, Core Web Vitals, structured data", "Content strategy, topic clusters, keyword research, search intent mapping", "Link authority, backlink analysis, digital PR, disavow management", "Local SEO and multi-location strategy"],
     constraints: "Does not write copy or design content. Recommendations are SEO-scoped. Won't promise overnight rankings."
   },
   {
@@ -357,7 +459,7 @@ const TEAM = [
     tags: ["Webflow", "CMS", "Front-end Development"],
     desc: "Front-end developer who lives in Webflow but thinks like an engineer. Precise, practical, and particular about clean code.",
     prompt: "@{WebflowDeveloper} I need a Webflow CMS collection for blog posts with author fields and category filtering.",
-    expertise: ["Webflow Designer, CMS, and Ecommerce implementation", "Custom code — HTML, CSS, vanilla JS, GSAP animations", "Third-party integrations — Memberstack, Finsweet, Jetboost", "Performance optimisation and Webflow hosting configuration"],
+    expertise: ["Webflow Designer, CMS, and Ecommerce implementation", "Custom code, HTML, CSS, vanilla JS, GSAP animations", "Third-party integrations, Memberstack, Finsweet, Jetboost", "Performance optimisation and Webflow hosting configuration"],
     constraints: "Does not do backend development, database architecture, or non-Webflow CMS platforms."
   },
   {
@@ -366,10 +468,10 @@ const TEAM = [
     token: "VisualAIProducer",
     core: false,
     tags: ["AI Image Generation", "Visual Direction", "Creative Briefs"],
-    desc: "Visual-first creative, fully native to AI-powered production. Brings real design sensibility — not just prompt-and-hope.",
-    prompt: "@{VisualAIProducer} I need 5 lifestyle product shots for an outdoor brand — earthy tones, warm golden-hour light.",
-    expertise: ["AI image generation — Midjourney, Flux, Stable Diffusion, Firefly", "Visual art direction and prompt engineering for consistent style", "Creative brief interpretation and asset specification", "Brand-consistent visual systems and style guide adherence"],
-    constraints: "Does not do motion work — that's the Video & Motion Producer's lane. Won't produce misleading, harmful, or rights-infringing imagery."
+    desc: "Visual-first creative, fully native to AI-powered production. Brings real design sensibility, not just prompt-and-hope.",
+    prompt: "@{VisualAIProducer} I need 5 lifestyle product shots for an outdoor brand, earthy tones, warm golden-hour light.",
+    expertise: ["AI image generation, Midjourney, Flux, Stable Diffusion, Firefly", "Visual art direction and prompt engineering for consistent style", "Creative brief interpretation and asset specification", "Brand-consistent visual systems and style guide adherence"],
+    constraints: "Does not do motion work, that's the Video & Motion Producer's lane. Won't produce misleading, harmful, or rights-infringing imagery."
   },
   {
     name: "Odin",
@@ -377,9 +479,9 @@ const TEAM = [
     token: "SeniorAdviser",
     core: true,
     tags: ["Quality Review", "Checkpoint Analysis", "Strategic Oversight"],
-    desc: "The team's reviewer of last resort. Consulted at key checkpoints — not day-to-day execution. Spots the flaw in the approach before it becomes durable.",
-    prompt: "— Internal use only. Odin is invoked by team members at checkpoints, not directly by users. —",
-    expertise: ["Pre-work checkpoint review — approach validation before drafting begins", "Post-work checkpoint review — final quality gate before delivery", "Identifying flawed assumptions and structural weaknesses in plans", "Returning concise, enumerated course corrections"],
+    desc: "The team's reviewer of last resort. Consulted at key checkpoints, not day-to-day execution. Spots the flaw in the approach before it becomes durable.",
+    prompt: "Internal use only. Odin is invoked by team members at checkpoints, not directly by users.",
+    expertise: ["Pre-work checkpoint review, approach validation before drafting begins", "Post-work checkpoint review, final quality gate before delivery", "Identifying flawed assumptions and structural weaknesses in plans", "Returning concise, enumerated course corrections"],
     constraints: "Does not produce deliverables. Reviews and advises only. Invoked by team members via Agent tool using the most capable model available."
   },
   {
@@ -388,10 +490,10 @@ const TEAM = [
     token: "ContentStrategist",
     core: false,
     tags: ["Content Architecture", "Content Planning", "Audience Strategy"],
-    desc: "The content architect — decides what gets made, for whom, and why, before anyone writes a word. Operates one abstraction above production.",
+    desc: "The content architect, decides what gets made, for whom, and why, before anyone writes a word. Operates one abstraction above production.",
     prompt: "@{ContentStrategist} build a content strategy for a B2B SaaS brand targeting mid-market finance teams.",
     expertise: ["Content audit and gap analysis", "Topic cluster and pillar page architecture", "Editorial calendar and content roadmap planning", "Content brief creation for writers and designers"],
-    constraints: "Does not write final copy — that's the Copywriter's lane. If producing production content, the work has been misrouted."
+    constraints: "Does not write final copy, that's the Copywriter's lane. If producing production content, the work has been misrouted."
   },
   {
     name: "Quinn",
@@ -399,10 +501,10 @@ const TEAM = [
     token: "QAComplianceReviewer",
     core: true,
     tags: ["Accuracy Verification", "Brand Safety", "Content QA"],
-    desc: "The last gate before anything leaves the studio. Not a collaborator — a gate. Measures finished work against a defined standard and returns a verdict.",
+    desc: "The last gate before anything leaves the studio. Not a collaborator, a gate. Measures finished work against a defined standard and returns a verdict.",
     prompt: "@{QAComplianceReviewer} review this blog post against the client brief before it goes to the client.",
-    expertise: ["Accuracy and fact verification against source material", "Brand safety and tone-of-voice compliance", "Brief adherence review — does the output match what was asked?", "AI-output-specific QA — hallucination detection, unverified claims"],
-    constraints: "Does not make creative decisions or rewrite content. Returns pass, flagged, or blocked — not revised drafts."
+    expertise: ["Accuracy and fact verification against source material", "Brand safety and tone-of-voice compliance", "Brief adherence review, does the output match what was asked?", "AI-output-specific QA, hallucination detection, unverified claims"],
+    constraints: "Does not make creative decisions or rewrite content. Returns pass, flagged, or blocked, not revised drafts."
   },
   {
     name: "Finn",
@@ -410,7 +512,7 @@ const TEAM = [
     token: "Copywriter",
     core: true,
     tags: ["Copywriting", "Brand Voice", "Headlines & Hooks"],
-    desc: "Turns strategy into sentences. Thinks in headlines, hooks, and rhythm. Copy is measured by whether it earns its keep — not whether it sounds good.",
+    desc: "Turns strategy into sentences. Thinks in headlines, hooks, and rhythm. Copy is measured by whether it earns its keep, not whether it sounds good.",
     prompt: "@{Copywriter} write a 200-word homepage intro for Meridian Law. Tone: authoritative but approachable.",
     expertise: ["Long-form and short-form copywriting across all brand touchpoints", "Homepage, landing page, and conversion copy", "Email sequences and nurture campaigns", "Tone of voice development and brand voice application"],
     constraints: "Does not make strategic decisions. Executes from a brief. If the brief is thin, will flag it rather than guess."
@@ -421,10 +523,10 @@ const TEAM = [
     token: "BrandStrategist",
     core: false,
     tags: ["Brand Positioning", "Messaging Framework", "Audience Strategy"],
-    desc: "Upstream positioning architect. Decides what a brand stands for, who it's for, and why anyone should care — before anyone writes a line of copy.",
+    desc: "Upstream positioning architect. Decides what a brand stands for, who it's for, and why anyone should care, before anyone writes a line of copy.",
     prompt: "@{BrandStrategist} I need a brand positioning document for a new coffee subscription brand launching in Australia.",
     expertise: ["Brand positioning and value proposition development", "Messaging framework and verbal identity architecture", "Audience segment profiling and competitive landscape analysis", "Brand voice documentation and tone-of-voice guidelines"],
-    constraints: "Does not write production copy — that's the Copywriter's job. Outputs are source documents the rest of the team executes from."
+    constraints: "Does not write production copy, that's the Copywriter's job. Outputs are source documents the rest of the team executes from."
   },
   {
     name: "Ellis",
@@ -432,10 +534,10 @@ const TEAM = [
     token: "CreativeTechnologist",
     core: false,
     tags: ["Prompt Systems", "AI Pipelines", "Workflow Design"],
-    desc: "The team's prompt systems architect — designs the chains, pipelines, and routing logic that make AI production work reliable, testable, and scalable.",
+    desc: "The team's prompt systems architect, designs the chains, pipelines, and routing logic that make AI production work reliable, testable, and scalable.",
     prompt: "@{CreativeTechnologist} design a prompt pipeline for research → copy → QA review with structured handoffs.",
-    expertise: ["Multi-stage prompt chain and pipeline architecture", "AI workflow design for production content systems", "Evaluation harness design — testing and scoring AI outputs", "Routing logic and structured output specification"],
-    constraints: "Designs systems — does not run image jobs or write editorial copy. Not a substitute for the Visual AI Producer, Copywriter, or Content Strategist."
+    expertise: ["Multi-stage prompt chain and pipeline architecture", "AI workflow design for production content systems", "Evaluation harness design, testing and scoring AI outputs", "Routing logic and structured output specification"],
+    constraints: "Designs systems, does not run image jobs or write editorial copy. Not a substitute for the Visual AI Producer, Copywriter, or Content Strategist."
   },
   {
     name: "Nova",
@@ -443,10 +545,10 @@ const TEAM = [
     token: "VideoMotionProducer",
     core: false,
     tags: ["Video Production", "Motion Design", "AI Video"],
-    desc: "The studio's single owner of anything that moves. The moment a visual asset acquires motion — it belongs to this role.",
-    prompt: "@{VideoMotionProducer} brief a 15-second Instagram reel for a skincare launch — minimal aesthetic, slow motion product reveal.",
-    expertise: ["AI video generation — Runway, Kling, Sora, Hailuo", "Motion graphics and animation direction", "Social video format specification — reels, stories, shorts", "Video brief writing and post-production direction"],
-    constraints: "Handles motion only. Static imagery goes to the Visual AI Producer. Directs and briefs — does not operate NLEs or render software directly."
+    desc: "The studio's single owner of anything that moves. The moment a visual asset acquires motion, it belongs to this role.",
+    prompt: "@{VideoMotionProducer} brief a 15-second Instagram reel for a skincare launch, minimal aesthetic, slow motion product reveal.",
+    expertise: ["AI video generation, Runway, Kling, Sora, Hailuo", "Motion graphics and animation direction", "Social video format specification, reels, stories, shorts", "Video brief writing and post-production direction"],
+    constraints: "Handles motion only. Static imagery goes to the Visual AI Producer. Directs and briefs, does not operate NLEs or render software directly."
   },
   {
     name: "Axel",
@@ -454,10 +556,10 @@ const TEAM = [
     token: "AutomationArchitect",
     core: false,
     tags: ["Workflow Automation", "n8n / Make / Zapier", "API Integration"],
-    desc: "The pipeline engineer — turns business processes into durable, observable automations and wires AI capabilities into systems that do real work.",
+    desc: "The pipeline engineer, turns business processes into durable, observable automations and wires AI capabilities into systems that do real work.",
     prompt: "@{AutomationArchitect} build an n8n workflow to sync new Webflow form submissions to a Notion database with deduplication.",
     expertise: ["n8n, Make, and Zapier workflow design and implementation", "Webhook and REST API integration architecture", "Multi-agent AI pipeline orchestration", "Error handling, retry logic, and observability in automation systems"],
-    constraints: "Designs and specifies automations — implementation in a live environment requires user execution. Flags security concerns on any workflow involving credentials."
+    constraints: "Designs and specifies automations, implementation in a live environment requires user execution. Flags security concerns on any workflow involving credentials."
   },
   {
     name: "Juno",
@@ -466,9 +568,9 @@ const TEAM = [
     core: false,
     tags: ["Social Publishing", "Content Calendar", "Community Management"],
     desc: "Platform operator and community owner. Lives at the intersection of brand execution, audience engagement, and channel-specific publishing.",
-    prompt: "@{SocialMediaManager} build a 4-week Instagram calendar for NovaStar Gym — 3 posts per week, mix of educational and promotional.",
+    prompt: "@{SocialMediaManager} build a 4-week Instagram calendar for NovaStar Gym, 3 posts per week, mix of educational and promotional.",
     expertise: ["Social media calendar planning across Instagram, TikTok, LinkedIn, Facebook", "Caption writing and platform-native content adaptation", "Community management and engagement strategy", "AI-assisted social listening and performance reporting"],
-    constraints: "Does not create visual assets — the Visual AI Producer handles imagery. Publishes and programmes content, does not design brand identity."
+    constraints: "Does not create visual assets, the Visual AI Producer handles imagery. Publishes and programmes content, does not design brand identity."
   },
   {
     name: "Dex",
@@ -476,10 +578,10 @@ const TEAM = [
     token: "AnalyticsReportingSpecialist",
     core: false,
     tags: ["Data Analysis", "Performance Reporting", "Platform Metrics"],
-    desc: "The studio's measurement layer — turns raw platform data into structured, usable intelligence. Answers 'what happened' and 'what the data supports.'",
+    desc: "The studio's measurement layer, turns raw platform data into structured, usable intelligence. Answers 'what happened' and 'what the data supports.'",
     prompt: "@{AnalyticsReportingSpecialist} pull a performance report for our top 5 blog posts last month and identify the patterns.",
-    expertise: ["Web analytics — GA4, Search Console, platform dashboards", "Social and campaign performance reporting", "Dashboard design and automated reporting setup", "Data interpretation — correlation, anomaly detection, trend identification"],
-    constraints: "Reports on data — does not make strategic recommendations beyond what the data supports. Will explicitly flag where data runs out."
+    expertise: ["Web analytics, GA4, Search Console, platform dashboards", "Social and campaign performance reporting", "Dashboard design and automated reporting setup", "Data interpretation, correlation, anomaly detection, trend identification"],
+    constraints: "Reports on data, does not make strategic recommendations beyond what the data supports. Will explicitly flag where data runs out."
   },
   {
     name: "Jordan",
@@ -487,10 +589,10 @@ const TEAM = [
     token: "UXUIDesigner",
     core: false,
     tags: ["UX Design", "UI Systems", "Wireframing"],
-    desc: "The structural translation layer — converts user needs, business intent, and brand foundations into organised, navigable, friction-free experiences.",
-    prompt: "@{UXUIDesigner} wireframe the homepage for a boutique hotel — focus on the booking conversion flow.",
+    desc: "The structural translation layer, converts user needs, business intent, and brand foundations into organised, navigable, friction-free experiences.",
+    prompt: "@{UXUIDesigner} wireframe the homepage for a boutique hotel, focus on the booking conversion flow.",
     expertise: ["UX research synthesis and user journey mapping", "Wireframing and low-to-high fidelity prototyping", "UI component and design system specification", "Accessibility and WCAG compliance evaluation"],
-    constraints: "Designs — the Webflow Developer builds. Does not implement in Webflow directly. Works downstream of the Brand Strategist and upstream of the Webflow Developer."
+    constraints: "Designs, the Webflow Developer builds. Does not implement in Webflow directly. Works downstream of the Brand Strategist and upstream of the Webflow Developer."
   },
   {
     name: "Tate",
@@ -501,7 +603,7 @@ const TEAM = [
     desc: "The delivery engine. Takes over the moment the Orchestrator routes a task and doesn't let go until it ships cleanly. Tracks what's in motion, blocked, or about to slip.",
     prompt: "@{ProjectManager} what's the current status of the Thornwood Coffee project and what's blocking delivery?",
     expertise: ["Project pipeline tracking and status reporting", "Blocker identification and escalation", "Checkpoint and handoff coordination between team members", "Delivery risk flagging and timeline management"],
-    constraints: "Tracks — does not re-route tasks (that's the Orchestrator's job). Does not produce creative or strategic work."
+    constraints: "Tracks, does not re-route tasks (that's the Orchestrator's job). Does not produce creative or strategic work."
   },
   {
     name: "Vera",
@@ -510,9 +612,9 @@ const TEAM = [
     core: false,
     tags: ["Creative Direction", "Campaign Strategy", "Visual Identity"],
     desc: "Ultimately responsible for whether the work feels like something. Sits at the intersection of strategy and craft, governing everything the studio produces for a client.",
-    prompt: "@{CreativeDirector} I need a creative direction for a skincare brand launch campaign — the brand is minimal, science-backed, premium.",
-    expertise: ["Campaign platform development — big idea, visual world, tonal register", "Creative brief writing for the full production team", "Brand expression review — does the work feel like the brand?", "Cross-disciplinary creative oversight from brand positioning through to motion"],
-    constraints: "Directs — does not execute copy, design, or motion. Operates downstream of the Brand Strategist's positioning and upstream of all production."
+    prompt: "@{CreativeDirector} I need a creative direction for a skincare brand launch campaign, the brand is minimal, science-backed, premium.",
+    expertise: ["Campaign platform development, big idea, visual world, tonal register", "Creative brief writing for the full production team", "Brand expression review, does the work feel like the brand?", "Cross-disciplinary creative oversight from brand positioning through to motion"],
+    constraints: "Directs, does not execute copy, design, or motion. Operates downstream of the Brand Strategist's positioning and upstream of all production."
   },
   {
     name: "Rory",
@@ -520,10 +622,10 @@ const TEAM = [
     token: "EmailDeveloper",
     core: false,
     tags: ["HTML Email", "ESP Integration", "Multi-Client Rendering"],
-    desc: "The studio's HTML email specialist. Converts design files into production-ready emails that survive Outlook, Gmail, and Apple Mail. Speaks in MSO conditionals, VML, and inline CSS — because that's what the rendering environment demands.",
-    prompt: "@{EmailDeveloper} convert this Figma design into a production HTML email for Klaviyo — audience is mostly Gmail and Apple Mail on mobile.",
-    expertise: ["Table-based HTML email structure — MSO conditionals, VML, inline CSS, ghost tables", "Multi-client rendering: Outlook (Word engine), Gmail (style stripping), Apple Mail (WebKit, dark mode)", "ESP integration: Klaviyo (Jinja2), Mailchimp (merge tags), Campaign Monitor (editable regions)", "Responsive and fluid layout patterns with graceful degradation"],
-    constraints: "Builds email-safe HTML only — does not originate visual designs, own deliverability infrastructure (SPF/DKIM/DMARC), or manage list segmentation and send logic."
+    desc: "The studio's HTML email specialist. Converts design files into production-ready emails that survive Outlook, Gmail, and Apple Mail. Speaks in MSO conditionals, VML, and inline CSS, because that's what the rendering environment demands.",
+    prompt: "@{EmailDeveloper} convert this Figma design into a production HTML email for Klaviyo, audience is mostly Gmail and Apple Mail on mobile.",
+    expertise: ["Table-based HTML email structure, MSO conditionals, VML, inline CSS, ghost tables", "Multi-client rendering: Outlook (Word engine), Gmail (style stripping), Apple Mail (WebKit, dark mode)", "ESP integration: Klaviyo (Jinja2), Mailchimp (merge tags), Campaign Monitor (editable regions)", "Responsive and fluid layout patterns with graceful degradation"],
+    constraints: "Builds email-safe HTML only, does not originate visual designs, own deliverability infrastructure (SPF/DKIM/DMARC), or manage list segmentation and send logic."
   },
   {
     name: "Kai",
@@ -531,10 +633,10 @@ const TEAM = [
     token: "CompetitiveIntelligenceSpecialist",
     core: false,
     tags: ["Competitor Analysis", "Battlecards", "Win/Loss Research"],
-    desc: "Turns competitive noise into decision-enabling signal. Tracks competitors across features, pricing, positioning, and strategic moves — and communicates what those moves mean, not just what they are.",
+    desc: "Turns competitive noise into decision-enabling signal. Tracks competitors across features, pricing, positioning, and strategic moves, and communicates what those moves mean, not just what they are.",
     prompt: "@{CompetitiveIntelligenceSpecialist} analyse our top 3 competitors' positioning and produce a battlecard.",
-    expertise: ["Signal triangulation across public sources — job postings, pricing pages, review sites, financial filings", "Win/loss programme design and debrief synthesis", "Battlecard development and competitive comparison matrices", "Landscape analysis and strategic implication memos"],
-    constraints: "Reports on competitive intelligence — does not make product or pricing decisions. Every claim is tiered: Confirmed, Inferred, or Speculative. Won't use grey-area sourcing without flagging it."
+    expertise: ["Signal triangulation across public sources, job postings, pricing pages, review sites, financial filings", "Win/loss programme design and debrief synthesis", "Battlecard development and competitive comparison matrices", "Landscape analysis and strategic implication memos"],
+    constraints: "Reports on competitive intelligence, does not make product or pricing decisions. Every claim is tiered: Confirmed, Inferred, or Speculative. Won't use grey-area sourcing without flagging it."
   },
   {
     name: "Reid",
@@ -542,10 +644,10 @@ const TEAM = [
     token: "MarketResearchSpecialist",
     core: false,
     tags: ["Market Research", "Audience Insights", "Survey Design"],
-    desc: "Methodical, data-driven researcher who treats research design as a discipline. Moves fluently between fieldwork and synthesis — and always ends with a recommended action, not just findings.",
+    desc: "Methodical, data-driven researcher who treats research design as a discipline. Moves fluently between fieldwork and synthesis, and always ends with a recommended action, not just findings.",
     prompt: "@{MarketResearchSpecialist} design a survey to validate our target audience's key pain points.",
-    expertise: ["Primary research — survey design, interview moderation, data collection", "Secondary research — desk research, competitive landscape, market sizing", "Audience segmentation and persona validation from data", "Research synthesis — pattern identification, implication mapping, actionable briefs"],
-    constraints: "Won't start fieldwork on a vague brief — scopes the researchable question first. Flags sample size limits and methodological constraints explicitly. Does not overstate certainty."
+    expertise: ["Primary research, survey design, interview moderation, data collection", "Secondary research, desk research, competitive landscape, market sizing", "Audience segmentation and persona validation from data", "Research synthesis, pattern identification, implication mapping, actionable briefs"],
+    constraints: "Won't start fieldwork on a vague brief, scopes the researchable question first. Flags sample size limits and methodological constraints explicitly. Does not overstate certainty."
   },
   {
     name: "Drew",
@@ -555,8 +657,8 @@ const TEAM = [
     tags: ["Brief Analysis", "RFQ Review", "Profitability Framing"],
     desc: "Intake-stage analyst who sits between the client's raw request and the delivery pipeline. Reads briefs carefully, flags gaps and unstated assumptions, interrogates the business case, and produces a qualified brief the Orchestrator can route with confidence.",
     prompt: "@{BusinessAnalyst} analyse this RFQ and flag any gaps before we scope it.",
-    expertise: ["Requirements elicitation and gap analysis — distinguishing stated, implied, and absent information", "Business case interrogation — testing scope-to-budget ratios, timeline realism, and commercial risk signals", "Scope definition — drawing clear in/out boundaries and explicit exclusion lists", "Qualified brief production — Go / Go-with-conditions / No-go recommendations with structured reasoning"],
-    constraints: "Recommends only — does not make the Go/No-go decision (that's the Orchestrator and user). Does not conduct external research, write copy, track delivery, model financials, or manage client relationships."
+    expertise: ["Requirements elicitation and gap analysis, distinguishing stated, implied, and absent information", "Business case interrogation, testing scope-to-budget ratios, timeline realism, and commercial risk signals", "Scope definition, drawing clear in/out boundaries and explicit exclusion lists", "Qualified brief production, Go / Go-with-conditions / No-go recommendations with structured reasoning"],
+    constraints: "Recommends only, does not make the Go/No-go decision (that's the Orchestrator and user). Does not conduct external research, write copy, track delivery, model financials, or manage client relationships."
   },
   {
     name: "Luca",
@@ -564,10 +666,10 @@ const TEAM = [
     token: "MetaAdsSpecialist",
     core: false,
     tags: ["Meta Ads", "Paid Social", "Campaign Performance"],
-    desc: "Platform operator for Meta's paid social ecosystem. Sits between creative production and platform delivery — specs, compliance, and performance all the way through. Briefs creative, reviews for spec and compliance, interprets results for the team.",
+    desc: "Platform operator for Meta's paid social ecosystem. Sits between creative production and platform delivery, specs, compliance, and performance all the way through. Briefs creative, reviews for spec and compliance, interprets results for the team.",
     prompt: "@{MetaAdsSpecialist} review this ad creative for Meta spec and Australian financial services compliance.",
-    expertise: ["Meta ad formats, specs, placements, and creative best practices (feed, Reels, Stories, carousels, collections)", "Campaign structure, audience targeting, A/B testing frameworks, and budget strategies", "Core metrics and attribution window discipline — knows the difference between what Meta reports and what actually happened", "Australian financial services context: AFSL, ASIC RG 234, TMD, comparison rate requirements, Special Ad Category — Credit"],
-    constraints: "Does not set media strategy, channel mix, or budgets across channels. Does not produce creative copy or visual assets. Flags compliance issues and escalates — does not adjudicate legal defensibility."
+    expertise: ["Meta ad formats, specs, placements, and creative best practices (feed, Reels, Stories, carousels, collections)", "Campaign structure, audience targeting, A/B testing frameworks, and budget strategies", "Core metrics and attribution window discipline, knows the difference between what Meta reports and what actually happened", "Australian financial services context: AFSL, ASIC RG 234, TMD, comparison rate requirements, Special Ad Category, Credit"],
+    constraints: "Does not set media strategy, channel mix, or budgets across channels. Does not produce creative copy or visual assets. Flags compliance issues and escalates, does not adjudicate legal defensibility."
   },
   {
     name: "Milo",
@@ -575,10 +677,10 @@ const TEAM = [
     token: "MobileDeveloper",
     core: false,
     tags: ["Expo", "React Native", "App Store", "EAS"],
-    desc: "Senior mobile developer who ships to the App Store and Google Play. Covers the full Expo delivery lifecycle — feature development, navigation, state management, EAS Build/Submit/Update, app store submission, credentials, and OTA updates.",
+    desc: "Senior mobile developer who ships to the App Store and Google Play. Covers the full Expo delivery lifecycle, feature development, navigation, state management, EAS Build/Submit/Update, app store submission, credentials, and OTA updates.",
     prompt: "@{MobileDeveloper} set up EAS build profiles for development, preview, and production.",
-    expertise: ["EAS Build, Submit, and Update — cloud builds, OTA JS updates, credentials management, app store automation", "React Native core components, styling, Animated API, react-native-reanimated, gesture handling", "Navigation architecture — react-navigation v6/v7 and Expo Router, deep linking, auth flows", "State management — Zustand, Jotai, React Query, Redux Toolkit; client vs. server state distinction", "App Store Connect and Google Play Console — submission, TestFlight, staged rollout, rejection patterns, privacy manifests"],
-    constraints: "Does not write backend or server-side code — consumes APIs only. Does not originate UI/UX designs — implements specs from Jordan. Deep native Swift/Kotlin work and DevOps infrastructure are out of scope. App store account management (billing, legal agreements, certificate rotation policy) belongs to the client."
+    expertise: ["EAS Build, Submit, and Update, cloud builds, OTA JS updates, credentials management, app store automation", "React Native core components, styling, Animated API, react-native-reanimated, gesture handling", "Navigation architecture, react-navigation v6/v7 and Expo Router, deep linking, auth flows", "State management, Zustand, Jotai, React Query, Redux Toolkit; client vs. server state distinction", "App Store Connect and Google Play Console, submission, TestFlight, staged rollout, rejection patterns, privacy manifests"],
+    constraints: "Does not write backend or server-side code, consumes APIs only. Does not originate UI/UX designs, implements specs from Jordan. Deep native Swift/Kotlin work and DevOps infrastructure are out of scope. App store account management (billing, legal agreements, certificate rotation policy) belongs to the client."
   },
   {
     name: "Lex",
@@ -586,10 +688,10 @@ const TEAM = [
     token: "LegalComplianceWriter",
     core: false,
     tags: ["T&Cs", "Privacy Policy", "AU / US / EU", "Pre-Counsel Drafts"],
-    desc: "Drafts the studio's recurring legal copy — terms & conditions, privacy policies, cookie notices, disclaimers, and NDAs — across Australian, US, and EU regimes. A drafter, not a lawyer: every output is a pre-counsel draft for human lawyer review, carries a dated disclaimer, and never states legal advice or a lawful/unlawful conclusion.",
+    desc: "Drafts the studio's recurring legal copy, terms & conditions, privacy policies, cookie notices, disclaimers, and NDAs, across Australian, US, and EU regimes. A drafter, not a lawyer: every output is a pre-counsel draft for human lawyer review, carries a dated disclaimer, and never states legal advice or a lawful/unlawful conclusion.",
     prompt: "@{LegalComplianceWriter} draft a privacy policy for an AU SaaS product that also serves EU users.",
-    expertise: ["Privacy law drafting — AU Privacy Act / APPs, US CCPA/CPRA, EU GDPR + ePrivacy cookie consent", "Consumer and advertising law — Australian Consumer Law / ACCC, FTC advertising and endorsement rules", "Contract structure — NDAs, SOWs, MSAs, service agreements, EULAs, acceptable-use policies", "Risk identification and escalation — flags 'get a lawyer' triggers by pattern, not just on request"],
-    constraints: "Drafts for human counsel review only — never legal advice, never a lawful/unlawful conclusion (UPL boundary). No document ships without the verbatim dated disclaimer. Holds a scoped WebFetch grant: read-only lookups against a fixed regulator/legislation domain allowlist; flags 'could not verify currency' rather than drafting silently from stale knowledge. Monetary escalation thresholds are studio-set placeholders."
+    expertise: ["Privacy law drafting, AU Privacy Act / APPs, US CCPA/CPRA, EU GDPR + ePrivacy cookie consent", "Consumer and advertising law, Australian Consumer Law / ACCC, FTC advertising and endorsement rules", "Contract structure, NDAs, SOWs, MSAs, service agreements, EULAs, acceptable-use policies", "Risk identification and escalation, flags 'get a lawyer' triggers by pattern, not just on request"],
+    constraints: "Drafts for human counsel review only, never legal advice, never a lawful/unlawful conclusion (UPL boundary). No document ships without the verbatim dated disclaimer. Holds a scoped WebFetch grant: read-only lookups against a fixed regulator/legislation domain allowlist; flags 'could not verify currency' rather than drafting silently from stale knowledge. Monetary escalation thresholds are studio-set placeholders."
   },
   {
     name: "Marlowe",
@@ -597,10 +699,10 @@ const TEAM = [
     token: "CinemaShowrunner",
     core: false,
     tags: ["World Bible", "Continuity", "Shot Sequencing"],
-    desc: "The continuity backbone of the narrative AI-film pipeline. Owns the world bible, character bibles, and shot lists — and produces the specs that keep characters consistent from still through to video, then hands them to Iris and Dash.",
+    desc: "The continuity backbone of the narrative AI-film pipeline. Owns the world bible, character bibles, and shot lists, and produces the specs that keep characters consistent from still through to video, then hands them to Iris and Dash.",
     prompt: "@{CinemaShowrunner} lock a character bible and a three-shot list for a rainy-rooftop sequence.",
     expertise: ["World bible and character bible authoring", "Reference-image library indexing and @imageN slot assignment", "Continuity rules across the still-to-video handoff", "Shot sequencing and spec handoff to the Stills and Seedance Directors"],
-    constraints: "Plans and specs — does not write Banana Pro or Seedance prompts (Iris and Dash do). Produces specs the Orchestrator routes; never dispatches other personas itself. Commercial brand and marketing work belongs to Cleo and Nova."
+    constraints: "Plans and specs, does not write Banana Pro or Seedance prompts (Iris and Dash do). Produces specs the Orchestrator routes; never dispatches other personas itself. Commercial brand and marketing work belongs to Cleo and Nova."
   },
   {
     name: "Iris",
@@ -608,10 +710,10 @@ const TEAM = [
     token: "StillsDirector",
     core: false,
     tags: ["Higgsfield Stills", "Character Refs", "Scene Plates"],
-    desc: "The still-image prompt director for the narrative AI-film pipeline. Writes Higgsfield prompts — Banana Pro, Soul Cinema, GPT-2 — for character face locks, outfit references, 6-panel sheets, and scene plates: the locked references that feed Seedance video.",
+    desc: "The still-image prompt director for the narrative AI-film pipeline. Writes Higgsfield prompts, Banana Pro, Soul Cinema, GPT-2, for character face locks, outfit references, 6-panel sheets, and scene plates: the locked references that feed Seedance video.",
     prompt: "@{StillsDirector} write a face-lock prompt for a new lead character on mid-gray seamless.",
     expertise: ["Banana Pro / Soul Cinema / GPT-2 prompt direction", "Character face locks and outfit references", "6-panel character reference sheets", "Cinematic scene and environment plates"],
-    constraints: "Outputs text prompts only — a human runs them in Higgsfield; no generation tool of her own. Narrative-film stills only; commercial brand and marketing images stay with Cleo. Works from Marlowe's specs."
+    constraints: "Outputs text prompts only, a human runs them in Higgsfield; no generation tool of her own. Narrative-film stills only; commercial brand and marketing images stay with Cleo. Works from Marlowe's specs."
   },
   {
     name: "Dash",
@@ -622,7 +724,7 @@ const TEAM = [
     desc: "The video prompt director for the narrative AI-film pipeline. Builds Seedance prompts to a locked ten-block grammar across five cinema modes, anchoring characters to frame maps and subject locks so they hold steady across a sequence.",
     prompt: "@{SeedanceDirector} build a 12-second two-shot Seedance prompt from these locked references.",
     expertise: ["Seedance ten-block prompt construction", "Five-mode cinematography grammar (narrative, studio, action, performance, atmospheric)", "Frame maps and subject locks for character consistency", "Diegetic-audio scene direction"],
-    constraints: "Outputs text prompts only — a human runs them in Higgsfield/Seedance; no generation tool of his own. Narrative-film video only; commercial brand video and post stay with Nova. Story and shot selection come from Marlowe."
+    constraints: "Outputs text prompts only, a human runs them in Higgsfield/Seedance; no generation tool of his own. Narrative-film video only; commercial brand video and post stay with Nova. Story and shot selection come from Marlowe."
   }
 ];
 
@@ -630,13 +732,13 @@ const SLASH_COMMANDS = [
   // ── Everyday ──
   { name: "/grill-me", type: "skill", category: "Everyday", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
   { name: "/prompt-review", type: "skill", category: "Everyday", desc: "Scores a draft prompt against the vault's 5-slot prompt formula and rewrites it in the same order, preserving your own wording wherever a slot is already filled.", when: "Before sending a prompt to a persona or an external model, when you want it sharper without an interview." },
-  { name: "/humaniser", type: "skill", category: "Everyday", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
-  { name: "/fast-path", type: "skill", category: "Everyday", desc: "Explicitly requests the Fast-Path Lane for a light task. Asserts the five eligibility conditions with an auditable verdict, then either runs the task on the lane (routed, working-only) or auto-escalates to the full pipeline if any condition fails. Cannot override eligibility — governance edits, deliverables, and fan-out always escalate.", when: "When you have a small, reversible, single-persona task and want to skip grill-me and plan mode. Sam still routes it; if it is not actually light, it escalates automatically." },
+  { name: "/humaniser", type: "skill", category: "Everyday", desc: "Removes AI writing patterns from text, em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
+  { name: "/fast-path", type: "skill", category: "Everyday", desc: "Explicitly requests the Fast-Path Lane for a light task. Asserts the five eligibility conditions with an auditable verdict, then either runs the task on the lane (routed, working-only) or auto-escalates to the full pipeline if any condition fails. Cannot override eligibility, governance edits, deliverables, and fan-out always escalate.", when: "When you have a small, reversible, single-persona task and want to skip grill-me and plan mode. Sam still routes it; if it is not actually light, it escalates automatically." },
 
   // ── Session & memory ──
-  { name: "/log-session", type: "skill", category: "Session & memory", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artefacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
-  { name: "/handoff-save", type: "command", category: "Session & memory", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive) — current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
-  { name: "/memory-reconcile", type: "skill", category: "Session & memory", desc: "Folds session notes from Vault/Memory/Sessions/ into your per-clone Vault/Memory/context.md index and per-month Notes/ archive. Two-stage write protocol — writes land in context.md (git-ignored), never the tracked MEMORY.md.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
+  { name: "/log-session", type: "skill", category: "Session & memory", desc: "Saves a structured log of the current session, request, routing trace, Odin checkpoints, artefacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
+  { name: "/handoff-save", type: "command", category: "Session & memory", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive), current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
+  { name: "/memory-reconcile", type: "skill", category: "Session & memory", desc: "Folds session notes from Vault/Memory/Sessions/ into your per-clone Vault/Memory/context.md index and per-month Notes/ archive. Two-stage write protocol, writes land in context.md (git-ignored), never the tracked MEMORY.md.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
 
   // ── Setup & sync ──
   { name: "/onboard", type: "command", category: "Setup & sync", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs the recommended plugin roster (canonical list: .claude/settings.json enabledPlugins), and installs VS Code extensions. Plannotator's binary is a separate optional, user-confirmed step.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
@@ -644,22 +746,22 @@ const SLASH_COMMANDS = [
   { name: "/import-repos", type: "command", category: "Setup & sync", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." },
 
   // ── Deliverables & learning ──
-  { name: "/html-deliverable", type: "skill", category: "Deliverables & learning", desc: "Renders an interactive HTML companion for a QA-passed Markdown deliverable. Covers six types: audit reports, status reports, implementation plans, comparisons, research explainers, incident post-mortems. Outputs a sibling pair — &lt;name&gt;.md and &lt;name&gt;.html — with a second QA pass before the HTML ships.", when: "After a Markdown deliverable passes QA and you want an interactive version. The producing persona will also offer it automatically at that point." },
-  { name: "/teach", type: "skill", category: "Deliverables & learning", desc: "Runs a personal interactive tutoring loop on any topic you want to learn. Sam handles this inline — it is the only task not routed to a persona. Learning data is saved git-ignored under Vault/Learning/&lt;topic&gt;/ and never counts as a client deliverable.", when: "When you want to learn something rather than produce client work. The only Core-rule carve-out where Sam works inline instead of routing." },
+  { name: "/html-deliverable", type: "skill", category: "Deliverables & learning", desc: "Renders an interactive HTML companion for a QA-passed Markdown deliverable. Covers six types: audit reports, status reports, implementation plans, comparisons, research explainers, incident post-mortems. Outputs a sibling pair, &lt;name&gt;.md and &lt;name&gt;.html, with a second QA pass before the HTML ships.", when: "After a Markdown deliverable passes QA and you want an interactive version. The producing persona will also offer it automatically at that point." },
+  { name: "/teach", type: "skill", category: "Deliverables & learning", desc: "Runs a personal interactive tutoring loop on any topic you want to learn. Sam handles this inline, it is the only task not routed to a persona. Learning data is saved git-ignored under Vault/Learning/&lt;topic&gt;/ and never counts as a client deliverable.", when: "When you want to learn something rather than produce client work. The only Core-rule carve-out where Sam works inline instead of routing." },
 
   // ── Creative & generation ──
-  { name: "/prototype", type: "skill", category: "Creative & generation", desc: "Builds a self-contained interactive HTML/CSS/JS prototype — clickable and functional, not a static document.", when: "When you want a working clickable prototype to demonstrate an idea rather than describe it." },
-  { name: "Higgsfield generate", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Generates images, video, 3D assets, or audio through the Higgsfield AI CLI — GPT Image 2 for stills, Seedance for video, Nano Banana for character references, Marketing Studio for ads, Seed Audio for audio. Requires a Higgsfield account.", when: "Ask Sam to animate a photo, turn an image into a short video, edit or restyle an image, reframe a video, turn an image into 3D, generate music or audio, or produce an ad or UGC-style video. Chains with Higgsfield Soul ID for a consistent face." },
+  { name: "/prototype", type: "skill", category: "Creative & generation", desc: "Builds a self-contained interactive HTML/CSS/JS prototype, clickable and functional, not a static document.", when: "When you want a working clickable prototype to demonstrate an idea rather than describe it." },
+  { name: "Higgsfield generate", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Generates images, video, 3D assets, or audio through the Higgsfield AI CLI, GPT Image 2 for stills, Seedance for video, Nano Banana for character references, Marketing Studio for ads, Seed Audio for audio. Requires a Higgsfield account.", when: "Ask Sam to animate a photo, turn an image into a short video, edit or restyle an image, reframe a video, turn an image into 3D, generate music or audio, or produce an ad or UGC-style video. Chains with Higgsfield Soul ID for a consistent face." },
   { name: "Higgsfield Soul ID", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Trains a one-time 'Soul Character' model of a specific person's face in Higgsfield, so later generations of them stay identity-faithful. Requires a Higgsfield account.", when: "Ask Sam to train a face or character model before generating images or video of a real person, then reuse it whenever that person needs to appear consistently." },
-  { name: "Higgsfield product photoshoot", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Produces professional product imagery through Higgsfield's GPT Image 2 model across ten modes — plain product shots, lifestyle scenes, hero banners, carousels, ad creative, virtual try-on, and floating or splash-style renders. Requires a Higgsfield account.", when: "Ask Sam for product photography, a hero banner, a carousel set, or a virtual try-on image for a listing or ad." },
-  { name: "Higgsfield marketplace cards", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Builds a full marketplace listing image set in Higgsfield — a compliant main image, secondary product shots, A+ content modules, infographics, and lifestyle photos. Requires a Higgsfield account.", when: "Ask Sam to put together a complete listing image set for Amazon, Etsy, or another marketplace." },
+  { name: "Higgsfield product photoshoot", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Produces professional product imagery through Higgsfield's GPT Image 2 model across ten modes, plain product shots, lifestyle scenes, hero banners, carousels, ad creative, virtual try-on, and floating or splash-style renders. Requires a Higgsfield account.", when: "Ask Sam for product photography, a hero banner, a carousel set, or a virtual try-on image for a listing or ad." },
+  { name: "Higgsfield marketplace cards", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Builds a full marketplace listing image set in Higgsfield, a compliant main image, secondary product shots, A+ content modules, infographics, and lifestyle photos. Requires a Higgsfield account.", when: "Ask Sam to put together a complete listing image set for Amazon, Etsy, or another marketplace." },
   { name: "Higgsfield websites", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Builds, edits, and deploys full-stack websites or web apps via the Higgsfield CLI, using React 19 and TanStack on Cloudflare. Requires a Higgsfield account.", when: "Ask Sam to build a landing page, SaaS dashboard, or portfolio site and publish it to production." },
-  { name: "Frontend design", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Gives aesthetic direction for building or reshaping a user interface — typography, layout, and visual choices deliberate enough to avoid a templated, default look. No Higgsfield account needed.", when: "Ask Sam for help making an interface look distinctive and intentional rather than generic, while it's being built or redesigned." },
-  { name: "Marketing image", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Creates, generates, edits, or optimises marketing images — blog headers, social graphics, product mockups, and banners — across whichever AI image model or design tool fits the job. No Higgsfield account needed.", when: "Ask Sam for a blog hero image, social graphic, product mockup, or banner for a marketing asset." },
-  { name: "Marketing video", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Produces marketing video using AI generation models, AI avatars, and programmatic frameworks — product demos, explainers, social clips, and ads. No Higgsfield account needed.", when: "Ask Sam for a product demo, explainer, social clip, or ad video for a marketing campaign." },
+  { name: "Frontend design", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Gives aesthetic direction for building or reshaping a user interface, typography, layout, and visual choices deliberate enough to avoid a templated, default look. No Higgsfield account needed.", when: "Ask Sam for help making an interface look distinctive and intentional rather than generic, while it's being built or redesigned." },
+  { name: "Marketing image", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Creates, generates, edits, or optimises marketing images, blog headers, social graphics, product mockups, and banners, across whichever AI image model or design tool fits the job. No Higgsfield account needed.", when: "Ask Sam for a blog hero image, social graphic, product mockup, or banner for a marketing asset." },
+  { name: "Marketing video", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Produces marketing video using AI generation models, AI avatars, and programmatic frameworks, product demos, explainers, social clips, and ads. No Higgsfield account needed.", when: "Ask Sam for a product demo, explainer, social clip, or ad video for a marketing campaign." },
 
   // ── Maintainer/meta ──
-  { name: "/review-claudemd", type: "skill", category: "Maintainer/meta", desc: "Mines recent session transcripts for evidence-based CLAUDE.md findings across five lenses — violated, missing-local, missing-global, outdated, friction — and writes a report without editing CLAUDE.md itself.", when: "Orchestrator-run meta-skill, when you want to check standing instructions against how the vault is actually being used." },
+  { name: "/review-claudemd", type: "skill", category: "Maintainer/meta", desc: "Mines recent session transcripts for evidence-based CLAUDE.md findings across five lenses, violated, missing-local, missing-global, outdated, friction, and writes a report without editing CLAUDE.md itself.", when: "Orchestrator-run meta-skill, when you want to check standing instructions against how the vault is actually being used." },
   { name: "/improve", type: "skill", category: "Maintainer/meta", desc: "Audits a codebase read-only across correctness, security, performance, tests, tech debt, dependencies, DX, docs, and direction, then writes self-contained implementation plans for another agent to execute.", when: "Orchestrator-run meta-skill, when you want a prioritised improvement roadmap rather than ad-hoc fixes." }
 ];
 
@@ -685,14 +787,14 @@ const SAMPLE_PROJECTS = [
     name: "Demo - NovaStar Gym - Social Media Calendar",
     star: null,
     teaches: "Multi-specialist creative: Sage → Juno → Cleo, calendar format",
-    prompt: "Continue the NovaStar Gym social calendar — I need Weeks 2 through 4."
+    prompt: "Continue the NovaStar Gym social calendar, I need Weeks 2 through 4."
   },
   {
     num: 4,
     name: "Demo - Thornwood Coffee - Brand Copywriting",
     star: "teaches Odin checkpoints",
     teaches: "Core orchestration mechanic: Senior Adviser Checkpoint A + B, repo consultation",
-    prompt: "Continue the Thornwood Coffee brand copy — I need Remi to finish the audience section, then Finn to complete the headlines."
+    prompt: "Continue the Thornwood Coffee brand copy, I need Remi to finish the audience section, then Finn to complete the headlines."
   },
   {
     num: 5,
@@ -705,855 +807,618 @@ const SAMPLE_PROJECTS = [
 
 const FAQ = [
   {
-    q: "The wrong specialist responded — how do I re-route?",
+    q: "The wrong specialist responded, how do I re-route?",
     a: "Address the correct person directly using their role token: <code>@{Copywriter} [your request]</code> or by name: <code>@Finn [your request]</code>. Both syntaxes work. You can also tell Sam: <em>\"Route this to Finn instead.\"</em>"
   },
   {
-    q: "The output doesn't match what I asked for — what do I do?",
+    q: "The output doesn't match what I asked for, what do I do?",
     a: "Tag Quinn: <code>@{QAComplianceReviewer} this doesn't match the brief — [explain the gap]</code>. Quinn will return a structured verdict. If the issue is strategic (wrong direction entirely), route back to Sam and describe what's missing."
   },
   {
     q: "I don't know who to ask for a task.",
-    a: "Just describe what you need — don't use any <code>@</code> address. Sam intercepts all unaddressed messages and routes to the best-fit specialist. You never need to know the roster to get work done."
+    a: "Just describe what you need, don't use any <code>@</code> address. Sam intercepts all unaddressed messages and routes to the best-fit specialist. You never need to know the roster to get work done."
   },
   {
-    q: "The team is using wrong names — how do I fix it?",
+    q: "The team is using wrong names, how do I fix it?",
     a: "Send: <em>\"Set theme to [your theme]\"</em>. Sam will research character names, match them to roles, show a preview, and ask for confirmation before changing anything. Or say <em>\"reset theme\"</em> to return to defaults."
   },
   {
-    q: "A specialist said they can't do something — is that right?",
-    a: "Yes — each team member has defined constraints. Finn won't make strategic decisions; Remi won't write production copy; Quinn won't rewrite content. If you've hit a constraint wall, tell Sam and the work will be re-routed to the right person."
+    q: "A specialist said they can't do something, is that right?",
+    a: "Yes, each team member has defined constraints. Finn won't make strategic decisions; Remi won't write production copy; Quinn won't rewrite content. If you've hit a constraint wall, tell Sam and the work will be re-routed to the right person."
   },
   {
     q: "How do I know when to use @{SeniorAdviser}?",
-    a: "You usually don't — Odin is invoked automatically by team members at quality checkpoints before delivering durable work. If you want an explicit review of something, you can say: <em>\"@{SeniorAdviser} review this plan before we proceed.\"</em>"
+    a: "You usually don't, Odin is invoked automatically by team members at quality checkpoints before delivering durable work. If you want an explicit review of something, you can say: <em>\"@{SeniorAdviser} review this plan before we proceed.\"</em>"
   }
 ];
+
+/* ---- Discipline colour map: single 6-family source of truth (replaces D1's 7-key map) ---- */
+const FAMILIES = [
+  { key: "ops", label: "Leadership & Ops" },
+  { key: "trust", label: "Trust & Quality" },
+  { key: "strategy", label: "Strategy" },
+  { key: "words", label: "Words" },
+  { key: "visual", label: "Visual & Motion" },
+  { key: "build", label: "Design & Build" }
+];
+
+const FAMILY_MAP = {
+  Orchestrator: "ops",
+  HRLead: "ops",
+  ProjectManager: "ops",
+  MetaAdsSpecialist: "ops",
+
+  SeniorAdviser: "trust",
+  QAComplianceReviewer: "trust",
+  AnalyticsReportingSpecialist: "trust",
+  LegalComplianceWriter: "trust",
+
+  SeniorResearcher: "strategy",
+  ContentStrategist: "strategy",
+  BrandStrategist: "strategy",
+  CreativeDirector: "strategy",
+  SEOSpecialist: "strategy",
+  CompetitiveIntelligenceSpecialist: "strategy",
+  MarketResearchSpecialist: "strategy",
+  BusinessAnalyst: "strategy",
+
+  Copywriter: "words",
+  SocialMediaManager: "words",
+
+  VisualAIProducer: "visual",
+  VideoMotionProducer: "visual",
+  CinemaShowrunner: "visual",
+  StillsDirector: "visual",
+  SeedanceDirector: "visual",
+
+  UXUIDesigner: "build",
+  WebflowDeveloper: "build",
+  CreativeTechnologist: "build",
+  AutomationArchitect: "build",
+  EmailDeveloper: "build",
+  MobileDeveloper: "build"
+};
 </script>
 
-<!-- ═══════════════════════════════════════════
-     MARKUP
-     ═══════════════════════════════════════════ -->
-
-<header class="hero">
-  <div class="container">
-    <h1>AI Team — Onboarding Guide</h1>
-    <p>Everything you need to start working with your AI team — or to set up a new vault for a client.</p>
-    <p class="last-synced">Last synced: <span id="lastSynced"></span> &nbsp;·&nbsp; Source of truth: <code>CLAUDE.md</code></p>
-  </div>
-</header>
-
-<nav class="tab-bar" role="tablist" aria-label="Audience">
-  <div class="container">
-    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-user" id="tab-user" data-tab="user">I'm using the team</button>
-    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-admin" id="tab-admin" data-tab="admin">I'm setting this up</button>
-    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-why" id="tab-why" data-tab="why">Why use this?</button>
-  </div>
-</nav>
-
-<main>
-
-<!-- ══════════════════════════════
-     WHY TAB
-     ══════════════════════════════ -->
-<div class="tab-panel" id="panel-why" role="tabpanel" aria-labelledby="tab-why">
-  <div class="container">
-
-    <section class="section" id="why-intro">
-      <h2 class="section-title">Why use this?</h2>
-      <p class="section-intro">This isn't a content generator you point at a blank page. It's a small studio of specialists (Sam the Orchestrator at the front desk, 28 named personas behind them) that routes your request to whoever owns that kind of work, checks it before it ships, and remembers what it learned last time.</p>
-    </section>
-
-    <section class="section" id="why-archetypes">
-      <h2 class="section-title">Who this is for</h2>
-      <p class="section-intro">The six profiles below aren't roles you have to pick — they're six reasons people end up using this vault. Find the one closest to you, then read the round table at the end, where they push back on each other. Nothing here is a guarantee; it's a description of a trade.</p>
-      <div class="syntax-grid">
-        <div class="syntax-card">
-          <h3>Solo founder / consultant</h3>
-          <p><em>Who this is:</em> one person doing the work of a marketing department, with no budget to hire one.</p>
-          <p class="headline">A whole studio, without hiring anyone.</p>
-          <p class="hook">You get specialists in copy, SEO, brand strategy, visual production and analytics — you're still the only person in the room, but the room got bigger.</p>
-          <p class="best-use"><strong>Best way to use it:</strong> run everyday jobs through the <strong>Fast-Path Lane</strong> (single-file, reversible work skips the full pipeline). For anything bigger, let Sam route you to <code>@{Copywriter}</code>, <code>@{BrandStrategist}</code>, and so on.</p>
-          <p class="the-catch"><strong>The catch:</strong> one session, one Orchestrator — not 28 people working in parallel. You still queue the work; you just don't do every part of it yourself.</p>
-        </div>
-        <div class="syntax-card">
-          <h3>Small agency owner</h3>
-          <p><em>Who this is:</em> running client work through a small team, where a mistake in a deliverable is a client-facing problem, not an internal one.</p>
-          <p class="headline">Nothing reaches a client unchecked.</p>
-          <p class="hook">Every file heading to <code>03 Deliverables/</code> goes through the QA Compliance Reviewer first, with an Advisor Checkpoint before drafting and before handoff on durable work.</p>
-          <p class="best-use"><strong>Best way to use it:</strong> treat the <strong>QA Gate</strong> (PASS / FLAGGED / BLOCKED) as non-negotiable. Route regulated-category copy through <code>@{LegalComplianceWriter}</code> before it goes near a client.</p>
-          <p class="the-catch"><strong>The catch:</strong> Advisor Checkpoints and the QA Gate run on Fable 5 (<code>claude-fable-5</code>) — real token cost on every checkpoint-eligible job. Client safety isn't free.</p>
-        </div>
-        <div class="syntax-card">
-          <h3>In-house marketing lead</h3>
-          <p><em>Who this is:</em> owns the brand and content function inside a company, working with the same voice and positioning across many pieces of work over time.</p>
-          <p class="headline">Skip the re-briefing, keep the depth.</p>
-          <p class="hook">Talk to the exact specialist you need — <code>@{Copywriter}</code>, <code>@{SEOSpecialist}</code>, <code>@{BrandStrategist}</code> — and your messaging architecture persists as a source-of-truth document, not a one-off output.</p>
-          <p class="best-use"><strong>Best way to use it:</strong> address specialists directly with <code>@{RoleToken}</code> when you know what you need. Keep strategy documents (from <code>@{BrandStrategist}</code> and <code>@{ContentStrategist}</code>) as living references other requests can cite.</p>
-          <p class="the-catch"><strong>The catch:</strong> direct addressing still goes through Sam's routing and, where eligible, the same grill-me/plan/checkpoint pipeline as anyone else.</p>
-        </div>
-        <div class="syntax-card">
-          <h3>Freelance creative</h3>
-          <p><em>Who this is:</em> handles the actual creative production — video, stills, motion — for clients who expect a polished, presentable outcome, not a raw file.</p>
-          <p class="headline">A real production stack, not one generalist.</p>
-          <p class="hook">Cinema Showrunner, Stills Director, Seedance Director, Visual AI Producer and Video &amp; Motion Producer each cover a different part of the work, and the HTML Deliverable Companion turns a finished report into something a client can click through.</p>
-          <p class="best-use"><strong>Best way to use it:</strong> brief the right director for the medium — <code>@{CinemaShowrunner}</code> for narrative/video structure, <code>@{StillsDirector}</code> or <code>@{SeedanceDirector}</code> for image and short-form motion. Offer the HTML companion once the Markdown version has passed QA.</p>
-          <p class="the-catch"><strong>The catch:</strong> some of this depends on plugin-provided capability — a generation or visual tool only works if that plugin is installed. Check before you brief around it.</p>
-        </div>
-        <div class="syntax-card">
-          <h3>Ops / automation person</h3>
-          <p><em>Who this is:</em> less interested in any single piece of output, more interested in making the system itself reliable and repeatable.</p>
-          <p class="headline">You get to build the machine, not just use it.</p>
-          <p class="hook">Access to the persona architecture, the slash commands, the memory layer, and the two people whose job is building and maintaining that machinery.</p>
-          <p class="best-use"><strong>Best way to use it:</strong> work with <code>@{AutomationArchitect}</code> and <code>@{CreativeTechnologist}</code> on anything structural. Use <code>/update</code> to pull template improvements and <code>/memory-reconcile</code> to fold session notes into <code>context.md</code>; consult <code>Resources/Git/INDEX.md</code> before checkpoint-eligible work.</p>
-          <p class="the-catch"><strong>The catch:</strong> sub-agents are depth-1 — only the Orchestrator can dispatch them, and every persona routes back through Sam rather than talking to each other directly. Hub-and-spoke, not a mesh.</p>
-        </div>
-        <div class="syntax-card">
-          <h3>Non-technical team member</h3>
-          <p><em>Who this is:</em> needs to get something done in here without knowing, or wanting to know, how any of it works underneath.</p>
-          <p class="headline">You don't need to know who does what.</p>
-          <p class="hook">Sam figures out routing for you; <code>grill-me</code> asks one question at a time instead of demanding a perfect brief, and plan mode shows the approach before anything happens.</p>
-          <p class="best-use"><strong>Best way to use it:</strong> describe what you want in plain language and let Sam route it. If you're not sure your request is clear, run <code>/prompt-review</code> first — it coaches the ask before you send it.</p>
-          <p class="the-catch"><strong>The catch:</strong> this is a Claude Code template, not a polished SaaS product — there's a genuine learning curve to the conventions (folders, checkpoints, what goes where), even with the guardrails softening it.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="why-roundtable">
-      <h2 class="section-title">Round-table debate</h2>
-      <p class="section-intro">The six of them, pushing back on each other.</p>
-      <div class="example-flow">
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Agency owner</span></div>
-          <div class="step-body">"Every client deliverable goes through Advisor and QA, that's Fable-level cost twice per job. For a small agency running lean, that adds up fast."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Ops person</span></div>
-          <div class="step-body">"It adds up, but it's not a flat tax, it's scoped to checkpoint-eligible and Deliverables-bound work. Fast-Path work skips both entirely. Reserve the full pipeline for what's actually client-facing, and the cost tracks the risk, not every keystroke."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Freelance creative</span></div>
-          <div class="step-body">"The whole creative stack, Cinema Showrunner, the directors, Visual AI Producer, sounds great until you find out half of it depends on a plugin you haven't installed."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Solo founder</span></div>
-          <div class="step-body">"That's a real gap, not a design flaw you can argue away. The fix is boring: check what's installed before you brief a job around it, the same way you'd check a contractor's kit before handing them a spec."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Marketing lead</span></div>
-          <div class="step-body">"I like addressing <code>@{Copywriter}</code> or <code>@{SEOSpecialist}</code> directly, but I was told that still runs through Sam's routing and the same pipeline as an open request. So what did I actually save?"</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Non-technical team member</span></div>
-          <div class="step-body">"You saved the routing decision, not the process, you told Sam exactly who you want instead of Sam having to work it out. The checkpoints stay because they're tied to the work's stakes, not to how confidently you addressed it."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Ops person</span></div>
-          <div class="step-body">"I want to build automations that call multiple personas at once. I keep hitting the depth-1 limit, sub-agents only get dispatched by the Orchestrator, one layer deep."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Agency owner</span></div>
-          <div class="step-body">"That's not a bug you route around, it's the whole trust model, one point of accountability means nothing forks off and reports back unsupervised. If you need genuine parallelism, that's a Sub-Agent Architecture SOP conversation with Sam, not something to quietly engineer past."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Non-technical team member</span></div>
-          <div class="step-body">"grill-me and plan mode are supposed to make this safe for someone like me, but I still hit unfamiliar folder names and conventions I don't understand."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Marketing lead</span></div>
-          <div class="step-body">"That's fair, it's a template with a structure, not a zero-learning-curve app. The guardrails lower the floor, they don't erase it. <code>/prompt-review</code> and the plan-mode pause exist precisely because the curve is real, not because it isn't."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Solo founder</span></div>
-          <div class="step-body">"28 specialists sounds like a team, but it's genuinely one session working through one Orchestrator, I'm not getting 28 people's worth of throughput."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Freelance creative</span></div>
-          <div class="step-body">"Right, it's breadth, not headcount. You get the range of skills on tap, sequentially, when you need them, that's still a real advantage over doing every discipline yourself from scratch, it's just not the parallel team the number implies."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Agency owner</span></div>
-          <div class="step-body">"How do I even know the template hasn't drifted from what I'm relying on for client work?"</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Ops person</span></div>
-          <div class="step-body">"<code>/update</code> is the honest answer, and it's deliberately not automatic, it's a git pull on a two-branch model, so you choose when to take upstream changes rather than have them land mid-project. That's slower than an auto-updating app, but it means nothing changes under a live client engagement without you deciding it should."</div>
-        </div>
-      </div>
-    </section>
-
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-dot" aria-hidden="true"></span> The Studio Guide</div>
+    <nav class="quicknav" aria-label="Section shortcuts">
+      <a href="#team">Team</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#who-for">Who it's for</a>
+      <a href="#commands">Commands</a>
+      <a href="#reference">Reference</a>
+    </nav>
+    <div class="topbar-right">
+      <span class="synced-stamp" id="lastSynced">Last synced</span>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark theme">
+        <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     USER TAB
-     ══════════════════════════════ -->
-<div class="tab-panel active" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
-  <div class="container">
+<main class="container" id="main-content">
 
-    <!-- What is this -->
-    <section class="section" id="what-is-this">
-      <h2 class="section-title">What is this?</h2>
-      <p class="section-intro">You have access to a team of 28 AI specialists — a copywriter, SEO strategist, UX designer, brand strategist, and more. A coordinator called <strong>Sam (the Orchestrator)</strong> receives everything you send and routes it to the right person. You don't manage the routing — you just describe what you need.</p>
-      <div class="callout">
-        <strong>Using Claude Code:</strong> Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter — that's it. Everything in this guide assumes you have Claude Code open with this workspace as your working directory.
+  <section class="hero" id="hook">
+    <p class="eyebrow">A small studio, not a blank text box</p>
+    <h1>Meet the studio before you meet the software.</h1>
+    <p class="hero-lead">This isn't a content generator you point at a blank page. It's a small studio of specialists, <strong>Sam the Orchestrator</strong> at the front desk, 28 named personas behind them, who route your request to whoever owns that kind of work, check it before it ships, and remember what they learned last time. You don't manage the routing. You just describe what you need.</p>
+    <div class="hero-stats">
+      <span class="stat-chip"><strong>28</strong> specialists on staff</span>
+      <span class="stat-chip"><strong>1</strong> point of contact (Sam)</span>
+      <span class="stat-chip"><strong>PASS / FLAGGED / BLOCKED</strong> QA gate on every deliverable</span>
+      <span class="stat-chip">
+        <span class="stat-swatches" aria-hidden="true">
+          <span style="background:var(--fam-ops)"></span><span style="background:var(--fam-trust)"></span><span style="background:var(--fam-strategy)"></span><span style="background:var(--fam-words)"></span><span style="background:var(--fam-visual)"></span><span style="background:var(--fam-build)"></span>
+        </span>
+        6 disciplines, colour-coded below
+      </span>
+    </div>
+
+    <details class="orient">
+      <summary>New to Claude Code? Read this first.</summary>
+      <div class="orient-body">
+        Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter, that's it. Everything on this page assumes you have Claude Code open with this workspace as your working directory.
       </div>
-    </section>
+    </details>
+  </section>
 
-    <!-- How a request flows — MOVED UP -->
-    <section class="section" id="worked-example">
-      <h2 class="section-title">How a request flows</h2>
-      <p class="section-intro">Here's what happens when you send a real request — from your message to a finished deliverable.</p>
-      <div class="example-flow">
-        <div class="example-step">
-          <div class="step-label"><span>You</span></div>
-          <div class="step-body">"I need blog content for a new coffee brand targeting specialty coffee enthusiasts in Australia."</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="routing">Sam — routing</span></div>
-          <div class="step-body">Content strategy first, then copy. Handing this to <strong>Sage (Content Strategist)</strong> to build the content framework, then <strong>Finn (Copywriter)</strong> will write from it. <strong>Tate (Project Manager)</strong>, you're on delivery tracking.</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Sage — Content Strategist</span></div>
-          <div class="step-body">Before drafting, checking the repo library for content strategy frameworks. Running <strong>Checkpoint A</strong> with <strong>Odin (Senior Adviser)</strong> before committing to a structure…<br><br>Here's the content architecture: three pillar topics — Origin Stories, Brewing Methods, and Ethical Sourcing. Supporting cluster topics mapped to search intent. Brief prepared for Finn.</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Finn — Copywriter</span></div>
-          <div class="step-body">Working from Sage's brief. Running <strong>Checkpoint B</strong> before delivery…<br><br>First article drafted: "Why Single-Origin Coffee Tastes Different (And Why It Matters)." 800 words, conversational but informed. Ready for Quinn's pass.</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="persona">Quinn — QA Reviewer</span></div>
-          <div class="step-body"><strong>Result: Pass.</strong> Article aligns with brief. No unverified claims. Tone consistent. One suggestion: add a source citation on the altitude flavour profile claim. Returning to Sam.</div>
-        </div>
-        <div class="example-step">
-          <div class="step-label"><span class="routing">Sam — handoff complete</span></div>
-          <div class="step-body">Article delivered to <code>Projects/[Client]/03 Deliverables/</code>. <strong>Quinn</strong> flagged one citation — <strong>Finn</strong> will add it. Let me know when you're ready for article two.</div>
-        </div>
+  <!-- ============ TEAM ============ -->
+  <section class="block" id="team">
+    <div class="block-head">
+      <p class="block-kicker">The roster</p>
+      <h2>Meet the team</h2>
+      <p>The full 29-person roster (28 specialists plus Sam), colour-coded by discipline. Search by name, role, or skill, filter to the core team, or click any card for full expertise and constraints.</p>
+    </div>
+
+    <div class="roster-controls">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <label for="rosterSearch" class="visually-hidden">Search the team</label>
+        <input type="search" id="rosterSearch" placeholder="Search by name, role, or skill (e.g. &quot;copy&quot;, &quot;QA&quot;, &quot;visual&quot;)">
       </div>
-    </section>
+      <div class="seg" role="group" aria-label="Filter team by tier">
+        <button type="button" id="filterAll" aria-pressed="true">All</button>
+        <button type="button" id="filterCore" aria-pressed="false">Core team</button>
+      </div>
+      <span class="roster-count" id="rosterCount" aria-live="polite"></span>
+    </div>
 
-    <!-- How to talk to the team -->
-    <section class="section" id="addressing">
-      <h2 class="section-title">How to talk to the team</h2>
-      <p class="section-intro">Three ways to address the team. Pick the one that matches how much you already know.</p>
-      <div class="syntax-grid">
-        <div class="syntax-card">
-          <h3>Open request</h3>
-          <div class="example">"I need a first draft of a client welcome email for a new skincare brand."</div>
-          <p>No <code>@</code> needed. Sam reads your request and routes it to the best-fit specialist.</p>
-        </div>
-        <div class="syntax-card">
-          <h3>Direct address</h3>
-          <div class="example">"@{Copywriter} write a 200-word homepage intro for Meridian Law. Tone: authoritative but approachable."</div>
-          <p>Use <code>@{RoleToken}</code> when you know who you need. Bypasses Sam's routing step.</p>
-          <p class="syntax-note">Both <code>@{Copywriter}</code> and <code>@Finn</code> work — use whichever feels natural.</p>
-        </div>
-        <div class="syntax-card">
-          <h3>Multi-step request</h3>
-          <div class="example">"I need a full social calendar for NovaStar Gym — strategy, post copy, and visual direction for Instagram."</div>
-          <p>Sam will loop in Sage, Juno, and Cleo in sequence. You'll see the handoffs happen.</p>
+    <div class="family-legend" id="familyLegend" role="group" aria-label="Filter team by discipline"></div>
+
+    <div class="roster-grid" id="rosterGrid" aria-live="polite" role="list"></div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="block" id="how-it-works">
+    <div class="block-head">
+      <p class="block-kicker">Proof, not a promise</p>
+      <h2>How a request flows through the studio</h2>
+      <p>Here's what actually happens when you send a real request, from your message to a finished deliverable. Same team you just met, working in sequence.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="rail"><div class="dot2" style="background:var(--text-muted)"></div><div class="line"></div></div>
+        <div class="flow-body">
+          <p class="flow-who you">You</p>
+          <p class="flow-text">"I need blog content for a new coffee brand targeting specialty coffee enthusiasts in Australia."</p>
         </div>
       </div>
-    </section>
-
-    <!-- Write better prompts -->
-    <section class="section" id="prompt-formula">
-      <h2 class="section-title">Write better prompts</h2>
-      <p class="section-intro">One formula covers every prompt you'll send this team: five slots and a finish line that turn a vague ask into a working brief.</p>
-      <a class="formula-card" href="prompt-formula-cheat-sheet.html" aria-label="Open the prompt formula cheat sheet">
-        <div class="formula-card__slots">Context · Goal · Insight · Output spec · Constraints · Done when</div>
-        <div class="formula-card__body">Fill these five slots and the finish line in order and the team gets everything it needs to work without back-and-forth. Each slot feeds the next — context anchors the goal, the goal makes the constraints meaningful.</div>
-        <div class="formula-card__link">Open the cheat sheet →</div>
-      </a>
-    </section>
-
-    <!-- Roster -->
-    <section class="section" id="roster">
-      <h2 class="section-title">Meet the team</h2>
-      <p class="section-intro">Click any card to see full expertise and constraints. Use the sample prompt to talk to them directly. <strong>Core team</strong> members are the six roles you'll use most often.</p>
-      <div class="roster-controls">
-        <input class="roster-search" type="search" placeholder="Search by name, role, or expertise…" id="rosterSearch" aria-label="Search team roster">
-        <div class="filter-btns">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="core">Core team</button>
-        </div>
-        <div class="roster-count" id="rosterCount"></div>
-      </div>
-      <div class="roster-grid" id="rosterGrid" role="list"></div>
-    </section>
-
-    <!-- Slash Commands (merged) -->
-    <section class="section" id="commands">
-      <h2 class="section-title">Commands &amp; Skills</h2>
-      <p class="section-intro">Some of these you type directly in Claude Code; others are auto-invoked — Sam brings them in on your behalf when you describe the right kind of task. <span style="display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center;vertical-align:middle;"><span class="type-badge skill">skill</span> loads a specialised instruction set &nbsp;·&nbsp; <span class="type-badge command">command</span> runs a specific workflow &nbsp;·&nbsp; <span class="plugin-chip">plugin</span> ships from a marketplace plugin, not this vault &nbsp;·&nbsp; <span class="auto-chip">auto-invoked</span> triggers from what you ask for, no slash typed.</span></p>
-      <div id="commandsGrid"></div>
-      <p class="syntax-note" style="margin-top: 14px;">The entries above are this vault's custom skills and workflows, plus a set of marketplace-plugin skills the team can call on. For Claude Code's own built-ins — keyboard shortcuts, native slash commands, MCP setup, release changelog — see the community-maintained <a href="https://cc.storyfox.cz/" target="_blank" rel="noopener">Claude Code Cheat Sheet</a>, updated with each release.</p>
-    </section>
-
-    <!-- Start Here -->
-    <section class="section" id="start-here">
-      <h2 class="section-title">Start here</h2>
-      <p class="section-intro">Five half-finished sample projects live in <code>Resources/Onboarding/Demos/</code>. Each teaches a different workflow layer. Work through them in order — or jump straight to your first real client task.</p>
-      <div class="start-here-grid" id="projectsGrid"></div>
-      <div class="real-task-note">
-        <strong>Ready to work on a real client?</strong> You don't need to run the sample projects first. Just describe what you need — Sam will route it. The sample projects are here when you want to learn the system mechanics without stakes.
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" id="faq">
-      <h2 class="section-title">Troubleshooting</h2>
-      <p class="section-intro">Common friction points and how to fix them.</p>
-      <div class="faq-list" id="faqList"></div>
-    </section>
-
-  </div>
-</div>
-
-<!-- ══════════════════════════════
-     ADMIN TAB
-     ══════════════════════════════ -->
-<div class="tab-panel" id="panel-admin" role="tabpanel" aria-labelledby="tab-admin">
-  <div class="container">
-
-    <section class="section">
-      <h2 class="section-title">Setup Steps</h2>
-      <div class="notice">Run <code>/onboard</code> in Claude Code to automate most of this. Manual steps below for reference.</div>
-      <ol class="steps-list">
-        <li class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Create the client folder</h3>
-            <p>Duplicate the <code>Claude - TEMPLATE</code> folder. Rename it <code>Claude - [ClientName]</code>. This folder is the entire workspace — it must be opened as the working directory in Claude Code.</p>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>Remove the template comment</h3>
-            <p>Open <code>CLAUDE.md</code> and delete line 1 if it reads:</p>
-            <pre>&lt;!-- TEMPLATE: Rename this folder to "Claude - [YourCompany]" before first use. --&gt;</pre>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Set up secrets</h3>
-            <p>Copy <code>.env.example</code> to <code>.env</code>. Fill in your Anthropic API key. Confirm <code>.env</code> is in <code>.gitignore</code> — never commit it. Check <code>Vault/Memory/MEMORY.md</code> contains no secrets before any git push.</p>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <h3>Verify SOP paths</h3>
-            <p>Confirm <code>Resources/SOPs/Advisor Checkpoints SOP.md</code> exists. This path must resolve for Odin checkpoint invocations to work. If missing, copy from the template.</p>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">5</div>
-          <div class="step-content">
-            <h3>Install Caveman mode</h3>
-            <p>Reduces Claude's output tokens ~65% by stripping filler. Recommended default: <strong>lite</strong>. Declared in the vault's <code>.claude/settings.json</code> with auto-update — accept the install prompt when trusting the folder, or install manually:</p>
-            <pre>/plugin marketplace add JuliusBrussee/caveman
-/plugin install caveman@caveman</pre>
-            <p style="margin-top:8px;">Then activate: <code>/caveman lite</code></p>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">6</div>
-          <div class="step-content">
-            <h3>Install claude-mem</h3>
-            <p>Adds persistent cross-session memory so team members retain observations between conversations.</p>
-            <pre>/plugin marketplace add thedotmack/claude-mem
-/plugin install claude-mem</pre>
-            <p style="margin-top:8px;">Restart Claude Code after install to activate memory hooks.</p>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">7</div>
-          <div class="step-content">
-            <h3>Install recommended plugins</h3>
-            <p>The canonical, current roster — every plugin and its marketplace source — is declared in <code>.claude/settings.json</code> (<code>extraKnownMarketplaces</code> + <code>enabledPlugins</code>); this page doesn't restate it, since it drifts as plugins are added or removed. Declared plugins auto-install on first launch after the one-time trust prompt — you generally don't need to run anything here. If one failed to auto-install, <code>.claude/commands/onboard.md</code> Steps 8 and 9 give the exact <code>/plugin marketplace add</code> + <code>/plugin install</code> pair for each. Example (superpowers, shipped as <code>superpowers@claude-plugins-official</code>):</p>
-            <pre>/plugin install superpowers@claude-plugins-official</pre>
-            <p style="margin-top:8px;">Restart Claude Code after any manual install to activate.</p>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">8</div>
-          <div class="step-content">
-            <h3>Open in Claude Code and verify</h3>
-            <p>Open the folder as your working directory. Use the prompt below to confirm routing works correctly.</p>
-            <div class="verify-box">
-              <p><strong>Verification prompt — copy and send this:</strong></p>
-              <pre>"Who's on the team and what does each person do?"</pre>
-              <p class="verify-expected">Expected: Sam responds with a roster summary, listing each specialist's name and role. If you get an error or no routing, confirm <code>CLAUDE.md</code> is in the root of your working directory and try again.</p>
-            </div>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">9</div>
-          <div class="step-content">
-            <h3>Apply a theme (optional)</h3>
-            <p>Rename the team with characters from a chosen universe. This can be done now or any time later — just send: <code>"Set theme to [theme]"</code>. Sam matches characters to roles, shows a preview, and asks for confirmation before changing anything. To revert: <code>"reset theme"</code>.</p>
-            <p style="margin-top:12px;font-size:0.85rem;font-weight:700;color:var(--ink-muted);">12 built-in themes — or name your own:</p>
-            <table class="caveman-table" style="margin-top:8px;">
-              <thead><tr><th>#</th><th>Theme</th><th>Sample names</th></tr></thead>
-              <tbody>
-                <tr><td>1</td><td>Vikings</td><td>Odin, Freya, Thor, Loki, Sigrid, Bjorn, Astrid, Ragnar, Ingrid, Gunnar</td></tr>
-                <tr><td>2</td><td>Greek Myths</td><td>Apollo, Iris, Hermes, Athena, Calypso, Daedalus, Selene, Eros, Theia, Nereus</td></tr>
-                <tr><td>3</td><td>Studio Ghibli</td><td>Totoro, Kiki, Nausicaä, Ashitaka, San, Chihiro, Howl, Sophie, Mononoke, Calcifer</td></tr>
-                <tr><td>4</td><td>Pokémon</td><td>Eevee, Raichu, Gengar, Mewtwo, Jolteon, Umbreon, Espeon, Alakazam, Machamp, Vaporeon</td></tr>
-                <tr><td>5</td><td>Jazz Musicians</td><td>Miles, Coltrane, Monk, Billie, Ella, Dizzy, Bird, Mingus, Chet, Cannonball</td></tr>
-                <tr><td>6</td><td>Planets &amp; Moons</td><td>Sol, Luna, Vega, Orion, Cassini, Titan, Lyra, Sirius, Halley, Io</td></tr>
-                <tr><td>7</td><td>Colours</td><td>Indigo, Sable, Ochre, Vermeil, Slate, Cobalt, Sienna, Teal, Onyx, Flax</td></tr>
-                <tr><td>8</td><td>Mushrooms</td><td>Morel, Chanterelle, Truffle, Shiitake, Matsutake, Porcini, Cremini, Amanita, Russula, Lactarius</td></tr>
-                <tr><td>9</td><td>Gemstones</td><td>Onyx, Jasper, Topaz, Garnet, Obsidian, Beryl, Citrine, Opal, Spinel, Zircon</td></tr>
-                <tr><td>10</td><td>Star Wars</td><td>Yoda, Leia, Han, Luke, Lando, Padmé, Obi-Wan, Anakin, Ahsoka, Grogu</td></tr>
-                <tr><td>11</td><td>Lord of the Rings</td><td>Gandalf, Frodo, Aragorn, Legolas, Gimli, Elrond, Galadriel, Boromir, Sam, Pippin</td></tr>
-                <tr><td>12</td><td>Game of Thrones</td><td>Jon, Daenerys, Tyrion, Cersei, Arya, Sansa, Brienne, Jaime, Theon, Davos</td></tr>
-              </tbody>
-            </table>
-            <p style="margin-top:10px;font-size:0.875rem;color:var(--ink-muted);">To pick a theme, send the number or name — or describe your own universe and Sam will research fitting names.</p>
-          </div>
-        </li>
-        <li class="step-item">
-          <div class="step-num">10</div>
-          <div class="step-content">
-            <h3>Import reference repos</h3>
-            <p>Drop GitHub repo URLs into <code>Resources/Git/IMPORT.md</code> and run <code>/import-repos</code>. The team consults these repos for best-practice guidance on relevant tasks.</p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">For small teams</h2>
-      <p class="section-intro">Running a 2–5 person studio? See <a href="../../Resources/Onboarding/minimum-viable-roster.md" style="color:var(--accent);text-decoration:underline;">Minimum Viable Roster</a> for guidance on which personas to keep and which to remove from your clone.</p>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">Keeping your vault updated</h2>
-      <p class="section-intro">When the template repo receives updates, run <code>/update</code> from your vault root. It pulls them in using the two-branch model without overwriting your personal work.</p>
-      <div class="steps-list" style="border-radius:12px;overflow:hidden;">
-        <div class="step-item">
-          <div class="step-num" style="background:#16a34a;">1</div>
-          <div class="step-content">
-            <h3>Run the update command</h3>
-            <pre>/update</pre>
-            <p style="margin-top:8px;">Fetches latest from origin, fast-forwards <code>main</code> as a clean upstream mirror, then rebases your personal <code>local/main</code> branch on top. Guards against missing <code>local/main</code> (run <code>/onboard</code> first) and uncommitted changes.</p>
-            <p style="margin-top:8px;">Equivalent raw git command if you prefer manual execution:</p>
-            <pre>git fetch origin && git checkout main && git merge --ff-only origin/main && git checkout local/main && git rebase main</pre>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num" style="background:#16a34a;">2</div>
-          <div class="step-content">
-            <h3>If rebase hits a conflict</h3>
-            <p>Git pauses and shows which file conflicted. Resolve it, then:</p>
-            <pre>git add [file] && git rebase --continue</pre>
-            <p style="margin-top:8px;">To abort and return to your previous state: <code>git rebase --abort</code></p>
-            <p style="margin-top:8px;">Your personal files (Projects/, Vault/Memory/, Notes/) are never affected — conflicts only appear when both you and the template edited the same core file.</p>
-          </div>
+      <div class="flow-step">
+        <div class="rail"><div class="dot2"></div><div class="line"></div></div>
+        <div class="flow-body">
+          <p class="flow-who routing">Sam, routing</p>
+          <p class="flow-text">Content strategy first, then copy. Handing this to <strong>Sage (Content Strategist)</strong> to build the content framework, then <strong>Finn (Copywriter)</strong> will write from it. <strong>Tate (Project Manager)</strong>, you're on delivery tracking.</p>
         </div>
       </div>
-    </section>
+      <div class="flow-step">
+        <div class="rail"><div class="dot2" style="background:var(--fam-strategy)"></div><div class="line"></div></div>
+        <div class="flow-body">
+          <p class="flow-who" style="color:var(--fam-strategy)">Sage, Content Strategist</p>
+          <p class="flow-text">Before drafting, checking the repo library for content strategy frameworks. Running Checkpoint A with Odin (Senior Adviser) before committing to a structure. Here's the content architecture: three pillar topics, Origin Stories, Brewing Methods, and Ethical Sourcing. Supporting cluster topics mapped to search intent. Brief prepared for Finn.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="rail"><div class="dot2" style="background:var(--fam-words)"></div><div class="line"></div></div>
+        <div class="flow-body">
+          <p class="flow-who" style="color:var(--fam-words)">Finn, Copywriter</p>
+          <p class="flow-text">Working from Sage's brief. Running Checkpoint B before delivery. First article drafted: "Why Single-Origin Coffee Tastes Different (And Why It Matters)." 800 words, conversational but informed. Ready for Quinn's pass.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="rail"><div class="dot2" style="background:var(--fam-trust)"></div><div class="line"></div></div>
+        <div class="flow-body">
+          <p class="flow-who" style="color:var(--fam-trust)">Quinn, QA Reviewer</p>
+          <p class="flow-text"><strong>Result: Pass.</strong> Article aligns with brief. No unverified claims. Tone consistent. One suggestion: add a source citation on the altitude flavour profile claim. Returning to Sam.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="rail"><div class="dot2"></div></div>
+        <div class="flow-body">
+          <p class="flow-who routing">Sam, handoff complete</p>
+          <p class="flow-text">Article delivered to <code>Projects/[Client]/03 Deliverables/</code>. Quinn flagged one citation, Finn will add it. Let me know when you're ready for article two.</p>
+        </div>
+      </div>
+    </div>
 
-    <section class="section">
-      <h2 class="section-title">Caveman Mode Levels</h2>
-      <table class="caveman-table">
-        <thead>
-          <tr><th>Command</th><th>Style</th><th>Best for</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>/caveman lite</td><td>Drop filler and articles. Keep grammar. Professional but no fluff.</td><td>Default — recommended for most workspaces.</td></tr>
-          <tr><td>/caveman</td><td>Drop articles. Fragments OK. Default grunt mode.</td><td>Power users who want maximum density.</td></tr>
-          <tr><td>/caveman ultra</td><td>Maximum compression. Telegraphic.</td><td>High-volume sessions where token cost matters.</td></tr>
-        </tbody>
-      </table>
-    </section>
+    <h3 style="margin:36px 0 8px; font-size:1.15rem;">How to address the team</h3>
+    <p style="color:var(--text-muted); font-size:0.95rem; margin:0 0 4px; max-width:70ch;">Three ways to talk to the studio. Pick the one that matches how much you already know.</p>
+    <div class="syntax-grid">
+      <div class="syntax-card">
+        <h4>Open request</h4>
+        <div class="example">"I need a first draft of a client welcome email for a new skincare brand."</div>
+        <p>No <code>@</code> needed. Sam reads your request and routes it to the best-fit specialist.</p>
+      </div>
+      <div class="syntax-card">
+        <h4>Direct address</h4>
+        <div class="example">"@{Copywriter} write a 200-word homepage intro for Meridian Law."</div>
+        <p>Use <code>@{RoleToken}</code> when you know who you need. Bypasses Sam's routing step.</p>
+        <p class="syntax-note">Both <code>@{Copywriter}</code> and <code>@Finn</code> work, use whichever feels natural.</p>
+      </div>
+      <div class="syntax-card">
+        <h4>Multi-step request</h4>
+        <div class="example">"I need a full social calendar for NovaStar Gym, strategy, post copy, and visual direction."</div>
+        <p>Sam will loop in Sage, Juno, and Cleo in sequence. You'll see the handoffs happen.</p>
+      </div>
+    </div>
+  </section>
 
-    <section class="section">
-      <h2 class="section-title">Model Assignments</h2>
-      <p class="section-intro">Each agent file in <code>.claude/agents/</code> specifies a model. Assignments are pre-configured — no action needed unless you're hiring a new team member.</p>
-      <table class="caveman-table">
-        <thead>
-          <tr><th>Model</th><th>Assigned to</th><th>Why</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>claude-fable-5</td><td>Odin (Senior Adviser), Quinn (QA Compliance Reviewer)</td><td>Highest-stakes checkpoint and gate work: the two gatekeepers hold verdict power over everyone else's deliverables.</td></tr>
-          <tr><td>claude-sonnet-5</td><td>All 26 other team members</td><td>Best balance of quality and speed for production work.</td></tr>
-        </tbody>
-      </table>
-    </section>
+  <!-- ============ WHO IT'S FOR ============ -->
+  <section class="block" id="who-for">
+    <div class="block-head">
+      <p class="block-kicker">Find yourself</p>
+      <h2>Who this is for</h2>
+      <p>Three of the reasons people end up using this vault. Honest about the trade, including the catch, not just the pitch.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card">
+        <h3>Solo founder / consultant</h3>
+        <p class="who-who">One person doing the work of a marketing department, with no budget to hire one.</p>
+        <p class="who-headline">A whole studio, without hiring anyone.</p>
+        <p class="who-hook">You get specialists in copy, SEO, brand strategy, visual production and analytics: you're still the only person in the room, but the room got bigger.</p>
+        <p class="who-best"><strong>Best way to use it:</strong> run everyday jobs through the Fast-Path Lane (single-file, reversible work skips the full pipeline). For anything bigger, let Sam route you to <code>@{Copywriter}</code>, <code>@{BrandStrategist}</code>, and so on.</p>
+        <p class="who-catch"><strong>The catch:</strong> one session, one Orchestrator, not 28 people working in parallel. You still queue the work; you just don't do every part of it yourself.</p>
+      </div>
+      <div class="who-card">
+        <h3>Small agency owner</h3>
+        <p class="who-who">Running client work through a small team, where a mistake in a deliverable is a client-facing problem, not an internal one.</p>
+        <p class="who-headline">Nothing reaches a client unchecked.</p>
+        <p class="who-hook">Every file heading to <code>03 Deliverables/</code> goes through the QA Compliance Reviewer first, with an Advisor Checkpoint before drafting and before handoff on durable work.</p>
+        <p class="who-best"><strong>Best way to use it:</strong> treat the QA Gate (PASS / FLAGGED / BLOCKED) as non-negotiable. Route regulated-category copy through <code>@{LegalComplianceWriter}</code> before it goes near a client.</p>
+        <p class="who-catch"><strong>The catch:</strong> Advisor Checkpoints and the QA Gate run on Fable 5 (<code>claude-fable-5</code>): real token cost on every checkpoint-eligible job. Client safety isn't free.</p>
+      </div>
+      <div class="who-card">
+        <h3>Non-technical team member</h3>
+        <p class="who-who">Needs to get something done in here without knowing, or wanting to know, how any of it works underneath.</p>
+        <p class="who-headline">You don't need to know who does what.</p>
+        <p class="who-hook">Sam figures out routing for you; <code>grill-me</code> asks one question at a time instead of demanding a perfect brief, and plan mode shows the approach before anything happens.</p>
+        <p class="who-best"><strong>Best way to use it:</strong> describe what you want in plain language and let Sam route it. If you're not sure your request is clear, run <code>/prompt-review</code> first, it coaches the ask before you send it.</p>
+        <p class="who-catch"><strong>The catch:</strong> this is a Claude Code template, not a polished SaaS product. There's a genuine learning curve to the conventions (folders, checkpoints, what goes where), even with the guardrails softening it.</p>
+      </div>
+    </div>
+  </section>
 
-    <section class="section">
-      <h2 class="section-title">Vault Structure</h2>
-      <p class="section-intro">The root is reserved for named top-level folders only. New persistent storage goes under <code>Vault/</code> — never at root level.</p>
-      <div class="structure-tree">Claude - [YourCompany]/<br>
-├── .claude/<br>
-│   ├── agents/                    ← persona files for all 28 team members<br>
-│   ├── commands/<br>
-│   │   ├── onboard.md             ← /onboard command (run first)<br>
-│   │   ├── update.md              ← /update command (pull template updates)<br>
-│   │   ├── log-session.md         ← /log-session command<br>
-│   │   ├── handoff-save.md        ← /handoff-save command<br>
-│   │   ├── import-repos.md        ← /import-repos command<br>
-│   │   └── memory-reconcile.md    ← /memory-reconcile command<br>
-│   ├── skills/                    ← skill instruction sets (grill-me, humaniser, etc.)<br>
-│   └── settings.json<br>
-├── Notes/                         ← daily notes, canvas files, clippings, staging<br>
-├── Projects/<br>
-│   ├── Template/                  ← blank project folder template<br>
-│   └── [Your client projects]/<br>
-├── Resources/<br>
-│   ├── Assets/                    ← images, sam-routing.gif<br>
-│   ├── Build Standards/           ← code, email + HTML deliverable standards<br>
-│   ├── Git/                       ← cloned reference repos (git-ignored)<br>
-│   ├── Learn/                     ← this guide<br>
-│   ├── Onboarding/                ← SETUP.md, dependencies.md, minimum-viable-roster.md, team-onboarding-guide.md<br>
-│   │   └── Demos/                 ← 5 sample onboarding projects<br>
-│   │       ├── Demo - Bloom Bakery - SEO Audit/<br>
-│   │       ├── Demo - Meridian Law - Homepage UX Review/<br>
-│   │       ├── Demo - NovaStar Gym - Social Media Calendar/<br>
-│   │       ├── Demo - Thornwood Coffee - Brand Copywriting/<br>
-│   │       └── Demo - Velora Studio - Hire Paid Media Specialist/<br>
-│   ├── Platform Specs/            ← ad-platform spec references<br>
-│   ├── Research/                  ← Senior Researcher's role research briefs<br>
-│   └── SOPs/                      ← Advisor Checkpoints, Repo Consultation, etc.<br>
-├── Vault/<br>
-│   ├── Archive/                   ← retired projects and personas<br>
-│   ├── Attachments/               ← media and file attachments<br>
-│   ├── Bases/                     ← Obsidian Bases files<br>
-│   ├── Categories/                ← category definitions<br>
-│   ├── Logs/<br>
-│   │   ├── Sessions/              ← /log-session outputs<br>
-│   │   └── Handoffs/              ← /handoff-save outputs (synced cross-machine)<br>
-│   ├── Memory/                    ← persistent memory + theme map<br>
-│   │   ├── MEMORY.md               ← shipped vault-ops index (tracked, maintainer-owned)<br>
-│   │   ├── context.md              ← your local team memory (git-ignored; seed: context.example.md)<br>
-│   │   ├── theme-name-map.md<br>
-│   │   ├── theme-change-log.md<br>
-│   │   └── repo-conflicts.md<br>
-│   ├── Scripts/<br>
-│   │   ├── lib/                   ← shared helpers (map-parse.sh)<br>
-│   │   ├── sync-theme.sh          ← theme sync utility<br>
-│   │   └── validate.sh            ← template consistency checker<br>
-│   └── Templates/                 ← note templates<br>
-├── CLAUDE.md                      ← orchestrator rules + team roster<br>
-├── README.md<br>
-└── .env.example                   ← API key template</div>
-    </section>
+  <!-- ============ REFERENCE (collapsed by default) ============ -->
+  <section class="block" id="reference">
+    <div class="block-head">
+      <p class="block-kicker">Keep digging, on your terms</p>
+      <h2>Reference</h2>
+      <p>Commands, sample projects and troubleshooting live here, collapsed by default. Open only what you need, or follow a link straight to a section, it opens and scrolls automatically.</p>
+    </div>
 
-  </div>
-</div>
+    <details class="ref-block" id="commands">
+      <summary>
+        <span class="ref-summary-text">
+          <span style="font-weight:700; font-size:1.02rem;">Commands &amp; skills</span>
+          <span>23 entries across 6 categories. Some you type, others Sam brings in automatically.</span>
+        </span>
+        <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="ref-body">
+        <div id="commandsGrid"></div>
+        <p class="cmd-note">The entries above are this vault's custom skills and workflows, plus a set of marketplace-plugin skills the team can call on. For Claude Code's own built-ins, keyboard shortcuts, native slash commands, MCP setup, release changelog, see the community-maintained <a href="https://cc.storyfox.cz/" target="_blank" rel="noopener">Claude Code Cheat Sheet</a>, updated with each release.</p>
+      </div>
+    </details>
+
+    <details class="ref-block" id="start">
+      <summary>
+        <span class="ref-summary-text">
+          <span style="font-weight:700; font-size:1.02rem;">Start here, sample projects</span>
+          <span>5 half-finished projects that teach a different workflow layer each.</span>
+        </span>
+        <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="ref-body">
+        <div id="projectsGrid"></div>
+        <div class="real-task-note">
+          <strong>Ready to work on a real client?</strong> You don't need to run the sample projects first. Just describe what you need, Sam will route it. The sample projects are here when you want to learn the system mechanics without stakes.
+        </div>
+      </div>
+    </details>
+
+    <details class="ref-block" id="faq">
+      <summary>
+        <span class="ref-summary-text">
+          <span style="font-weight:700; font-size:1.02rem;">Troubleshooting / FAQ</span>
+          <span>6 common friction points and how to fix them.</span>
+        </span>
+        <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="ref-body">
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </details>
+  </section>
 
 </main>
 
-<!-- ═══════════════════════════════════════════
-     SCRIPTS
-     ═══════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">The Studio Guide. AI Team Onboarding. Content and the four data arrays (roster, commands, sample projects, troubleshooting) are the single source of truth, edit them in the data block at the top of this file.</div>
+</footer>
+
+<div id="liveRegion" aria-live="polite"></div>
+
+<!-- ═══════════ LOGIC ═══════════ -->
 <script>
-// ── Last synced ──
-document.getElementById('lastSynced').textContent = LAST_SYNCED;
+(function(){
+  "use strict";
 
-// ── Tab switcher ──
-const tabBtns = document.querySelectorAll('.tab-btn');
-const tabPanels = document.querySelectorAll('.tab-panel');
+  /* ---- Last synced stamp ---- */
+  (function(){
+    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var el=document.getElementById('lastSynced');
+    if(!el) return;
+    var p=String(LAST_SYNCED).split('-');
+    el.textContent=(p.length===3)
+      ? 'Last synced '+parseInt(p[2],10)+' '+months[parseInt(p[1],10)-1]+' '+p[0]
+      : 'Last synced '+LAST_SYNCED;
+  })();
 
-function activateTab(tabId) {
-  tabBtns.forEach(btn => {
-    const isActive = btn.dataset.tab === tabId;
-    btn.classList.toggle('active', isActive);
-    btn.setAttribute('aria-selected', isActive);
-  });
-  tabPanels.forEach(panel => {
-    panel.classList.toggle('active', panel.id === 'panel-' + tabId);
-  });
-  try { localStorage.setItem('activeTab', tabId); } catch(e) {}
-  history.replaceState(null, '', '#' + tabId);
-}
-
-tabBtns.forEach(btn => {
-  btn.addEventListener('click', () => activateTab(btn.dataset.tab));
-  btn.addEventListener('keydown', e => {
-    const tabs = Array.from(tabBtns);
-    const idx = tabs.indexOf(btn);
-    if (e.key === 'ArrowRight') { tabs[(idx + 1) % tabs.length].focus(); }
-    if (e.key === 'ArrowLeft') { tabs[(idx - 1 + tabs.length) % tabs.length].focus(); }
-  });
-});
-
-(function() {
-  const hash = location.hash.replace('#', '');
-  const stored = (() => { try { return localStorage.getItem('activeTab'); } catch(e) { return null; } })();
-  const target = (hash === 'why' || hash === 'user' || hash === 'admin') ? hash : (stored || 'user');
-  if (target !== 'user') activateTab(target);
-})();
-
-// ── Copy to clipboard ──
-function copyText(text, btn) {
-  const write = () => {
-    btn.textContent = '✓ Copied';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy prompt'; btn.classList.remove('copied'); }, 2000);
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(write).catch(() => fallback());
-  } else { fallback(); }
-  function fallback() {
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); write(); } catch(e) {}
-    document.body.removeChild(ta);
-  }
-}
-
-// ── Render roster ──
-let currentFilter = 'all';
-
-function buildRoster() {
-  const grid = document.getElementById('rosterGrid');
-  grid.innerHTML = '';
-  TEAM.forEach((member, i) => {
-    const card = document.createElement('div');
-    card.className = 'persona-card';
-    card.setAttribute('role', 'listitem');
-    card.dataset.search = [member.name, member.role, member.token, ...member.tags, ...member.expertise].join(' ').toLowerCase();
-    card.dataset.core = member.core ? 'true' : 'false';
-
-    const tagsHtml = member.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    const expertiseHtml = member.expertise.map(e => `<li>${e}</li>`).join('');
-    const isInternal = member.token === 'SeniorAdviser';
-    const coreBadge = member.core ? `<span class="core-badge">Core</span>` : '';
-
-    card.innerHTML = `
-      <div class="card-header">
-        <div class="card-name-row">
-          <div class="card-name">${member.name}</div>
-          ${coreBadge}
-        </div>
-        <div class="card-role">${member.role}</div>
-        <div class="card-token">@{${member.token}} &nbsp;·&nbsp; @${member.name}</div>
-        <div class="card-tags">${tagsHtml}</div>
-      </div>
-      <div class="card-body">
-        <p class="card-desc">${member.desc}</p>
-      </div>
-      <div class="card-footer">
-        <div class="sample-prompt-label">Sample prompt</div>
-        <div class="sample-prompt-text">${member.prompt}</div>
-        ${!isInternal ? `<button class="copy-btn" aria-label="Copy sample prompt for ${member.name}">Copy prompt</button>` : ''}
-      </div>
-      <button class="card-expand" aria-expanded="false" aria-controls="details-${i}">
-        Full expertise &amp; constraints <span class="expand-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="card-details" id="details-${i}">
-        <h4>Expertise</h4>
-        <ul>${expertiseHtml}</ul>
-        <h4>Constraints</h4>
-        <p class="constraint-note">${member.constraints}</p>
-      </div>
-    `;
-
-    const copyBtn = card.querySelector('.copy-btn');
-    if (copyBtn) copyBtn.addEventListener('click', () => copyText(member.prompt, copyBtn));
-
-    const expandBtn = card.querySelector('.card-expand');
-    const details = card.querySelector('.card-details');
-    expandBtn.addEventListener('click', () => {
-      const open = details.classList.toggle('open');
-      expandBtn.setAttribute('aria-expanded', open);
-      expandBtn.innerHTML = `${open ? 'Hide' : 'Full expertise &amp; constraints'} <span class="expand-arrow${open ? ' open' : ''}" aria-hidden="true">▾</span>`;
-    });
-
-    grid.appendChild(card);
-  });
-  applyFilters();
-}
-
-// ── Roster filter + search ──
-function applyFilters() {
-  const q = document.getElementById('rosterSearch').value.toLowerCase().trim();
-  document.querySelectorAll('.persona-card').forEach(card => {
-    const matchesSearch = !q || card.dataset.search.includes(q);
-    const matchesFilter = currentFilter === 'all' || card.dataset.core === 'true';
-    card.classList.toggle('hidden', !(matchesSearch && matchesFilter));
-  });
-  updateCount();
-
-  const grid = document.getElementById('rosterGrid');
-  const hasVisible = document.querySelectorAll('.persona-card:not(.hidden)').length > 0;
-  const empty = document.getElementById('emptyState');
-  if (!hasVisible && !empty) {
-    const el = document.createElement('p');
-    el.className = 'empty-state'; el.id = 'emptyState';
-    el.textContent = 'No team members match that search.';
-    grid.appendChild(el);
-  } else if (hasVisible && empty) {
-    empty.remove();
-  }
-}
-
-function updateCount() {
-  const visible = document.querySelectorAll('.persona-card:not(.hidden)').length;
-  const total = TEAM.length;
-  document.getElementById('rosterCount').textContent = visible === total
-    ? `${total} team members`
-    : `${visible} of ${total} team members`;
-}
-
-document.getElementById('rosterSearch').addEventListener('input', applyFilters);
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.filter;
-    applyFilters();
-  });
-});
-
-// ── Render slash commands ──
-function buildCommands() {
-  const grid = document.getElementById('commandsGrid');
-  COMMAND_CATEGORY_ORDER.forEach(category => {
-    const items = SLASH_COMMANDS.filter(item => item.category === category);
-    if (!items.length) return;
-    const group = document.createElement('div');
-    group.className = 'command-group';
-    const heading = document.createElement('div');
-    heading.className = 'command-group-title';
-    heading.textContent = category;
-    group.appendChild(heading);
-    const subGrid = document.createElement('div');
-    subGrid.className = 'ref-grid';
-    items.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'ref-card';
-      card.innerHTML = `
-        <div class="ref-card-name-row">
-          <div class="ref-card-name">${item.name}</div>
-          <span class="type-badge ${item.type}">${item.type}</span>
-          ${item.plugin ? '<span class="plugin-chip">plugin</span>' : ''}
-          ${item.autoInvoked ? '<span class="auto-chip">auto-invoked</span>' : ''}
-        </div>
-        <div class="ref-card-desc">${item.desc}</div>
-        <div class="ref-card-when"><strong>When to use:</strong> ${item.when}</div>
-      `;
-      subGrid.appendChild(card);
-    });
-    group.appendChild(subGrid);
-    grid.appendChild(group);
-  });
-}
-
-// ── Render sample projects ──
-function buildProjects() {
-  const grid = document.getElementById('projectsGrid');
-  SAMPLE_PROJECTS.forEach(p => {
-    const row = document.createElement('div');
-    row.className = 'project-row';
-    const starHtml = p.star ? `<span class="project-star">★ ${p.star}</span>` : '';
-    row.innerHTML = `
-      <div class="project-header">
-        <span class="project-num">${p.num}.</span>
-        <span class="project-name">${p.name}</span>
-        ${starHtml}
-      </div>
-      <div class="project-teaches">Teaches: ${p.teaches}</div>
-      <div class="project-prompt">${p.prompt}</div>
-      <button class="copy-btn" style="margin-top:4px;">Copy prompt</button>
-    `;
-    const btn = row.querySelector('.copy-btn');
-    btn.addEventListener('click', () => copyText(p.prompt, btn));
-    grid.appendChild(row);
-  });
-}
-
-// ── Render FAQ ──
-function buildFaq() {
-  const list = document.getElementById('faqList');
-  FAQ.forEach((item, i) => {
-    const el = document.createElement('div');
-    el.className = 'faq-item';
-    el.innerHTML = `
-      <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-${i}">
-        ${item.q}
-        <span class="faq-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="faq-answer" id="faq-answer-${i}">${item.a}</div>
-    `;
-    const btn = el.querySelector('.faq-question');
-    const answer = el.querySelector('.faq-answer');
-    const arrow = el.querySelector('.faq-arrow');
-    btn.addEventListener('click', () => {
-      const open = answer.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-      arrow.classList.toggle('open', open);
-    });
-    list.appendChild(el);
-  });
-}
-
-// ── Init ──
-buildRoster();
-buildCommands();
-buildProjects();
-buildFaq();
-</script>
-
-<!-- Theme toggle — outside <main>, immediately before </body> -->
-<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-  <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <circle cx="12" cy="12" r="5"/>
-    <line x1="12" y1="1" x2="12" y2="3"/>
-    <line x1="12" y1="21" x2="12" y2="23"/>
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-    <line x1="1" y1="12" x2="3" y2="12"/>
-    <line x1="21" y1="12" x2="23" y2="12"/>
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-  </svg>
-  <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-  </svg>
-</button>
-
-<script>
-(function () {
-  // --- Theme bootstrap ---
-  var KEY = 'html-deliverable-theme';
-  var html = document.documentElement;
-  var btn  = document.getElementById('theme-toggle');
-  var sun  = document.getElementById('icon-sun');
-  var moon = document.getElementById('icon-moon');
-
-  function applyTheme(theme) {
+  /* ---- Theme toggle (light/dark, persisted) ---- */
+  var THEME_KEY='learn-theme';
+  var html=document.documentElement;
+  var toggleBtn=document.getElementById('theme-toggle');
+  var sun=document.getElementById('icon-sun');
+  var moon=document.getElementById('icon-moon');
+  function applyTheme(theme){
     html.setAttribute('data-theme', theme);
-    if (theme === 'dark') {
-      sun.style.display  = 'none';
-      moon.style.display = '';
-    } else {
-      sun.style.display  = '';
-      moon.style.display = 'none';
-    }
+    var isDark=theme==='dark';
+    toggleBtn.setAttribute('aria-pressed', String(isDark));
+    sun.style.display=isDark?'none':'block';
+    moon.style.display=isDark?'block':'none';
   }
-
-  var stored = localStorage.getItem(KEY);
-  if (stored) {
-    applyTheme(stored);
-  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    applyTheme('dark');
-  }
-
-  btn.addEventListener('click', function () {
-    var current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    applyTheme(current);
-    localStorage.setItem(KEY, current);
+  var storedTheme=null;
+  try{ storedTheme=localStorage.getItem(THEME_KEY); }catch(e){}
+  var prefersDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(storedTheme||(prefersDark?'dark':'light'));
+  toggleBtn.addEventListener('click', function(){
+    var next=html.getAttribute('data-theme')==='dark'?'light':'dark';
+    applyTheme(next);
+    try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
   });
-}());
+
+  /* ---- Family lookup: fails loudly on an unmapped token, no silent dead-key default ---- */
+  function familyOf(member){
+    var key=FAMILY_MAP[member.token];
+    if(!key){
+      var msg='Learn page data error: no family mapping for token "'+member.token+'" ('+member.name+'). '
+        +'Every TEAM member must have an entry in FAMILY_MAP.';
+      console.error(msg);
+      throw new Error(msg);
+    }
+    return key;
+  }
+  var FAMILY_LABEL={};
+  FAMILIES.forEach(function(f){ FAMILY_LABEL[f.key]=f.label; });
+
+  /* ---- Copy to clipboard (with execCommand fallback + live-region announce) ---- */
+  function announce(msg){
+    var region=document.getElementById('liveRegion');
+    if(!region) return;
+    region.textContent='';
+    setTimeout(function(){ region.textContent=msg; },30);
+  }
+  function copyText(text,btn){
+    var originalLabel=btn.textContent;
+    function done(){
+      btn.textContent='✓ Copied';
+      btn.classList.add('copied');
+      announce('Prompt copied to clipboard');
+      setTimeout(function(){ btn.textContent=originalLabel; btn.classList.remove('copied'); },2000);
+    }
+    function fallback(){
+      var ta=document.createElement('textarea');
+      ta.value=text; ta.style.position='fixed'; ta.style.left='-9999px'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+      done();
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else { fallback(); }
+  }
+
+  /* ---- Roster: search string precompute ---- */
+  TEAM.forEach(function(m){
+    m._fam=familyOf(m);
+    m._search=[m.name, m.role, m.token, m.tags.join(' '), m.desc, m.expertise.join(' ')].join(' ').toLowerCase();
+  });
+
+  var grid=document.getElementById('rosterGrid');
+  var countEl=document.getElementById('rosterCount');
+  var searchInput=document.getElementById('rosterSearch');
+  var filterAllBtn=document.getElementById('filterAll');
+  var filterCoreBtn=document.getElementById('filterCore');
+  var legendEl=document.getElementById('familyLegend');
+  var state={ q:'', tier:'all', fam:'all' };
+
+  /* ---- family legend chips (text label + colour, never colour-only) ---- */
+  FAMILIES.forEach(function(f){
+    var btn=document.createElement('button');
+    btn.type='button';
+    btn.className='fam-chip';
+    btn.dataset.fam=f.key;
+    btn.setAttribute('aria-pressed','false');
+    btn.innerHTML='<span class="dot" aria-hidden="true"></span>'+f.label;
+    btn.addEventListener('click', function(){
+      state.fam=(state.fam===f.key)?'all':f.key;
+      syncFamilyChips();
+      renderRoster();
+    });
+    legendEl.appendChild(btn);
+  });
+  function syncFamilyChips(){
+    Array.prototype.forEach.call(legendEl.children, function(chip){
+      chip.setAttribute('aria-pressed', chip.dataset.fam===state.fam ? 'true' : 'false');
+    });
+  }
+
+  function setTier(tier){
+    state.tier=tier;
+    filterAllBtn.setAttribute('aria-pressed', tier==='all'?'true':'false');
+    filterCoreBtn.setAttribute('aria-pressed', tier==='core'?'true':'false');
+    try{ localStorage.setItem('learn-roster-tier', tier); }catch(e){}
+    renderRoster();
+  }
+  filterAllBtn.addEventListener('click', function(){ setTier('all'); });
+  filterCoreBtn.addEventListener('click', function(){ setTier('core'); });
+  var storedTier=null;
+  try{ storedTier=localStorage.getItem('learn-roster-tier'); }catch(e){}
+  setTier(storedTier==='core'?'core':'all');
+
+  searchInput.addEventListener('input', function(){
+    state.q=searchInput.value.trim().toLowerCase();
+    renderRoster();
+  });
+
+  function cardHTML(m,i){
+    var famColorVar='var(--fam-'+m._fam+')';
+    var famTintVar='var(--fam-'+m._fam+'-tint)';
+    var famLabel=FAMILY_LABEL[m._fam];
+    var expertiseList=m.expertise.map(function(e){ return '<li>'+e+'</li>'; }).join('');
+    var isInternal=m.token==='SeniorAdviser';
+    return (
+      '<article class="card" role="listitem" style="--fam-col:'+famColorVar+'; --tint:'+famTintVar+'" data-family="'+m._fam+'" data-core="'+(m.core?'true':'false')+'">'+
+        '<div class="card-top">'+
+          '<div class="card-id"><h3>'+m.name+'</h3><p class="card-role">'+m.role+'</p><p class="fam-label">'+famLabel+'</p></div>'+
+          '<span class="token-pill">@{'+m.token+'}</span>'+
+        '</div>'+
+        (m.core?'<span class="core-badge">Core team</span>':'')+
+        '<div class="card-tags">'+m.tags.map(function(t){ return '<span>'+t+'</span>'; }).join('')+'</div>'+
+        '<p class="card-desc">'+m.desc+'</p>'+
+        '<div class="prompt-box">'+
+          '<p>&ldquo;'+m.prompt+'&rdquo;</p>'+
+          (!isInternal?'<button type="button" class="copy-btn" data-copy="'+encodeURIComponent(m.prompt)+'" aria-label="Copy sample prompt for '+m.name+'">Copy</button>':'')+
+        '</div>'+
+        '<button type="button" class="card-expand" aria-expanded="false" aria-controls="details-'+i+'">'+
+          '<span class="arrow" aria-hidden="true">&rsaquo;</span> Full expertise &amp; constraints'+
+        '</button>'+
+        '<div class="card-details" id="details-'+i+'">'+
+          '<h4>Expertise</h4><ul>'+expertiseList+'</ul>'+
+          '<h4>Constraints</h4><p class="constraint">'+m.constraints+'</p>'+
+        '</div>'+
+      '</article>'
+    );
+  }
+
+  function renderRoster(){
+    var q=state.q;
+    var filtered=TEAM.filter(function(m){
+      if(state.tier==='core'&&!m.core) return false;
+      if(state.fam!=='all'&&m._fam!==state.fam) return false;
+      if(q&&m._search.indexOf(q)===-1) return false;
+      return true;
+    });
+
+    grid.innerHTML=filtered.length
+      ? filtered.map(cardHTML).join('')
+      : '<div class="roster-empty">No team members match that search. Try a different name, role, or skill.</div>';
+
+    countEl.textContent=(filtered.length===TEAM.length)
+      ? TEAM.length+' team members'
+      : filtered.length+' of '+TEAM.length+' team members shown';
+
+    grid.querySelectorAll('.card-expand').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var open=btn.getAttribute('aria-expanded')==='true';
+        btn.setAttribute('aria-expanded', open?'false':'true');
+        var details=document.getElementById(btn.getAttribute('aria-controls'));
+        if(details) details.classList.toggle('open', !open);
+      });
+    });
+    grid.querySelectorAll('.copy-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ copyText(decodeURIComponent(btn.dataset.copy), btn); });
+    });
+  }
+  renderRoster();
+  syncFamilyChips();
+
+  /* ---- Render commands, grouped by COMMAND_CATEGORY_ORDER ---- */
+  function buildCommands(){
+    var grid=document.getElementById('commandsGrid');
+    COMMAND_CATEGORY_ORDER.forEach(function(category){
+      var items=SLASH_COMMANDS.filter(function(item){ return item.category===category; });
+      if(!items.length) return;
+      var group=document.createElement('div');
+      group.className='command-group';
+      var heading=document.createElement('div');
+      heading.className='command-group-title';
+      heading.textContent=category;
+      group.appendChild(heading);
+      var list=document.createElement('div');
+      list.className='ref-list';
+      items.forEach(function(item){
+        var card=document.createElement('div');
+        card.className='ref-item';
+        card.innerHTML=
+          '<div class="ref-item-head">'+
+            '<code>'+item.name+'</code>'+
+            '<span class="ref-badge '+item.type+'">'+item.type+'</span>'+
+            (item.plugin?'<span class="plugin-chip">plugin</span>':'')+
+            (item.autoInvoked?'<span class="auto-chip">auto-invoked</span>':'')+
+          '</div>'+
+          '<p>'+item.desc+'</p>'+
+          '<p class="ref-when"><strong>When:</strong> '+item.when+'</p>';
+        list.appendChild(card);
+      });
+      group.appendChild(list);
+      grid.appendChild(group);
+    });
+  }
+
+  /* ---- Render sample projects ---- */
+  function buildProjects(){
+    var grid=document.getElementById('projectsGrid');
+    SAMPLE_PROJECTS.forEach(function(p){
+      var row=document.createElement('div');
+      row.className='project-row';
+      var starHtml=p.star?'<span class="project-star">★ '+p.star+'</span>':'';
+      row.innerHTML=
+        '<div class="project-header">'+
+          '<span class="project-num">'+p.num+'.</span>'+
+          '<span class="project-name">'+p.name+'</span>'+starHtml+
+        '</div>'+
+        '<div class="project-teaches">Teaches: '+p.teaches+'</div>'+
+        '<div class="project-prompt">'+p.prompt+'</div>'+
+        '<button type="button" class="copy-btn" data-copy="'+encodeURIComponent(p.prompt)+'">Copy prompt</button>';
+      var btn=row.querySelector('.copy-btn');
+      btn.addEventListener('click', function(){ copyText(p.prompt,btn); });
+      grid.appendChild(row);
+    });
+  }
+
+  /* ---- Render FAQ ---- */
+  function buildFaq(){
+    var list=document.getElementById('faqList');
+    FAQ.forEach(function(item,i){
+      var el=document.createElement('div');
+      el.className='faq-item';
+      el.innerHTML=
+        '<button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-'+i+'">'+
+          item.q+'<span class="faq-arrow" aria-hidden="true">▾</span>'+
+        '</button>'+
+        '<div class="faq-answer" id="faq-answer-'+i+'">'+item.a+'</div>';
+      var btn=el.querySelector('.faq-question');
+      var answer=el.querySelector('.faq-answer');
+      var arrow=el.querySelector('.faq-arrow');
+      btn.addEventListener('click', function(){
+        var open=answer.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        arrow.classList.toggle('open', open);
+      });
+      list.appendChild(el);
+    });
+  }
+
+  buildCommands();
+  buildProjects();
+  buildFaq();
+
+  /* ---- Deep-link + browser-find safety net: opens any <details> ancestor of a
+         hash target and scrolls to it. Covers #commands, #start, #faq, #reference,
+         and any id nested inside them (correction 5). Native <details> already lets
+         Chrome/Firefox in-page Find (Ctrl+F) auto-expand on a text match; this
+         handles direct hash navigation and older engines that don't. ---- */
+  function revealHashTarget(){
+    var hash=location.hash?location.hash.slice(1):'';
+    if(!hash) return;
+    var el=document.getElementById(hash);
+    if(!el) return;
+    var node=el;
+    while(node){
+      if(node.tagName==='DETAILS'&&!node.open){ node.open=true; }
+      node=node.parentElement;
+    }
+    setTimeout(function(){ el.scrollIntoView({block:'start'}); },0);
+  }
+  window.addEventListener('hashchange', revealHashTarget);
+  revealHashTarget();
+
+})();
 </script>
 
 </body>
