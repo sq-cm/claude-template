@@ -175,7 +175,7 @@ Text cannot hold a location. A schematic map can — and size and position stay 
 
 Use the schematic map template: [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLATE.md)
 
-A schematic map is a top-down spatial diagram of a single location. It records the GPT-2 prompt used to generate the diagram, the locked spatial facts extracted from it (which prop is where, at what size relative to a human figure), and a link to the generated diagram image.
+A schematic map is a top-down spatial diagram of a single location. It records the GPT Image 2 prompt used to generate the diagram, the locked spatial facts extracted from it (which prop is where, at what size relative to a human figure), and a link to the generated diagram image.
 
 **Relationship to the Frame Map (cinema-worldbuilder-pro-2.0):**
 - The schematic map is a **world-space prep artefact** — it records where props and landmarks physically sit in the location geometry (e.g., "fire hydrant at kerb; skydancer anchored 2× person-height to its right on the same line"). It is produced once per location, before shot prompting begins.
@@ -184,7 +184,7 @@ A schematic map is a top-down spatial diagram of a single location. It records t
 
 Steps:
 1. Identify the location and list every prop or landmark that must stay spatially consistent
-2. Write the GPT-2 schematic prompt (top-down view, labelled diagram, clean linework — no shading, no perspective)
+2. Write the GPT Image 2 schematic prompt (top-down view, labelled diagram, clean linework — no shading, no perspective)
 3. Generate the diagram and save it to the project folder
 4. Extract locked spatial facts from the diagram (position, relative size, clearance distances) and record them in the template
 5. Attach the schematic map file path to the world bible's location entry and to any shot spec that uses this location
@@ -205,7 +205,7 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 
 **Shot spec:** "Write a shot spec for [scene description]." → Skill fills the shot spec template and hands it to the appropriate skill.
 
-**Schematic map:** "Build a schematic map for [location name]." → Skill fills the schematic map template, records the GPT-2 diagram prompt, and locks the spatial facts for that location.
+**Schematic map:** "Build a schematic map for [location name]." → Skill fills the schematic map template, records the GPT Image 2 diagram prompt, and locks the spatial facts for that location.
 
 ---
 

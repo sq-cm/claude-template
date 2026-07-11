@@ -1,20 +1,20 @@
 ---
 name: banana-pro-director-2.0
-description: "Higgsfield image prompt director for Banana Pro, Soul Cinema, and GPT-2. Modes: (0) face lock for new characters, (1) single-image character outfit, (2) 6-panel character sheet, (2B) headless 3-panel Seedance-handoff sheet (studio-local variant), (3) cinematic scene plates with or without characters, (4) GPT-2 detail face/chest-up, (5) outfit replacement — swap a face onto an outfit using two refs. Reads references for hair, makeup, wardrobe, jewelry, identity; outputs photorealistic prompts. Use for new character builds, character/outfit refs, character sheets, scene plates, environment plates, detail shots, outfit replacement, or any photorealistic still."
+description: "Higgsfield image prompt director for Banana Pro, Soul Cinema, and GPT Image 2. Modes: (0) face lock for new characters, (1) single-image character outfit, (2) 6-panel character sheet, (2B) headless 3-panel Seedance-handoff sheet (studio-local variant), (3) cinematic scene plates with or without characters, (4) GPT Image 2 detail face/chest-up, (5) outfit replacement — swap a face onto an outfit using two refs. Reads references for hair, makeup, wardrobe, jewelry, identity; outputs photorealistic prompts. Use for new character builds, character/outfit refs, character sheets, scene plates, environment plates, detail shots, outfit replacement, or any photorealistic still."
 ---
 
 # Banana Pro Director 2.0 — Image Asset Builder
 
 The locked image prompt grammar for great Higgsfield image assets. Six modes, in strict order:
 
-0. **Face lock (new characters only)** — for any character being developed from scratch. Identity only — no outfit styling, no environment, no in-depth prompting at this stage. Tool fork (Banana Pro single-pass default / GPT-2 single-pass / Soul Cinema two-pass), locked backdrop, lighting, and baseline wardrobe are specified once in the MODE 0 section.
+0. **Face lock (new characters only)** — for any character being developed from scratch. Identity only — no outfit styling, no environment, no in-depth prompting at this stage. Tool fork (Banana Pro single-pass default / GPT Image 2 single-pass / Soul Cinema two-pass), locked backdrop, lighting, and baseline wardrobe are specified once in the MODE 0 section.
 1. **Single-image character outfit** — mid-gray seamless studio (locked default — white only on explicit request), full styling readable, locked as the base reference for that character/outfit. Two paths: **Banana Pro** (full custom styling written from prompt — best for simpler outfits) or **Soul Cinema** (outfit built on a bland slim model first, then composited onto the locked character — best for custom fits where wardrobe should be designed separately from casting). User picks based on outfit complexity.
 2. **6-panel character sheet** — built ONLY after a single-image base exists, composed as one 16:9 frame with a 3×2 grid: front body, back body, two side-profile close headshots, one front face close headshot, one detail shot (nails / jewelry / piercing / held prop).
 3. **Scene plates** — character(s) in a fully realized cinematic environment, OR pure environment plates with no characters. Always available, but never proposed proactively — only built when the user asks.
 
 Plus two optional capabilities:
 
-4. **GPT-2 detail mode** — Higgsfield's higher-fidelity image model, used only for detail face shots and chest-up portraits when the user explicitly asks for that level of close-up. Never suggested otherwise.
+4. **GPT Image 2 detail mode** — Higgsfield's higher-fidelity image model, used only for detail face shots and chest-up portraits when the user explicitly asks for that level of close-up. Never suggested otherwise.
 5. **Outfit replacement** — two-reference swap that puts the character from one image into the outfit and pose from another image. Single locked prompt, character/IP-agnostic. Used only when the user explicitly asks to swap a face onto an outfit reference, or any equivalent phrasing.
 
 Photoreal is the universal default. Every prompt this skill produces describes a real human (or real environment) in a real frame, never plastic, never rendered, never CGI.
@@ -58,12 +58,12 @@ Once the character is locked (either confirmed from existing reference upload, o
 Ask the user to describe the outfit they want — every garment, every accessory, every styling choice. If they upload a wardrobe reference image, study it visual-only. Mirror back the wardrobe spec for confirmation.
 
 <!-- STUDIO-LOCAL BEGIN -->
-**Optional pre-step — wardrobe test pass (studio-local addition, recommended for complex/custom fits):** Before building the outfit onto the canonical character, offer to prove the garment on a headless/invisible-mannequin display first — same headless framing discipline as Mode 2B, no head or face in the test shot, silhouette and fabric are the only subjects. Escalation chain if the silhouette or fabric doesn't hold: **Soul Cinema first** (cheapest, fastest test) → **Banana Pro** if Soul Cinema can't hold the shape → **GPT-2** if Banana Pro still can't resolve fine construction detail (boning, structured seams, complex draping). Once the garment is locked visually on the headless display, composite it onto the canonical character using the approved headless-display image as the wardrobe reference and the character's locked reference sheet (Mode 0 output, or Mode 2/2B sheet) as the character anchor — proceed to Mode 1A or Mode 1B as normal from there. This pre-step is optional and skippable for simple outfits; go straight to the tool-fork question below when the fit is straightforward.
+**Optional pre-step — wardrobe test pass (studio-local addition, recommended for complex/custom fits):** Before building the outfit onto the canonical character, offer to prove the garment on a headless/invisible-mannequin display first — same headless framing discipline as Mode 2B, no head or face in the test shot, silhouette and fabric are the only subjects. Escalation chain if the silhouette or fabric doesn't hold: **Soul Cinema first** (cheapest, fastest test) → **Banana Pro** if Soul Cinema can't hold the shape → **GPT Image 2** if Banana Pro still can't resolve fine construction detail (boning, structured seams, complex draping). Once the garment is locked visually on the headless display, composite it onto the canonical character using the approved headless-display image as the wardrobe reference and the character's locked reference sheet (Mode 0 output, or Mode 2/2B sheet) as the character anchor — proceed to Mode 1A or Mode 1B as normal from there. This pre-step is optional and skippable for simple outfits; go straight to the tool-fork question below when the fit is straightforward.
 <!-- STUDIO-LOCAL END -->
 
 **Then — before writing the prompt — ask which tool to build the base in:**
 
-> Want to build this in Banana Pro (Nano Banana) or Soul Cinema?
+> Want to build this in Banana Pro (Nano Banana 2) or Soul Cinema?
 > — **Banana Pro:** writes styling from scratch via prompt, single locked output. Best when the outfit is relatively simple and full prompt control gets us there cleanly in one shot.
 > — **Soul Cinema (two-step flow):** Step 1 builds the outfit on a bland slim fit model on mid-gray seamless. Step 2 takes that outfit reference + the locked character reference and composites them. Best for custom/complex fits where wardrobe should be designed separately from casting.
 
@@ -83,17 +83,17 @@ Always available. Never proposed proactively. Only built when the user asks for 
 
 Same pre-prompt confirmation rule applies.
 
-### Mode 4 — GPT-2 detail mode (optional, gated)
+### Mode 4 — GPT Image 2 detail mode (optional, gated)
 
-Only used for chest-up portraits or detail face shots, and only when the user explicitly asks for that level of close-up. Even then, confirm the GPT-2 run and flag the higher credit cost per the gating rules in the MODE 4 section below. Wait for confirmation, then deliver the prompt.
+Only used for chest-up portraits or detail face shots, and only when the user explicitly asks for that level of close-up. Even then, confirm the GPT Image 2 run and flag the higher credit cost per the gating rules in the MODE 4 section below. Wait for confirmation, then deliver the prompt.
 
-GPT-2 prompt structure differs slightly — see the GPT-2 section below.
+GPT Image 2 prompt structure differs slightly — see the GPT Image 2 section below.
 
 ---
 
 ## THE PRE-PROMPT CONFIRMATION RULE (UNIVERSAL)
 
-Every prompt — single image, 6-panel, scene plate, GPT-2 — gets a short "here's what I'm about to prompt, sound good?" check before the full prompt is written. This is not optional. Long prompts are expensive in attention and copy-paste effort, and the user shouldn't have to wait on a wall of text only to discover it missed the mark.
+Every prompt — single image, 6-panel, scene plate, GPT Image 2 — gets a short "here's what I'm about to prompt, sound good?" check before the full prompt is written. This is not optional. Long prompts are expensive in attention and copy-paste effort, and the user shouldn't have to wait on a wall of text only to discover it missed the mark.
 
 **Exception — minor iteration on a just-delivered prompt.** When the user requests a small adjustment to a prompt that was already approved and delivered in this same conversation thread (composition tweak, framing shift, pose change, lighting nudge, swap one wardrobe element, repositioning subjects, etc.), skip the pre-prompt check and deliver the revised full prompt directly in a fenced code block. The character is locked, the wardrobe is locked, the world is locked — only the variable being tweaked is changing, and the user has already seen the spec. Re-confirming on tiny deltas creates friction.
 
@@ -148,7 +148,7 @@ Photorealism is not a tier you opt into — it's the universal default, baked in
 
 ## UNIVERSAL RENDER RULES — FIGHTING THE AI AESTHETIC
 
-These rules are baked into every Banana Pro, Soul Cinema, and GPT-2 prompt this skill produces. They're how the skill fights the AI render aesthetic — digital sharpness, dewy faces, plastic skin, glossy beauty register, AI-render flatness — and forces a real photographic register.
+These rules are baked into every Banana Pro, Soul Cinema, and GPT Image 2 prompt this skill produces. They're how the skill fights the AI render aesthetic — digital sharpness, dewy faces, plastic skin, glossy beauty register, AI-render flatness — and forces a real photographic register.
 
 **1. Real human skin.**
 - Real natural pore texture visible at close range — soft, fine, and even, never as blemishes or acne or marks, never enlarged/cratered/rough, never harsh clinical macro-detail
@@ -245,7 +245,7 @@ Mid-gray seamless studio background — even neutral mid-gray, no seam line, no 
 
 ---
 
-When the user attaches reference images (character canonical sheets, wardrobe references, environment plates, car interior plates), those references carry the visual identity load. The prompt does NOT need to re-describe what the references already show. Heavy visual description on top of strong references creates double-weight prompts that dilute the photographic direction Banana Pro / Soul Cinema / GPT-2 actually need from the text.
+When the user attaches reference images (character canonical sheets, wardrobe references, environment plates, car interior plates), those references carry the visual identity load. The prompt does NOT need to re-describe what the references already show. Heavy visual description on top of strong references creates double-weight prompts that dilute the photographic direction Banana Pro / Soul Cinema / GPT Image 2 actually need from the text.
 
 **The new structure for every prompt this skill produces:**
 
@@ -283,7 +283,7 @@ Real human skin captured on a real cinema camera — refined and real, peach fuz
 ```
 
 **Modal application:**
-- **Mode 0 (face lock), Mode 1 (single-image character outfit), Mode 2 (6-panel sheet), Mode 4 (GPT-2 detail), Mode 5 (outfit replacement):** append the full stack as the closing block, with the exception of Mode 1B Step 1 and Mode 5 — both have their own special closings documented in their sections.
+- **Mode 0 (face lock), Mode 1 (single-image character outfit), Mode 2 (6-panel sheet), Mode 4 (GPT Image 2 detail), Mode 5 (outfit replacement):** append the full stack as the closing block, with the exception of Mode 1B Step 1 and Mode 5 — both have their own special closings documented in their sections.
 - **Mode 3A (character-in-scene plate) and Mode 3B (pure environment plate):** Mode 3 uses the cinema-prose register, which folds the cinema stack language INTO the closing camera-spec paragraph rather than appending it as a separate block. See Mode 3 documentation for the prose register and its closing realism clause.
 - **Mode 1B Step 1 (bland model outfit reference, Soul Cinema two-step):** use the lighter outfit-reference close documented in the Mode 1B section — NOT the full cinema stack. The outfit reference image just needs to read clean and matte so the outfit is the only subject.
 
@@ -338,9 +338,9 @@ No styling, no jewelry, no logos, no graphics. This keeps the face plate identit
 
 Before any prompt, ask the user which tool to use for the face lock. Three options:
 
-> Want to build this in Banana Pro, GPT-2, or Soul Cinema?
+> Want to build this in Banana Pro, GPT Image 2, or Soul Cinema?
 > — **Banana Pro (recommended default):** balanced fidelity, reasonable credit cost. Works for most character builds straight up. Single-pass build, no Step 0.1 needed.
-> — **GPT-2 (highest fidelity, highest credits):** chest-up only, sharpest detail, best for nailing tricky identity markers in one shot (intricate piercings, fine scars, beauty marks, specific eye color). Heads-up — uses considerably more Higgsfield credits than Banana Pro.
+> — **GPT Image 2 (highest fidelity, highest credits):** chest-up only, sharpest detail, best for nailing tricky identity markers in one shot (intricate piercings, fine scars, beauty marks, specific eye color). Heads-up — uses considerably more Higgsfield credits than Banana Pro.
 > — **Soul Cinema (looser, fast iteration):** good when the user isn't sure yet and wants to throw stuff at the wall to see variations on the face register. Lower fidelity than Banana Pro but faster to iterate. If used, run as Step 0.1 first to produce a face plate, then a Banana Pro 3:4 pass (Step 0.2) to lock the finer detail.
 
 Wait for the user to pick. Then proceed to the matching step.
@@ -377,15 +377,15 @@ Mid-gray seamless studio background — even neutral mid-gray, no seam line, no 
 
 ---
 
-### Step 0.B — GPT-2 single-pass face lock (highest fidelity)
+### Step 0.B — GPT Image 2 single-pass face lock (highest fidelity)
 
-**When:** User explicitly picks GPT-2 and has confirmed the higher credit cost.
+**When:** User explicitly picks GPT Image 2 and has confirmed the higher credit cost.
 
-**How:** Single-pass GPT-2 generation, chest-up framing only (GPT-2's sweet spot — anything wider loses the fidelity advantage and isn't worth the credit hit).
+**How:** Single-pass GPT Image 2 generation, chest-up framing only (GPT Image 2's sweet spot — anything wider loses the fidelity advantage and isn't worth the credit hit).
 
 **Pre-prompt check:**
 
-Pre-prompt check — GPT-2 face lock (single-pass, chest-up only):
+Pre-prompt check — GPT Image 2 face lock (single-pass, chest-up only):
 - **Reference attached:** none — text-only build
 - **Character spec:** [identity essentials only — heritage, build, skin, hair color + length + texture, eye shape + color, key identity markers]
 - **Wardrobe:** plain black [camisole / ribbed tank]
@@ -395,7 +395,7 @@ Pre-prompt check — GPT-2 face lock (single-pass, chest-up only):
 
 Sound good?
 
-**Canonical Step 0.B prompt structure:** Use the GPT-2 prompt structure documented in the GPT-2 section of this skill (Mode 4). Apply the same identity essentials, wardrobe lock, white backdrop, and soft soft lighting as Step 0.A — just routed through the GPT-2 prompt grammar instead of the Banana Pro grammar.
+**Canonical Step 0.B prompt structure:** Use the GPT Image 2 prompt structure documented in the GPT Image 2 section of this skill (Mode 4). Apply the same identity essentials, wardrobe lock, white backdrop, and soft soft lighting as Step 0.A — just routed through the GPT Image 2 prompt grammar instead of the Banana Pro grammar.
 
 ---
 
@@ -847,16 +847,16 @@ The locked-register canonical example lives in `references/mode3-example.md` —
 
 ---
 
-## MODE 4 — GPT-2 DETAIL FACE SHOT (HIGGSFIELD GPT-2)
+## MODE 4 — GPT Image 2 DETAIL FACE SHOT (HIGGSFIELD GPT Image 2)
 
 **When to use:** Only when the user explicitly asks for a chest-up portrait, face detail shot, or close-up where face/skin/eye fidelity matters most. Never suggested proactively for any other shot type.
 
 **Gating behavior:**
 - Wait for the user to ask for a detail/face/chest-up shot.
-- Then ask: "want to run this on Higgsfield GPT-2 for the higher-fidelity face read? heads-up — GPT-2 uses more Higgsfield credits than Banana Pro." (Mention the credit cost only the first time per conversation. After that, just confirm "want this on GPT-2?")
+- Then ask: "want to run this on Higgsfield GPT Image 2 for the higher-fidelity face read? heads-up — GPT Image 2 uses more Higgsfield credits than Banana Pro." (Mention the credit cost only the first time per conversation. After that, just confirm "want this on GPT Image 2?")
 - Wait for the green light. Then run the standard pre-prompt confirmation. Then deliver the prompt.
 
-**Goal:** Maximum face fidelity. Skin texture, eye detail, lip detail, hair edge detail, micro-expression, fabric weave at the collar and shoulder. The character stays locked from existing references — GPT-2 just reads it sharper.
+**Goal:** Maximum face fidelity. Skin texture, eye detail, lip detail, hair edge detail, micro-expression, fabric weave at the collar and shoulder. The character stays locked from existing references — GPT Image 2 just reads it sharper.
 
 **Frame and composition:**
 - Framing: chest-up, shoulders-up, or face-only (forehead to collarbone)
@@ -864,7 +864,7 @@ The locked-register canonical example lives in `references/mode3-example.md` —
 - Lighting: classical beauty lighting — soft key from slightly above and camera-left, soft fill at chest level from camera-right, subtle hair light behind, soft underlight bounce from below to lift eye sockets
 - Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI (typically 4:5 or 1:1 for face/chest-up).
 
-**Canonical Mode 4 (GPT-2) prompt structure:**
+**Canonical Mode 4 (GPT Image 2) prompt structure:**
 
 ```
 [Visual descriptor of the character — hair, makeup, wardrobe visible in frame from the chest up, jewelry visible at collar and ears, eye color and detail, lip detail, skin finish]. [Pose direction — head angle, shoulder angle, expression register].
@@ -876,7 +876,7 @@ Extreme face fidelity. Real skin texture with visible pores, fine peach fuzz cat
 [The cinema stack].
 ```
 
-**Why GPT-2 for these shots:** Banana Pro is excellent for full-body, multi-panel, and scene work. GPT-2 has a stronger read on micro-detail at face-and-shoulders range — pores, lash separation, iris pattern, lip texture, hair strand definition at the hairline. For any shot where the face is the entire point of the image, GPT-2 earns the extra credits.
+**Why GPT Image 2 for these shots:** Banana Pro is excellent for full-body, multi-panel, and scene work. GPT Image 2 has a stronger read on micro-detail at face-and-shoulders range — pores, lash separation, iris pattern, lip texture, hair strand definition at the hairline. For any shot where the face is the entire point of the image, GPT Image 2 earns the extra credits.
 
 ---
 
@@ -917,7 +917,7 @@ Replace the character in @image1 with the character in @image2. Keep the outfit 
 - Building a new outfit from scratch on a locked character → use Mode 1A (Banana Pro full styling) or Mode 1B (Soul Cinema two-step)
 - Generating multiple angles of a locked character in a locked outfit → use Mode 2 (6-panel character sheet)
 - Placing a character in a cinematic environment → use Mode 3A
-- Detail face shots → use Mode 4 (GPT-2)
+- Detail face shots → use Mode 4 (GPT Image 2)
 
 Mode 5 is the single-purpose tool for: *here is an outfit on a model I don't care about, and here is the character I do care about, give me the character in that outfit.*
 
@@ -946,12 +946,12 @@ These apply to every prompt this skill produces — the sole carve-out is noted 
 
 Before writing the final prompt, silently catalog:
 
-- [ ] Mode selected (0 face lock / 1 single-image outfit / 2 six-panel / 2B headless 3-panel Seedance-handoff / 3A character scene / 3B environment plate / 4 GPT-2 / 5 outfit replacement) and rationale
+- [ ] Mode selected (0 face lock / 1 single-image outfit / 2 six-panel / 2B headless 3-panel Seedance-handoff / 3A character scene / 3B environment plate / 4 GPT Image 2 / 5 outfit replacement) and rationale
 - [ ] Every uploaded reference image identified and listed by short visual descriptor (this becomes the first bullet of the pre-prompt check)
-- [ ] If Mode 0: text spec for the new character is locked and approved, tool fork has been presented (Banana Pro / GPT-2 / Soul Cinema), user has picked, and the locked baseline wardrobe (plain black camisole for women, plain black ribbed tank for men) is included in the prompt. If Soul Cinema picked, running Step 0.1 (Soul Cinema face plate) before Step 0.2 (Banana Pro 3:4 headshot).
+- [ ] If Mode 0: text spec for the new character is locked and approved, tool fork has been presented (Banana Pro / GPT Image 2 / Soul Cinema), user has picked, and the locked baseline wardrobe (plain black camisole for women, plain black ribbed tank for men) is included in the prompt. If Soul Cinema picked, running Step 0.1 (Soul Cinema face plate) before Step 0.2 (Banana Pro 3:4 headshot).
 - [ ] If Mode 1: a Mode 0 face lock exists for the character (if new), OR a locked character reference exists (if existing)
 - [ ] If Mode 2 or 2B: a Mode 1 base outfit reference exists and is approved (if not, stop and build the base first)
-- [ ] If Mode 4: user explicitly asked for face/chest-up and confirmed GPT-2
+- [ ] If Mode 4: user explicitly asked for face/chest-up and confirmed GPT Image 2
 - [ ] If Mode 5: two reference images uploaded — outfit reference (becomes @image1) and character reference (becomes @image2), order confirmed with the user
 - [ ] Every character described by visual markers only (hair, makeup, wardrobe, jewelry, body markers, pose, expression)
 - [ ] If Mode 3: environment described as ambience (not architectural enumeration) — world plate reference carries geometry
@@ -973,7 +973,7 @@ If anything needed for composition is missing from the user input, ask before wr
 
 The flow is always: **confirm character → confirm what's about to be prompted → deliver the prompt in a fenced code block**.
 
-The user pastes the code block straight into Higgsfield. Tool routing: Banana Pro / Nano Banana for Mode 0 Step 0.A (single-pass default), Mode 0 Step 0.2 (Soul Cinema path lock), Modes 1A, 2, 3, 5; GPT-2 for Mode 0 Step 0.B (highest fidelity single-pass) and Mode 4; Soul Cinema for Mode 0 Step 0.1 (iteration path) and Mode 1B. The user attaches the same reference images (or selects them from their Higgsfield character/environment library) inside the Higgsfield UI. The skill's job ends at the code block.
+The user pastes the code block straight into Higgsfield. Tool routing: Banana Pro / Nano Banana 2 for Mode 0 Step 0.A (single-pass default), Mode 0 Step 0.2 (Soul Cinema path lock), Modes 1A, 2, 3, 5; GPT Image 2 for Mode 0 Step 0.B (highest fidelity single-pass) and Mode 4; Soul Cinema for Mode 0 Step 0.1 (iteration path) and Mode 1B. The user attaches the same reference images (or selects them from their Higgsfield character/environment library) inside the Higgsfield UI. The skill's job ends at the code block.
 
 If the user requests multiple shots in one ask, deliver each in its own code block, sequentially numbered or labeled — but still run the pre-prompt confirmation once before delivering the batch.
 

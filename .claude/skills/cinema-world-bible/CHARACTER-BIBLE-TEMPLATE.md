@@ -76,7 +76,7 @@ The reference images that carry this character's identity. Mark each as PENDING 
 
 | Ref type | Library slug | Status | Notes |
 |---|---|---|---|
-| Face lock (Mode 0) | `[CHAR-SLUG]-FACE-LOCK` | PENDING / BUILT / LOCKED | Banana Pro or GPT-2 path |
+| Face lock (Mode 0) | `[CHAR-SLUG]-FACE-LOCK` | PENDING / BUILT / LOCKED | Banana Pro or GPT Image 2 path |
 | 6-panel character sheet (Mode 2) | `[CHAR-SLUG]-SHEET-[OUTFIT]` | PENDING / BUILT / LOCKED | Built after Mode 1 base |
 
 > The face lock reference is the canonical identity anchor. No outfit work (Mode 1), no scene plates (Mode 3), and no Seedance prompts should be built for this character until the face lock is LOCKED.
