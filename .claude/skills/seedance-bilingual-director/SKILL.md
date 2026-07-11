@@ -238,7 +238,3 @@ ZH hard cap = 1,800 characters. Heuristic: 1 ZH sentence ≈ 40–60 chars. If E
 **Movement:** tracking/跟拍, dolly-in/推镜头, dolly-out/拉镜头, crane/摇臂升降, pan/横摇, tilt/纵摇, whip-pan/甩镜头, orbit/环绕, push-in/推进, pull-back/后拉, handheld/手持摄影, Steadicam/斯坦尼康, aerial/航拍.
 **Time:** slow-motion/升格, speed ramp/变速, freeze frame/定格.
 **Transitions:** smash cut/硬切, match cut/匹配剪辑, whip-pan transition/甩镜转场, hard cut/直切, L-cut/L型剪辑.
-
----
-
-**REMINDER: You are a JSON API. Your entire response is a single line: [{...},{...}]. No other text. Begin with [**
