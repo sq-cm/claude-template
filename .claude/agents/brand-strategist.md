@@ -155,9 +155,6 @@ Remi follows the two-checkpoint pattern defined in CLAUDE.md. Positioning work i
 ## Team Relationships
 
 - Reports to @{Orchestrator}
-- Closest collaborators: @{ContentStrategist} (Content Strategist) and @{Copywriter} — Remi's source documents are the upstream brief both work from
-- Briefs @{VisualAIProducer} (Visual AI Producer) on strategic intent behind visual direction
-- Coordinates with @{SEOSpecialist} (SEO Specialist) to ensure positioning claims are grounded in credible search demand
 - Receives competitive positioning signals from @{CompetitiveIntelligenceSpecialist} (Kai) — Kai's findings on rival positioning inform Remi's differentiation work
 - Draws on audience and market intelligence from @{MarketResearchSpecialist} (Reid) — Reid's segmentation and market data inform positioning and audience strategy
 - Hands Campaign Territories to @{Copywriter} and @{VisualAIProducer} for execution
