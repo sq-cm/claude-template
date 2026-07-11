@@ -7,7 +7,7 @@ Reads GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET (and optionally
 GOOGLE_PROJECT_ID) from the vault-root .env, runs the installed-app OAuth
 consent flow in a browser, and writes an authorized_user credential file to
 %USERPROFILE%\\.config\\claude-google\\adc.json for the MCP servers declared
-in .mcp.json to pick up.
+in your own .mcp.json (copied from .mcp.json.example) to pick up.
 
 Run from the vault root:
     uv run --python 3.12 --with google-auth-oauthlib "Vault/Scripts/google-oauth-setup.py"
