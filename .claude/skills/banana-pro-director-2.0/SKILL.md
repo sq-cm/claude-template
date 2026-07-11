@@ -678,7 +678,7 @@ Mid-gray seamless studio background across all three panels, even neutral mid-gr
 
 **Mode 2B is one prompt, one 16:9 frame** — same single-prompt discipline as Mode 2; never deliver three separate prompts.
 
-**Mode 2B vs Mode 2 — when to pick which:** Mode 2 (6-panel) is the general-purpose multi-angle character reference. Mode 2B is purpose-built as a Seedance Subject Lock anchor — offer it specifically when the reference feeds Dash/Seedance, not as a default replacement.
+**Mode 2B vs Mode 2 — when to pick which:** Mode 2 (6-panel) is the general-purpose multi-angle character reference. Mode 2B is purpose-built as a Seedance Subject Lock anchor — offer it specifically when the reference feeds Seedance, not as a default replacement.
 
 ---
 <!-- STUDIO-LOCAL END -->
