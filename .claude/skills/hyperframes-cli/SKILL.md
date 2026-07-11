@@ -34,7 +34,7 @@ Templates: `blank`, `warm-grain`, `play-mode`, `swiss-grid`, `vignelli`, `decisi
 
 `init` creates the right file structure, copies media, transcribes audio with Whisper, and installs AI coding skills. Use it instead of creating files by hand.
 
-When using `--tailwind`, invoke the `tailwind` skill before editing classes or theme tokens. The scaffold uses Tailwind v4.2 via the browser runtime, not Studio's Tailwind v3 setup.
+When using `--tailwind`, note the scaffold uses Tailwind v4.2 via the browser runtime, not Studio's Tailwind v3 setup — check class and theme-token syntax against v4 docs before editing.
 
 ## Linting
 

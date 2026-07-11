@@ -135,4 +135,4 @@ These rules only apply to shader transition compositions. CSS-only compositions 
 
 ## Visual Pattern Warning
 
-Avoid transitions that create visible repeating geometric patterns — grids of tiles, hexagonal cells, uniform dot arrays, evenly-spaced blob circles. These look cheap and artificial regardless of the math behind them. Organic noise (FBM, domain warping) is good because it's irregular. Geometric repetition is bad because the eye instantly sees the grid.
+Avoid transitions that create visible repeating geometric patterns — grids of tiles, hexagonal cells, uniform dot arrays, evenly-spaced blob circles. These look cheap and artificial regardless of the math behind them. Organic noise (FBM, domain warping) is good because it's irregular. Geometric repetition is bad because the eye instantly sees the grid. The catalogued grid dissolve (references/transitions/catalog.md) is the sanctioned exception: cycled per-cell palette colours break the uniformity this warning targets — a monochrome uniform grid is still out.

@@ -36,9 +36,9 @@ Web sizes are invisible on video. Everything scales up.
 
 | Element            | Web     | Video    |
 | ------------------ | ------- | -------- |
-| Headlines          | 32-48px | 64-120px |
-| Body text          | 14-16px | 28-42px  |
-| Labels             | 12px    | 18-24px  |
+| Headlines          | 32-48px | 60-120px |
+| Body text          | 14-16px | 20-42px  |
+| Labels             | 12px    | 16-24px  |
 | Decorative opacity | 3-8%    | 12-25%   |
 | Borders            | 1px     | 2-4px    |
 | Padding            | 16-32px | 60-140px |

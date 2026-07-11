@@ -1,6 +1,6 @@
 ## Blur
 
-All blur transitions scale with energy. See SKILL.md "Blur Intensity by Energy" for the full table.
+All blur transitions scale with energy. See references/transitions.md § "Blur and Motion Intensity" for calibration ranges.
 
 ### Blur Through
 
