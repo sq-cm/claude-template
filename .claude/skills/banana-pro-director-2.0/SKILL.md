@@ -7,7 +7,7 @@ description: "Higgsfield image prompt director for Banana Pro, Soul Cinema, and 
 
 The locked image prompt grammar for great Higgsfield image assets. Six modes, in strict order:
 
-0. **Face lock (new characters only)** — for any character being developed from scratch. Tool fork: **Banana Pro single-pass** (default, balanced), **GPT-2 single-pass** (highest fidelity, higher credits, chest-up only), or **Soul Cinema two-pass** (cheap iteration — Soul Cinema face plate then Banana Pro 3:4 lock). All paths use mid-gray seamless (the locked default backdrop — white only on explicit request), soft soft lighting from camera-left or camera-right, and a locked baseline wardrobe (plain black camisole for women, plain black ribbed tank for men). No outfit styling, no environment, no in-depth prompting at this stage. Identity only.
+0. **Face lock (new characters only)** — for any character being developed from scratch. Identity only — no outfit styling, no environment, no in-depth prompting at this stage. Tool fork (Banana Pro single-pass default / GPT-2 single-pass / Soul Cinema two-pass), locked backdrop, lighting, and baseline wardrobe are specified once in the MODE 0 section.
 1. **Single-image character outfit** — mid-gray seamless studio (locked default — white only on explicit request), full styling readable, locked as the base reference for that character/outfit. Two paths: **Banana Pro** (full custom styling written from prompt — best for simpler outfits) or **Soul Cinema** (outfit built on a bland slim model first, then composited onto the locked character — best for custom fits where wardrobe should be designed separately from casting). User picks based on outfit complexity.
 2. **6-panel character sheet** — built ONLY after a single-image base exists, composed as one 16:9 frame with a 3×2 grid: front body, back body, two side-profile close headshots, one front face close headshot, one detail shot (nails / jewelry / piercing / held prop).
 3. **Scene plates** — character(s) in a fully realized cinematic environment, OR pure environment plates with no characters. Always available, but never proposed proactively — only built when the user asks.
@@ -45,11 +45,11 @@ Stage 1 — text spec: let the user describe the character in their own words. L
 
 Wait for confirmation or correction. Iterate on the text spec freely until the user says it's locked. Then move to Stage 2.
 
-Stage 2 — Mode 0 face lock build (see Mode 0 section below). Tool fork between Banana Pro single-pass (default), GPT-2 single-pass (higher fidelity, higher credits), or Soul Cinema two-pass (iteration path). Produces the canonical character reference image used as the identity anchor for every future outfit/scene/sheet prompt. Always run this before any outfit work for a new character. No exceptions.
+Stage 2 — Mode 0 face lock build (tool fork and locked defaults: see the MODE 0 section below). Produces the canonical character reference image used as the identity anchor for every future outfit/scene/sheet prompt. Always run this before any outfit work for a new character. No exceptions.
 
 ### Mode 0 — Face lock (new characters only)
 
-See the Mode 0 section below. Tool fork: Banana Pro single-pass (default), GPT-2 single-pass (highest fidelity, higher credits, chest-up only), or Soul Cinema two-pass (cheap iteration — Soul Cinema face plate then Banana Pro 3:4 lock). All paths use mid-gray seamless (the locked default backdrop — white only on explicit request), soft soft lighting, and a locked baseline wardrobe (plain black camisole for women, plain black ribbed tank for men). Produces the canonical reference image. Run once per new character.
+All specification — tool fork, locked backdrop and lighting, baseline wardrobe — lives in the MODE 0 section below. Produces the canonical reference image. Run once per new character.
 
 ### Mode 1 — Single-image character outfit (the base outfit reference)
 
@@ -85,7 +85,7 @@ Same pre-prompt confirmation rule applies.
 
 ### Mode 4 — GPT-2 detail mode (optional, gated)
 
-Only used for chest-up portraits or detail face shots, and only when the user explicitly asks for that level of close-up. Even when the user asks, ask first: "want to run this on Higgsfield GPT-2 for the higher-fidelity face read? heads-up, GPT-2 uses more Higgsfield credits than Banana Pro." Mention the credit cost once per conversation, then drop it for the rest of the session. Wait for confirmation, then deliver the prompt.
+Only used for chest-up portraits or detail face shots, and only when the user explicitly asks for that level of close-up. Even then, confirm the GPT-2 run and flag the higher credit cost per the gating rules in the MODE 4 section below. Wait for confirmation, then deliver the prompt.
 
 GPT-2 prompt structure differs slightly — see the GPT-2 section below.
 
@@ -156,7 +156,7 @@ These rules are baked into every Banana Pro, Soul Cinema, and GPT-2 prompt this 
 - Real subsurface scattering present, warm and real — semi-translucent biology, not opaque plastic
 - Skin tone held at the character's natural register — preserved through the grade, never washed out, never cool-shifted ghostly
 - No retouching, no skin smoothing, no digital cleanup, no porcelain plastic look, no waxy AI render, no beauty bloom
-- **Flattering ceiling:** the realism is always flattering — fine, soft, even texture under the key, never severe or unflattering imperfection. A face should look good and real at the same time; matte carries the anti-plastic, fine-and-even carries the flattering. Resolve any tension toward flattering.
+- **Flattering ceiling** (locked definition in CORE PHILOSOPHY): fine, soft, even texture under the key, never severe or unflattering imperfection — resolve any tension toward flattering.
 - Doll-coded characters (when explicitly requested): smooth matte register without visible pores or peach fuzz but still real and natural, never plastic, never AI-render, never waxen
 
 **2. Real hair physics — strand-by-strand, context-aware.**
@@ -342,8 +342,6 @@ Before any prompt, ask the user which tool to use for the face lock. Three optio
 > — **Banana Pro (recommended default):** balanced fidelity, reasonable credit cost. Works for most character builds straight up. Single-pass build, no Step 0.1 needed.
 > — **GPT-2 (highest fidelity, highest credits):** chest-up only, sharpest detail, best for nailing tricky identity markers in one shot (intricate piercings, fine scars, beauty marks, specific eye color). Heads-up — uses considerably more Higgsfield credits than Banana Pro.
 > — **Soul Cinema (looser, fast iteration):** good when the user isn't sure yet and wants to throw stuff at the wall to see variations on the face register. Lower fidelity than Banana Pro but faster to iterate. If used, run as Step 0.1 first to produce a face plate, then a Banana Pro 3:4 pass (Step 0.2) to lock the finer detail.
-
-Mention the GPT-2 credit cost ONCE per conversation, then drop it for the rest of the session.
 
 Wait for the user to pick. Then proceed to the matching step.
 
@@ -757,59 +755,27 @@ Before writing any visual detail in Block 3, the skill silently runs three diagn
 
 ### X/Y COORDINATE SYSTEM (MENTAL COMPOSITION TOOL — NOT OUTPUT NOTATION)
 
-**The X/Y coordinate system is the skill's internal composition tool. It is NEVER written into the prompt body in the cinema-prose register.** The skill uses it silently to plan rule-of-thirds placement, motion direction, lead room, and landmark anchoring — then translates the coordinates into positional prose for the prompt (see the translation table under "THE CINEMA-PROSE REGISTER").
+**The X/Y coordinate system is the skill's internal composition tool. It is NEVER written into the prompt body.** The skill thinks in subject bounding-box ranges (`X: 30–55% / Y: 55–85%`; X 0% = left edge, Y 0% = top edge, thirds anchors at 33% / 67%) to plan rule-of-thirds placement, motion direction, lead room, and landmark anchoring — always leaving lead room in the direction of motion, never trail room — then translates the plan into positional prose for the prompt:
 
-The coordinate library below is documented for the skill's planning use only. It does not appear in the output.
-
-**Frame grid:**
-- **X axis:** 0% = left edge, 50% = center, 100% = right edge
-- **Y axis:** 0% = top edge, 50% = center, 100% = bottom edge
-
-**Coordinate notation (internal use only):** `X: 30–55% / Y: 55–85%` — the rectangle of frame real estate the subject occupies. Always expressed as a range that represents the subject's bounding box, never a single point.
-
-**Rule-of-thirds anchor table (locked vocabulary):**
-
-| Thirds position | X | Y |
-|---|---|---|
-| Upper-left third | 33% | 33% |
-| Upper-right third | 67% | 33% |
-| Lower-left third | 33% | 67% |
-| Lower-right third | 67% | 67% |
-| Center | 50% | 50% |
-| Upper third line (horizon/eye line) | — | 33% |
-| Lower third line (horizon/eye line) | — | 67% |
-| Left third line (vertical anchor) | 33% | — |
-| Right third line (vertical anchor) | 67% | — |
-
-**Standard cinematographer placement library:**
-
-- **Hero subject, strong vertical (left third):** subject `X: 28–38% / Y: 25–95%`
-- **Hero subject, strong vertical (right third):** subject `X: 62–72% / Y: 25–95%`
-- **Two-shot facing each other:** subject A `X: 15–40% / Y: 25–90%`, subject B `X: 60–85% / Y: 25–90%`
-- **Wide environmental with hero subject on lower-right third:** subject `X: 60–75% / Y: 55–80%`, environment fills the rest
-- **Close-up face with eye line on upper third:** subject `X: 25–75% / Y: 10–85%`, eyes at `Y: 33%`
-- **Three-quarter body portrait:** subject `X: 30–70% / Y: 15–95%`
-- **Horizon on upper third:** horizon line at `Y: 33%`, sky fills `Y: 0–33%`, ground fills `Y: 33–100%`
-- **Horizon on lower third:** horizon line at `Y: 67%`, sky fills `Y: 0–67%`, ground fills `Y: 67–100%`
-- **Vehicle in motion:** car positioned at `X: 30–55%` with motion direction pointing toward `X: 100%`, leaving lead room ahead of the car for the eye to follow movement (always leave lead room in the direction of motion — never trail room)
-- **Aerial subject (overhead light source, helicopter, sun shaft):** light source enters frame at the top edge `Y: 0%`, cone widening as it falls, source itself off-frame, subject lit at the destination coordinates
-- **Architectural symmetry (centered hallway, centered facade, centered car alignment):** subject `X: 35–65% / Y: variable`, symmetry preserved
-
-**Coordinates are translated into positional prose for the prompt output.** Internally, the skill thinks of the primary subject in Paragraph 2 with a coordinate range, environmental landmarks in Paragraph 3, and load-bearing light sources in the light-and-atmosphere writing — then writes those positions as "centered in the room," "in the deeper background camera-left," "anchored on the lower-left third," etc. See the positional prose translation table under "THE CINEMA-PROSE REGISTER" for the canonical mappings.
+| Old coordinate notation | New prose translation |
+|---|---|
+| `X: 38–62% / Y: 12–95%` | "centered in the frame" / "filling the centered vertical column" |
+| `X: 18–55% / Y: 8–95%` | "in the left half of the frame" / "filling the foreground left" |
+| `X: 60–85% / Y: 25–80%` | "in the right portion of the frame" |
+| `X: 30–55% / Y: 55–85%` | "in the lower-left third" / "anchored to the lower-left third" |
+| horizon at `Y: 33%` | "the horizon line sitting at the upper third" |
+| subject in `X: 28–38%` (left third) | "anchored on the left third" / "weighted to the left of frame" |
+| second subject `X: 60–85%` | "in the deeper right background" / "positioned camera-right" |
 
 ---
 
 ### THE LOCKED TAG BLOCK (DEPRECATED FOR PROSE — KEPT AS FALLBACK)
 
-**This six-phrase tag block is deprecated for the cinema-prose register.** It has been superseded by the closing realism clause documented under "THE CINEMA-PROSE REGISTER" below — a continuous descriptive paragraph that describes the actual look in plain language (wide-latitude cinema capture, vintage anamorphic character, diffusion bloom, color-negative film rendition with 35mm grain) along with the M-mode register, then closes with the "Real photographic frame... no CGI, no plastic, no AI" quality filter.
-
-The tag block format remains documented here ONLY as a fallback for cases where the user explicitly requests a stripped-down lean Mode 3 prompt without full cinema-prose. Default behavior is the cinema-prose closing paragraph.
+Deprecated — superseded by the cinema-prose closing paragraph (see THE CINEMA-PROSE REGISTER below). Used only when the user explicitly requests a stripped-down lean Mode 3 prompt; it then replaces the cinema-prose close. Modes 0, 1, 2, 4, and 5 are unaffected and keep the full cinema stack.
 
 ```
 [Cinema mode tag — M1 Narrative / M2 Studio / M3 Action / M4 Performance / M5 Atmospheric]. Atmospheric volumetric haze. Real volumetric light physics. Gentle filmic highlight roll-off. Lifted blacks. Theatrical 35mm grain. Photographed not generated.
 ```
-
-If the fallback tag block is used, it REPLACES the cinema stack at the end. Modes 0, 1, 2, 4, and 5 still append the full cinema stack. The cinema-prose register's closing paragraph also replaces the cinema stack for Mode 3 — they are mutually exclusive options for Mode 3, with cinema-prose as the default.
 
 ---
 
@@ -877,41 +843,7 @@ The closing realism clause is mandatory. The list of "no X, no Y, no Z" at the v
 
 ### CANONICAL MODE 3 PROMPT — REFERENCE EXAMPLE
 
-This is the locked register. Every future Mode 3 prompt is written in this voice — confident, observational, declarative, references doing the geometry and identity work, no labeled blocks, no coordinate notation in the body.
-
-```
-A cinematic anamorphic still photograph captured handheld on a real cinema set — a low-angle medium hero composition of a woman standing alone at the edge of an empty rooftop at dusk, the camera positioned slightly below her eye line in a waist-up framing anchored to the left third of the frame, the deepening dusk sky filling the upper two-thirds of the frame behind her, the city skyline reading in soft silhouette across the lower third of the background, the composition holding a quiet observational stillness.
-
-The character carrying identically from the attached character reference — her hair, skin, makeup, and identity locked from the reference. She wears the wardrobe carrying identically from the attached wardrobe reference, the fabric reading natural across her shoulders and upper torso. Her body is angled three-quarters toward camera, her weight settled on her back foot, her left hand resting loosely at her side, her right hand at her hip. Her gaze is locked across the rooftop toward the horizon screen-right, her expression neutral and held, her shoulders relaxed but settled.
-
-The rooftop beyond her is the location carrying from the attached environment plate — weathered concrete edge, rusted railing in the foreground softened by shallow depth of field, the city skyline beyond reading as silhouette layers stacked into atmospheric haze, distant building lights coming on one by one as dusk falls. Light atmospheric haze suspended through the deeper space giving the air real physical body, the horizon glow warm magenta-orange transitioning into deep blue overhead. Practical warm light from off-frame at camera-right catches the right side of her face and shoulder with restrained natural rim, the cool ambient dusk light wrapping faintly around her left side where the warm and cool temperatures meet.
-
-The city skyline reads as the visual anchor of the deeper frame — building silhouettes layered front-to-back with progressive atmospheric desaturation, the warm horizon glow visible between the structures, scattered building lights warm and small in the deep distance, a faint aircraft beacon blinking once at the upper-right edge of the frame, the rest of the sky held in deep cool blue with the first stars just visible at the upper edge.
-
-Captured with a wide-latitude cinema look and a vintage 55mm-equivalent 2x anamorphic character at a wide aperture, a light diffusion bloom softening the highlights, color-negative daylight film rendition pushed slightly, in an M1 cinematic narrative register. Real anamorphic optical character with oval bokeh on the deeper city elements, organic handheld operator breath, subtle frame-edge falloff, a faint horizontal streak flare on the brightest horizon highlight. Theatrical fine 35mm film grain across the entire frame — skin, fabric, concrete, sky, haze. Contemporary teal-amber cinema grade with the warm horizon glow on her right side meeting the cool dusk wash on her left, shadows lifted gently into deep cool blue-grey never crushed, highlights rolled off softly never blown. Real photographic frame captured on a real cinema camera, real anamorphic lens, real fabric, real human subject, real concrete and haze — no CGI, no rendered look, no digital cleanliness, no plastic surfaces, no AI smoothness, no skin smoothing, no glow, no halation bloom that reads as artificial, no glossy highlights.
-```
-
-This example demonstrates the five-paragraph prose structure with references doing the geometry/identity work, positional prose instead of coordinates, and the closing realism clause.
-
----
-
-### THE OLD COORDINATE GRAMMAR (DEPRECATED)
-
-The previous Mode 3 structure used labeled blocks, X/Y coordinate notation, CRITICAL LIGHTING RULES sections, explicit negations, and architectural room enumeration. **That grammar is deprecated for prose composition.** It made the model overcorrect and confuse spatial relationships.
-
-The 6-block spatial logic (Shot DNA, Subject + placement, Visible detail, World, Light, Locked tag block) is preserved as a SILENT mental checklist — the skill thinks in those buckets, but writes in continuous cinema prose. The X/Y coordinate library and resolution-aware detail rule remain as composition diagnostics, but coordinates are translated into positional prose for the prompt body.
-
-Positional prose translation table:
-
-| Old coordinate notation | New prose translation |
-|---|---|
-| `X: 38–62% / Y: 12–95%` | "centered in the frame" / "filling the centered vertical column" |
-| `X: 18–55% / Y: 8–95%` | "in the left half of the frame" / "filling the foreground left" |
-| `X: 60–85% / Y: 25–80%` | "in the right portion of the frame" |
-| `X: 30–55% / Y: 55–85%` | "in the lower-left third" / "anchored to the lower-left third" |
-| horizon at `Y: 33%` | "the horizon line sitting at the upper third" |
-| subject in `X: 28–38%` (left third) | "anchored on the left third" / "weighted to the left of frame" |
-| second subject `X: 60–85%` | "in the deeper right background" / "positioned camera-right" |
+The locked-register canonical example lives in `references/mode3-example.md` — read it before composing any Mode 3 prompt; every future Mode 3 prompt is written in that voice.
 
 ---
 
@@ -993,11 +925,11 @@ Mode 5 is the single-purpose tool for: *here is an outfit on a model I don't car
 
 ## UNIVERSAL PROMPT RULES (ALL MODES)
 
-These apply to every prompt this skill produces, no exceptions:
+These apply to every prompt this skill produces — the sole carve-out is noted in rule 3:
 
 1. **No character names in prompt output.** Describe by hair color, wardrobe, identity markers extracted from references or the locked development spec.
 2. **No real brand names in prompt output.** Generic visual descriptors only.
-3. **No `@image` tags or `<<<image_n>>>` placeholders.** Image attachment happens in the Higgsfield UI directly. The prompt is text-only.
+3. **No `@image` tags or `<<<image_n>>>` placeholders.** Image attachment happens in the Higgsfield UI directly. The prompt is text-only. *Sole carve-out:* Mode 5's locked prompt is written around `@image1`/`@image2` by design and keeps them (see MODE 5 — the locked prompt is not modified).
 4. **No internal production context.** No "carried through the world," no "matching the previous scene." Every prompt is standalone and self-contained.
 5. **Pure visual description only.** No meta-commentary about why the shot is framed that way, no references to the medium ("this is the still," "what the photo looks like"), no emotional intent ("the read is..."). Every word describes a visible thing in the frame.
 6. **No teeth-showing smiles** unless the user explicitly requests one. Default expressions are model face-card neutral, subtle controlled, slight closed-lip smirk at most.
