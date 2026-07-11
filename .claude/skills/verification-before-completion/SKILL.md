@@ -8,6 +8,8 @@ Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upst
 v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025): added a
 clause to the "Agent delegation" block noting agent dispatch is Orchestrator-only in
 this vault. Re-sync rule: carry this adaptation over any future upstream replace.
+Phase-5 audit shrink (W19, 11/07/2026): removed shame-framing lines and the
+Why-This-Matters section; carry over any future upstream replace.
 -->
 
 # Verification Before Completion
@@ -17,8 +19,6 @@ this vault. Re-sync rule: carry this adaptation over any future upstream replace
 Claiming work is complete without verification is dishonesty, not efficiency.
 
 **Core principle:** Evidence before claims, always.
-
-**Violating the letter of this rule is violating the spirit of this rule.**
 
 ## The Iron Law
 
@@ -40,8 +40,6 @@ BEFORE claiming any status or expressing satisfaction:
    - If NO: State actual status with evidence
    - If YES: State claim WITH evidence
 5. ONLY THEN: Make the claim
-
-Skip any step = lying, not verifying
 ```
 
 ## Common Failures
@@ -112,15 +110,6 @@ Skip any step = lying, not verifying
 ❌ Trust agent report
 ```
 (In this vault, agent dispatch is Orchestrator-only — for a routed persona, "check the diff" applies to work returned to you.)
-
-## Why This Matters
-
-From 24 failure memories:
-- your human partner said "I don't believe you" - trust broken
-- Undefined functions shipped - would crash
-- Missing requirements shipped - incomplete features
-- Time wasted on false completion → redirect → rework
-- Violates: "Honesty is a core value. If you lie, you'll be replaced."
 
 ## When To Apply
 
