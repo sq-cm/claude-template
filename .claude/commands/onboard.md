@@ -8,7 +8,7 @@ You are the Orchestrator. Run first-time workspace setup. Execute all steps in o
 
 ---
 
-## Step 0 — Lock repo to read-only (pull only)
+## Step 1 — Lock repo to read-only (pull only)
 
 Run the following commands to prevent accidental pushes back to the template repo and set up a personal local branch:
 
@@ -28,7 +28,7 @@ If not a git repo (no `.git/` folder), skip silently.
 
 ---
 
-## Step 0.5 — Verify Shared Projects folder
+## Step 2 — Verify Shared Projects folder
 
 Check if `../../Shared Projects` exists relative to the vault root:
 
@@ -52,7 +52,7 @@ No symlinks or junctions needed. `../../Shared Projects` is pre-configured as an
 
 ---
 
-## Step 0.6 — Configure VS Code settings
+## Step 3 — Configure VS Code settings
 
 Add `"git.enabled": false` to `.vscode/settings.json` if not already present.
 
@@ -68,7 +68,7 @@ This disables VS Code's built-in git UI for the vault — Claude Code handles gi
 
 ---
 
-## Step 1 — Create .env
+## Step 4 — Create .env
 
 Check if `.env` exists in the vault root.
 
@@ -77,7 +77,42 @@ Check if `.env` exists in the vault root.
 
 ---
 
-## Step 2 — Verify SOP path
+## Step 5 — Create .mcp.json (optional)
+
+Check if `.mcp.json` exists in the vault root. This step is **optional** — unlike `.env`, no copy is required for the template to work.
+
+- **If it does not exist and the user wants project MCP servers:** Copy `.mcp.json.example` to `.mcp.json` and add server definitions there. Report: "`.mcp.json` created from `.mcp.json.example`. Add your MCP server definitions before use."
+- **Otherwise:** Skip. Report: "`.mcp.json` skipped — optional, add later if project MCP servers are needed."
+
+Google Search Console + GA4 example (analytics-mcp, gsc):
+
+```json
+{
+  "mcpServers": {
+    "analytics-mcp": {
+      "command": "uvx",
+      "args": ["--python", "3.12", "analytics-mcp==0.6.0"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${USERPROFILE}/.config/claude-google/adc.json",
+        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID}"
+      }
+    },
+    "gsc": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-gsc@0.3.0"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${USERPROFILE}/.config/claude-google/adc.json"
+      }
+    }
+  }
+}
+```
+
+Env values (`${USERPROFILE}`, `${GOOGLE_PROJECT_ID}`) resolve from the shell/`.env`; on macOS/Linux change `${USERPROFILE}` to `${HOME}`.
+
+---
+
+## Step 6 — Verify SOP path
 
 Confirm `Resources/SOPs/Advisor Checkpoints SOP.md` exists.
 
@@ -86,7 +121,7 @@ Confirm `Resources/SOPs/Advisor Checkpoints SOP.md` exists.
 
 ---
 
-## Step 3 — Install Caveman + activate lite
+## Step 7 — Install Caveman + activate lite
 
 First, check if Node.js is available:
 
@@ -131,7 +166,7 @@ Report: "Caveman installed (plugin) and set to lite mode."
 
 ---
 
-## Step 3.5 — Install claude-mem
+## Step 8 — Install claude-mem
 
 claude-mem is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins` — see that file for the canonical roster) and auto-installs on first launch after the trust prompt. Run the manual steps below only if auto-install failed (check `/plugin`).
 
@@ -148,7 +183,7 @@ If the plugin command fails or is unavailable, print:
 
 ---
 
-## Step 3.55 — Install recommended plugins
+## Step 9 — Install recommended plugins
 
 The full recommended plugin roster is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) and auto-installs on first launch after the trust prompt. Run the manual steps below only for whichever plugin failed to auto-install (check `/plugin`).
 
@@ -199,7 +234,7 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 /plugin install frontend-design@claude-plugins-official
 ```
 
-**plannotator** (visual plan & diff review — plugin registration only; the binary is a separate optional step, see Step 3.56):
+**plannotator** (visual plan & diff review — plugin registration only; the binary is a separate optional step, see Step 10):
 ```
 /plugin marketplace add backnotprop/plannotator
 /plugin install plannotator@plannotator
@@ -213,9 +248,9 @@ If any plugin command fails, print a warning for that plugin and continue with t
 
 ---
 
-## Step 3.56 — Install plannotator binary (optional, user-confirmed)
+## Step 10 — Install plannotator binary (optional, user-confirmed)
 
-Not auto-run by the SessionStart onboarding hook — plannotator's plugin (Step 3.55) works without this, and installing a binary onto the user's machine needs explicit consent. Ask the user: "Install the plannotator binary for visual plan/diff review? (optional)" Only proceed on a yes.
+Not auto-run by the SessionStart onboarding hook — plannotator's plugin (Step 9) works without this, and installing a binary onto the user's machine needs explicit consent. Ask the user: "Install the plannotator binary for visual plan/diff review? (optional)" Only proceed on a yes.
 
 Pinned release: `backnotprop/plannotator` tag `v0.9.3`. Download the platform-matching asset via `gh release download` and verify its SHA-256 against the published `.sha256` sibling before running it — do not pipe an installer script from a URL.
 
@@ -238,7 +273,7 @@ Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch
 
 ---
 
-## Step 4 — Setup complete
+## Step 11 — Setup complete
 
 Read the team roster from `Vault/Memory/theme-name-map.md` (the role → name map and file-path table) and print it. Root `CLAUDE.md` carries no roster table — its `## Theme & Roster` section only points to the name map.
 
@@ -250,7 +285,7 @@ Then print:
 
 ---
 
-## Step 5 — Open the onboarding guide
+## Step 12 — Open the onboarding guide
 
 Open `Resources/Learn/index.html` in the default browser:
 
@@ -279,7 +314,7 @@ Tell the user:
 
 ---
 
-## Step 6 — Learn by doing: sample projects
+## Step 13 — Learn by doing: sample projects
 
 Print the following block exactly:
 

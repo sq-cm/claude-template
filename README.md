@@ -188,7 +188,8 @@ Claude - TEMPLATE/
 ├── README.md                          ← this file
 ├── CHANGELOG.md                       ← shipped-change log (upgrade reference)
 ├── install.sh / install.bat           ← installer scripts for new team members
-└── .env.example                       ← API key template
+├── .env.example                       ← API key template
+└── .mcp.json.example                  ← project MCP servers (optional, copy to .mcp.json)
 ```
 
 ---

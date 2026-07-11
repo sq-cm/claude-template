@@ -87,7 +87,7 @@
     "defaultMode": "auto"
   },
   "model": "claude-opus-4-8",
-  "enableAllProjectMcpServers": true,
+  "enableAllProjectMcpServers": false,
   "hooks": {
     "PreToolUse": [
       {
