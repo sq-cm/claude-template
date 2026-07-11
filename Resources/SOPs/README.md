@@ -11,7 +11,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Fast-Path Lane SOP.md`](Fast-Path%20Lane%20SOP.md)           | The light-work lane — eligibility reasoning, what it keeps/bypasses, escalation, worked examples             |
 | [`Persona Template SOP.md`](Persona%20Template%20SOP.md)       | Required sections and file-location convention for every persona file                                        |
 | [`Project Folder SOP.md`](Project%20Folder%20SOP.md)           | When to create a project folder, naming convention, structure, archive lifecycle                             |
-| [`QA Gate SOP.md`](QA%20Gate%20SOP.md)                         | Quinn's review verdicts (PASS / FLAGGED / BLOCKED) and plan-positioning rule for the QA step                 |
+| [`QA Gate SOP.md`](QA%20Gate%20SOP.md)                         | @{QAComplianceReviewer} review verdicts (PASS / FLAGGED / BLOCKED) and plan-positioning rule for the QA step |
 | [`Sub-Agent Architecture SOP.md`](Sub-Agent%20Architecture%20SOP.md) | Depth-1 constraint, two-wave dispatch, fan-out spec handoff, and Orchestrator-only web fetch (`ctx_fetch_and_index`) |
 | [`Repo Consultation SOP.md`](Repo%20Consultation%20SOP.md)     | When and how to consult Resources/Git repos for best practices; conflict resolution with the Senior Adviser  |
 | [`Repo Setup SOP.md`](Repo%20Setup%20SOP.md)                   | How to clone and refresh repos in Resources/Git/ — core set vs on-demand, failure handling, staleness policy |
