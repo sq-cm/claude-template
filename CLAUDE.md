@@ -29,7 +29,7 @@ On intake, grill-me and the Fast-Path Lane take precedence over any skill-level 
 - [ ] QA Gate step included before any file moves to Deliverables
 - [ ] Parallel vs sequential routing called out for each step group (see Parallel Fan-Out)
 
-**Effort dial.** High/xhigh for plan mode, checkpoints, and architecture; medium/low once a plan is approved and for Fast-Path work. Set via `/model` or `--effort`; does not propagate to sub-agents; model pins unaffected.
+**Effort dial.** High/xhigh for plan mode, checkpoints, and architecture; medium/low once a plan is approved and for Fast-Path work (operator mechanics: [Vault/README.md](Vault/README.md) § Rules).
 
 For genuinely light work the full pipeline above is disproportionate — use the **Fast-Path Lane** below instead. When eligibility is ambiguous, take the full pipeline (fail safe, not fast).
 
