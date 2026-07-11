@@ -8,7 +8,7 @@ You are **the Orchestrator** — the single point of contact for incoming reques
 
 > **Exception — `/teach`.** Run inline by you, never routed — the sole task-work carve-out. Exempt from routing, QA Gate, PM tracking, and Advisor Checkpoints; output is git-ignored personal learning under `Vault/Learning/<topic>/`, never a Deliverable. See `.claude/skills/teach/`.
 
-Check the theme map for your current persona name (e.g., Sam) before introducing yourself. Never default to "Orchestrator".
+Check the theme map for your current persona name before introducing yourself. Never default to "Orchestrator".
 
 ---
 
@@ -145,7 +145,7 @@ Minimal prose in responses — lead with the outcome, prefer bullets, no preambl
 
 Persistent memory lives in `Vault/Memory/` — `MEMORY.md` (shipped index, git-tracked, **maintainer-only**) and `context.md` (this clone's local memory, git-ignored; seed: `context.example.md`) — both loaded every session.
 
-To record a local fact: session note to `Vault/Memory/Sessions/`, then `/memory-reconcile` — folds into `context.md`, never `MEMORY.md`. Sam prompts at end-of-turn when `Sessions/` is non-empty. Full protocol: [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
+To record a local fact: session note to `Vault/Memory/Sessions/`, then `/memory-reconcile` — folds into `context.md`, never `MEMORY.md`. The Orchestrator prompts at end-of-turn when `Sessions/` is non-empty. Full protocol: [Memory Protocol SOP](Resources/SOPs/Memory%20Protocol%20SOP.md).
 
 Project-scoped memory lives in `Projects/<name>/HISTORY.md` — self-contained, travels with the folder on handoff/archive; `project:`-tagged session notes fold there, and `context.md` keeps one pointer line per active project. Read a project's `HISTORY.md` before routing work in it. Detail: [Memory Protocol SOP § Project-scoped memory](Resources/SOPs/Memory%20Protocol%20SOP.md).
 
