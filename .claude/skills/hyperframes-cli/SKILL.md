@@ -1,6 +1,6 @@
 ---
 name: hyperframes-cli
-description: HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, inspect), preview, render, and environment troubleshooting (doctor, browser, info, upgrade). Use when running any of these commands or troubleshooting the HyperFrames build/render environment. For asset preprocessing commands (`tts`, `transcribe`, `remove-background`), invoke the `hyperframes-media` skill instead.
+description: HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, validate, inspect), preview, render, and environment troubleshooting (doctor, browser, info, upgrade). Use when running any of these commands or troubleshooting the HyperFrames build/render environment. For asset preprocessing commands (`tts`, `transcribe`, `remove-background`), invoke the `hyperframes-media` skill instead.
 ---
 
 # HyperFrames CLI
@@ -12,9 +12,10 @@ Everything runs through `npx hyperframes`. Requires Node.js >= 22 and FFmpeg.
 1. **Scaffold** — `npx hyperframes init my-video`
 2. **Write** — author HTML composition (see the `hyperframes` skill)
 3. **Lint** — `npx hyperframes lint`
-4. **Visual inspect** — `npx hyperframes inspect`
-5. **Preview** — `npx hyperframes preview`
-6. **Render** — `npx hyperframes render`
+4. **Runtime validate** — `npx hyperframes validate`
+5. **Visual inspect** — `npx hyperframes inspect`
+6. **Preview** — `npx hyperframes preview`
+7. **Render** — `npx hyperframes render`
 
 Lint and inspect before preview. `lint` catches missing `data-composition-id`, overlapping tracks, and unregistered timelines. `inspect` opens the rendered composition in headless Chrome, seeks through the timeline, and reports text spilling out of bubbles/containers or off the canvas.
 
@@ -45,6 +46,19 @@ npx hyperframes lint --json           # machine-readable
 ```
 
 Lints `index.html` and all files in `compositions/`. Reports errors (must fix), warnings (should fix), and info (with `--verbose`).
+
+## Runtime Validation
+
+```bash
+npx hyperframes validate                  # current directory
+npx hyperframes validate ./my-project     # specific project
+npx hyperframes validate --json           # machine-readable
+npx hyperframes validate --timeout 5000   # slow scripts/media (default 3000 ms)
+```
+
+Loads the composition in headless Chrome and reports JS console errors, missing assets, and WCAG contrast issues (`--no-contrast` to skip the contrast pass). Run it after `lint`, before `inspect`.
+
+`validate` is deprecated upstream in favour of `npx hyperframes check`, which runs lint, runtime, layout, motion, and contrast verification in one browser session — either satisfies a "lint and validate" checklist item.
 
 ## Visual Inspect
 
