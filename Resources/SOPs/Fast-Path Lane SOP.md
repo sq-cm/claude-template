@@ -46,18 +46,14 @@ Terminology or typo fix · roster check · a quick reformat · a single factual 
 
 ## What the lane keeps, and why
 
-The lane bypasses `grill-me`, plan mode and approval, Advisor Checkpoints A/B, and the QA Gate. It never bypasses these three:
+CLAUDE.md § Fast-Path Lane holds the operative Bypasses and Keeps lists. The reasoning behind each keep:
 
-1. **Routing.** Fast-path work is still delegated to a persona — the Orchestrator never carries it out inline. The only inline-by-Orchestrator carve-out remains `/teach`; Orchestrator-Only Operations are unchanged. Speed does not dissolve the routing rule.
-2. **Locale + humaniser sanity-check.** Any prose shown to the user still gets an inline Australian-English and humaniser pass before it lands. "Working-only" is not a licence to skip this — light copy can reach the user without ever becoming a Deliverable. This is a quick inline check, not the full QA Gate.
-3. **Destination.** Fast-path output never lands in `03 Deliverables/`. In-project light work → that project's `02 Working/`. Standalone light work → inline in the reply, or `Inbox/` if a file is genuinely produced. Never `Notes/` (reserved purpose).
+1. **Routing.** Ungoverned inline work is exactly what the lane exists to prevent — speed does not dissolve the routing rule, and Orchestrator-Only Operations are unchanged.
+2. **Locale + humaniser sanity-check.** Light copy can reach the user without ever becoming a Deliverable, so the inline pass is the only check it will ever get. It is a quick inline check, not the full QA Gate.
+3. **Destination.** `03 Deliverables/` implies QA-passed — letting fast-path output land there would counterfeit that signal. `Notes/` keeps its reserved purpose.
 
 ## Escalation
 
 If scope grows mid-task — new constraints surface, it becomes a durable deliverable, or it needs fan-out — **stop the fast-path and re-enter the full pipeline.** Do not finish on the lane and backfill governance afterwards.
 
 Promoting any fast-path artefact into `03 Deliverables/` requires the full QA Gate first. The lane produces working material; the Gate is the only route to client-facing status.
-
-## Relationship to the QA Gate's broad scope
-
-The QA Gate's broad-scope opt-in (gating durable artefact changes, not just Deliverables moves) is less punishing now that this lane exists — light work has a sanctioned route that does not touch the Gate. Maintainers weighing the broad-scope opt-in should evaluate it against this lane. See [QA Gate SOP](QA%20Gate%20SOP.md) § When the QA Gate runs.

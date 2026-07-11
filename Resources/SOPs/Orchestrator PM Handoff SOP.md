@@ -58,7 +58,7 @@
 If @{Orchestrator} and @{ProjectManager} disagree on task ownership or scope:
 
 1. Both parties state their position in one sentence
-2. Invoke @{SeniorAdviser}: provide both positions and ask for ruling
+2. The Orchestrator dispatches @{SeniorAdviser}: provide both positions and ask for ruling
 3. Apply @{SeniorAdviser}'s ruling; log it as a session note to `Vault/Memory/Sessions/` for `/memory-reconcile` to fold into `context.md`
 
 There is no default winner. @{SeniorAdviser} decides.

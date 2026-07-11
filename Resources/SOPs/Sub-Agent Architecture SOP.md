@@ -2,13 +2,11 @@
 
 **Status:** Active
 **Owner:** @{Orchestrator}
-**Last verified:** 2026-05-26
+**Last verified:** 2026-07-01
 
 ## Constraint
 
-Claude Code does not surface the `Agent` tool to sub-agents at runtime, regardless of what the persona's YAML frontmatter declares. **Sub-agents are depth-1 only — they cannot recursively dispatch further sub-agents.** Verified empirically 2026-05-26 by direct dispatch (sub-agent reported `"Tools available in this invocation: Read, Write, Edit, Bash, advisor. No Agent tool exists."`).
-
-> **Annotation (correction).** That quoted string is a 2026-05-26 capture and reflects the tool set of that dispatch, not the current baseline. The current six-tool baseline is `Read, Write, Edit, Glob, Grep, Bash` (no `advisor` tool) per the [Persona Template SOP](Persona%20Template%20SOP.md). The quote is preserved verbatim as evidence; the load-bearing point it establishes — that no `Agent` tool exists for sub-agents — still holds.
+Claude Code does not surface the `Agent` tool to sub-agents at runtime, regardless of what the persona's YAML frontmatter declares. **Sub-agents are depth-1 only — they cannot recursively dispatch further sub-agents.** Verified empirically 2026-05-26 by direct dispatch.
 
 This is a Claude Code platform constraint, not a configuration bug. It cannot be worked around with frontmatter, settings, or skill instructions.
 
@@ -22,8 +20,8 @@ This is a Claude Code platform constraint, not a configuration bug. It cannot be
 
 For research-heavy plans the Orchestrator runs dispatch in two waves:
 
-- **Wave A — raw research.** Orchestrator dispatches data-gathering sub-agents in parallel (e.g. `voltagent-research:market-researcher`, `voltagent-research:competitive-analyst`, `voltagent-research:data-researcher`). Single message, multiple `Agent` calls.
-- **Wave B — synthesis.** Orchestrator dispatches synthesis personas in parallel (Reid, Kai, Ryan, etc.), feeding each their relevant Wave A returns as context.
+- **Wave A — raw research.** Orchestrator dispatches data-gathering sub-agents in parallel — single message, multiple `Agent` calls.
+- **Wave B — synthesis.** Orchestrator dispatches synthesis personas in parallel (e.g. @{MarketResearchSpecialist}, @{CompetitiveIntelligenceSpecialist}, @{SeniorResearcher}), feeding each their relevant Wave A returns as context.
 
 The fan-out tree is always one level wide × N branches, never two levels deep.
 
@@ -43,7 +41,7 @@ Personas must **never** silently downgrade to solo desk synthesis when a brief s
 
 **Policy.** Personas **must not** attempt to fetch live web content or drive a browser themselves, even where the underlying tool is technically reachable. A dispatched persona that needs live URL content or a rendered visual check requests it through its fan-out spec; the Orchestrator supplies it from the main session. This is an operative directive, not a suggestion of convenience — the two lanes below are the only sanctioned paths.
 
-**Enforcement.** Probe testing confirmed the environment actively polices persona self-browsing at the point of attempt: restricted personas asked to fetch or navigate on their own refused the request as a boundary violation, and the auto-mode classifier independently blocked a dispatch that attempted it. Treat this as a live guardrail — attempts are caught at the point of attempt. (This SOP records that attempts are policed; it does not record how the policing was probed, and that detail is out of scope here.)
+**Enforcement.** Probe testing confirmed the environment actively polices persona self-browsing at the point of attempt: restricted personas asked to fetch or navigate on their own refused the request as a boundary violation, and the auto-mode classifier independently blocked a dispatch that attempted it. Treat this as a live guardrail — attempts are caught at the point of attempt.
 
 **Scope note.** The refusal/classifier boundary above applies to **sub-agent dispatch only**. The Orchestrator running `ctx_*` tools or Playwright directly on the **main session** is unaffected by it and is, in fact, the sanctioned mechanism both lanes below depend on. Do not read the guardrail as reaching main-session Orchestrator activity — it doesn't. The main-session `WebFetch(domain:…)` grants in `.claude/settings.json` are a context-mode-absent fallback — inert while the plugin is active.
 
@@ -53,7 +51,7 @@ Personas must **never** silently downgrade to solo desk synthesis when a brief s
 2. The Orchestrator, on the main session, runs `ctx_fetch_and_index(url, source)` for each URL — then `ctx_search(queries)` to pull relevant passages, or `ctx_execute(language, code)` for targeted extraction (`console.log` only what's needed).
 3. The Orchestrator passes the indexed excerpts into the sub-agent's prompt as context.
 
-**Lane B — visual pixel-test / rendered eval.** When a dispatched persona (e.g. Casey, Jordan, Quinn) needs to judge a rendered UI, layout, or visual output rather than read text:
+**Lane B — visual pixel-test / rendered eval.** When a dispatched persona (e.g. @{WebflowDeveloper}, @{UXUIDesigner}, @{QAComplianceReviewer}) needs to judge a rendered UI, layout, or visual output rather than read text:
 
 1. The persona names the URL or artefact to render and what it needs judged in its fan-out spec, rather than attempting to drive a browser itself.
 2. The Orchestrator, on the main session, runs Playwright (`browser_navigate` + `browser_take_screenshot`) to render the target.
@@ -90,6 +88,6 @@ If the sub-agent returns a successful `Agent` invocation, depth-2 dispatch is no
 
 ## Change Log
 
-- **2026-07-01** — Re-verified the "Web Fetch for Sub-Agents" constraint per the Verification Procedure above and corrected it. Prior wording claimed sub-agent web fetch was technically impossible (hard-blocked, no `ctx_*` redirect target reachable from a dispatch); empirical re-testing found `WebFetch`/`ctx_*`/Playwright `browser_*` are deferred but reachable from inside a dispatched `Agent`. Reframed the constraint from a technical impossibility to a policy stance: capability exists, self-service by a persona is prohibited, and the environment actively enforces this (persona refusal + auto-mode classifier block, both probe-confirmed) — enforcement scoped explicitly to sub-agent dispatch, not the main session. Section retitled "Web Fetch & Visual Eval for Sub-Agents" and split into Lane A (research/URL-read, prior pattern preserved) and Lane B (new: Orchestrator-mediated Playwright pixel-test for visual eval, screenshot passed into persona prompt, persona judges without touching the browser). Frontmatter Rule extended to cover `WebFetch`/`ctx_*`/`browser_*` on the same non-functional-grant rationale. Authority: Odin (@{SeniorAdviser}) Checkpoint-A ruling, 2026-07-01.
+- **2026-07-01** — Re-verified the web-fetch constraint and reframed it from technical impossibility to an enforced policy stance; section split into Lane A (research fetch) and Lane B (visual eval); Frontmatter Rule extended to `WebFetch`/`ctx_*`/`browser_*`. Authority: @{SeniorAdviser} Checkpoint-A ruling, 2026-07-01. Detail: § Web Fetch & Visual Eval, which this entry summarised.
 - **2026-06-16** — Added "Web Fetch for Sub-Agents" section. Documented that `context-mode` hard-blocks `WebFetch` with no opt-out and sub-agents lack the `ctx_*` redirect target; codified the Orchestrator-pre-fetch pattern (`ctx_fetch_and_index` on main session, excerpts passed into sub-agent prompts). CLAUDE.md § Sub-Agent Depth updated with the rule; SOP added to SOPs README index.
 - **2026-05-26** — SOP created. Constraint discovered during Lumen demo dispatch. Six personas patched (Reid, Kai, Ryan, Odin, Axel, Casey); CLAUDE.md updated with stub; Persona Template SOP updated to forbid `Agent` in frontmatter.

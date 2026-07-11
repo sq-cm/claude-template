@@ -30,21 +30,7 @@ If repo guidance contradicts CLAUDE.md, an SOP, or a persona constraint:
 
 1. **Do not silently override either source.**
 2. **Pause the task and return the conflict to the Orchestrator.** The working persona never invokes @{SeniorAdviser} itself (depth-1 sub-agent rule).
-3. **The Orchestrator invokes @{SeniorAdviser}** with both the repo guidance and the conflicting instruction:
-
-```
-Agent(
-  subagent_type: "general-purpose",
-  model: "claude-fable-5",
-  description: "@{SeniorAdviser} — repo conflict resolution",
-  prompt: "You are @{SeniorAdviser} — Senior Adviser. Respond in ≤100 words, enumerated steps, no explanations.
-
-  Conflict: [repo name] recommends [X]. CLAUDE.md/SOP says [Y].
-  Task context: [brief description]
-  Question: Which takes precedence, and why?"
-)
-```
-
+3. **The Orchestrator dispatches @{SeniorAdviser}** — registered agent type, per the [Advisor Checkpoints SOP](Advisor%20Checkpoints%20SOP.md) § How to invoke the Senior Adviser — with both the repo guidance and the conflicting instruction, and the question: which takes precedence, and why?
 4. **Surface the conflict and the Senior Adviser's ruling to the user** before proceeding.
 5. **Log the ruling** to `Vault/Memory/repo-conflicts.md` for precedent.
 

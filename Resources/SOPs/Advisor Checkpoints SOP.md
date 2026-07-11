@@ -10,19 +10,17 @@
 
 On longer, durable deliverables, having a stronger reviewer check the plan before substantive work and check the output before handoff catches structural mistakes cheaply — before they become files, embeds, or briefs that are hard to unwind.
 
-This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native advisor server-tool now ships in Claude Code (v2.1.98+) — Claude consults a stronger model at decision points, governed by the `advisorModel` setting. We layer our own discipline on top: rather than leaving advisor calls to Claude's discretion, we spawn a strong-model subagent (currently `claude-fable-5`) at *fixed* checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
+This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern. The native advisor server-tool ships in Claude Code — Claude consults a stronger model at decision points, governed by the `advisorModel` setting. We layer our own discipline on top: rather than leaving advisor calls to Claude's discretion, we spawn a strong-model subagent at *fixed* checkpoints. Same spirit: cheap executor for the bulk of work, strong reviewer at the moments that matter.
 
-**Advisor-model pairing (load-bearing).** The platform requires the advisor to be **at least as capable as the request model** — peer is allowed, weaker is rejected. Both gatekeepers — Odin and Quinn — are pinned to `claude-fable-5`. Because that sits above the default advisor tier, the clone owner must set `advisorModel` (a user-level setting, per CHANGELOG #103) ≥ `claude-fable-5` to match the gatekeeper pin; otherwise gatekeeper dispatches fail with `cannot be used as an advisor when the request model is '<model>'`. Any clone that changes a gatekeeper pin carries the same obligation.
-
-> **Clone setup (required):** the repo pins both gatekeepers (Odin and Quinn) to `claude-fable-5`, but `advisorModel` is a user-level setting the repo cannot ship. Each clone owner must set `advisorModel` ≥ the gatekeeper pin — `claude-fable-5` (or the `fable` alias) — or gatekeeper dispatches fail the pairing check. Re-pinning any gatekeeper carries the same obligation.
+**Advisor-model pairing (load-bearing).** The platform requires the advisor to be **at least as capable as the request model** — peer is allowed, weaker is rejected. Both gatekeepers — @{SeniorAdviser} and @{QAComplianceReviewer} — are pinned to `claude-fable-5`. Because that sits above the default advisor tier, each clone owner must set `advisorModel` (a user-level setting the repo cannot ship) ≥ the gatekeeper pin — `claude-fable-5` (or the `fable` alias) — otherwise gatekeeper dispatches fail with `cannot be used as an advisor when the request model is '<model>'`. Any clone that changes a gatekeeper pin carries the same obligation.
 
 ---
 
 ## Who is the Senior Adviser
 
-The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return ≤100-word enumerated advice when consulted.
+The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return short enumerated advice when consulted (shape rules below).
 
-The Senior Adviser is **not** directly addressable by the user. They are invoked only by **the Orchestrator**, via the Agent tool with a strong-model override (currently `claude-fable-5`). Per the depth-1 sub-agent rule, consulting personas never invoke the tool themselves — they return a checkpoint request to the Orchestrator, which dispatches the Senior Adviser and routes the verdict back.
+The Senior Adviser is **not** directly addressable by the user. They are invoked only by **the Orchestrator**, via the `Agent` tool using the registered **Senior Adviser** agent type (which carries the model pin). Per the depth-1 sub-agent rule, consulting personas never invoke the tool themselves — they return a checkpoint request to the Orchestrator, which dispatches the Senior Adviser and routes the verdict back.
 
 ---
 
@@ -38,7 +36,9 @@ A task is **not** checkpoint-eligible when:
 
 - The next action is dictated entirely by tool output just read.
 - It's a lookup, roster check, or single-line answer.
-- It's a meta-operation the Orchestrator handles directly.
+- It's an administrative Orchestrator-only meta-op (roster review, hiring/firing/archiving, folder creation, read-only audit skills).
+
+Governance-artefact edits — any CLAUDE.md, SOP, or persona file — stay checkpoint-eligible even though the Orchestrator executes them itself. CLAUDE.md § Advisor Checkpoints carries the operative rule.
 
 The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible — @{SEOSpecialist}, run Checkpoint A before drafting.").
 
@@ -47,24 +47,19 @@ The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible 
 1. **Checkpoint A — before substantive work.** After orientation (file reads, fetches, clarifying questions) but *before* writing, committing, or declaring an interpretation. The persona returns a checkpoint request to the Orchestrator with their intended approach; the Orchestrator dispatches the Senior Adviser and routes the verdict back.
 2. **Checkpoint B — before declaring done.** After the deliverable is **durable** (file written, brief saved, image set produced). The persona returns a checkpoint request to the Orchestrator for a final review before handoff; the Orchestrator dispatches the Senior Adviser and routes the verdict back.
 
-**Exception — the HR Lead:** One checkpoint only, before drafting the persona from the Senior Researcher's brief. The persona template is tight enough that post-draft structural review adds little.
+**Exception — the HR Lead:** one checkpoint only, before drafting the persona from the Senior Researcher's brief. The [Persona Template SOP](Persona%20Template%20SOP.md) § Hiring Pipeline owns this exception.
 
 ---
 
 ## How to invoke the Senior Adviser
 
-On receiving a persona's checkpoint request, the Orchestrator dispatches the Agent call — passing the Senior Adviser persona preamble plus the persona's context and question:
+On receiving a persona's checkpoint request, the Orchestrator dispatches the registered **Senior Adviser** agent type — the persona file, response-shape rules, and model pin travel with the type, so no pasted preamble or model override is needed:
 
 ```
 Agent(
-  subagent_type: "general-purpose",
-  model: "claude-fable-5",  # Senior Adviser gatekeeper pin; see § pairing
+  subagent_type: "Senior Adviser",
   description: "@{SeniorAdviser} advisor checkpoint [A|B]",
-  prompt: "You are @{SeniorAdviser} — Senior Adviser
-           (see .claude/agents/senior-adviser.md).
-           Respond in ≤100 words, enumerated steps, no explanations.
-
-           <full task context — what the Orchestrator routed, what you've learned so far>
+  prompt: "<full task context — what the Orchestrator routed, what you've learned so far>
            <current plan or draft>
            <specific question you want the Senior Adviser to answer>"
 )
@@ -81,7 +76,7 @@ The Orchestrator narrates the checkpoint in the consulting persona's voice so th
 The checkpoint is a three-leg handoff. The consulting persona never calls the `Agent` tool — it requests, and the Orchestrator dispatches.
 
 - **Persona → Orchestrator (the request):** the task context, a pointer to the current plan or draft, the specific question, and which checkpoint this is (A or B).
-- **Orchestrator → Odin (the dispatch):** the Senior Adviser persona preamble plus the persona's request, dispatched via the `Agent` tool (the block above).
+- **Orchestrator → Odin (the dispatch):** the persona's request, dispatched via the registered Senior Adviser agent type (the block above).
 - **Odin → Orchestrator → persona (the return):** Odin's ≤100-word enumerated verdict, which the Orchestrator routes back to the persona, narrated in the persona's voice.
 
 If a dispatch fails, the Orchestrator owns the retry per the [Odin Fallback SOP](Odin%20Fallback%20SOP.md) (Step 1).
@@ -111,12 +106,3 @@ These are enforced in the Senior Adviser's persona file and must not be relaxed 
 ## Cost notes
 
 - Flagship-model subagent calls bill at that model's rates, but only for the advisor turn. The persona's own output stays on the session model.
-- The ≤100-word enumerated-steps guardrail cut advisor output roughly 35–45% in Anthropic's internal testing versus unconstrained advice.
-- Two calls per non-trivial task caps the ceiling. Trivial routes skip checkpoints entirely.
-- If a persona finds itself wanting a third or fourth call, that's a signal to loop back to @{Orchestrator}, not to keep consulting.
-
----
-
-## Origin
-
-Pattern adapted from Anthropic's Advisor tool (API feature, `advisor-tool-2026-03-01` beta). This SOP is the authoritative reference for the team; the original Anthropic documentation is an external source and may be moved or removed without notice.

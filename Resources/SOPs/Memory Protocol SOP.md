@@ -8,7 +8,7 @@ supersedes: (none — new SOP for P0.1 from 2026-05-24 strategic audit)
 
 # Memory Protocol SOP
 
-**Audience.** All personas who write to `Vault/Memory/`, plus Sam (Orchestrator) who reconciles.
+**Audience.** All personas who write to `Vault/Memory/`, plus @{Orchestrator}, who reconciles.
 
 **Why this exists.** Direct concurrent writes to the memory index corrupt the file that the prompt-submit hook loads as context. Three failure modes — parallel sub-agents in one session racing on the same anchor, multi-clone git merge conflicts, and two concurrent sessions on one clone both running `/memory-reconcile` against `context.md` — each corrupts the loaded context in its own way: the first two produce `<<<<<<< HEAD` markers, the third produces duplicated or interleaved append lines from an unsequenced write race. In every case, every subsequent agent prompt loads a broken file.
 
@@ -35,7 +35,7 @@ When you (any persona) surface something worth remembering mid-task:
 
 1. **Create** a new file at `Vault/Memory/Sessions/<ISO8601>-<persona-slug>-<topic-slug>.md`.
    - ISO8601 to the minute: `2026-05-25T12-47` (colons replaced with dashes for filename safety).
-   - `persona-slug` is the role slug (e.g. `axel`, `harper`, `quinn`), **not** the display name from the theme map. Slugs are theme-stable; display names rotate on theme swap.
+   - `persona-slug` is the role slug (e.g. `automation-architect`, `hr-lead`, `qa-compliance-reviewer`), **not** the display name from the theme map. Slugs are theme-stable; display names rotate on theme swap.
    - `topic-slug` is 2–5 hyphenated words describing the memory.
 
 2. **Frontmatter is required.** Use the exact schema below. Authors must emit it. As a safety net, `/memory-reconcile` will infer-and-fill missing or body-prose frontmatter from a note's content and write it back — but that is a backstop, not a licence to skip. A note is only rejected when a required field genuinely cannot be inferred (e.g. no derivable date).
@@ -55,7 +55,7 @@ When you (any persona) surface something worth remembering mid-task:
 
 3. **Body** is freeform markdown. Link related memories with `[[name]]` where `name` matches another note's filename without extension.
 
-4. **Do not edit `context.md` or `MEMORY.md` directly** mid-task. Ever. Sam will reconcile your note into `context.md` in batch via `/memory-reconcile`.
+4. **Do not edit `context.md` or `MEMORY.md` directly** mid-task. Ever. @{Orchestrator} will reconcile your note into `context.md` in batch via `/memory-reconcile`.
 
 `Vault/Memory/Sessions/` is gitignored. Session notes are ephemeral until reconciled.
 
@@ -84,20 +84,11 @@ When you (any persona) surface something worth remembering mid-task:
 
 ## Stage 2 — Reconcile via `/memory-reconcile`
 
-The slash command at `.claude/commands/memory-reconcile.md` performs Stage 2 deterministically. Sam runs it (or prompts the user to run it) whenever `Vault/Memory/Sessions/` is non-empty.
+The slash command at `.claude/commands/memory-reconcile.md` performs Stage 2 deterministically. @{Orchestrator} runs it (or prompts the user to run it) whenever `Vault/Memory/Sessions/` is non-empty.
 
-The command:
+The command validates each note (frontmatter handling per Stage 1, point 2), moves it to `Vault/Memory/Notes/<YYYY-MM>/` (per-clone, git-ignored), and appends pointer lines to `context.md` — never `MEMORY.md`, creating `context.md` from `context.example.md` first if absent. Two properties are load-bearing here: it **never merges prose** on conflict (see Conflict rules below), and it is **idempotent** — re-running on a partial state skips already-moved files and already-added pointers. The full procedure lives in the command file, not here.
 
-1. Reads each file in `Vault/Memory/Sessions/`.
-2. Validates frontmatter against the schema. Infers-and-fills missing or body-prose frontmatter from note content (writing the completed YAML back into the note); rejects to `Sessions/_rejected/` **only** when a required field cannot be inferred, and reports each rejection inline.
-3. Moves processed notes to `Vault/Memory/Notes/<YYYY-MM>/<original-filename>` (per-clone, git-ignored).
-4. Appends pointer lines to `context.md` (never `MEMORY.md`) under the matching topical H2 section. Creates `context.md` from `context.example.md` first if absent. New sections created if no match; uncategorised items go to `## Uncategorised`.
-5. On conflict (two notes touch the same section), appends both pointers as separate lines. **Never merges prose.**
-6. Is idempotent — re-running on a partial state skips already-moved files and already-added pointers.
-
-Full procedure in the command file.
-
-**Deterministic trigger.** In addition to Sam's end-of-turn prompt, the reconcile nudge now fires deterministically: `.claude/hooks/memory-pending.sh` is wired to the `PreCompact` and `SessionEnd` hook events in `.claude/settings.json`. When a session compacts or ends with unreconciled notes in `Vault/Memory/Sessions/`, the hook emits a one-line reminder to run `/memory-reconcile` — regardless of whether the model remembered to prompt. The hook is read-only (it counts top-level `.md` notes and echoes; it never writes into `Vault/Memory/`), and it does not run the reconcile itself — the fold step still needs model judgement.
+**Deterministic trigger.** In addition to @{Orchestrator}'s end-of-turn prompt, the reconcile nudge now fires deterministically: `.claude/hooks/memory-pending.sh` is wired to the `PreCompact` and `SessionEnd` hook events in `.claude/settings.json`. When a session compacts or ends with unreconciled notes in `Vault/Memory/Sessions/`, the hook emits a one-line reminder to run `/memory-reconcile` — regardless of whether the model remembered to prompt. The hook is read-only (it counts top-level `.md` notes and echoes; it never writes into `Vault/Memory/`), and it does not run the reconcile itself — the fold step still needs model judgement.
 
 ---
 
@@ -107,7 +98,7 @@ Full procedure in the command file.
 
 **The `project:` field.** Optional Stage-1 frontmatter (see above). Set it to the exact `Projects/<name>/` folder name a note is about. `/memory-reconcile` validates it — the folder must exist — and rejects to `Sessions/_rejected/` (logged, reported inline) when it doesn't, the same treatment as any other unresolvable required field.
 
-**Routing summary.** Full mechanics live in `.claude/commands/memory-reconcile.md` (step 2 validation, step 5.2 routing) — cited here, not duplicated. In outline: a note with a valid `project:` field appends a self-contained entry to that project's `HISTORY.md` under `## Decision log`, optionally updates `## Gotchas`, then rewrites `## Live state` last, and ensures a one-line `context.md` pointer to the `HISTORY.md` file (deduped by path, not filename). A note without `project:` behaves exactly as before this section existed.
+**Routing summary.** Full mechanics live in `.claude/commands/memory-reconcile.md` (step 2 validation, step 5.2 routing). A note with a valid `project:` field lands in that project's `HISTORY.md` and leaves a one-line `context.md` pointer (deduped by path, not filename); a note without `project:` behaves exactly as before this section existed.
 
 **Self-contained entry style.** Decision-log entries must read standalone for a handoff recipient — no "see `Vault/Memory/...`" pointers, since `HISTORY.md` travels with the folder and the recipient may not have (or need) access to the rest of the vault's memory. Each entry: a `### YYYY-MM-DD — <topic>` heading, 3–6 lines of what/why/outcome, and a trailing `<!-- src: <session-note-filename> -->` anchor comment.
 
@@ -117,7 +108,7 @@ Full procedure in the command file.
 
 **Write order.** Decision log (and Gotchas, if applicable) append first; `## Live state` rewrites last, because it is a destructive replace rather than an append and must never run ahead of the durable log entry it's summarising.
 
-**Load rule.** Sam reads a project's `HISTORY.md` before routing new work into that project — it is the fast way to pick up prior decisions and known gotchas without re-deriving them. Dispatch specs to sub-agents working inside a foldered project should instruct the persona to read `HISTORY.md` first, same as they'd be pointed at a brief.
+**Load rule.** @{Orchestrator} reads a project's `HISTORY.md` before routing new work into that project — it is the fast way to pick up prior decisions and known gotchas without re-deriving them. Dispatch specs to sub-agents working inside a foldered project should instruct the persona to read `HISTORY.md` first, same as they'd be pointed at a brief.
 
 **Lifecycle.** Archival is automatic in the sense that the file travels inside its `Projects/<name>/` folder — there is nothing separate to move. When a project goes inactive, its `context.md` pointer demotes at the next reconcile like any other stale `## Project context` entry (§ Context budget & auto-archival, below); the `HISTORY.md` file itself stays put, untouched, ready to be read again if the project reopens. **Grandfathered folders** — those created before this feature shipped — have no `HISTORY.md` yet; one is seeded from the `Projects/Template/HISTORY.md` skeleton on first touch (the first note that reconciles against that project). There is no bulk backfill — it happens on demand only, project by project, as notes about it are reconciled.
 
@@ -137,7 +128,7 @@ Demoted pointers move verbatim to `Vault/Memory/Notes/archive-index.md` (git-ign
 
 ---
 
-## End-of-turn check (Sam)
+## End-of-turn check (Orchestrator)
 
 The Orchestrator must surface a reminder when `Vault/Memory/Sessions/` contains files at end-of-turn:
 
@@ -155,7 +146,7 @@ Running multiple Claude Code terminal sessions against one vault clone is a supp
 
 **Session notes are safe concurrently.** The `<ISO8601>-<persona-slug>-<topic-slug>.md` filename scheme (Stage 1) means two sessions writing notes at the same time land at different paths — no collision, no coordination required.
 
-**`/memory-reconcile` is single-writer.** Run it from one session at a time. If several sessions each have unreconciled notes, pick one — ideally at a natural break or end of day — and reconcile there; skip the prompt in the others. Idempotency (Stage 2, point 6) protects re-running a *crashed* reconcile; it does **not** make *concurrent* reconciles safe. Two sessions appending to `context.md` at the same moment is the third failure mode above, and idempotency doesn't prevent it — only sequencing does.
+**`/memory-reconcile` is single-writer.** Run it from one session at a time. If several sessions each have unreconciled notes, pick one — ideally at a natural break or end of day — and reconcile there; skip the prompt in the others. Idempotency (Stage 2) protects re-running a *crashed* reconcile; it does **not** make *concurrent* reconciles safe. Two sessions appending to `context.md` at the same moment is the third failure mode above, and idempotency doesn't prevent it — only sequencing does.
 
 **Expect double nudges.** The deterministic trigger described under Stage 2 (`.claude/hooks/memory-pending.sh` on `PreCompact`/`SessionEnd`) fires per session, so multiple concurrent sessions can each surface the "run `/memory-reconcile`" reminder independently. Treat that as one job, not several — act in one session and disregard the rest.
 
@@ -176,7 +167,7 @@ The new protocol applies only to **memories created after this SOP shipped (2026
 | `MEMORY.md` | Maintainer-curated shipped index; edited only by the template maintainer | Git-tracked, same for every install — cloners never write it |
 | `context.md` | Per-clone local index; the `/memory-reconcile` + bootstrap target | Git-ignored, seeded from `context.example.md`; absorbs all local writes |
 | `theme-name-map.md` | Direct edit (theme swaps) | Hook-loaded; needs a stable path |
-| `feedback_*.md` | Direct edit by Sam on user feedback | Singleton, single-writer |
+| `feedback_*.md` | Direct edit by @{Orchestrator} on user feedback | Singleton, single-writer |
 | `theme-change-log.md`, `odin-misses.md`, `repo-conflicts.md` | Append-only single-writer logs | Already gitignored per-clone |
 | `audit_*.md` | Created by audit runs, indexed in `context.md` | Maintainer history; consider archiving on cloner side |
 
@@ -184,9 +175,9 @@ The new protocol applies only to **memories created after this SOP shipped (2026
 
 ## Conflict rules
 
-1. **Two session notes touch the same context.md section.** Append both pointers as separate lines. Do not merge prose. Sam may consolidate manually in a later pass if the topic warrants it.
+1. **Two session notes touch the same context.md section.** Append both pointers as separate lines. Do not merge prose. @{Orchestrator} may consolidate manually in a later pass if the topic warrants it.
 
-2. **A session note's topic doesn't match any existing section.** Append to `## Uncategorised`. Sam triages on the next reconcile and either creates a new section or files under an existing one.
+2. **A session note's topic doesn't match any existing section.** Append to `## Uncategorised`. @{Orchestrator} triages on the next reconcile and either creates a new section or files under an existing one.
 
 3. **A pointer to the same filename already exists in context.md.** Skip — the existing pointer is canonical.
 

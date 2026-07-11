@@ -20,7 +20,7 @@ Ask where the rule is true, then place it at the narrowest tier that still cover
 
 ## Load semantics
 
-Empirically verified 06/07/2026 (maintainer's project log, local to the source vault and not shipped with clones; findings summarised in full below):
+Empirically verified 06/07/2026 (findings summarised in full below):
 
 - **Not injected at session start.** Zero per-session cost while the folder is untouched.
 - **Injected on Read.** The first Read of any file in the folder attaches the folder's `CLAUDE.md` to that tool result — in the main session and identically for a dispatched sub-agent on its own Read.
