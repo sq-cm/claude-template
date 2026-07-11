@@ -83,7 +83,6 @@ Log format for `Vault/Logs/clone-failures.md`:
 ## Edge cases
 
 - **Large repos / LFS:** If a repo uses Git LFS or is unusually large, use `GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1` to skip LFS objects at clone time. Pull LFS files explicitly only if needed.
-- **Disk space:** On-demand clones are shallow by default. If available disk is below 2 GB, defer non-essential clones and log a note to `Vault/Logs/clone-failures.md`.
 
 ---
 
