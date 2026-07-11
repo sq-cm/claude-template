@@ -31,6 +31,29 @@
         "panel": "dedicated",
         "clear": true
       }
+    },
+    {
+      "label": "Open Startup File",
+      "type": "shell",
+      "command": "code -r \"${workspaceFolder}/Inbox/Personal/Notes.md\" < /dev/null",
+      "windows": {
+        "command": "${execPath}",
+        "args": ["-r", "${workspaceFolder}\\Inbox\\Personal\\Notes.md"]
+      },
+      "osx": {
+        "command": "open -a 'Visual Studio Code' \"${workspaceFolder}/Inbox/Personal/Notes.md\""
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "presentation": {
+        "echo": false,
+        "reveal": "never",
+        "showReuseMessage": false,
+        "panel": "shared",
+        "close": true
+      },
+      "problemMatcher": []
     }
   ]
 }
