@@ -176,7 +176,7 @@ User input: "A lone figure walks through an ancient forest at dawn. Mist rising.
 2. **Narrative Summary:** 1-sentence scene description. (Optional — trim first if ZH budget tight.)
 3. **Dynamic Description:** Shot-by-shot in prose. Camera, movement, action. Present tense.
 4. **Static Description:** Location, props, ambient details. Establish anything referenced in Dynamic. **For non-dialogue scenes, append diegetic audio here** — ambient/SFX only (birdsong, wind, footsteps, room tone), never music or BGM unless the user explicitly requests it.
-5. **Audio:** (dialogue scenes only) Spoken lines + SFX/BGM. Dialogue lines in their original language — never translate. *Non-dialogue scenes carry diegetic ambient in the Static Description tail (§4), not here.*
+5. **Audio:** (dialogue scenes only) Spoken lines + SFX; BGM only when the user explicitly requests it. Dialogue lines in their original language — never translate. *Non-dialogue scenes carry diegetic ambient in the Static Description tail (§4), not here.*
 
 ---
 

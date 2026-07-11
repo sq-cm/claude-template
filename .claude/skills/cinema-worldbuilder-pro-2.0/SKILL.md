@@ -164,7 +164,7 @@ These apply to every Seedance prompt this skill produces, no exceptions:
 20. **Positive locks over negative prohibitions.** Translate "no drifting" into "boots stay planted on the same ground marks." Translate "don't change face" into "@image1 keeps the same face, hair, wardrobe, and silhouette throughout." Negative prompts have weaker pull than positive constraints.
 21. **One main idea per shot.** One dominant action, one main camera strategy, one major lighting motivation. If a request requires more, split into a multi-shot sequence.
 22. **Trust the reference image for wardrobe.** The Subject Lock block names identity anchor, body orientation, pose, state, gaze, contact points, and the lock-down line. Do not re-describe wardrobe details that are already visible in the reference. Only specify the wardrobe details that the model cannot read from the image (e.g., "damp from rain," "torn at the shoulder," "covered in dust") — text-only state information the reference image can't convey.
-23. **Canonical reference always attached, never substituted by the plate.** Every named subject that appears in the scene gets its canonical reference (character reference sheet, vehicle reference, prop reference, creature reference) attached as its own `@imageN` slot — even when that subject is also visible inside the rendered environment plate. The plate carries the world (location, weather, light, set dressing, composition); the canonical reference carries identity (face, body, livery, markings, silhouette). Never let the plate stand in for a canonical reference. Subject Locks anchor to canonical reference tags (`@image1`, `@image2`, etc.); the World Plate block anchors to the plate tag (`@imageN`). Hard rule, no exceptions: if a character or vehicle appears in the plate AND has a canonical reference, the canonical reference still gets its own slot in the reference list and its own Subject Lock block in the prompt. This applies regardless of how clearly the subject reads in the plate. Identity fidelity is always anchored to the canonical reference, never to the rendered plate.
+23. **Canonical reference always attached, never substituted by the plate.** Every named subject gets its canonical reference as its own `@imageN` slot even when visible in the rendered plate — plate carries world, canonical reference carries identity. Full rule: § Canonical-over-plate rule (HARD LOCK) below.
 
 ---
 
@@ -192,7 +192,7 @@ When the user uploads reference images, extract everything visible in the frame 
 
 **No-invention rule.** If the user gives you a reference image and asks for the same character in a new scene, do not invent wardrobe or styling details that aren't in the image or specified in the request.
 
-**Trust-the-reference rule.** Once a character's wardrobe and identity are anchored to an `@imageN` tag, the Subject Lock block in the prompt body does NOT re-describe every garment in detail. The lock-down line ("face, hair, wardrobe, and silhouette identical throughout") closes the block. Only state-changes the image can't carry (damp, dirty, torn, wet, dusty, bloodied) get spelled out.
+**Trust-the-reference rule.** See rule 22 — the Subject Lock never re-describes what the reference already carries; only state-changes the image can't carry (damp, dirty, torn, wet, dusty, bloodied) get spelled out.
 
 **Canonical-over-plate rule (HARD LOCK).** Every named subject that appears in a Seedance scene gets its canonical reference attached as its own `@imageN` slot — even if that subject is also visible in the rendered environment plate. Characters, vehicles, props, creatures, animals — anything with locked identity that needs to hold across the cut gets its dedicated reference, no exceptions. The plate carries the world (location, weather, light, set dressing, composition); canonical references carry identity (face, body, livery, markings, silhouette). The plate is never a substitute for a canonical reference, and a subject's visible presence in the plate never reduces or removes the requirement to attach its canonical reference. If a character's reference sheet exists, attach it. If a vehicle's canonical reference exists, attach it. Subject Locks anchor to the canonical reference tag; the World Plate block anchors to the plate tag. This is the rule that prevents identity drift between the plate and the rendered Seedance output.
 
@@ -414,7 +414,7 @@ Capture Realism: [Foreground subject] sits inside real depth — [thin/light/hea
 **Tuning notes:**
 - **Dry scenes:** delete the entire `[IF WET: ...]` sentence. Don't force moisture into a dry environment.
 - **No humans (M5 / pure environment plates):** drop the skin sentence entirely. Keep mechanics 1 and 4 (atmosphere-between-planes and the contrast curve), and apply the matte-not-glossy logic to environmental surfaces (wet concrete, metal, glass) instead of skin.
-- **Studio / M2 editorial:** if the user wants the *crafted* glossy editorial look, this block is reduced or skipped — M2 is the one mode where controlled specular (intentional highlight bloom on chrome/rhinestone) is intentional. Use judgment; ask if unsure.
+- **Studio / M2 editorial:** if the user wants the *crafted* glossy editorial look, this block is reduced (never skipped — the labelled block still ships, shortened) — M2 is the one mode where controlled specular (intentional highlight bloom on chrome/rhinestone) is intentional. Use judgment; ask if unsure.
 - **Atmosphere density** scales with the scene: "thin atmosphere" for a clear interior, "light haze" for most exteriors, "heavy suspended mist" for a moody pre-dawn or a destroyed-city plate. The denser the air, the stronger the depth separation.
 - **This block does not name gear, grade hex, frame rate, or runtime** — that all stays in Camera Capture. No overlap. Capture Realism is physics; Camera Capture is hardware.
 
@@ -428,9 +428,9 @@ The Camera Capture is the single closing line of every Seedance prompt. It conta
 
 **This is the only camera/grade/film stock language anywhere in the prompt.** No discrete `Camera:` block in the middle of the body. No double specification. The Camera Capture line carries it all.
 
-**Default camera energy is handheld with breath, drift, and organic operator movement** — even in editorial / quiet / observational moments. The lived-in operator presence is part of the cinema register.
+**Default camera energy is handheld with breath, drift, and organic operator movement** — **in M1, M3, and M4** — even in quiet or observational moments. The lived-in operator presence is part of the cinema register.
 
-**Locked-off tripod is OPT-IN ONLY** — used only when the user explicitly requests "locked off," "tripod," "no camera movement," "static," "still camera," or names a specific shot type that requires it (overhead surveillance plate, surgical observation, security cam aesthetic, formal portrait studio plate).
+**In M1/M3/M4, locked-off tripod is OPT-IN ONLY** — used only when the user explicitly requests "locked off," "tripod," "no camera movement," "static," "still camera," or names a specific shot type that requires it (overhead surveillance plate, surgical observation, security cam aesthetic, formal portrait studio plate). **M2 (locked tripod with optional slow push) and M5 (locked-off or extremely slow push) bake in their own camera baselines per the Mode-Select Table — this opt-in rule does not apply there.**
 
 ---
 
@@ -563,8 +563,6 @@ Slow-motion beats (impact, hair whip, fabric on a hit, water splash, weapon reco
 
 **Total runtime** is stated in three places: title line above the code block, Frame Map block (for multi-shot sequences with per-shot timing), and the closing Camera Capture line. All three must match.
 
-**Always ask runtime — never default.** If the user hasn't specified runtime, ask in the pre-prompt confirmation step.
-
 **Shot complexity guidance:**
 - **4–8 seconds** — one strong character action, single locked composition
 - **8–12 seconds** — one action plus reveal or hold, optional micro-shift in composition
@@ -604,16 +602,16 @@ Before delivering the full prompt to the user, silently run this pass. If anythi
 
 - [ ] Character gate asked (if first prompt of session) and answer carried
 - [ ] Every uploaded reference image identified and listed by short visual descriptor — first bullet of the pre-prompt check, numbered bullet list at top of delivery, and inline `@imageN` tag. Order matches across all three.
-- [ ] **Canonical reference attached for every named subject that appears in the scene, even when that subject is also visible in the rendered plate** — characters, vehicles, props, creatures. Plate carries the world; canonical reference carries identity. No exceptions. Subject Lock for every canonical-referenced subject anchored to its own `@imageN`.
+- [ ] **Canonical reference attached for every named subject that appears in the scene, even when that subject is also visible in the rendered plate** — characters, vehicles, props, creatures.
 - [ ] Mode selected (M1 / M2 / M3 / M4 / M5) with rationale
 - [ ] Frame Map block written — every character pinned to a screen position, depth layer, frame occupancy
 - [ ] Subject Lock block written for every character — identity / orientation / pose / state / gaze / contact points / state-changes / lock-down line. Wardrobe NOT re-described from reference image — only state-changes the image can't carry.
-- [ ] Cross-Frame Rules written if 2+ characters in frame — no swap, no center cross, no depth change, distance held, screen sides held
+- [ ] Cross-Frame Rules written if 2+ characters in frame — no swap, no center cross, no depth change, distance held, screen sides held; single-character scenes still ship the labelled block, shortened
 - [ ] Movement block written — four layers present (character / micro / environmental / camera) in paragraph form, per-beat timestamps where the action demands
 - [ ] Last Frame block written — exact closing composition stated, on-screen text suppression line included (unless user requested in-frame text)
 - [ ] World Plate written — location, time, weather, set dressing, anchored to plate ref if attached
 - [ ] Sound Bed written — diegetic mode chosen, specific sounds listed, no music referenced
-- [ ] Capture Realism block written and tuned to the scene — depth-via-suspended-atmosphere between the actual planes; moisture-without-shine ONLY if the scene is wet (deleted if dry); per-zone specular kill on skin (dropped if no humans); contrast curve stated three ways. Not duplicating any gear/grade/frame-rate language from Camera Capture. Reduced or skipped only if the user explicitly asked for a glossy/clean/editorial register.
+- [ ] Capture Realism block written and tuned to the scene — depth-via-suspended-atmosphere between the actual planes; moisture-without-shine ONLY if the scene is wet (deleted if dry); per-zone specular kill on skin (dropped if no humans); contrast curve stated three ways. Not duplicating any gear/grade/frame-rate language from Camera Capture. Reduced (never skipped) only if the user explicitly asked for a glossy/clean/editorial register.
 - [ ] Camera Capture line at the bottom — single trimmed paragraph, body / lens / filter / movement / stock / grade / frame rate / runtime, no double camera spec
 - [ ] Lens length chosen for the framing
 - [ ] Runtime confirmed with the user (never assumed). Runtime in title matches runtime in Camera Capture.
