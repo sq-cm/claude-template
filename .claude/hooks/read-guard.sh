@@ -10,6 +10,8 @@
 # before the .env* block) — it is git-tracked, secrets-free, and
 # onboarding directs users/agents to copy and fill it. Exit 2 blocks
 # the tool call and feeds stderr back to Claude as guidance.
+# The same guard also covers .mcp.json (may hold inline MCP server
+# secrets), exempting .mcp.json.example for the same reason.
 # Ported from cc-token-demos/block-huge-reads (Python original), adapted
 # to bash+jq for consistency with this repo's other hooks, with the
 # offset/limit pass-through and a 1000-line threshold per Odin's
@@ -30,8 +32,13 @@ if [ "$TOOL_NAME" = "Grep" ]; then
     # .env.example exemption — checked before the broad .env* block
     case "$(basename "$GREP_PATH" 2>/dev/null)" in .env.example) exit 0 ;; esac
     case "$GREP_GLOB" in .env.example|*/.env.example) exit 0 ;; esac
+    # .mcp.json.example exemption — checked before the .mcp.json block
+    case "$(basename "$GREP_PATH" 2>/dev/null)" in .mcp.json.example) exit 0 ;; esac
+    case "$GREP_GLOB" in .mcp.json.example|*/.mcp.json.example) exit 0 ;; esac
     case "$GREP_PATH" in *.env*) echo "BLOCKED: Grep path targets a .env* file — secrets must not be searched or read this way. (.env.example is the readable exception.)" >&2; exit 2 ;; esac
     case "$GREP_GLOB" in *.env*) echo "BLOCKED: Grep glob targets .env* files — secrets must not be searched or read this way. (.env.example is the readable exception.)" >&2; exit 2 ;; esac
+    case "$(basename "$GREP_PATH" 2>/dev/null)" in .mcp.json) echo "BLOCKED: Grep path targets .mcp.json — may hold inline MCP server secrets; must not be searched this way. (.mcp.json.example is the readable exception.)" >&2; exit 2 ;; esac
+    case "$GREP_GLOB" in .mcp.json|*/.mcp.json|*.mcp.json) echo "BLOCKED: Grep glob targets .mcp.json — may hold inline MCP server secrets; must not be searched this way. (.mcp.json.example is the readable exception.)" >&2; exit 2 ;; esac
     exit 0
 fi
 
@@ -42,6 +49,8 @@ FILE_PATH=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev
 case "$(basename "$FILE_PATH" 2>/dev/null)" in
     .env.example) exit 0 ;;
     .env*) echo "BLOCKED: $(basename "$FILE_PATH") matches .env* — secrets must not be read this way. (.env.example is the readable exception.)" >&2; exit 2 ;;
+    .mcp.json.example) exit 0 ;;
+    .mcp.json) echo "BLOCKED: .mcp.json may hold inline MCP server secrets — must not be read this way. (.mcp.json.example is the readable exception.)" >&2; exit 2 ;;
 esac
 
 # Bounded read (offset or limit supplied) → pass
