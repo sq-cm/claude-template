@@ -35,13 +35,13 @@
     {
       "label": "Open Startup File",
       "type": "shell",
-      "command": "code -r \"${workspaceFolder}/Inbox/Personal/Notes.md\" < /dev/null",
+      "command": "code -r \"${workspaceFolder}/Notes/Personal/Notes.md\" < /dev/null",
       "windows": {
         "command": "${execPath}",
-        "args": ["-r", "${workspaceFolder}\\Inbox\\Personal\\Notes.md"]
+        "args": ["-r", "${workspaceFolder}\\Notes\\Personal\\Notes.md"]
       },
       "osx": {
-        "command": "open -a 'Visual Studio Code' \"${workspaceFolder}/Inbox/Personal/Notes.md\""
+        "command": "open -a 'Visual Studio Code' \"${workspaceFolder}/Notes/Personal/Notes.md\""
       },
       "runOptions": {
         "runOn": "folderOpen"

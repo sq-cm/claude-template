@@ -142,7 +142,7 @@ The reminder runs lightly — one line, no escalation. The user decides when to 
 
 ## Concurrent sessions (one clone)
 
-Running multiple Claude Code terminal sessions against one vault clone is a supported pattern — one project per session, and never two sessions open against the same `Projects/` folder at once. `Projects/` subfolders are git-ignored and disjoint per project, so parallel sessions on different projects have no file contention. Repo-level conflict is off the table too: the pre-commit guard allowlists commits to `Inbox/`, `Notes/`, and `Projects/` only — all git-ignored — so no local commit can change template state underneath a running session.
+Running multiple Claude Code terminal sessions against one vault clone is a supported pattern — one project per session, and never two sessions open against the same `Projects/` folder at once. `Projects/` subfolders are git-ignored and disjoint per project, so parallel sessions on different projects have no file contention. Repo-level conflict is off the table too: the pre-commit guard allowlists commits to `Notes/` and `Projects/` only — all git-ignored — so no local commit can change template state underneath a running session.
 
 **Session notes are safe concurrently.** The `<ISO8601>-<persona-slug>-<topic-slug>.md` filename scheme (Stage 1) means two sessions writing notes at the same time land at different paths — no collision, no coordination required.
 

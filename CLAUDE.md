@@ -41,7 +41,7 @@ Sanctioned route for light work. Rationale, worked examples, escalation detail: 
 
 **Eligible only when ALL hold:** single-file/single-answer output · reversible, low blast-radius · one persona, no fan-out · no client Deliverable · not a governance-artefact edit (see § Advisor Checkpoints). **Ambiguous → full pipeline.**
 
-**Bypasses:** `grill-me`, plan mode + approval, Checkpoints A/B, QA Gate. **Keeps (non-negotiable):** routing to a persona, never Orchestrator-inline · inline AU-English + humaniser pass on any user-facing prose · destination never `03 Deliverables/` (in-project → `02 Working/`; standalone → inline reply or `Inbox/`; never `Notes/`).
+**Bypasses:** `grill-me`, plan mode + approval, Checkpoints A/B, QA Gate. **Keeps (non-negotiable):** routing to a persona, never Orchestrator-inline · inline AU-English + humaniser pass on any user-facing prose · destination never `03 Deliverables/` (in-project → `02 Working/`; standalone → inline reply or `Notes/`).
 
 **Invoking:** the lane is selected by the Orchestrator's judgement by default; the user may also request it explicitly with `/fast-path <task>`. Either way eligibility is asserted, not assumed — an ineligible `/fast-path` names the failing condition and auto-escalates to the full pipeline (grill-me + plan per Default Mode). The command cannot override eligibility.
 
@@ -159,7 +159,7 @@ Name map: `Vault/Memory/theme-name-map.md`. Agent files: `.claude/agents/[role-s
 
 ## Vault Structure
 
-Root is reserved for named top-level folders only: `.claude/` · `Inbox/` · `Notes/` · `Projects/` · `Resources/` · `Vault/`. **New folders must not be created at root level** — new persistent storage goes under `Vault/`. The Orchestrator enforces this on any folder-creation request. Tool/VCS dotfolders (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) and dotfiles (`.gitignore`, `.gitattributes`) are exempt.
+Root is reserved for named top-level folders only: `.claude/` · `Notes/` · `Projects/` · `Resources/` · `Vault/`. **New folders must not be created at root level** — new persistent storage goes under `Vault/`. The Orchestrator enforces this on any folder-creation request. Tool/VCS dotfolders (`.git/`, `.githooks/`, `.obsidian/`, `.vscode/`, `.claude/`) and dotfiles (`.gitignore`, `.gitattributes`) are exempt.
 
 Folder purposes, permitted root-level files (`CLAUDE.md`, `README.md`, `CHANGELOG.md`, installers, `.env*`), and carve-out rationale: see [Vault/README.md](Vault/README.md) § Root-level layout.
 

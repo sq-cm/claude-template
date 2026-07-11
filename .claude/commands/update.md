@@ -132,6 +132,6 @@ Stop here.
 > ```bash
 > git rebase --abort
 > ```
-> Your personal files (Projects/, Vault/Memory/, Inbox/) are never affected by template updates — conflicts only appear when both you and the template edited the same core file.
+> Your personal files (Projects/, Vault/Memory/, Notes/) are never affected by template updates — conflicts only appear when both you and the template edited the same core file.
 
 Stop here.

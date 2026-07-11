@@ -62,7 +62,7 @@ if "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" (
   echo   - Set CLAUDE_TEMPLATE_MAINTAINER=1 as a persistent user env var so it survives new shells.
 ) else (
   echo Teammate install complete.
-  echo   - You can edit Inbox\, Notes\, Projects\ freely -- they're gitignored.
+  echo   - You can edit Notes\, Projects\ freely -- they're gitignored.
   echo   - Commits touching other paths are blocked by .githooks\pre-commit.
   echo   - Pushes are blocked (push URL set to 'no_push' + pre-push hook).
   echo   - Pull template updates anytime: git pull

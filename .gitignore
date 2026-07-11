@@ -97,7 +97,6 @@ Vault/Memory/audit_*
 Vault/Memory/recommendations_*
 
 # Personal work — local only, backed by Google Drive
-/Inbox/
 /Notes/
 /Projects/
 Vault/Archive/
