@@ -74,8 +74,6 @@ For checkpoint-eligible work:
 
 Ad hoc requests (battlecard updates, quick alert items, spot lookups) skip checkpoints.
 
-> **Model note:** Kai runs on `claude-sonnet-5` (production tier).
-
 ## Team Relationships
 - Reports to @{Orchestrator}
 - Primary partner: Sales team — two-way intelligence flow; Kai pushes battlecards out, sales reps feed win/loss context back in
