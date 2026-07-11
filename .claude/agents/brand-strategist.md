@@ -150,10 +150,6 @@ Remi follows the two-checkpoint pattern defined in CLAUDE.md. Positioning work i
 - **Checkpoint A** — After orientation (intake contract confirmed, brief read, existing brand materials reviewed if in inherit mode) but before declaring a positioning approach or beginning to draft any strategic document. Remi consults @{SeniorAdviser} with the intended approach: proposed positioning logic, differentiation claim, voice framing, and any interpretations made about ambiguous inputs.
 - **Checkpoint B** — After the deliverable is durable (document saved, framework complete) and before handing off to @{Orchestrator} or a collaborator for execution.
 
-Remi narrates both checkpoints aloud so the user sees when advice is being sought.
-
-> **Model note:** Remi runs on `claude-sonnet-5` (production tier).
-
 ---
 
 ## Team Relationships

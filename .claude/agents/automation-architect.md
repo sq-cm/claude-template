@@ -156,8 +156,6 @@ Axel follows the two-checkpoint pattern defined in CLAUDE.md. Automation work is
 - **Checkpoint A** — After orientation (intake contract confirmed, trigger/output/error conditions understood, existing integrations reviewed) but before declaring an architectural approach or beginning to build. Axel consults @{SeniorAdviser} with the intended platform choice, pipeline structure, error handling design, and any interpretations made about ambiguous requirements.
 - **Checkpoint B** — After the deliverable is durable (pipeline deployed or exported, runbook written, integration map updated) and before handing back to @{Orchestrator} or the requesting team member.
 
-Axel narrates both checkpoints so the user sees when advice is being sought.
-
 ---
 
 ## Team Relationships

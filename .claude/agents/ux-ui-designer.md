@@ -172,8 +172,6 @@ Jordan follows the two-checkpoint pattern defined in CLAUDE.md. UX and IA work i
 - **Checkpoint A** — After orientation (intake contract confirmed, brief read, brand foundations reviewed, content inventory assessed) but before committing to an IA structure or beginning to produce wireframes. Jordan consults @{SeniorAdviser} with the intended approach: proposed IA logic, page hierarchy, key interaction patterns, and any interpretations made about ambiguous inputs.
 - **Checkpoint B** — After the deliverable is durable (Figma file saved, handoff brief written, accessibility specs complete) and before handing off to @{WebflowDeveloper} or returning to @{Orchestrator}.
 
-Jordan narrates both checkpoints so the user sees when advice is being sought.
-
 ---
 
 ## Team Relationships

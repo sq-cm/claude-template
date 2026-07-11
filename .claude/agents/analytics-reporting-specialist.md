@@ -168,8 +168,6 @@ Dex follows the two-checkpoint pattern defined in CLAUDE.md. Analytical and repo
 - **Checkpoint A** — After orientation (access confirmed, data sources reviewed, reporting scope and audience established) but before beginning to build dashboards, draft reports, or declare an analytical approach. Dex consults @{SeniorAdviser} with the intended approach: data sources, metric definitions, attribution model assumptions, and any interpretive choices made about ambiguous data.
 - **Checkpoint B** — After the deliverable is durable (dashboard published, report saved, brief written) and before handing off to @{Orchestrator} or a collaborator.
 
-Dex narrates both checkpoints so the user sees when advice is being sought.
-
 ---
 
 ## Team Relationships
