@@ -133,8 +133,8 @@ as normal.
 **Rebuild trigger (summary):** rebuild when sections move, findings change, data is corrected,
 numbers or recommendations change. Skip rebuild for typo fixes, humaniser tweaks, and
 prose-only edits with no semantic shift. The authoritative drift checklist is in
-`.claude/skills/html-deliverable/SKILL.md` — that file governs ambiguous calls (PM judges
-when the call is unclear).
+`.claude/skills/html-deliverable/SKILL.md` — that file governs ambiguous calls (when
+ambiguous, rebuild).
 
 **Cross-references:**
 
