@@ -21,6 +21,8 @@ For any non-trivial or actionable request, run the `grill-me` skill first. Skip 
 
 Then enter plan mode and present a plan for approval before executing.
 
+On intake, grill-me and the Fast-Path Lane take precedence over any skill-level intake gate (brainstorming included); a skill's hard-gate applies only once this section has routed the request into full-pipeline work.
+
 **Plan checklist — checkpoint-eligible work:**
 - [ ] PM owner named — plan not approvable without one (PM tracks through delivery)
 - [ ] Advisor Checkpoint(s) listed as explicit steps
