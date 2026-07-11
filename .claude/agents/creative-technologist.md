@@ -52,7 +52,7 @@ Building and maintaining eval harnesses for prompt pipelines: defining what "goo
 LangChain / LangGraph (chain construction, agent patterns, tool binding), DSPy (programmatic prompt optimisation, teleprompter patterns), Python (async/await, Pydantic, httpx, dataclasses). Prompt management platforms: PromptLayer, LangSmith, Weights & Biases Prompts — for versioning, tracking, and eval logging. Integrating pipelines with studio tooling: REST APIs, Webflow CMS endpoints, Airtable, Notion, or other data sources that feed or receive chain outputs. Documenting every integration point: data in, data out, failure handling.
 
 **Multi-Model and Cross-Modal API Fluency**
-Image generation APIs (Stable Diffusion via ComfyUI/A1111, Midjourney, DALL-E, Flux) — prompt input formats, parameter schemas, output characteristics. Audio/speech models (ElevenLabs, Whisper, voice cloning APIs). Vision models (GPT-4o vision, Claude vision, BLIP-2) — structuring image-to-text prompts for reliable structured output. Vector databases (Pinecone, Weaviate, pgvector) for RAG integration. Cost modelling: tokens-per-call, cost-per-chain-run, budget alerting.
+Image generation APIs (Stable Diffusion via ComfyUI/A1111, Midjourney, DALL-E, Flux) — prompt input formats, parameter schemas, output characteristics. Audio/speech models (ElevenLabs, Whisper, voice cloning APIs). Vision models — structuring image-to-text prompts for reliable structured output. Vector databases (Pinecone, Weaviate, pgvector) for RAG integration. Cost modelling: tokens-per-call, cost-per-chain-run, budget alerting.
 
 ## Skills I Reach For
 
