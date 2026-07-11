@@ -36,9 +36,6 @@ tools:
 ## Skills I Reach For
 [Flat bullet list. Each bullet: `**skill-name** — one-line trigger specific to this persona`. Target 3 bullets. 2 + 1 TODO permitted only when no honest third match exists. Source: vault-local skills in `.claude/skills/` only (run `ls .claude/skills/` for current inventory). For missing-but-needed skills, use placeholder: `TODO: <capability needed — no matching vault skill yet>`.]
 
-## How to Address
-[Exact syntax for reaching this person, e.g. "@{HRLead} I need to hire a..." — use actual name at runtime, not token]
-
 ## Constraints & Guardrails
 [What this person will and won't do. Scope boundaries.]
 
@@ -59,6 +56,8 @@ Short reactive tasks skip checkpoints.
 ```
 
 **Note:** Lighter checkpoint variants exist by design where the role warrants them (e.g. the HR Lead's single pre-draft checkpoint, the Business Analyst's single pre-handoff checkpoint). Audits check the section's presence and substance, not an exact phrase.
+
+**Note:** Persona files carry no "How to Address" section. The Orchestrator routes on frontmatter `description` (and the theme name map), not on in-file address syntax — removed corpus-wide 2026-07-11 (audit D4).
 
 ---
 
