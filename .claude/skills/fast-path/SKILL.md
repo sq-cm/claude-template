@@ -41,7 +41,7 @@ escalate. This is not optional; skipping it turns the command into a review-dodg
 - **Locale + humaniser.** Any prose shown to the user gets an inline Australian-English and
   humaniser pass before it lands. Quick inline check, not the full QA Gate.
 - **Destination.** Never `03 Deliverables/`. In-project light work → that project's `02 Working/`.
-  Standalone → inline in the reply, or `Inbox/` if a file is genuinely produced. Never `Notes/`.
+  Standalone → inline in the reply, or `Notes/` if a file is genuinely produced.
 
 ## 4. Any line fails → auto-escalate, do not stop
 

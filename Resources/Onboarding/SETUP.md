@@ -34,7 +34,7 @@ This does three things automatically: blocks push to the upstream template repo 
 
 The template flows one direction: maintainer → upstream → your clone. Your clone is read-only for template files.
 
-- **Editable** — `Inbox/`, `Notes/`, `Projects/` (all gitignored — your work lives here)
+- **Editable** — `Notes/`, `Projects/` (all gitignored — your work lives here)
 - **Not editable for commit** — everything else (CLAUDE.md, `.claude/agents/`, SOPs, settings, etc.)
 
 `.githooks/pre-commit` blocks any commit touching paths outside the editable zone. `.githooks/pre-push` blocks all pushes. If you genuinely need a template change, propose it to the maintainer.
