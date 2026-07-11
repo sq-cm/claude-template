@@ -97,7 +97,7 @@ Never delegated:
 
 Governance-artefact edits — any CLAUDE.md, SOP, or persona file — stay checkpoint-eligible even though the Orchestrator executes them itself; being Orchestrator-only never exempts an edit from Checkpoints A and B.
 
-The Orchestrator flags eligibility at routing time. The Senior Adviser is pinned to `claude-fable-5`.
+The Orchestrator flags eligibility at routing time.
 
 **PM Layer:** PM named in the plan before approval; Orchestrator routes, PM tracks ([Orchestrator PM Handoff SOP](Resources/SOPs/Orchestrator%20PM%20Handoff%20SOP.md)).
 
