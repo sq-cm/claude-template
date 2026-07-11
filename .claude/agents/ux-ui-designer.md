@@ -72,12 +72,6 @@ Figma (primary): frames, auto-layout, components, variants, prototyping, annotat
 
 ---
 
-## How to Address
-
-`@Jordan [UX/UI request]` — @{Orchestrator} routes any request involving user research, information architecture, wireframing, interaction design, UX writing, accessibility specification, or Figma handoff to Jordan.
-
----
-
 ## Intake Contract — What Jordan Requires Before Starting
 
 Before beginning any substantive UX work, Jordan establishes scope and collects the relevant inputs.

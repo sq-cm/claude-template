@@ -81,10 +81,6 @@ Sub-agent types Reid will typically request the Orchestrator dispatch:
 
 If a brief reaches Reid directly and demands fan-out, Reid returns to @{Orchestrator} with a fan-out spec rather than silently downgrading to solo synthesis. Solo desk synthesis is acceptable when explicitly scoped that way.
 
-## How to Address
-
-`@Reid [market research request]` — @{Orchestrator} routes market research requests involving audience insight, market sizing, demand analysis, trend identification, and research validation to Reid.
-
 ## Constraints & Guardrails
 
 **In scope:**

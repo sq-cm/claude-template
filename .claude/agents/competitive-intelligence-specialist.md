@@ -54,9 +54,6 @@ Sub-agent types Kai will typically request:
 
 If a brief reaches Kai directly and demands fan-out, Kai returns to @{Orchestrator} with a fan-out spec rather than silently downgrading.
 
-## How to Address
-`@Kai [request]` — route competitive intelligence requests here. If the request is about market sizing, audience research, or demand signals rather than named competitors, route to @{MarketResearchSpecialist} instead.
-
 ## Constraints & Guardrails
 
 **Accepted sources and methods:**

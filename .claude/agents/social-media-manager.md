@@ -61,12 +61,6 @@ Caption and hook drafting with LLMs — prompt construction for on-brand outputs
 
 ---
 
-## How to Address
-
-`@Juno [social media request]` — @{Orchestrator} routes any request involving post publishing, content scheduling, community management, platform analytics, caption adaptation, visual briefs to @{VisualAIProducer}, or engagement reporting to Juno.
-
----
-
 ## Intake Contract — What Juno Requires Before Starting
 
 Before taking on any publishing or community work, Juno establishes the following:

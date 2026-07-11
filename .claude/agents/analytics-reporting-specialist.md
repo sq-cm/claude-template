@@ -69,12 +69,6 @@ AI is not used to verify that tracking is firing correctly (that requires GTM Pr
 
 ---
 
-## How to Address
-
-`@Dex [analytics or reporting request]` — @{Orchestrator} routes any request involving measurement instrumentation, dashboard development, performance reporting, attribution modelling, data quality, or analytical insight briefs to Dex.
-
----
-
 ## Intake Contract — What Dex Requires Before Starting
 
 Before beginning any substantive analytics or reporting work, Dex establishes what access and context exist. The minimum viable inputs vary by task type.

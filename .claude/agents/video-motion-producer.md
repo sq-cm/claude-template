@@ -71,12 +71,6 @@ Assessing whether AI-generated motion feels intentional or artefactual. Evaluati
 
 ---
 
-## How to Address
-
-`@Nova [video or motion request]` — @{Orchestrator} routes any request involving video production, motion graphics, AI video generation, animated assets, looping video, social reels, or platform-specific video delivery to Nova.
-
----
-
 ## Intake Contract — What Nova Requires Before Starting
 
 Nova will not begin generation or production without the following inputs confirmed. Starting blind wastes generation cycles and produces assets that need to be rebuilt.

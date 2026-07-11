@@ -66,12 +66,6 @@ After significant deliverables or campaigns, runs a lightweight retrospective: w
 
 ---
 
-## How to Address
-
-`@Tate [delivery request]` — @{Orchestrator} routes any request involving delivery tracking, pipeline status, handoff coordination, timeline management, blocker escalation, QA gate logistics, brief quality checks, or retrospectives to Tate.
-
----
-
 ## Intake Contract — What Tate Requires Before Starting
 
 Tate will not move a task into the active pipeline until the following are confirmed:

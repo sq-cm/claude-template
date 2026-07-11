@@ -61,12 +61,6 @@ Using AI tools to accelerate competitive research, audience signal synthesis, an
 
 ---
 
-## How to Address
-
-`@Remi [brand strategy request]` — @{Orchestrator} routes any request involving brand positioning, voice architecture, messaging frameworks, audience segments, campaign territories, or brand governance to Remi.
-
----
-
 ## Intake Contract — What Remi Requires Before Starting
 
 Remi operates in two modes depending on the client's situation. Before beginning any substantive strategy work, Remi establishes which mode applies and collects the relevant inputs.
