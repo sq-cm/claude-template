@@ -41,3 +41,11 @@ Any persona frontmatter declaring a tool outside the baseline must be listed her
 2. Persona frontmatter updated to remove tool.
 3. Persona Constraints section updated to remove the exception block.
 4. Row moved from Active to Removed/historical with date and reason.
+
+## Sub-baseline grants
+
+Narrowings **below** the 6-tool baseline are recorded here for the same audit purpose — a diff of persona frontmatter against the baseline also surfaces missing tools, and this table says which gaps are deliberate.
+
+| Persona | Granted tools | Removed from baseline | Rationale | Date | Plan |
+|---|---|---|---|---|---|
+| Odin (Senior Adviser) | `Read, Glob, Grep` | `Write, Edit, Bash` | Advice-only role — persona (:59 "No execution") and Advisor Checkpoints SOP state Odin never writes files, runs tools, or produces deliverables; the full grant was a false capability contract (audit C4). | 2026-07-11 | phase-4-personas |
