@@ -179,13 +179,18 @@
   .copy-btn.copied { background: #16a34a; }
 
   /* ── Slash Commands ── */
+  .command-group { margin-top: 26px; }
+  .command-group:first-of-type { margin-top: 0; }
+  .command-group-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
   .ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
   .ref-card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px; }
-  .ref-card-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .ref-card-name-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
   .ref-card-name { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600; color: var(--ink); }
   .type-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 20px; padding: 2px 8px; white-space: nowrap; }
   .type-badge.skill { background: color-mix(in srgb, #6366f1 10%, var(--surface)); color: color-mix(in srgb, #6366f1 80%, var(--ink)); border: 1px solid color-mix(in srgb, #6366f1 25%, var(--rule)); }
   .type-badge.command { background: color-mix(in srgb, #d97706 10%, var(--surface)); color: color-mix(in srgb, #d97706 80%, var(--ink)); border: 1px solid color-mix(in srgb, #d97706 25%, var(--rule)); }
+  .plugin-chip { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 20px; padding: 2px 8px; white-space: nowrap; background: color-mix(in srgb, #0891b2 10%, var(--surface)); color: color-mix(in srgb, #0891b2 80%, var(--ink)); border: 1px solid color-mix(in srgb, #0891b2 25%, var(--rule)); }
+  .auto-chip { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 20px; padding: 2px 8px; white-space: nowrap; background: color-mix(in srgb, #7c3aed 10%, var(--surface)); color: color-mix(in srgb, #7c3aed 80%, var(--ink)); border: 1px solid color-mix(in srgb, #7c3aed 25%, var(--rule)); }
   .ref-card-desc { font-size: 0.875rem; color: var(--ink-muted); margin-bottom: 10px; }
   .ref-card-when { font-size: 0.8rem; color: var(--ink-muted); border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; }
   .ref-card-when strong { color: var(--ink-muted); }
@@ -622,22 +627,43 @@ const TEAM = [
 ];
 
 const SLASH_COMMANDS = [
-  { name: "/humaniser", type: "skill", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
-  { name: "/prompt-review", type: "skill", desc: "Scores a draft prompt against the vault's 5-slot prompt formula and rewrites it in the same order, preserving your own wording wherever a slot is already filled.", when: "Before sending a prompt to a persona or an external model, when you want it sharper without an interview." },
-  { name: "/grill-me", type: "skill", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
-  { name: "/fast-path", type: "skill", desc: "Explicitly requests the Fast-Path Lane for a light task. Asserts the five eligibility conditions with an auditable verdict, then either runs the task on the lane (routed, working-only) or auto-escalates to the full pipeline if any condition fails. Cannot override eligibility — governance edits, deliverables, and fan-out always escalate.", when: "When you have a small, reversible, single-persona task and want to skip grill-me and plan mode. Sam still routes it; if it is not actually light, it escalates automatically." },
-  { name: "/log-session", type: "skill", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artifacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
-  { name: "/handoff-save", type: "command", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive) — current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
-  { name: "/memory-reconcile", type: "skill", desc: "Folds session notes from Vault/Memory/Sessions/ into your per-clone Vault/Memory/context.md index and per-month Notes/ archive. Two-stage write protocol — writes land in context.md (git-ignored), never the tracked MEMORY.md.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
-  { name: "/onboard", type: "command", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs the recommended plugin roster (canonical list: .claude/settings.json enabledPlugins), and installs VS Code extensions. Plannotator's binary is a separate optional, user-confirmed step.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
-  { name: "/update", type: "command", desc: "Pulls latest template changes from origin/main using the two-branch rebase model: fast-forwards main as upstream mirror, rebases local/main on top. Guards against missing local/main and uncommitted changes. Surfaces any conflicts with --continue / --abort instructions.", when: "Whenever the template repo receives updates you want to pull in. Safe to re-run." },
-  { name: "/import-repos", type: "command", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." },
-  { name: "/teach", type: "skill", desc: "Runs a personal interactive tutoring loop on any topic you want to learn. Sam handles this inline — it is the only task not routed to a persona. Learning data is saved git-ignored under `Vault/Learning/<topic>/` and never counts as a client deliverable.", when: "When you want to learn something rather than produce client work. The only Core-rule carve-out where Sam works inline instead of routing." },
-  { name: "/html-deliverable", type: "skill", desc: "Renders an interactive HTML companion for a QA-passed Markdown deliverable. Covers six types: audit reports, status reports, implementation plans, comparisons, research explainers, incident post-mortems. Outputs a sibling pair — `<name>.md` and `<name>.html` — with a second QA pass before the HTML ships.", when: "After a Markdown deliverable passes QA and you want an interactive version. The producing persona will also offer it automatically at that point." },
-  { name: "/prototype", type: "skill", desc: "Builds a self-contained interactive HTML/CSS/JS prototype — clickable and functional, not a static document.", when: "When you want a working clickable prototype to demonstrate an idea rather than describe it." },
-  { name: "/review-claudemd", type: "skill", desc: "Mines recent session transcripts for evidence-based CLAUDE.md findings across five lenses — violated, missing-local, missing-global, outdated, friction — and writes a report without editing CLAUDE.md itself.", when: "Orchestrator-run meta-skill, when you want to check standing instructions against how the vault is actually being used." },
-  { name: "/improve", type: "skill", desc: "Audits a codebase read-only across correctness, security, performance, tests, tech debt, dependencies, DX, docs, and direction, then writes self-contained implementation plans for another agent to execute.", when: "Orchestrator-run meta-skill, when you want a prioritised improvement roadmap rather than ad-hoc fixes." }
+  // ── Everyday ──
+  { name: "/grill-me", type: "skill", category: "Everyday", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
+  { name: "/prompt-review", type: "skill", category: "Everyday", desc: "Scores a draft prompt against the vault's 5-slot prompt formula and rewrites it in the same order, preserving your own wording wherever a slot is already filled.", when: "Before sending a prompt to a persona or an external model, when you want it sharper without an interview." },
+  { name: "/humaniser", type: "skill", category: "Everyday", desc: "Removes AI writing patterns from text — em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
+  { name: "/fast-path", type: "skill", category: "Everyday", desc: "Explicitly requests the Fast-Path Lane for a light task. Asserts the five eligibility conditions with an auditable verdict, then either runs the task on the lane (routed, working-only) or auto-escalates to the full pipeline if any condition fails. Cannot override eligibility — governance edits, deliverables, and fan-out always escalate.", when: "When you have a small, reversible, single-persona task and want to skip grill-me and plan mode. Sam still routes it; if it is not actually light, it escalates automatically." },
+
+  // ── Session & memory ──
+  { name: "/log-session", type: "skill", category: "Session & memory", desc: "Saves a structured log of the current session — request, routing trace, Odin checkpoints, artefacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
+  { name: "/handoff-save", type: "command", category: "Session & memory", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive) — current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
+  { name: "/memory-reconcile", type: "skill", category: "Session & memory", desc: "Folds session notes from Vault/Memory/Sessions/ into your per-clone Vault/Memory/context.md index and per-month Notes/ archive. Two-stage write protocol — writes land in context.md (git-ignored), never the tracked MEMORY.md.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
+
+  // ── Setup & sync ──
+  { name: "/onboard", type: "command", category: "Setup & sync", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs the recommended plugin roster (canonical list: .claude/settings.json enabledPlugins), and installs VS Code extensions. Plannotator's binary is a separate optional, user-confirmed step.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
+  { name: "/update", type: "command", category: "Setup & sync", desc: "Pulls latest template changes from origin/main using the two-branch rebase model: fast-forwards main as upstream mirror, rebases local/main on top. Guards against missing local/main and uncommitted changes. Surfaces any conflicts with --continue / --abort instructions.", when: "Whenever the template repo receives updates you want to pull in. Safe to re-run." },
+  { name: "/import-repos", type: "command", category: "Setup & sync", desc: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library for team consultation.", when: "During setup, or whenever you add new reference repos to the vault." },
+
+  // ── Deliverables & learning ──
+  { name: "/html-deliverable", type: "skill", category: "Deliverables & learning", desc: "Renders an interactive HTML companion for a QA-passed Markdown deliverable. Covers six types: audit reports, status reports, implementation plans, comparisons, research explainers, incident post-mortems. Outputs a sibling pair — &lt;name&gt;.md and &lt;name&gt;.html — with a second QA pass before the HTML ships.", when: "After a Markdown deliverable passes QA and you want an interactive version. The producing persona will also offer it automatically at that point." },
+  { name: "/teach", type: "skill", category: "Deliverables & learning", desc: "Runs a personal interactive tutoring loop on any topic you want to learn. Sam handles this inline — it is the only task not routed to a persona. Learning data is saved git-ignored under Vault/Learning/&lt;topic&gt;/ and never counts as a client deliverable.", when: "When you want to learn something rather than produce client work. The only Core-rule carve-out where Sam works inline instead of routing." },
+
+  // ── Creative & generation ──
+  { name: "/prototype", type: "skill", category: "Creative & generation", desc: "Builds a self-contained interactive HTML/CSS/JS prototype — clickable and functional, not a static document.", when: "When you want a working clickable prototype to demonstrate an idea rather than describe it." },
+  { name: "Higgsfield generate", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Generates images, video, 3D assets, or audio through the Higgsfield AI CLI — GPT Image 2 for stills, Seedance for video, Nano Banana for character references, Marketing Studio for ads, Seed Audio for audio. Requires a Higgsfield account.", when: "Ask Sam to animate a photo, turn an image into a short video, edit or restyle an image, reframe a video, turn an image into 3D, generate music or audio, or produce an ad or UGC-style video. Chains with Higgsfield Soul ID for a consistent face." },
+  { name: "Higgsfield Soul ID", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Trains a one-time 'Soul Character' model of a specific person's face in Higgsfield, so later generations of them stay identity-faithful. Requires a Higgsfield account.", when: "Ask Sam to train a face or character model before generating images or video of a real person, then reuse it whenever that person needs to appear consistently." },
+  { name: "Higgsfield product photoshoot", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Produces professional product imagery through Higgsfield's GPT Image 2 model across ten modes — plain product shots, lifestyle scenes, hero banners, carousels, ad creative, virtual try-on, and floating or splash-style renders. Requires a Higgsfield account.", when: "Ask Sam for product photography, a hero banner, a carousel set, or a virtual try-on image for a listing or ad." },
+  { name: "Higgsfield marketplace cards", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Builds a full marketplace listing image set in Higgsfield — a compliant main image, secondary product shots, A+ content modules, infographics, and lifestyle photos. Requires a Higgsfield account.", when: "Ask Sam to put together a complete listing image set for Amazon, Etsy, or another marketplace." },
+  { name: "Higgsfield websites", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Builds, edits, and deploys full-stack websites or web apps via the Higgsfield CLI, using React 19 and TanStack on Cloudflare. Requires a Higgsfield account.", when: "Ask Sam to build a landing page, SaaS dashboard, or portfolio site and publish it to production." },
+  { name: "Frontend design", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Gives aesthetic direction for building or reshaping a user interface — typography, layout, and visual choices deliberate enough to avoid a templated, default look. No Higgsfield account needed.", when: "Ask Sam for help making an interface look distinctive and intentional rather than generic, while it's being built or redesigned." },
+  { name: "Marketing image", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Creates, generates, edits, or optimises marketing images — blog headers, social graphics, product mockups, and banners — across whichever AI image model or design tool fits the job. No Higgsfield account needed.", when: "Ask Sam for a blog hero image, social graphic, product mockup, or banner for a marketing asset." },
+  { name: "Marketing video", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Produces marketing video using AI generation models, AI avatars, and programmatic frameworks — product demos, explainers, social clips, and ads. No Higgsfield account needed.", when: "Ask Sam for a product demo, explainer, social clip, or ad video for a marketing campaign." },
+
+  // ── Maintainer/meta ──
+  { name: "/review-claudemd", type: "skill", category: "Maintainer/meta", desc: "Mines recent session transcripts for evidence-based CLAUDE.md findings across five lenses — violated, missing-local, missing-global, outdated, friction — and writes a report without editing CLAUDE.md itself.", when: "Orchestrator-run meta-skill, when you want to check standing instructions against how the vault is actually being used." },
+  { name: "/improve", type: "skill", category: "Maintainer/meta", desc: "Audits a codebase read-only across correctness, security, performance, tests, tech debt, dependencies, DX, docs, and direction, then writes self-contained implementation plans for another agent to execute.", when: "Orchestrator-run meta-skill, when you want a prioritised improvement roadmap rather than ad-hoc fixes." }
 ];
+
+const COMMAND_CATEGORY_ORDER = ["Everyday", "Session & memory", "Setup & sync", "Deliverables & learning", "Creative & generation", "Maintainer/meta"];
 
 const SAMPLE_PROJECTS = [
   {
@@ -958,10 +984,10 @@ const FAQ = [
 
     <!-- Slash Commands (merged) -->
     <section class="section" id="commands">
-      <h2 class="section-title">Slash Commands</h2>
-      <p class="section-intro">Type these directly in Claude Code. <span style="display:inline-flex;gap:6px;align-items:center;vertical-align:middle;"><span class="type-badge skill">skill</span> loads a specialised instruction set &nbsp;·&nbsp; <span class="type-badge command">command</span> runs a specific workflow.</span></p>
-      <div class="ref-grid" id="commandsGrid"></div>
-      <p class="syntax-note" style="margin-top: 14px;">The commands above are this vault's custom skills and workflows. For Claude Code's own built-ins — keyboard shortcuts, native slash commands, MCP setup, release changelog — see the community-maintained <a href="https://cc.storyfox.cz/" target="_blank" rel="noopener">Claude Code Cheat Sheet</a>, updated with each release.</p>
+      <h2 class="section-title">Commands &amp; Skills</h2>
+      <p class="section-intro">Some of these you type directly in Claude Code; others are auto-invoked — Sam brings them in on your behalf when you describe the right kind of task. <span style="display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center;vertical-align:middle;"><span class="type-badge skill">skill</span> loads a specialised instruction set &nbsp;·&nbsp; <span class="type-badge command">command</span> runs a specific workflow &nbsp;·&nbsp; <span class="plugin-chip">plugin</span> ships from a marketplace plugin, not this vault &nbsp;·&nbsp; <span class="auto-chip">auto-invoked</span> triggers from what you ask for, no slash typed.</span></p>
+      <div id="commandsGrid"></div>
+      <p class="syntax-note" style="margin-top: 14px;">The entries above are this vault's custom skills and workflows, plus a set of marketplace-plugin skills the team can call on. For Claude Code's own built-ins — keyboard shortcuts, native slash commands, MCP setup, release changelog — see the community-maintained <a href="https://cc.storyfox.cz/" target="_blank" rel="noopener">Claude Code Cheat Sheet</a>, updated with each release.</p>
     </section>
 
     <!-- Start Here -->
@@ -1391,18 +1417,34 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 // ── Render slash commands ──
 function buildCommands() {
   const grid = document.getElementById('commandsGrid');
-  SLASH_COMMANDS.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'ref-card';
-    card.innerHTML = `
-      <div class="ref-card-name-row">
-        <div class="ref-card-name">${item.name}</div>
-        <span class="type-badge ${item.type}">${item.type}</span>
-      </div>
-      <div class="ref-card-desc">${item.desc}</div>
-      <div class="ref-card-when"><strong>When to use:</strong> ${item.when}</div>
-    `;
-    grid.appendChild(card);
+  COMMAND_CATEGORY_ORDER.forEach(category => {
+    const items = SLASH_COMMANDS.filter(item => item.category === category);
+    if (!items.length) return;
+    const group = document.createElement('div');
+    group.className = 'command-group';
+    const heading = document.createElement('div');
+    heading.className = 'command-group-title';
+    heading.textContent = category;
+    group.appendChild(heading);
+    const subGrid = document.createElement('div');
+    subGrid.className = 'ref-grid';
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'ref-card';
+      card.innerHTML = `
+        <div class="ref-card-name-row">
+          <div class="ref-card-name">${item.name}</div>
+          <span class="type-badge ${item.type}">${item.type}</span>
+          ${item.plugin ? '<span class="plugin-chip">plugin</span>' : ''}
+          ${item.autoInvoked ? '<span class="auto-chip">auto-invoked</span>' : ''}
+        </div>
+        <div class="ref-card-desc">${item.desc}</div>
+        <div class="ref-card-when"><strong>When to use:</strong> ${item.when}</div>
+      `;
+      subGrid.appendChild(card);
+    });
+    group.appendChild(subGrid);
+    grid.appendChild(group);
   });
 }
 
