@@ -42,7 +42,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 
 ## Plugin-Provided Skills
 
-These skills are not stored in this directory. They are provided at runtime by marketplace plugins — the canonical, current roster is `.claude/settings.json` `enabledPlugins` (do not restate it here; it drifts as plugins are added or removed). Fresh clones auto-install the declared plugins after a one-time trust prompt; `.claude/commands/onboard.md` Step 3.55 is the manual fallback. A plugin's skills will not work without that plugin installed — run `/plugin` to see what is currently active and what each installed plugin provides.
+These skills are not stored in this directory. They are provided at runtime by marketplace plugins — the canonical, current roster is `.claude/settings.json` `enabledPlugins` (do not restate it here; it drifts as plugins are added or removed). Fresh clones auto-install the declared plugins after a one-time trust prompt; `.claude/commands/onboard.md` Step 9 is the manual fallback. A plugin's skills will not work without that plugin installed — run `/plugin` to see what is currently active and what each installed plugin provides.
 
 Two plugins are worth a standing note beyond "check `/plugin`":
 
@@ -56,7 +56,7 @@ Two plugins are worth a standing note beyond "check `/plugin`":
 - **Frontmatter standard.** Every vault-local `SKILL.md` carries a YAML frontmatter block with, at minimum, the two **required** keys `name` (must equal the skill's folder name) and `description`. The following keys are **allowed when functional** — keep them only where they change runtime behaviour: `disable-model-invocation`, `argument-hint`, `allowed-tools`. A `license` key (optionally with a `metadata` block) is **kept only as upstream attribution** for a vendored skill — never as cosmetic residue. Cosmetic keys (`version`, `compatibility`, and a bare `license` with no attribution to preserve) are not house-standard and should not be added.
 - Before committing template changes, run `Vault/Scripts/validate.sh` — the read-only consistency checker for persona roster, token references, tool lists, doc counts, and seed files.
 - Vault-local skills are available immediately in any session — no plugin required
-- Plugin-provided skills require their plugin — auto-installed via `.claude/settings.json`; manual fallback in `.claude/commands/onboard.md` Step 3.55
+- Plugin-provided skills require their plugin — auto-installed via `.claude/settings.json`; manual fallback in `.claude/commands/onboard.md` Step 9
 - Skill files follow the SKILL.md format — see `write-a-skill` for authoring guidance
 - To add a new vault-local skill: drop a valid SKILL.md directory here; it becomes available in the next session
 - Version pinning: skills here are unpinned (copied at vault creation). To lock a version, note the source repo and commit in the skill's own SKILL.md

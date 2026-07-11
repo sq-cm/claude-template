@@ -2,7 +2,7 @@
 
 Five half-finished sample projects for learning the system by doing. Each demo teaches a different workflow layer.
 
-To start a demo, run `/onboard` and follow Step 6, or copy the prompts from `.claude/commands/onboard.md`.
+To start a demo, run `/onboard` and follow Step 13, or copy the prompts from `.claude/commands/onboard.md`.
 
 ## Index
 

@@ -273,7 +273,7 @@ Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch
 
 ---
 
-## Step 4 — Setup complete
+## Step 11 — Setup complete
 
 Read the team roster from `Vault/Memory/theme-name-map.md` (the role → name map and file-path table) and print it. Root `CLAUDE.md` carries no roster table — its `## Theme & Roster` section only points to the name map.
 
@@ -285,7 +285,7 @@ Then print:
 
 ---
 
-## Step 5 — Open the onboarding guide
+## Step 12 — Open the onboarding guide
 
 Open `Resources/Learn/index.html` in the default browser:
 
@@ -314,7 +314,7 @@ Tell the user:
 
 ---
 
-## Step 6 — Learn by doing: sample projects
+## Step 13 — Learn by doing: sample projects
 
 Print the following block exactly:
 
