@@ -112,6 +112,3 @@ All code examples use `old` for the outgoing scene-inner selector and `new` for 
 | Blur           | Blur through, directional blur                       | [css-blur.md](./css-blur.md)               |
 | Destruction    | Page burn                                            | [css-destruction.md](./css-destruction.md) |
 
-## Shader Transitions
-
-WebGL shader transitions are provided by `@hyperframes/shader-transitions` (`node_modules/@hyperframes/shader-transitions` after install, or `packages/shader-transitions/` in the upstream repo). The package handles setup, capture, WebGL init, render loop, and GSAP integration. Read the package source for available shaders and API — do not copy raw GLSL manually.

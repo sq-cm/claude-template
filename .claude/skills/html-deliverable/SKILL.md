@@ -73,7 +73,7 @@ When handing off, the Producer or Orchestrator announces both paths in chat:
 
 ## Theme toggle (mandatory — all 6 deliverable types)
 
-Every rendered HTML file must implement a light/dark theme toggle. This is a BLOCK-level requirement in Quinn's QA checklist.
+Every rendered HTML file must implement a light/dark theme toggle. This is a BLOCK-level requirement in @{QAComplianceReviewer}'s QA checklist.
 
 ### HTML attribute
 
@@ -156,7 +156,7 @@ The shell's print block includes `.theme-toggle { display: none; }`. Do not over
 
 ## Table of contents (required for audit, research, post-mortem)
 
-TOC is **required** on: audit reports, research/concept explainers, incident post-mortems. It is a FLAG-level requirement in Quinn's checklist for those three types. For the other three types (status report, comparison, implementation plan) it is opt-in — use it when section count is 5 or more.
+TOC is **required** on: audit reports, research/concept explainers, incident post-mortems. It is a FLAG-level requirement in @{QAComplianceReviewer}'s checklist for those three types. For the other three types (status report, comparison, implementation plan) it is opt-in — use it when section count is 5 or more.
 
 ### Layout wrapper
 
@@ -250,7 +250,7 @@ Each component owns its own breakpoint, declared inline with its rules:
 - Components that reflow (multi-column grids, side-by-side layouts) declare their breakpoint immediately after the component's rules — not in a consolidated media query block at the end of the file.
 - No CSS custom property tier system for breakpoints. Breakpoint values are literal pixel values.
 - The TOC's `<900px` reflow is defined in the shell (and in each example where TOC is used inline). Do not override it.
-- Quinn BLOCKs files where the TOC right rail is broken at `<900px` (overlaps content or is hidden without collapsing).
+- @{QAComplianceReviewer} BLOCKs files where the TOC right rail is broken at `<900px` (overlaps content or is hidden without collapsing).
 
 ---
 
@@ -270,7 +270,7 @@ Each component owns its own breakpoint, declared inline with its rules:
 - Humaniser tweaks with no semantic shift.
 - Prose-only edits that do not alter meaning, structure, or data.
 
-**PM (Tate) judges substantive vs cosmetic** when the call is ambiguous.
+**The generating persona judges substantive vs cosmetic. When ambiguous, rebuild.**
 
 ## Footer spec
 
@@ -290,9 +290,9 @@ Steps must run in order:
 
 1. MD produced by the generating persona.
 2. Humaniser pass on MD.
-3. Quinn (QA Compliance Reviewer) QA on MD — must PASS before HTML is rendered.
+3. @{QAComplianceReviewer} QA on MD — must PASS before HTML is rendered.
 4. HTML rendered from approved MD.
-5. Quinn second pass on HTML against the HTML checklist (see `Resources/SOPs/QA Gate SOP.md` § HTML Deliverable QA Checklist). Checks include: links resolve, no JS console errors, prints cleanly, accessibility floor met (`<details>`/`<summary>` for disclosure, keyboard nav for tabs, `prefers-reduced-motion` respected).
+5. @{QAComplianceReviewer} second pass on HTML against the HTML checklist (see `Resources/SOPs/QA Gate SOP.md` § HTML Deliverable QA Checklist). Checks include: links resolve, no JS console errors, prints cleanly, accessibility floor met (`<details>`/`<summary>` for disclosure, keyboard nav for tabs, `prefers-reduced-motion` respected).
 
 HTML is not shipped until both QA gates pass.
 

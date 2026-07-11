@@ -30,7 +30,7 @@ This skill is the prep infrastructure. Every shot that works first try in a well
 - Shot specs (a structured brief that names which references attach, in what order, at what runtime)
 
 **This skill does not own:**
-- Banana Pro or Seedance prompt grammar — route to `banana-pro-director-2.0` for stills, `cinema-worldbuilder-pro-2.0` for video
+- Banana Pro or Seedance prompt grammar — route to `banana-pro-director-2.0` for stills, `cinema-worldbuilder-pro-2.0` for video, `seedance-commercial-director` for commercial/product briefs
 - Visual execution — the Showrunner or Stills Director runs the prompts, not this skill
 - Content strategy or narrative — the story brief comes in from upstream; this skill tracks its visual consequences
 
@@ -109,15 +109,7 @@ Each entry records:
 
 **Higgsfield Elements name mapping — slug convention:**
 
-Every locked asset that feeds a Seedance prompt must exist in the operator's Higgsfield "Elements" library. The slug is the stable identifier: the operator names the Elements entry with the exact same slug so the library index, shot specs, and handoff notes all point to one unambiguous token.
-
-This is an index and operator-handoff convention only — slugs are never written as `@slug` into a Banana Pro or Seedance prompt body. banana-pro-director-2.0 explicitly prohibits `@image` tags in prompt bodies (attachment happens in the Higgsfield UI directly). The mapping is:
-
-```
-Slug (library index)  →  @imageN slot (Seedance prompt body)  →  Higgsfield Elements name (UI)
-```
-
-The @imageN ordering (cinema-worldbuilder-pro-2.0 / CWP grammar) governs what appears in the Seedance prompt body. This slug index sits one level above that, mapping slug → @imageN → Elements name. The reference library template's "Higgsfield Elements name mapping" section is the authoritative record; the Slot assignment log records per-shot @imageN assignments.
+Slugs are an index and operator-handoff convention only — never written as `@slug` into a Banana Pro or Seedance prompt body (banana-pro-director-2.0 prohibits `@image` tags in prompt bodies, the sole carve-out being Mode 5's locked `@image1`/`@image2` prompt; attachment happens in the Higgsfield UI). Authoritative record, mapping chain (slug → @imageN → Elements name), and sync rules: REFERENCE-LIBRARY-TEMPLATE.md § "Higgsfield Elements name mapping".
 
 Slot assignment for Seedance (max 9 references per prompt):
 - When building a shot spec, assign @imageN slots from the index. Record the assignment in the shot spec. Canonical character references always take priority over environment plates when slot count is constrained.
@@ -153,13 +145,13 @@ Reference-slot assignment
 
 ### 5. Write a shot spec
 
-A shot spec is the structured brief this skill hands to the Stills Director (banana-pro-director-2.0) or the Seedance Director (cinema-worldbuilder-pro-2.0). It is not a prompt — it is the information those skills need to write the prompt.
+A shot spec is the structured brief this skill hands to the Stills Director (banana-pro-director-2.0), the Seedance Director (cinema-worldbuilder-pro-2.0), or the Commercial Director (seedance-commercial-director) for commercial briefs. It is not a prompt — it is the information those skills need to write the prompt.
 
 Use the shot spec template: [SHOT-SPEC-TEMPLATE.md](SHOT-SPEC-TEMPLATE.md)
 
 A shot spec contains:
 - Shot ID and sequence position
-- Destination skill (banana-pro-director-2.0 for a still / cinema-worldbuilder-pro-2.0 for video)
+- Destination skill (banana-pro-director-2.0 for a still / cinema-worldbuilder-pro-2.0 for video / seedance-commercial-director for a commercial spot)
 - Scene description (dramatic moment, not camera grammar)
 - Characters in frame, with their character bible slug and wardrobe state slug
 - Reference assignments (@image1–@imageN from the library index)
@@ -168,7 +160,7 @@ A shot spec contains:
 - Runtime (video only — never default; always confirm with the director)
 - Continuity notes (what this shot must match from previous shots in the sequence)
 - Any wardrobe state deltas not visible in the reference (damp, dirty, torn — state-changes the image can't carry)
-- Handoff destination (banana-pro-director-2.0 or cinema-worldbuilder-pro-2.0)
+- Handoff destination (banana-pro-director-2.0, cinema-worldbuilder-pro-2.0, or seedance-commercial-director)
 
 The shot spec does NOT contain:
 - Banana Pro prompt grammar
@@ -183,7 +175,7 @@ Text cannot hold a location. A schematic map can — and size and position stay 
 
 Use the schematic map template: [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLATE.md)
 
-A schematic map is a top-down spatial diagram of a single location. It records the GPT-Image-2 prompt used to generate the diagram, the locked spatial facts extracted from it (which prop is where, at what size relative to a human figure), and a link to the generated diagram image.
+A schematic map is a top-down spatial diagram of a single location. It records the GPT-2 prompt used to generate the diagram, the locked spatial facts extracted from it (which prop is where, at what size relative to a human figure), and a link to the generated diagram image.
 
 **Relationship to the Frame Map (cinema-worldbuilder-pro-2.0):**
 - The schematic map is a **world-space prep artefact** — it records where props and landmarks physically sit in the location geometry (e.g., "fire hydrant at kerb; skydancer anchored 2× person-height to its right on the same line"). It is produced once per location, before shot prompting begins.
@@ -192,7 +184,7 @@ A schematic map is a top-down spatial diagram of a single location. It records t
 
 Steps:
 1. Identify the location and list every prop or landmark that must stay spatially consistent
-2. Write the GPT-Image-2 schematic prompt (top-down view, labelled diagram, clean linework — no shading, no perspective)
+2. Write the GPT-2 schematic prompt (top-down view, labelled diagram, clean linework — no shading, no perspective)
 3. Generate the diagram and save it to the project folder
 4. Extract locked spatial facts from the diagram (position, relative size, clearance distances) and record them in the template
 5. Attach the schematic map file path to the world bible's location entry and to any shot spec that uses this location
@@ -213,7 +205,7 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 
 **Shot spec:** "Write a shot spec for [scene description]." → Skill fills the shot spec template and hands it to the appropriate skill.
 
-**Schematic map:** "Build a schematic map for [location name]." → Skill fills the schematic map template, records the GPT-Image-2 diagram prompt, and locks the spatial facts for that location.
+**Schematic map:** "Build a schematic map for [location name]." → Skill fills the schematic map template, records the GPT-2 diagram prompt, and locks the spatial facts for that location.
 
 ---
 

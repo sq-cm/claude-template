@@ -145,7 +145,7 @@ These rules are shared with CWP and apply identically here, extended with commer
 4. **Every reference in the bullet list appears at least once as an `@imageN` tag** inside the code block.
 5. **Runtime baked into the closing Camera Capture line.** Always ask runtime; never default.
 6. **Per-shot timing inline in Movement** for any multi-cut sequence.
-7. **Twelve discrete labelled blocks inside the code block, in exact locked order, every prompt, no exceptions.** Scene & Mood → Frame Map → Subject Lock(s) → Cross-Frame Rules → Movement → Last Frame → World Plate → Sound Bed → Capture Realism → Product Surface → Brand Grade → Camera Capture.
+7. **Twelve discrete labelled blocks inside the code block, in the exact locked order defined in § Delivery format — every prompt, no exceptions.**
 8. **One Subject Lock block per character.** Multiple characters each get their own discrete block.
 9. **One Camera Capture line at the bottom — never doubled.**
 10. **No character names in prompt output.** Describe by hair colour, wardrobe, identity markers.
@@ -347,7 +347,7 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 - [ ] Commercial register selected (C1 / C2 / C3 / C4 / C5) with rationale
 - [ ] Frame Map written — every subject pinned to screen position, depth layer, frame occupancy
 - [ ] Subject Lock written for every talent character — identity / orientation / pose / state / gaze / contact points / state-changes / lock-down line. Wardrobe not re-described from reference image.
-- [ ] Cross-Frame Rules written if 2+ characters in frame
+- [ ] Cross-Frame Rules written if 2+ characters in frame; single-character scenes still ship the labelled block, shortened
 - [ ] Movement written — four layers present (character / micro / environmental / camera), per-beat timestamps where action demands
 - [ ] Last Frame written — exact closing composition, on-screen text suppression line included
 - [ ] World Plate written — location, time, weather, set dressing, anchored to plate ref if attached
@@ -366,7 +366,7 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 - [ ] No music in Sound Bed; brand-safe stance confirmed
 - [ ] Output locked to English
 - [ ] Three-part delivery format: (1) numbered reference list, (2) bolded English title with runtime, (3) English code block with twelve labelled blocks and `@imageN` tags
-- [ ] All twelve labelled blocks present in code block, in exact locked order: Scene & Mood → Frame Map → Subject Lock(s) → Cross-Frame Rules → Movement → Last Frame → World Plate → Sound Bed → Capture Realism → Product Surface → Brand Grade → Camera Capture. None missing, none reordered, none merged.
+- [ ] All twelve labelled blocks present in the code block, in the exact locked order (§ Delivery format). None missing, none reordered, none merged.
 - [ ] Every reference in the bullet list appears at least once as an `@imageN` tag; numbering matches exactly
 - [ ] Negative prohibitions translated to positive locks throughout
 - [ ] Total prompt body word count within target range (280–400 single shot, up to 600 multi-shot)

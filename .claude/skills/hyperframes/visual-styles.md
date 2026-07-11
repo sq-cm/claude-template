@@ -67,7 +67,7 @@ motion:
   transition: cinematic-zoom
 ```
 
-Grid-locked compositions. Every element snaps to an invisible 12-column grid. Numbers dominate the frame at 80–120px. Animated counters count up from 0. Hard cuts, no decorative transitions. Nothing floats.
+Grid-locked compositions. Every element snaps to an invisible 12-column grid. Numbers dominate the frame at 80–120px. Animated counters count up from 0. Hard cuts between beats — the signature cinematic-zoom is the one sanctioned decorative transition. Nothing floats.
 
 ---
 

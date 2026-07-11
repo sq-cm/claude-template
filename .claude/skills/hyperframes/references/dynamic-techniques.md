@@ -28,7 +28,7 @@ Calibration reference (starting points, not rules):
 
 **Emphasis words always break the pattern.** When a word is flagged as emphasis (emotional keyword, ALL CAPS, brand name), give it a stronger animation than surrounding words (larger scale, accent color, overshoot ease). This creates contrast.
 
-**Marker highlight modes add a visual layer on top of karaoke.** For emphasis words that need more than color/scale, add a marker-style effect — highlight sweep, circle, burst, or scribble — using the `/marker-highlight` skill. Match mode to energy: burst for hype, circle for key terms, highlight for standard, scribble for subtle.
+**Marker highlight modes add a visual layer on top of karaoke.** For emphasis words that need more than color/scale, add a marker-style effect — highlight sweep, circle, burst, or scribble — using the patterns in references/css-patterns.md. Match mode to energy: burst for hype, circle for key terms, highlight for standard, scribble for subtle.
 
 ## Audio-Reactive Captions (Mandatory for Music)
 
@@ -88,7 +88,7 @@ python3 .claude/skills/hyperframes/scripts/extract-audio-data.py audio.mp3 --fps
 
 Don't use the same highlight animation on every group — cycle through styles using the group index. Don't combine multiple competing animations on the same word at the same timestamp. Vary techniques across groups to match the content's pace changes.
 
-**Marker highlight effects** (from the `/marker-highlight` skill) layer well with karaoke — use karaoke for the word-by-word reveal, then add a marker effect on emphasis words only. For example: karaoke highlights each word in white, but brand names get a yellow highlight sweep and stats get a red circle. Cycle marker modes across groups for visual variety (see the mode-to-energy mapping in the marker-highlight skill).
+**Marker highlight effects** (from references/css-patterns.md) layer well with karaoke — use karaoke for the word-by-word reveal, then add a marker effect on emphasis words only. For example: karaoke highlights each word in white, but brand names get a yellow highlight sweep and stats get a red circle. Cycle marker modes across groups for visual variety (see the mode-to-energy mapping above).
 
 ## Available Tools
 

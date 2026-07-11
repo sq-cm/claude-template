@@ -11,7 +11,7 @@
 
 ---
 
-## GPT-Image-2 schematic prompt
+## GPT-2 schematic prompt
 
 Record the exact prompt used to generate the top-down diagram. Version it if regenerated.
 

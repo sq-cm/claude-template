@@ -322,7 +322,7 @@ Video must be `muted playsinline`. Audio is always a separate `<audio>` element:
 
 Every multi-scene composition MUST follow ALL of these rules. Violating any one of them is a broken composition.
 
-1. **ALWAYS use transitions between scenes.** No jump cuts. No exceptions.
+1. **Every scene change is a deliberate transition choice** — shader, CSS, or an intentional hard cut placed on the beat (see references/beat-direction.md). No accidental jump cuts.
 2. **ALWAYS use entrance animations on every scene.** Every element animates IN via `gsap.from()`. No element may appear fully-formed. If a scene has 5 elements, it needs 5 entrance tweens.
 3. **NEVER use exit animations** except on the final scene. This means: NO `gsap.to()` that animates opacity to 0, y offscreen, scale to 0, or any other "out" animation before a transition fires. The transition IS the exit. The outgoing scene's content MUST be fully visible at the moment the transition starts.
 4. **Final scene only:** The last scene may fade elements out (e.g., fade to black). This is the ONLY scene where `gsap.to(..., { opacity: 0 })` is allowed.
@@ -474,7 +474,7 @@ Skip on small edits (fixing a color, adjusting one duration). Run on new composi
 - **[references/typography.md](references/typography.md)** — Typography: font pairing, OpenType features, dark-background adjustments, font discovery script. **Always read** — every composition has text.
 - **[references/motion-principles.md](references/motion-principles.md)** — Motion design principles, image motion treatment, load-bearing GSAP rules. **Always read** — every composition has motion.
 - **[references/techniques.md](references/techniques.md)** — 13 primitive animation techniques with code patterns: SVG drawing, Canvas 2D, CSS 3D, kinetic type, Lottie, video compositing, typing, variable fonts, MotionPath, velocity transitions, audio-reactive, clip-path reveals, WebGL shaders. Adapt the patterns — don't copy-paste. (For pre-built UI templates — terminal chrome, device mockups, moodboard layouts — see `registry/blocks/` in the upstream repo, github.com/heygen-com/hyperframes; not vendored here.)
-- **[references/html-in-canvas-patterns.md](references/html-in-canvas-patterns.md)** — HTML-in-Canvas patterns: live DOM as GPU texture via `drawElementImage` + `layoutsubtree`. Shared boilerplate + ~6 effect recipes (iPhone/MacBook mockups, liquid glass, magnetic, portal, shatter, text cursor). Use for 1–3 hero beats per video.
+- **[references/html-in-canvas-patterns.md](references/html-in-canvas-patterns.md)** — HTML-in-Canvas patterns: live DOM as GPU texture via `drawElementImage` + `layoutsubtree`. Shared boilerplate + 5 effect recipes (3D rotation with bloom, magnetic cursor, shatter, liquid surface, portal reveal) + a build-any-custom-effect guide. Use for 1–3 hero beats per video.
 - **[references/narration.md](references/narration.md)** — Pacing, tone, script structure, number pronunciation, opening line patterns. Read when the composition includes voiceover or TTS.
 - **[references/design-picker.md](references/design-picker.md)** — Create a design.md via visual picker. Read when no `frame.md` or `design.md` exists and the user wants to create one.
 - **[visual-styles.md](visual-styles.md)** — 8 named visual styles with hex palettes, GSAP easing signatures, and shader pairings. Read when user names a style or when generating a design spec.

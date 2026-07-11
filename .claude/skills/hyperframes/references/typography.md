@@ -8,6 +8,8 @@ Training-data defaults that every LLM reaches for. These produce monoculture acr
 
 Inter, Roboto, Open Sans, Noto Sans, Arimo, Lato, Source Sans, PT Sans, Nunito, Poppins, Outfit, Sora, Playfair Display, Cormorant Garamond, Bodoni Moda, EB Garamond, Cinzel, Prata, Syne
 
+The named presets in visual-styles.md (Inter, Playfair Display) are sanctioned exceptions — the ban targets fresh picks, not locked preset components.
+
 **Syne in particular** is the most overused "distinctive" display font. It is an instant AI design tell.
 
 ## Guardrails

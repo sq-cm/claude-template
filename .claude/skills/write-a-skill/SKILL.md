@@ -15,7 +15,7 @@ description: Create new agent skills with proper structure, progressive disclosu
 
 2. **Draft the skill** - create:
    - SKILL.md with concise instructions
-   - Reference files for distinct-domain or rarely-needed content (aim to keep SKILL.md under ~150 lines; 500 is a hard ceiling)
+   - Reference files for distinct-domain or rarely-needed content (aim to keep SKILL.md under ~150 lines; 500 is a hard ceiling — determinism-spec exemption under "When to Split Files")
    - Utility scripts if deterministic operations needed
 
 3. **Review with user** - present draft and ask:
@@ -101,7 +101,8 @@ Scripts save tokens and improve reliability vs generated code.
 
 Split into separate files when:
 
-- SKILL.md is past ~150 lines (aim), or 500 lines (mandatory — hard ceiling)
+- SKILL.md is past ~150 lines (aim), or 500 lines (hard ceiling for instruction-style skills)
+- **Determinism-spec exemption:** a skill whose body is a locked prompt grammar or determinism spec — where the exact wording IS the deliverable and splitting it across files would break reproducibility — may exceed the ceiling. Everything separable (background, rationale, examples) still moves to reference files first.
 - Content has distinct domains (finance vs sales schemas)
 - Advanced features are rarely needed
 
@@ -110,7 +111,7 @@ Split into separate files when:
 After drafting, verify:
 
 - [ ] Description includes triggers ("Use when...")
-- [ ] SKILL.md under ~150 lines (hard ceiling 500 — split before you reach it)
+- [ ] SKILL.md under ~150 lines (hard ceiling 500 — split before you reach it, unless the determinism-spec exemption applies)
 - [ ] No time-sensitive info
 - [ ] Consistent terminology
 - [ ] Concrete examples included

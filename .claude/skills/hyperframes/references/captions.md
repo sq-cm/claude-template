@@ -1,12 +1,8 @@
 # Captions
 
-## Language Rule (Non-Negotiable)
+## Language Rule
 
-**Never use `.en` models unless the user explicitly states the audio is English.** `.en` models TRANSLATE non-English audio into English instead of transcribing it.
-
-1. User says the language → `--model small --language <code>` (no `.en`)
-2. User says English → `--model small.en`
-3. Language unknown → `--model small` (no `.en`, no `--language`) — auto-detects
+Model/language selection for transcription is owned by the `hyperframes-media` skill — follow its .en rule (never `.en` models unless the audio is confirmed English).
 
 ---
 
@@ -78,7 +74,7 @@ Use `window.__hyperframes.fitTextFontSize()`:
 
 ```js
 var result = window.__hyperframes.fitTextFontSize(group.text.toUpperCase(), {
-  fontFamily: "Outfit",
+  fontFamily: "Space Grotesk",
   fontWeight: 900,
   maxWidth: 1600,
 });
