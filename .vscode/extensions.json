@@ -22,10 +22,12 @@
     "devsense.profiler-php-vscode",
     "donjayamanne.githistory",
     "dotjoshjohnson.xml",
+    "dracula-theme.theme-dracula",
     "eamodio.gitlens",
     "ecmel.vscode-html-css",
     "editorconfig.editorconfig",
     "emilast.logfilehighlighter",
+    "enkia.tokyo-night",
     "esbenp.prettier-vscode",
     "EthanSK.restore-terminals",
     "formulahendry.auto-close-tag",
@@ -71,7 +73,6 @@
     "streetsidesoftware.code-spell-checker",
     "stylelint.vscode-stylelint",
     "techer.open-in-browser",
-    "tommasoronchin.impeccable-universal",
     "tomoki1207.pdf",
     "tyriar.sort-lines",
     "vincaslt.highlight-matching-tag",
@@ -81,6 +82,7 @@
     "xabikos.javascriptsnippets",
     "xdebug.php-pack",
     "yzhang.markdown-all-in-one",
+    "zhuangtongfa.material-theme",
     "zignd.html-css-class-completion",
     "zobo.php-intellisense"
   ]
