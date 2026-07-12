@@ -158,6 +158,10 @@
           {
             "type": "command",
             "command": "TP=$(cat | jq -r '.transcript_path // empty' 2>/dev/null) && [ -f \"$TP\" ] && TURNS=$(grep -c '\"type\":\"user\"' \"$TP\" 2>/dev/null) && [ \"${TURNS:-0}\" -gt 5 ] && echo '📝 Meaningful session detected. Run /log-session if worth keeping.' || true"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/capture-log.sh\""
           }
         ]
       }
