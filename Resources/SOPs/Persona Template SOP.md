@@ -65,11 +65,11 @@ Short reactive tasks skip checkpoints.
 
 | Tier | Model | Assignment criteria |
 |---|---|---|
-| Gatekeeper | `claude-fable-5` | Gatekeeping authority G=5: holds genuine PASS/BLOCKED verdict power over others' deliverables, with direct error-cascade consequences. Currently: Senior Adviser, QA Compliance Reviewer (both promoted to `claude-fable-5`, 2026-07). |
+| Gatekeeper | `claude-opus-4-8` | Gatekeeping authority G=5: holds genuine PASS/BLOCKED verdict power over others' deliverables, with direct error-cascade consequences. Currently: Senior Adviser, QA Compliance Reviewer (on `claude-opus-4-8`, the top available tier, since Fable 5 was retired from the subscription, 2026-07). |
 | Production | `claude-sonnet-5` | All other personas. Default for new hires unless Gatekeeper criteria are met at hire time. |
 | (cost note) | `claude-haiku-*` | Not assigned. Clone owners running cost-sensitive API deployments may consider Haiku for personas scoring sum ≤10 across all four dimensions. Never apply without a full re-audit of that persona's current task surface. |
 
-A flagship-window promotion may elevate the gatekeepers and a decided set of judgement-heavy production personas. Any such promotion records its revert target in each promoted persona's in-file model note — that note is the durable signal.
+A top-tier promotion may elevate a decided set of judgement-heavy production personas above the `claude-sonnet-5` Production default. Currently elevated to `claude-opus-4-8`: HR Lead, Senior Researcher, Copywriter. Any such promotion records its revert target (`claude-sonnet-5`) in each promoted persona's in-file model note — that note is the durable signal.
 
 Re-evaluate tier assignments when: (a) a persona's gatekeeping authority changes materially; (b) a newer flagship model releases — update the Gatekeeper model ID; (c) a new hire scores G=5 at hire time.
 
