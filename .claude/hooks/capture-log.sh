@@ -26,10 +26,25 @@ LAST_ASSISTANT=$(printf '%s' "$INPUT" | jq -r '.last_assistant_message // empty'
 [ -n "$TRANSCRIPT" ] || exit 0
 [ -f "$TRANSCRIPT" ] || exit 0
 
-YEAR=$(date +%Y)
-OUT_DIR="$DIR/Vault/Logs/Sessions/$YEAR"
-mkdir -p "$OUT_DIR" 2>/dev/null || exit 0
-OUT_FILE="$OUT_DIR/${SESSION_ID}.md"
+YEAR=$(date -u +%Y)
+DATE=$(date -u +%Y-%m-%d)
+CAP_ROOT="$DIR/Vault/Logs/Sessions/Captures"
+OUT_DIR="$CAP_ROOT/$YEAR"
+
+# Reuse this session's existing file if one exists (a session's first-turn date is
+# stable — don't re-derive the prefix each fire, or a session spanning midnight/year
+# would split into two files). nullglob so an empty match yields no element rather
+# than a literal '*' path under set -u.
+OUT_FILE=""
+shopt -s nullglob 2>/dev/null
+existing=( "$CAP_ROOT"/*/*"${SESSION_ID}".md )
+shopt -u nullglob 2>/dev/null
+if [ "${#existing[@]}" -gt 0 ] && [ -f "${existing[0]}" ]; then
+  OUT_FILE="${existing[0]}"
+else
+  mkdir -p "$OUT_DIR" 2>/dev/null || exit 0
+  OUT_FILE="$OUT_DIR/${DATE}-${SESSION_ID}.md"
+fi
 
 # --- Idempotency key: turn_number, falling back to the last assistant
 # transcript entry's uuid if turn_number is absent/empty.
