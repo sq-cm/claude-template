@@ -545,11 +545,16 @@ echo ""
 # FABLE_PIN_COUNT is a deliberate hire/revert tripwire (same pattern as
 # Check 7's EXPECTED_* constants): any Fable promotion/revert must consciously
 # update it — the full Fable-window revert sets it to 0.
+# Fable 5 is currently retired from the subscription: it is NOT in ALLOWED_MODELS,
+# so any accidental claude-fable-5 pin now fails as "undocumented" before the
+# tripwire below is reached. The tripwire and its branch are kept intact for the
+# expected re-promotion — re-add claude-fable-5 to ALLOWED_MODELS and bump the
+# count then.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-sonnet-5 claude-opus-4-8 claude-fable-5"
-FABLE_PIN_COUNT=2  # Both gatekeepers (Senior Adviser + QA Compliance Reviewer) on claude-fable-5 (2026-07)
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-4-8"
+FABLE_PIN_COUNT=0  # Fable 5 retired from the sub; gatekeepers moved to claude-opus-4-8 (2026-07)
 fable_pin_live=0
 
 for fpath in "$AGENTS_DIR"/*.md; do
