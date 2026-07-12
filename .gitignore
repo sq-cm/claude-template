@@ -120,3 +120,6 @@ Vault/Learning/*
 # Local Netlify folder
 .netlify
 
+# Paseo — local coding-agent orchestrator state, machine-local
+paseo.json
+
