@@ -131,6 +131,11 @@
   }
   .hero-lead{font-size:1.08rem; color:var(--text-muted); max-width:62ch; margin:0 0 22px;}
   .hero-lead strong{color:var(--text);}
+  .hero-first-run{
+    font-size:0.9rem; color:var(--text-muted); max-width:62ch; margin:0 0 22px;
+    padding:10px 14px; border-left:3px solid var(--accent);
+    background:var(--surface-2); border-radius:var(--radius-sm);
+  }
   .hero-stats{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px;}
   .stat-chip{
     background:var(--surface); border:1px solid var(--border); border-radius:999px;
@@ -413,7 +418,7 @@ const TEAM = [
     token: "Orchestrator",
     core: true,
     tags: ["Request Routing", "Team Coordination", "Roster Management"],
-    desc: "The face of the team and single point of contact for every request. Never does the work, routes it to the right person with zero friction.",
+    desc: "The face of the team and single point of contact for every request. Never does the work. Routes it to the right person.",
     prompt: "Hi, I need help creating a social media strategy for a new client.",
     expertise: ["Request triage and routing to the right specialist", "Team roster management, hiring, archiving, announcing", "Conflict resolution between team members' outputs", "Meta-operations: editing CLAUDE.md, approving new hires"],
     constraints: "Never does task work. Every substantive request is delegated. Only the Orchestrator may edit CLAUDE.md or update the roster."
@@ -490,7 +495,7 @@ const TEAM = [
     token: "ContentStrategist",
     core: false,
     tags: ["Content Architecture", "Content Planning", "Audience Strategy"],
-    desc: "The content architect, decides what gets made, for whom, and why, before anyone writes a word. Operates one abstraction above production.",
+    desc: "The content architect. Decides what gets made, for whom, and why, before anyone writes a word. Operates one abstraction above production.",
     prompt: "@{ContentStrategist} build a content strategy for a B2B SaaS brand targeting mid-market finance teams.",
     expertise: ["Content audit and gap analysis", "Topic cluster and pillar page architecture", "Editorial calendar and content roadmap planning", "Content brief creation for writers and designers"],
     constraints: "Does not write final copy, that's the Copywriter's lane. If producing production content, the work has been misrouted."
@@ -534,7 +539,7 @@ const TEAM = [
     token: "CreativeTechnologist",
     core: false,
     tags: ["Prompt Systems", "AI Pipelines", "Workflow Design"],
-    desc: "The team's prompt systems architect, designs the chains, pipelines, and routing logic that make AI production work reliable, testable, and scalable.",
+    desc: "The team's prompt systems architect. Designs the chains, pipelines, and routing logic that make AI production work reliable, testable, and scalable.",
     prompt: "@{CreativeTechnologist} design a prompt pipeline for research → copy → QA review with structured handoffs.",
     expertise: ["Multi-stage prompt chain and pipeline architecture", "AI workflow design for production content systems", "Evaluation harness design, testing and scoring AI outputs", "Routing logic and structured output specification"],
     constraints: "Designs systems, does not run image jobs or write editorial copy. Not a substitute for the Visual AI Producer, Copywriter, or Content Strategist."
@@ -556,7 +561,7 @@ const TEAM = [
     token: "AutomationArchitect",
     core: false,
     tags: ["Workflow Automation", "n8n / Make / Zapier", "API Integration"],
-    desc: "The pipeline engineer, turns business processes into durable, observable automations and wires AI capabilities into systems that do real work.",
+    desc: "The pipeline engineer. Turns business processes into durable, observable automations and wires AI capabilities into systems that do real work.",
     prompt: "@{AutomationArchitect} build an n8n workflow to sync new Webflow form submissions to a Notion database with deduplication.",
     expertise: ["n8n, Make, and Zapier workflow design and implementation", "Webhook and REST API integration architecture", "Multi-agent AI pipeline orchestration", "Error handling, retry logic, and observability in automation systems"],
     constraints: "Designs and specifies automations, implementation in a live environment requires user execution. Flags security concerns on any workflow involving credentials."
@@ -567,7 +572,7 @@ const TEAM = [
     token: "SocialMediaManager",
     core: false,
     tags: ["Social Publishing", "Content Calendar", "Community Management"],
-    desc: "Platform operator and community owner. Lives at the intersection of brand execution, audience engagement, and channel-specific publishing.",
+    desc: "Platform operator and community owner. Handles brand execution, audience engagement, and channel-specific publishing.",
     prompt: "@{SocialMediaManager} build a 4-week Instagram calendar for NovaStar Gym, 3 posts per week, mix of educational and promotional.",
     expertise: ["Social media calendar planning across Instagram, TikTok, LinkedIn, Facebook", "Caption writing and platform-native content adaptation", "Community management and engagement strategy", "AI-assisted social listening and performance reporting"],
     constraints: "Does not create visual assets, the Visual AI Producer handles imagery. Publishes and programmes content, does not design brand identity."
@@ -578,7 +583,7 @@ const TEAM = [
     token: "AnalyticsReportingSpecialist",
     core: false,
     tags: ["Data Analysis", "Performance Reporting", "Platform Metrics"],
-    desc: "The studio's measurement layer, turns raw platform data into structured, usable intelligence. Answers 'what happened' and 'what the data supports.'",
+    desc: "The studio's measurement layer. Turns raw platform data into structured, usable intelligence. Answers 'what happened' and 'what the data supports.'",
     prompt: "@{AnalyticsReportingSpecialist} pull a performance report for our top 5 blog posts last month and identify the patterns.",
     expertise: ["Web analytics, GA4, Search Console, platform dashboards", "Social and campaign performance reporting", "Dashboard design and automated reporting setup", "Data interpretation, correlation, anomaly detection, trend identification"],
     constraints: "Reports on data, does not make strategic recommendations beyond what the data supports. Will explicitly flag where data runs out."
@@ -589,7 +594,7 @@ const TEAM = [
     token: "UXUIDesigner",
     core: false,
     tags: ["UX Design", "UI Systems", "Wireframing"],
-    desc: "The structural translation layer, converts user needs, business intent, and brand foundations into organised, navigable, friction-free experiences.",
+    desc: "The structural translation layer, converts user needs, business intent, and brand foundations into organised, navigable experiences.",
     prompt: "@{UXUIDesigner} wireframe the homepage for a boutique hotel, focus on the booking conversion flow.",
     expertise: ["UX research synthesis and user journey mapping", "Wireframing and low-to-high fidelity prototyping", "UI component and design system specification", "Accessibility and WCAG compliance evaluation"],
     constraints: "Designs, the Webflow Developer builds. Does not implement in Webflow directly. Works downstream of the Brand Strategist and upstream of the Webflow Developer."
@@ -611,7 +616,7 @@ const TEAM = [
     token: "CreativeDirector",
     core: false,
     tags: ["Creative Direction", "Campaign Strategy", "Visual Identity"],
-    desc: "Ultimately responsible for whether the work feels like something. Sits at the intersection of strategy and craft, governing everything the studio produces for a client.",
+    desc: "Ultimately responsible for whether the work feels like something. Governs everything the studio produces for a client, from strategy through to craft.",
     prompt: "@{CreativeDirector} I need a creative direction for a skincare brand launch campaign, the brand is minimal, science-backed, premium.",
     expertise: ["Campaign platform development, big idea, visual world, tonal register", "Creative brief writing for the full production team", "Brand expression review, does the work feel like the brand?", "Cross-disciplinary creative oversight from brand positioning through to motion"],
     constraints: "Directs, does not execute copy, design, or motion. Operates downstream of the Brand Strategist's positioning and upstream of all production."
@@ -633,7 +638,7 @@ const TEAM = [
     token: "CompetitiveIntelligenceSpecialist",
     core: false,
     tags: ["Competitor Analysis", "Battlecards", "Win/Loss Research"],
-    desc: "Turns competitive noise into decision-enabling signal. Tracks competitors across features, pricing, positioning, and strategic moves, and communicates what those moves mean, not just what they are.",
+    desc: "Turns competitive noise into signal the team can act on. Tracks competitors across features, pricing, positioning, and strategic moves, and communicates what those moves mean, not just what they are.",
     prompt: "@{CompetitiveIntelligenceSpecialist} analyse our top 3 competitors' positioning and produce a battlecard.",
     expertise: ["Signal triangulation across public sources, job postings, pricing pages, review sites, financial filings", "Win/loss programme design and debrief synthesis", "Battlecard development and competitive comparison matrices", "Landscape analysis and strategic implication memos"],
     constraints: "Reports on competitive intelligence, does not make product or pricing decisions. Every claim is tiered: Confirmed, Inferred, or Speculative. Won't use grey-area sourcing without flagging it."
@@ -711,7 +716,7 @@ const TEAM = [
     core: false,
     tags: ["Higgsfield Stills", "Character Refs", "Scene Plates"],
     desc: "The still-image prompt director for the narrative AI-film pipeline. Writes Higgsfield prompts, Banana Pro, Soul Cinema, GPT-2, for character face locks, outfit references, 6-panel sheets, and scene plates: the locked references that feed Seedance video.",
-    prompt: "@{StillsDirector} write a face-lock prompt for a new lead character on mid-gray seamless.",
+    prompt: "@{StillsDirector} write a face-lock prompt for a new lead character on mid-grey seamless.",
     expertise: ["Banana Pro / Soul Cinema / GPT-2 prompt direction", "Character face locks and outfit references", "6-panel character reference sheets", "Cinematic scene and environment plates"],
     constraints: "Outputs text prompts only, a human runs them in Higgsfield; no generation tool of her own. Narrative-film stills only; commercial brand and marketing images stay with Cleo. Works from Marlowe's specs."
   },
@@ -733,12 +738,12 @@ const SLASH_COMMANDS = [
   { name: "/grill-me", type: "skill", category: "Everyday", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
   { name: "/prompt-review", type: "skill", category: "Everyday", desc: "Scores a draft prompt against the vault's 5-slot prompt formula and rewrites it in the same order, preserving your own wording wherever a slot is already filled.", when: "Before sending a prompt to a persona or an external model, when you want it sharper without an interview." },
   { name: "/humaniser", type: "skill", category: "Everyday", desc: "Removes AI writing patterns from text, em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
-  { name: "/fast-path", type: "skill", category: "Everyday", desc: "Explicitly requests the Fast-Path Lane for a light task. Asserts the five eligibility conditions with an auditable verdict, then either runs the task on the lane (routed, working-only) or auto-escalates to the full pipeline if any condition fails. Cannot override eligibility, governance edits, deliverables, and fan-out always escalate.", when: "When you have a small, reversible, single-persona task and want to skip grill-me and plan mode. Sam still routes it; if it is not actually light, it escalates automatically." },
+  { name: "/fast-path", type: "skill", category: "Everyday", desc: "Requests a quick lane for small, low-risk jobs, skipping the interview and plan-approval steps. Sam still checks it's genuinely a fit; if it isn't, the request is bumped back to the normal process automatically.", when: "When you have a small, reversible, single-persona task and want to skip grill-me and plan mode. Sam still routes it; if it is not actually light, it escalates automatically." },
 
   // ── Session & memory ──
-  { name: "/log-session", type: "skill", category: "Session & memory", desc: "Saves a structured log of the current session, request, routing trace, Odin checkpoints, artefacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
+  { name: "/log-session", type: "command", category: "Session & memory", desc: "Saves a structured log of the current session, request, routing trace, Odin checkpoints, artefacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
   { name: "/handoff-save", type: "command", category: "Session & memory", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive), current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Paste the file path into the new session to continue." },
-  { name: "/memory-reconcile", type: "skill", category: "Session & memory", desc: "Folds session notes from Vault/Memory/Sessions/ into your per-clone Vault/Memory/context.md index and per-month Notes/ archive. Two-stage write protocol, writes land in context.md (git-ignored), never the tracked MEMORY.md.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
+  { name: "/memory-reconcile", type: "command", category: "Session & memory", desc: "Folds session notes from Vault/Memory/Sessions/ into your per-clone Vault/Memory/context.md index and per-month Notes/ archive. Two-stage write protocol, writes land in context.md (git-ignored), never the tracked MEMORY.md.", when: "When Sessions/ is non-empty at end of turn. Sam prompts you; run it to keep memory coherent across sessions." },
 
   // ── Setup & sync ──
   { name: "/onboard", type: "command", category: "Setup & sync", desc: "Runs first-time workspace setup: removes template comment from CLAUDE.md, creates .env, verifies SOP paths, installs Caveman, installs the recommended plugin roster (canonical list: .claude/settings.json enabledPlugins), and installs VS Code extensions. Plannotator's binary is a separate optional, user-confirmed step.", when: "Once only, the first time you open a new client vault. Do not re-run on an active vault." },
@@ -829,6 +834,10 @@ const FAQ = [
   {
     q: "How do I know when to use @{SeniorAdviser}?",
     a: "You usually don't, Odin is invoked automatically by team members at quality checkpoints before delivering durable work. If you want an explicit review of something, you can say: <em>\"@{SeniorAdviser} review this plan before we proceed.\"</em>"
+  },
+  {
+    q: "I closed the tab, how do I get back to this guide?",
+    a: "Ask Sam to reopen <code>Resources/Learn/index.html</code>, or bookmark this page for direct access."
   }
 ];
 
@@ -887,7 +896,6 @@ const FAMILY_MAP = {
       <a href="#team">Team</a>
       <a href="#how-it-works">How it works</a>
       <a href="#who-for">Who it's for</a>
-      <a href="#commands">Commands</a>
       <a href="#reference">Reference</a>
     </nav>
     <div class="topbar-right">
@@ -905,11 +913,12 @@ const FAMILY_MAP = {
   <section class="hero" id="hook">
     <p class="eyebrow">A small studio, not a blank text box</p>
     <h1>Meet the studio before you meet the software.</h1>
-    <p class="hero-lead">This isn't a content generator you point at a blank page. It's a small studio of specialists, <strong>Sam the Orchestrator</strong> at the front desk, 28 named personas behind them, who route your request to whoever owns that kind of work, check it before it ships, and remember what they learned last time. You don't manage the routing. You just describe what you need.</p>
+    <p class="hero-lead">This isn't a content generator you point at a blank page. It's a small studio of specialists. <strong>Sam the Orchestrator</strong> sits at the front desk; 28 named personas work behind them, routing your request to whoever owns that kind of work, checking it before it ships, and remembering what they learned last time. You don't manage the routing. You just describe what you need.</p>
+    <p class="hero-first-run">First time in this vault? Run <code>/onboard</code> — it sets up <code>.env</code> and installs the recommended plugins. Add your API keys to <code>.env</code> once it's created. See <a href="#commands">Commands</a> for details.</p>
     <div class="hero-stats">
       <span class="stat-chip"><strong>28</strong> specialists on staff</span>
       <span class="stat-chip"><strong>1</strong> point of contact (Sam)</span>
-      <span class="stat-chip"><strong>PASS / FLAGGED / BLOCKED</strong> QA gate on every deliverable</span>
+      <span class="stat-chip"><strong>PASS / FLAGGED / BLOCKED</strong> QA Gate on every deliverable</span>
       <span class="stat-chip">
         <span class="stat-swatches" aria-hidden="true">
           <span style="background:var(--fam-ops)"></span><span style="background:var(--fam-trust)"></span><span style="background:var(--fam-strategy)"></span><span style="background:var(--fam-words)"></span><span style="background:var(--fam-visual)"></span><span style="background:var(--fam-build)"></span>
@@ -921,7 +930,7 @@ const FAMILY_MAP = {
     <details class="orient">
       <summary>New to Claude Code? Read this first.</summary>
       <div class="orient-body">
-        Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter, that's it. Everything on this page assumes you have Claude Code open with this workspace as your working directory.
+        Claude Code is a chat interface that runs in your terminal or IDE. Type your message and press Enter, that's it. Everything on this page assumes you have Claude Code open with this workspace as your working directory. Three top-level folders matter most as you get going: <code>Projects/</code> holds client work, <code>Resources/</code> holds shared references like this guide, and <code>Vault/</code> holds the system's own memory and configuration.
       </div>
     </details>
   </section>
@@ -931,8 +940,10 @@ const FAMILY_MAP = {
     <div class="block-head">
       <p class="block-kicker">The roster</p>
       <h2>Meet the team</h2>
-      <p>The full 29-person roster (28 specialists plus Sam), colour-coded by discipline. Search by name, role, or skill, filter to the core team, or click any card for full expertise and constraints.</p>
+      <p>The full 29-person roster (28 specialists plus Sam), colour-coded by discipline. Search by name, role, or skill, filter to the core team (specialists always on the roster, as opposed to optional hires), or click any card for full expertise and constraints.</p>
     </div>
+
+    <p class="roster-gloss" style="color:var(--text-muted); font-size:0.9rem; margin:0 0 12px;">The <code>@{RoleToken}</code> line on each card is a ready-to-copy prompt — paste it as-is to address that specialist directly. See <a href="#how-it-works">How to address the team</a> for the full syntax.</p>
 
     <div class="roster-controls">
       <div class="search-wrap">
@@ -955,7 +966,7 @@ const FAMILY_MAP = {
   <!-- ============ HOW IT WORKS ============ -->
   <section class="block" id="how-it-works">
     <div class="block-head">
-      <p class="block-kicker">Proof, not a promise</p>
+      <p class="block-kicker">A real walkthrough</p>
       <h2>How a request flows through the studio</h2>
       <p>Here's what actually happens when you send a real request, from your message to a finished deliverable. Same team you just met, working in sequence.</p>
     </div>
@@ -965,6 +976,13 @@ const FAMILY_MAP = {
         <div class="flow-body">
           <p class="flow-who you">You</p>
           <p class="flow-text">"I need blog content for a new coffee brand targeting specialty coffee enthusiasts in Australia."</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="rail"><div class="dot2"></div><div class="line"></div></div>
+        <div class="flow-body">
+          <p class="flow-who routing">Sam, checking direction first</p>
+          <p class="flow-text">This is a multi-step ask, so before anyone drafts anything: <code>grill-me</code> asks a few quick questions to pin down audience and scope, then Sam lays out the plan (who's doing what, in what order) for you to approve. You confirm.</p>
         </div>
       </div>
       <div class="flow-step">
@@ -1031,7 +1049,7 @@ const FAMILY_MAP = {
     <div class="block-head">
       <p class="block-kicker">Find yourself</p>
       <h2>Who this is for</h2>
-      <p>Three of the reasons people end up using this vault. Honest about the trade, including the catch, not just the pitch.</p>
+      <p>Three of the reasons people end up using this vault. Each card states the trade honestly, catch included.</p>
     </div>
     <div class="who-grid">
       <div class="who-card">
@@ -1046,15 +1064,15 @@ const FAMILY_MAP = {
         <h3>Business owner or manager</h3>
         <p class="who-who">Accountable for what goes out the door, whether that's client work or something a stakeholder inside the business will see.</p>
         <p class="who-headline">Nothing reaches a client or stakeholder unchecked.</p>
-        <p class="who-hook">Every file heading to <code>03 Deliverables/</code> goes through the QA Compliance Reviewer first, with an Advisor Checkpoint before drafting and before handoff on checkpoint-eligible work.</p>
+        <p class="who-hook">Every file heading to <code>03 Deliverables/</code> goes through the QA Compliance Reviewer first, with an Advisor Checkpoint before drafting and before handoff on checkpoint-eligible work (durable or hard-to-unwind jobs, as opposed to a quick lookup).</p>
         <p class="who-best"><strong>Best way to use it:</strong> treat the QA Gate (PASS / FLAGGED / BLOCKED) as non-negotiable. Route regulated-category copy through <code>@{LegalComplianceWriter}</code> before it goes near anyone outside the team.</p>
-        <p class="who-catch"><strong>The catch:</strong> Advisor Checkpoints and the QA Gate run on Fable 5 (<code>claude-fable-5</code>): real token cost on every checkpoint-eligible job. Safety isn't free.</p>
+        <p class="who-catch"><strong>The catch:</strong> Advisor Checkpoints and the QA Gate run on Fable 5 (<code>claude-fable-5</code>, the team's most capable model): real token cost on every checkpoint-eligible job. Safety isn't free.</p>
       </div>
       <div class="who-card">
         <h3>Non-technical team member</h3>
         <p class="who-who">Needs something done in here without knowing, or wanting to know, how any of it works underneath.</p>
         <p class="who-headline">You don't need to know who does what.</p>
-        <p class="who-hook">Sam figures out routing for you; <code>grill-me</code> asks one question at a time instead of demanding a perfect brief, and plan mode shows the approach before anything happens.</p>
+        <p class="who-hook">Sam figures out routing for you; <code>grill-me</code> asks one question at a time instead of demanding a perfect brief, and plan mode (a preview of the plan you get to approve first) shows the approach before anything happens.</p>
         <p class="who-best"><strong>Best way to use it:</strong> describe what you want in plain language and let Sam route it. If you're not sure your request is clear, run <code>/prompt-review</code> first, it coaches the ask before you send it.</p>
         <p class="who-catch"><strong>The catch:</strong> this is a Claude Code template, not a polished SaaS product. There's a genuine learning curve to the conventions (folders, checkpoints, what goes where), even with the guardrails softening it.</p>
       </div>
@@ -1087,7 +1105,7 @@ const FAMILY_MAP = {
       <summary>
         <span class="ref-summary-text">
           <span style="font-weight:700; font-size:1.02rem;">Start here, sample projects</span>
-          <span>5 half-finished projects that teach a different workflow layer each.</span>
+          <span>5 half-finished projects, each teaching a different workflow layer.</span>
         </span>
         <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </summary>
@@ -1103,7 +1121,7 @@ const FAMILY_MAP = {
       <summary>
         <span class="ref-summary-text">
           <span style="font-weight:700; font-size:1.02rem;">Troubleshooting / FAQ</span>
-          <span>6 common friction points and how to fix them.</span>
+          <span>7 common friction points and how to fix them.</span>
         </span>
         <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </summary>
