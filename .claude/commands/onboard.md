@@ -310,7 +310,7 @@ fi
 Tell the user:
 
 > **Your onboarding guide is now open in the browser.**
-> It has two tabs — "I'm using the team" (roster, skills, how to talk to the team) and "I'm setting this up" (admin steps, vault structure). Bookmark it — you can come back any time, or ask the Orchestrator to open it again.
+> It's a single scrolling page — Team, How it works, Who it's for, and a collapsed Reference section (commands, sample projects, FAQ). Bookmark it — you can come back any time, or ask the Orchestrator to open it again.
 
 ---
 
