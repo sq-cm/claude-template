@@ -6,7 +6,7 @@
     {
       "splitTerminals": [
         {
-          "name": "Neo",
+          "name": "Agents",
           "commands": ["herdr"]
         }
       ]
