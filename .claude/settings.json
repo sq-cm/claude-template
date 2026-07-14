@@ -118,6 +118,10 @@
           {
             "type": "command",
             "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/load-context.sh\" \"Local context loaded\" \"Vault/Memory/context.md\" \"No local context.md yet — run install or /memory-reconcile to create it from context.example.md\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/update-check.sh\""
           }
         ]
       }

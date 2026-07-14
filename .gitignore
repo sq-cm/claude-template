@@ -86,6 +86,11 @@ Vault/Memory/.theme-lock
 Vault/Memory/theme-name-map-*.md
 Vault/Memory/Sessions/
 
+# /update throttle state + error log — written by update.sh and the
+# update-check.sh SessionStart hook, machine-local
+Vault/Memory/.update-check-state
+Vault/Memory/update-check-errors.md
+
 # Per-clone local team memory — reconcile + bootstrap write target (context.example.md is the tracked seed)
 Vault/Memory/context.md
 Vault/Memory/reconcile-errors.md
