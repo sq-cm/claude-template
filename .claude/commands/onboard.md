@@ -240,6 +240,19 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 /plugin install higgsfield@higgsfield
 ```
 
+> **Known issue (recorded 14/07/2026, CLI 2.1.208 — delete this block once a CLI release parses the marketplace `skills` field):** the higgsfield install can fail with *"This plugin uses a source type your Claude Code version does not support. Update Claude Code and try again."* The message is misleading — updating does not fix it. The upstream marketplace.json carries a `skills: [{name, path, invoke}]` field that current CLIs cannot parse. **Only apply the workaround below if you hit this exact error** — a fixed CLI or upstream needs no intervention. The strip step is a safe no-op when the `skills` field is absent.
+>
+> 1. Back up and strip the field from the local marketplace cache:
+>    ```bash
+>    cd ~/.claude/plugins/marketplaces/higgsfield/.claude-plugin
+>    cp marketplace.json marketplace.json.bak
+>    python3 -c "import json; m=json.load(open('marketplace.json')); m['plugins'][0].pop('skills', None); json.dump(m, open('marketplace.json','w'), indent=2)"
+>    ```
+> 2. Retry: `/plugin install higgsfield@higgsfield` — now succeeds.
+> 3. Restore the original: `mv marketplace.json.bak marketplace.json`
+>
+> Caveat: `/higgsfield:*` skill commands may not register until the CLI supports the `skills` field — the plugin files are cached either way, and the Higgsfield MCP connector tools work regardless. Running `claude plugin marketplace update higgsfield` then reinstalling hits the same error until then; the same workaround applies.
+
 **plannotator** (visual plan & diff review — plugin registration only; the binary is a separate optional step, see Step 10):
 ```
 /plugin marketplace add backnotprop/plannotator
