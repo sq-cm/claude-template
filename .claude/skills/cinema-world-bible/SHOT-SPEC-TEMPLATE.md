@@ -1,11 +1,11 @@
 # Shot Spec — [SHOT-ID]
 
-> This is a spec, not a prompt. It tells banana-pro-director-2.0, cinema-worldbuilder-pro-2.0, or seedance-commercial-director what the shot needs. Those skills write the prompt from it. Do not include Banana Pro prompt grammar or Seedance block structure here.
+> This is a spec, not a prompt. It tells banana-pro-director, cinema-worldbuilder-pro, or seedance-commercial-director what the shot needs. Those skills write the prompt from it. Do not include Banana Pro prompt grammar or Seedance block structure here.
 
 **Project:**
 **Shot ID:** (e.g., S01-E02-003 or a simple slug like CLIFFSIDE-RAIN-01)
 **Sequence position:** (e.g., Scene 2, Shot 3 of 5)
-**Destination skill:** [ ] banana-pro-director-2.0 (still) / [ ] cinema-worldbuilder-pro-2.0 (video) / [ ] seedance-commercial-director (commercial)
+**Destination skill:** [ ] banana-pro-director (still) / [ ] cinema-worldbuilder-pro (video) / [ ] seedance-commercial-director (commercial)
 **Date:**
 
 ---
@@ -35,12 +35,12 @@ What is happening in this shot? Describe the moment, not the camera — one or t
 
 Pull from the reference library index. Canonical character references first, then environment plates, then vehicles and props. Hard cap: 9 total for Seedance.
 
-| Slot | Library slug | Reference type | Notes |
-|---|---|---|---|
-| @image1 | `[CHAR-SLUG]-FACE-LOCK` or `[CHAR-SLUG]-OUTFIT-[SLUG]` | Character canonical | |
-| @image2 | | | |
-| @image3 | | | |
-| @imageN | `ENV-[SLUG]` | Environment plate | Carries world geometry |
+| Priority | Element tag | Library slug | Reference type | Notes |
+|---|---|---|---|---|
+| 1 | `@[semantic_tag]` | `[CHAR-SLUG]-FACE-LOCK` or `[CHAR-SLUG]-OUTFIT-[SLUG]` | Character canonical | |
+| 2 | `@[semantic_tag]` | | | |
+| 3 | `@[semantic_tag]` | | | |
+| … | `@[semantic_tag]` | `ENV-[SLUG]` | Environment plate | Carries world geometry |
 
 **Total reference count:** [N] of 9
 
@@ -104,7 +104,7 @@ What does this shot need to match from the previous shot, or set up for the next
 - (e.g., "Wipers are OFF throughout this shot — Shot 4 is the wiper-activation beat")
 
 **Cross-frame rules (if multi-character):**
-- (e.g., "@image1 holds in driver's seat, @image2 holds in passenger seat — no position swap across the cut")
+- (e.g., "@zara_face holds in driver's seat, @owen_face holds in passenger seat — no position swap across the cut")
 
 ---
 
@@ -126,15 +126,15 @@ Cinema-mode alignment
 - [ ] M-mode matches the banana-pro scene plate mode if a scene plate is being used
 
 Reference slots
-- [ ] All @imageN assignments are pulled from the library index and recorded above
+- [ ] All element-tag assignments are pulled from the library index and recorded above
 - [ ] Total reference count is 9 or fewer
-- [ ] Slot order is documented
+- [ ] Priority order is documented
 
 ---
 
 ## Destination handoff
 
-**Route to:** banana-pro-director-2.0 / cinema-worldbuilder-pro-2.0 / seedance-commercial-director
+**Route to:** banana-pro-director / cinema-worldbuilder-pro / seedance-commercial-director
 
 **Handoff note to the destination skill:**
 (Any additional context the skill needs that isn't captured above — unusual compositional requests, specific reference to a prior approved output the director should match, etc.)

@@ -1,6 +1,6 @@
 # Reference Library Index — [PROJECT NAME]
 
-> Every reference image asset for this project. Banana-pro-director builds these; this index tracks them. Shot specs pull @imageN slot assignments from here. Canonical character references always take priority over environment plates when slot count is constrained (Seedance hard cap: 9 references per prompt).
+> Every reference image asset for this project. Banana-pro-director builds these; this index tracks them. Shot specs pull element-tag assignments from here. Canonical character references always take priority over environment plates when tag count is constrained (Seedance hard cap: 9 references per prompt).
 
 ---
 
@@ -71,35 +71,35 @@ PROP-[PROP-SLUG]                       for prop references
 
 ## Higgsfield Elements name mapping
 
-Every locked reference that will be passed as a Seedance reference input must have a corresponding asset in the operator's Higgsfield "Elements" library. The slug in this index is the canonical identifier — the operator names the Higgsfield Elements entry with the **exact same slug** so that shot specs, build queues, and handoff notes can all refer to a single unambiguous identifier.
+Every locked reference that will be passed as a Seedance reference input must have a corresponding asset in the operator's Higgsfield "Elements" library, and a **user-supplied semantic element tag** the prompt can call it by — e.g. `@zara_face`, `@rain_plate`, `@garage_night`. The slug in this index is the canonical identifier; the element tag is the shorthand a prompt body actually carries.
 
-**Important — this is an index and operator-handoff convention, not prompt-body syntax.** Slugs are never written as `@slug` into a Banana Pro or Seedance prompt body. banana-pro-director-2.0 explicitly prohibits `@image` tags in prompt bodies (attachment happens in the Higgsfield UI directly). The mapping below records the relationship between the slug (what this skill tracks), the @imageN position (what cinema-worldbuilder-pro-2.0 places in the Seedance prompt body), and the Higgsfield Elements name (what the operator loads in the UI at generation time).
+**Important — this is an index and operator-handoff convention, not free-text syntax.** Element tags are assigned once per locked asset and never improvised mid-prompt. The mapping below records the relationship between the slug (what this skill tracks), the element tag (what cinema-worldbuilder-pro places in the Seedance prompt body), and the Higgsfield Elements name (what the operator loads in the UI at generation time).
 
 ```
-Slug (library index)  →  @imageN slot (Seedance prompt)  →  Higgsfield Elements name (UI)
+Slug (library index)  →  @element_tag (Seedance prompt)  →  Higgsfield Elements name (UI)
 ```
 
-| Slug | @imageN slot | Higgsfield Elements name | Status | Notes |
+| Slug | Element tag | Higgsfield Elements name | Status | Notes |
 |---|---|---|---|---|
-| `[SLUG]` | @image[N] | [exact name as entered in Higgsfield Elements UI] | PENDING / LOCKED | |
+| `[SLUG]` | `@[semantic_tag]` | [exact name as entered in Higgsfield Elements UI] | PENDING / LOCKED | |
 
 **Rules:**
 - The Higgsfield Elements name must match the slug exactly (case-insensitive matching is fine; spaces replaced with hyphens is fine — but the token must be recognisable as the slug).
-- The @imageN slot is assigned by the shot spec, not here — this column is a reference lookup, not an authoritative slot assignment. Authoritative slot assignments live in the Slot assignment log below and in individual shot specs.
-- When an asset is renamed in Higgsfield, update both the Elements name column here **and** the slug column. Slug and Elements name must remain in sync.
-- This mapping sits above the @imageN grammar: slug → @imageN → Elements name. The @imageN ordering (CWP / cinema-worldbuilder-pro-2.0 grammar) governs what goes in the prompt body; this index governs what the operator loads in the UI to match it.
+- The element tag is a short, memorable, lowercase-with-underscores handle derived from the slug (e.g. `ZARA-FACE-LOCK` → `@zara_face`) — assigned by this index, not improvised per-shot. Shot specs cite the tag; they don't invent one.
+- When an asset is renamed in Higgsfield, update the Elements name column, the slug column, **and** the element tag if it changes meaning. All three must remain in sync.
+- This mapping sits above the element-tag grammar: slug → element tag → Elements name. The element-tag ordering (CWP / cinema-worldbuilder-pro grammar) governs what goes in the prompt body; this index governs what the operator loads in the UI to match it.
 
 ---
 
-## Slot assignment log
+## Element-tag assignment log
 
-When a shot spec is written, record the @imageN assignments here so any future shot in the same sequence can maintain slot consistency.
+When a shot spec is written, record the element tags assigned here so any future shot in the same sequence can maintain consistency. Up to 9 element tags per prompt (Seedance hard cap).
 
-| Shot ID | @image1 | @image2 | @image3 | @image4 | @image5 | @image6 | @image7 | @image8 | @image9 |
-|---|---|---|---|---|---|---|---|---|---|
-| | | | | | | | | | |
+| Shot ID | Element tags attached (in priority order) |
+|---|---|
+| | `@[tag1]`, `@[tag2]`, `@[tag3]`, … |
 
-**Canonical-over-plate rule (hard lock):** Every named subject (character, vehicle, prop) that appears in a shot gets its canonical reference in its own @imageN slot — even if that subject is also visible in the environment plate. The plate carries world geometry. The canonical reference carries identity. Never substitute one for the other.
+**Canonical-over-plate rule (hard lock):** Every named subject (character, vehicle, prop) that appears in a shot gets its canonical reference as its own element tag — even if that subject is also visible in the environment plate. The plate carries world geometry. The canonical reference carries identity. Never substitute one for the other.
 
 ---
 
@@ -107,9 +107,9 @@ When a shot spec is written, record the @imageN assignments here so any future s
 
 Assets that need to be built before upcoming shots can be prompted. Prioritized by production dependency.
 
-| Priority | Slug | Blocking which shots | Route to | Status |
-|---|---|---|---|---|
-| 1 | | | banana-pro-director-2.0 Mode [N] | PENDING |
+| Priority | Slug | Element tag | Blocking which shots | Route to | Status |
+|---|---|---|---|---|---|
+| 1 | | `@[semantic_tag]` | | banana-pro-director Mode [N] | PENDING |
 
 ---
 

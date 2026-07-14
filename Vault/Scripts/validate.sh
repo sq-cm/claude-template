@@ -394,11 +394,11 @@ echo ""
 # Check 7 — doc counts match README assertions
 #
 # Live agent count: ls .claude/agents/*.md | wc -l → expect 28
-# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 27
+# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 28
 #
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
 # "N reusable skill modules") — not the prose mention around line 58.
-# Count reconciled at 24 via #144/#145; 25 with prompt-review, 26 with review-claudemd (2026-07-06); 27 with fast-path (2026-07-09).
+# Count reconciled at 24 via #144/#145; 25 with prompt-review, 26 with review-claudemd (2026-07-06); 27 with fast-path (2026-07-09); 28 with story-bible-builder (2026-07-14).
 #
 # EXPECTED_* below are a deliberate tripwire, not redundancy: adding or removing
 # a skill or persona must consciously touch this file, README.md, and the docs
@@ -409,7 +409,7 @@ echo "--- Check 7: Doc counts match README assertions ---"
 check7_pass=true
 
 EXPECTED_AGENT_COUNT=28
-EXPECTED_SKILL_COUNT=27
+EXPECTED_SKILL_COUNT=28
 
 # Live counts
 live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | grep -cv '/CLAUDE\.md$' | tr -d ' ')
@@ -553,8 +553,8 @@ echo ""
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-sonnet-5 claude-opus-4-8"
-FABLE_PIN_COUNT=0  # Fable 5 retired from the sub; gatekeepers moved to claude-opus-4-8 (2026-07)
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-4-8 claude-fable-5"  # claude-fable-5 temporary for Odin Fable 5 promo pin (#196); revert with post-19/07/2026 promo-cliff revert
+FABLE_PIN_COUNT=1  # temporary for Odin Fable 5 promo pin (#196); revert to 0 with post-19/07/2026 promo-cliff revert
 fable_pin_live=0
 
 for fpath in "$AGENTS_DIR"/*.md; do

@@ -93,7 +93,7 @@ The next three are the **AI-Cinema unit** — a narrative AI-film pipeline (char
 
 **{CinemaShowrunner} Marlowe** — `cinema-showrunner.md`. World bible, character continuity, and shot sequencing for narrative AI-film. Add when you run a character-driven AI-cinema pipeline. Skip for commercial-marketing-only studios.
 
-**{StillsDirector} Iris** — `stills-director.md`. Higgsfield still-image prompt direction (Banana Pro / Soul Cinema / GPT-2) — the locked references that feed video. Add alongside Marlowe and Dash. Skip if you don't do character-film stills.
+**{StillsDirector} Iris** — `stills-director.md`. Higgsfield still-image prompt direction (Banana Pro / Soul Cinema / GPT Image 2) — the locked references that feed video. Add alongside Marlowe and Dash. Skip if you don't do character-film stills.
 
 **{SeedanceDirector} Dash** — `seedance-director.md`. Seedance video prompt direction with frame-map and subject-lock continuity. Add alongside Marlowe and Iris. Skip if you don't produce Seedance video.
 
