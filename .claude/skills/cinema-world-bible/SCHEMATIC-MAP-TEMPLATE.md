@@ -2,7 +2,7 @@
 
 > A top-down spatial diagram artefact for a single location. Records prop positions, sizes, and clearance distances so they stay consistent take after take. Text cannot hold a location; a map can.
 >
-> **Relationship to the Frame Map:** this schematic map is a world-space prep artefact (where things physically are in the location geometry). The Frame Map, owned by cinema-worldbuilder-pro-2.0, is a screen-space per-shot grammar (where characters sit in the frame for a specific Seedance prompt). The schematic map informs the Frame Map — it does not duplicate or replace it. Do not write Frame Map entries here; reference this document from the Frame Map instead.
+> **Relationship to the Frame Map:** this schematic map is a world-space prep artefact (where things physically are in the location geometry). The Frame Map, owned by cinema-worldbuilder-pro, is a screen-space per-shot grammar (where characters sit in the frame for a specific Seedance prompt). The schematic map informs the Frame Map — it does not duplicate or replace it. Do not write Frame Map entries here; reference this document from the Frame Map instead.
 
 **Project:**
 **Location slug:** (e.g., `ENV-STREET-DAY`, `ENV-GARAGE-NIGHT`)
@@ -74,7 +74,7 @@ This section links the schematic map to the per-shot Frame Map entries that use 
 
 | Shot ID | Frame Map entry location | Notes |
 |---|---|---|
-| (e.g., S01-E02-003) | (e.g., `SHOT-SPEC-S01-E02-003.md` § Reference-image assignments) | (e.g., skydancer slug used as @image4 in this shot) |
+| (e.g., S01-E02-003) | (e.g., `SHOT-SPEC-S01-E02-003.md` § Reference-image assignments) | (e.g., skydancer slug used as `@skydancer_ref` in this shot) |
 
 ---
 

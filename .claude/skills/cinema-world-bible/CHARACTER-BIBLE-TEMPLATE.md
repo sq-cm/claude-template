@@ -11,7 +11,7 @@
 
 ## Identity spec (locked visual descriptor)
 
-This is the text spec that banana-pro-director-2.0 uses at Mode 0 (face lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
+This is the text spec that banana-pro-director uses at Mode 0 (face lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
 
 **Build:**
 (e.g., slim with refined proportions / athletic / full / slight — described by silhouette and proportion, never by size numbers)
@@ -41,7 +41,7 @@ List every marker that must appear consistently and be noted in every prompt tha
 | (e.g., Piercing) | (small silver hoop at the left nostril) | |
 | (e.g., Tattoo) | (fine-line script on the inside of the right forearm — visible at waist-up framing) | |
 
-**Naming rule (HARD LOCK):** Never use this character's real name in any prompt output. Always refer by the short visual handle (e.g., "the jet-black-bangs high-ponytail woman") or by their @imageN reference tag.
+**Naming rule (HARD LOCK):** Never use this character's real name in any prompt output. Always refer by the short visual handle (e.g., "the jet-black-bangs high-ponytail woman") or by their semantic element tag (e.g., `@zara_face`).
 
 **Age-blind rule (HARD LOCK):** Never describe by age. No "young," "mid-twenties," "older," "teen," "girl," "boy," "elderly." Describe by build, role, and wardrobe.
 

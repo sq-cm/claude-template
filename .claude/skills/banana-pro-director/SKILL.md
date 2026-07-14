@@ -1,15 +1,17 @@
 ---
-name: banana-pro-director-2.0
-description: "Higgsfield image prompt director for Banana Pro, Soul Cinema, and GPT Image 2. Modes: (0) face lock for new characters, (1) single-image character outfit, (2) 6-panel character sheet, (2B) headless 3-panel Seedance-handoff sheet (studio-local variant), (3) cinematic scene plates with or without characters, (4) GPT Image 2 detail face/chest-up, (5) outfit replacement — swap a face onto an outfit using two refs. Reads references for hair, makeup, wardrobe, jewelry, identity; outputs photorealistic prompts. Use for new character builds, character/outfit refs, character sheets, scene plates, environment plates, detail shots, outfit replacement, or any photorealistic still."
+name: banana-pro-director
+description: "Higgsfield image prompt director for Banana Pro, Soul Cinema, and GPT Image 2. Modes: (0) face lock for new characters, (1) single-image character outfit, (2A) 3-panel character sheet (default), (2B) 6-panel character sheet (legacy, explicit request), (2C) headless 3-panel Seedance-handoff sheet (studio-local variant), (3) cinematic scene plates with or without characters, (4) GPT Image 2 detail face/chest-up, (5) outfit replacement — swap a face onto an outfit using two user-tagged refs. Reads references for hair, makeup, wardrobe, jewelry, identity; outputs photorealistic prompts. Use for new character builds, character/outfit refs, character sheets, scene plates, environment plates, detail shots, outfit replacement, or any photorealistic still."
 ---
 
-# Banana Pro Director 2.0 — Image Asset Builder
+# Banana Pro Director — Image Asset Builder
+
+> **Version:** 3.0 adopted 14/07/2026 onto the 2.0 base (diff-and-fold merge — see the Mode 2 reconciliation and MID-GRAY / FLAT GRADE sections below for what changed and what stayed studio-local).
 
 The locked image prompt grammar for great Higgsfield image assets. Six modes, in strict order:
 
 0. **Face lock (new characters only)** — for any character being developed from scratch. Identity only — no outfit styling, no environment, no in-depth prompting at this stage. Tool fork (Banana Pro single-pass default / GPT Image 2 single-pass / Soul Cinema two-pass), locked backdrop, lighting, and baseline wardrobe are specified once in the MODE 0 section.
 1. **Single-image character outfit** — mid-gray seamless studio (locked default — white only on explicit request), full styling readable, locked as the base reference for that character/outfit. Two paths: **Banana Pro** (full custom styling written from prompt — best for simpler outfits) or **Soul Cinema** (outfit built on a bland slim model first, then composited onto the locked character — best for custom fits where wardrobe should be designed separately from casting). User picks based on outfit complexity.
-2. **6-panel character sheet** — built ONLY after a single-image base exists, composed as one 16:9 frame with a 3×2 grid: front body, back body, two side-profile close headshots, one front face close headshot, one detail shot (nails / jewelry / piercing / held prop).
+2. **Character sheet** — built ONLY after a single-image base exists. **The 3-panel sheet (Mode 2A) is the default and primary format:** full body front with the head cleanly removed, full body rear with the head attached, and a tight chest-up face lock. **The 6-panel sheet (Mode 2B) is legacy** — available on explicit request only, never proposed proactively, because splitting the frame six ways starves the face panels of resolution. **Mode 2C (studio-local)** is a distinct headless 3-panel Seedance-handoff variant — both headless panels front AND back, face in exactly one panel — purpose-built as a Subject Lock anchor, not a general-purpose sheet.
 3. **Scene plates** — character(s) in a fully realized cinematic environment, OR pure environment plates with no characters. Always available, but never proposed proactively — only built when the user asks.
 
 Plus two optional capabilities:
@@ -58,7 +60,7 @@ Once the character is locked (either confirmed from existing reference upload, o
 Ask the user to describe the outfit they want — every garment, every accessory, every styling choice. If they upload a wardrobe reference image, study it visual-only. Mirror back the wardrobe spec for confirmation.
 
 <!-- STUDIO-LOCAL BEGIN -->
-**Optional pre-step — wardrobe test pass (studio-local addition, recommended for complex/custom fits):** Before building the outfit onto the canonical character, offer to prove the garment on a headless/invisible-mannequin display first — same headless framing discipline as Mode 2B, no head or face in the test shot, silhouette and fabric are the only subjects. Escalation chain if the silhouette or fabric doesn't hold: **Soul Cinema first** (cheapest, fastest test) → **Banana Pro** if Soul Cinema can't hold the shape → **GPT Image 2** if Banana Pro still can't resolve fine construction detail (boning, structured seams, complex draping). Once the garment is locked visually on the headless display, composite it onto the canonical character using the approved headless-display image as the wardrobe reference and the character's locked reference sheet (Mode 0 output, or Mode 2/2B sheet) as the character anchor — proceed to Mode 1A or Mode 1B as normal from there. This pre-step is optional and skippable for simple outfits; go straight to the tool-fork question below when the fit is straightforward.
+**Optional pre-step — wardrobe test pass (studio-local addition, recommended for complex/custom fits):** Before building the outfit onto the canonical character, offer to prove the garment on a headless/invisible-mannequin display first — same headless framing discipline as Mode 2C, no head or face in the test shot, silhouette and fabric are the only subjects. Escalation chain if the silhouette or fabric doesn't hold: **Soul Cinema first** (cheapest, fastest test) → **Banana Pro** if Soul Cinema can't hold the shape → **GPT Image 2** if Banana Pro still can't resolve fine construction detail (boning, structured seams, complex draping). Once the garment is locked visually on the headless display, composite it onto the canonical character using the approved headless-display image as the wardrobe reference and the character's locked reference sheet (Mode 0 output, or Mode 2A/2B/2C sheet) as the character anchor — proceed to Mode 1A or Mode 1B as normal from there. This pre-step is optional and skippable for simple outfits; go straight to the tool-fork question below when the fit is straightforward.
 <!-- STUDIO-LOCAL END -->
 
 **Then — before writing the prompt — ask which tool to build the base in:**
@@ -71,9 +73,15 @@ Wait for the user to pick. Different tools use different prompt structures — s
 
 Then run the standard pre-prompt check, wait for the green light, then deliver the prompt in a single fenced code block.
 
-### Mode 2 — 6-panel character sheet
+### Mode 2 — Character sheet
 
-Only after a single-image base reference has been generated (and the user is happy with it) can a 6-panel sheet be built. The 6-panel uses the locked base outfit and shows the same character from six angles in a single 16:9 frame, 3×2 grid: front body, back body, two side-profile close headshots, one front face close headshot, one detail shot (nails / jewelry / piercing / held prop).
+Only after a single-image base reference has been generated (and the user is happy with it) can a character sheet be built.
+
+**Default to the 3-panel (Mode 2A).** When the user asks for "a character sheet" without naming a format, build the 3-panel: full body front with the head cleanly removed, full body rear with the head attached, and a tight chest-up face lock. Do not ask which format, do not offer the 6-panel.
+
+**6-panel (Mode 2B) is legacy and explicit-request only.** If the user names it, flag once that six cells starve the face panels of resolution, then proceed on their go-ahead.
+
+**Mode 2C (studio-local) is a distinct Seedance-handoff variant**, not a replacement for 2A or 2B — offer it specifically when the reference feeds Seedance. See the Mode 2C section for its own spec (both flanking panels headless, face in exactly one panel).
 
 Same pre-prompt confirmation rule: bulleted summary, get the nod, then deliver the prompt in a code block.
 
@@ -100,7 +108,7 @@ Every prompt — single image, 6-panel, scene plate, GPT Image 2 — gets a shor
 What still triggers a full pre-prompt check even mid-thread:
 - New character entering the frame
 - New wardrobe (not a tweak — a full outfit swap)
-- New mode (going from single-image to 6-panel, or from base to scene plate)
+- New mode (going from single-image to a character sheet, or from base to scene plate)
 - New environment / scene type
 - The user explicitly asking for a check ("walk me through it first")
 
@@ -223,25 +231,34 @@ When the user asks for a night scene, the night work has a specific theatrical a
 
 ---
 
-## MID-GRAY SEAMLESS BACKDROP (LOCKED DEFAULT FOR ALL CHARACTER WORK)
+## 18% GRAY SEAMLESS + FLAT GRADE (LOCKED DEFAULT FOR ALL CHARACTER WORK)
 
-**Mid-gray seamless is the locked default backdrop** for all character work — face locks, character references, outfit plates, 6-panel sheets, and prop references. **Pure white seamless is now the explicit-request exception**, used only when the user specifically asks for a clean white card (e.g. a finished standalone still meant to be posted or handed off as a polished deliverable). When in doubt, default to gray.
+**18% neutral gray seamless with a completely flat, shadowless grade is the locked default** for all character work — face locks, character references, outfit plates, 2A/2B/2C sheets, and prop references. **Pure white seamless is now the explicit-request exception**, used only when the user specifically asks for a clean white card (e.g. a finished standalone still meant to be posted or handed off as a polished deliverable). When in doubt, default to gray.
 
 **Why gray as the standing default.** Pure white (and pure black) seamless creates maximum subject-to-background contrast. Video models amplify small mistakes most at high-contrast edges — that's where halo, edge "breathing," and contour instability get baked in during motion. A neutral mid-gray ground lowers the subject-to-background contrast, which means cleaner edge extraction and far less inherited contrast and plastic when the still is read as a reference frame. The same principle that makes a hazy scene plate read as real depth — lower contrast between planes — applies here: gray is the flat-plate version of the fix. Because virtually all character plates eventually seed downstream video work, gray is the correct standing default; white is reserved for the occasional finished standalone still.
 
-**The background stays neutral; the character does not.** The gray ground is an **even neutral mid-gray** — do NOT warm-shift it toward warm-gray. The neutral ground is the locked look. But the gray must never be allowed to cool or neutralize the subject: skin renders at its **true natural skin tone**, and body and wardrobe render at their **true natural color values**, exactly as they'd read under neutral daylight — never cooled, never washed-out, never color-shifted by the background. The relight-from-scratch language and the explicit "warmth preserved and natural, never pale or washed-out or cool-shifted" clause in the lighting close below are what hold this. Keep the background neutral and the subject true.
+**The background stays neutral; the character does not.** The gray ground is an **even neutral mid-gray** — do NOT warm-shift it toward warm-gray. The neutral ground is the locked look. But the gray must never be allowed to cool or neutralize the subject: skin renders at its **true natural skin tone**, and body and wardrobe render at their **true natural color values**, exactly as they'd read under neutral daylight — never cooled, never washed-out, never color-shifted by the background. The relight-from-scratch language and the explicit "warmth preserved and natural, never pale or washed-out or cool-shifted" clause in the flat grade below are what hold this. Keep the background neutral and the subject true.
 
-**The white exception:** only when the user explicitly asks for white. In that case, swap the gray backdrop line for "Pure white seamless studio background, no gradient, no seam line, perfectly even" and close with the full cinema stack instead of the lean Rembrandt grade.
+**The white exception:** only when the user explicitly asks for white. In that case, swap the gray backdrop line for "Pure white seamless studio background, no gradient, no seam line, perfectly even" — but **keep the flat shadowless grade**. Flatness survives the backdrop swap; it is not a property of the gray, it is the locked look for all character work.
 
-**Lighting close for a mid-gray plate (lean soft Rembrandt grade — use this, NOT the full cinema stack):**
+**Lighting close for a gray plate (LOCKED FLAT GRADE — use this, NOT the full cinema stack):**
 
 ```
-Mid-gray seamless studio background — even neutral mid-gray, no seam line, no gradient, no falloff to black or white. Relight from scratch overriding any reference lighting: one broad diffused source from camera-[left/right] and slightly above, a soft triangle of light on the shadow cheek, gentle wrap onto the face, no hard shadow edges, no rim light, no hair light, no kicker. Skin reads matte and velvety — zero shine on forehead, nose bridge, cheekbones, temples, and chin, no oily T-zone — in a low-contrast milky look. Real peach fuzz at the jaw and hairline, real soft fine even pore texture, subsurface scattering reading as semi-translucent biology, warmth preserved and natural, never pale or washed-out or cool-shifted, never plastic, never waxy AI render, never glass-skin, never harsh — fine flattering texture that keeps the face looking good, no acne, no blemishes, no rough pores. Photographed on a 50mm prime at a wide aperture, natural round bokeh, even sharpness, soft natural film grain. Photographed not generated.
+Background is an even 18% neutral gray seamless, completely flat — one single uniform value corner to corner, no seam line, no gradient, no hotspot, no vignette, no falloff to lighter or darker anywhere in the frame. Relight from scratch overriding any reference lighting: completely flat shadowless illumination — one enormous soft frontal source at camera position wrapping the subject evenly, matched equal fill from camera-left and camera-right at identical intensity, matched fill from above and below, so both sides of the face read at exactly the same brightness. No key-and-fill ratio, no modelling, no shadow side, no cheek triangle, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background — the backdrop stays clean flat gray behind the entire figure. No contact shadow, no drop shadow, no ambient occlusion anywhere in the frame. Extremely low contrast, even, milky, catalogue-flat. Form is described by bone structure, hair strands, and fabric folds alone, not by light and shadow. Skin reads matte and velvety — zero shine on forehead, nose bridge, cheekbones, temples, and chin, no oily T-zone. Skin renders at its true natural skin tone and wardrobe at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real soft fine even pore texture, subsurface scattering reading as semi-translucent biology, never plastic, never waxy AI render, never glass-skin, never harsh — fine flattering texture that keeps the face looking good, no acne, no blemishes, no rough pores. Photographed on a 50mm prime, even sharpness, soft natural film grain. Photographed not generated.
 ```
 
-**Why the lean close, not the full cinema stack:** on a flat seamless plate the full texture-and-grade stack just dilutes — the heavy stack can push contrast back up, which is exactly what the gray ground is trying to lower. The lean Rembrandt close does the matte/specular/warmth work without re-introducing contrast, and its "warmth preserved and natural, never pale or washed-out or cool-shifted" clause is what keeps skin and wardrobe reading at their true natural tone against the neutral gray. This is the same per-zone specular kill the cinema-worldbuilder Capture Realism block uses, applied to a still.
+**Why flat, and why the lean close instead of the full cinema stack.** These plates are references, not finished frames. Any shadow baked into a reference — a cheek triangle, a nose shadow, a contact shadow under the feet, a falloff on the backdrop — gets inherited and amplified by every downstream generation that reads the plate, and it fights whatever lighting the actual scene wants. So the character plate carries **zero lighting information**: no key direction, no shadow side, no cast shadow, no backdrop falloff. The gray stays one flat value, the subject is described entirely by bone structure, hair, and fabric folds, and the scene plate or video prompt does all the lighting later. The full texture-and-grade stack would push contrast back up, which is exactly what this grade is killing; the lean flat close does the matte/specular/true-color work without re-introducing any of it.
 
-**6-panel sheets:** the gray default applies the same way — use "Mid-gray seamless studio backdrop applied uniformly across all six panels — even neutral mid-gray, no seam line, no gradient," and close with the lean Rembrandt grade above instead of the full cinema stack. Keep everything else (panel layout, identity lock) identical. Only swap to white-across-all-six-panels if the user explicitly asks for a white sheet.
+**The three things that must appear in every flat close, always:**
+1. **Flat backdrop** — one uniform 18% gray value corner to corner, no seam, no gradient, no hotspot, no vignette, no falloff.
+2. **Shadowless illumination** — huge frontal source at camera position, matched equal fill left/right/above/below, no key-and-fill ratio, no shadow side, no rim, no hair light, no kicker, no specular hotspot.
+3. **Zero cast shadow** — nothing thrown onto the background, no contact shadow, no drop shadow, no ambient occlusion under the feet or the hem.
+
+If any one of the three is missing, the plate will come back with modelling in it.
+
+**2A (3-panel) and 2B (6-panel) sheets:** the flat default applies the same way, stated as applying **uniformly across all panels** — same flat gray value, same shadowless light, no cast shadow in any panel. Close with the flat grade above instead of the full cinema stack. Only swap to white if the user explicitly asks, and keep the flatness when you do.
+
+**2C (studio-local headless Seedance-handoff) sheets:** same flat-grade discipline applies uniformly across all three panels — see the Mode 2C section for its own worked closing paragraph.
 
 ---
 
@@ -283,7 +300,7 @@ Real human skin captured on a real cinema camera — refined and real, peach fuz
 ```
 
 **Modal application:**
-- **Mode 0 (face lock), Mode 1 (single-image character outfit), Mode 2 (6-panel sheet), Mode 4 (GPT Image 2 detail), Mode 5 (outfit replacement):** append the full stack as the closing block, with the exception of Mode 1B Step 1 and Mode 5 — both have their own special closings documented in their sections.
+- **Mode 0 (face lock), Mode 1 (single-image character outfit), Mode 2A/2B/2C (character sheets), Mode 4 (GPT Image 2 detail), Mode 5 (outfit replacement) — i.e. all studio character work:** these close with the **LOCKED FLAT GRADE** (see "18% GRAY SEAMLESS + FLAT GRADE" above), not the full cinema stack. The full stack's key-wrap, anatomical shadow-falloff, and atmospheric-perspective language actively fights the flat plate — never append it to a character plate or sheet. It is documented here for Mode 3 and for the explicit white-card standalone-still exception only.
 - **Mode 3A (character-in-scene plate) and Mode 3B (pure environment plate):** Mode 3 uses the cinema-prose register, which folds the cinema stack language INTO the closing camera-spec paragraph rather than appending it as a separate block. See Mode 3 documentation for the prose register and its closing realism clause.
 - **Mode 1B Step 1 (bland model outfit reference, Soul Cinema two-step):** use the lighter outfit-reference close documented in the Mode 1B section — NOT the full cinema stack. The outfit reference image just needs to read clean and matte so the outfit is the only subject.
 
@@ -343,6 +360,8 @@ Before any prompt, ask the user which tool to use for the face lock. Three optio
 > — **GPT Image 2 (highest fidelity, highest credits):** chest-up only, sharpest detail, best for nailing tricky identity markers in one shot (intricate piercings, fine scars, beauty marks, specific eye color). Heads-up — uses considerably more Higgsfield credits than Banana Pro.
 > — **Soul Cinema (looser, fast iteration):** good when the user isn't sure yet and wants to throw stuff at the wall to see variations on the face register. Lower fidelity than Banana Pro but faster to iterate. If used, run as Step 0.1 first to produce a face plate, then a Banana Pro 3:4 pass (Step 0.2) to lock the finer detail.
 
+Mention the GPT Image 2 credit cost ONCE per conversation, then drop it for the rest of the session.
+
 Wait for the user to pick. Then proceed to the matching step.
 
 ---
@@ -370,9 +389,9 @@ Sound good?
 ```
 A clean cinema-character-reference 3:4 headshot, framed from forehead to upper chest with the face filling most of the frame. [Identity essentials — heritage, build, skin tone and finish, hair (color, length, texture), eye shape and color, any key identity markers being locked: piercings with exact position and metal, scars with placement and size, beauty marks with placement]. She wears [a plain black thin-strap camisole / he wears a plain black ribbed tank], no jewelry, no logos, no graphics. Body squared to camera, head level, neutral relaxed expression, eyes to camera, lips closed and relaxed, subtle controlled energy.
 
-Mid-gray seamless studio background — even neutral mid-gray, no seam line, no gradient, no falloff to black or white. Relight from scratch overriding any reference lighting: one broad diffused source from camera-[left/right] and slightly above, a soft triangle of light on the shadow cheek, gentle wrap onto the face, no hard shadow edges, no rim light, no hair light, no kicker. Skin reads matte and velvety — zero shine on forehead, nose bridge, cheekbones, temples, and chin, no oily T-zone — in a low-contrast milky look. Skin renders at its true natural skin tone and wardrobe at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real soft fine even pore texture, subsurface scattering reading as semi-translucent biology, never plastic, never waxy AI render, never glass-skin, never harsh — fine flattering texture that keeps the face looking good, no acne, no blemishes, no rough pores. Photographed on a 50mm prime at a wide aperture, natural round bokeh, even sharpness, soft natural film grain. Photographed not generated.
+Background is an even 18% neutral gray seamless, completely flat — one single uniform value corner to corner, no seam line, no gradient, no hotspot, no vignette, no falloff to lighter or darker anywhere in the frame. Relight from scratch overriding any reference lighting: completely flat shadowless illumination — one enormous soft frontal source at camera position wrapping the subject evenly, matched equal fill from camera-left and camera-right at identical intensity, matched fill from above and below, so both sides of the face read at exactly the same brightness. No key-and-fill ratio, no modelling, no shadow side, no cheek triangle, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background — the backdrop stays clean flat gray behind the entire figure. No contact shadow, no drop shadow, no ambient occlusion anywhere in the frame. Extremely low contrast, even, milky, catalogue-flat. Form is described by bone structure, hair strands, and fabric folds alone, not by light and shadow. Skin reads matte and velvety — zero shine on forehead, nose bridge, cheekbones, temples, and chin, no oily T-zone. Skin renders at its true natural skin tone and wardrobe at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real soft fine even pore texture, subsurface scattering reading as semi-translucent biology, never plastic, never waxy AI render, never glass-skin, never harsh — fine flattering texture that keeps the face looking good, no acne, no blemishes, no rough pores. Photographed on a 50mm prime, even sharpness, soft natural film grain. Photographed not generated.
 
-[Gray is the locked default — use the lean Rembrandt close above. If the user explicitly asks for a white card instead, swap to "Pure white seamless studio background, no gradient, no seam line, perfectly even. Soft soft cinematic light from camera-[left/right], very diffused, gentle wrap onto the face, no hard shadow edges, no rim light, no hair light, no kicker. Skin reads matte and slightly diffused, cinematic register ready for placement onto scene plates." and append the full cinema stack from "THE CINEMA STACK" section instead of this lean close.]
+[Gray is the locked default — use the flat close above. If the user explicitly asks for a white card instead, swap the backdrop line to "Pure white seamless studio background, no gradient, no seam line, perfectly even" and keep every flat/shadowless clause exactly as written. Flatness never comes off.]
 ```
 
 ---
@@ -424,7 +443,7 @@ Sound good?
 ```
 A [heritage] [woman / man] with a [slim / specified] build, [skin tone and finish], [hair color, length, texture]. [Eye shape and color]. [Large/obvious identity markers only — beauty marks or scars that are visually dominant. Hold fine markers for Step 0.2]. [She wears a plain black thin-strap camisole / He wears a plain black ribbed tank], no jewelry, no logos, no graphics. Body squared to camera, head level, neutral relaxed expression, eyes to camera, lips closed and relaxed.
 
-Mid-gray seamless studio background — even neutral mid-gray, no seam line, no gradient. Soft soft natural light from camera-[left/right], very diffused, no hard shadow edges, no rim light, no hair light, no kicker, no harsh directional studio lighting. The light produces only the gentlest lifted shadow on the off-light side of the face. Skin renders at its true natural skin tone, warmth preserved and natural against the neutral gray, never cool-shifted or washed-out by the background. Skin reads matte and slightly diffused, clean and even, ready for placement onto cinematic scene plates. Chest-up framing.
+Background is an even 18% neutral gray seamless, completely flat — one single uniform value corner to corner, no seam line, no gradient, no hotspot, no vignette. Completely flat shadowless illumination — a huge soft frontal source at camera position with matched equal fill from camera-left, camera-right, above, and below, so both sides of the face read at exactly the same brightness. No shadow side, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker. Zero shadow cast onto the background. Extremely low contrast, even, milky, catalogue-flat. Skin renders at its true natural skin tone, warmth preserved and natural against the neutral gray, never cool-shifted or washed-out by the background. Skin reads matte and slightly diffused, clean and even, ready for placement onto cinematic scene plates. Chest-up framing.
 
 Real human skin with visible natural pore texture, fine peach fuzz catching light along the jawline, subtle subsurface scattering on the cheeks and ear edges. Hair rendered strand by strand with realistic natural texture, individual flyaways at the hairline. Fine cinema grain. Lived-in, not pristine. Photographic, not rendered.
 ```
@@ -454,9 +473,9 @@ Sound good?
 ```
 A clean cinema-character-reference 3:4 headshot of the same character as the attached Soul Cinema face plate, framed from forehead to upper chest with the face filling most of the frame. [Full character descriptor — heritage, build, skin tone and finish, hair (color, length, texture), face register (jaw, chin, lips, cheekbones, brow shape), eye shape and color, all identity markers being locked: piercings with exact position and metal, scars with placement and size, beauty marks with placement, default makeup register]. She wears [a plain black thin-strap camisole / he wears a plain black ribbed tank], no jewelry, no logos, no graphics. Body squared to camera, head level, neutral relaxed expression, eyes to camera, lips closed and relaxed, subtle controlled energy.
 
-Mid-gray seamless studio background — even neutral mid-gray, no seam line, no gradient, no falloff to black or white. Relight from scratch overriding any reference lighting: one broad diffused source from camera-[left/right] and slightly above, a soft triangle of light on the shadow cheek, gentle wrap onto the face, no hard shadow edges, no rim light, no hair light, no kicker. Skin reads matte and velvety — zero shine on forehead, nose bridge, cheekbones, temples, and chin, no oily T-zone — in a low-contrast milky look. Skin renders at its true natural skin tone and wardrobe at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real soft fine even pore texture, subsurface scattering reading as semi-translucent biology, never plastic, never waxy AI render, never glass-skin, never harsh — fine flattering texture that keeps the face looking good, no acne, no blemishes, no rough pores. Photographed on a 50mm prime at a wide aperture, natural round bokeh, even sharpness, soft natural film grain. Photographed not generated.
+Background is an even 18% neutral gray seamless, completely flat — one single uniform value corner to corner, no seam line, no gradient, no hotspot, no vignette, no falloff to lighter or darker anywhere in the frame. Relight from scratch overriding any reference lighting: completely flat shadowless illumination — one enormous soft frontal source at camera position wrapping the subject evenly, matched equal fill from camera-left and camera-right at identical intensity, matched fill from above and below, so both sides of the face read at exactly the same brightness. No key-and-fill ratio, no modelling, no shadow side, no cheek triangle, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background — the backdrop stays clean flat gray behind the entire figure. No contact shadow, no drop shadow, no ambient occlusion anywhere in the frame. Extremely low contrast, even, milky, catalogue-flat. Form is described by bone structure, hair strands, and fabric folds alone, not by light and shadow. Skin reads matte and velvety — zero shine on forehead, nose bridge, cheekbones, temples, and chin, no oily T-zone. Skin renders at its true natural skin tone and wardrobe at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real soft fine even pore texture, subsurface scattering reading as semi-translucent biology, never plastic, never waxy AI render, never glass-skin, never harsh — fine flattering texture that keeps the face looking good, no acne, no blemishes, no rough pores. Photographed on a 50mm prime, even sharpness, soft natural film grain. Photographed not generated.
 
-[Gray is the locked default — use the lean Rembrandt close above. If the user explicitly asks for a white card instead, swap to the white-backdrop line and append the full cinema stack from "THE CINEMA STACK" section instead of this lean close.]
+[Gray is the locked default — use the flat close above. If the user explicitly asks for a white card instead, swap the backdrop line only and keep every flat/shadowless clause exactly as written. Flatness never comes off.]
 ```
 
 After delivery, the user runs this in Banana Pro. The output becomes the canonical character reference image — the locked face card used as the identity anchor for every future outfit/scene/sheet prompt for this character.
@@ -468,7 +487,7 @@ After delivery, the user runs this in Banana Pro. The output becomes the canonic
 **What Mode 0 is NOT for:**
 - Refining an existing character that already has a canonical reference → not needed, skip to Mode 1
 - Outfit design → use Mode 1 (Mode 0's locked black camisole/tank is identity-baseline, not a styled outfit)
-- Multi-angle sheets → use Mode 2, but only AFTER Mode 0 + Mode 1 are done
+- Multi-angle sheets → use Mode 2A (3-panel, default), but only AFTER Mode 0 + Mode 1 are done
 
 Mode 0 is one-and-done per character. Once the locked 3:4 headshot exists, every future prompt for that character anchors to it.
 
@@ -482,8 +501,8 @@ Mode 0 is one-and-done per character. Once the locked 3:4 headshot exists, every
 
 **Frame and composition:**
 - Framing: Subject centered, weight shifted onto one hip in the cocked-hip model stance, body angled 15–30° from camera, chin slightly tucked or level, eyes to camera or slightly off-camera. Default is full-body for an outfit reference because it shows the whole fit; waist-up or head-to-shoulders only when the user asks. Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI.
-- Background: **Mid-gray seamless studio.** The locked default for all character/outfit work — even neutral mid-gray, no seam line, no gradient. Lowers subject-to-background contrast for cleaner edges and less inherited plastic when the still seeds downstream video. **Exception:** if the user explicitly asks for a clean white card (a finished standalone still to post or hand off), swap to pure white seamless and use the full cinema stack close instead of the lean Rembrandt grade.
-- Lighting: Soft soft cinematic key from camera-left or camera-right (user picks side), very diffused, gentle wrap onto the figure, no harsh shadows, no rim light, no hair light, no kicker — only the gentlest lifted shadow on the off-light side. Skin reads matte and slightly diffused, cinema-placement ready.
+- Background: **18% neutral gray seamless studio, flat.** The locked default for all character/outfit work — one uniform gray value, no seam line, no gradient, no falloff. Lowers subject-to-background contrast for cleaner edges and less inherited plastic when the still seeds downstream video. **Exception:** if the user explicitly asks for a clean white card, swap to pure white seamless — but keep the flat shadowless grade.
+- Lighting: **Flat and shadowless.** Huge frontal source at camera position, matched equal fill left, right, above, below. No key side, no shadow side, no rim light, no hair light, no kicker, no cast shadow on the background, no contact shadow under the feet. Skin reads matte and even, carrying zero lighting information into downstream work.
 
 **Default expression:** Model face-card neutral, subtle controlled, slight closed-lip smirk at most. Never teeth-showing smile unless the user specifically requests it.
 
@@ -492,9 +511,9 @@ Mode 0 is one-and-done per character. Once the locked 3:4 headshot exists, every
 ```
 [Visual descriptor of the character — hair, makeup, full wardrobe head-to-toe, jewelry, body markers, all extracted from references or locked from the development phase]. [Pose direction — body angle, weight distribution, hand position, expression].
 
-Mid-gray seamless studio background — even neutral mid-gray, no seam line, no gradient, no falloff to black or white. Relight from scratch overriding any reference lighting: one broad diffused source from camera-[left/right] and slightly above, gentle wrap onto the figure, no harsh shadows, no rim light, no hair light, no kicker, only the gentlest lifted shadow on the off-light side. Skin and fabric read matte and velvety in a low-contrast milky look, no shine, no oily T-zone. Skin renders at its true natural skin tone and the outfit at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real fine even pore texture, subsurface scattering reading as semi-translucent biology, real fabric weave and drape, never plastic, never waxy, never harsh. Photographed on a 50mm prime at a wide aperture, natural round bokeh, even sharpness, soft natural film grain. Photographed not generated. [Framing — full body / waist-up / head-to-shoulders].
+Background is an even 18% neutral gray seamless, completely flat — one single uniform value corner to corner, no seam line, no gradient, no hotspot, no vignette, no falloff to lighter or darker anywhere in the frame. Relight from scratch overriding any reference lighting: completely flat shadowless illumination — one enormous soft frontal source at camera position wrapping the whole figure evenly, matched equal fill from camera-left and camera-right at identical intensity, matched fill from above and below, so both sides of the face and body read at exactly the same brightness. No key-and-fill ratio, no modelling, no shadow side, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background — the backdrop stays clean flat gray behind and around the entire figure. No contact shadow, no drop shadow, no ambient occlusion on the floor beneath the feet. Extremely low contrast, even, milky, catalogue-flat. Form is described by fabric folds, garment structure, and bone structure alone, not by light and shadow. Skin and fabric read matte and velvety, no shine, no gloss, no oily T-zone. Skin renders at its true natural skin tone and the outfit at its true natural color, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Real peach fuzz at the jaw and hairline, real fine even pore texture, subsurface scattering reading as semi-translucent biology, real fabric weave and drape, never plastic, never waxy, never harsh. Photographed on a 50mm prime, even sharpness, soft natural film grain. Photographed not generated. [Framing — full body / waist-up / head-to-shoulders].
 
-[Gray is the locked default — use the lean Rembrandt close above. If the user explicitly asks for a white card, swap to "Pure white seamless studio background, no gradient, no seam line, perfectly even. Soft soft cinematic light from camera-[left/right]..." and append the full cinema stack from "THE CINEMA STACK" section instead of this lean close.]
+[Gray is the locked default — use the flat close above. If the user explicitly asks for a white card, swap the backdrop line only and keep every flat/shadowless clause exactly as written. Flatness never comes off.]
 ```
 
 **Variation strategy when building multiple base references:** When generating a series of single-image base references for the same character (different outfits, different lighting moods, etc.), keep the mid-gray seamless backdrop locked and vary one parameter per shot:
@@ -543,7 +562,7 @@ Sound good?
 ```
 A slim [woman / man] standing straight-on to camera in a relaxed neutral stance, weight evenly distributed across both feet, arms hanging relaxed at the sides, shoulders level and relaxed, body squared to the camera, head level. Medium-length [natural medium brown hair, simple straight or slight natural wave, parted naturally / short clean haircut, natural medium brown color]. Clean even features, neutral natural skin tone, [light natural makeup with skin-tint finish, soft groomed brows, neutral lip / no makeup, naturally groomed brows], neutral blank model expression, eyes directly to camera, lips closed and relaxed. Slim model build with refined proportions. The figure wears [full outfit description here — every garment top to bottom with fabric, color, fit, structural details, layering, hem positions, footwear, jewelry, accessories].
 
-Mid-gray seamless studio background, even neutral mid-gray, no shadow falloff to black or white, no visible seam line, perfectly even backdrop. Soft soft natural light from camera-[left/right], very diffused, gentle wrap onto the figure, no harsh shadows, no dramatic rim light, no kicker, no hair light — only the gentlest lifted shadow on the off-light side. Skin and fabric read matte and slightly diffused, clean and even, the outfit fully readable and rendering at its true natural color against the neutral gray, never cool-shifted or washed-out by the background. Full body framing from head to just below the footwear.
+Background is an even 18% neutral gray seamless, completely flat — one single uniform value corner to corner, no visible seam line, no gradient, no hotspot, no vignette, no falloff to black or white. Completely flat shadowless illumination — a huge soft frontal source at camera position with matched equal fill from camera-left, camera-right, above, and below, so both sides of the figure read at exactly the same brightness. No shadow side, no harsh shadows, no rim light, no kicker, no hair light. Zero shadow cast onto the background, no contact shadow on the floor beneath the feet. Extremely low contrast, even, milky, catalogue-flat. Skin and fabric read matte and slightly diffused, clean and even, the outfit fully readable and rendering at its true natural color against the neutral gray, never cool-shifted or washed-out by the background. Full body framing from head to just below the footwear.
 
 Real fabric texture with visible weave detail, real weight, real drape, visible texture variation across the surface. Jewelry with real metal surface detail. Real human skin with natural pore texture. Fine cinema grain, soft lens vignette, natural color grade. Photographic, not rendered.
 ```
@@ -571,7 +590,7 @@ Sound good?
 **Canonical Step 1B.2 prompt structure:**
 
 ```
-Place the face and body from reference image 1 onto the outfit from reference image 2. Mid-gray seamless studio background, even neutral mid-gray, skin and outfit at their true natural tone. Soft studio lighting.
+Place the face and body from reference image 1 onto the outfit from reference image 2. Background is an even 18% neutral gray seamless, completely flat — one uniform value corner to corner, no seam line, no gradient, no vignette. Skin and outfit at their true natural tone. Completely flat shadowless studio illumination — soft frontal source at camera position with matched equal fill from both sides, above, and below. No shadow side, no rim light, no kicker, no contact shadow, no shadow cast onto the background. Extremely low contrast, even, catalogue-flat.
 ```
 
 That's it. Do not add styling description (Soul Cinema reads it from Image 2). Do not add character description (Soul Cinema reads it from Image 1). Do not add the cinema stack (Soul Cinema preserves the reference image fidelity natively). Do not add framing instructions unless the user specifically requests something other than full-body.
@@ -586,7 +605,110 @@ That's it. Do not add styling description (Soul Cinema reads it from Image 2). D
 
 ---
 
-## MODE 2 — 6-PANEL CHARACTER SHEET (SINGLE 16:9 FRAME)
+## MODE 2 — CHARACTER SHEETS
+
+Three formats. **2A (3-panel) is the default.** 2B (6-panel) is legacy and only runs on explicit request. **2C (studio-local)** is a distinct headless Seedance-handoff variant — it does not replace 2A or 2B and only enters the conversation when the reference is explicitly for a Seedance handoff.
+
+**When the user asks for "a character sheet" with no format named, build the 3-panel (2A). Do not ask which one, do not offer the 6-panel.** The 6-panel only enters the conversation if the user names it.
+
+---
+
+## MODE 2A — 3-PANEL CHARACTER SHEET (PRIMARY, LOCKED DEFAULT)
+
+**When to use:** Any time a character sheet is requested, unless the user explicitly names the 6-panel or the Seedance-handoff variant (2C). Only after a single-image base reference exists and is approved.
+
+**Why 3 panels beat 6:** the sheet is one image with a fixed pixel budget. Six cells splits that budget six ways, and the face — the one thing the sheet exists to lock — lands in cells too small to hold real identity detail. Three cells give each panel roughly double the resolution, which is what makes the chest-up face panel actually usable as a downstream identity anchor.
+
+**Canonical 3-panel layout (one horizontal frame, three equal vertical panels, thin clean separation between them):**
+
+1. **LEFT — Full body front, headless.** The full figure squared to camera, arms relaxed at the sides, hands open and loose, weight even across both feet, framed head-to-hem with **full headroom preserved** — generous empty backdrop above the shoulders where the head would be, so the figure sits in the frame at the same scale and position as a normal full-body portrait. **This is not a crop.** The head is *removed from the body*, not cropped out by the frame edge. The panel exists to isolate the garment, the silhouette, and the body proportions with zero facial data competing for the model's attention.
+
+2. **CENTER — Full body rear, head attached.** Photographed from directly behind, standing straight, arms relaxed, weight even. Hair fall, garment back construction, hem, train, and footwear all readable from behind.
+
+3. **RIGHT — Tight chest-up face lock.** Framed from just above the top of the head down to the collarbones and the very top of the garment only. Face fills most of the panel — a true close-up. Body squared to camera, head level, eyes to camera, lips closed and relaxed, neutral controlled expression. Brows, lashes, lip texture, and skin detail readable at close range. **This panel is the identity anchor. It must be tight — chest-up, not waist-up.** If the framing drifts wider, the sheet loses its whole reason for existing.
+
+---
+
+### THE HEADLESS CUT — TWO VARIANTS (PICK BY GARMENT)
+
+The left panel's headless treatment changes based on what the character is wearing. Read the neckline, then pick.
+
+**Variant A — GHOST MANNEQUIN (hollow neckline).** Use when the garment has a **structured or closed neckline that sits at or above the collarbone** — a t-shirt collar, a crew neck, a ribbed tank, a turtleneck, a shirt, a hood, a jacket collar, a keyhole top. Anything with a real opening the eye expects a neck to come out of.
+
+There is **no head and no neck at all** — nothing rises above the shoulder line. The collar holds its own three-dimensional shape and the opening reads as an **empty dark hollow looking down into the inside of the garment**, with the inner back of the fabric faintly visible inside the opening. The garment reads as if worn by an invisible body — full volume, natural drape, real fabric tension across the chest and shoulders — but nothing emerging from the neckline. Necklaces, if present, still sit around the empty collar opening, resting on the fabric.
+
+**Variant B — CLEAN NECK CUT (mannequin termination).** Use when the garment has **no real neckline to hollow out** — a strapless gown, a halter, a spaghetti-strap slip, a deep cowl, a scooped or plunging dress, a bandeau. The chest and shoulders are largely bare, so there is no collar for the eye to look "into."
+
+Here the **neck rises a short way from the shoulders and terminates in a clean, flat, sharply defined horizontal edge at the base of the throat** — exactly like a headless dress-form mannequin. A crisp sculptural cut with a clean visible edge. Above that edge there is only empty backdrop.
+
+**Both variants ship with the same suppression stack, always:** not blurred, not faded, not dissolving, no wisps, no smoke, no ghosting, no transparency in the body, no stump, no anatomy detail at the cut, no blood, no gore. And in both variants, **the hair goes with the head** — no hair falling across the chest or shoulders in the left panel.
+
+**Locked left-panel language, Variant A (ghost mannequin):**
+```
+LEFT PANEL — full body front view, no head, no neck, and no hair. The body stands squared to camera from the shoulders down to [the shoes / the hem], arms relaxed at the sides, hands open and loose, weight even across both feet. There is no head, no neck, and no hair at all — nothing rises above the shoulder line, and no hair falls across the chest or shoulders. The [collar type] of the [garment] holds its own shape at the top of the garment and its opening is an empty dark hollow looking down into the inside of the [garment], with the inner back of the fabric faintly visible inside the opening. The garment reads as if worn by an invisible body — full three-dimensional shape, natural drape, real fabric tension across the chest and shoulders, but nothing emerging from the neckline. No stump, no skin, no cut edge, no anatomy, no blood, no fade, no blur, no ghosting, no transparency in the body. The panel keeps full headroom, generous empty mid-gray backdrop above the shoulders, so the figure sits at the same scale and position in the frame as a normal full-body portrait.
+```
+
+**Locked left-panel language, Variant B (clean neck cut):**
+```
+LEFT PANEL — full body front view, headless. The full figure stands squared to camera from the shoulders down to [the shoes / the hem], arms relaxed at the sides, hands open and loose, weight even across both feet. There is no head and no hair — no hair falls across the chest or shoulders. The neck rises a short way from the shoulders and terminates in a clean, flat, sharply defined horizontal edge at the base of the throat, exactly like a headless dress-form mannequin — a crisp sculptural cut with a clean visible edge, not blurred, not faded, not dissolving, no wisps, no smoke, no ghosting, no transparency, no blood, no anatomy detail at the cut. Above that clean edge there is only empty mid-gray backdrop. The panel keeps full headroom — generous empty space above the shoulders where the head would be — so the figure sits in the frame at the same scale and position as a normal full-body portrait.
+```
+
+---
+
+### Mode 2A pre-prompt check
+
+```
+Pre-prompt check — 3-panel character sheet:
+- **References:** [list every reference being attached, in order]
+- **Left:** full body front, headless — [ghost-mannequin hollow at the (collar type) / clean neck cut, per the garment]
+- **Center:** full body rear, head attached
+- **Right:** tight chest-up face lock
+- **Outfit:** [locked outfit, identical across all three panels]
+- **Backdrop:** mid-gray seamless (locked default), uniform across all panels
+
+Sound good?
+```
+
+---
+
+### Canonical Mode 2A prompt structure
+
+```
+A three-panel character reference sheet composed as one horizontal frame, divided into three equal vertical panels side by side, thin clean separation between panels, the same figure and the same outfit rendered identically across all three.
+
+[Identity paragraph — build, skin, hair color/length/texture, makeup register, identity markers, nails. Described ONCE, applies to all three panels.]
+
+[Wardrobe paragraph — full outfit head-to-toe, every garment, fabric, color, construction detail, footwear, jewelry. Described ONCE, applies to all three panels.]
+
+[LEFT PANEL — headless front. Use Variant A or Variant B locked language above, per the garment.]
+
+CENTER PANEL — full body rear view, head attached. The same figure photographed from directly behind, standing straight, [hair fall from behind], [garment back construction — open back, seams, hem, train], arms relaxed at the sides, hands loose, weight even across both feet, from the top of the head down to [the shoes / the end of the hem].
+
+RIGHT PANEL — tight chest-up portrait, identity lock. The same figure framed from just above the top of the head down to the collarbones and the very top of the garment only, the face filling most of the panel, a true close-up. Body squared to camera, head level, eyes directly to camera, lips closed and relaxed, neutral controlled expression. [Hair, brows, lashes, lip texture, key identity markers] all clearly readable at close range.
+
+18% neutral gray seamless studio backdrop applied uniformly across all three panels — one single flat uniform value corner to corner in every panel, no seam line, no gradient, no hotspot, no vignette, no falloff to black or white, and the identical gray value in all three panels. Relight from scratch overriding any reference lighting: completely flat shadowless illumination in every panel — one enormous soft frontal source at camera position with matched equal fill from camera-left, camera-right, above, and below, so both sides of the face and body read at exactly the same brightness. No key-and-fill ratio, no modelling, no shadow side, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background in any panel — the backdrop stays clean flat gray behind and around the figure. No contact shadow, no drop shadow, no ambient occlusion on the floor beneath the feet. Extremely low contrast, even, milky, catalogue-flat, identical in every panel. Form is described by fabric folds, garment structure, and bone structure alone, not by light and shadow. Skin and fabric read matte and velvety, no shine, no gloss, no oily T-zone. Skin renders at its true natural skin tone, identical in value and hue across the face, arms, and body in every panel, never darkened, never tanned, never pale or washed-out or cool-shifted by the background. [Garment colors] render true and consistent across all three panels. Real peach fuzz at the jaw and hairline, real fine even pore texture, subsurface scattering reading as semi-translucent biology, real fabric weave and drape, visible fine metal surface detail on the jewelry, never plastic, never waxy, never harsh. Photographed on a 50mm prime, even sharpness, soft natural film grain. Photographed not generated.
+```
+
+**Critical rules for the 3-panel format:**
+- One prompt, one fenced code block, one image output. Never deliver three separate prompts.
+- Identity and wardrobe live in the opening paragraphs — described once, applied to all three panels.
+- Each panel only describes what's *different* — angle, framing, head state.
+- **Skin-tone consistency clause is mandatory.** Rear panels drift darker/tanner without it. Always state that skin renders identical in value and hue across face, back, arms, and hands in every panel.
+- Backdrop and lighting are uniform across all three cells.
+- Every panel carries its explicit position label (LEFT / CENTER / RIGHT) so the model composes the grid correctly.
+- No aspect ratio in the prompt — the user sets it in the Higgsfield UI.
+
+---
+
+## MODE 2B — 6-PANEL CHARACTER SHEET (LEGACY, EXPLICIT REQUEST ONLY)
+
+**Never propose this format.** It only runs when the user names it.
+
+**When the user asks for a 6-panel, say this once, then wait:**
+
+> Heads up — splitting into six panels cuts the pixel budget per cell, so the face panels will hold noticeably less identity detail than the 3-panel sheet's chest-up lock. The face is usually the whole point of the sheet, so the 3-panel holds up better as a downstream anchor. Happy to run the 6-panel anyway if you want it — just say go.
+
+If the user says go, build it. Don't re-litigate, don't repeat the warning later in the session.
 
 **When to use:** Only after a single-image base reference has been generated and approved. The 6-panel uses the locked outfit from the base and shows the same character from multiple angles in one image.
 
@@ -608,10 +730,11 @@ That's it. Do not add styling description (Soul Cinema reads it from Image 2). D
 **Frame and composition:**
 - Layout: 3×2 grid, equal cells, thin clean white gutters between panels, horizontal sheet orientation
 - Each panel composed within its cell as if it were its own shot — no cell should feel like a crop of a wider frame
-- Background: same studio backdrop across all six cells (default mid-gray seamless, matching the base reference) for consistency. Only swap to white-across-all-six-panels if the user explicitly asks for a white sheet (see the MID-GRAY SEAMLESS BACKDROP section).
+- Background: same studio backdrop across all six cells (default 18% neutral gray seamless, flat, matching the base reference) for consistency. Only swap to white-across-all-six-panels if the user explicitly asks for a white sheet (see the 18% GRAY SEAMLESS + FLAT GRADE section).
+- Lighting: same flat shadowless grade across all six cells — identity stays locked when lighting is locked
 - Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI (typically 16:9 for sheets, but specified in UI not prompt)
 
-**Canonical Mode 2 prompt structure:**
+**Canonical Mode 2B prompt structure:**
 
 ```
 A 6-panel character reference sheet arranged as a 3-column by 2-row grid in a single horizontal frame, separated by thin clean white gutters between panels. Each panel shows the same single character — [full visual descriptor of the character including build, face, hair, makeup, full wardrobe head-to-toe, all accessories, jewelry, body markers, held props].
@@ -623,9 +746,9 @@ Panel 4 (bottom-left): Side profile close headshot, right side — [tight crop f
 Panel 5 (bottom-center): Front face close headshot — [tight crop from collarbone up, body squared to camera, face filling the frame, eyes to camera].
 Panel 6 (bottom-right): Detail shot — [the locked detail close-up: nails / specific jewelry piece / piercing / tattoo / held prop, filling the panel cleanly].
 
-Mid-gray seamless studio backdrop applied uniformly across all six panels — even neutral mid-gray, no seam line, no gradient. Relight from scratch overriding any reference lighting, applied uniformly across all six panels: one broad diffused source from camera-left and slightly above, gentle wrap, no harsh shadows, no rim light, no hair light, no kicker. Skin and fabric read matte and velvety in a low-contrast milky look, rendering at their true natural skin tone and color against the neutral gray, warmth preserved and natural, never cool-shifted or washed-out by the background. Sharp focus across every panel. Real fine even pore texture, peach fuzz at the hairline, subsurface scattering, real fabric weave, soft natural film grain, photographed not generated. Identical character identity locked across all six panels — same face, same skin, same hair, same wardrobe, same accessories, same proportions in every cell.
+18% neutral gray seamless studio backdrop applied uniformly across all six panels — one single flat uniform value corner to corner in every panel, no seam line, no gradient, no hotspot, no vignette, and the identical gray value in all six panels. Relight from scratch overriding any reference lighting, applied uniformly across all six panels: completely flat shadowless illumination — one enormous soft frontal source at camera position with matched equal fill from camera-left, camera-right, above, and below, so both sides of the face and body read at exactly the same brightness. No modelling, no shadow side, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background in any panel, no contact shadow beneath the feet. Extremely low contrast, even, milky, catalogue-flat, identical in every panel. Skin and fabric read matte and velvety, rendering at their true natural skin tone and color against the neutral gray, warmth preserved and natural, never cool-shifted or washed-out by the background. Sharp focus across every panel. Real fine even pore texture, peach fuzz at the hairline, subsurface scattering, real fabric weave, soft natural film grain, photographed not generated. Identical character identity locked across all six panels — same face, same skin, same hair, same wardrobe, same accessories, same proportions in every cell.
 
-[Gray is the locked default — use the lean Rembrandt grade above. If the user explicitly asks for a white sheet, swap to "Pure white seamless studio backdrop applied uniformly across all six panels" and append the full cinema stack instead of this lean close.]
+[Gray is the locked default — use the flat grade above. If the user explicitly asks for a white sheet, swap to "Pure white seamless studio backdrop applied uniformly across all six panels" and keep every flat/shadowless clause exactly as written. Flatness never comes off.]
 ```
 
 **Critical rules for the 6-panel format:**
@@ -639,46 +762,46 @@ Mid-gray seamless studio backdrop applied uniformly across all six panels — ev
 ---
 
 <!-- STUDIO-LOCAL BEGIN -->
-## MODE 2B — HEADLESS 3-PANEL SEEDANCE-HANDOFF SHEET (STUDIO-LOCAL ADDITION)
+## MODE 2C — HEADLESS 3-PANEL SEEDANCE-HANDOFF SHEET (STUDIO-LOCAL ADDITION)
 
-> This mode is a studio-local addition, not part of the upstream Banana Pro Director 2.0 grammar. It does not renumber or replace Mode 2 (6-panel character sheet). Keep this section self-contained so upstream skill updates diff cleanly against it.
+> This mode is a studio-local addition, not part of the upstream Banana Pro Director grammar. It does not replace Mode 2A (3-panel, primary default) or Mode 2B (6-panel, legacy) — its panel spec is deliberately different (both flanking panels headless, face in exactly one panel) and it exists for a different purpose (Seedance Subject Lock anchor, not a general-purpose reference). Keep this section self-contained so upstream skill updates diff cleanly against it.
 
-**When to use:** A Seedance-handoff reference sheet, built to anchor Subject Locks for downstream video generation — NOT a general-purpose character reference. Same gate as Mode 2: only built after a single-image base reference exists and is approved.
+**When to use:** A Seedance-handoff reference sheet, built to anchor Subject Locks for downstream video generation — NOT a general-purpose character reference. Same gate as Mode 2A/2B: only built after a single-image base reference exists and is approved.
 
-**Why this exists (distinct from Mode 2):** Seedance locks identity most reliably from a single clean face and pulls silhouette, wardrobe, and posture from panels that carry no face at all. If every panel on the sheet shows a face, Seedance averages across them and the character drifts or slips identity in motion. This mode puts the face in exactly ONE panel and keeps the other two panels headless.
+**Why this exists (distinct from Mode 2A and 2B):** Seedance locks identity most reliably from a single clean face and pulls silhouette, wardrobe, and posture from panels that carry no face at all. If every panel on the sheet shows a face, Seedance averages across them and the character drifts or slips identity in motion. Mode 2A's center panel keeps the head attached on the rear view — useful as a general-purpose reference, but not what Seedance wants. This mode puts the face in exactly ONE panel and keeps the other two panels headless (front AND back).
 
 **Layout — one 16:9 frame, three vertical panels, in this fixed order:**
 1. LEFT — headless full-body front (head/face/hair/neck completely absent).
 2. MIDDLE — headless full-body back (same pose rotated 180°, garment back construction, hair fall if visible from behind, footwear — head/face/neck still absent).
 3. RIGHT — face portrait (tight framing crown to top of neckline/collarbone; the ONLY panel with a face; full identity description written once, here).
 
-**Backdrop and lighting:** one continuous mid-gray seamless studio backdrop behind all three panels, all three lit as one cohesive session — matched lighting, matched colour, matched grain, matched fabric rendition. Thin subtle vertical seams separate the panels visually; no border frames, no captions, no text. White seamless only on explicit request, per the studio's mid-gray policy.
+**Backdrop and lighting:** one continuous 18% neutral gray seamless, completely flat, studio backdrop behind all three panels, all three lit as one cohesive session with the same LOCKED FLAT GRADE used across every other character mode — matched flat gray value, matched shadowless illumination, matched grain, matched fabric rendition, zero cast shadow in any panel. Thin subtle vertical seams separate the panels visually; no border frames, no captions, no text. White seamless only on explicit request, per the studio's gray policy — and the flatness survives the swap.
 
 **Headless panel language (mandatory, both LEFT and MIDDLE panels):** "The head, face, hair, and neck are completely absent from the frame — no floating hair, no ghosted outline, no cutout edge, no visible cross-section, no stump, no blur, no shadow of a head, the mid-gray seamless backdrop continues cleanly and uninterrupted through the entire space where the head and neck would be." The garment's neckline/collar sits tied and structured naturally at the collarbone "as if worn on an invisible neck," holding its shape and gathered folds intact.
 
-**Relight-from-scratch block (close every panel description with this, adapted per panel):**
+**Flat-grade close (close every panel description with this, adapted per panel):**
 ```
-Relight from scratch overriding any reference lighting: one broad diffused soft key light from camera-[left/right] and slightly above, gentle wrap onto the figure and face, a soft triangle of light on the shadow cheek in the face panel and on the shadow side of the body in the two headless panels, subtle low fill from camera-[opposite side] lifting the shadow side, no hard shadow edges, no rim light, no hair light, no kicker — only the gentlest lifted shadow on the off-light side.
+Relight from scratch overriding any reference lighting: completely flat shadowless illumination in every panel — one enormous soft frontal source at camera position with matched equal fill from camera-left, camera-right, above, and below, so both sides of the face and body read at exactly the same brightness in every panel. No key-and-fill ratio, no modelling, no shadow side, no nose shadow, no under-chin shadow, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background in any panel, no contact shadow beneath the feet.
 ```
 
-**Per-panel realism placement:** subsurface scattering and pore/peach-fuzz detail located explicitly per panel — cheeks and ear edges in the face panel, back of the neck and shoulders in the back-body panel — rather than repeated identically across all three. Skin and fabric render at their true natural tone against the neutral gray, never cool-shifted, matching the studio's mid-gray policy language used elsewhere in this skill.
+**Per-panel realism placement:** subsurface scattering and pore/peach-fuzz detail located explicitly per panel — cheeks and ear edges in the face panel, back of the neck and shoulders in the back-body panel — rather than repeated identically across all three. Skin and fabric render at their true natural tone against the neutral gray, never cool-shifted, matching the studio's flat-grade language used elsewhere in this skill.
 
-**Canonical Mode 2B prompt structure:**
+**Canonical Mode 2C prompt structure:**
 ```
-A single 16:9 cinema-character-reference sheet composed as three vertical panels side by side against one continuous mid-gray seamless studio backdrop, all three panels lit as one cohesive studio session with matched lighting, matched color, matched grain, and matched fabric rendition. Thin subtle vertical seams separate the panels visually but the backdrop reads as continuous mid-gray behind all three, no border frames, no captions, no text.
+A single 16:9 cinema-character-reference sheet composed as three vertical panels side by side against one continuous 18% neutral gray seamless studio backdrop, completely flat corner to corner in every panel, all three panels lit as one cohesive studio session with matched flat shadowless light, matched color, matched grain, and matched fabric rendition. Thin subtle vertical seams separate the panels visually but the backdrop reads as continuous flat gray behind all three, no border frames, no captions, no text.
 
-LEFT PANEL — headless full-body front: [pose/outfit/markers]. The head, face, hair, and neck are completely absent from the frame — no floating hair, no ghosted outline, no cutout edge, no visible cross-section, no stump, no blur, no shadow of a head, the mid-gray seamless backdrop continues cleanly and uninterrupted through the entire space where the head and neck would be. The neckline sits tied and structured naturally at the collarbone as if worn on an invisible neck. Full body framing from where the head would be down to below the feet/heels.
+LEFT PANEL — headless full-body front: [pose/outfit/markers]. The head, face, hair, and neck are completely absent from the frame — no floating hair, no ghosted outline, no cutout edge, no visible cross-section, no stump, no blur, no shadow of a head, the gray seamless backdrop continues cleanly and uninterrupted through the entire space where the head and neck would be. The neckline sits tied and structured naturally at the collarbone as if worn on an invisible neck. Full body framing from where the head would be down to below the feet/heels.
 
-MIDDLE PANEL — headless full-body back: same stance rotated 180 degrees. [hair fall / garment back construction / accessories+footwear]. Head, face, hair, and neck completely absent from the frame, as described above — the mid-gray seamless backdrop continues uninterrupted through the space where the head and neck would be.
+MIDDLE PANEL — headless full-body back: same stance rotated 180 degrees. [hair fall / garment back construction / accessories+footwear]. Head, face, hair, and neck completely absent from the frame, as described above — the gray seamless backdrop continues uninterrupted through the space where the head and neck would be.
 
 RIGHT PANEL — head and face portrait: crown to neckline/collarbone. [full identity description]. Body squared to camera, head level, eyes to camera.
 
-Mid-gray seamless studio background across all three panels, even neutral mid-gray, no seam line, no gradient, no falloff to black or white. [Relight-from-scratch block per panel — see above]. Skin reads matte and velvety with a low-contrast milky look, no shine on the forehead, nose bridge, cheekbones, temples, or chin. Skin renders at its true natural tone, never pale, never washed-out, never cool-shifted by the background. Real human skin with visible natural pore texture, fine peach fuzz catching light along the jawline and hairline, subsurface scattering on the cheeks and ear edges in the face panel and on the back of the neck and shoulders in the back-body panel, real fabric weave and drape, real hair rendered strand by strand. Photographed on a 50mm prime at a wide aperture, natural round bokeh, even sharpness across all three panels, soft natural film grain. Photographed not generated.
+Background is an even 18% neutral gray seamless across all three panels, completely flat, one single uniform value corner to corner, no seam line, no gradient, no hotspot, no vignette, no falloff to black or white. [Flat-grade close per panel — see above]. Skin reads matte and velvety, low-contrast, catalogue-flat, no shine on the forehead, nose bridge, cheekbones, temples, or chin. Skin renders at its true natural tone, never pale, never washed-out, never cool-shifted by the background. Real human skin with visible natural pore texture, fine peach fuzz catching light along the jawline and hairline, subsurface scattering on the cheeks and ear edges in the face panel and on the back of the neck and shoulders in the back-body panel, real fabric weave and drape, real hair rendered strand by strand. Photographed on a 50mm prime, even sharpness across all three panels, soft natural film grain. Photographed not generated.
 ```
 
-**Mode 2B is one prompt, one 16:9 frame** — same single-prompt discipline as Mode 2; never deliver three separate prompts.
+**Mode 2C is one prompt, one 16:9 frame** — same single-prompt discipline as Mode 2A/2B; never deliver three separate prompts.
 
-**Mode 2B vs Mode 2 — when to pick which:** Mode 2 (6-panel) is the general-purpose multi-angle character reference. Mode 2B is purpose-built as a Seedance Subject Lock anchor — offer it specifically when the reference feeds Seedance, not as a default replacement.
+**Mode 2C vs Mode 2A/2B — when to pick which:** Mode 2A (3-panel) is the general-purpose multi-angle character reference and the default when the user just asks for "a character sheet." Mode 2B (6-panel) is legacy, explicit-request only. Mode 2C is purpose-built as a Seedance Subject Lock anchor — offer it specifically when the reference feeds Seedance, not as a default replacement for either.
 
 ---
 <!-- STUDIO-LOCAL END -->
@@ -755,7 +878,43 @@ Before writing any visual detail in Block 3, the skill silently runs three diagn
 
 ### X/Y COORDINATE SYSTEM (MENTAL COMPOSITION TOOL — NOT OUTPUT NOTATION)
 
-**The X/Y coordinate system is the skill's internal composition tool. It is NEVER written into the prompt body.** The skill thinks in subject bounding-box ranges (`X: 30–55% / Y: 55–85%`; X 0% = left edge, Y 0% = top edge, thirds anchors at 33% / 67%) to plan rule-of-thirds placement, motion direction, lead room, and landmark anchoring — always leaving lead room in the direction of motion, never trail room — then translates the plan into positional prose for the prompt:
+**The X/Y coordinate system is the skill's internal composition tool. It is NEVER written into the prompt body.** The skill thinks in subject bounding-box ranges (`X: 30–55% / Y: 55–85%`; X 0% = left edge, Y 0% = top edge, thirds anchors at 33% / 67%) to plan rule-of-thirds placement, motion direction, lead room, and landmark anchoring — always leaving lead room in the direction of motion, never trail room — then translates the plan into positional prose for the prompt. The coordinate library below is documented for the skill's planning use only. It does not appear in the output.
+
+**Frame grid:**
+- **X axis:** 0% = left edge, 50% = center, 100% = right edge
+- **Y axis:** 0% = top edge, 50% = center, 100% = bottom edge
+
+**Coordinate notation (internal use only):** `X: 30–55% / Y: 55–85%` — the rectangle of frame real estate the subject occupies. Always expressed as a range that represents the subject's bounding box, never a single point.
+
+**Rule-of-thirds anchor table (locked vocabulary):**
+
+| Thirds position | X | Y |
+|---|---|---|
+| Upper-left third | 33% | 33% |
+| Upper-right third | 67% | 33% |
+| Lower-left third | 33% | 67% |
+| Lower-right third | 67% | 67% |
+| Center | 50% | 50% |
+| Upper third line (horizon/eye line) | — | 33% |
+| Lower third line (horizon/eye line) | — | 67% |
+| Left third line (vertical anchor) | 33% | — |
+| Right third line (vertical anchor) | 67% | — |
+
+**Standard cinematographer placement library:**
+
+- **Hero subject, strong vertical (left third):** subject `X: 28–38% / Y: 25–95%`
+- **Hero subject, strong vertical (right third):** subject `X: 62–72% / Y: 25–95%`
+- **Two-shot facing each other:** subject A `X: 15–40% / Y: 25–90%`, subject B `X: 60–85% / Y: 25–90%`
+- **Wide environmental with hero subject on lower-right third:** subject `X: 60–75% / Y: 55–80%`, environment fills the rest
+- **Close-up face with eye line on upper third:** subject `X: 25–75% / Y: 10–85%`, eyes at `Y: 33%`
+- **Three-quarter body portrait:** subject `X: 30–70% / Y: 15–95%`
+- **Horizon on upper third:** horizon line at `Y: 33%`, sky fills `Y: 0–33%`, ground fills `Y: 33–100%`
+- **Horizon on lower third:** horizon line at `Y: 67%`, sky fills `Y: 0–67%`, ground fills `Y: 67–100%`
+- **Vehicle in motion:** car positioned at `X: 30–55%` with motion direction pointing toward `X: 100%`, leaving lead room ahead of the car for the eye to follow movement (always leave lead room in the direction of motion — never trail room)
+- **Aerial subject (overhead light source, helicopter, sun shaft):** light source enters frame at the top edge `Y: 0%`, cone widening as it falls, source itself off-frame, subject lit at the destination coordinates
+- **Architectural symmetry (centered hallway, centered facade, centered car alignment):** subject `X: 35–65% / Y: variable`, symmetry preserved
+
+**Coordinates are translated into positional prose for the prompt output.** Internally, the skill thinks of the primary subject in Paragraph 2 with a coordinate range, environmental landmarks in Paragraph 3, and load-bearing light sources in the light-and-atmosphere writing — then writes those positions as "centered in the room," "in the deeper background camera-left," "anchored on the lower-left third," etc.
 
 | Old coordinate notation | New prose translation |
 |---|---|
@@ -833,7 +992,7 @@ The closing realism clause is mandatory. The list of "no X, no Y, no Z" at the v
 
 7. **The prompt narrates THE MOMENT.** What is the character doing right now? What is the camera doing right now? What is the light doing right now? That's the prompt's job. Continuity (room geometry, character identity, broadcast content) is reference work.
 
-8. **The closing realism clause is non-negotiable.** Every Mode 3 prompt ends with the full cinema stack paragraph + the "Real photographic frame... no CGI, no plastic, no AI" close-out. This replaces the old locked tag block. Mode 2B (headless 3-panel Seedance-handoff sheet, studio-local addition) uses the same lean Rembrandt-style close as Mode 2, not the full cinema stack — see the Mode 2B section.
+8. **The closing realism clause is non-negotiable.** Every Mode 3 prompt ends with the full cinema stack paragraph + the "Real photographic frame... no CGI, no plastic, no AI" close-out. This replaces the old locked tag block. Mode 2C (headless 3-panel Seedance-handoff sheet, studio-local addition) uses the same LOCKED FLAT GRADE close as Mode 2A/2B, not the full cinema stack — see the Mode 2C section.
 
 9. **The cinema mode register (M1/M2/M3/M4/M5) is invoked by DESCRIBING the actual look in plain language** in Paragraph 5 — not by writing "M1 Narrative" as a tag, and never by naming camera/lens/stock brands. Example: "Captured with a wide-latitude cinema look and a vintage 55mm-equivalent 2x anamorphic character at a wide aperture — oval bokeh, gentle horizontal squeeze, soft frame-edge falloff, a light diffusion bloom lifting highlights into a soft halation, color-negative daylight film rendition pushed slightly, with fine 35mm grain, in an M1 cinematic narrative register." The M-tag appears as a brief identifier at the end of the description, not as a standalone label.
 
@@ -860,8 +1019,8 @@ The locked-register canonical example lives in `references/mode3-example.md` —
 
 **Frame and composition:**
 - Framing: chest-up, shoulders-up, or face-only (forehead to collarbone)
-- Background: mid-gray seamless studio (locked default, matches base references) OR soft moody studio backdrop if the user wants a more cinematic register — white seamless only on explicit request
-- Lighting: classical beauty lighting — soft key from slightly above and camera-left, soft fill at chest level from camera-right, subtle hair light behind, soft underlight bounce from below to lift eye sockets
+- Background: 18% neutral gray seamless studio, flat (locked default, matches base references) OR soft moody studio backdrop if the user wants a more cinematic register — white seamless only on explicit request, and flatness survives the swap
+- Lighting: **Flat and shadowless** (locked flat grade, matching every other character-work mode) — huge frontal source at camera position, matched equal fill left/right/above/below, no key side, no shadow side, no rim light, no hair light, no kicker, no cast shadow
 - Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI (typically 4:5 or 1:1 for face/chest-up).
 
 **Canonical Mode 4 (GPT Image 2) prompt structure:**
@@ -869,11 +1028,11 @@ The locked-register canonical example lives in `references/mode3-example.md` —
 ```
 [Visual descriptor of the character — hair, makeup, wardrobe visible in frame from the chest up, jewelry visible at collar and ears, eye color and detail, lip detail, skin finish]. [Pose direction — head angle, shoulder angle, expression register].
 
-[Background — mid-gray seamless studio (locked default) OR specified moody backdrop]. Classical beauty lighting — soft key from slightly above and camera-left at 35 degrees, soft fill at chest level from camera-right, subtle hair light behind defining the crown, soft underlight bounce lifting the eye sockets. [Framing — chest-up portrait / shoulders-up / face-only forehead-to-collarbone].
+Background is an even 18% neutral gray seamless, completely flat — one single uniform value corner to corner, no seam line, no gradient, no hotspot, no vignette. Relight from scratch overriding any reference lighting: completely flat shadowless illumination — one enormous soft frontal source at camera position with matched equal fill from camera-left, camera-right, above, and below, so both sides of the face read at exactly the same brightness. No key-and-fill ratio, no modelling, no shadow side, no rim light, no hair light, no kicker, no specular hotspot. Zero shadow cast onto the background. [Framing — chest-up portrait / shoulders-up / face-only forehead-to-collarbone].
 
-Extreme face fidelity. Real skin texture with visible pores, fine peach fuzz catching light along the jawline and upper lip, subtle subsurface scattering on the nose bridge cheeks and ears, micro-expression detail in the eyes and mouth corners, individual lash detail, real moisture and reflection in the iris with visible iris pattern, real lip texture with subtle natural lip lines, hair rendered strand by strand at the hairline with visible baby hairs and flyaways, fabric weave visible at the collar and shoulder.
+Extreme face fidelity. Real skin texture with visible pores, fine peach fuzz catching light along the jawline and upper lip, subtle subsurface scattering on the nose bridge cheeks and ears, micro-expression detail in the eyes and mouth corners, individual lash detail, real moisture and reflection in the iris with visible iris pattern, real lip texture with subtle natural lip lines, hair rendered strand by strand at the hairline with visible baby hairs and flyaways, fabric weave visible at the collar and shoulder. Skin renders at its true natural skin tone, warmth preserved and natural against the neutral gray, never pale or washed-out or cool-shifted by the background. Photographed on a 50mm prime, even sharpness, soft natural film grain. Photographed not generated.
 
-[The cinema stack].
+[Gray is the locked default — use the flat close above. If the user explicitly asks for a moodier cinematic backdrop instead of the flat character-work default, that request moves the shot into Mode 3 territory — confirm which register the user wants before switching.]
 ```
 
 **Why GPT Image 2 for these shots:** Banana Pro is excellent for full-body, multi-panel, and scene work. GPT Image 2 has a stronger read on micro-detail at face-and-shoulders range — pores, lash separation, iris pattern, lip texture, hair strand definition at the hairline. For any shot where the face is the entire point of the image, GPT Image 2 earns the extra credits.
@@ -886,36 +1045,36 @@ Extreme face fidelity. Real skin texture with visible pores, fine peach fuzz cat
 
 Trigger phrases include: "outfit replacement," "outfit swap," "put [character] in this outfit," "swap the face," "put this character in that fit," "replace the model with [character] wearing [outfit]," or any request that involves combining a wardrobe/pose reference with a separate character reference.
 
-**Goal:** Maximum identity transfer of the character (from @image2) onto the outfit and pose (from @image1) with zero alteration to either side — the outfit stays exactly as shown, the character's identity stays exactly as shown, only the body underneath the outfit changes to match the new character.
+**Goal:** Maximum identity transfer of the character (from the character-reference tag) onto the outfit and pose (from the outfit-reference tag) with zero alteration to either side — the outfit stays exactly as shown, the character's identity stays exactly as shown, only the body underneath the outfit changes to match the new character.
 
-**Reference attachment order (CRITICAL):**
-- **@image1 = outfit reference** — the image containing the outfit, styling, footwear, accessories, and pose to keep
-- **@image2 = character reference** — the image containing the face, bone structure, body type, skin tone, and hair to apply
+**Reference tagging (CRITICAL — element tags, not `@imageN` numbering):** Ask the user to give each uploaded reference a short semantic element tag of their own choosing — e.g. `@outfit_ref` and `@character_ref`, or project-specific tags like `@sol_ref`. This replaces the old fixed `@image1`/`@image2` numbering. Once tagged:
+- **outfit/pose tag** — the image containing the outfit, styling, footwear, accessories, and pose to keep
+- **character tag** — the image containing the face, bone structure, body type, skin tone, and hair to apply
 
-This order is fixed. Do not swap. The prompt is written around this exact mapping and reversing it will break the swap.
+Confirm the mapping with the user before writing the prompt. The prompt is written around whichever tags the user assigned — do not silently rename them, and do not swap which tag maps to which role.
 
 **Pre-prompt confirmation rule applies.** Even though the prompt itself is short and locked, the user should confirm:
-- Which reference is the outfit/pose source
-- Which reference is the character/identity source
+- Which reference is the outfit/pose source, and its element tag
+- Which reference is the character/identity source, and its element tag
 - That both references are uploaded and visible in chat
 
-Use the standard pre-prompt check format — references first, then the two roles, then run.
+Use the standard pre-prompt check format — references first (with their tags), then the two roles, then run.
 
-**Canonical Mode 5 prompt (LOCKED — do not modify):**
+**Canonical Mode 5 prompt (LOCKED structure — element tags are the only variable):**
 
 ```
-Replace the character in @image1 with the character in @image2. Keep the outfit and pose from @image1 exactly. Match the face, bone structure, body type, skin tone, and hair from @image2. Clean mid-gray seamless studio background, even neutral mid-gray with no seam line, soft large-source studio lighting, skin and outfit rendering at their true natural tone against the neutral gray, natural film grain, full body framing.
+Replace the character in [outfit-reference tag] with the character in [character-reference tag]. Keep the outfit and pose from [outfit-reference tag] exactly. Match the face, bone structure, body type, skin tone, and hair from [character-reference tag]. Clean mid-gray seamless studio background, even neutral mid-gray with no seam line, soft large-source studio lighting, skin and outfit rendering at their true natural tone against the neutral gray, natural film grain, full body framing.
 ```
 
-**Why this prompt is locked:** Mode 5 does not use the cinema stack. The two reference images carry the photographic register on their own — adding texture stack language on top of a swap operation creates conflicting instructions and degrades the identity transfer. The lean prompt structure is the entire point of this mode. Trust the references.
+**Why this prompt is locked:** Mode 5 does not use the cinema stack. The two reference images carry the photographic register on their own — adding texture stack language on top of a swap operation creates conflicting instructions and degrades the identity transfer. The lean prompt structure is the entire point of this mode — only the element tags themselves vary, filled in from whatever the user named each reference. Trust the references.
 
 **Background and lighting language is also locked.** The locked prompt outputs to a clean mid-gray seamless studio with soft large-source lighting — this is the canonical neutral output for character/outfit reference assets (white seamless only if the user explicitly asks for a white card). If the user wants the swap output dropped into a different environment, that becomes a Mode 3 scene plate built on top of the Mode 5 output (run Mode 5 first to produce the locked base, then Mode 3 to place it in the scene).
 
-**Per-character or per-IP modifiers:** None. Mode 5 is character-and-IP-agnostic. The prompt does not name characters, does not specify nationality, does not adjust language per group or project. The two reference images carry all of the identity load. The skill ships the locked prompt unchanged regardless of what the character or outfit is.
+**Per-character or per-IP modifiers:** None. Mode 5 is character-and-IP-agnostic. The prompt does not name characters, does not specify nationality, does not adjust language per group or project. The two reference images carry all of the identity load. The skill ships the locked prompt structure unchanged regardless of what the character or outfit is — only the element tags change.
 
 **What Mode 5 is NOT for:**
 - Building a new outfit from scratch on a locked character → use Mode 1A (Banana Pro full styling) or Mode 1B (Soul Cinema two-step)
-- Generating multiple angles of a locked character in a locked outfit → use Mode 2 (6-panel character sheet)
+- Generating multiple angles of a locked character in a locked outfit → use Mode 2A (3-panel, default) or Mode 2B (6-panel, explicit request only)
 - Placing a character in a cinematic environment → use Mode 3A
 - Detail face shots → use Mode 4 (GPT Image 2)
 
@@ -929,16 +1088,17 @@ These apply to every prompt this skill produces — the sole carve-out is noted 
 
 1. **No character names in prompt output.** Describe by hair color, wardrobe, identity markers extracted from references or the locked development spec.
 2. **No real brand names in prompt output.** Generic visual descriptors only.
-3. **No `@image` tags or `<<<image_n>>>` placeholders.** Image attachment happens in the Higgsfield UI directly. The prompt is text-only. *Sole carve-out:* Mode 5's locked prompt is written around `@image1`/`@image2` by design and keeps them (see MODE 5 — the locked prompt is not modified).
+3. **No fixed `@image1`/`@image2` numbering or `<<<image_n>>>` placeholders.** Image attachment happens in the Higgsfield UI directly. The prompt is text-only. *Sole carve-out:* Mode 5's locked prompt structure is written around reference element tags by design (e.g. `@outfit_ref` / `@character_ref`, or whatever short semantic tag the user assigns each upload) and keeps them (see MODE 5 — the locked structure is not modified, only the tags are filled in).
 4. **No internal production context.** No "carried through the world," no "matching the previous scene." Every prompt is standalone and self-contained.
 5. **Pure visual description only.** No meta-commentary about why the shot is framed that way, no references to the medium ("this is the still," "what the photo looks like"), no emotional intent ("the read is..."). Every word describes a visible thing in the frame.
 6. **No teeth-showing smiles** unless the user explicitly requests one. Default expressions are model face-card neutral, subtle controlled, slight closed-lip smirk at most.
 7. **No negative prompts.** This skill does not output negative prompt blocks. Higgsfield workflow doesn't use them.
-8. **Cinema stack baked in for Modes 0, 1, 2, 4, 5.** The cinema stack closes every Mode 0, 1, 2, 4, and 5 prompt (with Step 1B.1 outfit reference using the lighter close documented in that section, and Mode 5 using its own locked lean prompt). Mode 3 is the exception — see rule 9.
+8. **LOCKED FLAT GRADE baked in for Modes 0, 1, 2A/2B/2C, 4, 5.** The 18% gray flat, shadowless grade closes every Mode 0, 1, 2A/2B/2C, and 4 prompt (with Step 1B.1 outfit reference using the lighter close documented in that section, and Mode 5 using its own locked lean prompt). The full cinema stack never closes a character plate or sheet — its key-wrap and anatomical shadow-falloff language fights the flat grade. Mode 3 is the exception — see rule 9.
 9. **Mode 3 uses the cinema-prose closing paragraph in place of the cinema stack AND locked tag block.** Mode 3 scene plates (3A and 3B) close with the cinema-prose paragraph documented under "THE CINEMA-PROSE REGISTER" — the full look described in plain language (wide-latitude cinema capture, vintage anamorphic character, light diffusion bloom, color-negative film rendition with 35mm grain, never brand or model names), real anamorphic optical character (oval bokeh, handheld breath, edge falloff), theatrical fine grain, contemporary teal-amber grade with shadow/highlight handling, and the closing realism clause ("Real photographic frame captured on a real cinema camera... no CGI, no plastic, no AI smoothness, no skin smoothing"). This closing paragraph replaces the cinema stack AND the old locked tag block for Mode 3. The old tag block remains documented as a deprecated fallback only.
 10. **Single fenced code block on output.** Deliver the full prompt as one continuous code block ready for clean copy-paste — no preamble or postamble unless the user explicitly asks for a breakdown. (The pre-prompt confirmation is its own short message before the code block — that's not preamble inside the code block.)
 11. **Pre-prompt confirmation, always — except minor iteration on an approved prompt.** Every full prompt is preceded by a bulleted "here's what I'm about to prompt, sound good?" check. **References listed first**, then character, outfit, backdrop/environment, framing. Wait for the green light. Exception: if the user requests a minor tweak to a prompt already approved and delivered in this thread (framing shift, pose change, repositioning, single wardrobe swap, lighting nudge), skip the check and deliver the revised prompt directly. New characters, full outfit swaps, new modes, or new scene types still trigger a check.
-12. **No aspect ratios in prompt output.** Never write "3:4 vertical aspect ratio," "16:9 horizontal," "21:9 cinematic," "4:5 portrait," "2.39:1," or any other ratio spec inside the prompt body. The user sets aspect ratio in the Higgsfield UI directly. The prompt describes framing in plain language only ("full body," "chest-up portrait," "wide establishing shot," "medium two-shot") — never with a numerical ratio.
+12. **Flat grade on every character plate and sheet — no exceptions.** Every Mode 0, 1, 2A/2B/2C, 4, and 5 prompt closes with the LOCKED FLAT GRADE: flat 18% gray backdrop (one uniform value, no gradient, no falloff), shadowless frontal illumination with matched fill on all sides (no key side, no shadow side, no rim, no hair light, no kicker), and zero cast shadow (none on the background, no contact shadow under the feet or hem). Never write a key direction, a shadow triangle, a nose or under-chin shadow, or a floor shadow into a character plate. Mode 3 scene plates are the ONLY place directional cinematic lighting lives.
+13. **No aspect ratios in prompt output.** Never write "3:4 vertical aspect ratio," "16:9 horizontal," "21:9 cinematic," "4:5 portrait," "2.39:1," or any other ratio spec inside the prompt body. The user sets aspect ratio in the Higgsfield UI directly. The prompt describes framing in plain language only ("full body," "chest-up portrait," "wide establishing shot," "medium two-shot") — never with a numerical ratio.
 
 ---
 
@@ -946,13 +1106,16 @@ These apply to every prompt this skill produces — the sole carve-out is noted 
 
 Before writing the final prompt, silently catalog:
 
-- [ ] Mode selected (0 face lock / 1 single-image outfit / 2 six-panel / 2B headless 3-panel Seedance-handoff / 3A character scene / 3B environment plate / 4 GPT Image 2 / 5 outfit replacement) and rationale
+- [ ] Mode selected (0 face lock / 1 single-image outfit / 2A three-panel sheet / 2B six-panel sheet / 2C headless 3-panel Seedance-handoff / 3A character scene / 3B environment plate / 4 GPT Image 2 / 5 outfit replacement) and rationale
 - [ ] Every uploaded reference image identified and listed by short visual descriptor (this becomes the first bullet of the pre-prompt check)
 - [ ] If Mode 0: text spec for the new character is locked and approved, tool fork has been presented (Banana Pro / GPT Image 2 / Soul Cinema), user has picked, and the locked baseline wardrobe (plain black camisole for women, plain black ribbed tank for men) is included in the prompt. If Soul Cinema picked, running Step 0.1 (Soul Cinema face plate) before Step 0.2 (Banana Pro 3:4 headshot).
 - [ ] If Mode 1: a Mode 0 face lock exists for the character (if new), OR a locked character reference exists (if existing)
-- [ ] If Mode 2 or 2B: a Mode 1 base outfit reference exists and is approved (if not, stop and build the base first)
+- [ ] If a character sheet was requested with no format named: defaulting to Mode 2A (3-panel), not offering the 6-panel
+- [ ] If Mode 2A: left-panel headless variant picked correctly from the garment (Variant A ghost-mannequin hollow for structured necklines — tees, tanks, collars, hoods, keyholes; Variant B clean neck cut for dresses, halters, strapless, spaghetti straps, plunging or scooped necklines). Full headroom preserved — the head is removed from the body, not cropped by the frame. Hair removed with the head. Right panel is tight CHEST-UP, not waist-up. Skin-tone consistency clause present across all panels.
+- [ ] If Mode 2B (6-panel): user explicitly asked for it, the resolution warning was given once, and the user said go
+- [ ] If Mode 2A, 2B, or 2C: a Mode 1 base outfit reference exists and is approved (if not, stop and build the base first)
 - [ ] If Mode 4: user explicitly asked for face/chest-up and confirmed GPT Image 2
-- [ ] If Mode 5: two reference images uploaded — outfit reference (becomes @image1) and character reference (becomes @image2), order confirmed with the user
+- [ ] If Mode 5: two reference images uploaded, each given a short semantic element tag by the user (e.g. `@outfit_ref` / `@character_ref`) — outfit/pose role and character/identity role confirmed against those tags, not against fixed `@image1`/`@image2` numbering
 - [ ] Every character described by visual markers only (hair, makeup, wardrobe, jewelry, body markers, pose, expression)
 - [ ] If Mode 3: environment described as ambience (not architectural enumeration) — world plate reference carries geometry
 - [ ] If Mode 3: matching cinema mode identified (M1/M2/M3/M4/M5) and woven into Paragraph 5 camera spec
@@ -962,7 +1125,7 @@ Before writing the final prompt, silently catalog:
 - [ ] If Mode 3: closing realism clause is in place (full camera package + M-mode + "Real photographic frame... no CGI, no plastic, no AI" quality filter)
 - [ ] Pose, body angle, expression register chosen
 - [ ] No names, no brands, no internal context, no meta-commentary
-- [ ] Cinema stack will close the prompt (for Modes 0, 1A, 2, 4; with Mode 1B Step 1 using lighter close; Mode 5 using its locked lean prompt; Mode 3 using the cinema-prose closing paragraph)
+- [ ] LOCKED FLAT GRADE will close the prompt (Modes 0, 1, 2A/2B/2C, 4) — flat uniform 18% gray, shadowless matched-fill light, zero cast shadow, stated per-panel on sheets; Mode 5 using its own locked lean prompt; Mode 3 using the cinema-prose closing paragraph instead and is the only mode with directional light
 - [ ] Pre-prompt confirmation delivered and confirmed — references listed FIRST in the bullet list
 
 If anything needed for composition is missing from the user input, ask before writing.
@@ -973,7 +1136,7 @@ If anything needed for composition is missing from the user input, ask before wr
 
 The flow is always: **confirm character → confirm what's about to be prompted → deliver the prompt in a fenced code block**.
 
-The user pastes the code block straight into Higgsfield. Tool routing: Banana Pro / Nano Banana 2 for Mode 0 Step 0.A (single-pass default), Mode 0 Step 0.2 (Soul Cinema path lock), Modes 1A, 2, 3, 5; GPT Image 2 for Mode 0 Step 0.B (highest fidelity single-pass) and Mode 4; Soul Cinema for Mode 0 Step 0.1 (iteration path) and Mode 1B. The user attaches the same reference images (or selects them from their Higgsfield character/environment library) inside the Higgsfield UI. The skill's job ends at the code block.
+The user pastes the code block straight into Higgsfield. Tool routing: Banana Pro / Nano Banana 2 for Mode 0 Step 0.A (single-pass default), Mode 0 Step 0.2 (Soul Cinema path lock), Modes 1A, 2A, 2B, 2C, 3, 5; GPT Image 2 for Mode 0 Step 0.B (highest fidelity single-pass) and Mode 4; Soul Cinema for Mode 0 Step 0.1 (iteration path) and Mode 1B. The user attaches the same reference images (or selects them from their Higgsfield character/environment library) inside the Higgsfield UI. The skill's job ends at the code block.
 
 If the user requests multiple shots in one ask, deliver each in its own code block, sequentially numbered or labeled — but still run the pre-prompt confirmation once before delivering the batch.
 

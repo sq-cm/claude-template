@@ -1,17 +1,17 @@
 ---
 name: seedance-commercial-director
-description: "Commercial-ad Seedance video-prompt director for product, brand, and advertising briefs — photoreal EN prompts. Sibling to cinema-worldbuilder-pro-2.0 — NOT an alternative mode of it. Use whenever the brief is a product ad, brand film, hero commercial, TVC, social ad cut, beauty campaign, fragrance spot, automotive ad, or any shoot whose primary purpose is selling or showcasing a product or brand. Route on INTENT: if the goal is to sell, showcase, or brand → this skill. Narrative/editorial cinema → cinema-worldbuilder-pro-2.0. Stylized/animated/bilingual → seedance-bilingual-director."
+description: "Commercial-ad Seedance video-prompt director for product, brand, and advertising briefs — photoreal EN prompts. Sibling to cinema-worldbuilder-pro — NOT an alternative mode of it. Use whenever the brief is a product ad, brand film, hero commercial, TVC, social ad cut, beauty campaign, fragrance spot, automotive ad, or any shoot whose primary purpose is selling or showcasing a product or brand. Route on INTENT: if the goal is to sell, showcase, or brand → this skill. Narrative/editorial cinema → cinema-worldbuilder-pro. Stylized/animated/bilingual → seedance-bilingual-director."
 ---
 
 # Seedance Commercial Director — Commercial Ad Lane
 
 > **COMMERCIAL LANE — ROUTING GUARDRAILS (READ FIRST)**
 >
-> This skill is the commercial-ad lane. It is a sibling to `cinema-worldbuilder-pro-2.0` (CWP), not a mode of it.
+> This skill is the commercial-ad lane. It is a sibling to `cinema-worldbuilder-pro` (CWP), not a mode of it.
 >
 > **Route on INTENT before anything else:**
 > - Ad / product / brand / commercial / TVC / hero video / beauty campaign / fragrance spot / automotive ad → **this skill**
-> - Photoreal narrative cinema / editorial / music video / dramatic scene / fashion film → **cinema-worldbuilder-pro-2.0**
+> - Photoreal narrative cinema / editorial / music video / dramatic scene / fashion film → **cinema-worldbuilder-pro**
 > - Stylized / animated / cartoon / manga / claymation / bilingual EN+ZH / JSON output → **seedance-bilingual-director**
 >
 > **Commercial intent must NOT be served by CWP's M2 Studio mode.** M2 is an editorial/crafted mode — its grade is intentionally not commercial. A product ad written in M2 will produce the wrong register. If a brief is commercial, route here regardless of whether the environment is a studio, a white void, or a location shoot.
@@ -28,9 +28,11 @@ Where CWP pursues the captured-on-a-camera-that-has-lived-a-little aesthetic —
 
 That said, "commercial" does not mean plastic. The anti-plastic discipline from CWP still applies to skin — no doll skin, no AI-rendered gloss on faces — because a shot where the talent looks synthetic undermines the product. The seam is clean: product surfaces can carry controlled, intentional specular; human skin cannot, except at named opt-in zones.
 
-Five commercial registers replace CWP's five cinema modes. The differences across registers are in **light quality, product presentation, movement grammar, grade, and surface treatment** — not in the locked block structure or the @imageN grammar, which are shared with CWP and operate identically here.
+Five commercial registers replace CWP's five cinema modes. The differences across registers are in **light quality, product presentation, movement grammar, grade, and surface treatment** — not in the locked block structure or the element-tag grammar, which are shared with CWP and operate identically here.
 
 **Density rule.** Same as CWP: 280–400 words for single-shot scenes, up to 600 for multi-shot. Keep every prompt tight — cut filler. Trust the reference image.
+
+**Distributed style.** Same discipline as CWP — no style header at the top of the prompt. Lighting, colour/grade, lens character, skin treatment, product surface treatment, composition, and continuity each live in their home block rather than a top prefix. The prompt opens on Scene & Mood and Frame Map. See CWP § DISTRIBUTED STYLE for the full aspect-to-block map; this skill's product-specific aspects route to Product Surface and Brand Grade instead of Capture Realism + Camera Capture.
 
 ---
 
@@ -44,11 +46,11 @@ The workflow is the same as CWP, with a commercial-brief intake step added:
 
 **Step 3 — Describe the scene.** Who is in the frame, what the product is, what the moment is, and how long the shot runs. Name the commercial register explicitly or let the skill select it.
 
-**Step 4 — Confirm the pre-prompt summary.** Same format as CWP — references first, register, scene, characters, frame map, camera, runtime. Confirm before the full prompt ships.
+**Step 4 — Name the element tags and confirm the pre-prompt summary.** Same format as CWP — tags first, register, scene, characters, frame map, camera (FOV° + mm), runtime. Confirm before the full prompt ships.
 
-**Step 5 — Receive the three-part delivery.** Identical to CWP: (a) numbered bulleted reference list, (b) bolded English title with runtime, (c) English code block with twelve discrete labelled blocks in locked order.
+**Step 5 — Receive the two-part delivery.** Identical to CWP: (a) bolded English title with runtime, (b) English code block with twelve discrete labelled blocks in locked order and inline `@tag` references.
 
-**Step 6 — Run in Higgsfield.** Attach references in the exact listed order and paste the code block into the prompt field.
+**Step 6 — Run in Higgsfield.** Upload the reference files under the same tag names used in the prompt, then paste the code block into the prompt field.
 
 ---
 
@@ -56,14 +58,16 @@ The workflow is the same as CWP, with a commercial-brief intake step added:
 
 The first time the user asks for a commercial Seedance prompt in a session, ask once:
 
-> "Two quick checks before I start: (1) Is there talent in this shot with locked reference images, or is it product-only? (2) What is the hero product — do you have a product reference image to attach?"
+> "Two quick checks before I start: (1) Is there talent in this shot with locked reference images, or is it product-only? (2) What is the hero product — do you have a product reference image to attach? And what tag names do you want to use for each reference (e.g., `@talent_ref`, `@perfume_ref`, `@bottle_cap_ref`)?"
 
 Branch on the answers:
 
-- **Talent with references →** lock face, hair, wardrobe, skin tone, and identity markers from the image. Mirror back the spec for confirmation.
+- **Talent with references →** lock face, hair, wardrobe, skin tone, and identity markers from the image. Confirm the tag name for that reference. Mirror back the spec for confirmation.
 - **Talent without references →** flag the gap. Offer to describe the talent from text, with the caveat that identity fidelity will be lower without a locked reference.
-- **Product reference attached →** extract product name (descriptive, no real brand names), surface finish (matte, gloss, chrome, frosted glass, metallic, fabric, ceramic), key reflective surfaces, and colour. Carry this through the PRODUCT SURFACE block.
+- **Product reference attached →** extract product name (descriptive, no real brand names), surface finish (matte, gloss, chrome, frosted glass, metallic, fabric, ceramic), key reflective surfaces, and colour. Confirm its tag name (e.g., `@perfume_ref`). Carry this through the PRODUCT SURFACE block.
 - **No product reference →** request one. A PRODUCT SURFACE block cannot be written without knowing the surface finish and reflection profile of the hero product.
+
+**Never invent tag names on the user's behalf.** Writing a Subject Lock or Product Surface block without a named tag and an attached reference is a category error. Once tags are locked for a session, carry them forward — the user won't re-name the same reference on every prompt.
 
 Once asked, do not ask again in the same session.
 
@@ -71,23 +75,23 @@ Once asked, do not ask again in the same session.
 
 ## PRE-PROMPT CONFIRMATION RULE
 
-Every new scene gets a pre-prompt summary before the full prompt is written. Same format as CWP — references first, register last on the details, runtime as the final bullet.
+Every new scene gets a pre-prompt summary before the full prompt is written. Same format as CWP — tags first, register last on the details, runtime as the final bullet.
 
 ```
 Pre-prompt check:
-- **References attached:** [list every reference — talent refs, product refs, environment plates — by short visual descriptor. If none: "none — pure text composition."]
+- **Tags:** [list every element tag being used — talent refs, product refs, environment plates — by name and short visual descriptor. If tags aren't yet named for this scene, ask here instead of proceeding.]
 - **Register:** [C1 Hero / C2 Beauty / C3 Automotive / C4 Lifestyle / C5 Pack Shot]
 - **Scene:** [one-line scene description]
 - **Hero product:** [descriptive product name — no real brand names]
-- **Characters:** [who's in frame, abbreviated by visual marker; or "none / product-only"]
+- **Characters:** [who's in frame, referred to by tag; or "none / product-only"]
 - **Frame Map:** [one-line compositional read]
-- **Camera:** [lens length, key movement]
+- **Camera:** [FOV degree + mm equivalent + key movement]
 - **Runtime:** [Xs, single shot, OR Xs, [N]-shot sequence with per-shot beats]
 
 Sound good?
 ```
 
-Wait for the green light. Then deliver the three-part output.
+Wait for the green light. Then deliver the two-part output.
 
 **Skip the confirmation only when:**
 - The user is iterating on a prompt just delivered (camera tweak, lighting nudge, position shift)
@@ -98,15 +102,13 @@ For all new scenes: confirmation is not optional.
 
 ---
 
-## THREE-PART DELIVERY FORMAT (LOCKED)
+## TWO-PART DELIVERY FORMAT (LOCKED)
 
 Identical to CWP:
 
-**1. Numbered bulleted list of references to attach in Higgsfield.** Product references get their own numbered slots — they anchor the PRODUCT SURFACE block. Seedance hard cap: 9 references.
+**1. Title line with runtime.** Bolded English. Example: `**Seedance commercial prompt — 10s**`
 
-**2. Title line with runtime.** Bolded English. Example: `**Seedance commercial prompt — 10s**`
-
-**3. English code block with twelve discrete labelled blocks and `@image1` through `@image9` tags inline.**
+**2. English code block with twelve discrete labelled blocks and inline `@tag` references.** Product tags get their own inline mentions — they anchor the PRODUCT SURFACE block. Seedance hard cap: roughly 9 references per prompt. The old numbered bullet reference list is gone — the user's element tags carry the reference mapping directly.
 
 **Block order inside the code block (every prompt, no exceptions — HARD LOCK):**
 
@@ -139,10 +141,10 @@ Twelve blocks. This order never changes. No block may be omitted, reordered, mer
 
 These rules are shared with CWP and apply identically here, extended with commercial-specific additions:
 
-1. **Pre-prompt confirmation on every new scene.** References first, runtime last. Skip only on iterations.
-2. **Three-part delivery format, in order:** (a) numbered bulleted reference list, (b) bolded English title with runtime, (c) English code block with twelve labelled blocks and inline `@imageN` tags.
-3. **`@imageN` numbering matches the bullet list order exactly.**
-4. **Every reference in the bullet list appears at least once as an `@imageN` tag** inside the code block.
+1. **Pre-prompt confirmation on every new scene.** Tags first, runtime last. Skip only on iterations.
+2. **Two-part delivery format, in order:** (a) bolded English title with runtime, (b) English code block with twelve labelled blocks and inline `@tag` references.
+3. **Every element tag named in the pre-prompt check appears at least once inline in the code block.**
+4. **Write the visible.** Every abstraction translated to a physical action, a measurable value, or a specific object — no mood-word abstraction ("looks premium," "feels luxurious"). Speeds in km/h, atmosphere in % and meters, scale via human-height stacking, emotion via muscle, product presence via named surface behaviour. See CWP § WRITE THE VISIBLE — the same discipline governs this skill's output.
 5. **Runtime baked into the closing Camera Capture line.** Always ask runtime; never default.
 6. **Per-shot timing inline in Movement** for any multi-cut sequence.
 7. **Twelve discrete labelled blocks inside the code block, in the exact locked order defined in § Delivery format — every prompt, no exceptions.**
@@ -155,7 +157,7 @@ These rules are shared with CWP and apply identically here, extended with commer
 14. **Pure visual description only.** No meta-commentary.
 15. **Diegetic audio only in the Sound Bed** — plus brand-safe stance (see Sound Bed section below).
 16. **Energy over position** in Scene & Mood. Frame Map handles geometry.
-17. **Cut triggers.** "Hard cut to," "Smash cut to," "Match cut on" for edits inside multi-shot prompts.
+17. **Cut triggers and timing precision.** "Hard cut to," "Smash cut to," "Match cut on" for edits inside multi-shot prompts. Choose the tightest cuts-and-timing register the shot requires (oner / sequential cuts / timed multishot / freestyle b-roll) — same four-register scale and timecoded/sequential formats as CWP. See CWP § CUTS & TIMING PRECISION SCALE.
 18. **Age-blind.** Never describe characters by age.
 19. **No on-screen text by default.** Every Last Frame block closes with: "No on-screen text, no captions, no signage typography, no rendered text in the frame." Skip only when the user explicitly requested in-frame text.
 20. **Positive locks over negative prohibitions.** Same principle as CWP.
@@ -165,17 +167,17 @@ These rules are shared with CWP and apply identically here, extended with commer
 
 ---
 
-## SHARED GRAMMAR — FRAME MAP, SUBJECT LOCK, CROSS-FRAME RULES, MOVEMENT, LAST FRAME, WORLD PLATE, @IMAGEN
+## SHARED GRAMMAR — ELEMENT TAGS
 
 These blocks are **identical in grammar, logic, and rules to CWP**. This skill does not redefine them. Use the CWP conventions for:
 
 - **Frame Map** — 2D screen space, horizontal thirds, x/y% precision, depth layers, frame occupancy, negative space.
-- **Subject Lock** — identity anchor per `@imageN`, body orientation, pose, state, gaze, contact points, state-change details the reference cannot carry, lock-down line.
+- **Subject Lock** — identity anchor per `@tag`, body orientation, pose, state, gaze, contact points, state-change details the reference cannot carry, lock-down line.
 - **Cross-Frame Rules** — no swap, no centre crossing, no depth change, distance consistency, screen sides held, eyelines, carry-across-the-cut.
 - **Movement** — four layers (character motion / micro-motion / environmental motion / camera motion) in flowing paragraph form with per-beat timestamps.
 - **Last Frame** — exact closing composition, on-screen text suppression line.
-- **World Plate** — location, time of day, weather, set dressing, colour palette, atmospheric quality, anchored to `@imageN` if a plate is attached.
-- **@imageN grammar** — numbering matches bullet list, every reference tagged at least once, hard cap of 9.
+- **World Plate** — location, time of day, weather, set dressing, colour palette, atmospheric quality, anchored to `@tag` if a plate is attached.
+- **Element tags** — user-supplied semantic names (`@talent_ref`, `@perfume_ref`, `@bottle_cap_ref`, `@studio_plate`) replace `@imageN` numbering. Lowercase, underscore-separated, descriptive; character/talent refs use `_ref`, environment plates use `_plate`, product/prop tags use a descriptive noun. Ordering no longer matters — Seedance matches by tag name. Every tag named in the pre-prompt check must appear at least once inline in the code block. Reference-count ceiling still applies: roughly 9 uploaded references per prompt. Full tag-naming rules and the canonical-over-plate rule: CWP § ELEMENT TAGS.
 
 Any rule from CWP that governs these blocks applies here identically. This skill's additions are in the two new blocks (PRODUCT SURFACE and BRAND GRADE) and in the rewritten CAPTURE REALISM and SOUND BED sections below.
 
@@ -219,7 +221,7 @@ The Capture Realism block in this skill serves the same structural purpose as in
 
 **The four mechanics — commercial tuning:**
 
-**1. Depth via suspended atmosphere between planes.** Same as CWP. Always on when there are planes to separate. Scale with scene density.
+**1. Depth via suspended atmosphere between planes.** Same as CWP. Always on when there are planes to separate. State the density in % and the visibility depth in meters — e.g., "haze 15%, readable to 50 meters" for a clean product-forward frame, scaling up for lifestyle or automotive exteriors with more atmosphere to separate. Any vehicle or moving-subject speed in the frame (C3 Automotive, C4 Lifestyle) is stated in km/h — never "fast," "slow." See CWP § WRITE THE VISIBLE.
 
 **2. Moisture without shine — skin and non-product surfaces only.** If the scene has moisture on skin or fabric, apply the CWP matte-moisture logic: damp but not beaded, saturated not glossy. This rule does not apply to the hero product — the product's surface treatment is governed by the PRODUCT SURFACE block, not Capture Realism.
 
@@ -255,7 +257,7 @@ This block governs how the hero product's surfaces behave under the key light. I
 
 **Properties to specify:**
 
-- **Hero product reference:** anchored to `@imageN`
+- **Hero product reference:** anchored to `@tag` (e.g., `@perfume_ref`)
 - **Surface finish per named zone:** for each distinct surface on the product, name the finish (glass body: clear gloss / frosted / smoked; cap: chrome / brushed metal / lacquered; label zone: matte / gloss / foil; base: mirrored / matte)
 - **Specular profile:** shape (hard point / soft bloom / streak / wrap), size (pin / coin / palm), and single-direction lock (matching the scene's key light source)
 - **Reflection profile:** what the product reflects (if the product has a mirror or glass surface) — locked to the practical lights in the scene, not the ambient environment
@@ -264,7 +266,7 @@ This block governs how the hero product's surfaces behave under the key light. I
 **Canonical Product Surface block:**
 
 ```
-Product Surface: @imageN — [descriptive product name] is the hero subject. [Surface zone 1, e.g., clear glass body] carries a [soft / hard] specular [bloom / point / streak], single-direction, aligned to the [key light position — e.g., camera-right overhead], [size descriptor]. [Surface zone 2, e.g., chrome atomiser cap] holds a [hard point / clean streak] highlight, [size], matched to the same key light. [Surface zone 3, e.g., frosted base] reads matte, no specular. Product specular and reflection stay locked to the named product surfaces — zero spill to skin, fabric, or background. The product reads as precisely lit, not accidentally glossy.
+Product Surface: @tag — [descriptive product name] is the hero subject. [Surface zone 1, e.g., clear glass body] carries a [soft / hard] specular [bloom / point / streak], single-direction, aligned to the [key light position — e.g., camera-right overhead], [size descriptor]. [Surface zone 2, e.g., chrome atomiser cap] holds a [hard point / clean streak] highlight, [size], matched to the same key light. [Surface zone 3, e.g., frosted base] reads matte, no specular. Product specular and reflection stay locked to the named product surfaces — zero spill to skin, fabric, or background. The product reads as precisely lit, not accidentally glossy.
 ```
 
 **Product-only scenes (no talent):** the Product Surface block is the primary realism carrier. Drop the skin sentence from Capture Realism. Keep all twelve blocks.
@@ -308,30 +310,37 @@ Brand Grade: Clean commercial grade — not editorial. Key light at [colour temp
 
 ## REGISTER CAMERA CAPTURE LINES
 
+FOV degree is the lens anchor across all five registers — same discipline as CWP. Write `[FOV°] ([mm])` in the prompt body, never mm alone; pick from CWP's discrete anchor ladder rather than an off-ladder degree. Full table and rationale: CWP § FOV DEGREE TABLE.
+
 **C1 — Hero Product:**
 ```
-Camera Capture: wide-latitude commercial capture, clean spherical [XX]mm character at a wide aperture — natural round bokeh, even sharpness — mild controlled diffusion, locked-off with optional micro push-in no greater than 5% frame change, clean warm commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
+Camera Capture: wide-latitude commercial capture, clean spherical [FOV°] ([mm]) character at a wide aperture — natural round bokeh, even sharpness — mild controlled diffusion, locked-off with optional micro push-in no greater than 5% frame change, clean warm commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
 ```
+Typical anchor: 18°–29° (75–100mm) — tight product isolation.
 
 **C2 — Beauty / Talent:**
 ```
-Camera Capture: wide-latitude commercial capture, clean spherical [XX]mm character at a wide aperture — soft even sharpness — beauty light diffusion bloom on the key side, locked tripod or minimal handheld sway, clean warm beauty commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
+Camera Capture: wide-latitude commercial capture, clean spherical [FOV°] ([mm]) character at a wide aperture — soft even sharpness — beauty light diffusion bloom on the key side, locked tripod or minimal handheld sway, clean warm beauty commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
 ```
+Typical anchor: 18°–29° (75–100mm) — face-forward beauty compression.
 
 **C3 — Automotive:**
 ```
-Camera Capture: wide-latitude commercial capture, vintage [XX]mm 2x anamorphic character at a wide aperture — oval bokeh, precise specular streak on paint and glass — light diffusion bloom on sky, [locked-off tracking / low dolly push / orbit], bold commercial grade with controlled specular on paint and chrome, fine grain, 24fps 180° shutter, [XX] seconds.
+Camera Capture: wide-latitude commercial capture, vintage [FOV°] ([mm]) 2x anamorphic character at a wide aperture — oval bokeh, precise specular streak on paint and glass — light diffusion bloom on sky, [locked-off tracking / low dolly push / orbit], bold commercial grade with controlled specular on paint and chrome, fine grain, 24fps 180° shutter, [XX] seconds.
 ```
+Typical anchor: 47°–63° (35–55mm) exterior reveal; 29°–47° (50–75mm) interior detail.
 
 **C4 — Lifestyle:**
 ```
-Camera Capture: wide-latitude commercial capture, [XX]mm [anamorphic character for wide shots / spherical for close-ups] at a wide aperture — [oval / round] bokeh — natural motivated key, light diffusion bloom, handheld with operator breath on wide shots, locked or minimal movement on close-ups, warm lifestyle commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
+Camera Capture: wide-latitude commercial capture, [FOV°] ([mm]) [anamorphic character for wide shots / spherical for close-ups] at a wide aperture — [oval / round] bokeh — natural motivated key, light diffusion bloom, handheld with operator breath on wide shots, locked or minimal movement on close-ups, warm lifestyle commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
 ```
+Typical anchor: 47°–63° (35–55mm) wide; 18°–29° (75–100mm) product close-ups.
 
 **C5 — Pack Shot:**
 ```
-Camera Capture: wide-latitude commercial capture, clean spherical [XX]mm macro-capable character at a wide aperture — precise even sharpness, controlled diffusion on specular zones — locked-off[, optional slow 360° product rotation if brief calls for it], clean neutral-warm commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
+Camera Capture: wide-latitude commercial capture, clean spherical [FOV°] ([mm]) macro-capable character at a wide aperture — precise even sharpness, controlled diffusion on specular zones — locked-off[, optional slow 360° product rotation if brief calls for it], clean neutral-warm commercial grade, fine grain, 24fps 180° shutter, [XX] seconds.
 ```
+Typical anchor: 12°–18° (100–180mm) — macro-capable detail hold.
 
 ---
 
@@ -341,7 +350,7 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 
 - [ ] Commercial brief confirmed — not narrative cinema, not stylized/bilingual
 - [ ] Character gate and product gate asked (if first prompt of session) and answers carried
-- [ ] Every uploaded reference identified and listed — talent refs, product refs, environment plates — numbered bullet list, inline `@imageN` tags, order matched across all three
+- [ ] Every uploaded reference identified and named — talent refs, product refs, environment plates — tag names confirmed in the pre-prompt check, inline `@tag` references placed in the code block
 - [ ] Product reference attached for hero product; PRODUCT SURFACE block cannot be written without it
 - [ ] Canonical reference attached for every named subject (talent, vehicle, product) that appears in the scene — even if also visible in the plate
 - [ ] Commercial register selected (C1 / C2 / C3 / C4 / C5) with rationale
@@ -353,7 +362,7 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 - [ ] World Plate written — location, time, weather, set dressing, anchored to plate ref if attached
 - [ ] Sound Bed written — diegetic mode chosen, specific sounds listed, brand-safe stance confirmed, no music referenced
 - [ ] Capture Realism written and tuned — depth-via-atmosphere between actual planes; moisture-without-shine on skin/fabric ONLY if wet; per-zone specular kill on skin with any beauty opt-in zones declared explicitly; contrast curve stated three ways. No product surface specular in this block — that is in Product Surface. No gear/grade/frame-rate language from Camera Capture duplicated here.
-- [ ] Product Surface written — hero product `@imageN` anchored, named surfaces with finish and specular profile, spill prohibition stated
+- [ ] Product Surface written — hero product `@tag` anchored, named surfaces with finish and specular profile, spill prohibition stated
 - [ ] Brand Grade written — colour temperature, white balance, highlight treatment, shadow fill, brand cast if declared, "clean commercial grade not editorial" stated
 - [ ] Camera Capture line at the bottom — single trimmed paragraph, no double spec
 - [ ] Commercial register Camera Capture line used — not a CWP cinema mode line
@@ -365,9 +374,9 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 - [ ] No internal production context, no meta-commentary
 - [ ] No music in Sound Bed; brand-safe stance confirmed
 - [ ] Output locked to English
-- [ ] Three-part delivery format: (1) numbered reference list, (2) bolded English title with runtime, (3) English code block with twelve labelled blocks and `@imageN` tags
+- [ ] Two-part delivery format: (1) bolded English title with runtime, (2) English code block with twelve labelled blocks and inline `@tag` references
 - [ ] All twelve labelled blocks present in the code block, in the exact locked order (§ Delivery format). None missing, none reordered, none merged.
-- [ ] Every reference in the bullet list appears at least once as an `@imageN` tag; numbering matches exactly
+- [ ] Every element tag named in the pre-prompt check appears at least once inline in the code block
 - [ ] Negative prohibitions translated to positive locks throughout
 - [ ] Total prompt body word count within target range (280–400 single shot, up to 600 multi-shot)
 

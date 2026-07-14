@@ -1,6 +1,6 @@
 ---
 name: seedance-bilingual-director
-description: "Stylized animation and bilingual EN+ZH video prompt director. Use this skill when the user wants video prompts for stylized, animated, or non-photoreal visual styles (cartoon, manga, claymation, chibi, low-poly, stop-motion, graphic-novel, mixed-media), bilingual EN+ZH JSON output, or dialogue-heavy scenes requiring a full archetype router. Handles action, general, and dialogue archetypes; outputs a JSON array — EN prompt object and ZH prompt object — and nothing else. Do NOT use for photoreal or live-action narrative cinema, English-only prompts, or reference-sheet-anchored @imageN workflows — those belong to cinema-worldbuilder-pro-2.0. For product/brand/ad briefs (sell or showcase intent), use seedance-commercial-director."
+description: "Stylized animation and bilingual EN+ZH video prompt director. Use this skill when the user wants video prompts for stylized, animated, or non-photoreal visual styles (cartoon, manga, claymation, chibi, low-poly, stop-motion, graphic-novel, mixed-media), bilingual EN+ZH JSON output, or dialogue-heavy scenes requiring a full archetype router. Handles action, general, and dialogue archetypes; outputs a JSON array — EN prompt object and ZH prompt object — and nothing else. Do NOT use for photoreal or live-action narrative cinema, English-only prompts, or element-tag reference workflows — those belong to cinema-worldbuilder-pro. For product/brand/ad briefs (sell or showcase intent), use seedance-commercial-director."
 ---
 
 # Seedance Bilingual Director
@@ -13,13 +13,13 @@ See `references/pipeline-integration.md` for cross-scene workflow (previous-vide
 
 ---
 
-## RELATIONSHIP TO cinema-worldbuilder-pro-2.0
+## RELATIONSHIP TO cinema-worldbuilder-pro
 
 Two separate skills. Use the right one:
 
 | Intent | Skill |
 |---|---|
-| Photoreal / live-action narrative cinema, English-only output, @imageN reference-sheet workflow | `cinema-worldbuilder-pro-2.0` |
+| Photoreal / live-action narrative cinema, English-only output, element-tag reference workflow | `cinema-worldbuilder-pro` |
 | Stylized / animated looks (cartoon, manga, claymation, chibi, low-poly, stop-motion, graphic-novel, mixed-media), bilingual EN+ZH JSON output, dialogue-heavy archetype routing | this skill (`seedance-bilingual-director`) |
 
 Never merge or substitute. These skills do not overlap.

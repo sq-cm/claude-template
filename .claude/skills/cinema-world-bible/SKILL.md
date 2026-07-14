@@ -1,11 +1,11 @@
 ---
 name: cinema-world-bible
-description: Continuity tracker and prep system for narrative AI-film pipelines. Maintains the world bible, character bibles, reference-image library index, and shot specs that keep characters consistent across sequences. Use when building or updating a world bible, character bible, reference library, shot spec, or continuity checklist — or when the user says "lock a character," "world bible," "continuity," "shot list," "reference library," "bible," or any equivalent. Produces specs that route to banana-pro-director-2.0, cinema-worldbuilder-pro-2.0, or seedance-commercial-director (commercial briefs) — it does not write those prompts itself.
+description: Continuity tracker and prep system for an ACTIVE narrative AI-film production — world bible, character bibles, reference-image library index, shot specs. Use for "lock a character," "world bible," "continuity," "shot list," "reference library," or continuity-checklist work once a production is already underway. Produces specs that route to banana-pro-director, cinema-worldbuilder-pro, or seedance-commercial-director — never writes those prompts itself. Not for a portable standalone canon document with no production yet — that's story-bible-builder; hand off there first, then return here once shots start.
 ---
 
 # Cinema World Bible
 
-The continuity layer that sits between the brief and the prompt skills. This skill owns the prep work that makes shot-to-shot consistency possible: the world record, the character specs, the reference-image index, and the shot specs that feed banana-pro-director-2.0 and cinema-worldbuilder-pro-2.0.
+The continuity layer that sits between the brief and the prompt skills. This skill owns the prep work that makes shot-to-shot consistency possible: the world record, the character specs, the reference-image index, and the shot specs that feed banana-pro-director and cinema-worldbuilder-pro.
 
 It does not write Banana Pro or Seedance prompts. It organizes everything those skills need before they run.
 
@@ -30,9 +30,10 @@ This skill is the prep infrastructure. Every shot that works first try in a well
 - Shot specs (a structured brief that names which references attach, in what order, at what runtime)
 
 **This skill does not own:**
-- Banana Pro or Seedance prompt grammar — route to `banana-pro-director-2.0` for stills, `cinema-worldbuilder-pro-2.0` for video, `seedance-commercial-director` for commercial/product briefs
+- Banana Pro or Seedance prompt grammar — route to `banana-pro-director` for stills, `cinema-worldbuilder-pro` for video, `seedance-commercial-director` for commercial/product briefs
 - Visual execution — the Showrunner or Stills Director runs the prompts, not this skill
 - Content strategy or narrative — the story brief comes in from upstream; this skill tracks its visual consequences
+- Portable standalone canon documents — if the user wants a dense, installable, world-and-character canon file with no active production yet (no shots, no references), that's `story-bible-builder`. Route there first; once a production starts and shots need locking, the resulting bible feeds this skill's character bible and world bible fields.
 
 ---
 
@@ -48,7 +49,7 @@ Steps:
 1. Take the project brief and fill the world bible template
 2. Lock the cinema-mode register (M1–M5) — this determines the camera grammar that every banana-pro scene plate and every Seedance prompt will use
 3. Lock the palette grade — dominant tones, color temperature, grade style
-4. Identify recurring locations and flag which need environment plates built in banana-pro-director-2.0 (Mode 3B)
+4. Identify recurring locations and flag which need environment plates built in banana-pro-director (Mode 3B)
 5. Note which characters will need character bibles
 
 Deliver: a completed world bible markdown file, saved to the project folder.
@@ -73,8 +74,8 @@ Character bible rules:
 - Voice-register descriptors (timbre, cadence, phrasing) are not visual and are exempt from the identity-descriptor visual-only rule — they exist to carry into a Seedance Sound Bed or dialogue block, not a visual prompt block
 - Describe by build, bone structure, hair, skin, eye shape, key identity markers (piercings, scars, beauty marks, tattoos, signature jewelry)
 - Every wardrobe state gets a short slug name (e.g., `ZARA-OUTFIT-A`, `ZARA-OUTFIT-A-RAINY`) so shot specs can reference it unambiguously
-- A wardrobe state is not locked until a base reference image exists (Mode 1 from banana-pro-director-2.0)
-- A character is not fully locked until a face-lock reference exists (Mode 0 from banana-pro-director-2.0) and is indexed
+- A wardrobe state is not locked until a base reference image exists (Mode 1 from banana-pro-director)
+- A character is not fully locked until a face-lock reference exists (Mode 0 from banana-pro-director) and is indexed
 
 Deliver: a completed character bible markdown file, saved to the project folder.
 
@@ -109,16 +110,16 @@ Each entry records:
 
 **Higgsfield Elements name mapping — slug convention:**
 
-Slugs are an index and operator-handoff convention only — never written as `@slug` into a Banana Pro or Seedance prompt body (banana-pro-director-2.0 prohibits `@image` tags in prompt bodies, the sole carve-out being Mode 5's locked `@image1`/`@image2` prompt; attachment happens in the Higgsfield UI). Authoritative record, mapping chain (slug → @imageN → Elements name), and sync rules: REFERENCE-LIBRARY-TEMPLATE.md § "Higgsfield Elements name mapping".
+Slugs are an index and operator-handoff convention; the element tag (e.g. `@zara_face`) is the prompt-facing handle assigned once per locked asset — attachment happens in the Higgsfield UI, the tag just names what got attached. Authoritative record, mapping chain (slug → element tag → Elements name), and sync rules: REFERENCE-LIBRARY-TEMPLATE.md § "Higgsfield Elements name mapping".
 
 Slot assignment for Seedance (max 9 references per prompt):
-- When building a shot spec, assign @imageN slots from the index. Record the assignment in the shot spec. Canonical character references always take priority over environment plates when slot count is constrained.
+- When building a shot spec, assign element tags from the index. Record the assignment in the shot spec. Canonical character references always take priority over environment plates when tag count is constrained.
 
 ---
 
 ### 4. Run the still→video continuity checklist
 
-Before any shot spec routes to cinema-worldbuilder-pro-2.0, run this checklist. It encodes the canonical-over-plate rule and the identity lock-down lines that prevent drift.
+Before any shot spec routes to cinema-worldbuilder-pro, run this checklist. It encodes the canonical-over-plate rule and the identity lock-down lines that prevent drift.
 
 **Pre-handoff continuity checklist:**
 
@@ -130,42 +131,42 @@ Character locks
 
 Environment locks
 - [ ] Every recurring location has a LOCKED environment plate in the library index (or is flagged PENDING)
-- [ ] The canonical-over-plate rule is noted: the environment plate carries world geometry; the character canonical reference carries identity — never substitute one for the other in the @imageN slot assignment
+- [ ] The canonical-over-plate rule is noted: the environment plate carries world geometry; the character canonical reference carries identity — never substitute one for the other in the element-tag assignment
 
 Cinema-mode alignment
 - [ ] The cinema-mode register for this shot (M1–M5) matches the project's registered mode in the world bible (or deviation is deliberate and noted)
 - [ ] The M-mode selected in the shot spec matches what banana-pro used for the scene plate, if one exists
 
 Reference-slot assignment
-- [ ] @imageN slots are assigned from the library index, with canonical character references filling their slots before environment plates
+- [ ] Element tags are assigned from the library index, with canonical character references filling their tags before environment plates
 - [ ] Total reference count does not exceed 9 (Seedance hard cap)
-- [ ] Slot order is documented in the shot spec so cinema-worldbuilder-pro-2.0 can place @image1–@imageN tags correctly
+- [ ] Priority order is documented in the shot spec so cinema-worldbuilder-pro can place the element tags correctly
 
 ---
 
 ### 5. Write a shot spec
 
-A shot spec is the structured brief this skill hands to the Stills Director (banana-pro-director-2.0), the Seedance Director (cinema-worldbuilder-pro-2.0), or the Commercial Director (seedance-commercial-director) for commercial briefs. It is not a prompt — it is the information those skills need to write the prompt.
+A shot spec is the structured brief this skill hands to the Stills Director (banana-pro-director), the Seedance Director (cinema-worldbuilder-pro), or the Commercial Director (seedance-commercial-director) for commercial briefs. It is not a prompt — it is the information those skills need to write the prompt.
 
 Use the shot spec template: [SHOT-SPEC-TEMPLATE.md](SHOT-SPEC-TEMPLATE.md)
 
 A shot spec contains:
 - Shot ID and sequence position
-- Destination skill (banana-pro-director-2.0 for a still / cinema-worldbuilder-pro-2.0 for video / seedance-commercial-director for a commercial spot)
+- Destination skill (banana-pro-director for a still / cinema-worldbuilder-pro for video / seedance-commercial-director for a commercial spot)
 - Scene description (dramatic moment, not camera grammar)
 - Characters in frame, with their character bible slug and wardrobe state slug
-- Reference assignments (@image1–@imageN from the library index)
+- Reference assignments (element tags from the library index)
 - Cinema mode (M1–M5)
 - Framing notes (wide / medium / close-up, depth layers)
 - Runtime (video only — never default; always confirm with the director)
 - Continuity notes (what this shot must match from previous shots in the sequence)
 - Any wardrobe state deltas not visible in the reference (damp, dirty, torn — state-changes the image can't carry)
-- Handoff destination (banana-pro-director-2.0, cinema-worldbuilder-pro-2.0, or seedance-commercial-director)
+- Handoff destination (banana-pro-director, cinema-worldbuilder-pro, or seedance-commercial-director)
 
 The shot spec does NOT contain:
 - Banana Pro prompt grammar
 - Seedance block structure
-- @imageN tags written into prose — those belong in the Seedance prompt the worldbuilder skill writes, not in the spec
+- Element tags written into prose — those belong in the Seedance prompt the worldbuilder skill writes, not in the spec
 
 ---
 
@@ -177,9 +178,9 @@ Use the schematic map template: [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLA
 
 A schematic map is a top-down spatial diagram of a single location. It records the GPT Image 2 prompt used to generate the diagram, the locked spatial facts extracted from it (which prop is where, at what size relative to a human figure), and a link to the generated diagram image.
 
-**Relationship to the Frame Map (cinema-worldbuilder-pro-2.0):**
+**Relationship to the Frame Map (cinema-worldbuilder-pro):**
 - The schematic map is a **world-space prep artefact** — it records where props and landmarks physically sit in the location geometry (e.g., "fire hydrant at kerb; skydancer anchored 2× person-height to its right on the same line"). It is produced once per location, before shot prompting begins.
-- The Frame Map (owned by cinema-worldbuilder-pro-2.0 / CWP) is a **screen-space per-shot grammar** — it records where each character sits in the frame (left / centre / right, foreground / midground / background) for a specific Seedance prompt.
+- The Frame Map (owned by cinema-worldbuilder-pro / CWP) is a **screen-space per-shot grammar** — it records where each character sits in the frame (left / centre / right, foreground / midground / background) for a specific Seedance prompt.
 - The schematic map informs the Frame Map. The Frame Map does not replace it. Do not duplicate the schematic map's world-space spatial facts inside a Frame Map entry; reference the schematic map instead.
 
 Steps:
@@ -201,7 +202,7 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 
 **Index a new reference:** "Add [reference name] to the library index." → Skill adds the entry with status, type, and slot note.
 
-**Pre-video checklist:** "Run the continuity checklist for [shot description]." → Skill runs the checklist and flags any gaps before the shot spec routes to cinema-worldbuilder-pro-2.0.
+**Pre-video checklist:** "Run the continuity checklist for [shot description]." → Skill runs the checklist and flags any gaps before the shot spec routes to cinema-worldbuilder-pro.
 
 **Shot spec:** "Write a shot spec for [scene description]." → Skill fills the shot spec template and hands it to the appropriate skill.
 
@@ -214,18 +215,18 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 | Task | This skill | Downstream skill |
 |---|---|---|
 | Lock character identity spec | Yes — character bible | — |
-| Build face-lock reference image | Flags as PENDING, writes spec | banana-pro-director-2.0 Mode 0 |
-| Build outfit reference image | Flags as PENDING, writes spec | banana-pro-director-2.0 Mode 1 |
-| Build 6-panel character sheet | Flags as PENDING, writes spec | banana-pro-director-2.0 Mode 2 |
-| Build environment plate | Flags as PENDING, writes spec | banana-pro-director-2.0 Mode 3B |
-| Write Banana Pro prompt | Never | banana-pro-director-2.0 |
-| Write Seedance prompt | Never | cinema-worldbuilder-pro-2.0 |
-| Assign @imageN slots for a shot | Yes — in the shot spec | cinema-worldbuilder-pro-2.0 uses these |
-| Map slug → @imageN → Higgsfield Elements name | Yes — Elements name mapping in reference library | Operator loads matching asset in Higgsfield UI |
-| Track M-mode consistency | Yes — world bible | cinema-worldbuilder-pro-2.0 enforces in prompt |
+| Build face-lock reference image | Flags as PENDING, writes spec | banana-pro-director Mode 0 |
+| Build outfit reference image | Flags as PENDING, writes spec | banana-pro-director Mode 1 |
+| Build 6-panel character sheet | Flags as PENDING, writes spec | banana-pro-director Mode 2 |
+| Build environment plate | Flags as PENDING, writes spec | banana-pro-director Mode 3B |
+| Write Banana Pro prompt | Never | banana-pro-director |
+| Write Seedance prompt | Never | cinema-worldbuilder-pro |
+| Assign element tags for a shot | Yes — in the shot spec | cinema-worldbuilder-pro uses these |
+| Map slug → element tag → Higgsfield Elements name | Yes — Elements name mapping in reference library | Operator loads matching asset in Higgsfield UI |
+| Track M-mode consistency | Yes — world bible | cinema-worldbuilder-pro enforces in prompt |
 | Run pre-video continuity check | Yes | — |
 | Build schematic map (world-space prop layout) | Yes — schematic map template | — |
-| Frame Map (screen-space character position per shot) | Schematic map informs it | cinema-worldbuilder-pro-2.0 owns Frame Map grammar |
+| Frame Map (screen-space character position per shot) | Schematic map informs it | cinema-worldbuilder-pro owns Frame Map grammar |
 
 ---
 
@@ -235,5 +236,5 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 - [CHARACTER-BIBLE-TEMPLATE.md](CHARACTER-BIBLE-TEMPLATE.md) — per-character identity and wardrobe record
 - [OUTFIT-BIBLE-TEMPLATE.md](OUTFIT-BIBLE-TEMPLATE.md) — per-character colour palette, silhouette, and identity-marker companion doc, cross-checked against the character bible
 - [REFERENCE-LIBRARY-TEMPLATE.md](REFERENCE-LIBRARY-TEMPLATE.md) — reference-image index, slot assignments, and Higgsfield Elements name mapping
-- [SHOT-SPEC-TEMPLATE.md](SHOT-SPEC-TEMPLATE.md) — shot brief for handoff to banana-pro-director-2.0 or cinema-worldbuilder-pro-2.0
+- [SHOT-SPEC-TEMPLATE.md](SHOT-SPEC-TEMPLATE.md) — shot brief for handoff to banana-pro-director or cinema-worldbuilder-pro
 - [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLATE.md) — top-down spatial diagram spec for locking prop position and size per location
