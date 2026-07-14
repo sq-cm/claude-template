@@ -234,6 +234,12 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 /plugin install frontend-design@claude-plugins-official
 ```
 
+**higgsfield** (Higgsfield AI generation skills — image/video/audio for the AI-Cinema unit):
+```
+/plugin marketplace add higgsfield-ai/skills
+/plugin install higgsfield@higgsfield
+```
+
 **plannotator** (visual plan & diff review — plugin registration only; the binary is a separate optional step, see Step 10):
 ```
 /plugin marketplace add backnotprop/plannotator
