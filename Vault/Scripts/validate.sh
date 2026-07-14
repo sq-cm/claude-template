@@ -553,8 +553,8 @@ echo ""
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-sonnet-5 claude-opus-4-8"
-FABLE_PIN_COUNT=0  # Fable 5 retired from the sub; gatekeepers moved to claude-opus-4-8 (2026-07)
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-4-8 claude-fable-5"  # claude-fable-5 temporary for Odin Fable 5 promo pin (#196); revert with post-19/07/2026 promo-cliff revert
+FABLE_PIN_COUNT=1  # temporary for Odin Fable 5 promo pin (#196); revert to 0 with post-19/07/2026 promo-cliff revert
 fable_pin_live=0
 
 for fpath in "$AGENTS_DIR"/*.md; do
