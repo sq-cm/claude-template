@@ -1,10 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "cleanupPeriodDays": 365,
   "env": {
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "75"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
   },
   "permissions": {
     "allow": [
@@ -194,7 +199,7 @@
     "obsidian@obsidian-skills": true,
     "superpowers@claude-plugins-official": true,
     "caveman@caveman": true,
-    "impeccable@impeccable": true,
+    "impeccable@impeccable": false,
     "marketing-skills@marketingskills": true,
     "document-skills@anthropic-agent-skills": true,
     "claude-mem@claude-mem": true,
@@ -259,13 +264,8 @@
       }
     }
   },
+  "spinnerTipsEnabled": false,
   "tui": "fullscreen",
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true,
-  "spinnerTipsEnabled": false,
-  "cleanupPeriodDays": 365,
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  }
+  "agentPushNotifEnabled": true
 }
