@@ -204,12 +204,6 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 /plugin install obsidian@obsidian-skills
 ```
 
-**impeccable** (design QA):
-```
-/plugin marketplace add pbakaus/impeccable
-/plugin install impeccable@impeccable
-```
-
 **marketing-skills**:
 ```
 /plugin marketplace add coreyhaines31/marketingskills

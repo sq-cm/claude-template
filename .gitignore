@@ -20,6 +20,7 @@ desktop.ini
 .claude/projects/
 .claude/statsig/
 .claude/ide/
+.claude/scheduled_tasks*.lock
 
 # Obsidian internals
 .obsidian/workspace
