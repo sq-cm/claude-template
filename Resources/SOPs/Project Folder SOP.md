@@ -36,7 +36,7 @@ If eligible, the Orchestrator:
 
 The Orchestrator does not create a project folder speculatively or mid-task. If a team member discovers mid-work that a project folder is needed, they surface it to @{Orchestrator} — the Orchestrator then proposes and seeks approval before proceeding.
 
-Before routing work into an existing foldered project, the Orchestrator reads that project's `HISTORY.md` first — it's the fastest orientation on prior state. Dispatch specs to the working persona instruct them to read `HISTORY.md` first too, before picking up the task.
+Before routing work into an existing foldered project, the Orchestrator reads that project's `README.md` (if present) then `HISTORY.md` — the fastest orientation on what the project is and its prior state. Dispatch specs to the working persona instruct them to read `README.md` (if present) then `HISTORY.md` too, before picking up the task.
 
 ---
 
@@ -84,6 +84,10 @@ Projects/2026-07-06-context-creep-audit/
 
 Project folders created before `HISTORY.md` shipped carry no `HISTORY.md` — no proactive backfill. Seed the skeleton (from `Projects/Template/HISTORY.md`) on first touch: the first project-tagged `/memory-reconcile` for that project, or — seeded by the Orchestrator before routing — the first work dispatched into it, whichever comes first.
 
+### Grandfather clause — README.md
+
+Project folders created before the project `README.md` shipped carry no `README.md` — no proactive backfill. Seed the skeleton (from `Projects/Template/README.md`) on first touch: the Orchestrator seeds it before routing the first work dispatched into that folder.
+
 ---
 
 ## Default folder structure
@@ -92,6 +96,7 @@ The Orchestrator creates the minimum structure needed. A typical project folder:
 
 ```
 Projects/[project name]/
+├── README.md           ← living snapshot (what this project is now)
 ├── HISTORY.md          ← project-scoped memory (decision log, live state, gotchas)
 ├── 01 Briefs/          ← input briefs, docx files, reference assets
 ├── 02 Working/         ← drafts, iterations, intermediate files
@@ -105,6 +110,24 @@ Not every project needs all three. The Orchestrator creates only what the task r
 `03 Deliverables/` also carries a folder-tier `CLAUDE.md` — ships with `Projects/Template/`, so every new project folder inherits it. See [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md) for load semantics and governance. Where `03 Deliverables/` is added to an existing project folder later, copy the folder-tier `CLAUDE.md` in from `Projects/Template/03 Deliverables/`.
 
 `HISTORY.md` ships with `Projects/Template/` as a blank skeleton, copied into every new project folder at creation. It is project-scoped memory, self-contained and written in place by `/memory-reconcile` — see [Memory Protocol SOP](Memory%20Protocol%20SOP.md) § Project-scoped memory for the write mechanics; this SOP governs only the folder-lifecycle side.
+
+`README.md` also ships with `Projects/Template/` as a blank skeleton, copied in alongside `HISTORY.md` at creation. It is authored by a human or persona at kickoff and edited as the project evolves.
+
+### README vs HISTORY boundary
+
+The two seeded docs answer different questions and are written in different modes:
+
+- **`README.md` — what IS this project now?** A living snapshot: identity, scope and success criteria, structure deviations, owners, links, coarse status. **Overwrite in place** to keep it current.
+- **`HISTORY.md` — how did it get here?** An append log (decision trail, gotchas) plus one overwrite zone (`## Live state`), written by `/memory-reconcile` from session notes.
+
+The distinction is overwrite-vs-append, not static-vs-changing — both evolve. README is overwritten to stay current; HISTORY is appended to preserve the trail.
+
+**Status altitude rule.** The one overlap is status, split by altitude:
+
+- **README § Status** — coarse lifecycle, one word: `Active / Blocked / Delivered / Archived`.
+- **HISTORY § Live state** — detailed operational status: in-flight items, blockers, next action.
+
+One word up top; the detail in the log.
 
 **Tooling note:** any script or glob matching project subfolders should match by suffix (`*Briefs`, `*Working`, `*Deliverables`), not exact name, to survive future prefix changes.
 
@@ -146,7 +169,7 @@ ambiguous, rebuild).
 
 ## Template subfolder
 
-`Projects/Template/` is reserved as a blank scaffold for reference. The Orchestrator never uses it as a working project folder — always create a new named folder. It also carries the blank `HISTORY.md` skeleton that seeds every new project folder.
+`Projects/Template/` is reserved as a blank scaffold for reference. The Orchestrator never uses it as a working project folder — always create a new named folder. It also carries the blank `README.md` and `HISTORY.md` skeletons that seed every new project folder.
 
 ## Demo projects
 
@@ -167,6 +190,7 @@ When retiring any project, document, persona, brief, or other artefact, move it 
 Rules:
 
 - Preserve original folder structure inside `Vault/Archive/`. A retired project at `Projects/Foo/` moves to `Vault/Archive/Projects/Foo/`. A retired persona at `.claude/agents/foo.md` moves to `Vault/Archive/.claude/agents/foo.md`. Numeric prefixes on subfolders (`01 Briefs/` etc.) are preserved on archive — do not strip.
+- `README.md` travels inside the folder automatically — no separate handling needed.
 - `HISTORY.md` travels inside the folder automatically — no separate handling needed. Its one-line pointer in `Vault/Memory/context.md` demotes (is removed) at the next `/memory-reconcile` once the project is no longer active.
 - `Vault/Archive/` must exist before first use. The repo ships with a `.keep` file.
 - Archived items are not deleted. If a retired artefact must be permanently removed, the Orchestrator surfaces the deletion request to the user and waits for explicit approval.
