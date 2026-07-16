@@ -3,7 +3,6 @@
   "cleanupPeriodDays": 365,
   "env": {
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
-    "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "75"
   },
@@ -59,10 +58,6 @@
       "WebFetch(domain:developers.webflow.com)",
       "WebFetch(domain:registry.npmjs.org)",
       "WebFetch(domain:pypi.org)",
-      "Write(Projects/**)",
-      "Write(Notes/**)",
-      "Write(Resources/**)",
-      "Write(Vault/**)",
       "Edit(Projects/**)",
       "Edit(Notes/**)",
       "Edit(Resources/**)",
