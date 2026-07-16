@@ -108,7 +108,7 @@ The command validates each note (frontmatter handling per Stage 1, point 2), mov
 
 **Write order.** Decision log (and Gotchas, if applicable) append first; `## Live state` rewrites last, because it is a destructive replace rather than an append and must never run ahead of the durable log entry it's summarising.
 
-**Load rule.** @{Orchestrator} reads a project's `HISTORY.md` before routing new work into that project — it is the fast way to pick up prior decisions and known gotchas without re-deriving them. Dispatch specs to sub-agents working inside a foldered project should instruct the persona to read `HISTORY.md` first, same as they'd be pointed at a brief.
+**Load rule.** @{Orchestrator} reads a project's `README.md` (if present) then `HISTORY.md` before routing new work into that project — the fast way to pick up what the project is, prior decisions, and known gotchas without re-deriving them. Dispatch specs to sub-agents working inside a foldered project should instruct the persona to read `README.md` (if present) then `HISTORY.md` first, same as they'd be pointed at a brief.
 
 **Lifecycle.** Archival is automatic in the sense that the file travels inside its `Projects/<name>/` folder — there is nothing separate to move. When a project goes inactive, its `context.md` pointer demotes at the next reconcile like any other stale `## Project context` entry (§ Context budget & auto-archival, below); the `HISTORY.md` file itself stays put, untouched, ready to be read again if the project reopens. **Grandfathered folders** — those created before this feature shipped — have no `HISTORY.md` yet; one is seeded from the `Projects/Template/HISTORY.md` skeleton on first touch (the first note that reconciles against that project). There is no bulk backfill — it happens on demand only, project by project, as notes about it are reconciled.
 
@@ -203,5 +203,5 @@ If a destination file is malformed (rare — would require manual edit of a `Not
 - `.claude/commands/memory-reconcile.md` (the slash command procedure, incl. `project:` routing detail)
 - `Vault/Memory/MEMORY.md` (shipped vault-operations index, maintainer-curated)
 - `Vault/Memory/context.md` (per-clone local memory, reconcile target; seed: `context.example.md`)
-- `Resources/SOPs/Project Folder SOP.md` (the `HISTORY.md` skeleton and its place inside a project folder)
+- `Resources/SOPs/Project Folder SOP.md` (the `README.md` and `HISTORY.md` skeletons and their place inside a project folder)
 - `Resources/SOPs/README.md` (SOP index)
