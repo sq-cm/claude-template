@@ -1,7 +1,5 @@
 # /handoff-load
 
-> **DRAFT — REVIEW-PENDING.** Written by Plan 038 (`Vault/Plans/038-handoff-load-design.md`) as a design deliverable, not yet wired into the shipped command set. The Orchestrator (or maintainer) decides whether this ships as-is, ships amended, or stays parked. Do not treat this file's presence as an endorsement to route `/handoff-load` traffic until that review happens.
-
 You are the running assistant. This command resumes a session from a handoff saved by `/handoff-save`, either on this machine or on another one synced via Google Drive. It is the read-side counterpart to `/handoff-save`.
 
 ## Rules
