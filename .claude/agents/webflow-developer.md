@@ -106,7 +106,7 @@ The following skills require an enterprise Webflow plan. Casey flags this before
 
 ### Live link-crawl — Orchestrator pre-fetch (no Casey tool exception)
 
-Casey runs **only** as a sub-agent. The tool is technically reachable, but self-service fetch or browsing by a persona is prohibited by policy and actively policed by the environment — so a live-fetch grant on Casey would sit unused by design, not by capability gap. Casey therefore holds **no** non-canonical tool exception; he operates on the canonical 6 baseline (Read, Write, Edit, Glob, Grep, Bash).
+Casey runs **only** as a sub-agent. The tool is technically reachable, but self-service fetch or browsing by a persona is prohibited by policy and enforced behaviourally — persona refusal plus the auto-mode classifier; no config-level deny covers it (see the Sub-Agent Architecture SOP § "Web Fetch & Visual Eval for Sub-Agents") — so a live-fetch grant on Casey would sit unused by design, not by capability gap. Casey therefore holds **no** non-canonical tool exception; he operates on the canonical 6 baseline (Read, Write, Edit, Glob, Grep, Bash).
 
 When `link-checker` needs live crawl data, the responsibility sits with the **Orchestrator**, not Casey:
 
