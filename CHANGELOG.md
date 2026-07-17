@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-07-17
+
+- feat(update): tool self-check + nudge for herdr and plannotator; auto-install herdr + plannotator binary in onboarding; unpin plannotator (#204)
+
 ## 2026-07-14
 
 - feat(update): automate template-update detection and move `/update` mechanics into a deterministic script — downstream clones previously only learned about template updates when the user remembered to run `/update` manually. New `Vault/Scripts/update.sh` (bash 3.2/Git Bash safe) is the sole owner of the fetch → fast-forward `main` → rebase `local/main` flow, with an explicit exit-code contract (0 success, 2 not a repo, 3 `local/main`/`main` missing, 4 rebase/merge already in progress, 5 dirty tree, 6 fetch failed, 7 diverged `main`, 8 rebase conflict left mid-rebase, 9 already up to date, 1 unexpected); `.claude/commands/update.md` is rewritten as a thin wrapper that runs the script, relays its output verbatim, and acts on the exit code — the old LLM-guided step-by-step git instructions are retired. A new SessionStart hook, `.claude/hooks/update-check.sh`, runs a throttled (max once per 24h, shared state in git-ignored `Vault/Memory/.update-check-state`) `git fetch` against `origin` and, only when `local/main` is behind, emits a prompt-only nudge naming the recent upstream commits — it never runs `/update` automatically, and is silent on every other path (no repo, no `local/main`, mid-rebase, no `origin` remote, throttled, offline, or maintainer clones via `CLAUDE_TEMPLATE_MAINTAINER=1`). Fetch failures and DFS-guard output are logged to a new git-ignored `Vault/Memory/update-check-errors.md`, never surfaced to the user. `.gitignore` gains both new machine-local paths (#200)
