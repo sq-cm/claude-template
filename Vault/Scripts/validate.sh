@@ -396,6 +396,10 @@ done < <(find "$PROJECT_ROOT/.claude/agents" -maxdepth 1 -name "*.md" -print0 2>
 while IFS= read -r -d '' onb; do
     link_check_sources+=("$onb")
 done < <(find "$PROJECT_ROOT/Resources/Onboarding" -name "*.md" -print0 2>/dev/null)
+# Add slash-command files
+while IFS= read -r -d '' cmd; do
+    link_check_sources+=("$cmd")
+done < <(find "$PROJECT_ROOT/.claude/commands" -name "*.md" -print0 2>/dev/null)
 
 for src in "${link_check_sources[@]}"; do
     [ -f "$src" ] || continue
