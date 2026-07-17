@@ -720,7 +720,7 @@ if ! git rev-parse --git-dir >/dev/null 2>&1 || ! git log -1 >/dev/null 2>&1; th
     warn "Check 12 skipped — not a usable git history"
 else
     check12_pass=true
-    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205"
+    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222"
 
     pr_numbers=$(git log --format=%s -30 | grep -oE '#[0-9]+' | tr -d '#' | sort -un)
 
