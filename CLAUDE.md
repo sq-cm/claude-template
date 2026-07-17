@@ -73,7 +73,7 @@ Invoke the `dispatching-parallel-agents` skill when uncertain whether steps are 
 
 Sub-agents are **depth-1 only** — only the Orchestrator can dispatch via `Agent`. Personas needing fan-out return a spec to the Orchestrator. For `improve` and other fan-out meta-skills, see [§ Orchestrator-Only Operations](#orchestrator-only-operations). Full pattern: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
-**Web fetch & visual eval are Orchestrator-mediated.** A dispatched persona must not fetch live web content or drive a browser (`WebFetch`, `ctx_fetch_and_index`, Playwright `browser_*`) — reachable but prohibited by policy and actively policed at the point of attempt. The persona names the URL or artefact and what needs judging in its fan-out spec; the Orchestrator supplies it from the main session. Lane A (research fetch) and Lane B (visual eval) mechanics, enforcement detail, and the inert main-session WebFetch grants: [Sub-Agent Architecture SOP § Web Fetch & Visual Eval](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
+**Web fetch & visual eval are Orchestrator-mediated.** A dispatched persona must not fetch live web content or drive a browser (`WebFetch`, `ctx_fetch_and_index`, Playwright `browser_*`) — reachable in config but prohibited by policy, enforced behaviourally — restricted personas refuse the attempt and the auto-mode classifier gates the egress; no config-level deny covers these tools. The persona names the URL or artefact and what needs judging in its fan-out spec; the Orchestrator supplies it from the main session. Lane A (research fetch) and Lane B (visual eval) mechanics, enforcement detail, and the inert main-session WebFetch grants: [Sub-Agent Architecture SOP § Web Fetch & Visual Eval](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
 
 ---
 
@@ -92,8 +92,7 @@ Never delegated:
 
 ## Advisor Checkpoints
 
-**Eligible** when any of: durable artefact produced, hard-to-unwind interpretation, multi-step end-to-end.
-**Not eligible** when: dictated by tool output just read, lookup/roster check, or an administrative Orchestrator-only meta-op (roster review, hiring/firing/archiving, folder creation, read-only audit skills).
+**Eligibility criteria** are owned by the [Advisor Checkpoints SOP](Resources/SOPs/Advisor%20Checkpoints%20SOP.md) § When to run a checkpoint — in brief: durable artefact, hard-to-unwind interpretation, or multi-step work is eligible; tool-dictated next steps, lookups, and administrative Orchestrator-only meta-ops are not.
 
 Governance-artefact edits — any CLAUDE.md, SOP, or persona file — stay checkpoint-eligible even though the Orchestrator executes them itself; being Orchestrator-only never exempts an edit from Checkpoints A and B.
 

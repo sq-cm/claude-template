@@ -12,7 +12,7 @@ Before any file moves to a `03 Deliverables/` folder, @{QAComplianceReviewer} mu
 
 **Exemption:** the folder-tier `CLAUDE.md` inside `03 Deliverables/` is folder infrastructure, not a deliverable — it never goes to @{QAComplianceReviewer} and is exempt from the Gate; see [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md).
 
-**Optional broad scope (upgrade path) — not the default**. A maintainer may extend the Gate to durable artefact changes that meet project-eligible criteria (per the Project Folder SOP) — SOP edits, persona edits, audit close-outs — even when no `03 Deliverables/` folder is involved. The shipped default is narrow (Deliverables only). To adopt the broad scope, state it here and in CLAUDE.md § QA Gate. The [Fast-Path Lane SOP](Fast-Path%20Lane%20SOP.md) makes broad scope less operationally costly to adopt.
+**Optional broad scope (upgrade path) — not the default**. A maintainer may extend the Gate to durable artefact changes — for this purpose, edits to a governance or process artefact that persists and is relied upon going forward, such as SOP edits, persona edits, and audit close-outs — even when no `03 Deliverables/` folder is involved. The shipped default is narrow (Deliverables only). To adopt the broad scope, state it here and in CLAUDE.md § QA Gate. The [Fast-Path Lane SOP](Fast-Path%20Lane%20SOP.md) makes broad scope less operationally costly to adopt.
 
 ## Plan-positioning rule
 
@@ -69,6 +69,8 @@ MD produced → humaniser → @{QAComplianceReviewer} MD QA (PASS) → HTML rend
 ```
 
 Both gates issue independent PASS verdicts. HTML rendering does not begin while MD QA is FLAGGED or BLOCKED.
+
+The HTML render carries no separate Checkpoint B: it is the same approved content as the source MD, which already cleared Checkpoint B before MD QA — rendering to HTML does not reopen that gate.
 
 ### Cross-references
 
