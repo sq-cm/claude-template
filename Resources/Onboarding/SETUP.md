@@ -109,6 +109,8 @@ If you plan to use repo-backed best practices (Repo Consultation SOP), add repos
 
 See `Resources/SOPs/Repo Setup SOP.md` for how to clone repos and add index entries.
 
+If you plan to use doc-URL references instead (or as well), drop documentation URLs into `Resources/Refs/IMPORT.md` and run `/import-ref` — see `Resources/Refs/IMPORT.md`'s header for the expected format.
+
 ---
 
 ## Step 6 — Verify the vault
