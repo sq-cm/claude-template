@@ -294,6 +294,7 @@ Then print:
 
 > **Workspace ready.**
 > Drop GitHub repo URLs into `Resources/Git/IMPORT.md` and run `/import-repos` to set up your reference library.
+> Drop documentation URLs into `Resources/Refs/IMPORT.md` and run `/import-ref` to index reference docs.
 > Send any message to begin — the Orchestrator will route it.
 
 ---

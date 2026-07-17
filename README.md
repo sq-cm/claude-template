@@ -172,6 +172,7 @@ Claude - TEMPLATE/
 │   ├── Assets/                        ← shared images and demo assets
 │   ├── Build Standards/               ← extracted technical build standards
 │   ├── Git/                           ← cloned reference repos (git-ignored)
+│   ├── Refs/                          ← indexed documentation references (INDEX.md + IMPORT.md)
 │   ├── Learn/                         ← interactive onboarding guide (index.html)
 │   ├── Onboarding/                    ← SETUP.md, team-onboarding-guide.md
 │   │   └── Demos/                     ← 5 sample onboarding projects
