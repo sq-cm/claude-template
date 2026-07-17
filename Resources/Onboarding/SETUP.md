@@ -28,7 +28,7 @@ bash install.sh
 install.bat
 ```
 
-This does three things automatically: blocks push to the upstream template repo (your instance is yours — you can't accidentally push back), activates git hooks (commit + push gates), and creates your `.env` file. The script verifies `core.hooksPath` resolved before proceeding — if it prints `[FAIL]`, fix that before continuing.
+This automatically blocks push to the upstream template repo (your instance is yours — you can't accidentally push back), activates git hooks (commit + push gates), creates your `.env` file, and seeds your local `Vault/Memory/context.md`. The script verifies `core.hooksPath` resolved before proceeding — if it prints `[FAIL]`, fix that before continuing.
 
 ### What you can and can't change locally
 

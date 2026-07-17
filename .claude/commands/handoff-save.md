@@ -7,7 +7,7 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 ## Rules
 - Orchestrator owns all handoff writes. Never delegate.
 - Save to: `Vault/Logs/Handoffs/YYYY/YYYY-MM-DD-HHMMSS-[slug].md` — slug is 2–4 word kebab-case summary of what the next session must do. Seconds prevent collisions on rapid re-saves.
-- Append one index entry to `Vault/Logs/Handoffs/INDEX.md` (create file if missing — heading: `# Handoffs Index`).
+- Append one index entry to `Vault/Logs/Handoffs/INDEX.md` (create file if missing — heading: `# Handoffs Index`). Corrections or supersessions are appended as a new line — never edited or inserted in place — with a "supersedes [prior entry]" note in the entry text, so newest-=-last stays true.
 - Use actual current date/time. Capture hostname and current git branch if available.
 - If the user passes an argument, treat it as a **description of what the next session will focus on** and tailor the doc accordingly. Derive slug from it.
 - Do not duplicate content already captured in other artifacts (PRDs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
