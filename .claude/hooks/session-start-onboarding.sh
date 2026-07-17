@@ -149,7 +149,10 @@ BACKFILL_NOTE=""
 case " $missing " in
   *" tier2_plannotator_binary "*)
     if [ "$PLANNOTATOR_BIN_FOUND" = "true" ]; then
-      missing=$(printf '%s' "$missing" | sed 's/\btier2_plannotator_binary\b//')
+      missing=" $missing "
+      missing=${missing/ tier2_plannotator_binary / }
+      missing=${missing# }
+      missing=${missing% }
       BACKFILL_NOTE="${BACKFILL_NOTE}tier2_plannotator_binary "
     fi
     ;;
@@ -157,7 +160,10 @@ esac
 case " $missing " in
   *" tier2_herdr "*)
     if [ "$HERDR_FOUND" = "true" ]; then
-      missing=$(printf '%s' "$missing" | sed 's/\btier2_herdr\b//')
+      missing=" $missing "
+      missing=${missing/ tier2_herdr / }
+      missing=${missing# }
+      missing=${missing% }
       BACKFILL_NOTE="${BACKFILL_NOTE}tier2_herdr "
     fi
     ;;
