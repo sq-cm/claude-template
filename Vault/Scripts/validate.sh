@@ -712,6 +712,7 @@ echo ""
 #                 landed under their own numbers, so #205 (the backfill PR itself)
 #                 is the pure-backfill exemption, same class as #82/#100.
 #   222         — changelog backfill for #212–#219; pure-backfill class (#82/#100/#205).
+#   228         — changelog backfill for #223–#227; pure-backfill class (#82/#100/#205).
 #
 # WARN, not FAIL: squash subject formats vary and the maintainer legitimately
 # batches entries; this is a commit-time tripwire, not a hard gate.
@@ -725,7 +726,7 @@ if ! git rev-parse --git-dir >/dev/null 2>&1 || ! git log -1 >/dev/null 2>&1; th
     warn "Check 12 skipped — not a usable git history"
 else
     check12_pass=true
-    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222"
+    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222 228"
 
     pr_numbers=$(git log --format=%s -30 | grep -oE '#[0-9]+' | tr -d '#' | sort -un)
 
