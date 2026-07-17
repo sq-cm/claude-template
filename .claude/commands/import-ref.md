@@ -16,13 +16,13 @@ If IMPORT.md is empty or has no valid URLs, report "IMPORT.md is empty — nothi
 
 #### 2a. Dedup check
 
-Check the URL against the `Source URL` column of `Resources/Refs/INDEX.md`. If already present, skip the fetch and report `"[url] already indexed as of [fetch date] — re-stage to force refresh"`; move to the next URL.
+Check the URL against the `Source URL` column of `Resources/Refs/INDEX.md`. Compare normalised forms: lowercase the scheme and host, and ignore a trailing slash — `https://example.com/docs` and `https://example.com/docs/` are the same ref. If already present, skip the fetch and report `"[url] already indexed as of [fetch date] — re-stage to force refresh"`; move to the next URL.
 
 #### 2b. Fetch and index
 
 Call `ctx_fetch_and_index` on the URL with a descriptive source label (short human-readable title for the page, not just the URL — this label carries the URL in its `<label>::<url>` attribution format in future `ctx_search` results).
 
-If the fetch fails (404, timeout, paywall block, or any tool error): log to `Vault/Logs/ref-failures.md` as a new table row:
+If the fetch fails (404, timeout, paywall block, or any tool error): log to `Vault/Logs/ref-failures.md` as a new table row (create the file if missing, with heading `# Ref Import Failures` and header row `| Date | URL | Error | Action |` / `|---|---|---|---|`):
 ```
 | YYYY-MM-DD | [url] | [error message] | skipped |
 ```
@@ -44,6 +44,10 @@ Add a new row to the `## Reference Index` table in `Resources/Refs/INDEX.md`:
 ```
 | [name] | [description] | [tags as backtick-wrapped comma-separated list] | [url] | [fetch date DD/MM/YYYY] |
 ```
+
+Escape any literal `|` in the name, description, tags, or URL as `\|` before insertion so the table's column count is preserved.
+
+If the URL contains embedded credentials or a query-string token (presigned links, `?token=`/`?key=` parameters), strip the query string before persisting the URL to `INDEX.md` — keep the full URL only in the ephemeral fetch call — and tell the user the original may need rotation if it was already committed anywhere.
 
 ### 3. Clear IMPORT.md
 
@@ -71,6 +75,8 @@ clones. Resources/Refs/INDEX.md is the durable cross-machine record — re-run
 https://example.com/docs/some-api-reference
 https://another-site.dev/guide/topic
 ```
+
+Staged URLs must not contain embedded credentials or query-string tokens (presigned links, `?token=`/`?key=` parameters) — `Resources/Refs/INDEX.md` is git-tracked, so a committed credential is burned even after deletion.
 
 ## Open questions (not built — see Plan 039 Design record)
 
