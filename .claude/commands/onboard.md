@@ -218,13 +218,13 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 
 **skill-creator** (create and improve skills):
 ```
-/plugin marketplace add anthropics/claude-plugins-official/plugins/skill-creator
+/plugin marketplace add anthropics/claude-plugins-official
 /plugin install skill-creator@claude-plugins-official
 ```
 
 **frontend-design** (production UI generation):
 ```
-/plugin marketplace add anthropics/claude-plugins-official/plugins/frontend-design
+/plugin marketplace add anthropics/claude-plugins-official
 /plugin install frontend-design@claude-plugins-official
 ```
 
