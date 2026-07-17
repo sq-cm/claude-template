@@ -18,7 +18,8 @@ flagging. Vault adaptation: the over-engineering sub-lens in references/audit-pl
 output for THIS vault is repointed `plans/` → `Vault/Plans/` in this file,
 `references/plan-template.md`, and `references/closing-the-loop.md` (vault root rule — no
 new root-level folders); the `plans/`-in-repo-root + `advisor-plans/` fallback is retained
-for external audited repos.
+for external audited repos. Vault adaptation: the optional judge-panel mode — the `panel`
+invocation bullet, one Phase 3 sentence, and references/panel-mode.md — is local, not upstream.
 -->
 
 # Improve
@@ -81,6 +82,8 @@ Every finding needs: evidence (`file:line` references), impact, effort estimate 
 
 **Vet before presenting — subagents over-report.** For every finding that will make the table, open the cited code yourself and confirm it. Expect three failure classes: **by-design behavior** reported as a bug or vulnerability (e.g. honoring `https_proxy` flagged as SSRF — it's the standard proxy convention; or a tradeoff explicitly recorded in an ADR / decision doc from recon — that's settled, not a finding); **mis-attributed evidence** (real finding, wrong file or line); and duplicates across subagents. Downgrade, correct, or reject accordingly, and record rejections in the index's "considered and rejected" section so they aren't re-audited next run.
 
+In **panel mode** this solo vetting is replaced by the adversarial judge pipeline — see [references/panel-mode.md](references/panel-mode.md).
+
 Present the vetted findings table to the user, ordered by leverage (impact ÷ effort, weighted by confidence):
 
 | # | Finding | Category | Impact | Effort | Risk | Evidence |
@@ -124,6 +127,7 @@ Finish by writing `Vault/Plans/README.md` with the recommended execution order, 
 - `quick` / `deep` (anywhere in the invocation) → effort level for the audit; see the table in Phase 2. Composes with everything: `quick security`, `deep --issues`. Default is `standard`.
 - With a focus argument (e.g. `security`, `perf`, `tests`) → run Recon, then audit only that category, then plan.
 - `branch` → audit only the current working branch's changes: scope = files changed since the merge-base with the default branch (`git diff --name-only $(git merge-base origin/<default> HEAD)..HEAD`) plus their direct importers/callers. Light recon, all categories, usually no subagents. **Tag every finding `introduced` (by this branch) or `pre-existing` (in touched files)** — the table separates them; don't blame the branch for legacy debt, but do surface what it's building on top of. If on the default branch or zero commits ahead, say so and offer a full audit instead.
+- `panel` (composable modifier, any effort level; vault-local) → replaces Phase 3's solo vetting with an adversarial persona-judge panel: 4–5 parallel lens-scoped judges double as the Phase 2 auditors, full cross-challenge round, Senior Adviser tie-breaks and Checkpoints A/B, date-named consensus report in `Vault/Plans/`. Expensive (~3–5× tokens) — explicit invocation only, never implied by `deep`. **Read [references/panel-mode.md](references/panel-mode.md) before dispatching.**
 - `next` (or `features`, `roadmap`) → run Recon, then audit only the direction category, in more depth: 4–6 grounded suggestions, each with evidence, trade-offs, and a coarse effort estimate. Selected ones become design/spike plans, not build-everything plans.
 - `plan <description>` → skip the audit; the user already knows what they want. Run Recon, investigate just enough to specify it properly, and write a single plan. If the description is too ambiguous to specify honestly, first try to resolve each ambiguity from the codebase itself; only what's left becomes questions to the user — asked one at a time, each with a recommended answer.
 - `review-plan <file>` → critique an existing plan in `Vault/Plans/` against the template's standards and tighten it. If you authored the plan in this same session, also have a fresh-context subagent read it cold and report ambiguities — self-critique misses gaps you mentally fill from context the executor won't have.
