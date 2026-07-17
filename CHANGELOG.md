@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this template are logged here, newest first. Each entry maps to a merged pull request; the `#nn` reference links to the PR on GitHub. For full diffs, see the git history. Changelog-maintenance PRs — pure backfills such as #82 and #100 — do not receive entries of their own.
+All notable changes to this template are logged here, newest first. Each entry maps to a merged pull request; the `#nn` reference links to the PR on GitHub. For full diffs, see the git history. Changelog-maintenance PRs (pure backfills such as #82, #100, #205, #222) and clone-local, non-template-facing decisions (the #184–#199 era) do not receive entries of their own; the authoritative exemption list and its categories live beside Check 12 in `Vault/Scripts/validate.sh`.
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
