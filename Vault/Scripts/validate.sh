@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 10 read-only checks to verify the vault's structural invariants.
+# Runs 11 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -27,6 +27,7 @@
 #   Check 8  — required seed file missing
 #   Check 9  — settings.json hook/statusLine script path does not exist
 #   Check 10 — persona model: pin missing or outside documented tiers
+#   Check 11 — skill SKILL.md missing, malformed frontmatter, or description over the 1024-char loader cap
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
@@ -259,7 +260,7 @@ for fpath in "$AGENTS_DIR"/*.md; do
     # (handles both "tools: [A, B]" and list-form "  - Tool")
     tools_section=$(echo "$frontmatter" | awk '
         { sub(/\r$/, "") }
-        /^tools:/ { in_tools=1; line=$0; sub(/^tools:[ \t]*/, "", line); if (line != "") print line; next }
+        /^tools:/ { in_tools=1; line=$0; sub(/^tools:[ \t]*/, "", line); gsub(/[\[\]]/, "", line); gsub(/,/, "\n", line); if (line != "") print line; next }
         in_tools && /^  - / { sub(/^  - /, ""); print; next }
         in_tools && /^[a-zA-Z]/ { exit }
         in_tools && /^\[/ { gsub(/[\[\]]/, ""); gsub(/,/, "\n"); print; exit }
@@ -320,9 +321,13 @@ echo ""
 # ──────────────────────────────────────────────────────────────────────────────
 # Check 6 — internal markdown links resolve to existing files
 #
-# Sources: CLAUDE.md, README.md, CHANGELOG.md, Resources/SOPs/*.md
+# Sources: CLAUDE.md, README.md, CHANGELOG.md, Vault/README.md, Resources/SOPs/*.md,
+# .claude/skills/**/*.md, .claude/agents/*.md (top-level), Resources/Onboarding/**/*.md
 # Extract ](relative/path) links, URL-decode %20→space.
 # Skip http/https/mailto and pure-anchor (#…) links.
+# Lines inside fenced code blocks (``` or ~~~) are skipped before extraction —
+# illustrative markdown-template examples (e.g. write-a-skill's SKILL.md
+# template) are not real links and must not false-positive as broken.
 #
 # Odin correction 7: resolve by STRING manipulation only — no readlink -f / realpath.
 # Use -E regex only, never -P.
@@ -338,7 +343,10 @@ check_links_file() {
     local source_dir="${source_file%/*}"
     [ "$source_dir" = "$source_file" ] && source_dir="."
 
-    grep -Eo '\]\([^)]+\)' "$source_file" 2>/dev/null | sed 's/^](//' | sed 's/)$//' | while IFS= read -r raw_target; do
+    awk '
+        /^[[:space:]]*(```|~~~)/ { in_fence = !in_fence; next }
+        !in_fence { print }
+    ' "$source_file" 2>/dev/null | grep -Eo '\]\([^)]+\)' | sed 's/^](//' | sed 's/)$//' | while IFS= read -r raw_target; do
         case "$raw_target" in
             http://*|https://*|mailto:*) continue ;;
             \#*) continue ;;
@@ -369,11 +377,24 @@ link_check_sources=(
     "$PROJECT_ROOT/CLAUDE.md"
     "$PROJECT_ROOT/README.md"
     "$PROJECT_ROOT/CHANGELOG.md"
+    "$PROJECT_ROOT/Vault/README.md"
 )
 # Add all SOPs
 while IFS= read -r -d '' sop; do
     link_check_sources+=("$sop")
 done < <(find "$PROJECT_ROOT/Resources/SOPs" -name "*.md" -print0 2>/dev/null)
+# Add all skill files (any depth)
+while IFS= read -r -d '' skl; do
+    link_check_sources+=("$skl")
+done < <(find "$PROJECT_ROOT/.claude/skills" -name "*.md" -print0 2>/dev/null)
+# Add top-level agent (persona) files
+while IFS= read -r -d '' agt; do
+    link_check_sources+=("$agt")
+done < <(find "$PROJECT_ROOT/.claude/agents" -maxdepth 1 -name "*.md" -print0 2>/dev/null)
+# Add all onboarding files
+while IFS= read -r -d '' onb; do
+    link_check_sources+=("$onb")
+done < <(find "$PROJECT_ROOT/Resources/Onboarding" -name "*.md" -print0 2>/dev/null)
 
 for src in "${link_check_sources[@]}"; do
     [ -f "$src" ] || continue
@@ -594,6 +615,78 @@ if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
 fi
 
 $check10_pass && pass "All persona model pins match documented tiers"
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 11 — skill manifest integrity
+#
+# Every .claude/skills/*/ dir must have a SKILL.md with 'name:' and
+# 'description:' frontmatter keys, and the description must be within the
+# 1024-char loader cap (plan 028 breached this once — cinema-worldbuilder-pro
+# at 1195 chars — with no error anywhere; this check makes that class loud).
+#
+# Description may span multiple lines (YAML block/folded scalar or plain
+# continuation) — continuation lines are joined with a single space before
+# measuring length.
+#
+# Frontmatter extraction reuses Check 5/10's CRLF-proof awk idiom.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 11: Skill manifest integrity ---"
+check11_pass=true
+SKILLS_DIR="$PROJECT_ROOT/.claude/skills"
+DESCRIPTION_CAP=1024
+
+for sdir in "$SKILLS_DIR"/*/; do
+    sname=$(basename "$sdir")
+    skill_md="$sdir/SKILL.md"
+
+    if [ ! -f "$skill_md" ]; then
+        fail "$sname: no SKILL.md"
+        check11_pass=false
+        continue
+    fi
+
+    # Same CRLF-proof first-frontmatter-block extraction as Check 5/10
+    frontmatter=$(awk '
+        { sub(/\r$/, "") }
+        /^---$/ { count++; if (count == 2) exit; next }
+        count == 1 { print }
+    ' "$skill_md")
+
+    if [ -z "$frontmatter" ]; then
+        fail "$sname: no YAML frontmatter block parsed — SKILL.md malformed or missing --- fences"
+        check11_pass=false
+        continue
+    fi
+
+    if ! echo "$frontmatter" | grep -q '^name:'; then
+        fail "$sname: no 'name:' key in SKILL.md frontmatter"
+        check11_pass=false
+    fi
+
+    if ! echo "$frontmatter" | grep -q '^description:'; then
+        fail "$sname: no 'description:' key in SKILL.md frontmatter"
+        check11_pass=false
+        continue
+    fi
+
+    # Join the description: line's value with any continuation lines (lines
+    # until the next top-level 'key:' or end of frontmatter) into one string.
+    description=$(echo "$frontmatter" | awk '
+        /^description:/ { in_desc=1; line=$0; sub(/^description:[ \t]*/, "", line); buf=line; next }
+        in_desc && /^[A-Za-z_-]+:/ { exit }
+        in_desc { gsub(/^[ \t]+|[ \t]+$/, ""); if ($0 != "") buf = buf " " $0; next }
+        END { print buf }
+    ')
+
+    desc_len=${#description}
+    if [ "$desc_len" -gt "$DESCRIPTION_CAP" ]; then
+        fail "$sname: description $desc_len chars exceeds the $DESCRIPTION_CAP-char loader cap"
+        check11_pass=false
+    fi
+done
+
+$check11_pass && pass "All 28 skills have SKILL.md, name/description frontmatter, descriptions within the 1024-char cap"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────
