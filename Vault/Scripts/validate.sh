@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 11 read-only checks to verify the vault's structural invariants.
+# Runs 12 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -33,6 +33,7 @@
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
 #   Check 9  — prose `/command` reference with no command file, skill, or built-in
 #   Check 10 — claude-fable-5 pin count differs from FABLE_PIN_COUNT tripwire
+#   Check 12 — merged PR (recent history) missing a CHANGELOG.md entry, not exempt
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -687,6 +688,55 @@ for sdir in "$SKILLS_DIR"/*/; do
 done
 
 $check11_pass && pass "All 28 skills have SKILL.md, name/description frontmatter, descriptions within the 1024-char cap"
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 12 — merged PRs (recent history) have a CHANGELOG.md entry
+#
+# CHANGELOG.md:3's own contract: "Each entry maps to a merged pull request."
+# Merge style is squash-only, so every merged PR's number lands in a commit
+# subject (conventional-commit style, e.g. "... (#209)"); this check reconciles
+# the last 30 subjects on the current branch against CHANGELOG.md and WARNs on
+# any non-exempt PR number that never made it in.
+#
+# CHANGELOG_EXEMPT_PRS is a maintained tripwire constant (same pattern as
+# Check 7's EXPECTED_* and Check 10's FABLE_PIN_COUNT) pointing at CHANGELOG.md:3's
+# own exemption clause — append to it deliberately, one PR at a time:
+#   82, 100     — pure changelog-maintenance backfill PRs, named in CHANGELOG.md:3 itself.
+#   184-199     — clone-local/non-template-facing era decisions, deliberately unlogged.
+#   205         — drift-audit backfill PR (A1); the backfilled #201-#203 entries
+#                 landed under their own numbers, so #205 (the backfill PR itself)
+#                 is the pure-backfill exemption, same class as #82/#100.
+#
+# WARN, not FAIL: squash subject formats vary and the maintainer legitimately
+# batches entries; this is a commit-time tripwire, not a hard gate.
+#
+# 30-commit lookback is deliberate: old unlogged pre-contract history must
+# never start warning. Revisit only if warn noise appears on a quiet vault.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 12: Merged PRs reconciled against CHANGELOG.md ---"
+
+if ! git rev-parse --git-dir >/dev/null 2>&1 || ! git log -1 >/dev/null 2>&1; then
+    warn "Check 12 skipped — not a usable git history"
+else
+    check12_pass=true
+    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205"
+
+    pr_numbers=$(git log --format=%s -30 | grep -oE '#[0-9]+' | tr -d '#' | sort -un)
+
+    for n in $pr_numbers; do
+        case " $CHANGELOG_EXEMPT_PRS " in
+            *" $n "*) continue ;;
+        esac
+
+        if ! grep -qE "#$n([^0-9]|$)" "$PROJECT_ROOT/CHANGELOG.md"; then
+            warn "PR #$n in recent history has no CHANGELOG entry (backfill or add to CHANGELOG_EXEMPT_PRS if it's a pure-backfill PR)"
+            check12_pass=false
+        fi
+    done
+
+    $check12_pass && pass "All merged PRs in the last 30 commits are reconciled against CHANGELOG.md"
+fi
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────
