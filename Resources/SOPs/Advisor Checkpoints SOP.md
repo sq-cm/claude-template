@@ -26,6 +26,8 @@ The Senior Adviser is **not** directly addressable by the user. They are invoked
 
 ## When to run a checkpoint
 
+This section **owns** the enumerated eligibility criteria — edit them here only; root `CLAUDE.md` § Advisor Checkpoints carries a one-line pointer, not a second copy.
+
 A task is **checkpoint-eligible** when it meets any of:
 
 - Produces a durable artefact (research brief, persona file, audit report, code embed, generated image set).

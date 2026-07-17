@@ -6,6 +6,8 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-07-17
 
+- chore(tooling): drift-audit hygiene trio — `validate.sh` Check 8's `seed_files` array gains `Projects/Template/README.md` (a required seeded traveller since #203 whose pair `HISTORY.md` was already listed, so Check 8 would not have caught its deletion); `.env.example` § MCP Servers gains a commented `WEBFLOW_API_TOKEN=` block in the house Unlocks/Get/Optional format (the Webflow persona is active with a live rotation-tracked token but had no onboarding placeholder); and `.claude/hooks/capture-log.sh` has its exec bit restored to `100755` via `git update-index --chmod=+x`, realigning all six hooks with the #92 normalisation. Findings A3/A8/A11 of the 2026-07-17 drift audit (#207)
+- fix(security): tighten the `Bash(git fetch *)` allow rule and deny MEMORY.md edits — the wildcard rule pre-approved `git fetch <url>` against arbitrary remotes, bypassing the auto-mode classifier that gates un-listed egress (reachable from any dispatched sub-agent, since every persona holds Bash); replaced with the pair `Bash(git fetch)` / `Bash(git fetch origin*)` so origin fetches stay frictionless and anything else prompts. Also adds a deny entry for `Vault/Memory/MEMORY.md`, which the broad `Edit(Vault/**)` allow rule had silently pre-approved despite the file being maintainer-only; `theme-name-map.md` stays writable (user-editable by design). Findings A2/A7 of the 2026-07-17 drift audit (#206)
 - feat(update): tool self-check + nudge for herdr and plannotator; auto-install herdr + plannotator binary in onboarding; unpin plannotator (#204)
 
 ## 2026-07-16
