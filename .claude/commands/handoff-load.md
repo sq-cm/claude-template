@@ -20,7 +20,7 @@ You are the running assistant. This command resumes a session from a handoff sav
      - **Zero matches** → state plainly that nothing matched, list the 5 most recent index entries (date, slug, status, pickup hint) as alternatives, and stop. Do not guess.
      - **One match** → go to step 4 with that entry's file path.
      - **Multiple matches** → list all matches (date, slug, status, pickup hint) and ask the user which one they mean. Do not auto-pick "newest" — ambiguity gets a question, not a guess.
-   - **`$ARGUMENTS` is empty**: resolve to the last line of `INDEX.md` (entries are append-only, so newest = last). Go to step 4 with that entry's file path.
+   - **`$ARGUMENTS` is empty**: resolve to the last line of `INDEX.md` (entries are append-only, so newest = last — corrections are appended as new "supersedes" lines rather than edited in place, so this holds even after a correction). Go to step 4 with that entry's file path.
 
 3. **Fallback — no index (fresh machine, or Drive sync hasn't caught up yet).**
    - Run something equivalent to `ls -t Vault/Logs/Handoffs/*/*.md` and exclude `INDEX.md` itself from the results.
