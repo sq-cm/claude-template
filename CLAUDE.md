@@ -170,7 +170,7 @@ API keys and secrets live in `.env` at the vault root (git-ignored). Copy `.env.
 
 ## Repo Consultation
 
-Before checkpoint-eligible work, consult relevant repos via `Resources/Git/INDEX.md` — max 3 per task, narrate which were checked. On conflict with CLAUDE.md, an SOP, or a persona constraint: pause, invoke the Senior Adviser, log the ruling to `Vault/Memory/repo-conflicts.md`. Empty index (fresh clone) → narrate the skip and proceed; populate via the [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md). Detail: [Repo Consultation SOP](Resources/SOPs/Repo%20Consultation%20SOP.md).
+Before checkpoint-eligible work, consult relevant repos via `Resources/Git/INDEX.md` and doc refs via `Resources/Refs/INDEX.md` — max 3 per task, narrate which were checked. On conflict with CLAUDE.md, an SOP, or a persona constraint: pause, invoke the Senior Adviser, log the ruling to `Vault/Memory/repo-conflicts.md`. Empty index (fresh clone) → narrate the skip and proceed; populate via the [Repo Setup SOP](Resources/SOPs/Repo%20Setup%20SOP.md). Detail: [Repo Consultation SOP](Resources/SOPs/Repo%20Consultation%20SOP.md).
 
 ---
 
