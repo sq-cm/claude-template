@@ -3,6 +3,14 @@ name: hyperframes-media
 description: Asset preprocessing for HyperFrames compositions — text-to-speech narration (Kokoro), audio/video transcription (Whisper), and background removal for transparent overlays (u2net). Use when generating voiceover from text, transcribing speech for captions, removing the background from a video or image to use as a transparent overlay, choosing a TTS voice or whisper model, or chaining these (TTS → transcribe → captions). Each command downloads its own model on first run.
 ---
 
+<!--
+Source: https://github.com/heygen-com/hyperframes (vendored). Frozen at upstream commit `8fcbb63`;
+vendoring record: Vault/Memory/Notes/2026-07/2026-07-05-phase3-shortlist-execution.md (Odin
+recommendation, adopted — do not re-litigate without demonstrated need).
+Upstream restructured in 2026-07 and is NO LONGER TRACKED.
+Divergence annotated 17/07/2026 (plan 036).
+-->
+
 # HyperFrames Media Preprocessing
 
 Three CLI commands that produce assets for compositions: `tts` (speech), `transcribe` (timestamps), and `remove-background` (transparent video). Each downloads a model on first run and caches it under `~/.cache/hyperframes/`. Drop the output into the project, then reference it from the composition HTML — see the `hyperframes` skill for the audio/video element conventions.

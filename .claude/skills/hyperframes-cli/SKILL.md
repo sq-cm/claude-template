@@ -3,6 +3,15 @@ name: hyperframes-cli
 description: HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, validate, inspect), preview, render, and environment troubleshooting (doctor, browser, info, upgrade). Use when running any of these commands or troubleshooting the HyperFrames build/render environment. For asset preprocessing commands (`tts`, `transcribe`, `remove-background`), invoke the `hyperframes-media` skill instead.
 ---
 
+<!--
+Source: https://github.com/heygen-com/hyperframes (vendored). Frozen at upstream commit `8fcbb63`;
+vendoring record: Vault/Memory/Notes/2026-07/2026-07-05-phase3-shortlist-execution.md (Odin
+recommendation, adopted — do not re-litigate without demonstrated need).
+Upstream restructured in 2026-07 and is NO LONGER TRACKED. The `validate` → `check` deprecation
+note in this skill describes the pre-restructure CLI surface.
+Divergence annotated 17/07/2026 (plan 036).
+-->
+
 # HyperFrames CLI
 
 Everything runs through `npx hyperframes`. Requires Node.js >= 22 and FFmpeg.
