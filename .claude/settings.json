@@ -15,7 +15,8 @@
       "Bash(git remote *)",
       "Bash(git config --get *)",
       "Bash(git config --list)",
-      "Bash(git fetch *)",
+      "Bash(git fetch)",
+      "Bash(git fetch origin*)",
       "Bash(git status)",
       "Bash(git status *)",
       "Bash(git log *)",
@@ -82,7 +83,8 @@
       "Read(./**/dist/**)",
       "Read(./**/coverage/**)",
       "Read(./**/*.min.js)",
-      "Read(./**/*.lock)"
+      "Read(./**/*.lock)",
+      "Edit(Vault/Memory/MEMORY.md)"
     ],
     "defaultMode": "auto"
   },
