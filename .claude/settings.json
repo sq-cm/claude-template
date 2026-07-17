@@ -194,7 +194,7 @@
     "plannotator@plannotator": true,
     "context-mode@context-mode": true,
     "obsidian@obsidian-skills": true,
-    "superpowers@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false,
     "caveman@caveman": true,
     "impeccable@impeccable": false,
     "marketing-skills@marketingskills": true,
