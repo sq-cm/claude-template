@@ -707,6 +707,7 @@ echo ""
 #   205         — drift-audit backfill PR (A1); the backfilled #201-#203 entries
 #                 landed under their own numbers, so #205 (the backfill PR itself)
 #                 is the pure-backfill exemption, same class as #82/#100.
+#   222         — changelog backfill for #212–#219; pure-backfill class (#82/#100/#205).
 #
 # WARN, not FAIL: squash subject formats vary and the maintainer legitimately
 # batches entries; this is a commit-time tripwire, not a hard gate.
