@@ -20,7 +20,7 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 2. Capture environment: hostname (`$env:COMPUTERNAME` Windows, `hostname` elsewhere), current git branch if in a repo, active plan file path if one exists.
 3. Write handoff file using template below. Redact secrets. Reference — don't restate — existing artifacts.
 4. Append index entry.
-5. Confirm to user with absolute file path. On first successful save, remind: paste the path into a new session on the other machine to resume.
+5. Confirm to user with absolute file path. On first successful save, remind: run `/handoff-load` (or `/handoff-load <slug-fragment>`) in a new session on the other machine to resume.
 
 ## Handoff Template
 
@@ -70,4 +70,4 @@ Append to `Vault/Logs/Handoffs/INDEX.md`:
 
 ## Resume on the Other Machine
 
-On first successful save, tell user once: paste absolute file path into a new session on the other machine. Claude will `Read` it and continue from "Next Concrete Action".
+On first successful save, tell user once: run `/handoff-load` (or `/handoff-load <slug-fragment>`) in a new session on the other machine to resume from "Next Concrete Action". If no index exists there yet (fresh machine, Drive sync hasn't caught up), `/handoff-load` falls back to a directory listing, and — as a last resort — paste the absolute file path into a new session and Claude will `Read` it directly.
