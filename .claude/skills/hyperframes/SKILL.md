@@ -3,6 +3,19 @@ name: hyperframes
 description: Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.
 ---
 
+<!--
+Source: https://github.com/heygen-com/hyperframes (vendored). Frozen at upstream commit `8fcbb63`;
+vendoring record: Vault/Memory/Notes/2026-07/2026-07-05-phase3-shortlist-execution.md (Odin
+recommendation, adopted — do not re-litigate without demonstrated need).
+Upstream restructured in 2026-07 (monolith split into modular skills; `skills/gsap` removed) and is
+NO LONGER TRACKED — refresh attempts exceed the >60% rewrite threshold (plan 024, STOPPED).
+Upstream-layout pointers in this skill (`packages/shader-transitions/`, `registry/blocks/`,
+`skills/gsap`) describe the pre-restructure layout; `skills/gsap` no longer exists upstream. Runtime
+surface is npm (`hyperframes`, `@hyperframes/shader-transitions`), verified publishing at v0.7.60,
+2026-07-17.
+Divergence annotated 17/07/2026 (plan 036).
+-->
+
 # HyperFrames
 
 HTML is the source of truth for video. A composition is an HTML file with `data-*` attributes for timing, a GSAP timeline for animation, and CSS for appearance. The framework handles clip visibility, media playback, and timeline sync.
