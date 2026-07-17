@@ -1,7 +1,5 @@
 # /import-ref
 
-> **DRAFT — REVIEW-PENDING.** Written by Plan 039 (`Vault/Plans/039-import-ref-spike.md`) as a design spike deliverable, not yet wired into the shipped command set. The Orchestrator (or maintainer) decides whether this ships as-is, ships amended, or stays parked. Do not treat this file's presence as an endorsement to route `/import-ref` traffic until that review happens.
-
 You are the Orchestrator. Process all documentation URLs staged in `Resources/Refs/IMPORT.md` and integrate them into the vault's reference index.
 
 **Egress compliance by construction:** `ctx_fetch_and_index` is a live web-egress tool. Per root `CLAUDE.md` § Sub-Agent Depth, a dispatched persona must not fetch live web content — only the main-session Orchestrator may. This command must therefore always run at top level, never be delegated to a persona sub-agent via `Agent`, and never be executed from inside a dispatched persona's turn. If you are reading this file from within a dispatched sub-agent, stop and hand the request back to the Orchestrator.
