@@ -247,7 +247,7 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 >
 > Caveat: `/higgsfield:*` skill commands may not register until the CLI supports the `skills` field — the plugin files are cached either way, and the Higgsfield MCP connector tools work regardless. Running `claude plugin marketplace update higgsfield` then reinstalling hits the same error until then; the same workaround applies.
 
-**plannotator** (visual plan & diff review — plugin registration only; the binary is a separate optional step, see Step 10):
+**plannotator** (visual plan & diff review — plugin registration only; the binary is a separate step, see Step 10):
 ```
 /plugin marketplace add backnotprop/plannotator
 /plugin install plannotator@plannotator
@@ -261,15 +261,15 @@ If any plugin command fails, print a warning for that plugin and continue with t
 
 ---
 
-## Step 10 — Install plannotator binary (optional, user-confirmed)
+## Step 10 — Install plannotator binary
 
-Not auto-run by the SessionStart onboarding hook — plannotator's plugin (Step 9) works without this, and installing a binary onto the user's machine needs explicit consent. Ask the user: "Install the plannotator binary for visual plan/diff review? (optional)" Only proceed on a yes.
+Auto-run by the SessionStart onboarding hook — no consent prompt. Download the platform-matching asset from the **latest** release via `gh release download` (no tag — always pulls current) and verify its SHA-256 against the published `.sha256` sibling before running it — do not pipe an installer script from a URL.
 
-Pinned release: `backnotprop/plannotator` tag `v0.9.3`. Download the platform-matching asset via `gh release download` and verify its SHA-256 against the published `.sha256` sibling before running it — do not pipe an installer script from a URL.
+Idempotent: re-running this step (manually, or via `/update`'s tool-freshness nudge) always re-downloads and overwrites the existing install — it is not gated by the `tier2_plannotator_binary` flag already being set.
 
 **Windows:**
 ```powershell
-gh release download v0.9.3 --repo backnotprop/plannotator --pattern "plannotator-win32-x64.exe*"
+gh release download --repo backnotprop/plannotator --pattern "plannotator-win32-x64.exe*"
 $expected = (Get-Content plannotator-win32-x64.exe.sha256).Split(" ")[0]
 $actual = (Get-FileHash plannotator-win32-x64.exe -Algorithm SHA256).Hash
 if ($expected -ieq $actual) { New-Item -ItemType Directory -Force -Path "$env:LOCALAPPDATA\plannotator" | Out-Null; Move-Item plannotator-win32-x64.exe "$env:LOCALAPPDATA\plannotator\plannotator.exe" -Force } else { Write-Host "⚠️ checksum mismatch — aborting install" }
@@ -278,7 +278,7 @@ if ($expected -ieq $actual) { New-Item -ItemType Directory -Force -Path "$env:LO
 **macOS (arm64) / Linux (x64) — substitute the asset name for your platform:**
 ```bash
 ASSET="plannotator-darwin-arm64"   # or plannotator-linux-x64, etc.
-gh release download v0.9.3 --repo backnotprop/plannotator --pattern "${ASSET}*"
+gh release download --repo backnotprop/plannotator --pattern "${ASSET}*"
 echo "$(cat ${ASSET}.sha256 | cut -d' ' -f1)  ${ASSET}" | sha256sum -c - && chmod +x "$ASSET" && sudo mv "$ASSET" /usr/local/bin/plannotator
 ```
 
@@ -385,3 +385,41 @@ To begin any project, just copy and send the prompt below.
 > I want to run the paid media specialist hiring pipeline.
 
 *The Orchestrator confirms the gap, routes to the Senior Researcher (research brief), then the HR Lead (persona file), then updates the roster. This is the most important meta-workflow — it teaches how the team grows.*
+
+---
+
+## Step 14 — Install herdr
+
+Check first:
+
+```bash
+command -v herdr
+```
+
+**Already installed:** report "herdr already installed ✓" and skip the installer below.
+
+**Not found:** run the official installer for the platform.
+
+**Windows:**
+```powershell
+powershell -ExecutionPolicy Bypass -c "irm https://herdr.dev/install.ps1 | iex"
+```
+
+**macOS / Linux:**
+```bash
+curl -fsSL https://herdr.dev/install.sh | sh
+```
+
+After install, refresh PATH and verify:
+
+```bash
+herdr --version
+```
+
+Note: Windows installs the preview channel by default — that is the only channel available on Windows.
+
+**On success:** report "herdr installed ✓ ($(herdr --version))".
+
+**On failure** (pattern of Step 7's Node fallback): print:
+
+> ⚠️ herdr skipped — could not install automatically. Install manually from https://herdr.dev/docs/install/ then re-run `/onboard`.
