@@ -293,6 +293,7 @@ Steps must run in order:
 3. @{QAComplianceReviewer} QA on MD — must PASS before HTML is rendered.
 4. HTML rendered from approved MD.
 5. @{QAComplianceReviewer} second pass on HTML against the HTML checklist (see `Resources/SOPs/QA Gate SOP.md` § HTML Deliverable QA Checklist). Checks include: links resolve, no JS console errors, prints cleanly, accessibility floor met (`<details>`/`<summary>` for disclosure, keyboard nav for tabs, `prefers-reduced-motion` respected).
+6. **Open on completion** — once both QA gates PASS, the Orchestrator opens the rendered HTML in the user's default browser from the main session (never a sub-agent): `open "<path>"` on macOS, `Start-Process "<path>"` on Windows, `xdg-open "<path>"` on Linux. The sibling-pair announcement ("Markdown at [path], interactive HTML companion at [path]") still runs. On rebuilds triggered by MD-HTML drift, reopening is optional — mention the refresh instead of forcing a new tab.
 
 HTML is not shipped until both QA gates pass.
 
