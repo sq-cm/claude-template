@@ -196,7 +196,6 @@
     "obsidian@obsidian-skills": true,
     "superpowers@claude-plugins-official": false,
     "caveman@caveman": true,
-    "impeccable@impeccable": false,
     "marketing-skills@marketingskills": true,
     "document-skills@anthropic-agent-skills": true,
     "claude-mem@claude-mem": true,
@@ -234,12 +233,6 @@
       "source": {
         "source": "github",
         "repo": "thedotmack/claude-mem"
-      }
-    },
-    "impeccable": {
-      "source": {
-        "source": "github",
-        "repo": "pbakaus/impeccable"
       }
     },
     "marketingskills": {
