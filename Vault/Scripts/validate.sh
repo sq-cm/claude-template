@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 12 read-only checks to verify the vault's structural invariants.
+# Runs 13 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -34,6 +34,7 @@
 #   Check 9  — prose `/command` reference with no command file, skill, or built-in
 #   Check 10 — claude-fable-5 pin count differs from FABLE_PIN_COUNT tripwire
 #   Check 12 — merged PR (recent history) missing a CHANGELOG.md entry, not exempt
+#   Check 13 — settings.json marketplace and SETUP.md accepted-risk table disagree
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -742,6 +743,58 @@ else
     done
 
     $check12_pass && pass "All merged PRs in the last 30 commits are reconciled against CHANGELOG.md"
+fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 13 — settings.json marketplaces reconciled against SETUP.md's
+# accepted-risk table
+#
+# Motivating incident: SETUP.md's "Accepted risk — unpinned GitHub-sourced
+# plugin marketplaces" section is the audit trail for third-party marketplace
+# code, naming every GitHub-sourced marketplace in .claude/settings.json
+# extraKnownMarketplaces plus its reviewed HEAD SHA. PR #230 removed the
+# `impeccable` marketplace registration but SETUP.md kept naming it, while
+# `higgsfield` (added by #172) was never added to SETUP.md at all — the doc
+# drifted in both directions at once (F10, 2026-07-17 deep panel audit).
+#
+# Named-set reconciliation, not a count: a count check would have stayed
+# green through this exact drift (one repo out, one in — count unchanged).
+# This check diffs the actual repo slugs in both directions.
+#
+# WARN, not FAIL: same rationale as Check 12 — commit-time tripwire, not a
+# hard gate; SETUP.md updates lag settings.json by design (maintainer review
+# of a newly added marketplace's HEAD SHA takes time).
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 13: settings.json marketplaces reconciled against SETUP.md ---"
+
+SETTINGS_FILE="$PROJECT_ROOT/.claude/settings.json"
+SETUP_FILE="$PROJECT_ROOT/Resources/Onboarding/SETUP.md"
+
+if ! command -v jq >/dev/null 2>&1 || [ ! -f "$SETTINGS_FILE" ]; then
+    warn "Check 13 skipped — jq or settings.json unavailable"
+else
+    check13_pass=true
+
+    settings_repos=$(jq -r '.extraKnownMarketplaces | to_entries[] | .value.source.repo // empty' "$SETTINGS_FILE" | tr -d '\r' | sort -u)
+
+    for repo in $settings_repos; do
+        if ! grep -qF "$repo" "$SETUP_FILE"; then
+            warn "marketplace $repo in settings.json has no reviewed-SHA row in SETUP.md"
+            check13_pass=false
+        fi
+    done
+
+    setup_repos=$(grep -oE '^\| [A-Za-z0-9._-]+/[A-Za-z0-9._-]+ \|' "$SETUP_FILE" | sed -E 's/^\| (.*) \|$/\1/' | tr -d '\r')
+
+    for repo in $setup_repos; do
+        if ! printf '%s\n' "$settings_repos" | grep -qxF "$repo"; then
+            warn "SETUP.md SHA table lists $repo but settings.json no longer registers it"
+            check13_pass=false
+        fi
+    done
+
+    $check13_pass && pass "settings.json marketplaces and SETUP.md accepted-risk table agree"
 fi
 echo ""
 
