@@ -7,6 +7,12 @@ This log tracks the **template itself** — structural changes clones inherit on
 ## 2026-07-25
 
 - docs(shotlist-html-companion): note that `html-deliverable`'s step 6 auto-open on completion is deliberately not mirrored — this skill runs single-pass and may execute inside a dispatched sub-agent, and the open step is main-session-only (#233)
+- feat(models): migrate the roster's top tier to `claude-fable-5` — eight personas (Odin, Quinn, Ryan, Harper, Finn, plus promoted Drew, Remi, Lex) pinned, and `claude-opus-4-8` retired from the roster proper (it remains only as the documented dispatch-time refusal fallback). `validate.sh` Check 10 rewritten — `ALLOWED_MODELS` updated, `FABLE_PIN_COUNT=8` — and the Persona Template SOP, Advisor Checkpoints SOP, and Learn guide model tables/references updated to match; the session `model` in `.claude/settings.json` moves to `claude-fable-5`. Clone owners must raise their own `advisorModel` to `claude-fable-5` (#232)
+
+## 2026-07-21
+
+- feat(html-deliverable): auto-open rendered HTML after both QA gates pass — the skill gains QA step 6, "Open on completion": once both QA gates pass, the Orchestrator opens the rendered HTML from the main session, never a dispatched sub-agent (Odin holds no Bash) (#231)
+- chore(plugins): remove impeccable plugin registration — drops `extraKnownMarketplaces` and `enabledPlugins` entries for impeccable from `.claude/settings.json`, completing the #201 disable that had kept the registration in place "for reversibility" (#230)
 
 ## 2026-07-17
 
