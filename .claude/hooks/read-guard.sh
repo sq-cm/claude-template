@@ -21,6 +21,47 @@ LIMIT=1000
 
 INPUT=$(cat)
 
+# Degraded no-jq path: jq is required to parse tool_name/tool_input below,
+# so without it we cannot reliably tell Read from Grep, let alone extract
+# path/glob/file_path values — but the Grep .env*/.mcp.json guard below is
+# this hook's whole reason for existing, and letting it fail open on a
+# jq-less machine would defeat it silently. Fall back to a conservative
+# raw-string substring check on the still-unparsed JSON: only ever blocks,
+# never lets a false positive brick a legitimate call. For `path`/`file_path`
+# the pattern anchors on both the JSON field-name prefix (`"path":"`,
+# `"file_path":"`) AND the terminal quote immediately after `.env` — this
+# catches an exact `.env` value but deliberately misses suffixed variants
+# like `.env.local`/`.env.production`, and won't match an unrelated value
+# that merely contains `.env` as a substring (e.g. `mail.envelope.json`,
+# `config.environment.md`). The `glob` pattern is looser (no terminal-quote
+# anchor, since glob values are patterns rather than exact filenames) and
+# the `.mcp.json` patterns are terminal-anchored on the filename itself.
+# Suffixed `.env*` variants slipping past the `path`/`file_path` check, plus
+# any escaped characters or unusual key ordering in the raw JSON, are an
+# accepted false-negative tolerance in this degraded path only; this block
+# is defence-in-depth, not the primary layer (that's the jq-based checks
+# below, which run whenever jq exists).
+if ! command -v jq >/dev/null 2>&1; then
+    # .env.example / .mcp.json.example exemption — checked first, same
+    # ordering rationale as the jq path's exemptions further down.
+    case "$INPUT" in
+        *'.env.example"'*|*'.mcp.json.example"'*) exit 0 ;;
+    esac
+    case "$INPUT" in
+        *'"path":"'*'.env"'*|*'"file_path":"'*'.env"'*|*'"glob":"'*'.env'*)
+            echo "BLOCKED: degraded no-jq check — raw tool input references a .env* path/glob; jq is unavailable so this is a conservative substring block rather than the primary parser-based check. (.env.example is the readable exception.)" >&2
+            exit 2
+            ;;
+    esac
+    case "$INPUT" in
+        *'"path":"'*'.mcp.json"'*|*'"file_path":"'*'.mcp.json"'*|*'"glob":"'*'.mcp.json'*)
+            echo "BLOCKED: degraded no-jq check — raw tool input references .mcp.json; jq is unavailable so this is a conservative substring block rather than the primary parser-based check. (.mcp.json.example is the readable exception.)" >&2
+            exit 2
+            ;;
+    esac
+    exit 0
+fi
+
 # jq missing → fail open (never brick the Read tool over a dependency)
 command -v jq >/dev/null 2>&1 || exit 0
 
