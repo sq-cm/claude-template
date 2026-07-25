@@ -575,8 +575,8 @@ echo ""
 # update it.
 # claude-opus-4-8 is retired from the roster (Fable 5 migration, 25/07/2026):
 # it is NOT in ALLOWED_MODELS, so any opus-4-8 pin fails as "undocumented".
-# Opus 4.8 remains the invocation-time fallback for Fable 5 refusals — that is
-# an override at dispatch, never a frontmatter pin.
+# The invocation-time fallback for Fable 5 refusals is claude-opus-5 (released
+# 24/07/2026) — an override at dispatch, never a frontmatter pin.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
