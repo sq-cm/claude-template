@@ -21,6 +21,41 @@ LIMIT=1000
 
 INPUT=$(cat)
 
+# Degraded no-jq path: jq is required to parse tool_name/tool_input below,
+# so without it we cannot reliably tell Read from Grep, let alone extract
+# path/glob/file_path values — but the Grep .env*/.mcp.json guard below is
+# this hook's whole reason for existing, and letting it fail open on a
+# jq-less machine would defeat it silently. Fall back to a conservative
+# raw-string substring check on the still-unparsed JSON: only ever blocks,
+# never lets a false positive brick a legitimate call. Anchored on the
+# JSON field-name prefix (`"path":"`, `"file_path":"`, `"glob":"`) plus
+# the `.env`/`.mcp.json` substring, so an unrelated path containing letters
+# that merely look similar (e.g. `dotenv-guide.md`, no literal dot before
+# "env") won't match. Escaped characters or unusual key ordering in the
+# raw JSON can still slip past this — an accepted false-negative in the
+# degraded path only; this block is defence-in-depth, not the primary
+# layer (that's the jq-based checks below, which run whenever jq exists).
+if ! command -v jq >/dev/null 2>&1; then
+    # .env.example / .mcp.json.example exemption — checked first, same
+    # ordering rationale as the jq path's exemptions further down.
+    case "$INPUT" in
+        *'.env.example"'*|*'.mcp.json.example"'*) exit 0 ;;
+    esac
+    case "$INPUT" in
+        *'"path":"'*'.env'*'"'*|*'"file_path":"'*'.env'*'"'*|*'"glob":"'*'.env'*)
+            echo "BLOCKED: degraded no-jq check — raw tool input references a .env* path/glob; jq is unavailable so this is a conservative substring block rather than the primary parser-based check. (.env.example is the readable exception.)" >&2
+            exit 2
+            ;;
+    esac
+    case "$INPUT" in
+        *'"path":"'*'.mcp.json"'*|*'"file_path":"'*'.mcp.json"'*|*'"glob":"'*'.mcp.json'*)
+            echo "BLOCKED: degraded no-jq check — raw tool input references .mcp.json; jq is unavailable so this is a conservative substring block rather than the primary parser-based check. (.mcp.json.example is the readable exception.)" >&2
+            exit 2
+            ;;
+    esac
+    exit 0
+fi
+
 # jq missing → fail open (never brick the Read tool over a dependency)
 command -v jq >/dev/null 2>&1 || exit 0
 
