@@ -570,19 +570,26 @@ echo ""
 # Allowed set per Persona Template SOP § Model assignment (post-plan-012).
 # Frontmatter extraction reuses Check 5's CRLF-proof awk idiom.
 #
-# FABLE_PIN_COUNT is a deliberate hire/revert tripwire (same pattern as
-# Check 7's EXPECTED_* constants): any Fable promotion/revert must consciously
-# update it.
+# FABLE_PIN_COUNT and OPUS5_PIN_COUNT are deliberate hire/revert tripwires
+# (same pattern as Check 7's EXPECTED_* constants): any Fable or Opus 5
+# promotion/revert must consciously update the relevant constant. Both must
+# move together on any future re-tier — see the Judgement-tier row in the
+# Persona Template SOP.
 # claude-opus-4-8 is retired from the roster (Fable 5 migration, 25/07/2026):
 # it is NOT in ALLOWED_MODELS, so any opus-4-8 pin fails as "undocumented".
-# The invocation-time fallback for Fable 5 refusals is claude-opus-5 (released
-# 24/07/2026) — an override at dispatch, never a frontmatter pin.
+# The invocation-time fallback for gatekeeper Fable 5 refusals is claude-opus-5
+# (released 24/07/2026) — in that fallback role it is an override at dispatch
+# on the gatekeeper, never a change to the gatekeeper's frontmatter pin. The
+# six Judgement-tier claude-opus-5 pins below are separate and legitimate:
+# gatekeepers stay Fable-pinned; the promoted six are Opus-5-pinned.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-sonnet-5 claude-fable-5"  # Fable 5 roster migration (25/07/2026): opus-4-8 pins retired
-FABLE_PIN_COUNT=8  # Odin + Quinn, Ryan, Harper, Finn, Drew, Remi, Lex (Fable 5 roster migration, 25/07/2026)
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-5 claude-fable-5"  # Opus 5 judgement tier added (25/07/2026)
+FABLE_PIN_COUNT=2  # Odin + Quinn (gatekeepers; promoted six re-tiered to claude-opus-5, 25/07/2026)
+OPUS5_PIN_COUNT=6  # Harper, Ryan, Finn, Drew, Remi, Lex (Opus 5 re-tier, 25/07/2026)
 fable_pin_live=0
+opus5_pin_live=0
 
 for fpath in "$AGENTS_DIR"/*.md; do
     fname=$(basename "$fpath")
@@ -613,10 +620,15 @@ for fpath in "$AGENTS_DIR"/*.md; do
     esac
 
     [ "$model_pin" = "claude-fable-5" ] && ((fable_pin_live++))
+    [ "$model_pin" = "claude-opus-5" ] && ((opus5_pin_live++))
 done
 
 if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
     warn "claude-fable-5 pin count is $fable_pin_live, tripwire expects $FABLE_PIN_COUNT — update FABLE_PIN_COUNT in this script on any Fable promotion/revert (that is its job)"
+fi
+
+if [ "$opus5_pin_live" -ne "$OPUS5_PIN_COUNT" ]; then
+    warn "claude-opus-5 pin count is $opus5_pin_live, tripwire expects $OPUS5_PIN_COUNT — update OPUS5_PIN_COUNT in this script on any Opus 5 promotion/revert (that is its job)"
 fi
 
 $check10_pass && pass "All persona model pins match documented tiers"
