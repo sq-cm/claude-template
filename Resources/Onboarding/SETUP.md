@@ -180,22 +180,24 @@ Restart Claude Code after any plugin install.
 
 ### Accepted risk — unpinned GitHub-sourced plugin marketplaces
 
-Every marketplace in `.claude/settings.json` `extraKnownMarketplaces` sourced from GitHub (`plannotator`, `context-mode`, `obsidian-skills`, `caveman`, `impeccable`, `marketingskills`, `anthropic-agent-skills`, `claude-mem`) tracks its repo's default branch at HEAD, not a pinned commit or tag — of the eight, seven publish no tags at all; commit-SHA refs were tested and rejected by the clone mechanism (`git clone --branch <sha>` fails), so branch-at-HEAD is the only option for those seven. Plannotator *does* publish tags, but the `extraKnownMarketplaces` github-type source form has no ref field to pin one — a git-URL `#tag` form is untested against project-level settings, so marketplace-level pinning for plannotator is deferred too. Its separate binary install (Step 10) was previously pinned to `v0.9.3`; that pin is now deliberately dropped — Step 10 always downloads the **latest** release, checksum-verified against the release's own `.sha256` sibling. Unpinning trades reduced review lag against a moving target: the checksum only proves the download matches what the publisher shipped for that tag, not that the publisher's intent is safe — accepted because a stale pinned binary that never gets updated is a worse security posture over the vault's lifetime, and `Vault/Scripts/tool-check.sh` now nudges immediately when a newer release ships. `autoUpdate` is explicitly `false` on the caveman entry (previously `true`); the other seven entries omit the key, which defaults to `false`. Either way, a fresh trust-prompt install always uses whatever is at HEAD at trust time, and updates only happen when a maintainer explicitly runs `/plugin marketplace update`.
+Every marketplace in `.claude/settings.json` `extraKnownMarketplaces` sourced from GitHub (`plannotator`, `context-mode`, `obsidian-skills`, `caveman`, `higgsfield`, `marketingskills`, `anthropic-agent-skills`, `claude-mem`) tracks its repo's default branch at HEAD, not a pinned commit or tag — of the eight, seven publish no tags at all; commit-SHA refs were tested and rejected by the clone mechanism (`git clone --branch <sha>` fails), so branch-at-HEAD is the only option for those seven. Plannotator *does* publish tags, but the `extraKnownMarketplaces` github-type source form has no ref field to pin one — a git-URL `#tag` form is untested against project-level settings, so marketplace-level pinning for plannotator is deferred too. Its separate binary install (Step 10) was previously pinned to `v0.9.3`; that pin is now deliberately dropped — Step 10 always downloads the **latest** release, checksum-verified against the release's own `.sha256` sibling. Unpinning trades reduced review lag against a moving target: the checksum only proves the download matches what the publisher shipped for that tag, not that the publisher's intent is safe — accepted because a stale pinned binary that never gets updated is a worse security posture over the vault's lifetime, and `Vault/Scripts/tool-check.sh` now nudges immediately when a newer release ships. `autoUpdate` is explicitly `false` on the caveman entry (previously `true`); the other seven entries omit the key, which defaults to `false`. Either way, a fresh trust-prompt install always uses whatever is at HEAD at trust time, and updates only happen when a maintainer explicitly runs `/plugin marketplace update`.
 
 herdr (Step 14) carries the same class of risk from a different source: it installs via the vendor's own pipe-to-shell installer (`irm ... | iex` on Windows, `curl ... | sh` on macOS/Linux), which is unpinned and unverified by design — there is no checksum step, because the installer itself is the trust boundary. Accepted because herdr has no alternative install path documented for casual use, and the check-only nudge (never an automatic re-run of the installer) keeps the exposure to onboarding time only.
 
-The trade-off accepted in its place: each repo's HEAD commit was reviewed as of **2026-07-06** and recorded below. Anyone auditing what code actually ran can diff against these SHAs; anyone updating a marketplace should re-review and update this list.
+The trade-off accepted in its place: each repo's HEAD commit was reviewed (see per-row date below) and recorded below. Anyone auditing what code actually ran can diff against these SHAs; anyone updating a marketplace should re-review and update this list.
 
-| Repo | Reviewed HEAD SHA (2026-07-06) |
-|------|---------------------------------|
-| backnotprop/plannotator | `82f5648ccb1fc718407fbc794e8a40c95c94a536` |
-| mksglu/context-mode | `f267bdae970f0b01652a2ab413793318ed02065a` |
-| kepano/obsidian-skills | `a1dc48e68138490d522c04cbf5822214c6eb1202` |
-| JuliusBrussee/caveman | `0d95a81d35a9f2d123a5e9430d1cfc43d55f1bb0` |
-| pbakaus/impeccable | `88f52ac4e6a5ce99d39a0f5d89e7ac3a168910f5` |
-| coreyhaines31/marketingskills | `30dbd7f793b86f0ec2f007757b333afac93c24db` |
-| anthropics/skills | `9d2f1ae187231d8199c64b5b762e1bdf2244733d` |
-| thedotmack/claude-mem | `804504b351cabbe45c63fa8692ff09c57e0d03e6` |
+| Repo | Reviewed HEAD SHA | Reviewed |
+|------|--------------------|----------|
+| backnotprop/plannotator | `82f5648ccb1fc718407fbc794e8a40c95c94a536` | 2026-07-06 |
+| mksglu/context-mode | `f267bdae970f0b01652a2ab413793318ed02065a` | 2026-07-06 |
+| kepano/obsidian-skills | `a1dc48e68138490d522c04cbf5822214c6eb1202` | 2026-07-06 |
+| JuliusBrussee/caveman | `0d95a81d35a9f2d123a5e9430d1cfc43d55f1bb0` | 2026-07-06 |
+| coreyhaines31/marketingskills | `30dbd7f793b86f0ec2f007757b333afac93c24db` | 2026-07-06 |
+| anthropics/skills | `9d2f1ae187231d8199c64b5b762e1bdf2244733d` | 2026-07-06 |
+| thedotmack/claude-mem | `804504b351cabbe45c63fa8692ff09c57e0d03e6` | 2026-07-06 |
+| higgsfield-ai/skills | `27defbaa75efa34d064f208e72b3dbfc71db0a92` | recorded 2026-07-25; maintainer review pending |
+
+The last row above was added when the drift between this table and `.claude/settings.json` was reconciled (2026-07-25) — the SHA is what HEAD was at recording time, not a reviewed-safe attestation; a maintainer still needs to review it and replace "review pending" with a review date.
 
 This is the single place this SHA list is recorded — other docs link here rather than restating it.
 
