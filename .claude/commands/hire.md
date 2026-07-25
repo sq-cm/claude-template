@@ -42,4 +42,4 @@ Before starting, run the [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%
 
 ## Abandoned hires
 
-A hire abandoned at any pause leaves only working drafts — clean up what exists at that point: the gap note, the `Resources/Research/[role]-brief.md` scaffold, and any `02 Working/`-style persona draft. Nothing lands in `.claude/agents/`, `theme-name-map.md`, or the Learn guide until PAUSE 3 and PAUSE 4 have both passed, so an abandoned hire never dirties the roster.
+A hire abandoned at any pause leaves only unwired artefacts — clean up what exists at that point: the gap note, the `Resources/Research/[role]-brief.md` scaffold, any `02 Working/`-style persona draft, and — if abandoned after PAUSE 3 — the `.claude/agents/[role-slug].md` file itself. Nothing lands in `.claude/agents/` until PAUSE 3 passes, and nothing touches `theme-name-map.md` or the Learn guide until PAUSE 4 passes; a persona file left on disk without its theme-map entry is exactly the drift the [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md) detects, so delete it on abandonment rather than leaving it for the next drift check.
