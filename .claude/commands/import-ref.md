@@ -22,7 +22,7 @@ Check the URL against the `Source URL` column of `Resources/Refs/INDEX.md`. Comp
 
 Call `ctx_fetch_and_index` on the URL with a descriptive source label (short human-readable title for the page, not just the URL — this label carries the URL in its `<label>::<url>` attribution format in future `ctx_search` results).
 
-If the fetch fails (404, timeout, paywall block, or any tool error): log to `Vault/Logs/ref-failures.md` as a new table row (create the file if missing, with heading `# Ref Import Failures` and header row `| Date | URL | Error | Action |` / `|---|---|---|---|`):
+If the fetch fails (404, timeout, paywall block, or any tool error): log to `Vault/Logs/ref-failures.md` as a new table row (create the file if missing, with heading `# Ref Import Failures` and header row `| Date | URL | Error | Action |` / `|---|---|---|---|`). Apply the same credential/query-string strip as the INDEX.md append (below) before logging:
 ```
 | YYYY-MM-DD | [url] | [error message] | skipped |
 ```

@@ -19,10 +19,10 @@ Extract the repo name from the URL (last path segment, no `.git`). Apply the nam
 #### 2b. Clone
 
 ```bash
-git clone --depth 1 [url] Resources/Git/[repo-name]
+git clone --depth 1 -- [url] Resources/Git/[repo-name]
 ```
 
-If clone fails: log to `Vault/Logs/clone-failures.md` using this format and skip to next URL:
+If clone fails: log to `Vault/Logs/clone-failures.md` using this format and skip to next URL; strip any `user:token@` userinfo and query string from the URL before logging it — keep the full URL only in the ephemeral clone attempt:
 ```
 ## YYYY-MM-DD — [repo-name]
 - URL attempted: [url]
@@ -74,6 +74,10 @@ Add a new row to the `## Domain Index` table in `Resources/Git/INDEX.md`:
 | [repo-name] | [description] | [tags as backtick-wrapped space-separated list] | [url] |
 ```
 
+Escape any literal `|` in the repo name, description, or URL as `\|` before insertion so the table's column count is preserved — the description is derived from untrusted README content, so this is load-bearing, not cosmetic.
+
+If the clone URL contains embedded credentials (`https://user:token@...`) or a query-string token, strip them before persisting — write only the credential-free canonical form (`https://github.com/owner/repo`) to both `README.md` and `INDEX.md` — and tell the user the original may need rotation if it was already committed anywhere.
+
 ### 3. Clear IMPORT.md
 
 After all URLs are processed (success or skipped), overwrite `Resources/Git/IMPORT.md` with empty content. This signals the queue is consumed.
@@ -95,3 +99,5 @@ Skipped:  [n] repos (see Vault/Logs/clone-failures.md)
 https://github.com/owner/repo-name
 https://github.com/another/repo
 ```
+
+Staged URLs must not contain embedded credentials — `Resources/Git/README.md`, `Resources/Git/INDEX.md`, and `Vault/Logs/clone-failures.md` are all git-tracked, so a committed credential is burned even after deletion.
