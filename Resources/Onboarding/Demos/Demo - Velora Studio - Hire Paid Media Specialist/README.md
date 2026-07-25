@@ -40,3 +40,5 @@ The Orchestrator will confirm the gap and route to the Senior Researcher first, 
 
 ## Note
 This is the exercise that teaches the system itself. If you understand how hiring works, you understand how to extend the team for any capability gap you encounter in real work.
+
+Once you've run this demo by hand, `/hire <role>` codifies the same sequence for real hires.

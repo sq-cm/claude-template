@@ -17,6 +17,10 @@ Root `CLAUDE.md`'s `## Theme & Roster` section is pointer-only; it defers entire
 
 Drift = the two sources disagree.
 
+### Adjunct — Learn guide `TEAM` array (per-hire touchpoint)
+
+The `TEAM` JS array in `Resources/Learn/index.html` carries a row per team member (name, role, token, expertise, constraints) and must be updated on every hire and fire. It is not covered by the four checks below or by `validate.sh` — `/hire` Step 4 and manual hires alike must update it by hand.
+
 ---
 
 ## When to run
