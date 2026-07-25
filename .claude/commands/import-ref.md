@@ -78,6 +78,17 @@ https://another-site.dev/guide/topic
 
 Staged URLs must not contain embedded credentials or query-string tokens (presigned links, `?token=`/`?key=` parameters) — `Resources/Refs/INDEX.md` is git-tracked, so a committed credential is burned even after deletion.
 
+## Rehydrate mode
+
+Invoke as `/import-ref rehydrate` to repopulate an empty local KB from the durable registry on a fresh machine. **This is not the refresh/TTL mechanism rejected in Plan 039/#221**: rehydrate never re-derives name, description, or tags, never removes a row, and never updates `Fetch Date`. It repopulates the local FTS5 index from an already-ingested registry entry — no newer-content promise is made.
+
+1. **Source (replaces Step 1)**: read every `Source URL` from `Resources/Refs/INDEX.md` instead of `IMPORT.md`.
+2. **Dedup (2a)**: bypassed — every URL is in `INDEX.md` by definition, so fetch all of them.
+3. **Fetch (2b)**: unchanged, including the egress-compliance preamble (line 5) and the 24h `ctx_fetch_and_index` disk cache — a same-machine re-run within the window serves cached content; harmless, no staleness claim either way.
+4. **On failure**: log to `Vault/Logs/ref-failures.md` exactly as in normal mode; leave the `INDEX.md` row in place — pruning is a future registry-lifecycle decision, not this mode's concern.
+5. **Registry (2c, 2d, Step 3)**: `INDEX.md` is read-only in this mode — no row is added, changed, or removed. `IMPORT.md` is untouched: not read, not cleared.
+6. **Report (Step 4)**: same format, with `Rehydrated: [n] refs` / `Skipped: [n] refs` in place of the normal-mode counters, and without the cross-machine note (rehydrate IS the cross-machine step).
+
 ## Open questions (not built — see Plan 039 Design record)
 
 - **Refresh/TTL**: `ctx_fetch_and_index` disk-caches fetches for 24h (14-day cleanup sweep) — a re-run inside that window is served from cache, not re-fetched live. No active refresh mechanism exists; `Fetch Date` in `INDEX.md` is the staleness signal, judged manually.
