@@ -54,6 +54,8 @@ Never save to `/mnt/user-data/outputs/` or any environment-specific path. The pa
 
 This skill follows the same sibling-pair, footer, drift, and QA conventions as `html-deliverable`. The differences are in the HTML structure (shotlist-specific components) and the triggering deliverable type — not in the governance layer.
 
+One deliberate exception: `html-deliverable`'s step 6 auto-open on completion is not mirrored here, because this skill runs single-pass and may execute inside a dispatched sub-agent, and the open step is main-session-only.
+
 ### Post-MD nudge
 
 After the MD shotlist is QA-passed by `@{QAComplianceReviewer}`, deliver this line exactly:
