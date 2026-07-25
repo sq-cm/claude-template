@@ -12,7 +12,7 @@ The **Orchestrator** is the single point of contact for every request. They neve
 
 The team grows with you. When you hit a capability gap, a built-in **hiring pipeline** kicks in: the Senior Researcher researches the role, the HR Lead builds the persona, the Orchestrator announces the new hire and updates the roster. No new infrastructure needed — just new files.
 
-Quality gates are built in too. An Opus-powered advisor — the **Senior Adviser** — is consulted at checkpoints before and after substantive work, catching problems before they reach you.
+Quality gates are built in too. A frontier-model advisor — the **Senior Adviser** — is consulted at checkpoints before and after substantive work, catching problems before they reach you.
 
 ---
 
@@ -46,7 +46,7 @@ Your message
      ↓
   Team member             ← persona file defines who they are, what they do, what they won't
      ↓
-  Senior Adviser (checkpoint) ← Opus advisor consulted before/after durable work
+  Senior Adviser (checkpoint) ← top-tier advisor consulted before/after durable work
      ↓
   Deliverable             ← lands in Projects/[project]/03 Deliverables/
 ```
@@ -149,7 +149,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) — the CLI or desktop app
-- Access to Claude models. @{SeniorAdviser} and @{QAComplianceReviewer} run on **Opus** — confirm your plan includes Opus access.
+- Access to Claude models. Eight personas are pinned to **Claude Fable 5** — available on Claude Max and Team plans. On a Claude Pro plan, Fable 5 is not available: substitute `claude-opus-5` for all `claude-fable-5` pins (near-Fable capability; see the [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) § Model assignment), and add `claude-opus-5` to `ALLOWED_MODELS` and set `FABLE_PIN_COUNT=0` in `Vault/Scripts/validate.sh` so Check 10 accepts the substitution.
 - No external API keys required for basic use
 - Optional: HyperFrames video rendering (Nova's programmatic motion-graphics lane) needs Node.js 22+ and FFmpeg — all other work runs without them
 
