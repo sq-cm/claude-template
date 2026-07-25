@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-07-25
+
+- docs(shotlist-html-companion): note that `html-deliverable`'s step 6 auto-open on completion is deliberately not mirrored — this skill runs single-pass and may execute inside a dispatched sub-agent, and the open step is main-session-only (#233)
+
 ## 2026-07-17
 
 - fix(docs): correct SETUP.md's installer-action count (F9) and add the handoff-index supersession convention to `/handoff-save` and `/handoff-load` (N1) — deep-panel Low findings, prose/wording only (#229)
