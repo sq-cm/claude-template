@@ -149,7 +149,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) — the CLI or desktop app
-- Access to Claude models. Eight personas are pinned to **Claude Fable 5** — available on Claude Max and Team plans. On a Claude Pro plan, Fable 5 is not available: substitute `claude-opus-5` for all `claude-fable-5` pins (near-Fable capability; see the [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) § Model assignment), and add `claude-opus-5` to `ALLOWED_MODELS` and set `FABLE_PIN_COUNT=0` in `Vault/Scripts/validate.sh` so Check 10 accepts the substitution.
+- Access to Claude models. Two gatekeeper personas (@{SeniorAdviser}, @{QAComplianceReviewer}) are pinned to **Claude Fable 5** — available on Claude Max and Team plans; six judgement-tier personas run on `claude-opus-5` (see the [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) § Model assignment). On a Claude Pro plan, Fable 5 is not available: substitute `claude-opus-5` for the two gatekeeper pins, and in `Vault/Scripts/validate.sh` set `FABLE_PIN_COUNT=0` and `OPUS5_PIN_COUNT=8` so Check 10 accepts the substitution.
 - No external API keys required for basic use
 - Optional: HyperFrames video rendering (Nova's programmatic motion-graphics lane) needs Node.js 22+ and FFmpeg — all other work runs without them
 
