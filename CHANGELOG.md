@@ -4,9 +4,12 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
-## 2026-07-17
+## 2026-07-25
 
 - docs(shotlist-html-companion): note that `html-deliverable`'s step 6 auto-open on completion is deliberately not mirrored — this skill runs single-pass and may execute inside a dispatched sub-agent, and the open step is main-session-only (#233)
+
+## 2026-07-17
+
 - fix(docs): correct SETUP.md's installer-action count (F9) and add the handoff-index supersession convention to `/handoff-save` and `/handoff-load` (N1) — deep-panel Low findings, prose/wording only (#229)
 - feat(validate): Check 6 link coverage for `.claude/commands/` — the nine slash-command files join the link-check source list via the existing block-per-directory pattern; wiring proven with a planted-broken-link negative test (flagged, then reverted). Deep-panel plan 044 (#227)
 - docs(changelog): anchor the exemption contract in the shipped file — `CHANGELOG.md:3` now names all four exemption categories (pure backfills, the #184–#199 clone-local era) and points at Check 12's comment block in `Vault/Scripts/validate.sh` as the authoritative list; the already-exempt #222 gains its missing comment-block line. Comment/prose only, no logic change. Deep-panel plan 043 (#226)
