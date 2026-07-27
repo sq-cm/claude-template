@@ -64,7 +64,9 @@ coverage/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-.playwright-mcp/  # Playwright MCP browser-test output
+
+# Playwright MCP browser-test output
+.playwright-mcp/
 
 # Logs
 *.log
