@@ -68,12 +68,17 @@ This disables VS Code's built-in git UI for the vault — Claude Code handles gi
 
 ---
 
-## Step 4 — Create .env
+## Step 4 — Create .env and seed local memory
 
 Check if `.env` exists in the vault root.
 
 - **If it does not exist:** Copy `.env.example` to `.env`. Leave all values as-is — do not fill in or prompt for any keys. Report: "`.env` created from `.env.example`. Fill in your API keys before first use. Never commit this file."
 - **If it already exists:** Report: "`.env` already present — skipped."
+
+Then check if `Vault/Memory/context.md` exists (idempotent, same shape as `install.sh`/`install.bat`'s own copy-if-absent step).
+
+- **If it does not exist:** Copy `Vault/Memory/context.example.md` to `Vault/Memory/context.md` — `cp` only, never overwrite an existing file. Report: "`Vault/Memory/context.md` created from template — your local team memory."
+- **If it already exists:** Report: "`Vault/Memory/context.md` already present — skipped." This is the common case when the installer already ran.
 
 ---
 
@@ -191,11 +196,6 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 ```
 /plugin marketplace add mksglu/context-mode
 /plugin install context-mode@context-mode
-```
-
-**superpowers** (skill collection):
-```
-/plugin install superpowers@claude-plugins-official
 ```
 
 **obsidian** (Obsidian vault skills — bases, CLI, markdown, JSON Canvas, defuddle):

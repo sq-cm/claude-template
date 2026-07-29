@@ -13,8 +13,32 @@ if "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" (
   echo   Push will remain enabled.
 ) else (
   :: 1. Block push to upstream (this is someone else's template repo)
-  git remote set-url --push origin no_push
-  echo [OK] Push to upstream blocked (fetch-only)
+  git remote get-url origin >nul 2>&1
+)
+
+:: The origin check, the set-url, and the %RESOLVED_PUSH% set-then-read below
+:: are each their own top-level statement, never sharing a ( ) block with
+:: another one -- without EnableDelayedExpansion (this script never turns it
+:: on, see the setlocal line above), a variable inside a parenthesised block
+:: is expanded once when the block is parsed, not when it runs, so a
+:: same-block read would see the value from before this script started. A
+:: second, unrelated trap: `exit /b` two ( ) levels deep (an inner if nested
+:: inside the outer else above) does not propagate its exit code to the
+:: process when this script is run directly rather than `call`ed -- confirmed
+:: empirically -- so this check also had to move out to its own top-level
+:: statement. Mirrors the git-hooks verification block below, which nests
+:: only one level deep and does not hit either trap.
+if not "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" if errorlevel 1 (
+  echo [FAIL] No 'origin' remote -- cannot block push. Clone this repo with git and re-run.
+  exit /b 1
+)
+if not "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" git remote set-url --push origin no_push
+if not "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" for /f "delims=" %%i in ('git remote get-url --push origin') do set RESOLVED_PUSH=%%i
+if not "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" if "%RESOLVED_PUSH%"=="no_push" (
+  echo [OK] Push to upstream blocked ^(fetch-only^)
+) else (
+  echo [FAIL] Push NOT blocked -- push URL is '%RESOLVED_PUSH%' ^(expected 'no_push'^)
+  exit /b 1
 )
 
 :: 2. Activate git hooks

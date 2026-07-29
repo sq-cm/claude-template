@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 13 read-only checks to verify the vault's structural invariants.
+# Runs 14 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -28,6 +28,7 @@
 #   Check 9  — settings.json hook/statusLine script path does not exist
 #   Check 10 — persona model: pin missing or outside documented tiers
 #   Check 11 — skill SKILL.md missing, malformed frontmatter, or description over the 1024-char loader cap
+#   Check 14 — REQUIRED_KEYS plugin flag maps to a disabled plugin (F21(f) coupling)
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
@@ -807,6 +808,49 @@ else
     done
 
     $check13_pass && pass "settings.json marketplaces and SETUP.md accepted-risk table agree"
+fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 14 — REQUIRED_KEYS plugin flags are all satisfiable
+#
+# F21(f), 2026-07-29 independent review: a tier2_plugin_<name> entry in
+# session-start-onboarding.sh's REQUIRED_KEYS can never become true if the
+# matching plugin is disabled in .claude/settings.json enabledPlugins — the
+# onboarding block then re-fires every session forever. superpowers was
+# exactly that from 17/07/2026 until plan 060 removed its entry; this check
+# stops the next plugin disable from reintroducing the bug.
+#
+# Name mapping: tier2_plugin_<name> -> <name> with underscores turned to
+# hyphens, matched against the plugin-name portion (before @) of each
+# enabledPlugins key. Resolves every current entry cleanly.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 14: REQUIRED_KEYS plugin flags are all satisfiable ---"
+check14_pass=true
+HOOK_FILE="$PROJECT_ROOT/.claude/hooks/session-start-onboarding.sh"
+
+if ! command -v jq >/dev/null 2>&1 || [ ! -f "$HOOK_FILE" ] || [ ! -f "$SETTINGS_FILE" ]; then
+    warn "Check 14 skipped — jq, hook script, or settings.json unavailable"
+else
+    required_keys=$(grep -m1 '^REQUIRED_KEYS=' "$HOOK_FILE" | sed -E 's/^REQUIRED_KEYS="(.*)"$/\1/')
+
+    for key in $required_keys; do
+        case "$key" in
+            tier2_plugin_*)
+                name=$(echo "${key#tier2_plugin_}" | tr '_' '-')
+                enabled=$(jq -r --arg n "$name" '.enabledPlugins | to_entries[] | select(.key | startswith($n + "@")) | .value' "$SETTINGS_FILE")
+                if [ -z "$enabled" ]; then
+                    fail "REQUIRED_KEYS flag $key has no matching enabledPlugins entry (tried name '$name')"
+                    check14_pass=false
+                elif [ "$enabled" != "true" ]; then
+                    fail "REQUIRED_KEYS flag $key maps to a disabled plugin ($name@...) — this key can never become true and onboarding will re-fire every session"
+                    check14_pass=false
+                fi
+                ;;
+        esac
+    done
+
+    $check14_pass && pass "every REQUIRED_KEYS plugin flag maps to an enabled plugin"
 fi
 echo ""
 

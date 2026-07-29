@@ -69,7 +69,7 @@ cp .env.example .env
 ```
 
 Open `.env` and populate credentials for any services you'll use:
-- `ANTHROPIC_API_KEY` — required for all AI team operations
+- `ANTHROPIC_API_KEY` — **not** required for the vault's own AI team operations, which run through Claude Code's own authentication (a Max, Team or Pro plan, or the key you signed in with — see `README.md` § Requirements). Nothing in this repo reads this variable directly; populate it only if you add something outside Claude Code that calls the Anthropic API on its own.
 - Google / Gmail credentials — required if using calendar or email MCP tools
 - MCP server tokens (GitHub, Slack, Notion) — add as needed
 
@@ -105,7 +105,7 @@ See `Resources/SOPs/Theme SOP.md` for the full workflow.
 
 ## Step 4 — Bootstrap memory
 
-`install.sh` / `install.bat` already created `Vault/Memory/context.md` from the tracked seed (`context.example.md`). Open `Vault/Memory/context.md` and fill in the `## Session Bootstrap` block:
+`Vault/Memory/context.md` was created from the tracked seed (`context.example.md`) by whichever of these ran on your clone: `install.sh` / `install.bat`, or `/onboard` (which also seeds it, since the documented quick-start path in `README.md` goes straight to `/onboard` without an installer step). Open `Vault/Memory/context.md` and fill in the `## Session Bootstrap` block:
 
 ```markdown
 ## Session Bootstrap — [YYYY-MM-DD]
@@ -120,7 +120,7 @@ This anchors your local memory for future sessions.
 
 > **`context.md` vs `MEMORY.md`.** `context.md` is your clone's **local** team memory — git-ignored, the write target for the bootstrap entry above and for `/memory-reconcile`. `MEMORY.md` is the shipped, git-tracked **vault-operations index**, maintainer-curated and the same for every install. Never hand-edit `MEMORY.md` for local facts — doing so causes rebase conflicts on `/update`. Both files load into context every prompt.
 
-> **Migrating an existing clone (one-time).** If your clone predates the memory split, local entries you added to `MEMORY.md` are now in the maintainer-owned tracked file and will conflict on your next `/update`. Move them into `Vault/Memory/context.md`, then run `git checkout MEMORY.md` to restore the shipped index. New clones skip this — `install` already created `context.md`.
+> **Migrating an existing clone (one-time).** If your clone predates the memory split, local entries you added to `MEMORY.md` are now in the maintainer-owned tracked file and will conflict on your next `/update`. Move them into `Vault/Memory/context.md`, then run `git checkout MEMORY.md` to restore the shipped index. New clones skip this — `context.md` already exists by the time this matters, created by the installer or by `/onboard`.
 
 ---
 
@@ -219,6 +219,8 @@ The trade-off accepted in its place: each repo's HEAD commit was reviewed (see p
 | higgsfield-ai/skills | `27defbaa75efa34d064f208e72b3dbfc71db0a92` | recorded 2026-07-25; maintainer review pending |
 
 The last row above was added when the drift between this table and `.claude/settings.json` was reconciled (2026-07-25) — the SHA is what HEAD was at recording time, not a reviewed-safe attestation; a maintainer still needs to review it and replace "review pending" with a review date.
+
+Disabling any plugin listed here requires removing its matching `tier2_plugin_<name>` entry from `REQUIRED_KEYS` in `.claude/hooks/session-start-onboarding.sh` in the same change — a `REQUIRED_KEYS` entry that can never become true makes onboarding re-fire every session, forever. `tier2_plugin_higgsfield` is the entry that pairs with the `higgsfield-ai/skills` row above; it stays live only because that row's boolean is still `true`, so do not disable it without also removing the key.
 
 This is the single place this SHA list is recorded — other docs link here rather than restating it.
 
