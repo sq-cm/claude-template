@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-07-29
+
+- fix(security): `capture-log.sh` redacts secrets before its verbatim write, bounds its growth, and drops the Bash-3.2 nullglob array — the Stop hook appended every prompt and reply in clear text, with no redaction, size cap or retention bound. Git-ignoring the path was never a mitigation: the vault root is a Google Drive mount, so `.gitignore` governs version control and nothing else. A new `redact()` helper covers PEM key blocks and ten token shapes, keeping the key name and replacing the value; it fails **closed** with a `(capture suppressed …)` placeholder, inverting the other five hooks' fail-open convention because there a failure costs a guard and here it costs the secret. Growth gets two bounds: rotation to a `.partN.md` sibling past `CAP_MAX_BYTES` (1 MB), and a `CAP_RETAIN_DAYS` (90) prune once per session — gated on the new-session flag and on running after the write, not on write success, which the hook never checks. The array becomes a for-loop and the file gains the `Bash 3.2 / Git Bash safe` header line its `Vault/Scripts/` siblings carry. Three caveats: the redactor is a heuristic, not a guarantee; its key-assignment rule is knowingly over-broad and redacts ordinary prose of the same shape (`The secret: consistency beats intensity.` loses its value), accepted as the cheaper failure; and retention applies forward only, leaving existing captures untouched. Plan 055 (#249)
+
 ## 2026-07-25
 
 - feat(models): re-tier 6 judgement-heavy personas (Harper, Ryan, Finn, Drew, Remi, Lex) from `claude-fable-5` to `claude-opus-5` (released 24/07/2026 — near-Fable capability at half the price); Persona Template SOP gains a Judgement tier row; validate.sh Check 10 adds an OPUS5_PIN_COUNT tripwire alongside FABLE_PIN_COUNT=2 (gatekeepers only) (#241)
