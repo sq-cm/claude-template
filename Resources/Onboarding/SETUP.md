@@ -14,6 +14,27 @@ Before configuring anything, take five minutes with one of the worked demos unde
 
 ---
 
+## Prerequisites
+
+Before you start, make sure these are on your machine:
+
+- **A POSIX shell and `bash`.** On Windows this means Git Bash, which ships with Git for Windows. The vault's hooks are bash scripts, and `.claude/settings.json` invokes them through a shell expression that needs a POSIX shell to evaluate before it needs `bash` itself.
+- **`jq`.** Required by five of the vault's scripts, including the hook that runs first-time setup. Without it, auto-onboarding is skipped and `Vault/Memory/onboarding-errors.md` records why.
+- **`git`.** For cloning the repo, the pull-only update flow, and the commit hooks.
+- **`curl`.** For the tool-freshness check and the herdr installer.
+
+These are the dependencies the vault's scripts actually use; the install path has not yet been exercised on a machine that genuinely lacks any of them, so treat that case as untested rather than assumed to fail.
+
+Paste this to check all four at once:
+
+```bash
+for c in bash jq git curl; do command -v "$c" >/dev/null 2>&1 && echo "ok   $c" || echo "MISS $c"; done
+```
+
+Each line should read `ok`, not `MISS`. If any read `MISS`, install that tool before continuing.
+
+---
+
 ## Step 0 — Run the install script
 
 After cloning, run once from the vault root:

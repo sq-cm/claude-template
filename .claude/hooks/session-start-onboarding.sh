@@ -34,7 +34,13 @@ REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plu
 
 if ! command -v jq >/dev/null 2>&1; then
   log_error "jq not found on PATH — auto-onboarding disabled"
-  emit_silent
+  # Say something rather than exiting silently. Onboarding cannot run without a
+  # JSON parser, and a silent skip leaves the session looking fully configured
+  # when none of Tier 1 or Tier 2 has happened. Note the constraint: in this
+  # branch emit_context's jq-based encoder is unavailable, so its
+  # printf '"%s"' fallback runs, and that fallback escapes nothing. This
+  # message must therefore contain no double quotes and no newlines.
+  emit_context 'AUTO-ONBOARDING SKIPPED: jq is not installed, so first-time setup cannot run. Tell the user in one line that jq must be installed and /onboard re-run, point them at Resources/Onboarding/SETUP.md, and then answer their original question normally. Do not attempt to install jq.'
 fi
 
 ONBOARDED_JSON="{}"
