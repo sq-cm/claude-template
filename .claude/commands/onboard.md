@@ -134,25 +134,30 @@ First, check if Node.js is available:
 node --version
 ```
 
-**If Node.js not found:** auto-install using the platform package manager, then retry.
+**If Node.js not found:** on Windows, install it via `winget` (below) and retry. On macOS and Linux, do not install anything — give the user the instruction below and skip Caveman.
 
 **Windows:**
 ```powershell
 winget install -e --id OpenJS.NodeJS.LTS --silent
 ```
 
-**macOS:**
-```bash
-command -v brew &>/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install node
-```
+**macOS:** do **not** auto-install. Tell the user:
 
-**Linux:**
-```bash
-sudo apt-get install -y nodejs npm
-```
+> ⚠️ Caveman needs Node.js, which is not installed. Install it yourself with either:
+>   - Homebrew (if you have it): `brew install node`
+>   - Or the official installer: https://nodejs.org/en/download
+>
+> Then re-run `/onboard`. Everything else is already set up — Caveman is an optional token-saving plugin, not a requirement.
 
-After install, refresh PATH and retry `node --version`. If install fails, print:
+Write `tier1_node` and `tier2_caveman` as `"skipped"` (never `true`) in `Vault/Memory/onboarding-flags.json`, then skip to Step 8. Do not install Homebrew on the user's behalf under any circumstances.
+
+**Linux:** do **not** auto-install. Tell the user:
+
+> ⚠️ Caveman needs Node.js, which is not installed. Install it with your distribution's package manager — for example `sudo apt-get install nodejs npm` on Debian or Ubuntu — then re-run `/onboard`. Caveman is an optional token-saving plugin, not a requirement.
+
+Write `tier1_node` and `tier2_caveman` as `"skipped"` (never `true`) in `Vault/Memory/onboarding-flags.json`, then skip to Step 8. Do not run `sudo` on the user's behalf.
+
+After a Windows install, refresh PATH and retry `node --version`. If that install fails too, write `tier1_node` and `tier2_caveman` as `"skipped"` (never `true`) in `Vault/Memory/onboarding-flags.json` and print:
 
 > ⚠️ Caveman skipped — could not install Node.js automatically. Install Node.js LTS manually then re-run `/onboard`.
 
@@ -279,10 +284,12 @@ if ($expected -ieq $actual) { New-Item -ItemType Directory -Force -Path "$env:LO
 ```bash
 ASSET="plannotator-darwin-arm64"   # or plannotator-linux-x64, etc.
 gh release download --repo backnotprop/plannotator --pattern "${ASSET}*"
-echo "$(cat ${ASSET}.sha256 | cut -d' ' -f1)  ${ASSET}" | sha256sum -c - && chmod +x "$ASSET" && sudo mv "$ASSET" /usr/local/bin/plannotator
+echo "$(cat ${ASSET}.sha256 | cut -d' ' -f1)  ${ASSET}" | sha256sum -c - && chmod +x "$ASSET" && sudo -n mv "$ASSET" /usr/local/bin/plannotator
 ```
 
-Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch/failure: "⚠️ plannotator binary skipped — checksum did not match / download failed. Retry manually or report to the maintainer."
+`sudo -n` never prompts — it either succeeds using a cached credential or fails immediately, rather than blocking an automated step on a password prompt.
+
+Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch/failure: "⚠️ plannotator binary skipped — checksum did not match / download failed. Retry manually or report to the maintainer." If `sudo -n` fails for lack of a cached credential, report: "⚠️ plannotator binary downloaded and verified, but installing it needs a password. Re-run Step 10 manually from a terminal where you can authenticate."
 
 ---
 
