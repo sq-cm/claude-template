@@ -30,6 +30,19 @@
 #   Tracked files are never touched — Pass 2 checks
 #   `git ls-files --error-unmatch` before deleting anything.
 #
+#   Scope includes gitignored trees. The `find .` below prunes only `./.git`,
+#   and the untracked-file test passes trivially inside a gitignored
+#   directory, so Notes/, Projects/, Vault/Plans/ and Vault/Logs/ are all in
+#   scope for Pass 2's delete, the same as any other untracked path.
+#
+#   Wiring and silence. Invoked from a SessionStart hook
+#   (.claude/hooks/update-check.sh) and from Vault/Scripts/update.sh. On the
+#   SessionStart path it only runs once local/main and main both exist (i.e.
+#   after /onboard) and is then throttled to once per 24h, so the earliest
+#   possible delete is session two on a later day. Either way, its output is
+#   appended to Vault/Memory/update-check-errors.md and never shown to the
+#   user — a deletion is silent unless someone reads that log.
+#
 # POSIX/bash 3.2 compatible. Portable across macOS BSD `find` and GNU
 # `find` — uses only `-type f`/`-type d`, `-mindepth`, and `-print0`, no
 # `-printf`.
