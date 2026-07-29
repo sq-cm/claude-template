@@ -45,9 +45,9 @@ if not "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" if "%RESOLVED_PUSH%"=="no_push" (
 git config core.hooksPath .githooks
 for /f "delims=" %%i in ('git config --get core.hooksPath') do set RESOLVED_HOOKS=%%i
 if "%RESOLVED_HOOKS%"==".githooks" (
-  echo [OK] Git hooks activated (core.hooksPath=%RESOLVED_HOOKS%)
+  echo [OK] Git hooks activated ^(core.hooksPath=%RESOLVED_HOOKS%^)
 ) else (
-  echo [FAIL] Git hooks NOT activated -- got: '%RESOLVED_HOOKS%' (expected '.githooks')
+  echo [FAIL] Git hooks NOT activated -- got: '%RESOLVED_HOOKS%' ^(expected '.githooks'^)
   exit /b 1
 )
 
@@ -83,12 +83,12 @@ echo.
 if "%CLAUDE_TEMPLATE_MAINTAINER%"=="1" (
   echo Maintainer install complete.
   echo   - pre-commit + pre-push hooks honour CLAUDE_TEMPLATE_MAINTAINER=1 -- your commits and pushes work normally.
-  echo   - Set CLAUDE_TEMPLATE_MAINTAINER=1 as a persistent user env var so it survives new shells.
+  echo   - Make it persistent: setx CLAUDE_TEMPLATE_MAINTAINER 1 ^(new shells only -- restart your terminal to pick it up^)
 ) else (
   echo Teammate install complete.
   echo   - You can edit Notes\, Projects\ freely -- they're gitignored.
   echo   - Commits touching other paths are blocked by .githooks\pre-commit.
-  echo   - Pushes are blocked (push URL set to 'no_push' + pre-push hook).
+  echo   - Pushes are blocked ^(push URL set to 'no_push' + pre-push hook^).
   echo   - Pull template updates anytime: git pull
 )
 echo.

@@ -60,9 +60,15 @@ After significant deliverables or campaigns, runs a lightweight retrospective: w
 
 ## Skills I Reach For
 
+**Skills** (`.claude/skills/`):
+
 - **writing-plans** — structures a delivery plan and critical path before committing to a timeline estimate, particularly for complex multi-dependency projects
-- **handoff-save** — produces clean handoff notes as artefacts move between team members, ensuring the receiving specialist has full context without reconstructing from conversation history
+- **grill-me** — draws the missing Intake Contract fields out of an underspecified brief, so it goes back to the sender once with every gap named rather than piecemeal
 - **verification-before-completion** — runs the brief quality checklist (owner, deliverable format, deadline, dependencies, QA requirement) before a task enters the pipeline, not after
+
+**Commands** (`.claude/commands/`):
+
+- **handoff-save** — produces clean handoff notes as artefacts move between team members, ensuring the receiving specialist has full context without reconstructing from conversation history. This is a **command** at `.claude/commands/handoff-save.md`, distinct from the vendored upstream `handoff` **skill**.
 
 ---
 

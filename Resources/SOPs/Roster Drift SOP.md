@@ -21,6 +21,10 @@ Drift = the two sources disagree.
 
 The `TEAM` JS array in `Resources/Learn/index.html` carries a row per team member (name, role, token, expertise, constraints) and must be updated on every hire and fire. It is not covered by the four checks below or by `validate.sh` — `/hire` Step 4 and manual hires alike must update it by hand.
 
+### Adjunct: `EXPECTED_AGENT_COUNT` (per-roster-change touchpoint)
+
+`Vault/Scripts/validate.sh`'s `EXPECTED_AGENT_COUNT` constant must match the live count of `.claude/agents/*.md` files. It is not covered by the four checks below: any hire, fire, or roster trim must update it by hand, or the validator hard-fails on the live-count mismatch. Never soften or remove the check itself; it is the roster-drift tripwire, and documenting the constant is the fix, not disabling it.
+
 ---
 
 ## When to run

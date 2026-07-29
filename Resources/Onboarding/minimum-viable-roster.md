@@ -87,7 +87,7 @@ Add as your team grows and client scope broadens.
 
 **{MobileDeveloper} Milo** — `mobile-developer.md`. React Native and app store delivery. Add only if mobile app development is in scope. Skip entirely for web-only studios.
 
-**{LegalComplianceWriter} Lex** — `legal-compliance-writer.md`. Drafts T&Cs, privacy policies, cookie notices, disclaimers, and NDAs across AU/US/EU — pre-counsel drafts for human lawyer review, never legal advice. Holds a scoped WebFetch grant for live statute/regulator lookups. Add when client work recurrently needs policy and compliance copy. Skip if legal documents are rare or always outsourced to a law firm.
+**{LegalComplianceWriter} Lex** — `legal-compliance-writer.md`. Drafts T&Cs, privacy policies, cookie notices, disclaimers, and NDAs across AU/US/EU — pre-counsel drafts for human lawyer review, never legal advice. Runs on the canonical 6-tool baseline: no WebFetch grant of his own, and the Orchestrator pre-fetches statute/regulator currency-of-law material for him before dispatch. Add when client work recurrently needs policy and compliance copy. Skip if legal documents are rare or always outsourced to a law firm.
 
 The next three are the **AI-Cinema unit** — a narrative AI-film pipeline (character films, music videos) built on Higgsfield/Seedance. They are a unit: keep or cut all three together. Distinct from Cleo (commercial images) and Nova (commercial video) — add them only when narrative character-film work is in scope, not for commercial marketing assets.
 
@@ -103,6 +103,11 @@ The next three are the **AI-Cinema unit** — a narrative AI-film pipeline (char
 
 To remove personas from your clone, follow [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md) — it covers agent file deletion, theme map updates, CLAUDE.md cleanup, and git tracking. Do not delete manually.
 
+A trim also has to satisfy two validator constraints, or `Vault/Scripts/validate.sh` hard-fails:
+
+- Set `EXPECTED_AGENT_COUNT` in `Vault/Scripts/validate.sh` to your new persona count, or the validator hard-fails on a live-count mismatch.
+- Remove or retarget every `@{RoleToken}` reference to a removed persona in governance files: an orphaned token also causes a hard fail.
+
 ---
 
 ## Verification
@@ -113,5 +118,6 @@ After removing personas, verify:
 2. Theme name map (`Vault/Memory/theme-name-map.md`) updated.
 3. CLAUDE.md updated if constraints mention deleted roles.
 4. `git status` shows only intended deletions.
+5. `bash Vault/Scripts/validate.sh` → `RESULT: PASS`.
 
 If unsure, consult the SOP or ask the Orchestrator.
