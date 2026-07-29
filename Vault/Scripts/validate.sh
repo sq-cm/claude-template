@@ -750,7 +750,28 @@ else
             *" $n "*) continue ;;
         esac
 
-        if ! grep -qE "#$n([^0-9]|$)" "$PROJECT_ROOT/CHANGELOG.md"; then
+        # Anchored on a real top-level entry line (^- ... (#NNN) at line end),
+        # not a bare substring match — a #NNN mention inside unrelated prose
+        # (e.g. another entry's own text, or CHANGELOG.md:3's contract
+        # sentence) must not satisfy this check. This is the exact defect
+        # that let #246 pass Check 12 silently before its backfill: the
+        # digits appeared inside #251's entry text with no entry of its own.
+        # LC_ALL=C and the trailing [[:space:]]* are both load-bearing, and
+        # they are COUPLED — do not remove one and keep the other:
+        #   - [[:space:]]* tolerates an invisible trailing space after
+        #     (#NNN), which would otherwise defeat the $ anchor on an
+        #     otherwise well-formed entry.
+        #   - Adding [[:space:]]* also defeats grep's literal-suffix fast
+        #     path, which is what made the plain (#NNN)$ form work here by
+        #     accident. Without that fast path, MSYS grep under a UTF-8
+        #     locale will not traverse 4-byte UTF-8 (emoji in an entry's
+        #     text) with `.`, so a genuine entry stops matching. LC_ALL=C
+        #     restores it. Measured on this file: 173 anchored matches
+        #     under en_US.UTF-8 vs 176 under LC_ALL=C, the three missing
+        #     being emoji-bearing entries for #102, #101 and #52.
+        # Dropping LC_ALL=C as noise therefore reintroduces a false WARN
+        # the moment such an entry falls inside the 30-commit lookback.
+        if ! LC_ALL=C grep -qE "^- .*\(#$n\)[[:space:]]*$" "$PROJECT_ROOT/CHANGELOG.md"; then
             warn "PR #$n in recent history has no CHANGELOG entry (backfill or add to CHANGELOG_EXEMPT_PRS if it's a pure-backfill PR)"
             check12_pass=false
         fi
