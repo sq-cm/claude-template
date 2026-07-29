@@ -92,7 +92,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Read|Grep",
+        "matcher": "Read|Grep|Glob",
         "hooks": [
           {
             "type": "command",
