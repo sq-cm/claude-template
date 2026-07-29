@@ -130,7 +130,7 @@ Each project has a `README.md` with learning objectives and completion steps.
 ## Customising
 
 **Rename the workspace:**
-Duplicate this folder, rename it `Claude - [YourCompany]`, and open that copy in Claude Code. Update the memory path in `CLAUDE.md` to the absolute path of your new folder.
+Duplicate this folder, rename it `Claude - [YourCompany]`, and open that copy in Claude Code. Any edit you make to `CLAUDE.md`, persona files, or `Vault/Scripts/validate.sh` is local-only: `.githooks/pre-commit` blocks it from being committed back to the template, which is deliberate (the clone is read-only for template files; see [SETUP.md](Resources/Onboarding/SETUP.md)).
 
 **Add a team member:**
 Tell the Orchestrator you have a capability gap. The hiring pipeline handles the rest.
@@ -149,7 +149,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 ## Requirements
 
 - [Claude Code](https://claude.ai/code) — the CLI or desktop app
-- Access to Claude models. Two gatekeeper personas (@{SeniorAdviser}, @{QAComplianceReviewer}) are pinned to **Claude Fable 5** — available on Claude Max and Team plans; six judgement-tier personas run on `claude-opus-5` (see the [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) § Model assignment). On a Claude Pro plan, Fable 5 is not available: substitute `claude-opus-5` for the two gatekeeper pins, and in `Vault/Scripts/validate.sh` set `FABLE_PIN_COUNT=0` and `OPUS5_PIN_COUNT=8` so Check 10 accepts the substitution.
+- Access to Claude models. Two gatekeeper personas (@{SeniorAdviser}, @{QAComplianceReviewer}) are pinned to **Claude Fable 5** — available on Claude Max and Team plans; six judgement-tier personas run on `claude-opus-5` (see the [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) § Model assignment). On a Claude Pro plan, Fable 5 is not available: substitute `claude-opus-5` for the two gatekeeper pins, and in `Vault/Scripts/validate.sh` set `FABLE_PIN_COUNT=0` and `OPUS5_PIN_COUNT=8` so Check 10 accepts the substitution. This edit is local-only too, per the note above.
 - A POSIX shell and `bash`. On Windows this means Git Bash, which ships with Git for Windows. The vault's hooks are bash scripts, and `.claude/settings.json` invokes them through a shell expression that needs a POSIX shell to evaluate before it needs `bash` itself.
 - `jq`. Required by five of the vault's scripts, including the hook that runs first-time setup. Without it, auto-onboarding is skipped and `Vault/Memory/onboarding-errors.md` records why.
 - `git`. For cloning the repo, the pull-only update flow, and the commit hooks.
@@ -159,7 +159,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 
 These are the dependencies the vault's scripts actually use, confirmed by reading the scripts themselves; the install path has not yet been exercised on a machine that genuinely lacks any of them, so treat that case as untested rather than assumed to fail.
 
-**OS note:** Example paths in `CLAUDE.md` and persona files use Windows-style absolute paths (`J:\My Drive\...`). Update the memory path in `CLAUDE.md` to match your OS and file system before first use.
+**OS note:** Example paths in `CLAUDE.md` and persona files use Windows-style absolute paths (`J:\My Drive\...`) purely as illustration: they aren't live configuration, and nothing needs editing to match your OS.
 
 ---
 

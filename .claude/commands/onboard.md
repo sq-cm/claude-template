@@ -48,7 +48,7 @@ if (Test-Path "..\..\Shared Projects") { "FOUND" } else { "NOT FOUND" }
 
 > ⚠️ Shared Projects folder not found at `../../Shared Projects`. Make sure your vault is inside the Team shared drive (`Team/[Name]/Claude-[Name]/`). Claude Code will not have access to shared work until this is resolved.
 
-No symlinks or junctions needed. `../../Shared Projects` is pre-configured as an `additionalDirectory` in `.claude/settings.json` — Claude Code picks it up automatically when the folder exists.
+No symlinks or junctions needed. Claude Code accesses `../../Shared Projects` automatically once it exists at that path relative to the vault root. If it's not found, check your vault's location against the warning above.
 
 ---
 

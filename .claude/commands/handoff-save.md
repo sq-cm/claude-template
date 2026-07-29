@@ -4,6 +4,8 @@ You are the Orchestrator. Writes a forward-looking handoff brief so the conversa
 
 Use `/log-session` for retrospective (what happened). Use `/handoff-save` for prospective pickup (what to do next).
 
+`handoff-save` is a command at `.claude/commands/handoff-save.md`, distinct from the vendored upstream `handoff` skill, which saves to the OS temp directory and is local-machine-only, not reachable from another synced machine. This command writes to `Vault/Logs/Handoffs/` instead, precisely to solve that limitation. See `handoff-load.md` for the read-side disambiguation.
+
 ## Rules
 - Orchestrator owns all handoff writes. Never delegate.
 - Save to: `Vault/Logs/Handoffs/YYYY/YYYY-MM-DD-HHMMSS-[slug].md` — slug is 2–4 word kebab-case summary of what the next session must do. Seconds prevent collisions on rapid re-saves.
