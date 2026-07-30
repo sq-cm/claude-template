@@ -428,6 +428,6 @@ Note: Windows installs the preview channel by default — that is the only chann
 
 **On success:** report "herdr installed ✓ ($(herdr --version))".
 
-**On failure** (pattern of Step 7's Node fallback): print:
+**On failure** (pattern of Step 7's Node fallback): write `tier2_herdr` as `"skipped"` (never `true`) in `Vault/Memory/onboarding-flags.json` and print:
 
 > ⚠️ herdr skipped — could not install automatically. Install manually from https://herdr.dev/docs/install/ then re-run `/onboard`.
