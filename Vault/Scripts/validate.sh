@@ -728,6 +728,23 @@ echo ""
 #   228         — changelog backfill for #223–#227; pure-backfill class (#82/#100/#205).
 #   234         — changelog backfill for #230–#232; pure-backfill class (#82/#100/#205).
 #   253         — changelog backfill for #242–#248; pure-backfill class (#82/#100/#205).
+#   257         — stranded same-plan entry, NOT a backfill: plan 064's own CHANGELOG
+#                 entry (for #256) landed in a standalone PR because #256 (the code
+#                 change) was squash-merged before the entry could be added as a
+#                 second commit on #256's own branch. The timing rule below is
+#                 meant to prevent this, but a squash-merge landing between
+#                 approval and the entry commit can still produce the same result
+#                 with nobody ignoring anything — a race, not negligence. #257 is
+#                 exempted here so it doesn't masquerade as a genuine miss, not
+#                 because the pattern is routine; a repeat is a cue to check for
+#                 that race, not to widen this class.
+#
+# Timing rule (the fix for #257's cause): a CHANGELOG entry must land on its own
+# PR's branch — as a commit added after the PR number exists but before the
+# squash-merge — never as a separate PR opened once the code PR has already
+# merged. A PR's number is fixed at creation, not at merge; what the merge
+# forecloses is further commits on that branch, which is what stranded #257's
+# entry.
 #
 # WARN, not FAIL: squash subject formats vary and the maintainer legitimately
 # batches entries; this is a commit-time tripwire, not a hard gate.
@@ -741,7 +758,7 @@ if ! git rev-parse --git-dir >/dev/null 2>&1 || ! git log -1 >/dev/null 2>&1; th
     warn "Check 12 skipped — not a usable git history"
 else
     check12_pass=true
-    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222 228 234 253"
+    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222 228 234 253 257"
 
     pr_numbers=$(git log --format=%s -30 | grep -oE '#[0-9]+' | tr -d '#' | sort -un)
 
@@ -772,7 +789,7 @@ else
         # Dropping LC_ALL=C as noise therefore reintroduces a false WARN
         # the moment such an entry falls inside the 30-commit lookback.
         if ! LC_ALL=C grep -qE "^- .*\(#$n\)[[:space:]]*$" "$PROJECT_ROOT/CHANGELOG.md"; then
-            warn "PR #$n in recent history has no CHANGELOG entry (backfill or add to CHANGELOG_EXEMPT_PRS if it's a pure-backfill PR)"
+            warn "PR #$n in recent history has no CHANGELOG entry (backfill it, or add to CHANGELOG_EXEMPT_PRS if it fits one of the exempt classes documented above)"
             check12_pass=false
         fi
     done
