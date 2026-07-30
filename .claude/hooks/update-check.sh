@@ -16,8 +16,25 @@ ERROR_LOG="Vault/Memory/update-check-errors.md"
 emit_silent() { exit 0; }
 
 emit_context() {
-  printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":%s}}\n' \
-    "$(printf '%s' "$1" | jq -Rs . 2>/dev/null || printf '"%s"' "$1")"
+  # jq is guaranteed present by the jq guard after the throttle block —
+  # every call site in this file runs after it. No non-jq fallback: the old
+  # fallback did not escape newlines and produced invalid JSON on the
+  # multiline, fenced text this hook always emits. A present-but-
+  # malfunctioning jq (as opposed to an absent one, caught by that guard) is
+  # a different failure mode: it can emit partial stdout and still exit
+  # non-zero, so checking for emptiness alone is not sufficient, and
+  # `local enc=$(...)` would mask the pipeline's exit status behind the
+  # always-successful `local` assignment. Declare, assign and capture the
+  # status as separate statements so none of that is masked.
+  local enc
+  local rc
+  enc="$(printf '%s' "$1" | jq -Rs .)"
+  rc=$?
+  if [ "$rc" -ne 0 ] || [ -z "$enc" ]; then
+    log_error "jq present, encoding failed (exit $rc) — update-check notification skipped"
+    emit_silent
+  fi
+  printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":%s}}\n' "$enc"
   exit 0
 }
 
@@ -64,7 +81,8 @@ stamp_state() {
 }
 
 # Throttle — shared across both sections. Skip if checked within the last
-# 24h. This is the only early exit before the two sections run.
+# 24h. Not the only early exit before the two sections run any more — see
+# the jq guard immediately below.
 if [ -f "$STATE_FILE" ]; then
   LAST_CHECK="$(sed -n 's/^last_check=//p' "$STATE_FILE" 2>/dev/null | head -1)"
   [ -z "$LAST_CHECK" ] && LAST_CHECK=0
@@ -73,6 +91,26 @@ if [ -f "$STATE_FILE" ]; then
   if [ "$LAST_CHECK" -gt 0 ] && [ "$ELAPSED" -lt 86400 ]; then
     emit_silent
   fi
+fi
+
+# jq is a declared prerequisite of this template (README.md § Requirements,
+# Vault/Plans/059-declare-prerequisites.md / PR #246). This hook's only use
+# of jq is JSON-encoding additionalContext in emit_context below, and there
+# is no safe non-jq fallback for it: the text this hook emits is always
+# multiline (a directive plus one or two fenced sections), and a naive
+# printf-based fallback cannot escape a raw newline inside a JSON string.
+# Guard once, here, so a jq-less machine logs the same way every other
+# jq-guarded failure path in this file does (via log_error) and skips the
+# fetch/template/tool work below entirely rather than computing it and
+# discarding it silently. Stamp the state file before exiting: the throttle
+# above only suppresses a repeat run once last_check has been written, and
+# the sole other stamp_state call sits at the very end of this file, past
+# this exit. Without the stamp here, a jq-less machine never throttles and
+# log_error appends on every single session, without bound.
+if ! command -v jq >/dev/null 2>&1; then
+  log_error "jq not found on PATH — update-check notification skipped"
+  stamp_state ""
+  emit_silent
 fi
 
 # ---------------------------------------------------------------------------
@@ -116,9 +154,11 @@ else
     [ -z "$BEHIND" ] && BEHIND=0
 
     if [ "$BEHIND" -gt 0 ]; then
-      # Recent upstream commit subjects — shas stripped, quotes stripped (jq-less
-      # fallback below does not escape quotes, so strip them at the source).
-      SUBJECTS="$(git log --oneline --no-decorate main..origin/main 2>/dev/null | cut -d' ' -f2- | tr -d '"')"
+      # Recent upstream commit subjects — shas stripped. Quotes are left
+      # intact: emit_context's only encoder is jq -Rs ., which escapes them
+      # correctly (the jq-less fallback that made quote-stripping necessary
+      # here has been removed — see emit_context above).
+      SUBJECTS="$(git log --oneline --no-decorate main..origin/main 2>/dev/null | cut -d' ' -f2-)"
 
       BULLETS=""
       i=0
