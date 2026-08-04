@@ -209,12 +209,6 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 /plugin install obsidian@obsidian-skills
 ```
 
-**marketing-skills**:
-```
-/plugin marketplace add coreyhaines31/marketingskills
-/plugin install marketing-skills@marketingskills
-```
-
 **document-skills**:
 ```
 /plugin marketplace add anthropics/skills

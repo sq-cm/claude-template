@@ -38,7 +38,7 @@ SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 # superpowers was exactly that from 17/07/2026 until plan 060. Four sites in
 # this file encode the plugin roster — name them by what they are, not by
 # line number, which drifts every time this file is edited.
-REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_marketing_skills tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_plannotator tier2_plugin_higgsfield tier2_vscode_git tier2_plannotator_binary tier2_herdr"
+REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_plannotator tier2_plugin_higgsfield tier2_vscode_git tier2_plannotator_binary tier2_herdr"
 
 # Keys that are resolved, not just missing, when the flags file records them
 # as the literal string "skipped" rather than true — for a step that was
@@ -134,7 +134,7 @@ behavioural_pass=true
 [ "$NODE_OK" = "true" ] || behavioural_pass=false
 PLUGINS_DIR="${HOME:-$USERPROFILE}/.claude/plugins"
 if [ -d "$PLUGINS_DIR" ] && command -v find >/dev/null 2>&1; then
-  for p in claude-mem context-mode obsidian marketing-skills document-skills skill-creator frontend-design plannotator higgsfield caveman; do
+  for p in claude-mem context-mode obsidian document-skills skill-creator frontend-design plannotator higgsfield caveman; do
     if ! find "$PLUGINS_DIR" -maxdepth 2 -type d -iname "$p" 2>/dev/null | grep -q .; then
       behavioural_pass=false
       break
@@ -171,7 +171,7 @@ All onboarding signals already pass on disk but Vault/Memory/onboarding-flags.js
 
 ACTION (silent — before responding to user):
 1. Read Vault/Memory/onboarding-flags.json (create with {} if absent).
-2. Merge in 'onboarded' object with all these keys set true: tier1_git_hooks, tier1_env_copy, tier1_node, tier2_caveman, tier2_plugin_claude_mem, tier2_plugin_context_mode, tier2_plugin_obsidian, tier2_plugin_marketing_skills, tier2_plugin_document_skills, tier2_plugin_skill_creator, tier2_plugin_frontend_design, tier2_plugin_plannotator, tier2_plugin_higgsfield, tier2_vscode_git, tier2_plannotator_binary, tier2_herdr.
+2. Merge in 'onboarded' object with all these keys set true: tier1_git_hooks, tier1_env_copy, tier1_node, tier2_caveman, tier2_plugin_claude_mem, tier2_plugin_context_mode, tier2_plugin_obsidian, tier2_plugin_document_skills, tier2_plugin_skill_creator, tier2_plugin_frontend_design, tier2_plugin_plannotator, tier2_plugin_higgsfield, tier2_vscode_git, tier2_plannotator_binary, tier2_herdr.
 3. Write back. Do NOT narrate. Then handle the user's original message normally."
   emit_context "$CTX"
 fi
@@ -218,6 +218,6 @@ $BACKFILL_ACTION
 
 ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md (Steps 3, 7, 8, 9, 10, 14). For each missing flag above, complete the matching step and set that key to true under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, stop Tier 2, ask user to install Node.js LTS manually, and write tier1_node and tier2_caveman as the string \"skipped\" (never true) — this records the step as attempted and deliberately not run, which resolves it instead of re-triggering onboarding every session. If Step 10's privileged move fails only because there is no cached sudo credential (not a checksum mismatch or a download failure), write tier2_plannotator_binary as the string \"skipped\" (never true) — the step was attempted and deliberately not completed, so recording it resolves the key instead of re-triggering onboarding every session. If Step 14's herdr install fails for any reason, write tier2_herdr as the string \"skipped\" (never true) — Step 14 has no checksum and no privileged move, so there is no failure class worth retrying: the step was attempted and deliberately not completed, and recording it resolves the key instead of re-triggering onboarding every session. On any step failure: one-line warning, continue, do not set that flag. After all attempted, pivot to user's original message ('Setup done. On your question: ...').
 
-Flag→step map: tier1_git_hooks/tier1_env_copy = hook already ran (set true unless FAILED); tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); tier2_plugin_claude_mem/context_mode/obsidian/marketing_skills/document_skills/skill_creator/frontend_design/plannotator/higgsfield = Step 8+9 plugin pairs (the plugin registration flag here covers only the Claude Code plugin, which auto-installs per settings.json); tier2_plannotator_binary = Step 10 (auto-run, checksum-verified, no consent gate), or \"skipped\" if the privileged move needs a password with no cached credential, never on a checksum mismatch or a download failure (never true); tier2_herdr = Step 14, or \"skipped\" on any Step 14 install failure (never true); tier2_caveman = Step 7 + '/caveman lite', or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3."
+Flag→step map: tier1_git_hooks/tier1_env_copy = hook already ran (set true unless FAILED); tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); tier2_plugin_claude_mem/context_mode/obsidian/document_skills/skill_creator/frontend_design/plannotator/higgsfield = Step 8+9 plugin pairs (the plugin registration flag here covers only the Claude Code plugin, which auto-installs per settings.json); tier2_plannotator_binary = Step 10 (auto-run, checksum-verified, no consent gate), or \"skipped\" if the privileged move needs a password with no cached credential, never on a checksum mismatch or a download failure (never true); tier2_herdr = Step 14, or \"skipped\" on any Step 14 install failure (never true); tier2_caveman = Step 7 + '/caveman lite', or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3."
 
 emit_context "$CTX"
