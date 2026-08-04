@@ -32,7 +32,7 @@ How each character appears in the final assembled bible. Match this shape.
 
 ## Rules
 
-1. **The four prompt-ready descriptors (Speech, Movement, Stillness, Suno) must be in quotes.** They're engineered to drop verbatim into future prompts — either as standalone prompt inputs, or as feeder blocks for a video prompt director skill (`cinema-worldbuilder-pro` for video, `banana-pro-director` for stills). Specifically:
+1. **The four prompt-ready descriptors (Speech, Movement, Stillness, Suno) must be in quotes.** They're engineered to drop verbatim into future prompts — either as standalone prompt inputs, or as feeder blocks for a video prompt director skill (`cinema-director` for Seedance video, `banana-pro-director` for stills). Specifically:
    - **Speech** feeds the Sound Bed block or dialogue direction
    - **Movement** and **Stillness** feed the Subject Lock block
    - **Suno** feeds vocal casting for music prompts

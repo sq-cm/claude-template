@@ -2,7 +2,7 @@
 
 > A top-down spatial diagram artefact for a single location. Records prop positions, sizes, and clearance distances so they stay consistent take after take. Text cannot hold a location; a map can.
 >
-> **Relationship to the Frame Map:** this schematic map is a world-space prep artefact (where things physically are in the location geometry). The Frame Map, owned by cinema-worldbuilder-pro, is a screen-space per-shot grammar (where characters sit in the frame for a specific Seedance prompt). The schematic map informs the Frame Map — it does not duplicate or replace it. Do not write Frame Map entries here; reference this document from the Frame Map instead.
+> **Relationship to per-shot screen-space grammar:** this schematic map is a world-space prep artefact (where things physically are in the location geometry). Screen-space per-shot placement — where characters sit in the frame for a specific Seedance prompt — lives in cinema-director's timecoded SHOT block Position lines; its 13-block locked house format carries no standalone Frame Map block. The schematic map informs those Position lines — it does not duplicate or replace them. Do not write SHOT block Position content here; reference this document from the shot spec instead.
 
 **Project:**
 **Location slug:** (e.g., `ENV-STREET-DAY`, `ENV-GARAGE-NIGHT`)
@@ -68,11 +68,11 @@ Any spatial facts about the location itself (not props) that affect shot composi
 
 ---
 
-## Frame Map cross-reference
+## Shot cross-reference
 
-This section links the schematic map to the per-shot Frame Map entries that use this location. Do not copy Frame Map content here — record the reference only.
+This section links the schematic map to the per-shot spec entries that use this location. Do not copy SHOT block Position-line content here — record the reference only.
 
-| Shot ID | Frame Map entry location | Notes |
+| Shot ID | Shot spec Position-line location | Notes |
 |---|---|---|
 | (e.g., S01-E02-003) | (e.g., `SHOT-SPEC-S01-E02-003.md` § Reference-image assignments) | (e.g., skydancer slug used as `@skydancer_ref` in this shot) |
 

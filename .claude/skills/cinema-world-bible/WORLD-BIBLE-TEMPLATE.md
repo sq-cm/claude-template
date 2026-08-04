@@ -43,7 +43,7 @@ The M-mode that governs the visual grammar of this project. Every banana-pro sce
 
 **Grade notes for banana-pro Mode 3 scene plates:**
 
-**Grade notes for cinema-worldbuilder-pro Seedance prompts:**
+**Grade notes for cinema-director Seedance prompts:**
 
 ---
 

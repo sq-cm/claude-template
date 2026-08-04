@@ -1,9 +1,11 @@
 ---
 name: story-bible-builder
-description: Interview-driven builder for a PORTABLE, standalone story canon document — one dense installable SKILL.md covering premise, thesis, timeline, factions, locations, character voice/movement/stillness locks, ensemble dynamics, and production rules. Use for "build a bible," "story bible," "canon doc," "turn my story into a skill," or character/world work with no production underway yet. Feeds cinema-worldbuilder-pro and banana-pro-director with voice, movement, and aesthetic-era locks once prompting starts. Not for an active production's continuity tracking, reference-image index, or shot specs — that's cinema-world-bible; hand off there once shots begin.
+description: Interview-driven builder for a PORTABLE, standalone story canon document — one dense installable SKILL.md covering premise, thesis, timeline, factions, locations, character voice/movement/stillness locks, ensemble dynamics, and production rules. Use for "build a bible," "story bible," "canon doc," "turn my story into a skill," or character/world work with no production underway yet. Feeds cinema-director, banana-pro-director, and character-builder with voice, movement, and aesthetic-era locks once prompting starts. Not for an active production's continuity tracking, reference-image index, or shot specs — that's cinema-world-bible; hand off there once shots begin.
 ---
 
 # Story Bible Builder
+
+> **Version:** studio 3.0 build; upstream drop 2 deltas folded 04/08/2026 (upstream body unchanged since the prior drop — fold is rename sweep only: `cinema-worldbuilder-pro` → `cinema-director`, `character-builder` added as a companion skill).
 
 An interview-driven skill for building a **single dense canon document** — a story's bible — that ships as an installable SKILL.md the user can drop into Claude as their own custom skill.
 
@@ -44,7 +46,7 @@ For this mode, the bible needs to be **dense, opinionated, and self-contained** 
 
 ### Mode 2 — Context source for a video prompt director skill
 
-Many users pair the bible with a video prompt director skill — `cinema-worldbuilder-pro` for Seedance video, `banana-pro-director` for Banana Pro stills. In this pairing, the director skill handles the cinematography grammar, mode selection, frame composition, and prompt syntax. The bible provides the identity, voice, movement, aesthetic era locks, and canon that the director skill can't get from a reference image alone.
+Many users pair the bible with a video prompt director skill — `cinema-director` for Seedance video, `banana-pro-director` for Banana Pro stills. In this pairing, the director skill handles the cinematography grammar, mode selection, frame composition, and prompt syntax. The bible provides the identity, voice, movement, aesthetic era locks, and canon that the director skill can't get from a reference image alone.
 
 The director skill reads uploaded reference images for wardrobe, hair, and identity. It cannot read *voice*, *movement quality*, *stillness*, *what era's aesthetic applies*, or *what production rules are locked for this world*. Those come from the bible.
 
@@ -169,7 +171,7 @@ Assistant now assembles the full SKILL.md. The final section — "When this skil
 4. Use the quoted Speech/Movement/Stillness descriptors verbatim when writing prompts
 
 **Paired-with-director-skill mode:**
-1. If a video prompt director skill is also active in the session (`cinema-worldbuilder-pro` for video, `banana-pro-director` for stills), the director skill handles cinematography, mode selection, frame composition, and prompt syntax
+1. If a video prompt director skill is also active in the session (`cinema-director` for video, `banana-pro-director` for stills), the director skill handles cinematography, mode selection, frame composition, and prompt syntax
 2. The bible feeds the director skill: character voice → Sound Bed; movement/stillness → Subject Lock; aesthetic era locks → World Plate / grade; production rules → cross-frame rules and locked traits
 3. When the user asks for a video prompt in this world, pull the relevant character's voice, movement, and stillness lines and the correct aesthetic era block, and hand them to the director skill's prompt structure
 4. Named canonical character references (uploaded reference images the user always attaches) get called out here so the director skill knows to expect them. If the user's production is far enough along to have a `cinema-world-bible` reference-image library index, reference images are attached by their semantic element tag (e.g. `@zara_face`, `@rain_plate`) — cite the tag here rather than re-describing the image.

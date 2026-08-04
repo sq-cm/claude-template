@@ -1,11 +1,11 @@
 # Shot Spec — [SHOT-ID]
 
-> This is a spec, not a prompt. It tells banana-pro-director, cinema-worldbuilder-pro, or seedance-commercial-director what the shot needs. Those skills write the prompt from it. Do not include Banana Pro prompt grammar or Seedance block structure here.
+> This is a spec, not a prompt. It tells banana-pro-director, cinema-director, or seedance-commercial-director what the shot needs. Those skills write the prompt from it. Do not include Banana Pro prompt grammar or Seedance block structure here.
 
 **Project:**
 **Shot ID:** (e.g., S01-E02-003 or a simple slug like CLIFFSIDE-RAIN-01)
 **Sequence position:** (e.g., Scene 2, Shot 3 of 5)
-**Destination skill:** [ ] banana-pro-director (still) / [ ] cinema-worldbuilder-pro (video) / [ ] seedance-commercial-director (commercial)
+**Destination skill:** [ ] banana-pro-director (still) / [ ] cinema-director (video) / [ ] seedance-commercial-director (commercial)
 **Date:**
 
 ---
@@ -134,7 +134,7 @@ Reference slots
 
 ## Destination handoff
 
-**Route to:** banana-pro-director / cinema-worldbuilder-pro / seedance-commercial-director
+**Route to:** banana-pro-director / cinema-director / seedance-commercial-director
 
 **Handoff note to the destination skill:**
 (Any additional context the skill needs that isn't captured above — unusual compositional requests, specific reference to a prior approved output the director should match, etc.)

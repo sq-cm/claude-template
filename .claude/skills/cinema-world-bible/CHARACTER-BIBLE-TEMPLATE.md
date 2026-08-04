@@ -1,6 +1,6 @@
 # Character Bible — [CHARACTER-SLUG]
 
-> This is the canonical source for this character's visual identity. Every banana-pro prompt and every Seedance Subject Lock block points back here. Do not write character names, real ages, or brand names into any prompt output — use visual descriptors only.
+> This is the canonical source for this character's visual identity. Every character-builder or banana-pro prompt and every Seedance Subject Lock block points back here. Do not write character names, real ages, or brand names into any prompt output — use visual descriptors only.
 
 **Project:**
 **Character slug:** `[CHAR-SLUG]`
@@ -11,7 +11,7 @@
 
 ## Identity spec (locked visual descriptor)
 
-This is the text spec that banana-pro-director uses at Mode 0 (face lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
+This is the text spec that character-builder uses at Part 1 (canonical face-lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
 
 **Build:**
 (e.g., slim with refined proportions / athletic / full / slight — described by silhouette and proportion, never by size numbers)
@@ -76,16 +76,16 @@ The reference images that carry this character's identity. Mark each as PENDING 
 
 | Ref type | Library slug | Status | Notes |
 |---|---|---|---|
-| Face lock (Mode 0) | `[CHAR-SLUG]-FACE-LOCK` | PENDING / BUILT / LOCKED | Banana Pro or GPT Image 2 path |
-| 6-panel character sheet (Mode 2) | `[CHAR-SLUG]-SHEET-[OUTFIT]` | PENDING / BUILT / LOCKED | Built after Mode 1 base |
+| Face lock (character-builder Part 1) | `[CHAR-SLUG]-FACE-LOCK` | PENDING / BUILT / LOCKED | Banana Pro or GPT Image 2 path |
+| 3-panel character sheet (character-builder Part 3) | `[CHAR-SLUG]-SHEET-[OUTFIT]` | PENDING / BUILT / LOCKED | Built after the outfit reference |
 
-> The face lock reference is the canonical identity anchor. No outfit work (Mode 1), no scene plates (Mode 3), and no Seedance prompts should be built for this character until the face lock is LOCKED.
+> The face lock reference is the canonical identity anchor. No outfit work (character-builder Part 3), no scene plates (banana-pro-director Mode 3), and no Seedance prompts should be built for this character until the face lock is LOCKED.
 
 ---
 
 ## Wardrobe states
 
-Each outfit or wardrobe condition that this character wears across the project. A wardrobe state is not locked until a Mode 1 base reference exists.
+Each outfit or wardrobe condition that this character wears across the project. A wardrobe state is not locked until a character-builder outfit base reference exists.
 
 ### [OUTFIT-SLUG] — [Short outfit description]
 
@@ -115,8 +115,8 @@ List any condition-specific versions of this outfit that need separate reference
 
 | Ref type | Library slug | Status |
 |---|---|---|
-| Outfit reference (Mode 1) | `[CHAR-SLUG]-OUTFIT-[SLUG]` | PENDING / BUILT / LOCKED |
-| 6-panel sheet (Mode 2) | `[CHAR-SLUG]-SHEET-[SLUG]` | PENDING / BUILT / LOCKED |
+| Outfit reference (character-builder Part 3) | `[CHAR-SLUG]-OUTFIT-[SLUG]` | PENDING / BUILT / LOCKED |
+| 3-panel sheet (character-builder Part 3) | `[CHAR-SLUG]-SHEET-[SLUG]` | PENDING / BUILT / LOCKED |
 
 **Prompt notes for this wardrobe state:**
 (anything that does not appear in the reference images and must be written into prompts — e.g., "jacket removed in cabin scenes — reference shows jacket on; note in shot spec as state-change delta")
@@ -132,7 +132,7 @@ List any condition-specific versions of this outfit that need separate reference
 Rules specific to this character that every shot spec and every prompt must respect:
 
 - (e.g., "Jacket-removed state: when the jacket is off, the reference shows it on — always flag as a state-change delta in the shot spec")
-- (e.g., "Ring stack: the layered gold rings appear on both hands — reference the 6-panel detail shot panel for clarity")
+- (e.g., "Ring stack: the layered gold rings appear on both hands — reference the 3-panel sheet for clarity")
 - (e.g., "Hair: high ponytail is the locked default; loose hair is a distinct wardrobe state requiring its own outfit reference")
 
 ---
