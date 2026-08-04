@@ -1,22 +1,24 @@
 ---
 name: seedance-commercial-director
-description: "Commercial-ad Seedance video-prompt director for product, brand, and advertising briefs — photoreal EN prompts. Sibling to cinema-worldbuilder-pro — NOT an alternative mode of it. Use whenever the brief is a product ad, brand film, hero commercial, TVC, social ad cut, beauty campaign, fragrance spot, automotive ad, or any shoot whose primary purpose is selling or showcasing a product or brand. Route on INTENT: if the goal is to sell, showcase, or brand → this skill. Narrative/editorial cinema → cinema-worldbuilder-pro. Stylized/animated/bilingual → seedance-bilingual-director."
+description: "Commercial-ad Seedance video-prompt director for product, brand, and advertising briefs — photoreal EN prompts. Sibling to cinema-director — NOT an alternative mode of it. Use whenever the brief is a product ad, brand film, hero commercial, TVC, social ad cut, beauty campaign, fragrance spot, automotive ad, or any shoot whose primary purpose is selling or showcasing a product or brand. Route on INTENT: if the goal is to sell, showcase, or brand → this skill. Narrative/editorial cinema → cinema-director. Stylized/animated/bilingual → seedance-bilingual-director."
 ---
 
 # Seedance Commercial Director — Commercial Ad Lane
 
 > **COMMERCIAL LANE — ROUTING GUARDRAILS (READ FIRST)**
 >
-> This skill is the commercial-ad lane. It is a sibling to `cinema-worldbuilder-pro` (CWP), not a mode of it.
+> This skill is the commercial-ad lane. It is a sibling to `cinema-director`, not a mode of it.
 >
 > **Route on INTENT before anything else:**
 > - Ad / product / brand / commercial / TVC / hero video / beauty campaign / fragrance spot / automotive ad → **this skill**
-> - Photoreal narrative cinema / editorial / music video / dramatic scene / fashion film → **cinema-worldbuilder-pro**
+> - Photoreal narrative cinema / editorial / music video / dramatic scene / fashion film → **cinema-director**
 > - Stylized / animated / cartoon / manga / claymation / bilingual EN+ZH / JSON output → **seedance-bilingual-director**
 >
-> **Commercial intent must NOT be served by CWP's M2 Studio mode.** M2 is an editorial/crafted mode — its grade is intentionally not commercial. A product ad written in M2 will produce the wrong register. If a brief is commercial, route here regardless of whether the environment is a studio, a white void, or a location shoot.
+> **Commercial intent must NOT be served by cinema-director's M2 Studio mode.** M2 is an editorial/crafted mode — its grade is intentionally not commercial. A product ad written in M2 will produce the wrong register. If a brief is commercial, route here regardless of whether the environment is a studio, a white void, or a location shoot.
 >
-> If routing is ambiguous, ask one question: "Is the primary purpose of this video to sell or showcase a product or brand?" Yes → this skill. No → CWP.
+> If routing is ambiguous, ask one question: "Is the primary purpose of this video to sell or showcase a product or brand?" Yes → this skill. No → cinema-director.
+
+**Version.** Ripple fold from upstream drop 2 (cinema-director rebuild), applied 04/08/2026: retired the old two-letter acronym and the skill's former name for its sibling, replaced throughout with `cinema-director`; reconciled every "shared with the sibling skill" / "same as the sibling skill" claim against cinema-director's new thirteen-block locked house format. Where cinema-director still carries an identically-named block (Subject Lock, Cross-Frame Rules, Last Frame, World Plate, Sound Bed, Element Tags, FOV Degree Table, Write The Visible, House Rules), the inheritance claim stands with an updated section pointer. Where a block no longer exists standalone upstream (Scene & Mood, Frame Map, Movement, the old separate Capture Realism / Camera Capture, the pre-prompt-confirmation workflow, the Distributed Style heading, the Cuts & Timing Precision Scale, the four-mechanic Capture Realism structure), this skill now marks that content as its own retained legacy grammar and points to the closest analogous new section rather than claiming direct inheritance. See § SHARED GRAMMAR — ELEMENT TAGS and § CAPTURE REALISM BLOCK — COMMERCIAL TUNING for the split.
 
 ---
 
@@ -24,21 +26,21 @@ description: "Commercial-ad Seedance video-prompt director for product, brand, a
 
 This skill is openly commercial. The goal is product desire, brand confidence, and purchase intent — communicated through a frame that looks controlled, polished, and intentional.
 
-Where CWP pursues the captured-on-a-camera-that-has-lived-a-little aesthetic — film grain, editorial imperfection, analogue warmth — this skill pursues the opposite: a clean, high-fidelity image that makes the product read as clean, true, and premium on screen. The grade is commercial, not editorial. Highlights are lifted and clean. Colour is precise and controlled. Specular on product surfaces is an asset, not a failure mode.
+Where cinema-director pursues the captured-on-a-camera-that-has-lived-a-little aesthetic — film grain, editorial imperfection, analogue warmth — this skill pursues the opposite: a clean, high-fidelity image that makes the product read as clean, true, and premium on screen. The grade is commercial, not editorial. Highlights are lifted and clean. Colour is precise and controlled. Specular on product surfaces is an asset, not a failure mode.
 
-That said, "commercial" does not mean plastic. The anti-plastic discipline from CWP still applies to skin — no doll skin, no AI-rendered gloss on faces — because a shot where the talent looks synthetic undermines the product. The seam is clean: product surfaces can carry controlled, intentional specular; human skin cannot, except at named opt-in zones.
+That said, "commercial" does not mean plastic. The anti-plastic discipline from cinema-director still applies to skin — no doll skin, no AI-rendered gloss on faces — because a shot where the talent looks synthetic undermines the product. The seam is clean: product surfaces can carry controlled, intentional specular; human skin cannot, except at named opt-in zones.
 
-Five commercial registers replace CWP's five cinema modes. The differences across registers are in **light quality, product presentation, movement grammar, grade, and surface treatment** — not in the locked block structure or the element-tag grammar, which are shared with CWP and operate identically here.
+Five commercial registers replace cinema-director's five cinema modes. The differences across registers are in **light quality, product presentation, movement grammar, grade, and surface treatment** — not in the element-tag grammar, which is shared with cinema-director and operates identically here (cinema-director § ELEMENT TAGS). This skill's twelve-block locked structure is its own independently-maintained format, descended from cinema-director's prior ten-block grammar; cinema-director has since moved to a thirteen-block locked house format with a different block set, so the two skills no longer share an identical block list — only the tag-reference mechanics and the core anti-plastic philosophy.
 
-**Density rule.** Same as CWP: 280–400 words for single-shot scenes, up to 600 for multi-shot. Keep every prompt tight — cut filler. Trust the reference image.
+**Density rule.** This skill's own established target — no longer numerically aligned with cinema-director, whose length discipline now targets roughly 1,000–1,600 words for a four-shot sequence with four Subject Locks: 280–400 words for single-shot scenes, up to 600 for multi-shot. Keep every prompt tight — cut filler. Trust the reference image.
 
-**Distributed style.** Same discipline as CWP — no style header at the top of the prompt. Lighting, colour/grade, lens character, skin treatment, product surface treatment, composition, and continuity each live in their home block rather than a top prefix. The prompt opens on Scene & Mood and Frame Map. See CWP § DISTRIBUTED STYLE for the full aspect-to-block map; this skill's product-specific aspects route to Product Surface and Brand Grade instead of Capture Realism + Camera Capture.
+**Distributed style.** Same discipline cinema-director still follows — no style header at the top of the prompt. Lighting, colour/grade, lens character, skin treatment, product surface treatment, composition, and continuity each live in their home block rather than a top prefix. The prompt opens on Scene & Mood and Frame Map. Cinema-director's old § DISTRIBUTED STYLE heading is gone; the discipline now lives in cinema-director § BLOCK ORDER (LOCKED) and its anti-redundancy rule (§ BLOCK 3 — ALL-CAPS CRITICAL DIRECTIVE BLOCKS, "Anti-redundancy, universal") — this skill's product-specific aspects route to Product Surface and Brand Grade instead of cinema-director's merged Camera & Capture Realism closer (§ BLOCK 13).
 
 ---
 
 ## HOW TO USE THIS SKILL
 
-The workflow is the same as CWP, with a commercial-brief intake step added:
+The workflow follows this skill's own established steps, with a commercial-brief intake step added:
 
 **Step 1 — Confirm the brief type.** Before anything else, confirm this is a commercial/ad brief (product, brand, TVC, hero video, beauty, automotive, fragrance, food, drink, jewellery, fashion ad). If it is narrative cinema or stylized, redirect to the correct skill.
 
@@ -46,9 +48,9 @@ The workflow is the same as CWP, with a commercial-brief intake step added:
 
 **Step 3 — Describe the scene.** Who is in the frame, what the product is, what the moment is, and how long the shot runs. Name the commercial register explicitly or let the skill select it.
 
-**Step 4 — Name the element tags and confirm the pre-prompt summary.** Same format as CWP — tags first, register, scene, characters, frame map, camera (FOV° + mm), runtime. Confirm before the full prompt ships.
+**Step 4 — Name the element tags and confirm the pre-prompt summary.** This skill's own tag-first format — tags first, register, scene, characters, frame map, camera (FOV° + mm), runtime. Confirm before the full prompt ships.
 
-**Step 5 — Receive the two-part delivery.** Identical to CWP: (a) bolded English title with runtime, (b) English code block with twelve discrete labelled blocks in locked order and inline `@tag` references.
+**Step 5 — Receive the two-part delivery.** This skill's own locked format: (a) bolded English title with runtime, (b) English code block with twelve discrete labelled blocks in locked order and inline `@tag` references.
 
 **Step 6 — Run in Higgsfield.** Upload the reference files under the same tag names used in the prompt, then paste the code block into the prompt field.
 
@@ -75,7 +77,7 @@ Once asked, do not ask again in the same session.
 
 ## PRE-PROMPT CONFIRMATION RULE
 
-Every new scene gets a pre-prompt summary before the full prompt is written. Same format as CWP — tags first, register last on the details, runtime as the final bullet.
+Every new scene gets a pre-prompt summary before the full prompt is written, in this skill's own locked format — tags first, register last on the details, runtime as the final bullet. (Cinema-director's own grammar no longer documents an equivalent pre-prompt-confirmation workflow; this stays a commercial-lane-specific step.)
 
 ```
 Pre-prompt check:
@@ -104,7 +106,7 @@ For all new scenes: confirmation is not optional.
 
 ## TWO-PART DELIVERY FORMAT (LOCKED)
 
-Identical to CWP:
+This skill's own locked format. (Cinema-director's own delivery format has since expanded to three parts — title, tag list, code block, per cinema-director § DELIVERY FORMAT; this skill keeps its tag list folded into the pre-prompt check rather than repeating it as a separate delivery step.)
 
 **1. Title line with runtime.** Bolded English. Example: `**Seedance commercial prompt — 10s**`
 
@@ -139,28 +141,28 @@ Twelve blocks. This order never changes. No block may be omitted, reordered, mer
 
 ## UNIVERSAL PROMPT RULES (ALL REGISTERS)
 
-These rules are shared with CWP and apply identically here, extended with commercial-specific additions:
+These rules descend from cinema-director's grammar and apply identically here where cinema-director still carries the same rule; where cinema-director's version of a rule no longer exists in the same form, this skill retains its own version (noted inline). Extended with commercial-specific additions:
 
 1. **Pre-prompt confirmation on every new scene.** Tags first, runtime last. Skip only on iterations.
 2. **Two-part delivery format, in order:** (a) bolded English title with runtime, (b) English code block with twelve labelled blocks and inline `@tag` references.
 3. **Every element tag named in the pre-prompt check appears at least once inline in the code block.**
-4. **Write the visible.** Every abstraction translated to a physical action, a measurable value, or a specific object — no mood-word abstraction ("looks premium," "feels luxurious"). Speeds in km/h, atmosphere in % and meters, scale via human-height stacking, emotion via muscle, product presence via named surface behaviour. See CWP § WRITE THE VISIBLE — the same discipline governs this skill's output.
+4. **Write the visible.** Every abstraction translated to a physical action, a measurable value, or a specific object — no mood-word abstraction ("looks premium," "feels luxurious"). Speeds in km/h, atmosphere in % and meters, scale via human-height stacking, emotion via muscle, product presence via named surface behaviour. See cinema-director § WRITE THE VISIBLE — the same discipline governs this skill's output.
 5. **Runtime baked into the closing Camera Capture line.** Always ask runtime; never default.
 6. **Per-shot timing inline in Movement** for any multi-cut sequence.
 7. **Twelve discrete labelled blocks inside the code block, in the exact locked order defined in § Delivery format — every prompt, no exceptions.**
 8. **One Subject Lock block per character.** Multiple characters each get their own discrete block.
 9. **One Camera Capture line at the bottom — never doubled.**
 10. **No character names in prompt output.** Describe by hair colour, wardrobe, identity markers.
-11. **No real brand names in prompt output.** Generic visual descriptors only ("a tall frosted glass perfume bottle with a chrome atomiser cap," not the brand name). This is the commercial-lane version of CWP Rule 11 — applies identically.
+11. **No real brand names in prompt output.** Generic visual descriptors only ("a tall frosted glass perfume bottle with a chrome atomiser cap," not the brand name). This is the commercial-lane version of cinema-director's brand-name rule (cinema-director § HOUSE RULES — "No real brand names in prompt output") — applies identically. Cinema-director's rules are no longer numbered, so the "Rule 11" citation is retired.
 12. **No platform/tool names in prompt output.** Never reference "Higgsfield," "Seedance," "Banana Pro," etc. inside the prompt text.
 13. **No internal production context.** Every prompt is standalone.
 14. **Pure visual description only.** No meta-commentary.
 15. **Diegetic audio only in the Sound Bed** — plus brand-safe stance (see Sound Bed section below).
 16. **Energy over position** in Scene & Mood. Frame Map handles geometry.
-17. **Cut triggers and timing precision.** "Hard cut to," "Smash cut to," "Match cut on" for edits inside multi-shot prompts. Choose the tightest cuts-and-timing register the shot requires (oner / sequential cuts / timed multishot / freestyle b-roll) — same four-register scale and timecoded/sequential formats as CWP. See CWP § CUTS & TIMING PRECISION SCALE.
+17. **Cut triggers and timing precision.** "Hard cut to," "Smash cut to," "Match cut on" for edits inside multi-shot prompts. This skill keeps its own four-register cuts-and-timing scale (oner / sequential cuts / timed multishot / freestyle b-roll) and timecoded/sequential formats — cinema-director's own § CUTS & TIMING PRECISION SCALE heading is gone; its closest equivalent grammar is now the cut-count and shot-duration columns of § DYNAMIC REGISTER (ENERGY DIAL) plus the per-shot timecoding required in § BLOCK 1 — SHOT HEADER.
 18. **Age-blind.** Never describe characters by age.
 19. **No on-screen text by default.** Every Last Frame block closes with: "No on-screen text, no captions, no signage typography, no rendered text in the frame." Skip only when the user explicitly requested in-frame text.
-20. **Positive locks over negative prohibitions.** Same principle as CWP.
+20. **Positive locks over negative prohibitions.** Same principle as cinema-director (§ PHRASING: POSITIVE DEFAULT, SANCTIONED NEGATION BATTERIES).
 21. **One main idea per shot.**
 22. **Trust the reference image for wardrobe and product surface finish.** Subject Lock and Product Surface only restate what the reference cannot carry.
 23. **Canonical reference always attached, never substituted by the plate.** Product canonical reference is separate from the environment plate, even when the product is visible in the plate.
@@ -169,23 +171,26 @@ These rules are shared with CWP and apply identically here, extended with commer
 
 ## SHARED GRAMMAR — ELEMENT TAGS
 
-These blocks are **identical in grammar, logic, and rules to CWP**. This skill does not redefine them. Use the CWP conventions for:
+Cinema-director's rebuild moved to a thirteen-block house format; two of the blocks below no longer have a standalone equivalent there (Frame Map folded into each shot's Position line, Movement folded into each shot's Subject-action and Camera-move lines). The remaining blocks are still **identical in grammar, logic, and rules to cinema-director**. This skill does not redefine them. Use the cinema-director conventions for:
 
-- **Frame Map** — 2D screen space, horizontal thirds, x/y% precision, depth layers, frame occupancy, negative space.
-- **Subject Lock** — identity anchor per `@tag`, body orientation, pose, state, gaze, contact points, state-change details the reference cannot carry, lock-down line.
-- **Cross-Frame Rules** — no swap, no centre crossing, no depth change, distance consistency, screen sides held, eyelines, carry-across-the-cut.
-- **Movement** — four layers (character motion / micro-motion / environmental motion / camera motion) in flowing paragraph form with per-beat timestamps.
-- **Last Frame** — exact closing composition, on-screen text suppression line.
-- **World Plate** — location, time of day, weather, set dressing, colour palette, atmospheric quality, anchored to `@tag` if a plate is attached.
-- **Element tags** — user-supplied semantic names (`@talent_ref`, `@perfume_ref`, `@bottle_cap_ref`, `@studio_plate`) replace `@imageN` numbering. Lowercase, underscore-separated, descriptive; character/talent refs use `_ref`, environment plates use `_plate`, product/prop tags use a descriptive noun. Ordering no longer matters — Seedance matches by tag name. Every tag named in the pre-prompt check must appear at least once inline in the code block. Reference-count ceiling still applies: roughly 9 uploaded references per prompt. Full tag-naming rules and the canonical-over-plate rule: CWP § ELEMENT TAGS.
+- **Subject Lock** — identity anchor per `@tag`, body orientation, pose, state, gaze, contact points, state-change details the reference cannot carry, lock-down line. Identical to cinema-director § BLOCK 4 — SUBJECT LOCK.
+- **Cross-Frame Rules** — no swap, no centre crossing, no depth change, distance consistency, screen sides held, eyelines, carry-across-the-cut. Identical to cinema-director § BLOCK 10 — CROSS-FRAME RULES.
+- **Last Frame** — exact closing composition, on-screen text suppression line. Identical to cinema-director § BLOCK 11 — LAST FRAME.
+- **World Plate** — location, time of day, weather, set dressing, colour palette, atmospheric quality, anchored to `@tag` if a plate is attached. Identical to cinema-director § BLOCK 7 — WORLD PLATE.
+- **Element tags** — user-supplied semantic names (`@talent_ref`, `@perfume_ref`, `@bottle_cap_ref`, `@studio_plate`) replace `@imageN` numbering. Lowercase, underscore-separated, descriptive; character/talent refs use `_ref`, environment plates use `_plate`, product/prop tags use a descriptive noun. Ordering no longer matters — Seedance matches by tag name. Every tag named in the pre-prompt check must appear at least once inline in the code block. Reference-count ceiling still applies: roughly 9 uploaded references per prompt. Full tag-naming rules and the canonical-over-plate rule: cinema-director § ELEMENT TAGS.
 
-Any rule from CWP that governs these blocks applies here identically. This skill's additions are in the two new blocks (PRODUCT SURFACE and BRAND GRADE) and in the rewritten CAPTURE REALISM and SOUND BED sections below.
+Retained as this skill's own legacy blocks — no longer shared with cinema-director's current structure:
+
+- **Frame Map** — 2D screen space, horizontal thirds, x/y% precision, depth layers, frame occupancy, negative space. Cinema-director no longer carries this as a standalone block; the closest analog is the per-shot Position line inside cinema-director § BLOCK 9 — SHOT BLOCKS.
+- **Movement** — four layers (character motion / micro-motion / environmental motion / camera motion) in flowing paragraph form with per-beat timestamps. Cinema-director no longer carries this as a standalone block; the four-layer discipline survives as guidance in cinema-director § MOVEMENT AND CHOREOGRAPHY, folded into the Subject-action and Camera-move lines of each timecoded shot block there.
+
+Any rule from cinema-director that still governs the five identical blocks above applies here unchanged. This skill's additions are in the two new blocks (PRODUCT SURFACE and BRAND GRADE) and in the rewritten CAPTURE REALISM and SOUND BED sections below.
 
 ---
 
 ## READING REFERENCE IMAGES
 
-Same discipline as CWP for talent references. Add the following for **product references**:
+Same discipline as cinema-director for talent references. Add the following for **product references**:
 
 **For each product in the reference, capture:**
 
@@ -201,11 +206,11 @@ The product surface read feeds directly into the PRODUCT SURFACE block. Without 
 
 ## SOUND BED — DIEGETIC + BRAND-SAFE STANCE
 
-The Sound Bed describes only what the scene physically produces — same discipline as CWP.
+The Sound Bed describes only what the scene physically produces — same discipline as cinema-director (§ BLOCK 12 — SOUND BED).
 
 **Brand-safe stance (commercial addition):** the Sound Bed must never include sounds that would read as a competitor's sonic identity, a licensed audio trademark, or any sound that could constitute a brand claim. Generic diegetic sounds are always safe. If the user wants a specific sonic branding element (a signature chime, a product sound cue), describe it functionally — "a short ascending two-note chime, warm and mid-register" — never by brand name or product name.
 
-**Audio modes:** same three modes as CWP (diegetic with ambient / silent capture / diegetic explicit no-music). Mode 2 (silent capture) is common in commercial production when the music track is being added in post — flag this option if the user mentions a soundtrack.
+**Audio modes:** this skill's own three modes (diegetic with ambient / silent capture / diegetic explicit no-music). Cinema-director's Sound Bed (§ BLOCK 12) no longer enumerates named modes, but the same diegetic-only default and lipsync sole-source hard lock apply. Mode 2 (silent capture) is common in commercial production when the music track is being added in post — flag this option if the user mentions a soundtrack.
 
 **Sound Bed example (commercial):**
 
@@ -215,17 +220,17 @@ The Sound Bed describes only what the scene physically produces — same discipl
 
 ## CAPTURE REALISM BLOCK — COMMERCIAL TUNING
 
-The Capture Realism block in this skill serves the same structural purpose as in CWP — separating the rendered-not-photographed failure modes — but is tuned for commercial production.
+The Capture Realism block in this skill serves the same structural purpose this skill has always used — separating the rendered-not-photographed failure modes — but is tuned for commercial production. Cinema-director has since merged its own Capture Realism content into a single closing block (§ BLOCK 13 — CAMERA & CAPTURE REALISM, MERGED CLOSER); this skill keeps Capture Realism as its own dedicated block, separate from Camera Capture, with Product Surface and Brand Grade inserted between them.
 
-**Philosophy shift:** in CWP, the target is "feels captured, not rendered." Here, the target is "looks controlled, precise, and real — not AI-generated." The anti-plastic discipline holds for skin. The depth-via-atmosphere mechanic holds for any scene with planes to separate. The contrast curve holds. What changes is the **moisture and specular logic**: product surfaces are not subject to the matte-only rule. That is handled in the PRODUCT SURFACE block. Capture Realism applies the matte rule to skin and non-product surfaces only.
+**Philosophy shift:** in cinema-director, the target is "feels captured, not rendered" (§ CORE PHILOSOPHY). Here, the target is "looks controlled, precise, and real — not AI-generated." The anti-plastic discipline holds for skin. The depth-via-atmosphere mechanic holds for any scene with planes to separate. The contrast curve holds. What changes is the **moisture and specular logic**: product surfaces are not subject to the matte-only rule. That is handled in the PRODUCT SURFACE block. Capture Realism applies the matte rule to skin and non-product surfaces only.
 
 **The four mechanics — commercial tuning:**
 
-**1. Depth via suspended atmosphere between planes.** Same as CWP. Always on when there are planes to separate. State the density in % and the visibility depth in meters — e.g., "haze 15%, readable to 50 meters" for a clean product-forward frame, scaling up for lifestyle or automotive exteriors with more atmosphere to separate. Any vehicle or moving-subject speed in the frame (C3 Automotive, C4 Lifestyle) is stated in km/h — never "fast," "slow." See CWP § WRITE THE VISIBLE.
+**1. Depth via suspended atmosphere between planes.** Same substance as cinema-director's own atmosphere discipline, which cinema-director now writes as its own CRITICAL directive block (§ BLOCK 8 — THE ATMOSPHERE) rather than a Capture Realism sub-item; this skill keeps it folded inside Capture Realism instead of promoting it to a standalone block. Always on when there are planes to separate. State the density in % and the visibility depth in meters — e.g., "haze 15%, readable to 50 meters" for a clean product-forward frame, scaling up for lifestyle or automotive exteriors with more atmosphere to separate. Any vehicle or moving-subject speed in the frame (C3 Automotive, C4 Lifestyle) is stated in km/h — never "fast," "slow." See cinema-director § WRITE THE VISIBLE.
 
-**2. Moisture without shine — skin and non-product surfaces only.** If the scene has moisture on skin or fabric, apply the CWP matte-moisture logic: damp but not beaded, saturated not glossy. This rule does not apply to the hero product — the product's surface treatment is governed by the PRODUCT SURFACE block, not Capture Realism.
+**2. Moisture without shine — skin and non-product surfaces only.** This skill's own matte-moisture logic — cinema-director's current grammar no longer carries a moisture mechanic in any form. If the scene has moisture on skin or fabric: damp but not beaded, saturated not glossy. This rule does not apply to the hero product — the product's surface treatment is governed by the PRODUCT SURFACE block, not Capture Realism.
 
-**3. Per-zone specular kill on skin — with OPT-IN BEAUTY HIGHLIGHT exception.** Default: same as CWP — per-zone kill on forehead, nose bridge, cheekbones, temples, chin, and collarbones. Zero shine; real peach fuzz at jaw and hairline; real soft fine even pore texture; light absorbed like true subsurface scattering; warmth preserved. Flattering ceiling locked: no acne, no blemishes, no harsh pore detail.
+**3. Per-zone specular kill on skin — with OPT-IN BEAUTY HIGHLIGHT exception.** Default: same core zones as cinema-director's Skin paragraph (§ BLOCK 13 — CAMERA & CAPTURE REALISM, part 5) — per-zone kill on forehead, nose bridge, cheekbones, temples, chin, and collarbones. Zero shine; real peach fuzz at jaw and hairline; real soft fine even pore texture; light absorbed like true subsurface scattering; warmth preserved. Flattering ceiling locked: no acne, no blemishes, no harsh pore detail.
 
 **Beauty highlight opt-in (commercial exception):** for beauty, fragrance, jewellery, and fashion ad briefs where the creative intent requires it, specific named skin zones may carry a controlled highlight. This must be declared explicitly in the prompt — it is never a default. Permitted opt-in zones:
 
@@ -237,7 +242,7 @@ The Capture Realism block in this skill serves the same structural purpose as in
 
 To invoke any opt-in zone, state it explicitly in the Capture Realism block: "controlled dewy highlight on the left cheekbone ridge only, all other skin zones matte per default."
 
-**4. Contrast curve stated three ways.** Same as CWP. Shadows lifted gently, highlights rolled off softly, nothing clipping or crushing; all specular surgically removed from skin (except declared opt-in zones) and non-product surfaces; grade low-contrast and slightly desaturated with warmth preserved.
+**4. Contrast curve stated three ways.** This skill's own established mechanic — cinema-director's Grade paragraph (§ BLOCK 13, part 4) covers grade broadly but no longer names a discrete "three ways" contrast-curve mechanic. Shadows lifted gently, highlights rolled off softly, nothing clipping or crushing; all specular surgically removed from skin (except declared opt-in zones) and non-product surfaces; grade low-contrast and slightly desaturated with warmth preserved.
 
 **Canonical Capture Realism block — commercial (tune every bracket):**
 
@@ -249,7 +254,7 @@ Capture Realism: [Foreground subject] sits inside real depth — [thin/light/hea
 
 ## PRODUCT SURFACE BLOCK (NEW — COMMERCIAL LANE ONLY)
 
-This block governs how the hero product's surfaces behave under the key light. It is the commercial-specific block that does not exist in CWP. It sits between Capture Realism and Brand Grade.
+This block governs how the hero product's surfaces behave under the key light. It is the commercial-specific block that does not exist in cinema-director. It sits between Capture Realism and Brand Grade.
 
 **Purpose:** controlled specular and reflection are assets in commercial work. A glass perfume bottle should catch the key light cleanly. A chrome atomiser cap should hold a precise highlight. A lacquered product body should read its finish. This block tells Seedance exactly which product surfaces carry specular, what shape that specular takes, and where it is locked — so the product reads as professionally lit, not accidentally glossy.
 
@@ -275,7 +280,7 @@ Product Surface: @tag — [descriptive product name] is the hero subject. [Surfa
 
 ## BRAND GRADE BLOCK (NEW — COMMERCIAL LANE ONLY)
 
-This block sits between Product Surface and Camera Capture. It declares the colour grade treatment for commercial output — separate from the CWP editorial grade and explicitly not inherited from any CWP mode.
+This block sits between Product Surface and Camera Capture. It declares the colour grade treatment for commercial output — separate from cinema-director's editorial grade and explicitly not inherited from any cinema-director mode.
 
 **Purpose:** commercial spots often require a specific grade profile — a clean warm white-balanced look, a product-matched colour temperature, a brand colour cast, a specific highlight roll-off that matches the client's visual identity. This block carries that instruction explicitly so it does not contaminate the Capture Realism block (which handles anti-plastic physics) or the Camera Capture line (which handles hardware and runtime).
 
@@ -286,7 +291,7 @@ This block sits between Product Surface and Camera Capture. It declares the colo
 - **Highlight treatment:** clean commercial roll-off (e.g., "highlights lift cleanly without clipping — skin tones hold detail at the top of the curve, product labels remain legible")
 - **Shadow fill:** commercial shadow fill level (e.g., "shadows lifted to a commercial fill ratio — no crushed blacks, every shadow zone holds detail and brand legibility")
 - **Brand colour cast (opt-in):** if the brief calls for a branded colour environment (e.g., a warm amber cast for a candle brand, a cool teal for a skincare brand), state it here. This is always an explicit opt-in; the default is clean, neutral commercial grade.
-- **Grade register:** state explicitly — "clean commercial grade, not editorial" — to prevent model drift toward the CWP editorial register
+- **Grade register:** state explicitly — "clean commercial grade, not editorial" — to prevent model drift toward cinema-director's editorial register
 
 **Canonical Brand Grade block:**
 
@@ -310,7 +315,7 @@ Brand Grade: Clean commercial grade — not editorial. Key light at [colour temp
 
 ## REGISTER CAMERA CAPTURE LINES
 
-FOV degree is the lens anchor across all five registers — same discipline as CWP. Write `[FOV°] ([mm])` in the prompt body, never mm alone; pick from CWP's discrete anchor ladder rather than an off-ladder degree. Full table and rationale: CWP § FOV DEGREE TABLE.
+FOV degree is the lens anchor across all five registers — same discipline as cinema-director. Write `[FOV°] ([mm])` in the prompt body, never mm alone; pick from cinema-director's discrete anchor ladder rather than an off-ladder degree. Full table and rationale: cinema-director § FOV DEGREE TABLE (LENS ANCHOR).
 
 **C1 — Hero Product:**
 ```
@@ -365,7 +370,7 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 - [ ] Product Surface written — hero product `@tag` anchored, named surfaces with finish and specular profile, spill prohibition stated
 - [ ] Brand Grade written — colour temperature, white balance, highlight treatment, shadow fill, brand cast if declared, "clean commercial grade not editorial" stated
 - [ ] Camera Capture line at the bottom — single trimmed paragraph, no double spec
-- [ ] Commercial register Camera Capture line used — not a CWP cinema mode line
+- [ ] Commercial register Camera Capture line used — not a cinema-director cinema mode line
 - [ ] Lens length chosen for the framing
 - [ ] Runtime confirmed. Runtime in title matches runtime in Camera Capture.
 - [ ] No character names in prompt output
@@ -382,8 +387,8 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 
 **Repair pass — if any of these conditions are detected, fix before delivery:**
 
-- **Wrong skill lane** → if brief is narrative or stylized, redirect to CWP or seedance-bilingual-director
-- **CWP editorial grade bleeding in** → rewrite Brand Grade as "clean commercial grade, not editorial"
+- **Wrong skill lane** → if brief is narrative or stylized, redirect to cinema-director or seedance-bilingual-director
+- **Cinema-director editorial grade bleeding in** → rewrite Brand Grade as "clean commercial grade, not editorial"
 - **Product specular in Capture Realism** → move to Product Surface block; Capture Realism handles skin only
 - **Skin specular undeclared** → if any skin highlight exists without an explicit beauty opt-in declaration, remove it
 - **Beauty opt-in applied to a non-permitted zone** → remove or move to a permitted zone
