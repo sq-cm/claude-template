@@ -228,7 +228,7 @@ This is the single place this SHA list is recorded — other docs link here rath
 
 ### What enabling a plugin grants
 
-Ten plugins are enabled by default in `.claude/settings.json` `enabledPlugins`. Seven are third-party (`plannotator`, `context-mode`, `obsidian`, `caveman`, `marketing-skills`, `claude-mem`, `higgsfield`); three are Anthropic's own — `document-skills@anthropic-agent-skills` (from `anthropics/skills`), plus `skill-creator` and `frontend-design` (from `claude-plugins-official`). They install at the trust prompt, before the user has reviewed anything.
+Nine plugins are enabled by default in `.claude/settings.json` `enabledPlugins`. Six are third-party (`plannotator`, `context-mode`, `obsidian`, `caveman`, `claude-mem`, `higgsfield`); three are Anthropic's own — `document-skills@anthropic-agent-skills` (from `anthropics/skills`), plus `skill-creator` and `frontend-design` (from `claude-plugins-official`). They install at the trust prompt, before the user has reviewed anything.
 
 A Claude Code plugin, once enabled, can register hooks via its own `hooks/hooks.json`, place executables where the Bash tool can reach them, and run background processes. This is a statement of capability, not an accusation against any specific plugin in the roster above. In practice, enabling a plugin is a trust decision of the same weight as running its install script — the marketplace SHA table above is the record of what was reviewed for each one.
 
