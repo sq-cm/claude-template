@@ -1,6 +1,6 @@
 # Character Bible — [CHARACTER-SLUG]
 
-> This is the canonical source for this character's visual identity. Every character-builder or banana-pro prompt and every Seedance Subject Lock block points back here. Do not write character names, real ages, or brand names into any prompt output — use visual descriptors only.
+> This is the canonical source for this character's visual identity. Every character-builder or banana-pro prompt and every Seedance Subject Lock block points back here. Do not write character names or real ages into any prompt output — use visual descriptors only. Real brand names appear only where the production has confirmed authorisation (client's own brand or user-accepted risk); otherwise use generic descriptors.
 
 **Project:**
 **Character slug:** `[CHAR-SLUG]`
@@ -45,7 +45,7 @@ List every marker that must appear consistently and be noted in every prompt tha
 
 **Age-blind rule (HARD LOCK):** Never describe by age. No "young," "mid-twenties," "older," "teen," "girl," "boy," "elderly." Describe by build, role, and wardrobe.
 
-**Brand-neutral rule (HARD LOCK):** No real brand names in prompt output. Use generic visual descriptors — "three-stripe athletic sneakers," "wide-logo athletic tee," "chunky platform boots."
+**Brand-neutral rule (HARD LOCK):** No real brand names in prompt output, unless the production has confirmed authorisation (client's own brand under an engagement, or explicit user-accepted risk) — otherwise use generic visual descriptors — "three-stripe athletic sneakers," "wide-logo athletic tee," "chunky platform boots."
 
 ---
 

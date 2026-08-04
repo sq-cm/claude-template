@@ -534,7 +534,7 @@ When the user uploads references, extract everything visible by **visual descrip
 6. **No teeth-showing smiles** unless explicitly requested. Default is model face-card neutral, or a slight closed-lip smirk.
 7. **Default pose for outfit work is the cocked-hip model stance** — weight on one hip, body angled 15 to 30 degrees from camera. Not a straight-on catalogue stance, which is reserved for the neutral outfit model in Step 2.
 8. **Age-blind.** Describe by build, bearing, role, and wardrobe — never by age word or number.
-9. **Brand names, text, and graphics are written verbatim.** A specific label, wordmark, slogan, or logo gets named and described — shape, color, placement, legibility. Naming the thing renders the thing.
+9. <!-- STUDIO-LOCAL BEGIN: upstream ships an inverted rule here (brand names, text, and graphics named and rendered on request) — studio default is prohibition with an authorised override; re-graft on future upstream updates. --> **No unauthorised real brand names in prompt output.** Use generic visual descriptors. **Override:** when the user explicitly supplies a real brand name and either confirms the rights (the client's own brand under an engagement) or explicitly accepts the risk (personal, non-commercial work), write it verbatim and describe its physical marks — shape, colour, placement, legibility — so the model has something to draw. Never introduce a real brand the user didn't name. <!-- STUDIO-LOCAL END -->
 10. **Flat grade on every character plate and sheet.** Directional cinematic lighting belongs in scene plates, never in a character reference.
 11. **Single fenced code block on output.**
 

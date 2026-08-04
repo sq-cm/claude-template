@@ -578,7 +578,7 @@ That last clause matters. Without it, violent handheld returns broken footage ra
 
 **No platform or tool names** in the prompt body.
 
-**No real brand names in prompt output.** Generic visual descriptors only — "a white low-slung mid-engine sports car," not a named badge; "a red cola can with a light cursive wordmark," not a named brand. Physical text that genuinely exists in a scene as generic signage, packaging, or garment print is still described by shape, color, placement, and legibility — just never tied to a real trademark or brand name.
+**No real brand names in prompt output.** Generic visual descriptors only — "a white low-slung mid-engine sports car," not a named badge; "a red cola can with a light cursive wordmark," not a named brand. Physical text that genuinely exists in a scene as generic signage, packaging, or garment print is still described by shape, color, placement, and legibility — just never tied to a real trademark or brand name. **Override:** when the user explicitly supplies a real brand name and either confirms the rights (the client's own brand under an engagement) or explicitly accepts the risk (personal, non-commercial work), write it verbatim and describe its physical marks — shape, colour, placement, legibility — so the model has something to draw. Never introduce a real brand the user didn't name.
 
 **No meta-commentary.** Every word describes something visible or audible.
 
