@@ -66,7 +66,7 @@ Branch on the answers:
 
 - **Talent with references →** lock face, hair, wardrobe, skin tone, and identity markers from the image. Confirm the tag name for that reference. Mirror back the spec for confirmation.
 - **Talent without references →** flag the gap. Offer to describe the talent from text, with the caveat that identity fidelity will be lower without a locked reference.
-- **Product reference attached →** extract product name (descriptive, no real brand names), surface finish (matte, gloss, chrome, frosted glass, metallic, fabric, ceramic), key reflective surfaces, and colour. Confirm its tag name (e.g., `@perfume_ref`). Carry this through the PRODUCT SURFACE block.
+- **Product reference attached →** extract product name (descriptive, no real brand names unless authorised — see the override under rule 11), surface finish (matte, gloss, chrome, frosted glass, metallic, fabric, ceramic), key reflective surfaces, and colour. Confirm its tag name (e.g., `@perfume_ref`). Carry this through the PRODUCT SURFACE block.
 - **No product reference →** request one. A PRODUCT SURFACE block cannot be written without knowing the surface finish and reflection profile of the hero product.
 
 **Never invent tag names on the user's behalf.** Writing a Subject Lock or Product Surface block without a named tag and an attached reference is a category error. Once tags are locked for a session, carry them forward — the user won't re-name the same reference on every prompt.
@@ -84,7 +84,7 @@ Pre-prompt check:
 - **Tags:** [list every element tag being used — talent refs, product refs, environment plates — by name and short visual descriptor. If tags aren't yet named for this scene, ask here instead of proceeding.]
 - **Register:** [C1 Hero / C2 Beauty / C3 Automotive / C4 Lifestyle / C5 Pack Shot]
 - **Scene:** [one-line scene description]
-- **Hero product:** [descriptive product name — no real brand names]
+- **Hero product:** [descriptive product name — no real brand names unless authorised, see the override under rule 11]
 - **Characters:** [who's in frame, referred to by tag; or "none / product-only"]
 - **Frame Map:** [one-line compositional read]
 - **Camera:** [FOV degree + mm equivalent + key movement]
@@ -153,7 +153,7 @@ These rules descend from cinema-director's grammar and apply identically here wh
 8. **One Subject Lock block per character.** Multiple characters each get their own discrete block.
 9. **One Camera Capture line at the bottom — never doubled.**
 10. **No character names in prompt output.** Describe by hair colour, wardrobe, identity markers.
-11. **No real brand names in prompt output.** Generic visual descriptors only ("a tall frosted glass perfume bottle with a chrome atomiser cap," not the brand name). This is the commercial-lane version of cinema-director's brand-name rule (cinema-director § HOUSE RULES — "No real brand names in prompt output") — applies identically. Cinema-director's rules are no longer numbered, so the "Rule 11" citation is retired.
+11. **No real brand names in prompt output.** Generic visual descriptors only ("a tall frosted glass perfume bottle with a chrome atomiser cap," not the brand name). This is the commercial-lane version of cinema-director's brand-name rule (cinema-director § HOUSE RULES — "No real brand names in prompt output") — applies identically. Cinema-director's rules are no longer numbered, so the "Rule 11" citation is retired. **Override:** when the user explicitly supplies a real brand name and either confirms the rights (the client's own brand under an engagement) or explicitly accepts the risk (personal, non-commercial work), write it verbatim and describe its physical marks — shape, colour, placement, legibility — so the model has something to draw. Never introduce a real brand the user didn't name.
 12. **No platform/tool names in prompt output.** Never reference "Higgsfield," "Seedance," "Banana Pro," etc. inside the prompt text.
 13. **No internal production context.** Every prompt is standalone.
 14. **Pure visual description only.** No meta-commentary.
@@ -208,7 +208,7 @@ The product surface read feeds directly into the PRODUCT SURFACE block. Without 
 
 The Sound Bed describes only what the scene physically produces — same discipline as cinema-director (§ BLOCK 12 — SOUND BED).
 
-**Brand-safe stance (commercial addition):** the Sound Bed must never include sounds that would read as a competitor's sonic identity, a licensed audio trademark, or any sound that could constitute a brand claim. Generic diegetic sounds are always safe. If the user wants a specific sonic branding element (a signature chime, a product sound cue), describe it functionally — "a short ascending two-note chime, warm and mid-register" — never by brand name or product name.
+**Brand-safe stance (commercial addition):** the Sound Bed must never include sounds that would read as a competitor's sonic identity, a licensed audio trademark, or any sound that could constitute a brand claim. Generic diegetic sounds are always safe. If the user wants a specific sonic branding element (a signature chime, a product sound cue), describe it functionally — "a short ascending two-note chime, warm and mid-register" — never by brand name or product name. Exception: when the client's own registered sound mark is being used under an authorised engagement, it may be named and described as such; the ban on competitor or third-party sonic trademarks stays absolute.
 
 **Audio modes:** this skill's own three modes (diegetic with ambient / silent capture / diegetic explicit no-music). Cinema-director's Sound Bed (§ BLOCK 12) no longer enumerates named modes, but the same diegetic-only default and lipsync sole-source hard lock apply. Mode 2 (silent capture) is common in commercial production when the music track is being added in post — flag this option if the user mentions a soundtrack.
 
@@ -374,7 +374,7 @@ Before delivering the full prompt, silently run this pass. Fix anything that fai
 - [ ] Lens length chosen for the framing
 - [ ] Runtime confirmed. Runtime in title matches runtime in Camera Capture.
 - [ ] No character names in prompt output
-- [ ] No real brand names in prompt output
+- [ ] No unauthorised real brand names in prompt output
 - [ ] No platform/tool names in prompt output
 - [ ] No internal production context, no meta-commentary
 - [ ] No music in Sound Bed; brand-safe stance confirmed

@@ -72,7 +72,7 @@ Steps:
 5. Update the reference-image library index with the character's reference slots
 
 Character bible rules:
-- Identity descriptors are visual only — no names in prompt output, no ages, no brand names
+- Identity descriptors are visual only — no names in prompt output, no ages, no brand names (real brand names only where the production has confirmed authorisation — client's own brand or user-accepted risk; otherwise generic descriptors)
 - Voice-register descriptors (timbre, cadence, phrasing) are not visual and are exempt from the identity-descriptor visual-only rule — they exist to carry into a Seedance Sound Bed or dialogue block, not a visual prompt block
 - Describe by build, bone structure, hair, skin, eye shape, key identity markers (piercings, scars, beauty marks, tattoos, signature jewelry)
 - Every wardrobe state gets a short slug name (e.g., `ZARA-OUTFIT-A`, `ZARA-OUTFIT-A-RAINY`) so shot specs can reference it unambiguously

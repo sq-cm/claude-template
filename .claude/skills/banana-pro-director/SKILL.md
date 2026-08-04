@@ -317,14 +317,14 @@ When the user uploads reference images, extract everything visible in the frame 
 
 - **Hair:** color (every nuance — platinum, jet black with cool undertone, rose-pink, burgundy, ash brown, dirty blonde, etc.), length, style, texture (straight, wavy, curly, coily), parting, any styling (slicked, blown out, flat-ironed, braided, bunned, ponytail, bangs — and which kind of bangs), accessories (clips, bows, ribbons, caps, bandanas, headbands)
 - **Makeup:** skin finish (matte, dewy, glass-skin, bare), foundation/coverage register, brow shape and density, eye treatment (cat-eye liner, smoky, sharp graphic, soft bare, glitter, colored), lashes, lip (gloss, matte, gradient, color, fullness), cheek (flush, contour, highlight), any face jewelry, freckles or beauty marks **only if visible in the reference** (do not invent)
-- **Wardrobe:** every garment top to bottom — fabric, color, fit (cropped, oversized, fitted, baggy), structural details (cutouts, keyholes, ribbing, ribbed cotton, knit, denim wash, leather finish, mesh, latex, silk), neckline, sleeve length, hem position, layering, branding details (described generically — "three-stripe athletic sneakers" not the brand name)
+- **Wardrobe:** every garment top to bottom — fabric, color, fit (cropped, oversized, fitted, baggy), structural details (cutouts, keyholes, ribbing, ribbed cotton, knit, denim wash, leather finish, mesh, latex, silk), neckline, sleeve length, hem position, layering, branding details (described generically — "three-stripe athletic sneakers" not the brand name; unless authorised — see the Brand name rule)
 - **Jewelry & accessories:** every piece — earring style, necklace count and material, rings, bracelets, body chains, belts, bag, sunglasses, watch
 - **Body markers:** piercings (only if visible), tattoos (only if visible), nail length and color, distinguishing features
 - **Pose and energy:** body angle, weight distribution, hand position, expression register
 
 **Naming rule (CRITICAL).** Never use proper names in the prompt output. Refer to characters by visual description: "the rose-pink haired woman in the cropped white ribbed tank," "the figure in the platinum mech suit," "the man in the long charcoal wool coat." Higgsfield does not know names. Visual descriptors survive across prompts; names do not.
 
-**Brand name rule (CRITICAL).** Never use real brand names or protected IP in the prompt output. Use generic visual descriptors — "black three-stripe athletic sneakers" not specific brand names, "wide-angle action camera" not specific product names. Internal chat with the user can reference brands by name; the prompt output must be brand-neutral.
+**Brand name rule (CRITICAL).** Never use real brand names or protected IP in the prompt output. Use generic visual descriptors — "black three-stripe athletic sneakers" not specific brand names, "wide-angle action camera" not specific product names. Internal chat with the user can reference brands by name; the prompt output must be brand-neutral. **Override:** when the user explicitly supplies a real brand name and either confirms the rights (the client's own brand under an engagement) or explicitly accepts the risk (personal, non-commercial work), write it verbatim and describe its physical marks — shape, colour, placement, legibility — so the model has something to draw. Never introduce a real brand the user didn't name.
 
 **Age-blind rule.** Never describe characters by age. Avoid: *boy, girl, child, kid, young, teen, little, middle-aged, elderly, old.* Describe by role, build, and clothing — "the figure in the wool cloak," "the woman in the cropped tank."
 
@@ -591,7 +591,7 @@ That's it. Do not add styling description (Soul Cinema reads it from Image 2). D
 
 **Universal prompt rules still apply (both steps):**
 - No character names in prompt output
-- No real brand names in prompt output
+- No unauthorised real brand names in prompt output
 - No `@image` tags or `<<<image_n>>>` placeholders — image attachment happens in the Higgsfield UI directly
 - No aspect ratios in prompt output
 
@@ -1038,7 +1038,7 @@ Mode 5 is the single-purpose tool for: *here is an outfit on a model I don't car
 These apply to every prompt this skill produces — the sole carve-out is noted in rule 3:
 
 1. **No character names in prompt output.** Describe by hair color, wardrobe, identity markers extracted from references or the locked development spec.
-2. **No real brand names in prompt output.** Generic visual descriptors only.
+2. **No unauthorised real brand names in prompt output.** Generic visual descriptors only. *Override:* see the Brand name rule under READING REFERENCE IMAGES for the authorised-brand exception and its conditions.
 3. **No fixed `@image1`/`@image2` numbering or `<<<image_n>>>` placeholders.** Image attachment happens in the Higgsfield UI directly. The prompt is text-only. *Sole carve-out:* Mode 5's locked prompt structure is written around reference element tags by design (e.g. `@outfit_ref` / `@character_ref`, or whatever short semantic tag the user assigns each upload) and keeps them (see MODE 5 — the locked structure is not modified, only the tags are filled in).
 4. **No internal production context.** No "carried through the world," no "matching the previous scene." Every prompt is standalone and self-contained.
 5. **Pure visual description only.** No meta-commentary about why the shot is framed that way, no references to the medium ("this is the still," "what the photo looks like"), no emotional intent ("the read is..."). Every word describes a visible thing in the frame.
