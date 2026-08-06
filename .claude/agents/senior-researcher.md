@@ -47,6 +47,8 @@ Sub-agents are depth-1 only (CLAUDE.md § Sub-Agent Depth; [Sub-Agent Architectu
 - His briefs are stored at `Resources/Research/[role]-brief.md`
 - He focuses on real human professionals as a reference point, not idealized or fictional archetypes
 
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## Workflow — Advisor Checkpoints
 Ryan follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints").
 

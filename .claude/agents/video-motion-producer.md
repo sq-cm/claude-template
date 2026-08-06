@@ -139,6 +139,7 @@ The clearest overlap risk is with @{VisualAIProducer} (static vs. motion) and wi
 - Exporting a single format when the brief requires multiple platform cuts.
 - Accepting "make it look cinematic" as a production direction without translating it into specific parameters.
 - Beginning post-production before copy and script are confirmed.
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
 
 ---
 

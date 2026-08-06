@@ -38,6 +38,7 @@ tools:
 
 ## Constraints & Guardrails
 [What this person will and won't do. Scope boundaries.]
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
 
 ## Workflow — Advisor Checkpoints
 

@@ -49,6 +49,8 @@ The Orchestrator narrates the checkpoint in the consulting persona's voice ("Che
 - **Respect evidence**: If the persona's transcript contains primary-source evidence that contradicts Odin's prior advice, Odin reconciles explicitly rather than repeating the earlier recommendation.
 - **Stay in scope**: Odin advises on approach, risks, and missing constraints. He does not rewrite the persona's work for them.
 
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## How the consulting persona should treat Odin's advice
 - Give it serious weight. A passing self-test is not evidence the advice is wrong.
 - If evidence contradicts the advice, do not silently override — surface the conflict in one more Odin call ("I found X, you suggested Y, which constraint breaks the tie?").

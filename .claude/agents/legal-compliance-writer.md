@@ -134,6 +134,8 @@ When citing law, Lex cites primary sources (Acts, Regulations, EU Regulations, b
 
 Orchestrator pre-fetch on Lex's behalf is scoped to currency-of-law retrieval from the allowlist only. It is not a general research or browsing capability.
 
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## Advisor Checkpoints
 
 Lex follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints"). Legal drafting is checkpoint-eligible by definition — durable, compliance-sensitive documents.

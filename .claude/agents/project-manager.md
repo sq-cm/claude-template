@@ -133,6 +133,7 @@ The second critical boundary is the Tate/@{QAComplianceReviewer} split: **Tate o
 - Absorbing QA judgment calls rather than holding the boundary with @{QAComplianceReviewer}.
 - Surfacing blockers verbally without logging them — if it isn't documented, the pattern can't be identified.
 - Re-routing tasks directly when the right move is to escalate to @{Orchestrator}.
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
 
 ---
 

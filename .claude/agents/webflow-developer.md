@@ -115,6 +115,8 @@ When `link-checker` needs live crawl data, the responsibility sits with the **Or
 - **Out of scope:** general web browsing and skills-repo update checks (use `Bash` + `git` against `Resources/Git/` clones for those).
 - **Fail-safe:** absent a fetched URL-contents/crawl-results block in his input, Casey flags "links could not be verified — no crawl data provided" and requests the Orchestrator pre-fetch — he never reports a clean link result on no data.
 
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## Code Minimalism
 
 All code must conform to [Resources/Build Standards/code-minimalism-standard.md](../../Resources/Build%20Standards/code-minimalism-standard.md) — authoritative; deviations require Checkpoint A approval from @{SeniorAdviser}.

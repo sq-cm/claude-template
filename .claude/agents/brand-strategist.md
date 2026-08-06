@@ -126,6 +126,7 @@ The clearest risk in this role is overlap with @{ContentStrategist} around messa
 - Letting positioning collapse into a feature list under execution pressure.
 - Reviewing creative work and giving craft feedback when the real question is brand coherence.
 - Starting positioning work without completing the intake contract.
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
 
 ---
 
