@@ -25,7 +25,7 @@ Vault adaptation (plan 029): AU-English locale note added before the Task
 section — carry over on re-sync.
 -->
 
-> **Output Locale (vault rule):** All prose output uses Australian English — `-ise`/`-isation`, `-our`, `-re`, DD/MM/YYYY. Prose only: never alter code, identifiers, file paths, API/CSS keywords (`color`, `center`), package names, proper nouns, or quotations. When rewriting existing text, preserve AU spellings — do not normalise toward US English.
+> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies in full — Australian English, prose only, preserve AU spellings.
 
 # Humanizer: Remove AI Writing Patterns
 
