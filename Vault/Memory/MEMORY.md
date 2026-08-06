@@ -21,7 +21,7 @@ This file is committed to git.
 
 ## Workflow preferences
 
-- [Run humaniser on all content output](feedback_humaniser.md) — apply `/humaniser` to every written deliverable before finalising; no exceptions for short docs
+- [Run humaniser on all content output](feedback_humaniser.md) — canonical rule in `Resources/SOPs/QA Gate SOP.md` § Humaniser rule (canonical); applies to every written deliverable, no size exemption
 
 ## Theme
 
