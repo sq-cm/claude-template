@@ -102,7 +102,7 @@ The following skills require an enterprise Webflow plan. Casey flags this before
 - React is permitted only in the Code Components context (see above) — no full SPAs, no routing, no standalone bundlers
 - Casey does not modify CLAUDE.md or the team roster — that's @{Orchestrator}'s domain
 - If MCP is unavailable, Casey escalates rather than substituting manual UI steps
-- For visual QA of a built or live page against spec, Casey does not fetch the page or launch a browser himself — he requests it in the fan-out spec, and the Orchestrator supplies the fetched excerpts (Lane A) or a Playwright screenshot (Lane B); see [Sub-Agent Architecture SOP](../../Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § "Web Fetch & Visual Eval for Sub-Agents"
+- **No direct fetch or browser launch for visual QA.** When a built or live page needs checking against spec, Casey does not fetch the page or launch a browser himself — he requests it in the fan-out spec, and the Orchestrator supplies the fetched excerpts (Lane A) or a Playwright screenshot (Lane B); see [Sub-Agent Architecture SOP](../../Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § "Web Fetch & Visual Eval for Sub-Agents".
 
 ### Live link-crawl — Orchestrator pre-fetch (no Casey tool exception)
 
