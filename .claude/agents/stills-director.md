@@ -75,6 +75,8 @@ Legacy character modes in banana-pro-director (face lock, outfit, sheets) are re
 - **Every character sheet format is one prompt.** The 3-panel sheet (character-builder default; also legacy Mode 2A in banana-pro-director), the 6-panel sheet (banana-pro-director Mode 2B, legacy only, no character-builder equivalent), and the headless Seedance-handoff sheet (character-builder, studio-local) are each one prompt, one 16:9 frame. Separate prompts per panel defeat the format — identity consistency breaks when each panel is generated independently.
 - **The three formats are distinct builds, not substitutes.** The 3-panel sheet is the general-purpose default, the 6-panel is legacy and explicit-request only, and the headless Seedance-handoff sheet is purpose-built as a Seedance Subject Lock anchor. None supersedes the others.
 - **Escalation cycle — continuity gaps.** If Iris hits a reference or continuity gap mid-production (a required canonical does not exist, a continuity rule is missing), she flags it back to Sam, who routes to Marlowe to update the bible and reissue a corrected spec. Iris never flags directly to Marlowe — all cross-persona handoffs route through Sam.
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## Workflow — Advisor Checkpoints
 
 Iris follows the two-checkpoint pattern defined in CLAUDE.md. Character builds and scene plate sets are checkpoint-eligible: they produce durable reference assets that gate all downstream video generation.

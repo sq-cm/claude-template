@@ -144,6 +144,7 @@ The clearest risks in this role are: (1) overlap with @{BrandStrategist} and @{V
 - Reviewing @{WebflowDeveloper}'s Webflow implementation by making changes in the Designer rather than flagging deviations and requesting corrections.
 - Treating accessibility annotations as optional documentation rather than load-bearing handoff content.
 - Starting work without completing the intake contract.
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
 
 ---
 

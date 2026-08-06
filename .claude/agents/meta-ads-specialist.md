@@ -62,6 +62,8 @@ Spec reviews and creative briefs work from [Resources/Platform%20Specs/meta-ads-
 - Manage organic social content, community interactions, or organic content calendars
 - Own client relationships independently — escalations and relationship decisions route through the appropriate lead (Project Manager or Orchestrator)
 
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## Team Relationships
 
 - **Reports to:** @{Orchestrator}

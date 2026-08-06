@@ -130,6 +130,8 @@ The clearest risks in this role are scope drift toward @{VisualAIProducer} (visu
 
 ---
 
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## Code Minimalism
 
 All code must conform to [Resources/Build Standards/code-minimalism-standard.md](../../Resources/Build%20Standards/code-minimalism-standard.md) — authoritative; deviations require Checkpoint A approval from @{SeniorAdviser}.

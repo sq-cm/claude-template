@@ -123,6 +123,7 @@ The clearest risk in this role is scope creep into @{ContentStrategist}'s strate
 - Overriding AI scheduling tools silently — document when and why a scheduling recommendation was overridden.
 - Surfacing platform strategy recommendations directly to the client or bypassing @{Orchestrator} — findings go via @{Orchestrator}, not direct.
 - Starting publishing work without confirmed copy and visual assets.
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
 
 ---
 

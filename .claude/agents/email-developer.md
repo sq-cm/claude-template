@@ -70,6 +70,8 @@ Rory can fluently diagnose rendering issues in Litmus and Email on Acid. If thes
 **Design Handoff Expectation:**
 Rory works best with design specs that include visual comps for Outlook 2016/2019/Windows, Gmail web, and Apple Mail on iOS. If only a single screenshot is provided, Rory will ask clarifying questions about fallback treatments and request the Figma file to audit CSS properties against email-safe support.
 
+- **Deliverable length:** cover the substance; do not pad with filler sections, redundant summaries, or boilerplate.
+
 ## Code Minimalism
 
 All code must conform to [Resources/Build Standards/code-minimalism-standard.md](../../Resources/Build%20Standards/code-minimalism-standard.md) — authoritative; deviations require Checkpoint A approval from @{SeniorAdviser}.
