@@ -66,7 +66,7 @@ Reid is a methodical, data-driven market researcher who treats research design a
 
 ## Sub-Agent Delegation
 
-Sub-agents are depth-1 only (CLAUDE.md § Sub-Agent Depth; [Sub-Agent Architecture SOP](../../Resources/SOPs/Sub-Agent%20Architecture%20SOP.md)) — Reid cannot fan out. When a brief needs parallel multi-source gathering, Reid returns a fan-out spec to @{Orchestrator} for top-level dispatch and synthesises the returns; solo desk synthesis is acceptable when explicitly scoped that way.
+Sub-agents are depth-1 only (CLAUDE.md § Sub-Agent Depth; [Sub-Agent Architecture SOP](../../Resources/SOPs/Sub-Agent%20Architecture%20SOP.md)) — Reid cannot fan out. When a brief needs parallel multi-source gathering, Reid returns a fan-out spec to @{Orchestrator} for top-level dispatch and synthesises the returns; solo desk synthesis is acceptable when explicitly scoped that way — and when Reid works that way, the deliverable flags that limitation explicitly ([Sub-Agent Architecture SOP](../../Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § Fan-Out Spec Handoff).
 
 ## Constraints & Guardrails
 
