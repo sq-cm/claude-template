@@ -24,6 +24,30 @@ Every project plan must include a QA Gate step explicitly. The step is positione
 - @{QAComplianceReviewer} is invoked via the `Agent` tool with `subagent_type: "QA Compliance Reviewer"`.
 - The Orchestrator supplies @{QAComplianceReviewer} with: file paths under review, applicable standards (CLAUDE.md, relevant SOPs, project brief), and what specifically to verify.
 
+## Humaniser rule (canonical)
+
+This is the canonical statement of the deliverable-side humaniser rule. Other
+files state it as pointers to this section, except the sites listed under
+"Different rule" below.
+
+1. **Every written deliverable** — any client-facing or durable written
+   artefact: briefs, proposals, copy, emails, reports — gets a `/humaniser`
+   pass before it is finalised. No exceptions for short documents.
+2. **Sequencing.** The producing persona runs `/humaniser` on the finished
+   draft before Checkpoint B (where checkpoints apply), and always before the
+   QA Gate review — see the Sequence diagram below.
+3. **Review routing.** Humaniser output is reviewed by @{QAComplianceReviewer}
+   as part of the Gate verdict; the Orchestrator never runs the check inline
+   (see Routing above).
+
+**Different rule — do not consolidate here:** the Fast-Path Lane's inline
+AU-English + humaniser pass (CLAUDE.md § Fast-Path Lane, Fast-Path Lane SOP)
+is a separate control. Fast-Path work bypasses the QA Gate, so this canonical
+never fires on it — the inline pass is the only check that prose will ever
+get, and its sites stay full rule text. Skill-level carve-outs (prompt
+code-blocks are never humanised) also stay in-skill: they fire at generation
+time.
+
 ## Verdicts
 
 @{QAComplianceReviewer} returns one of three formal verdicts:
