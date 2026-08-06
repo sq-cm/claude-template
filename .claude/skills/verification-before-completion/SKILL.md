@@ -8,15 +8,24 @@ Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upst
 v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025): added a
 clause to the "Agent delegation" block noting agent dispatch is Orchestrator-only in
 this vault. Re-sync rule: carry this adaptation over any future upstream replace.
-Phase-5 audit shrink (W19, 11/07/2026): removed shame-framing lines and the
-Why-This-Matters section; carry over any future upstream replace.
+Band-1 trim (F1, 06/08/2026) — carry ALL of the following over any future upstream
+replace (this file is deliberately ~70 lines against upstream's ~136):
+- Completed the shame-framing removal the 11/07/2026 (W19) note claimed was already
+  done: removed "dishonesty, not efficiency" (upstream Overview), the "just this
+  once" / "tired and wanting work over" red flags, and the "I'm tired | Exhaustion
+  ≠ excuse" pair — the excuse pairs are compressed into the trigger table's fatigue
+  and hedged-wording rows, not deleted outright.
+- Merged Common Failures, Red Flags - STOP, Rationalization Prevention, and most of
+  Key Patterns into the single trigger table below.
+- Kept two Key Patterns examples: Tests, and the vault-adapted Agent delegation.
+- Dropped The Bottom Line section.
+- Kept intact and verbatim: the Iron Law, the Gate Function, the spirit-over-letter
+  clause (now a table row), and the "Rule applies to" list.
 -->
 
 # Verification Before Completion
 
 ## Overview
-
-Claiming work is complete without verification is dishonesty, not efficiency.
 
 **Core principle:** Evidence before claims, always.
 
@@ -42,41 +51,19 @@ BEFORE claiming any status or expressing satisfaction:
 5. ONLY THEN: Make the claim
 ```
 
-## Common Failures
+## Trigger table
 
-| Claim | Requires | Not Sufficient |
-|-------|----------|----------------|
+| Claim / trigger | Requires | Not sufficient |
+|-----------------|----------|----------------|
 | Tests pass | Test command output: 0 failures | Previous run, "should pass" |
-| Linter clean | Linter output: 0 errors | Partial check, extrapolation |
-| Build succeeds | Build command: exit 0 | Linter passing, logs look good |
-| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
-| Regression test works | Red-green cycle verified | Test passes once |
-| Agent completed | VCS diff shows changes | Agent reports "success" |
-| Requirements met | Line-by-line checklist | Tests passing |
-
-## Red Flags - STOP
-
-- Using "should", "probably", "seems to"
-- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
-- About to commit/push/PR without verification
-- Trusting agent success reports
-- Relying on partial verification
-- Thinking "just this once"
-- Tired and wanting work over
-- **ANY wording implying success without having run verification**
-
-## Rationalization Prevention
-
-| Excuse | Reality |
-|--------|---------|
-| "Should work now" | RUN the verification |
-| "I'm confident" | Confidence ≠ evidence |
-| "Just this once" | No exceptions |
-| "Linter passed" | Linter ≠ compiler |
-| "Agent said success" | Verify independently |
-| "I'm tired" | Exhaustion ≠ excuse |
-| "Partial check is enough" | Partial proves nothing |
-| "Different words so rule doesn't apply" | Spirit over letter |
+| Linter clean | Linter output: 0 errors | Partial check — partial proves nothing |
+| Build succeeds | Build command: exit 0 | "Linter passed" — linter ≠ compiler |
+| Bug fixed | Original symptom re-tested: passes | Code changed; "I'm confident" — confidence ≠ evidence |
+| Regression test works | Red-green cycle verified (fails on revert, passes on restore) | Test passes once |
+| Agent completed | VCS diff shows the changes | Agent reports "success" — verify independently |
+| Requirements met | Line-by-line checklist against the plan | Tests passing |
+| Fatigue or time pressure | Run the verification anyway | "Just this once" — no exceptions |
+| Hedged wording ("should", "probably", "seems to") or satisfaction ("Great!", "Done!") | Fresh verification before any success wording | "Different words so rule doesn't apply" — spirit over letter |
 
 ## Key Patterns
 
@@ -84,24 +71,6 @@ BEFORE claiming any status or expressing satisfaction:
 ```
 ✅ [Run test command] [See: 34/34 pass] "All tests pass"
 ❌ "Should pass now" / "Looks correct"
-```
-
-**Regression tests (TDD Red-Green):**
-```
-✅ Write → Run (pass) → Revert fix → Run (MUST FAIL) → Restore → Run (pass)
-❌ "I've written a regression test" (without red-green verification)
-```
-
-**Build:**
-```
-✅ [Run build] [See: exit 0] "Build passes"
-❌ "Linter passed" (linter doesn't check compilation)
-```
-
-**Requirements:**
-```
-✅ Re-read plan → Create checklist → Verify each → Report gaps or completion
-❌ "Tests pass, phase complete"
 ```
 
 **Agent delegation:**
@@ -113,24 +82,10 @@ BEFORE claiming any status or expressing satisfaction:
 
 ## When To Apply
 
-**ALWAYS before:**
-- ANY variation of success/completion claims
-- ANY expression of satisfaction
-- ANY positive statement about work state
-- Committing, PR creation, task completion
-- Moving to next task
-- Delegating to agents
+**ALWAYS before:** any variation of a success/completion claim or expression of satisfaction; any positive statement about work state; committing, PR creation, task completion; moving to the next task; delegating to agents.
 
 **Rule applies to:**
 - Exact phrases
 - Paraphrases and synonyms
 - Implications of success
 - ANY communication suggesting completion/correctness
-
-## The Bottom Line
-
-**No shortcuts for verification.**
-
-Run the command. Read the output. THEN claim the result.
-
-This is non-negotiable.
