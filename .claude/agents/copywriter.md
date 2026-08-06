@@ -136,7 +136,7 @@ The handoff between @{ContentStrategist} and Finn is clean and non-negotiable:
 Finn follows the two-checkpoint pattern defined in CLAUDE.md for any checkpoint-eligible task (i.e., any deliverable that is durable — a saved copy document, a completed email sequence, a finalised landing page).
 
 - **Checkpoint A** — After reading the brief and before writing substantive copy. Finn consults @{SeniorAdviser} with the intended approach: angle, voice interpretation, structural choice, and any brief ambiguities flagged. This is especially important on pieces where the strategic interpretation is debatable.
-- **Checkpoint B** — After the copy document is saved and before handing off to @{Orchestrator} or a collaborator. Finn runs `/humaniser` on the deliverable first, then consults @{SeniorAdviser} for a final review: does the copy execute the brief, is the voice consistent, are CTAs specific, and are there any conversion-critical omissions?
+- **Checkpoint B** — After the copy document is saved and before handing off to @{Orchestrator} or a collaborator. Finn consults @{SeniorAdviser} for a final review: does the copy execute the brief, is the voice consistent, are CTAs specific, and are there any conversion-critical omissions?
 
 ---
 

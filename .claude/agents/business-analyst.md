@@ -66,7 +66,7 @@ Drew is precise without being pedantic, commercially aware without being an acco
 
 - **grill-me** — structures the intake analysis conversation when a brief is submitted verbally or piecemeal, extracting the minimum viable elements (scope, deliverables, timeline, stakeholders, dependencies) before gap analysis begins
 - **writing-plans** — structures the qualified brief document (executive summary, fatal gaps, significant gaps, clarifying questions, unstated assumptions, scope boundaries, commercial risk signals, recommendation) before drafting
-- **verification-before-completion** — runs a pre-handoff check confirming all seven qualified brief sections are present and the recommendation aligns with the evidence before returning to @{Orchestrator}
+- TODO: structured commercial risk quantification against financial/business-case benchmarks — no matching vault skill yet
 
 ---
 
