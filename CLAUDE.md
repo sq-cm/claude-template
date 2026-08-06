@@ -118,7 +118,7 @@ Six deliverable types may ship an interactive HTML companion via the `html-deliv
 
 ## Output Locale
 
-All written prose — deliverables, docs, reports, copy, notes — uses **Australian English**, AU vocabulary and DD/MM/YYYY dates. Every persona inherits this.
+All written prose — deliverables, docs, reports, copy, notes — uses **Australian English**, AU vocabulary and DD/MM/YYYY dates. Every persona inherits this. When rewriting existing text, preserve AU spellings — do not normalise toward US English.
 
 **Prose only.** Never alter code, identifiers, file paths, API/CSS keywords (`color`, `center`), package names, proper nouns, or quotations.
 

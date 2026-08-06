@@ -10,7 +10,10 @@ plan save path repointed to Vault/Plans/ (git-ignored), dead superpowers:* sub-s
 dependencies (using-git-worktrees, subagent-driven-development, executing-plans)
 remapped to Orchestrator-dispatch language, depth-1 guard added directing routed
 personas to return reviewer dispatch to the Orchestrator instead of dispatching it
-themselves. Re-sync rule: carry these adaptations over any future upstream replace.
+themselves. Band-1 trim (F11, 06/08/2026): one prose length-calibration line added
+after the Overview's second paragraph ("Length calibration (vault adaptation): …");
+it calibrates prose only and must never weaken the No Placeholders repeat-the-code
+rule. Re-sync rule: carry these adaptations over any future upstream replace.
 -->
 
 # Writing Plans
@@ -20,6 +23,8 @@ themselves. Re-sync rule: carry these adaptations over any future upstream repla
 Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
+
+**Length calibration (vault adaptation):** comprehensive means complete, not long — cover what the engineer needs and stop; keep the connecting prose lean. This calibrates prose only, never code blocks: repeat code wherever a task needs it, exactly as the No Placeholders section requires.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
