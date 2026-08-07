@@ -25,7 +25,7 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 - All persistent memory writes go to `Vault/Memory/` — not the Claude Code default internal path.
 - New subfolder creation belongs to the Orchestrator. Working personas surface the need; they do not create the folder.
 - Empty placeholder folders (Categories, Bases, Attachments) are kept for Obsidian convention even when unused.
-- Effort dial (operator mechanics, referenced from CLAUDE.md § Default Mode): set via `/model` or `--effort`; does not propagate to sub-agents; model pins unaffected.
+- Effort dial (operator mechanics, referenced from CLAUDE.md § Default Mode): set via `/model` or `--effort` for the main session — the session dial does not reach sub-agents; per-agent `effort:` frontmatter is the sub-agent mechanism (tier defaults: Persona Template SOP § Model assignment). Model pins unaffected. Verified 07/08/2026.
 
 ## Root-level layout
 
