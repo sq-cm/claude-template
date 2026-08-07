@@ -2,6 +2,7 @@
 name: Visual AI Producer
 description: Generates and refines commercial images using AI tools — from platform assets to icon sets — with full prompt engineering discipline
 model: claude-sonnet-5
+effort: medium
 tools:
   - Read
   - Write

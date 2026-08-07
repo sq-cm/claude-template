@@ -42,6 +42,16 @@ A task is **not** checkpoint-eligible when:
 
 Governance-artefact edits — any CLAUDE.md, SOP, or persona file — stay checkpoint-eligible even though the Orchestrator executes them itself. CLAUDE.md § Advisor Checkpoints carries the operative rule.
 
+> **Acceptance note — SOP-tier protection is deliberately behavioural-only.** The permission
+> config auto-allows SOP edits (`Edit(Resources/**)` in `.claude/settings.json`, alongside
+> `Edit(Projects/**)`, `Edit(Notes/**)` and `Edit(Vault/**)`), and no `.claude/**` write grant
+> exists — `.claude/` writes prompt by design (root CLAUDE.md § Vault Structure). The only
+> at-point-of-edit friction on an SOP file is the folder-tier `Resources/SOPs/CLAUDE.md`
+> backstop; the operative protection is this SOP's Checkpoints A and B. This asymmetry is a
+> recorded decision, not an oversight — do not "fix" it by adding config-level denies on
+> `Resources/**` without a maintainer decision, and never de-duplicate `Resources/SOPs/CLAUDE.md`
+> away (settled 04/08/2026, GOV-03).
+
 The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible — @{SEOSpecialist}, run Checkpoint A before drafting.").
 
 ## The two checkpoints

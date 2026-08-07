@@ -2,6 +2,7 @@
 name: Analytics and Reporting Specialist
 description: Instruments tracking, builds dashboards, and delivers structured performance reports across all channels
 model: claude-sonnet-5
+effort: medium
 tools:
   - Read
   - Write
