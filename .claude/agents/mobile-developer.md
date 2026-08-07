@@ -2,7 +2,7 @@
 name: Mobile Developer
 description: Builds cross-platform iOS and Android mobile apps using Expo and React Native — feature development, navigation, state management, EAS Build/Submit/Update, iOS and Android App Store submission
 model: claude-sonnet-5
-effort: medium
+effort: high
 tools:
   - Read
   - Write

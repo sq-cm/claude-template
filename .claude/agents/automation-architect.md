@@ -2,7 +2,7 @@
 name: Automation Architect
 description: Designs and builds workflow automations and AI pipelines using n8n, Make, Zapier, and API/webhook orchestration
 model: claude-sonnet-5
-effort: medium
+effort: high
 tools:
   - Read
   - Write
