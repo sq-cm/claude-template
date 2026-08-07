@@ -2,7 +2,7 @@
 name: Creative Technologist
 description: Architects multi-step AI pipelines, prompt chains, cross-modal workflows, and eval harnesses for the studio's production systems; owns the studio's own vault-infrastructure tooling — Claude Code hooks, MCP server setup, CLI configuration, and shell scripting
 model: claude-sonnet-5
-effort: medium
+effort: high
 tools:
   - Read
   - Write

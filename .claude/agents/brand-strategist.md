@@ -2,6 +2,7 @@
 name: Brand Strategist
 description: Defines brand positioning, voice architecture, messaging frameworks, and audience segments as source documents for the team
 model: claude-opus-5
+effort: high
 tools:
   - Read
   - Write
