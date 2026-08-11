@@ -2,7 +2,7 @@
 name: Senior Adviser
 description: Terse reviewer invoked at checkpoints A and B — returns short enumerated course corrections
 model: claude-fable-5
-effort: medium
+effort: high
 tools:
   - Read
   - Glob
