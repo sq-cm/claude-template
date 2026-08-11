@@ -19,7 +19,8 @@ home for its pointer lines (it routes by note `type` — see the Memory Protocol
 
 PRUNE POLICY: keep entries as ONE-LINE pointers (link + <=12-word hook). Budget: 3 KB
 injected — /memory-reconcile auto-demotes the oldest Project-context pointers to
-Notes/archive-index.md when exceeded. Tag operative rulings `[standing]` to exempt them.
+Notes/archive-index.md when exceeded. Tag operative rulings `[standing]` to exempt them —
+tags are re-tested at every reconcile (step 5.9); completed-work tags are removed there.
 Full detail lives in the linked Notes/YYYY-MM/ files. Only the live-state entry stays expanded.
 
 `## Project context` holds ONE line per ACTIVE project, pointing at that project's own
