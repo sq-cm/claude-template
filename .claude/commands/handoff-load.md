@@ -8,6 +8,7 @@ You are the running assistant. This command resumes a session from a handoff sav
 - Never fabricate a resolution. If nothing is found, say so and fall back to the manual path-paste instruction.
 - Read the resolved handoff file directly into context (`Read` tool) — do not summarise it first. Handoff files are written by `/handoff-save` to be self-contained and consumed whole.
 - This command only looks at `Vault/Logs/Handoffs/` (the vault-synced index). It does not look at the vendored upstream `handoff` skill's OS temp-dir saves — those are local-machine-only by design and are not cross-machine reachable, which is the exact problem this command exists to solve. If the user is looking for a temp-dir save, say that's out of scope for this command.
+- A handoff records what was true at save time, not what is true now. Factual premises go stale while a handoff sits — version numbers, PR/merge state, file contents, "pending" actions. See step 4's re-test requirement before acting on any of them.
 
 ## Steps
 
@@ -27,7 +28,7 @@ You are the running assistant. This command resumes a session from a handoff sav
    - **Directory missing, or no dated handoff files found** → tell the user: "No handoffs found on this machine. If you saved one on another machine, paste the absolute file path here and I'll read it." Stop.
    - **Files found** → apply the same arg/no-arg logic as step 2, but matching against filenames (which carry the same `YYYY-MM-DD-HHMMSS-slug.md` shape) instead of index lines — you won't have `status`/pickup-hint metadata in this path, only date and slug. Go to step 4.
 
-4. **Read and resume.** `Read` the resolved handoff file's full contents. Confirm to the user: the absolute file path you loaded, its `status`, and its `## Next Concrete Action` section verbatim. Then continue the session from that action.
+4. **Read and resume.** `Read` the resolved handoff file's full contents. Confirm to the user: the absolute file path you loaded, its `status`, and its `## Next Concrete Action` section verbatim. Before acting on any carried backlog item or the Next Concrete Action itself, re-test its factual premise against the live tree/system — a version check, a PR-state lookup, a file read; whatever one command settles it. A premise that fails re-test closes or reshapes the item: report the discrepancy and the live state instead of acting on the stale claim. (Pattern precedent: two items carried across handoffs in 08/2026 were stale at pickup — one superseded ~30 days earlier, one already satisfied.) Then continue the session from that action.
 
 ## Result Format
 
