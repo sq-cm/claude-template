@@ -283,7 +283,7 @@ echo "$(cat ${ASSET}.sha256 | cut -d' ' -f1)  ${ASSET}" | sha256sum -c - && chmo
 
 `sudo -n` never prompts — it either succeeds using a cached credential or fails immediately, rather than blocking an automated step on a password prompt.
 
-Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch/failure: "⚠️ plannotator binary skipped — checksum did not match / download failed. Retry manually or report to the maintainer." If `sudo -n` fails for lack of a cached credential, report: "⚠️ plannotator binary downloaded and verified, but installing it needs a password. Re-run Step 10 manually from a terminal where you can authenticate."
+Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch/failure: "⚠️ plannotator binary skipped — checksum did not match / download failed. Retry manually or report to the maintainer." If `sudo -n` fails for lack of a cached credential, report: "⚠️ plannotator binary downloaded and verified, but installing it needs a password. Re-run Step 10 manually from a terminal where you can authenticate." Then write `tier2_plannotator_binary` as `"skipped"` (never `true`) in `Vault/Memory/onboarding-flags.json` — the step was attempted and deliberately not completed, so recording it resolves the key instead of re-triggering onboarding every session. Never write `"skipped"` on a checksum mismatch or a download failure — those must stay unresolved so the step retries.
 
 ---
 
