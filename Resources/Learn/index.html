@@ -735,7 +735,7 @@ const TEAM = [
 
 const SLASH_COMMANDS = [
   // ── Everyday ──
-  { name: "/grill-me", type: "skill", category: "Everyday", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, resolving dependencies one by one.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
+  { name: "/grill-me", type: "skill", category: "Everyday", desc: "Interrogates you relentlessly about a plan or design until you reach a shared understanding, working through the design tree in rounds with a recommended answer for every question.", when: "Before starting any complex task. Forces you to think through edge cases before work begins." },
   { name: "/prompt-review", type: "skill", category: "Everyday", desc: "Scores a draft prompt against the vault's 5-slot prompt formula and rewrites it in the same order, preserving your own wording wherever a slot is already filled.", when: "Before sending a prompt to a persona or an external model, when you want it sharper without an interview." },
   { name: "/humaniser", type: "skill", category: "Everyday", desc: "Removes AI writing patterns from text, em dash overuse, filler phrases, passive voice, promotional language, vague attributions.", when: "Before sending any written deliverable to a client. Run on Finn's copy, Sage's briefs, any AI-generated text." },
   { name: "/hire", type: "command", category: "Everyday", desc: "Guides a persona hire end to end: gap note, research brief, persona draft, roster update. Automates the file scaffolding and roster diffs but holds four hard pauses where you decide — role justification, brief sign-off, draft approval, and final roster commit. Orchestrator-run, never delegated.", when: "When the team has a genuine capability gap no existing persona covers and you want to add a new team member. Run the Velora Studio demo first if you haven't — it teaches the same pipeline by hand." },
@@ -1080,7 +1080,7 @@ const FAMILY_MAP = {
         <h3>Non-technical team member</h3>
         <p class="who-who">Needs something done in here without knowing, or wanting to know, how any of it works underneath.</p>
         <p class="who-headline">You don't need to know who does what.</p>
-        <p class="who-hook">Sam figures out routing for you; <code>grill-me</code> asks one question at a time instead of demanding a perfect brief, and plan mode (a preview of the plan you get to approve first) shows the approach before anything happens.</p>
+        <p class="who-hook">Sam figures out routing for you; <code>grill-me</code> asks its questions in rounds — each with a recommended answer — instead of demanding a perfect brief, and plan mode (a preview of the plan you get to approve first) shows the approach before anything happens.</p>
         <p class="who-best"><strong>Best way to use it:</strong> describe what you want in plain language and let Sam route it. If you're not sure your request is clear, run <code>/prompt-review</code> first, it coaches the ask before you send it.</p>
         <p class="who-catch"><strong>The catch:</strong> this is a Claude Code template, not a polished SaaS product. There's a genuine learning curve to the conventions (folders, checkpoints, what goes where), even with the guardrails softening it.</p>
       </div>
