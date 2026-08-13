@@ -12,6 +12,7 @@ _Use this index to find relevant repos for a task. Max 3 repos per task consulta
 |------|-------------|------|------------|
 | `ponytail` | YAGNI decision ladder + minimalism-review patterns for coding agents. Reference-only, no local clone — adopted 2026-07 as code-minimalism-standard + code-minimalism-review skill. | `best-practices, claude-code, skills` | https://github.com/DietrichGebert/ponytail |
 | `andrej-karpathy-skills` | Karpathy LLM-coding behavioural guidelines. Reference-only, no local clone — surgical-changes rule adopted 2026-07 into CLAUDE.md § Engineering Defaults. | `best-practices, skills` | https://github.com/multica-ai/andrej-karpathy-skills |
+| `mattpocock/skills` | Matt Pocock's skill collection (`skills/<category>/<name>/SKILL.md`). Reference-only, no local clone — upstream for the vendored grill-me, handoff, prototype and teach skills; grill-me resynced 13/08/2026. | `skills, workflows` | https://github.com/mattpocock/skills |
 
 
 ---
