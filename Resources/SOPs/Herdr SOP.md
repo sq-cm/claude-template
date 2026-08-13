@@ -37,7 +37,7 @@ Docs: https://herdr.dev/docs/concepts/
 
 ## Install & update
 
-Install is not repeated here. The canonical install path for this vault is `Resources/Onboarding/SETUP.md` § Appendix — Recommended plugins — onboarding Step 14 installs herdr automatically, and the accepted-risk note for that install lives there, not in this SOP.
+herdr is an optional tool. This vault does not install it and does not check its version — onboarding once did both, and no longer does. Install it yourself from https://herdr.dev/docs/install/ on whatever channel that page recommends for your platform.
 
 Once installed:
 
