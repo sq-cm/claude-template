@@ -118,6 +118,8 @@ See `Resources/SOPs/Theme SOP.md` for the full workflow.
 
 This anchors your local memory for future sessions.
 
+`Notes/Personal/Notes.md` was created the same way, from the tracked sample (`Resources/Onboarding/Notes.example.md`), by whichever ran first on your clone — the SessionStart onboarding hook (which also backfills it on an already-onboarded clone), `install.sh` / `install.bat`, or `/onboard` — and it is your personal scratchpad, git-ignored, yours to edit freely, and never overwritten once it exists.
+
 > **`context.md` vs `MEMORY.md`.** `context.md` is your clone's **local** team memory — git-ignored, the write target for the bootstrap entry above and for `/memory-reconcile`. `MEMORY.md` is the shipped, git-tracked **vault-operations index**, maintainer-curated and the same for every install. Never hand-edit `MEMORY.md` for local facts — doing so causes rebase conflicts on `/update`. Both files load into context every prompt.
 
 > **Migrating an existing clone (one-time).** If your clone predates the memory split, local entries you added to `MEMORY.md` are now in the maintainer-owned tracked file and will conflict on your next `/update`. Move them into `Vault/Memory/context.md`, then run `git checkout MEMORY.md` to restore the shipped index. New clones skip this — `context.md` already exists by the time this matters, created by the installer or by `/onboard`.

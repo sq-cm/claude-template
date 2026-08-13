@@ -68,7 +68,7 @@ This disables VS Code's built-in git UI for the vault — Claude Code handles gi
 
 ---
 
-## Step 4 — Create .env and seed local memory
+## Step 4 — Create .env, seed local memory, and seed the personal scratchpad
 
 Check if `.env` exists in the vault root.
 
@@ -79,6 +79,11 @@ Then check if `Vault/Memory/context.md` exists (idempotent, same shape as `insta
 
 - **If it does not exist:** Copy `Vault/Memory/context.example.md` to `Vault/Memory/context.md` — `cp` only, never overwrite an existing file. Report: "`Vault/Memory/context.md` created from template — your local team memory."
 - **If it already exists:** Report: "`Vault/Memory/context.md` already present — skipped." This is the common case when the installer already ran.
+
+Then check if `Notes/Personal/Notes.md` exists (same copy-if-absent shape again).
+
+- **If it does not exist:** Copy `Resources/Onboarding/Notes.example.md` to `Notes/Personal/Notes.md` — `cp` only, never overwrite an existing file. Report: "`Notes/Personal/Notes.md` created from template — your personal scratchpad, git-ignored and yours to edit freely."
+- **If it already exists:** Report: "`Notes/Personal/Notes.md` already present — skipped." This is the common case when the installer already ran.
 
 ---
 

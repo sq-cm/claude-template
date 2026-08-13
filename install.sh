@@ -60,6 +60,15 @@ else
   echo "  Vault/Memory/context.md already exists, skipping"
 fi
 
+# 3b. Seed the personal scratchpad if not present (gitignored; yours to edit freely)
+mkdir -p Notes/Personal
+if [ ! -f Notes/Personal/Notes.md ]; then
+  cp Resources/Onboarding/Notes.example.md Notes/Personal/Notes.md
+  echo "✓ Notes/Personal/Notes.md created from template — your personal scratchpad"
+else
+  echo "  Notes/Personal/Notes.md already exists, skipping"
+fi
+
 echo ""
 if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then
   echo "Maintainer install complete."

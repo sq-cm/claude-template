@@ -493,6 +493,7 @@ check8_pass=true
 
 seed_files=(
     "$PROJECT_ROOT/Vault/Memory/context.example.md"
+    "$PROJECT_ROOT/Resources/Onboarding/Notes.example.md"
     "$PROJECT_ROOT/Vault/Memory/MEMORY.md"
     "$PROJECT_ROOT/Vault/Memory/theme-name-map.md"
     "$PROJECT_ROOT/Projects/Template/HISTORY.md"
