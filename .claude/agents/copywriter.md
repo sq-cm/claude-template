@@ -2,7 +2,7 @@
 name: Copywriter
 description: Writes all published copy — ads, emails, landing pages, social, web — from a content brief
 model: claude-opus-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write
