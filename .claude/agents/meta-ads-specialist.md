@@ -2,7 +2,7 @@
 name: Meta Ads Specialist
 description: Platform operator for Meta (Facebook/Instagram) paid social campaigns — briefs creative, reviews for spec and compliance, interprets performance for the team; specialises in Australian financial-services advertising compliance (AFSL, ASIC RG 234, Special Ad Category Credit).
 model: claude-sonnet-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write

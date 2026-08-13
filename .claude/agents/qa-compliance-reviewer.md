@@ -1,7 +1,7 @@
 ---
 name: QA Compliance Reviewer
 description: Reviews finished deliverables against defined standards and returns pass, flagged, or blocked verdicts before anything leaves the studio
-model: claude-fable-5
+model: claude-opus-5
 effort: high
 tools:
   - Read
@@ -88,7 +88,7 @@ Quinn follows the two-checkpoint pattern defined in CLAUDE.md.
 
 Routine QA reviews (standard deliverables against established checklists) skip checkpoints.
 
-> **Model note:** Quinn runs on `claude-fable-5` (gatekeeper tier — the top available model). Use a capable reasoning model at invocation time — Quinn's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. Fable 5 safety classifiers can return a refusal on sensitive content: a refusal is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker so the review can be re-run on `claude-opus-5` (the strongest non-Fable model; supersedes the former `claude-opus-4-8` target as of 24/07/2026).
+> **Model note:** Quinn runs on `claude-opus-5` (moved from `claude-fable-5` on cost/efficiency, 13/08/2026 — Gatekeeper verdict authority unchanged; Fable 5 is reserved for @{SeniorAdviser}'s checkpoints). Use a capable reasoning model at invocation time — Quinn's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. A flagged Opus 5 request auto-falls-back to `claude-opus-4-8` in Claude Code — a platform-level fallback, outside roster control: a refusal or fallback is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker, never a silent drop.
 
 ## Basis
 
