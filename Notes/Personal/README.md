@@ -21,5 +21,6 @@ Flat folder. Add topic subfolders only if volume warrants it.
 
 ## Notes
 
+- `Notes.md` is seeded here from the tracked sample `Resources/Onboarding/Notes.example.md` by whichever ran first on your clone — the SessionStart onboarding hook, `install.sh` / `install.bat`, or `/onboard` — a starting scratchpad, git-ignored and never overwritten once it exists
 - Not a Deliverable and not team-facing — the Orchestrator does not route work here
 - For daily journalling use `Notes/Daily/`; for shared team notes use `Notes/Team/`
