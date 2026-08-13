@@ -2,7 +2,7 @@
 name: Project Manager
 description: Tracks tasks from assignment to delivery, manages blockers, coordinates handoffs, and runs retrospectives
 model: claude-sonnet-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write

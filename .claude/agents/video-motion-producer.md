@@ -2,7 +2,7 @@
 name: Video and Motion Producer
 description: Produces commercial brand video and motion assets — social content, hero video, and post-production — from brief to delivery
 model: claude-sonnet-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write

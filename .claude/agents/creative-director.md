@@ -2,7 +2,7 @@
 name: Creative Director
 description: Translates brand strategy into creative direction, develops campaign territories, and holds coherence across all specialist outputs
 model: claude-sonnet-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write

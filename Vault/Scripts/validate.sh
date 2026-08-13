@@ -581,14 +581,15 @@ echo ""
 # The invocation-time fallback for gatekeeper Fable 5 refusals is claude-opus-5
 # (released 24/07/2026) — in that fallback role it is an override at dispatch
 # on the gatekeeper, never a change to the gatekeeper's frontmatter pin. The
-# six Judgement-tier claude-opus-5 pins below are separate and legitimate:
-# gatekeepers stay Fable-pinned; the promoted six are Opus-5-pinned.
+# seven claude-opus-5 pins below are separate and legitimate: the promoted
+# six (Judgement tier) plus Quinn (gatekeeper, moved from Fable 13/08/2026);
+# Odin is the sole remaining Fable pin.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
 ALLOWED_MODELS="claude-sonnet-5 claude-opus-5 claude-fable-5"  # Opus 5 judgement tier added (25/07/2026)
-FABLE_PIN_COUNT=2  # Odin + Quinn (gatekeepers; promoted six re-tiered to claude-opus-5, 25/07/2026)
-OPUS5_PIN_COUNT=6  # Harper, Ryan, Finn, Drew, Remi, Lex (Opus 5 re-tier, 25/07/2026)
+FABLE_PIN_COUNT=1  # Odin (sole Fable gatekeeper; Quinn moved to claude-opus-5, 13/08/2026)
+OPUS5_PIN_COUNT=7  # Harper, Ryan, Finn, Drew, Remi, Lex (Opus 5 re-tier, 25/07/2026) + Quinn (13/08/2026)
 fable_pin_live=0
 opus5_pin_live=0
 
