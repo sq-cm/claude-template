@@ -39,7 +39,7 @@ This step governs the template pull only — whatever happens here, still run St
 
 ---
 
-## Step 3 — Check tool freshness (herdr, plannotator)
+## Step 3 — Check tool freshness (plannotator)
 
 Always runs, regardless of Step 2's exit code — the tool check is independent of template-pull mechanics and never skipped because Step 1/2 stopped, failed, or left the repo mid-rebase.
 
@@ -49,4 +49,4 @@ Run in one Bash call:
 bash Vault/Scripts/tool-check.sh --force
 ```
 
-Relay its stdout to the user verbatim. This is check-only — never run `herdr update` or reinstall plannotator on the user's behalf. If a tool is behind, its own output line already says what to do next (`herdr update` from outside a herdr session, or re-run `/onboard` Step 10 for plannotator).
+Relay its stdout to the user verbatim. This is check-only — never reinstall plannotator on the user's behalf. If it is behind, its own output line already says what to do next (re-run `/onboard` Step 10).

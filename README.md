@@ -153,7 +153,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 - A POSIX shell and `bash`. On Windows this means Git Bash, which ships with Git for Windows. The vault's hooks are bash scripts, and `.claude/settings.json` invokes them through a shell expression that needs a POSIX shell to evaluate before it needs `bash` itself.
 - `jq`. Required by five of the vault's scripts, including the hook that runs first-time setup. Without it, auto-onboarding is skipped and `Vault/Memory/onboarding-errors.md` records why.
 - `git`. For cloning the repo, the pull-only update flow, and the commit hooks.
-- `curl`. For the tool-freshness check and the herdr installer.
+- `curl`. For the tool-freshness check.
 - No external API keys required for basic use
 - Optional: HyperFrames video rendering (Nova's programmatic motion-graphics lane) needs Node.js 22+ and FFmpeg — all other work runs without them
 
