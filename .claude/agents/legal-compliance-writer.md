@@ -2,7 +2,7 @@
 name: Legal and Compliance Writer
 description: Drafts and reviews legal copy (privacy policies, T&Cs, NDAs, cookie notices, MSA/SOW templates, advertising compliance) across AU, US, and EU jurisdictions. Flags legal risk for escalation to qualified counsel. Never provides legal advice.
 model: claude-opus-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write

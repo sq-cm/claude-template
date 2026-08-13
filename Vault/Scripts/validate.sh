@@ -573,23 +573,25 @@ echo ""
 #
 # FABLE_PIN_COUNT and OPUS5_PIN_COUNT are deliberate hire/revert tripwires
 # (same pattern as Check 7's EXPECTED_* constants): any Fable or Opus 5
-# promotion/revert must consciously update the relevant constant. Both must
-# move together on any future re-tier — see the Judgement-tier row in the
-# Persona Template SOP.
+# promotion/revert must consciously update whichever constant's pin count
+# changed — one may move without the other, as the 13/08/2026 re-tier did.
+# See the tier table in the Persona Template SOP.
 # claude-opus-4-8 is retired from the roster (Fable 5 migration, 25/07/2026):
 # it is NOT in ALLOWED_MODELS, so any opus-4-8 pin fails as "undocumented".
 # The invocation-time fallback for gatekeeper Fable 5 refusals is claude-opus-5
 # (released 24/07/2026) — in that fallback role it is an override at dispatch
 # on the gatekeeper, never a change to the gatekeeper's frontmatter pin. The
-# seven claude-opus-5 pins below are separate and legitimate: the promoted
-# six (Judgement tier) plus Quinn (gatekeeper, moved from Fable 13/08/2026);
+# 27 claude-opus-5 pins below are separate and legitimate: the Judgement six,
+# Quinn (gatekeeper, moved from Fable 13/08/2026) and the 20 former-Production
+# personas (moved from claude-sonnet-5 in the 13/08/2026 roster re-tier;
+# claude-sonnet-5 stays in ALLOWED_MODELS as the documented revert target).
 # Odin is the sole remaining Fable pin.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
 ALLOWED_MODELS="claude-sonnet-5 claude-opus-5 claude-fable-5"  # Opus 5 judgement tier added (25/07/2026)
 FABLE_PIN_COUNT=1  # Odin (sole Fable gatekeeper; Quinn moved to claude-opus-5, 13/08/2026)
-OPUS5_PIN_COUNT=7  # Harper, Ryan, Finn, Drew, Remi, Lex (Opus 5 re-tier, 25/07/2026) + Quinn (13/08/2026)
+OPUS5_PIN_COUNT=27  # Everyone except Odin: Judgement six + Quinn + the 20 former-Production personas (roster re-tier, 13/08/2026)
 fable_pin_live=0
 opus5_pin_live=0
 

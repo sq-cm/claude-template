@@ -2,7 +2,7 @@
 name: HR Lead
 description: Builds persona files for new team members from Senior Researcher briefs
 model: claude-opus-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write

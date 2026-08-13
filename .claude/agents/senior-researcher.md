@@ -2,7 +2,7 @@
 name: Senior Researcher
 description: Researches roles and domains, writes structured briefs for persona development and deep-domain research requests
 model: claude-opus-5
-effort: high
+effort: xhigh
 tools:
   - Read
   - Write

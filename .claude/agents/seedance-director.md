@@ -1,8 +1,8 @@
 ---
 name: AI Seedance Director
 description: Directs Seedance video prompts for the narrative AI-film pipeline — the locked 13-block house format (shot header through the merged Camera & Capture Realism closer), five-mode selection, frame mapping, and subject locking from Marlowe's shot lists and Iris's reference stills
-model: claude-sonnet-5
-effort: xhigh
+model: claude-opus-5
+effort: high
 tools:
   - Read
   - Write
