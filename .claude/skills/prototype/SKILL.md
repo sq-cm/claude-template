@@ -1,7 +1,23 @@
 ---
 name: prototype
 description: Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says "prototype this", "let me play with it", "try a few designs".
+adapted_from: https://github.com/mattpocock/skills
+upstream_commit: f304057d61d3df3c9fd992ac2b6e3833cb9325fb
 ---
+
+<!--
+Source: https://github.com/mattpocock/skills/tree/main/skills/engineering/prototype (by Matt Pocock).
+Verbatim copy — `SKILL.md`, `LOGIC.md` and `UI.md` are all byte-identical to upstream @ f304057
+(12/05/2026), imported here on 13/05/2026. There are no vault adaptations, so a future resync is
+a straight replace: drop in the upstream files and update the pin.
+
+Staleness warning (13/08/2026): upstream has moved six content commits ahead of f304057. The
+significant one is 6bcbcb0 (17/07/2026), which changes the LOGIC branch to produce a shareable
+HTML demo rather than a terminal app. Resyncing is therefore a behavioural change to how this
+skill prototypes state and business logic, not a routine refresh — it has deliberately not been
+done here. This edit records provenance only; the body is untouched and still describes the
+terminal-app behaviour.
+-->
 
 # Prototype
 
