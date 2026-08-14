@@ -497,6 +497,7 @@ seed_files=(
     "$PROJECT_ROOT/Vault/Memory/MEMORY.md"
     "$PROJECT_ROOT/Vault/Memory/theme-name-map.md"
     "$PROJECT_ROOT/Projects/Template/HISTORY.md"
+    "$PROJECT_ROOT/Projects/Template/CONTEXT.md"
     "$PROJECT_ROOT/Projects/Template/README.md"
 )
 

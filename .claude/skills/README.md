@@ -37,7 +37,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `teach` | Personal-tutor skill — runs inline by the Orchestrator (CLAUDE.md carve-out: exempt from routing, QA Gate, PM tracking, and Advisor Checkpoints); teaches any topic across stateful sessions with lessons, reference docs, and learning records stored git-ignored under `Vault/Learning/<topic>/` | Orchestrator |
 | `using-superpowers` | Establishes how to find and use skills, repos, and tools at session start | Orchestrator |
 | `verification-before-completion` | Final self-check before claiming work is done | All (mirrors Checkpoint B intent) |
-| `wait-what` | User-fired interjection when a reply did not land — re-pitches the last message with a little context, in ASD-STE100 Simplified Technical English, using the current project's established vocabulary (brief + `HISTORY.md`); explicit `/wait-what` invocation only (adapted from mattpocock/skills) | User |
+| `wait-what` | User-fired interjection when a reply did not land — re-pitches the last message with a little context, in ASD-STE100 Simplified Technical English, using the ubiquitous language from the current project's `CONTEXT.md`; explicit `/wait-what` invocation only (adapted from mattpocock/skills) | User |
 | `write-a-skill` | Create or improve SKILL.md skill files | Orchestrator, Ellis |
 | `writing-plans` | Write an implementation plan from a spec before touching code | All |
 

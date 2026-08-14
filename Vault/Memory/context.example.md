@@ -24,9 +24,10 @@ tags are re-tested at every reconcile (step 5.9); completed-work tags are remove
 Full detail lives in the linked Notes/YYYY-MM/ files. Only the live-state entry stays expanded.
 
 `## Project context` holds ONE line per ACTIVE project, pointing at that project's own
-`Projects/<name>/HISTORY.md` — not the detail itself. Project history (decisions, gotchas,
-live state) accrues in that file, written by /memory-reconcile from notes carrying a
-`project:` frontmatter field; it is read on demand, never injected, so it has no size budget.
+`Projects/<name>/CONTEXT.md` — not the detail itself. Current truths (vocabulary, live state,
+gotchas) accrue in that file; the decision trail accrues in `Projects/<name>/HISTORY.md`. Both
+are written by /memory-reconcile from notes carrying a `project:` frontmatter field, and both
+are read on demand, never injected, so neither has a size budget.
 See Resources/SOPs/Memory Protocol SOP.md § Project-scoped memory.
 
 SECURITY: Do not store API keys, passwords, or credentials here.
@@ -52,8 +53,9 @@ This file may be synced to cloud storage.
 
 ## Project context
 
-<!-- Example (once a project has an active HISTORY.md) — one line, dedup by path:
-- [Client Onboarding Revamp](Projects/Client%20Onboarding%20Revamp/HISTORY.md) — mid-build, webhook auth pending
+<!-- Example (once a project has an active CONTEXT.md) — one line, dedup by project folder
+     within this section:
+- [Client Onboarding Revamp](Projects/Client%20Onboarding%20Revamp/CONTEXT.md) — mid-build, webhook auth pending
 -->
 
 ## References
