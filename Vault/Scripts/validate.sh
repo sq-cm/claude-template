@@ -422,11 +422,11 @@ echo ""
 # Check 7 — doc counts match README assertions
 #
 # Live agent count: ls .claude/agents/*.md | wc -l → expect 28
-# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 29
+# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 30
 #
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
 # "N reusable skill modules") — not the prose mention around line 58.
-# Count reconciled at 24 via #144/#145; 25 with prompt-review, 26 with review-claudemd (2026-07-06); 27 with fast-path (2026-07-09); 28 with story-bible-builder (2026-07-14); 29 with character-builder (2026-08-04).
+# Count reconciled at 24 via #144/#145; 25 with prompt-review, 26 with review-claudemd (2026-07-06); 27 with fast-path (2026-07-09); 28 with story-bible-builder (2026-07-14); 29 with character-builder (2026-08-04); 30 with wait-what (2026-08-14).
 #
 # EXPECTED_* below are a deliberate tripwire, not redundancy: adding or removing
 # a skill or persona must consciously touch this file, README.md, and the docs
@@ -437,7 +437,7 @@ echo "--- Check 7: Doc counts match README assertions ---"
 check7_pass=true
 
 EXPECTED_AGENT_COUNT=28
-EXPECTED_SKILL_COUNT=29
+EXPECTED_SKILL_COUNT=30
 
 # Live counts
 live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | grep -cv '/CLAUDE\.md$' | tr -d ' ')
