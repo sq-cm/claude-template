@@ -18,7 +18,7 @@ if [ -d "$SESSIONS_DIR" ]; then
   # Top-level notes only — _rejected/ and other subdirectories don't count as pending.
   COUNT=$(find "$SESSIONS_DIR" -maxdepth 1 -type f -name '*.md' 2>/dev/null | wc -l | tr -d '[:space:]')
   if [ "${COUNT:-0}" -gt 0 ] 2>/dev/null; then
-    echo "${COUNT} session note(s) pending in Vault/Memory/Sessions/ — run /memory-reconcile to fold them into context.md (and, for project-tagged notes, that project's HISTORY.md) before they age out."
+    echo "${COUNT} session note(s) pending in Vault/Memory/Sessions/ — run /memory-reconcile to fold them into context.md (and, for project-tagged notes, that project's CONTEXT.md + HISTORY.md) before they age out."
   fi
 fi
 
