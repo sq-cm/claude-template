@@ -77,9 +77,9 @@ List every location that appears in more than one shot. Each recurring location 
 
 **Diegetic sound signature:** (the ambient sounds that define this world — city hum, rain, engine note, stage crowd, wind, etc.)
 
-**Sound-bed defaults for Seedance:** (what to include in the Sound Bed block of every prompt set in this world by default)
+**Audio defaults for Seedance:** (what to include in the audio block of every prompt set in this world by default — cinema-director SLOT 15 AUDIO)
 
-**No music policy:** All Seedance Sound Bed blocks are diegetic only — no music, no lyrics, no song references. Music is added in post via the Higgsfield UI.
+**No music policy:** All Seedance audio blocks are diegetic only — no music, no lyrics, no song references, closed with `NO BGM` per cinema-director's convention. Music is added in post via the Higgsfield UI.
 
 ---
 

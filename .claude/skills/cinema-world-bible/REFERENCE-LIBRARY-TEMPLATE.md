@@ -1,6 +1,6 @@
 # Reference Library Index — [PROJECT NAME]
 
-> Every reference image asset for this project. Character-builder builds face locks, outfits, and character sheets; banana-pro-director builds environment plates, scene plates, vehicle, and prop references; this index tracks all of them. Shot specs pull element-tag assignments from here. Canonical character references always take priority over environment plates when tag count is constrained (Seedance hard cap: 9 references per prompt).
+> Every reference image asset for this project. Character-builder builds face locks, outfits, and character sheets; banana-pro-director builds environment plates, scene plates, vehicle, and prop references; this index tracks all of them. Shot specs pull element-tag assignments from here. Canonical character references always take priority over environment plates when tag count is constrained (Seedance reference cap is version-conditional: 9 references per prompt on 2.0, up to 50 on 2.5).
 
 ---
 
@@ -14,9 +14,9 @@ PROP-[PROP-SLUG]                       for prop references
 ```
 
 **Type codes:**
-- `FACE-LOCK` — canonical face lock reference (character-builder Part 1, Step A2 canonical lock)
-- `OUTFIT-[SLUG]` — single-image outfit reference (character-builder Part 3, Outfit Builder)
-- `SHEET-[SLUG]` — 3-panel character sheet, standard or headless Seedance-handoff variant (character-builder Part 3)
+- `FACE-LOCK` — canonical face lock reference (character-builder Mode 0, canonical 3:4 chest-up plate)
+- `OUTFIT-[SLUG]` — single-image outfit reference (character-builder Mode 2, Outfit Builder; or Mode 3, Outfit Replacement, when the fit is swapped in from a second reference)
+- `SHEET-[SLUG]` — 3-panel character sheet, standard or headless Seedance-handoff variant (character-builder Mode 4)
 - `PLATE` — environment plate, no characters (banana-pro Mode 3B)
 - `SCENE` — scene plate with characters (banana-pro Mode 3A)
 - `EXT` — exterior vehicle or object reference
@@ -31,10 +31,10 @@ PROP-[PROP-SLUG]                       for prop references
 
 | Slug | Type | Status | Build source | Higgsfield library name / file path | Notes |
 |---|---|---|---|---|---|
-| `[CHAR-SLUG]-FACE-LOCK` | FACE-LOCK | PENDING | character-builder Part 1 | | |
-| `[CHAR-SLUG]-OUTFIT-A` | OUTFIT-A | PENDING | character-builder Part 3 | | Dry base state |
-| `[CHAR-SLUG]-OUTFIT-A-RAINY` | OUTFIT-A-RAINY | PENDING | character-builder Part 3 | | Post-rain state delta |
-| `[CHAR-SLUG]-SHEET-A` | SHEET-A | PENDING | character-builder Part 3 | | Built after OUTFIT-A locked |
+| `[CHAR-SLUG]-FACE-LOCK` | FACE-LOCK | PENDING | character-builder Mode 0 | | |
+| `[CHAR-SLUG]-OUTFIT-A` | OUTFIT-A | PENDING | character-builder Mode 2 | | Dry base state |
+| `[CHAR-SLUG]-OUTFIT-A-RAINY` | OUTFIT-A-RAINY | PENDING | character-builder Mode 2 | | Post-rain state delta |
+| `[CHAR-SLUG]-SHEET-A` | SHEET-A | PENDING | character-builder Mode 4 | | Built after OUTFIT-A locked |
 
 **Wardrobe test-pass note:** a garment reference may pass through a mannequin test stage (proven on an invisible mannequin — headless display, no character anchor) before it is composited onto the canonical character. Track this as a Notes-column annotation on the outfit row (e.g., "mannequin-tested, not yet composited to character") rather than a new status value — Status stays PENDING until the character-anchored composite exists and is BUILT/LOCKED. The escalation path across generation tools during the mannequin stage (if one is used) is prompt-craft and belongs to @{StillsDirector}'s domain, not this index.
 

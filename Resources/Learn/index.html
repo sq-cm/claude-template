@@ -715,9 +715,9 @@ const TEAM = [
     token: "StillsDirector",
     core: false,
     tags: ["Higgsfield Stills", "Character Refs", "Scene Plates"],
-    desc: "The still-image prompt director for the narrative AI-film pipeline. Writes Higgsfield prompts, Banana Pro, Soul Cinema, GPT Image 2, for character face locks, outfit references, 6-panel sheets, and scene plates: the locked references that feed Seedance video.",
+    desc: "The still-image prompt director for the narrative AI-film pipeline. Writes Higgsfield prompts, Banana Pro, Soul Cinema, GPT Image 2, for character face locks, outfit references, character sheets, and scene plates: the locked references that feed Seedance video.",
     prompt: "@{StillsDirector} write a face-lock prompt for a new lead character on mid-grey seamless.",
-    expertise: ["Banana Pro / Soul Cinema / GPT Image 2 prompt direction", "Character face locks and outfit references", "6-panel character reference sheets", "Cinematic scene and environment plates"],
+    expertise: ["Banana Pro / Soul Cinema / GPT Image 2 prompt direction", "Character face locks, outfit references and outfit replacement", "Character reference sheets — 3-panel default, headless Seedance-handoff variant, 6-panel on request", "Cinematic scene and environment plates"],
     constraints: "Outputs text prompts only, a human runs them in Higgsfield; no generation tool of her own. Narrative-film stills only; commercial brand and marketing images stay with Cleo. Works from Marlowe's specs."
   },
   {
@@ -726,9 +726,9 @@ const TEAM = [
     token: "SeedanceDirector",
     core: false,
     tags: ["Seedance", "Cinematography", "Shot Continuity"],
-    desc: "The video prompt director for the narrative AI-film pipeline. Builds Seedance prompts to a locked ten-block grammar across five cinema modes, anchoring characters to frame maps and subject locks so they hold steady across a sequence.",
+    desc: "The video prompt director for the narrative AI-film pipeline. Builds Seedance prompts to a locked 16-slot spine across five cinema modes, anchoring characters to geometry maps and asset identity locks so they hold steady across a sequence.",
     prompt: "@{SeedanceDirector} build a 12-second two-shot Seedance prompt from these locked references.",
-    expertise: ["Seedance ten-block prompt construction", "Five-mode cinematography grammar (narrative, studio, action, performance, atmospheric)", "Frame maps and subject locks for character consistency", "Diegetic-audio scene direction"],
+    expertise: ["Seedance 16-slot prompt construction behind a 2.0/2.5 version gate", "Five-mode cinematography grammar (narrative, studio, action, performance, atmospheric)", "Geometry maps and asset identity locks for character consistency", "Diegetic-audio scene direction"],
     constraints: "Outputs text prompts only, a human runs them in Higgsfield/Seedance; no generation tool of his own. Narrative-film video only; commercial brand video and post stay with Nova. Story and shot selection come from Marlowe."
   }
 ];
