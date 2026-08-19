@@ -1,6 +1,6 @@
 # Character Bible — [CHARACTER-SLUG]
 
-> This is the canonical source for this character's visual identity. Every character-builder or banana-pro prompt and every Seedance Subject Lock block points back here. Do not write character names or real ages into any prompt output — use visual descriptors only. Real brand names appear only where the production has confirmed authorisation (client's own brand or user-accepted risk); otherwise use generic descriptors.
+> This is the canonical source for this character's visual identity. Every character-builder or banana-pro prompt and every Seedance character asset line points back here — in the narrative lane the old Subject Lock vocabulary now lives in cinema-director SLOT 5 ASSETS, one merged line per character. Do not write character names or real ages into any prompt output — use visual descriptors only. Real brand names appear only where the production has confirmed authorisation (client's own brand or user-accepted risk); otherwise use generic descriptors.
 
 **Project:**
 **Character slug:** `[CHAR-SLUG]`
@@ -11,7 +11,7 @@
 
 ## Identity spec (locked visual descriptor)
 
-This is the text spec that character-builder uses at Part 1 (canonical face-lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
+This is the text spec that character-builder uses at Mode 0 (canonical face-lock) and carries into every downstream prompt. Fill it from reference images or from the character brief. Confirm with the Showrunner before marking LOCKED.
 
 **Build:**
 (e.g., slim with refined proportions / athletic / full / slight — described by silhouette and proportion, never by size numbers)
@@ -51,7 +51,7 @@ List every marker that must appear consistently and be noted in every prompt tha
 
 ## Voice register
 
-Voice consistency is a context problem, not a tool problem: if the model doesn't have a locked reference for how this character sounds, it improvises a different voice every time. This section is that lock — every Seedance dialogue or voiceover-bearing prompt for this character draws its Sound Bed and phrasing choices from here.
+Voice consistency is a context problem, not a tool problem: if the model doesn't have a locked reference for how this character sounds, it improvises a different voice every time. This section is that lock — every Seedance dialogue or voiceover-bearing prompt for this character draws its audio-block and phrasing choices from here.
 
 **Register:**
 (e.g., mid-range with a slight sassy edge / low and even / bright and quick)
@@ -66,7 +66,7 @@ Voice consistency is a context problem, not a tool problem: if the model doesn't
 (how this character specifically constructs a sentence — word choice, sentence length, verbal tics — described comparatively where a second character exists, e.g., "Daye leads with the conclusion and backfills the reason; Mira leads with the reason and holds the conclusion back")
 
 **Notes for downstream prompts:**
-(anything that must carry into a Sound Bed or dialogue block — accent markers, things this character would never say, energy under pressure vs. at rest)
+(anything that must carry into an audio or dialogue block — accent markers, things this character would never say, energy under pressure vs. at rest)
 
 ---
 
@@ -76,10 +76,10 @@ The reference images that carry this character's identity. Mark each as PENDING 
 
 | Ref type | Library slug | Status | Notes |
 |---|---|---|---|
-| Face lock (character-builder Part 1) | `[CHAR-SLUG]-FACE-LOCK` | PENDING / BUILT / LOCKED | Banana Pro or GPT Image 2 path |
-| 3-panel character sheet (character-builder Part 3) | `[CHAR-SLUG]-SHEET-[OUTFIT]` | PENDING / BUILT / LOCKED | Built after the outfit reference |
+| Face lock (character-builder Mode 0) | `[CHAR-SLUG]-FACE-LOCK` | PENDING / BUILT / LOCKED | Banana Pro or GPT Image 2 path |
+| 3-panel character sheet (character-builder Mode 4) | `[CHAR-SLUG]-SHEET-[OUTFIT]` | PENDING / BUILT / LOCKED | Built after the outfit reference |
 
-> The face lock reference is the canonical identity anchor. No outfit work (character-builder Part 3), no scene plates (banana-pro-director Mode 3), and no Seedance prompts should be built for this character until the face lock is LOCKED.
+> The face lock reference is the canonical identity anchor. No outfit work (character-builder Mode 2), no scene plates (banana-pro-director Mode 3), and no Seedance prompts should be built for this character until the face lock is LOCKED.
 
 ---
 
@@ -115,8 +115,8 @@ List any condition-specific versions of this outfit that need separate reference
 
 | Ref type | Library slug | Status |
 |---|---|---|
-| Outfit reference (character-builder Part 3) | `[CHAR-SLUG]-OUTFIT-[SLUG]` | PENDING / BUILT / LOCKED |
-| 3-panel sheet (character-builder Part 3) | `[CHAR-SLUG]-SHEET-[SLUG]` | PENDING / BUILT / LOCKED |
+| Outfit reference (character-builder Mode 2) | `[CHAR-SLUG]-OUTFIT-[SLUG]` | PENDING / BUILT / LOCKED |
+| 3-panel sheet (character-builder Mode 4) | `[CHAR-SLUG]-SHEET-[SLUG]` | PENDING / BUILT / LOCKED |
 
 **Prompt notes for this wardrobe state:**
 (anything that does not appear in the reference images and must be written into prompts — e.g., "jacket removed in cabin scenes — reference shows jacket on; note in shot spec as state-change delta")

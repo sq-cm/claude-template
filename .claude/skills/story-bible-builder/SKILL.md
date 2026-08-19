@@ -5,7 +5,15 @@ description: Interview-driven builder for a PORTABLE, standalone story canon doc
 
 # Story Bible Builder
 
-> **Version:** studio 3.0 build; upstream drop 2 deltas folded 04/08/2026 (upstream body unchanged since the prior drop — fold is rename sweep only: `cinema-worldbuilder-pro` → `cinema-director`, `character-builder` added as a companion skill).
+> **Version:** studio 3.0 build; upstream drop 2 deltas folded 04/08/2026 (upstream body unchanged since the prior drop — fold is rename sweep only: `cinema-worldbuilder-pro` → `cinema-director`, `character-builder` added as a companion skill). **Studio delta since:** the retired Seedance block names used in the director-handoff guidance (Sound Bed, Subject Lock, World Plate, Cross-Frame Rules) were retargeted to the drop-3 16-slot spine on 19/08/2026 — a studio divergence from the current upstream base, declared per-locus in the SWEEPS block below.
+
+<!-- STUDIO-LOCAL SWEEPS: retired-block-name retarget, 19/08/2026. Upstream story-bible-builder still names the pre-drop-3 Seedance blocks (Sound Bed, Subject Lock, World Plate, Cross-Frame Rules); the studio's `cinema-director` has flipped to the upstream drop-3 16-slot spine, where those blocks no longer exist under those names. This is a studio divergence from the current upstream base, not an upstream fold — declared collectively here so a drop-4 diff can reverse or re-apply it mechanically. The doctrine is untouched: every quoted descriptor must still paste verbatim into its target slot. Only the target names change.
+     Mapping, lane-scoped to the narrative Seedance lane (`seedance-commercial-director` retains Subject Lock natively as legacy commercial grammar — the term is retired in this lane, not corpus-wide):
+       - Survive under a new name — Sound Bed → `cinema-director` § SLOT 15 — AUDIO.
+       - Reshaped, not renamed — Subject Lock was merged into § SLOT 5 — ASSETS, one line per asset carrying permanent identity, THIS SCENE action and a fidelity assertion; movement and stillness descriptors now land inside that single line rather than in a standalone block.
+       - No longer standalone — World Plate folded into the § SLOT 5 — ASSETS location asset line (`@x_plate = the location — ...`), with grade selection sitting in § SLOT 10 — LIGHT & COLOUR.
+       - Inverted — Cross-Frame Rules became § SLOT 16 — LOCKS, restated as a positive ordered chain of what holds rather than a list of prohibitions.
+     Loci, named by enclosing section (never by line number): four of the five director-handoff bullets (voice, movement/stillness, aesthetic era, ensemble dynamics — the production-rules bullet names no retired block and is unchanged) and the closing paste-verbatim paragraph under § TWO WAYS THE BIBLE GETS USED / Mode 2 - Context source for a video prompt director skill; the bible-feeds-the-director mapping item under § THE BUILD FLOW / Step 7, "Paired-with-director-skill mode"; and the Speech/Movement/Stillness feeder bullets under `references/character-section-format.md` § Rules, rule 1 (wrapped in that file). -->
 
 An interview-driven skill for building a **single dense canon document** — a story's bible — that ships as an installable SKILL.md the user can drop into Claude as their own custom skill.
 
@@ -51,13 +59,13 @@ Many users pair the bible with a video prompt director skill — `cinema-directo
 The director skill reads uploaded reference images for wardrobe, hair, and identity. It cannot read *voice*, *movement quality*, *stillness*, *what era's aesthetic applies*, or *what production rules are locked for this world*. Those come from the bible.
 
 **When both skills are active in the same session**, the director skill should pull directly from the bible for:
-- **Character voice descriptors** (goes into Sound Bed / dialogue direction)
-- **Character movement and stillness descriptors** (goes into Subject Lock block)
-- **Aesthetic era differentiation** (goes into World Plate / grade selection)
+- **Character voice descriptors** (goes into SLOT 15 AUDIO — the spoken-dialogue line and dialogue direction)
+- **Character movement and stillness descriptors** (goes into the character's SLOT 5 ASSETS line, inside its THIS SCENE clause)
+- **Aesthetic era differentiation** (goes into the SLOT 5 ASSETS location asset line, and into grade selection at SLOT 10 LIGHT & COLOUR)
 - **Production rules** (locked visual traits that must appear in every render — piercings, scars, permanent hair features, "never" clauses)
-- **Ensemble dynamics** (informs Cross-Frame Rules when multiple canonical characters share a shot)
+- **Ensemble dynamics** (informs SLOT 16 LOCKS — the positive ordered chain — when multiple canonical characters share a shot)
 
-The bible's job is to make every one of those descriptors **copy-paste-ready** — quoted, tight, prompt-facing. If a descriptor in the bible can't be pasted verbatim into a Seedance Sound Bed or Subject Lock block, it's written wrong.
+The bible's job is to make every one of those descriptors **copy-paste-ready** — quoted, tight, prompt-facing. If a descriptor in the bible can't be pasted verbatim into a Seedance SLOT 15 AUDIO line or SLOT 5 ASSETS line, it's written wrong.
 
 If the user is running a full production (not just occasional prompts), `cinema-world-bible` is the layer that turns this bible's canon into a reference-image library index and shot specs — see the disambiguation note above.
 
@@ -172,7 +180,7 @@ Assistant now assembles the full SKILL.md. The final section — "When this skil
 
 **Paired-with-director-skill mode:**
 1. If a video prompt director skill is also active in the session (`cinema-director` for video, `banana-pro-director` for stills), the director skill handles cinematography, mode selection, frame composition, and prompt syntax
-2. The bible feeds the director skill: character voice → Sound Bed; movement/stillness → Subject Lock; aesthetic era locks → World Plate / grade; production rules → cross-frame rules and locked traits
+2. The bible feeds the director skill: character voice → SLOT 15 AUDIO; movement/stillness → the character's SLOT 5 ASSETS line; aesthetic era locks → the SLOT 5 ASSETS location asset line and the SLOT 10 grade; production rules → SLOT 16 LOCKS and locked traits
 3. When the user asks for a video prompt in this world, pull the relevant character's voice, movement, and stillness lines and the correct aesthetic era block, and hand them to the director skill's prompt structure
 4. Named canonical character references (uploaded reference images the user always attaches) get called out here so the director skill knows to expect them. If the user's production is far enough along to have a `cinema-world-bible` reference-image library index, reference images are attached by their semantic element tag (e.g. `@zara_face`, `@rain_plate`) — cite the tag here rather than re-describing the image.
 

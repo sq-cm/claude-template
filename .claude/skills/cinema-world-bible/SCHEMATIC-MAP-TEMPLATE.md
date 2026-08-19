@@ -2,7 +2,7 @@
 
 > A top-down spatial diagram artefact for a single location. Records prop positions, sizes, and clearance distances so they stay consistent take after take. Text cannot hold a location; a map can.
 >
-> **Relationship to per-shot screen-space grammar:** this schematic map is a world-space prep artefact (where things physically are in the location geometry). Screen-space per-shot placement — where characters sit in the frame for a specific Seedance prompt — lives in cinema-director's timecoded SHOT block Position lines; its 13-block locked house format carries no standalone Frame Map block. The schematic map informs those Position lines — it does not duplicate or replace them. Do not write SHOT block Position content here; reference this document from the shot spec instead.
+> **Relationship to per-shot screen-space grammar:** this schematic map is a world-space prep artefact (where things physically are in the location geometry). Screen-space per-shot placement — where characters sit in the frame for a specific Seedance prompt — lives in cinema-director's **SLOT 6 GEOMETRY MAP**, the standalone screen-space block reinstated by its 16-slot spine (drop 3). The schematic map informs the Geometry Map — it does not duplicate or replace it. World-space geometry belongs here; frame-space position, depth planes and percentage placement belong in the prompt. Do not write Geometry Map content here; reference this document from the shot spec instead.
 
 **Project:**
 **Location slug:** (e.g., `ENV-STREET-DAY`, `ENV-GARAGE-NIGHT`)

@@ -7,6 +7,8 @@ description: Continuity tracker and prep system for an ACTIVE narrative AI-film 
 
 **Version.** Updated 04/08/2026 for the upstream drop-2 ripple: `cinema-worldbuilder-pro` renamed to `cinema-director` (13-block locked house format, no standalone Frame Map block — screen-space per-shot placement now lives in each SHOT block's Position line); new `character-builder` skill installed as the primary destination for face-lock, outfit, and character-sheet builds (previously `banana-pro-director` Modes 0/1/2). Cross-refs and routing below updated accordingly; `banana-pro-director` keeps its full mode set and remains the destination for environment plates, scene plates, and detail shots.
 
+**Drop-3 ripple, 19/08/2026.** `cinema-director` was base-flipped onto upstream drop 3: the thirteen-block house format became a **16-slot spine**, preceded by a Seedance 2.0-vs-2.5 target-version gate that makes the reference ceiling conditional (9 refs / 15s on 2.0, 50 refs / 30s on 2.5). Two changes matter to this skill's shot specs. First, the drop-2 finding that cinema-director carries no standalone screen-space block is **reversed** — SLOT 6 GEOMETRY MAP reinstates one, and it takes the studio's percentage frame-mapping convention directly, so a shot spec's screen-space content now has a named destination again. Second, `character-builder` renumbered Parts 1–3 to Modes 0–4 and added Mode 3 (outfit replacement), so every build-routing pointer below is restated in Mode terms; its anime/cel-shade path was retired, and this skill's builds are photoreal only.
+
 The continuity layer that sits between the brief and the prompt skills. This skill owns the prep work that makes shot-to-shot consistency possible: the world record, the character specs, the reference-image index, and the shot specs that feed banana-pro-director, character-builder, and cinema-director.
 
 It does not write Banana Pro, GPT Image 2, or Seedance prompts. It organizes everything those skills need before they run.
@@ -73,11 +75,11 @@ Steps:
 
 Character bible rules:
 - Identity descriptors are visual only — no names in prompt output, no ages, no brand names (real brand names only where the production has confirmed authorisation — client's own brand or user-accepted risk; otherwise generic descriptors)
-- Voice-register descriptors (timbre, cadence, phrasing) are not visual and are exempt from the identity-descriptor visual-only rule — they exist to carry into a Seedance Sound Bed or dialogue block, not a visual prompt block
+- Voice-register descriptors (timbre, cadence, phrasing) are not visual and are exempt from the identity-descriptor visual-only rule — they exist to carry into a Seedance audio block (cinema-director SLOT 15 AUDIO; the Sound Bed block in seedance-commercial-director), not a visual prompt block
 - Describe by build, bone structure, hair, skin, eye shape, key identity markers (piercings, scars, beauty marks, tattoos, signature jewelry)
 - Every wardrobe state gets a short slug name (e.g., `ZARA-OUTFIT-A`, `ZARA-OUTFIT-A-RAINY`) so shot specs can reference it unambiguously
-- A wardrobe state is not locked until a base reference image exists (character-builder Part 3 — Outfit Builder, Step 2 direct-on-model build, or the invisible-mannequin path for complex construction)
-- A character is not fully locked until a face-lock reference exists (character-builder Part 1 — Build From Scratch, Step A2 canonical 3:4 chest-up lock) and is indexed
+- A wardrobe state is not locked until a base reference image exists (character-builder Mode 2 — Outfit Builder, the direct-on-model build; invisible-mannequin garment plates are a repair path only, not a default route)
+- A character is not fully locked until a face-lock reference exists (character-builder Mode 0 — Face Lock, the canonical 3:4 chest-up plate) and is indexed
 
 Deliver: a completed character bible markdown file, saved to the project folder.
 
@@ -114,7 +116,7 @@ Each entry records:
 
 Slugs are an index and operator-handoff convention; the element tag (e.g. `@zara_face`) is the prompt-facing handle assigned once per locked asset — attachment happens in the Higgsfield UI, the tag just names what got attached. Authoritative record, mapping chain (slug → element tag → Elements name), and sync rules: REFERENCE-LIBRARY-TEMPLATE.md § "Higgsfield Elements name mapping".
 
-Slot assignment for Seedance (max 9 references per prompt):
+Reference-slot assignment for Seedance (version-conditional cap — max 9 references per prompt on Seedance 2.0, up to 50 on 2.5; confirm the target version before planning the stack):
 - When building a shot spec, assign element tags from the index. Record the assignment in the shot spec. Canonical character references always take priority over environment plates when tag count is constrained.
 
 ---
@@ -127,7 +129,7 @@ Before any shot spec routes to cinema-director, run this checklist. It encodes t
 
 Character locks
 - [ ] Every character in the shot has a LOCKED face-lock reference in the library index
-- [ ] Every wardrobe state in the shot has a LOCKED outfit reference (character-builder Part 3 — Outfit Builder) in the library index
+- [ ] Every wardrobe state in the shot has a LOCKED outfit reference (character-builder Mode 2 — Outfit Builder) in the library index
 - [ ] Every wardrobe state that differs from the dry base (wet, torn, dirty) is flagged as a separate wardrobe state slug and a separate reference image exists or is PENDING build
 - [ ] Identity markers (piercings, scars, beauty marks, tattoos) are documented in the character bible and visible in the locked reference
 
@@ -182,7 +184,7 @@ A schematic map is a top-down spatial diagram of a single location. It records t
 
 **Relationship to per-shot screen-space grammar (cinema-director):**
 - The schematic map is a **world-space prep artefact** — it records where props and landmarks physically sit in the location geometry (e.g., "fire hydrant at kerb; skydancer anchored 2× person-height to its right on the same line"). It is produced once per location, before shot prompting begins.
-- cinema-director's 13-block locked house format carries no standalone Frame Map block. Screen-space per-shot placement — where each character sits in the frame (left / centre / right, foreground / midground / background) — now lives in each timecoded SHOT block's Position line, reinforced by the staging locks in Cross-Frame Rules.
+- cinema-director's 16-slot spine carries a standalone screen-space block again: **SLOT 6 GEOMETRY MAP**. It states absolute lateral position (LEFT / MIDDLE / RIGHT, plus what is off-frame in which direction), a depth plane per subject (foreground / mid-ground / background, and which planes fall soft), and vertical relationship where it matters — and it accepts the studio's x/y percentage precision for asymmetric compositions. This reverses the drop-2 position, where the thirteen-block format had no such block and screen-space placement was scattered across per-shot Position lines. Write screen-space content into the shot spec expecting a Geometry Map destination. Staging is then held across cuts by **SLOT 16 LOCKS**, which restates the old Cross-Frame Rules as a positive ordered chain of what must hold rather than a list of prohibitions.
 - The schematic map informs the SHOT block Position lines. It does not replace them. Do not duplicate the schematic map's world-space spatial facts inside a Position line; reference the schematic map instead.
 
 Steps:
@@ -217,10 +219,10 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 | Task | This skill | Downstream skill |
 |---|---|---|
 | Lock character identity spec | Yes — character bible | — |
-| Build face-lock reference image | Flags as PENDING, writes spec | character-builder Part 1 (Build From Scratch, Step A2 canonical lock) |
-| Build outfit reference image | Flags as PENDING, writes spec | character-builder Part 3 (Outfit Builder) |
-| Build 3-panel character sheet | Flags as PENDING, writes spec | character-builder Part 3 (the 3-panel character sheet) |
-| Build headless 3-panel Seedance-handoff sheet (Subject Lock anchor) | Flags as PENDING, writes spec | character-builder Part 3 (the headless 3-panel sheet — Seedance handoff) |
+| Build face-lock reference image | Flags as PENDING, writes spec | character-builder Mode 0 (Face Lock, canonical 3:4 chest-up plate) |
+| Build outfit reference image | Flags as PENDING, writes spec | character-builder Mode 2 (Outfit Builder) |
+| Build 3-panel character sheet | Flags as PENDING, writes spec | character-builder Mode 4 (Character Sheets — the 3-panel default) |
+| Build headless 3-panel Seedance-handoff sheet (identity anchor) | Flags as PENDING, writes spec | character-builder Mode 4 (the headless 3-panel sheet — Seedance handoff) |
 | Build environment plate | Flags as PENDING, writes spec | banana-pro-director Mode 3B |
 | Write Banana Pro / GPT Image 2 prompt (scene, environment, or detail plate) | Never | banana-pro-director |
 | Write Banana Pro / GPT Image 2 prompt (character reference) | Never | character-builder |

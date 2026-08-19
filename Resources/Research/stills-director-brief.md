@@ -7,6 +7,10 @@
 
 ---
 
+> **Status note, 19/08/2026.** This brief records the June 2026 state and is kept as the historical basis for the persona. Iris's character work has since moved into a dedicated `character-builder` skill (upstream drop 2, 04/08/2026), whose numbering became Modes 0–4 at drop 3 (19/08/2026), adding Mode 3 outfit replacement and retiring the anime / cel-shaded path — the skill is photoreal humans only. The **3-panel** character sheet is now the canonical default; the 6-panel sheet framed as canonical below is legacy and built on explicit request only, and a studio-local headless 3-panel Seedance-handoff variant exists alongside both. Read `.claude/skills/character-builder/SKILL.md` and `.claude/skills/banana-pro-director/SKILL.md` for the live grammar.
+
+---
+
 ## What This Role Is Actually About
 
 This isn't a generative AI user who prompts images by intuition. It's not a graphic designer who happens to use AI tools. This person sits at the intersection of **cinematic visual knowledge** and **disciplined prompt craft** — they understand how a real stills photographer, portrait DP, or key-art director sees a frame, and they know how to translate that vision into structured text prompts that Higgsfield executes reliably.
@@ -60,7 +64,7 @@ Once the face is locked, the next skill is building outfit references — styled
 
 ### 3. Six-Panel Character Sheets
 
-The 6-panel character sheet is the canonical multi-angle reference asset for any character/outfit pairing. A practitioner knows:
+The multi-angle character sheet is the canonical reference asset for any character/outfit pairing — 6-panel at the time of writing, 3-panel by default since drop 2. A practitioner knows:
 
 - The sheet is built ONLY after a single-image base reference exists and is approved — never before
 - The canonical layout: front body (top-left), left-side profile close headshot (top-center), back body (top-right), right-side profile close headshot (bottom-left), front face close headshot (bottom-center), detail shot — nails, jewelry, piercing, tattoo, or held prop (bottom-right)
