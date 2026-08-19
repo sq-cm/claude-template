@@ -1,5 +1,7 @@
 # CANONICAL MODE 3 PROMPT — REFERENCE EXAMPLE
 
+<!-- PROVENANCE: verbatim upstream content, unmodified. The studio act here is the extraction — upstream carries this example inline in its SKILL.md, and it was lifted into this file for length. The extraction is marked at the point of reference in `../SKILL.md` (§ MODE 3, the `references/mode3-example.md` pointer); nothing in the body below is a studio delta, so a future upstream drop diffs this file directly against upstream's inline block. -->
+
 This is the locked register. Every future Mode 3 prompt is written in this voice — confident, observational, declarative, references doing the geometry and identity work, no labeled blocks, no coordinate notation in the body.
 
 ```

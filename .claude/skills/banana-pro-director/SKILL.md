@@ -5,13 +5,44 @@ description: "Higgsfield image prompt director for cinematic scene plates, envir
 
 # Banana Pro Director — Image Asset Builder
 
-> **Version:** Upstream drop 2 adopted 04/08/2026 onto the 3.0-merged base (diff-and-fold merge). This drop is routing-level only: character work (face locks, outfit refs, character sheets) now routes to the `character-builder` skill by default — this skill's primary lane narrows to scene/environment plates, GPT Image 2 detail stills, and outfit replacement. Modes 0–5 are all retained in full for legacy/explicit-request use. The studio-local headless 3-panel Seedance-handoff sheet (formerly a character-sheet variant here) and the wardrobe-test escalation chain have migrated to `character-builder` — see that skill for both. See the Mode 2 section below for what's retained here.
+<!-- STUDIO-LOCAL BEGIN: upstream ships a bare H1 with no version block; this note records the studio's drop-2 fold, the routing split that narrows this skill's primary lane to scene and environment work, and the STUDIO-LOCAL marking convention used throughout this file. -->
+> **Version:** Upstream drop 2 adopted 04/08/2026 onto the 3.0-merged base (diff-and-fold merge). This drop is routing-level only: character work (face locks, outfit refs, character sheets) now routes to the `character-builder` skill by default — this skill's primary lane narrows to scene/environment plates, GPT Image 2 detail stills, and outfit replacement. Modes 0–5 are all retained in full for legacy/explicit-request use. The studio-local headless 3-panel Seedance-handoff sheet (formerly a character-sheet variant here) and the wardrobe-test escalation chain have migrated to `character-builder` — see that skill for both. See the Mode 2 section below for what's retained here. **Marking convention:** every studio divergence from the upstream base is wrapped in a paired `STUDIO-LOCAL` begin/end HTML comment carrying a one-line justification, so a future upstream drop can be diffed mechanically; file-wide label and renumber sweeps are declared collectively in the `STUDIO-LOCAL SWEEPS` block immediately below rather than wrapped at every occurrence.
+<!-- STUDIO-LOCAL END -->
+
+<!-- STUDIO-LOCAL SWEEPS: file-wide studio deltas marked collectively here, because an inline wrapper on every occurrence would be unreadable. (a) Frontmatter — `name:` is `banana-pro-director`, not upstream's `banana-pro-director-30`, and `description:` is rewritten to the narrowed primary lane with character work routed to `character-builder`; YAML cannot carry HTML comments, so the divergence is declared here. The H1 title drops upstream's "3.0" version suffix for the same reason. (b) Tool labels — `GPT-2` → `GPT Image 2` and `Nano Banana` → `Nano Banana 2` at every site, matching Higgsfield's current product naming. (c) Character-sheet renumber — `Mode 2` → `Mode 2A` (3-panel) / `Mode 2B` (6-panel) at every site, with upstream's two separate sheet paragraphs consolidated into one 2A/2B paragraph. (d) Flat-grade terminology aligned to this file's LOCKED FLAT GRADE heading in place of upstream's "lighting close". No upstream drop-3 content is adopted anywhere in this file — its sole change is the brand-policy inversion rejected in PR #261, marked at every site below. -->
+
+<!-- STUDIO-LOCAL: FLAT-CLOSE DIVERGENCE FROM character-builder — UPSTREAM PARITY BY DESIGN, NOT DRIFT.
+     Recorded 19/08/2026 at the close of the drop-3 adoption, so a future maintainer does not "align" the two files and silently import drop-3 content into this one.
+
+     What is NOT divergent: film grain. This file's LOCKED FLAT GRADE has always closed on
+     "Photographed on a 50mm prime, even sharpness, soft natural film grain. Photographed not generated."
+     at every character-mode site, and this file carries no grain prohibition anywhere. The drop-2
+     `character-builder` install *did* ban grain on its flat plate while simultaneously requiring
+     "matched grain" on its sheets — a live self-contradiction. Drop 3 resolved it by adopting
+     upstream's close verbatim, grain included. So the drop-3 flip CLOSED a real grain divergence
+     between the two skills rather than opening one; they now agree. Verified by inspection at
+     adoption time. Do not re-open this question on drop 4.
+
+     What IS divergent, and deliberately so: the wording of the flat close itself.
+       - `character-builder` (drop-3 base) describes the background as a flat COLOUR FIELD — explicitly
+         not a photographed backdrop, with no surface, no floor, no wall, no corner, no horizon and no
+         plane the figure stands on or in front of — and adds a standalone zero-light-bleed clause.
+       - This file describes an 18% neutral gray SEAMLESS and retains floor-referencing language
+         ("no ambient occlusion on the floor beneath the feet").
+     Both enforce the same policy: one uniform value corner to corner, shadowless illumination, zero
+     shadow on the backdrop, matte skin, true colour, the 50mm/grain close. The wording differs only
+     because this file deliberately adopted no drop-3 content and holds parity with its own upstream
+     base for mechanical diffability, which is the entire reason its legacy character modes 0/1/2
+     still exist. Do NOT reconcile the two texts. Each skill emits its own close verbatim; a future
+     drop diffs this file against upstream banana, and `character-builder` against upstream
+     character-builder, and both stay clean.
+-->
 
 The locked image prompt grammar for great Higgsfield image assets. Six modes, in strict order:
 
-0. **Face lock (new characters only)** — for any character being developed from scratch. Identity only — no outfit styling, no environment, no in-depth prompting at this stage. Tool fork (Banana Pro single-pass default / GPT Image 2 single-pass / Soul Cinema two-pass), locked backdrop, lighting, and baseline wardrobe are specified once in the MODE 0 section.
+0. <!-- STUDIO-LOCAL BEGIN: upstream restates the Mode 0 tool fork and locked defaults here; the studio consolidates the specification into the MODE 0 section so the two copies cannot drift apart. --> **Face lock (new characters only)** — for any character being developed from scratch. Identity only — no outfit styling, no environment, no in-depth prompting at this stage. Tool fork (Banana Pro single-pass default / GPT Image 2 single-pass / Soul Cinema two-pass), locked backdrop, lighting, and baseline wardrobe are specified once in the MODE 0 section. <!-- STUDIO-LOCAL END -->
 1. **Single-image character outfit** — mid-gray seamless studio (locked default — white only on explicit request), full styling readable, locked as the base reference for that character/outfit. Two paths: **Banana Pro** (full custom styling written from prompt — best for simpler outfits) or **Soul Cinema** (outfit built on a bland slim model first, then composited onto the locked character — best for custom fits where wardrobe should be designed separately from casting). User picks based on outfit complexity.
-2. **Character sheet** — built ONLY after a single-image base exists. Character sheets are primarily built in the `character-builder` skill now (which also owns the studio-local headless Seedance-handoff variant); this skill retains the format for upstream parity and explicit requests made here. **The 3-panel sheet (Mode 2A) is the default and primary format:** full body front with the head cleanly removed, full body rear with the head attached, and a tight chest-up face lock. **The 6-panel sheet (Mode 2B) is legacy** — available on explicit request only, never proposed proactively, because splitting the frame six ways starves the face panels of resolution.
+2. <!-- STUDIO-LOCAL BEGIN: character sheets route to the studio's `character-builder` skill by default (which also owns the studio-local headless Seedance-handoff variant); upstream has no such skill and builds them only here. --> **Character sheet** — built ONLY after a single-image base exists. Character sheets are primarily built in the `character-builder` skill now (which also owns the studio-local headless Seedance-handoff variant); this skill retains the format for upstream parity and explicit requests made here. **The 3-panel sheet (Mode 2A) is the default and primary format:** full body front with the head cleanly removed, full body rear with the head attached, and a tight chest-up face lock. **The 6-panel sheet (Mode 2B) is legacy** — available on explicit request only, never proposed proactively, because splitting the frame six ways starves the face panels of resolution. <!-- STUDIO-LOCAL END -->
 3. **Scene plates** — character(s) in a fully realized cinematic environment, OR pure environment plates with no characters. Always available, but never proposed proactively — only built when the user asks.
 
 Plus two optional capabilities:
@@ -47,11 +78,11 @@ Stage 1 — text spec: let the user describe the character in their own words. L
 
 Wait for confirmation or correction. Iterate on the text spec freely until the user says it's locked. Then move to Stage 2.
 
-Stage 2 — Mode 0 face lock build (tool fork and locked defaults: see the MODE 0 section below). Produces the canonical character reference image used as the identity anchor for every future outfit/scene/sheet prompt. Always run this before any outfit work for a new character. No exceptions.
+<!-- STUDIO-LOCAL BEGIN: upstream repeats the Mode 0 tool fork here; the studio points at the MODE 0 section instead. --> Stage 2 — Mode 0 face lock build (tool fork and locked defaults: see the MODE 0 section below). Produces the canonical character reference image used as the identity anchor for every future outfit/scene/sheet prompt. Always run this before any outfit work for a new character. No exceptions. <!-- STUDIO-LOCAL END -->
 
 ### Mode 0 — Face lock (new characters only)
 
-All specification — tool fork, locked backdrop and lighting, baseline wardrobe — lives in the MODE 0 section below. Produces the canonical reference image. Run once per new character.
+<!-- STUDIO-LOCAL BEGIN: upstream repeats the full Mode 0 specification here; the studio keeps a single canonical copy in the MODE 0 section. --> All specification — tool fork, locked backdrop and lighting, baseline wardrobe — lives in the MODE 0 section below. Produces the canonical reference image. Run once per new character. <!-- STUDIO-LOCAL END -->
 
 ### Mode 1 — Single-image character outfit (the base outfit reference)
 
@@ -59,7 +90,9 @@ Once the character is locked (either confirmed from existing reference upload, o
 
 Ask the user to describe the outfit they want — every garment, every accessory, every styling choice. If they upload a wardrobe reference image, study it visual-only. Mirror back the wardrobe spec for confirmation.
 
+<!-- STUDIO-LOCAL BEGIN: the invisible-mannequin wardrobe-test pass and its escalation chain have migrated to `character-builder` § OUTFIT BUILDER Path 2; upstream keeps them here as a Mode 1 pre-step. -->
 > The invisible-mannequin wardrobe test pass (proving a complex/custom garment on a headless display before compositing onto the canonical character) now lives in `character-builder` § OUTFIT BUILDER, Path 2 — see that skill for the escalation chain.
+<!-- STUDIO-LOCAL END -->
 
 **Then — before writing the prompt — ask which tool to build the base in:**
 
@@ -75,7 +108,7 @@ Then run the standard pre-prompt check, wait for the green light, then deliver t
 
 Only after a single-image base reference has been generated (and the user is happy with it) can a character sheet be built.
 
-**Default to the 3-panel (Mode 2A).** When the user asks for "a character sheet" without naming a format, build the 3-panel: full body front with the head cleanly removed, full body rear with the head attached, and a tight chest-up face lock. Do not ask which format, do not offer the 6-panel.
+<!-- STUDIO-LOCAL BEGIN: upstream restates the Variant A/B headless treatment here; the studio carries it once, in the extraction checklist. --> **Default to the 3-panel (Mode 2A).** When the user asks for "a character sheet" without naming a format, build the 3-panel: full body front with the head cleanly removed, full body rear with the head attached, and a tight chest-up face lock. Do not ask which format, do not offer the 6-panel. <!-- STUDIO-LOCAL END -->
 
 **6-panel (Mode 2B) is legacy and explicit-request only.** If the user names it, flag once that six cells starve the face panels of resolution, then proceed on their go-ahead.
 
@@ -89,7 +122,7 @@ Same pre-prompt confirmation rule applies.
 
 ### Mode 4 — GPT Image 2 detail mode (optional, gated)
 
-Only used for chest-up portraits or detail face shots, and only when the user explicitly asks for that level of close-up. Even then, confirm the GPT Image 2 run and flag the higher credit cost per the gating rules in the MODE 4 section below. Wait for confirmation, then deliver the prompt.
+<!-- STUDIO-LOCAL BEGIN: upstream writes the GPT Image 2 credit-cost gating question out in full here; the studio points at the MODE 4 gating rules so there is one canonical wording. --> Only used for chest-up portraits or detail face shots, and only when the user explicitly asks for that level of close-up. Even then, confirm the GPT Image 2 run and flag the higher credit cost per the gating rules in the MODE 4 section below. Wait for confirmation, then deliver the prompt. <!-- STUDIO-LOCAL END -->
 
 GPT Image 2 prompt structure differs slightly — see the GPT Image 2 section below.
 
@@ -160,7 +193,7 @@ These rules are baked into every Banana Pro, Soul Cinema, and GPT Image 2 prompt
 - Real subsurface scattering present, warm and real — semi-translucent biology, not opaque plastic
 - Skin tone held at the character's natural register — preserved through the grade, never washed out, never cool-shifted ghostly
 - No retouching, no skin smoothing, no digital cleanup, no porcelain plastic look, no waxy AI render, no beauty bloom
-- **Flattering ceiling** (locked definition in CORE PHILOSOPHY): fine, soft, even texture under the key, never severe or unflattering imperfection — resolve any tension toward flattering.
+- <!-- STUDIO-LOCAL BEGIN: upstream restates the flattering-realism ceiling in full here; the studio points at the locked definition in CORE PHILOSOPHY so there is one canonical copy. --> **Flattering ceiling** (locked definition in CORE PHILOSOPHY): fine, soft, even texture under the key, never severe or unflattering imperfection — resolve any tension toward flattering. <!-- STUDIO-LOCAL END -->
 - Doll-coded characters (when explicitly requested): smooth matte register without visible pores or peach fuzz but still real and natural, never plastic, never AI-render, never waxen
 
 **2. Real hair physics — strand-by-strand, context-aware.**
@@ -294,7 +327,7 @@ Real human skin captured on a real cinema camera — refined and real, peach fuz
 ```
 
 **Modal application:**
-- **Mode 0 (face lock), Mode 1 (single-image character outfit), Mode 2A/2B (character sheets), Mode 4 (GPT Image 2 detail), Mode 5 (outfit replacement) — i.e. all studio character work:** these close with the **LOCKED FLAT GRADE** (see "18% GRAY SEAMLESS + FLAT GRADE" above), not the full cinema stack. The full stack's key-wrap, anatomical shadow-falloff, and atmospheric-perspective language actively fights the flat plate — never append it to a character plate or sheet. It is documented here for Mode 3 and for the explicit white-card standalone-still exception only.
+- <!-- STUDIO-LOCAL BEGIN: the studio adds the explicit cross-reference to the canonical LOCKED FLAT GRADE section so the close is looked up in one place rather than restated. --> **Mode 0 (face lock), Mode 1 (single-image character outfit), Mode 2A/2B (character sheets), Mode 4 (GPT Image 2 detail), Mode 5 (outfit replacement) — i.e. all studio character work:** these close with the **LOCKED FLAT GRADE** (see "18% GRAY SEAMLESS + FLAT GRADE" above), not the full cinema stack. The full stack's key-wrap, anatomical shadow-falloff, and atmospheric-perspective language actively fights the flat plate — never append it to a character plate or sheet. It is documented here for Mode 3 and for the explicit white-card standalone-still exception only. <!-- STUDIO-LOCAL END -->
 - **Mode 3A (character-in-scene plate) and Mode 3B (pure environment plate):** Mode 3 uses the cinema-prose register, which folds the cinema stack language INTO the closing camera-spec paragraph rather than appending it as a separate block. See Mode 3 documentation for the prose register and its closing realism clause.
 - **Mode 1B Step 1 (bland model outfit reference, Soul Cinema two-step):** use the lighter outfit-reference close documented in the Mode 1B section — NOT the full cinema stack. The outfit reference image just needs to read clean and matte so the outfit is the only subject.
 
@@ -317,14 +350,16 @@ When the user uploads reference images, extract everything visible in the frame 
 
 - **Hair:** color (every nuance — platinum, jet black with cool undertone, rose-pink, burgundy, ash brown, dirty blonde, etc.), length, style, texture (straight, wavy, curly, coily), parting, any styling (slicked, blown out, flat-ironed, braided, bunned, ponytail, bangs — and which kind of bangs), accessories (clips, bows, ribbons, caps, bandanas, headbands)
 - **Makeup:** skin finish (matte, dewy, glass-skin, bare), foundation/coverage register, brow shape and density, eye treatment (cat-eye liner, smoky, sharp graphic, soft bare, glitter, colored), lashes, lip (gloss, matte, gradient, color, fullness), cheek (flush, contour, highlight), any face jewelry, freckles or beauty marks **only if visible in the reference** (do not invent)
-- **Wardrobe:** every garment top to bottom — fabric, color, fit (cropped, oversized, fitted, baggy), structural details (cutouts, keyholes, ribbing, ribbed cotton, knit, denim wash, leather finish, mesh, latex, silk), neckline, sleeve length, hem position, layering, branding details (described generically — "three-stripe athletic sneakers" not the brand name; unless authorised — see the Brand name rule)
+- <!-- STUDIO-LOCAL BEGIN: upstream drop 3 inverts this to "name the brand"; the studio holds the prohibition with an authorised override (PR #261) and points wardrobe reading at it. --> **Wardrobe:** every garment top to bottom — fabric, color, fit (cropped, oversized, fitted, baggy), structural details (cutouts, keyholes, ribbing, ribbed cotton, knit, denim wash, leather finish, mesh, latex, silk), neckline, sleeve length, hem position, layering, branding details (described generically — "three-stripe athletic sneakers" not the brand name; unless authorised — see the Brand name rule) <!-- STUDIO-LOCAL END -->
 - **Jewelry & accessories:** every piece — earring style, necklace count and material, rings, bracelets, body chains, belts, bag, sunglasses, watch
 - **Body markers:** piercings (only if visible), tattoos (only if visible), nail length and color, distinguishing features
 - **Pose and energy:** body angle, weight distribution, hand position, expression register
 
 **Naming rule (CRITICAL).** Never use proper names in the prompt output. Refer to characters by visual description: "the rose-pink haired woman in the cropped white ribbed tank," "the figure in the platinum mech suit," "the man in the long charcoal wool coat." Higgsfield does not know names. Visual descriptors survive across prompts; names do not.
 
+<!-- STUDIO-LOCAL BEGIN: upstream drop 3 replaces this rule with its inversion (real brand names allowed by default) — formally rejected in PR #261; the studio keeps the prohibition plus an explicit authorised-brand override. Re-graft on every future upstream update. -->
 **Brand name rule (CRITICAL).** Never use real brand names or protected IP in the prompt output. Use generic visual descriptors — "black three-stripe athletic sneakers" not specific brand names, "wide-angle action camera" not specific product names. Internal chat with the user can reference brands by name; the prompt output must be brand-neutral. **Override:** when the user explicitly supplies a real brand name and either confirms the rights (the client's own brand under an engagement) or explicitly accepts the risk (personal, non-commercial work), write it verbatim and describe its physical marks — shape, colour, placement, legibility — so the model has something to draw. Never introduce a real brand the user didn't name.
+<!-- STUDIO-LOCAL END -->
 
 **Age-blind rule.** Never describe characters by age. Avoid: *boy, girl, child, kid, young, teen, little, middle-aged, elderly, old.* Describe by role, build, and clothing — "the figure in the wool cloak," "the woman in the cropped tank."
 
@@ -336,7 +371,7 @@ When the user uploads reference images, extract everything visible in the frame 
 
 **When to use:** Any time a character is being developed from scratch and there is no existing canonical reference image of their face. Run this BEFORE any outfit work, any 6-panel sheet, any scene plate. The face has to be locked as a visual asset first — every downstream prompt anchors to it.
 
-**Goal:** Produce the canonical face reference for the character. Identity only — no outfit considerations beyond a locked neutral baseline top, no environment, no posing direction. Just: a clean, locked face on mid-gray seamless background with soft soft lighting that makes the skin read matte and cinema-placement-ready.
+<!-- STUDIO-LOCAL BEGIN: upstream says "white background" here, contradicting its own mid-gray locked default; corrected to the studio gray policy. --> **Goal:** Produce the canonical face reference for the character. Identity only — no outfit considerations beyond a locked neutral baseline top, no environment, no posing direction. Just: a clean, locked face on mid-gray seamless background with soft soft lighting that makes the skin read matte and cinema-placement-ready. <!-- STUDIO-LOCAL END -->
 
 **Universal wardrobe lock for Mode 0:** Every face lock prompt — regardless of tool — puts the character in a neutral baseline top:
 - **Women:** plain black thin-strap camisole
@@ -378,6 +413,7 @@ Pre-prompt check — Banana Pro face lock (single-pass):
 
 Sound good?
 
+<!-- STUDIO-LOCAL BEGIN: upstream inlines the full flat-grade paragraph into this prompt block; the studio points at the single canonical LOCKED FLAT GRADE section so the two copies cannot drift, and adds the gray-default / white-exception note. -->
 **Canonical Step 0.A prompt structure:**
 
 ```
@@ -387,6 +423,7 @@ A clean cinema-character-reference 3:4 headshot, framed from forehead to upper c
 
 [Gray is the locked default — use the flat close above. If the user explicitly asks for a white card instead, swap the backdrop line to "Pure white seamless studio background, no gradient, no seam line, perfectly even" and keep every flat/shadowless clause exactly as written. Flatness never comes off.]
 ```
+<!-- STUDIO-LOCAL END -->
 
 ---
 
@@ -408,7 +445,7 @@ Pre-prompt check — GPT Image 2 face lock (single-pass, chest-up only):
 
 Sound good?
 
-**Canonical Step 0.B prompt structure:** Use the GPT Image 2 prompt structure documented in the GPT Image 2 section of this skill (Mode 4). Apply the same identity essentials, wardrobe lock, white backdrop, and soft soft lighting as Step 0.A — just routed through the GPT Image 2 prompt grammar instead of the Banana Pro grammar.
+<!-- STUDIO-LOCAL BEGIN: upstream says "white backdrop" here, contradicting its own mid-gray locked default and Step 0.A directly above; corrected to the studio gray policy with the explicit-request white carve-out preserved. --> **Canonical Step 0.B prompt structure:** Use the GPT Image 2 prompt structure documented in the GPT Image 2 section of this skill (Mode 4). Apply the same identity essentials, wardrobe lock, mid-gray seamless backdrop (locked default — white only on explicit request), and soft soft lighting as Step 0.A — just routed through the GPT Image 2 prompt grammar instead of the Banana Pro grammar. <!-- STUDIO-LOCAL END -->
 
 ---
 
@@ -462,6 +499,7 @@ Pre-prompt check — Step 0.2 of 2 (Banana Pro 3:4 headshot, identity lock):
 
 Sound good?
 
+<!-- STUDIO-LOCAL BEGIN: upstream inlines the full flat-grade paragraph into this prompt block; the studio points at the single canonical LOCKED FLAT GRADE section so the two copies cannot drift, and adds the gray-default / white-exception note. -->
 **Canonical Step 0.2 prompt structure:**
 
 ```
@@ -471,6 +509,7 @@ A clean cinema-character-reference 3:4 headshot of the same character as the att
 
 [Gray is the locked default — use the flat close above. If the user explicitly asks for a white card instead, swap the backdrop line only and keep every flat/shadowless clause exactly as written. Flatness never comes off.]
 ```
+<!-- STUDIO-LOCAL END -->
 
 After delivery, the user runs this in Banana Pro. The output becomes the canonical character reference image — the locked face card used as the identity anchor for every future outfit/scene/sheet prompt for this character.
 
@@ -591,7 +630,7 @@ That's it. Do not add styling description (Soul Cinema reads it from Image 2). D
 
 **Universal prompt rules still apply (both steps):**
 - No character names in prompt output
-- No unauthorised real brand names in prompt output
+- <!-- STUDIO-LOCAL BEGIN: brand-rule wording follows the studio prohibition-plus-override, not upstream drop 3's "real brand names are allowed" (formally rejected in PR #261). --> No unauthorised real brand names in prompt output <!-- STUDIO-LOCAL END -->
 - No `@image` tags or `<<<image_n>>>` placeholders — image attachment happens in the Higgsfield UI directly
 - No aspect ratios in prompt output
 
@@ -601,7 +640,9 @@ That's it. Do not add styling description (Soul Cinema reads it from Image 2). D
 
 ## MODE 2 — CHARACTER SHEETS
 
+<!-- STUDIO-LOCAL BEGIN: character sheets route to `character-builder` by default; this section is retained for upstream parity and explicit in-skill requests, and the headless Seedance-handoff variant formerly built here has migrated to that skill. -->
 > Character sheets are primarily built in the `character-builder` skill, which also carries the studio-local headless 3-panel Seedance-handoff variant formerly built here. This section is retained for upstream parity and for explicit requests to build a sheet directly in this skill.
+<!-- STUDIO-LOCAL END -->
 
 Two formats. **2A (3-panel) is the default.** 2B (6-panel) is legacy and only runs on explicit request.
 
@@ -726,8 +767,10 @@ If the user says go, build it. Don't re-litigate, don't repeat the warning later
 **Frame and composition:**
 - Layout: 3×2 grid, equal cells, thin clean white gutters between panels, horizontal sheet orientation
 - Each panel composed within its cell as if it were its own shot — no cell should feel like a crop of a wider frame
+<!-- STUDIO-LOCAL BEGIN: upstream keys the 6-panel sheet with a three-point key/fill/rim setup; the studio applies the locked flat shadowless grade across all six cells, consistent with the 18% gray flat-plate policy for every character mode. -->
 - Background: same studio backdrop across all six cells (default 18% neutral gray seamless, flat, matching the base reference) for consistency. Only swap to white-across-all-six-panels if the user explicitly asks for a white sheet (see the 18% GRAY SEAMLESS + FLAT GRADE section).
 - Lighting: same flat shadowless grade across all six cells — identity stays locked when lighting is locked
+<!-- STUDIO-LOCAL END -->
 - Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI (typically 16:9 for sheets, but specified in UI not prompt)
 
 **Canonical Mode 2B prompt structure:**
@@ -829,7 +872,7 @@ Before writing any visual detail in Block 3, the skill silently runs three diagn
 
 ### X/Y COORDINATE SYSTEM (MENTAL COMPOSITION TOOL — NOT OUTPUT NOTATION)
 
-**The X/Y coordinate system is the skill's internal composition tool. It is NEVER written into the prompt body.** The skill thinks in subject bounding-box ranges (`X: 30–55% / Y: 55–85%`; X 0% = left edge, Y 0% = top edge, thirds anchors at 33% / 67%) to plan rule-of-thirds placement, motion direction, lead room, and landmark anchoring — always leaving lead room in the direction of motion, never trail room — then translates the plan into positional prose for the prompt. The coordinate library below is documented for the skill's planning use only. It does not appear in the output.
+<!-- STUDIO-LOCAL BEGIN: the studio folds upstream's separate coordinate-notation paragraph into this one line — same rule, one copy. --> **The X/Y coordinate system is the skill's internal composition tool. It is NEVER written into the prompt body.** The skill thinks in subject bounding-box ranges (`X: 30–55% / Y: 55–85%`; X 0% = left edge, Y 0% = top edge, thirds anchors at 33% / 67%) to plan rule-of-thirds placement, motion direction, lead room, and landmark anchoring — always leaving lead room in the direction of motion, never trail room — then translates the plan into positional prose for the prompt. The coordinate library below is documented for the skill's planning use only. It does not appear in the output. <!-- STUDIO-LOCAL END -->
 
 **Frame grid:**
 - **X axis:** 0% = left edge, 50% = center, 100% = right edge
@@ -865,6 +908,7 @@ Before writing any visual detail in Block 3, the skill silently runs three diagn
 - **Aerial subject (overhead light source, helicopter, sun shaft):** light source enters frame at the top edge `Y: 0%`, cone widening as it falls, source itself off-frame, subject lit at the destination coordinates
 - **Architectural symmetry (centered hallway, centered facade, centered car alignment):** subject `X: 35–65% / Y: variable`, symmetry preserved
 
+<!-- STUDIO-LOCAL BEGIN: the positional-prose translation table is relocated here from upstream's deprecated OLD COORDINATE GRAMMAR section, which the studio removed; the table is still live doctrine and had to survive that removal. -->
 **Coordinates are translated into positional prose for the prompt output.** Internally, the skill thinks of the primary subject in Paragraph 2 with a coordinate range, environmental landmarks in Paragraph 3, and load-bearing light sources in the light-and-atmosphere writing — then writes those positions as "centered in the room," "in the deeper background camera-left," "anchored on the lower-left third," etc.
 
 | Old coordinate notation | New prose translation |
@@ -876,12 +920,13 @@ Before writing any visual detail in Block 3, the skill silently runs three diagn
 | horizon at `Y: 33%` | "the horizon line sitting at the upper third" |
 | subject in `X: 28–38%` (left third) | "anchored on the left third" / "weighted to the left of frame" |
 | second subject `X: 60–85%` | "in the deeper right background" / "positioned camera-right" |
+<!-- STUDIO-LOCAL END -->
 
 ---
 
 ### THE LOCKED TAG BLOCK (DEPRECATED FOR PROSE — KEPT AS FALLBACK)
 
-Deprecated — superseded by the cinema-prose closing paragraph (see THE CINEMA-PROSE REGISTER below). Used only when the user explicitly requests a stripped-down lean Mode 3 prompt; it then replaces the cinema-prose close. Modes 0, 1, 2, 4, and 5 are unaffected and keep the full cinema stack.
+<!-- STUDIO-LOCAL BEGIN: condensed from upstream's two-paragraph deprecation note plus its follow-on mutual-exclusivity paragraph, which the studio folds into this line. --> Deprecated — superseded by the cinema-prose closing paragraph (see THE CINEMA-PROSE REGISTER below). Used only when the user explicitly requests a stripped-down lean Mode 3 prompt; it then replaces the cinema-prose close. Modes 0, 1, 2, 4, and 5 are unaffected and keep the full cinema stack. <!-- STUDIO-LOCAL END -->
 
 ```
 [Cinema mode tag — M1 Narrative / M2 Studio / M3 Action / M4 Performance / M5 Atmospheric]. Atmospheric volumetric haze. Real volumetric light physics. Gentle filmic highlight roll-off. Lifted blacks. Theatrical 35mm grain. Photographed not generated.
@@ -953,7 +998,7 @@ The closing realism clause is mandatory. The list of "no X, no Y, no Z" at the v
 
 ### CANONICAL MODE 3 PROMPT — REFERENCE EXAMPLE
 
-The locked-register canonical example lives in `references/mode3-example.md` — read it before composing any Mode 3 prompt; every future Mode 3 prompt is written in that voice.
+<!-- STUDIO-LOCAL BEGIN: upstream carries the canonical Mode 3 example and a deprecated OLD COORDINATE GRAMMAR section inline; the studio extracts the example verbatim to `references/mode3-example.md` and drops the deprecated section, keeping its still-live translation table above. --> The locked-register canonical example lives in `references/mode3-example.md` — read it before composing any Mode 3 prompt; every future Mode 3 prompt is written in that voice. <!-- STUDIO-LOCAL END -->
 
 ---
 
@@ -970,10 +1015,13 @@ The locked-register canonical example lives in `references/mode3-example.md` —
 
 **Frame and composition:**
 - Framing: chest-up, shoulders-up, or face-only (forehead to collarbone)
+<!-- STUDIO-LOCAL BEGIN: upstream lights Mode 4 with classical beauty lighting; the studio resolves it to the locked flat shadowless grade so every character-work mode closes the same way. -->
 - Background: 18% neutral gray seamless studio, flat (locked default, matches base references) OR soft moody studio backdrop if the user wants a more cinematic register — white seamless only on explicit request, and flatness survives the swap
 - Lighting: **Flat and shadowless** (locked flat grade, matching every other character-work mode) — huge frontal source at camera position, matched equal fill left/right/above/below, no key side, no shadow side, no rim light, no hair light, no kicker, no cast shadow
+<!-- STUDIO-LOCAL END -->
 - Do not write aspect ratios into the prompt — the user sets aspect in the Higgsfield UI (typically 4:5 or 1:1 for face/chest-up).
 
+<!-- STUDIO-LOCAL BEGIN: same flat-grade resolution inside the prompt body — upstream's classical beauty-lighting and moody-backdrop language is replaced by the LOCKED FLAT GRADE, and a moodier register is routed to Mode 3 instead. -->
 **Canonical Mode 4 (GPT Image 2) prompt structure:**
 
 ```
@@ -985,6 +1033,7 @@ Extreme face fidelity. Real skin texture with visible pores, fine peach fuzz cat
 
 [Gray is the locked default — use the flat close above. If the user explicitly asks for a moodier cinematic backdrop instead of the flat character-work default, that request moves the shot into Mode 3 territory — confirm which register the user wants before switching.]
 ```
+<!-- STUDIO-LOCAL END -->
 
 **Why GPT Image 2 for these shots:** Banana Pro is excellent for full-body, multi-panel, and scene work. GPT Image 2 has a stronger read on micro-detail at face-and-shoulders range — pores, lash separation, iris pattern, lip texture, hair strand definition at the hairline. For any shot where the face is the entire point of the image, GPT Image 2 earns the extra credits.
 
@@ -996,6 +1045,7 @@ Extreme face fidelity. Real skin texture with visible pores, fine peach fuzz cat
 
 Trigger phrases include: "outfit replacement," "outfit swap," "put [character] in this outfit," "swap the face," "put this character in that fit," "replace the model with [character] wearing [outfit]," or any request that involves combining a wardrobe/pose reference with a separate character reference.
 
+<!-- STUDIO-LOCAL BEGIN: upstream fixes Mode 5 to `@image1` / `@image2` numbering; the studio uses user-assigned semantic element tags (e.g. `@outfit_ref`, `@sol_ref`) to match the element-tag grammar shared with `cinema-director`. -->
 **Goal:** Maximum identity transfer of the character (from the character-reference tag) onto the outfit and pose (from the outfit-reference tag) with zero alteration to either side — the outfit stays exactly as shown, the character's identity stays exactly as shown, only the body underneath the outfit changes to match the new character.
 
 **Reference tagging (CRITICAL — element tags, not `@imageN` numbering):** Ask the user to give each uploaded reference a short semantic element tag of their own choosing — e.g. `@outfit_ref` and `@character_ref`, or project-specific tags like `@sol_ref`. This replaces the old fixed `@image1`/`@image2` numbering. Once tagged:
@@ -1010,7 +1060,9 @@ Confirm the mapping with the user before writing the prompt. The prompt is writt
 - That both references are uploaded and visible in chat
 
 Use the standard pre-prompt check format — references first (with their tags), then the two roles, then run.
+<!-- STUDIO-LOCAL END -->
 
+<!-- STUDIO-LOCAL BEGIN: same element-tag substitution inside the locked prompt — the prompt structure is upstream's and stays locked; only the reference tags are variable, filled in from whatever the user named each upload. -->
 **Canonical Mode 5 prompt (LOCKED structure — element tags are the only variable):**
 
 ```
@@ -1022,6 +1074,7 @@ Replace the character in [outfit-reference tag] with the character in [character
 **Background and lighting language is also locked.** The locked prompt outputs to a clean mid-gray seamless studio with soft large-source lighting — this is the canonical neutral output for character/outfit reference assets (white seamless only if the user explicitly asks for a white card). If the user wants the swap output dropped into a different environment, that becomes a Mode 3 scene plate built on top of the Mode 5 output (run Mode 5 first to produce the locked base, then Mode 3 to place it in the scene).
 
 **Per-character or per-IP modifiers:** None. Mode 5 is character-and-IP-agnostic. The prompt does not name characters, does not specify nationality, does not adjust language per group or project. The two reference images carry all of the identity load. The skill ships the locked prompt structure unchanged regardless of what the character or outfit is — only the element tags change.
+<!-- STUDIO-LOCAL END -->
 
 **What Mode 5 is NOT for:**
 - Building a new outfit from scratch on a locked character → use Mode 1A (Banana Pro full styling) or Mode 1B (Soul Cinema two-step)
@@ -1035,16 +1088,16 @@ Mode 5 is the single-purpose tool for: *here is an outfit on a model I don't car
 
 ## UNIVERSAL PROMPT RULES (ALL MODES)
 
-These apply to every prompt this skill produces — the sole carve-out is noted in rule 3:
+<!-- STUDIO-LOCAL BEGIN: flags the rule 3 carve-out the studio adds and upstream does not have (Mode 5's element tags). --> These apply to every prompt this skill produces — the sole carve-out is noted in rule 3: <!-- STUDIO-LOCAL END -->
 
 1. **No character names in prompt output.** Describe by hair color, wardrobe, identity markers extracted from references or the locked development spec.
-2. **No unauthorised real brand names in prompt output.** Generic visual descriptors only. *Override:* see the Brand name rule under READING REFERENCE IMAGES for the authorised-brand exception and its conditions.
-3. **No fixed `@image1`/`@image2` numbering or `<<<image_n>>>` placeholders.** Image attachment happens in the Higgsfield UI directly. The prompt is text-only. *Sole carve-out:* Mode 5's locked prompt structure is written around reference element tags by design (e.g. `@outfit_ref` / `@character_ref`, or whatever short semantic tag the user assigns each upload) and keeps them (see MODE 5 — the locked structure is not modified, only the tags are filled in).
+2. <!-- STUDIO-LOCAL BEGIN: upstream drop 3 inverts this rule to allow real brand names by default — formally rejected in PR #261; the studio holds the prohibition and points at the authorised override. --> **No unauthorised real brand names in prompt output.** Generic visual descriptors only. *Override:* see the Brand name rule under READING REFERENCE IMAGES for the authorised-brand exception and its conditions. <!-- STUDIO-LOCAL END -->
+3. <!-- STUDIO-LOCAL BEGIN: upstream bans all `@image` tags outright; the studio narrows the ban to fixed `@imageN` numbering and carves out Mode 5's user-assigned semantic element tags. --> **No fixed `@image1`/`@image2` numbering or `<<<image_n>>>` placeholders.** Image attachment happens in the Higgsfield UI directly. The prompt is text-only. *Sole carve-out:* Mode 5's locked prompt structure is written around reference element tags by design (e.g. `@outfit_ref` / `@character_ref`, or whatever short semantic tag the user assigns each upload) and keeps them (see MODE 5 — the locked structure is not modified, only the tags are filled in). <!-- STUDIO-LOCAL END -->
 4. **No internal production context.** No "carried through the world," no "matching the previous scene." Every prompt is standalone and self-contained.
 5. **Pure visual description only.** No meta-commentary about why the shot is framed that way, no references to the medium ("this is the still," "what the photo looks like"), no emotional intent ("the read is..."). Every word describes a visible thing in the frame.
 6. **No teeth-showing smiles** unless the user explicitly requests one. Default expressions are model face-card neutral, subtle controlled, slight closed-lip smirk at most.
 7. **No negative prompts.** This skill does not output negative prompt blocks. Higgsfield workflow doesn't use them.
-8. **LOCKED FLAT GRADE baked in for Modes 0, 1, 2A/2B, 4, 5.** The 18% gray flat, shadowless grade closes every Mode 0, 1, 2A/2B, and 4 prompt (with Step 1B.1 outfit reference using the lighter close documented in that section, and Mode 5 using its own locked lean prompt). The full cinema stack never closes a character plate or sheet — its key-wrap and anatomical shadow-falloff language fights the flat grade. Mode 3 is the exception — see rule 9.
+8. <!-- STUDIO-LOCAL BEGIN: upstream closes Modes 0/1/2/4/5 with the full cinema stack; the studio closes character work with the LOCKED FLAT GRADE instead — the stack's key-wrap and anatomical shadow-falloff language fights the flat plate. --> **LOCKED FLAT GRADE baked in for Modes 0, 1, 2A/2B, 4, 5.** The 18% gray flat, shadowless grade closes every Mode 0, 1, 2A/2B, and 4 prompt (with Step 1B.1 outfit reference using the lighter close documented in that section, and Mode 5 using its own locked lean prompt). The full cinema stack never closes a character plate or sheet — its key-wrap and anatomical shadow-falloff language fights the flat grade. Mode 3 is the exception — see rule 9. <!-- STUDIO-LOCAL END -->
 9. **Mode 3 uses the cinema-prose closing paragraph in place of the cinema stack AND locked tag block.** Mode 3 scene plates (3A and 3B) close with the cinema-prose paragraph documented under "THE CINEMA-PROSE REGISTER" — the full look described in plain language (wide-latitude cinema capture, vintage anamorphic character, light diffusion bloom, color-negative film rendition with 35mm grain, never brand or model names), real anamorphic optical character (oval bokeh, handheld breath, edge falloff), theatrical fine grain, contemporary teal-amber grade with shadow/highlight handling, and the closing realism clause ("Real photographic frame captured on a real cinema camera... no CGI, no plastic, no AI smoothness, no skin smoothing"). This closing paragraph replaces the cinema stack AND the old locked tag block for Mode 3. The old tag block remains documented as a deprecated fallback only.
 10. **Single fenced code block on output.** Deliver the full prompt as one continuous code block ready for clean copy-paste — no preamble or postamble unless the user explicitly asks for a breakdown. (The pre-prompt confirmation is its own short message before the code block — that's not preamble inside the code block.)
 11. **Pre-prompt confirmation, always — except minor iteration on an approved prompt.** Every full prompt is preceded by a bulleted "here's what I'm about to prompt, sound good?" check. **References listed first**, then character, outfit, backdrop/environment, framing. Wait for the green light. Exception: if the user requests a minor tweak to a prompt already approved and delivered in this thread (framing shift, pose change, repositioning, single wardrobe swap, lighting nudge), skip the check and deliver the revised prompt directly. New characters, full outfit swaps, new modes, or new scene types still trigger a check.
@@ -1066,7 +1119,7 @@ Before writing the final prompt, silently catalog:
 - [ ] If Mode 2B (6-panel): user explicitly asked for it, the resolution warning was given once, and the user said go
 - [ ] If Mode 2A or 2B: a Mode 1 base outfit reference exists and is approved (if not, stop and build the base first)
 - [ ] If Mode 4: user explicitly asked for face/chest-up and confirmed GPT Image 2
-- [ ] If Mode 5: two reference images uploaded, each given a short semantic element tag by the user (e.g. `@outfit_ref` / `@character_ref`) — outfit/pose role and character/identity role confirmed against those tags, not against fixed `@image1`/`@image2` numbering
+- [ ] <!-- STUDIO-LOCAL BEGIN: Mode 5 checklist row rewritten around user-assigned element tags in place of upstream's fixed `@image1`/`@image2` attachment order. --> If Mode 5: two reference images uploaded, each given a short semantic element tag by the user (e.g. `@outfit_ref` / `@character_ref`) — outfit/pose role and character/identity role confirmed against those tags, not against fixed `@image1`/`@image2` numbering <!-- STUDIO-LOCAL END -->
 - [ ] Every character described by visual markers only (hair, makeup, wardrobe, jewelry, body markers, pose, expression)
 - [ ] If Mode 3: environment described as ambience (not architectural enumeration) — world plate reference carries geometry
 - [ ] If Mode 3: matching cinema mode identified (M1/M2/M3/M4/M5) and woven into Paragraph 5 camera spec
@@ -1075,8 +1128,10 @@ Before writing the final prompt, silently catalog:
 - [ ] If Mode 3: prompt follows the FIVE-PARAGRAPH PROSE STRUCTURE (Opening shot / Character / World / Subject anchor / Camera spec + finish) — no labeled blocks in output
 - [ ] If Mode 3: closing realism clause is in place (full camera package + M-mode + "Real photographic frame... no CGI, no plastic, no AI" quality filter)
 - [ ] Pose, body angle, expression register chosen
+<!-- STUDIO-LOCAL BEGIN: brand row holds the studio prohibition (upstream drop 3 permits brand names by default — formally rejected in PR #261); flat-grade row is scoped to the studio 2A/2B renumber with Mode 5's locked lean prompt called out separately. -->
 - [ ] No names, no brands, no internal context, no meta-commentary
 - [ ] LOCKED FLAT GRADE will close the prompt (Modes 0, 1, 2A/2B, 4) — flat uniform 18% gray, shadowless matched-fill light, zero cast shadow, stated per-panel on sheets; Mode 5 using its own locked lean prompt; Mode 3 using the cinema-prose closing paragraph instead and is the only mode with directional light
+<!-- STUDIO-LOCAL END -->
 - [ ] Pre-prompt confirmation delivered and confirmed — references listed FIRST in the bullet list
 
 If anything needed for composition is missing from the user input, ask before writing.
@@ -1093,12 +1148,16 @@ If the user requests multiple shots in one ask, deliver each in its own code blo
 
 ---
 
+<!-- STUDIO-LOCAL BEGIN: net-new studio section — upstream has no world-bible skill and no handoff; this cross-links the `cinema-world-bible` skill owned by the Cinema Showrunner. -->
 ## OPTIONAL HANDOFF — CINEMA WORLD BIBLE
 
 If the user is working within a larger production pipeline — building a character bible, indexing reference assets, or tracking shot-to-shot continuity across a sequence — that upstream work is owned by the `cinema-world-bible` skill (owned by the Cinema Showrunner). That skill produces the shot spec, character bible, and reference-library index that this skill executes against. When a shot spec is present, the reference list and wardrobe state should follow the world-bible's reference-library index exactly. When operating standalone (no shot spec provided), proceed as normal.
+<!-- STUDIO-LOCAL END -->
 
 ---
 
+<!-- STUDIO-LOCAL BEGIN: net-new studio section — upstream ships no equivalent; records the QA gate and humaniser pass that apply to surrounding prose but never to the prompt code block itself. -->
 ## STUDIO CONVENTIONS
 
 In this studio, written deliverables (briefs, shot specs, world bibles, integration documents) pass a QA gate (QAComplianceReviewer) and a humaniser pass before release. This applies to surrounding prose and structured documents, not to the prompt code-block output itself — the prompt grammar inside the fenced code block is verbatim copy-paste material and must never be humanised or reworded.
+<!-- STUDIO-LOCAL END -->
