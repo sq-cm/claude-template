@@ -10,7 +10,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 
 | Skill | Purpose | Primary users |
 |-------|---------|--------------|
-| `banana-pro-director` | Higgsfield still-image prompt director (Banana Pro / Soul Cinema / GPT Image 2) for scene plates, environment plates, GPT Image 2 detail stills, and outfit replacement; character identity work (face locks, outfits, sheets) routes to `character-builder` by default, retained here as legacy on explicit request | Iris (Stills Director) |
+| `banana-pro-director` | Higgsfield still-image prompt director (Banana Pro / Soul Cinema / GPT Image 2) for scene plates, environment plates, GPT Image 2 detail stills, and scene-staged outfit replacement; character identity work (face locks, outfits, sheets, and outfit replacement banked as a character reference — `character-builder` Mode 3) routes to `character-builder` by default, retained here as legacy on explicit request | Iris (Stills Director) |
 | `brainstorming` | Structured creative ideation before feature or content work | All |
 | `character-builder` | Photoreal Higgsfield character and outfit builder — five modes: face lock (0), additions/re-locks (1), outfit builder (2), outfit replacement (3), and character sheets (4) including the 3-panel default, the legacy 6-panel, and the studio-local headless Seedance-handoff sheet | Iris (Stills Director) |
 | `cinema-director` | Seedance video prompt director — a Seedance 2.0/2.5 target-version gate ahead of the locked 16-slot spine, five cinema modes, Assets-line continuity grammar, diegetic audio under `NO BGM`; **photoreal/live-action and English-only** (for stylized/bilingual work use `seedance-bilingual-director`) | Dash (Seedance Director) |

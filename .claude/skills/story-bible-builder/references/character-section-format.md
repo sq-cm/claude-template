@@ -33,8 +33,10 @@ How each character appears in the final assembled bible. Match this shape.
 ## Rules
 
 1. **The four prompt-ready descriptors (Speech, Movement, Stillness, Suno) must be in quotes.** They're engineered to drop verbatim into future prompts — either as standalone prompt inputs, or as feeder blocks for a video prompt director skill (`cinema-director` for Seedance video, `banana-pro-director` for stills). Specifically:
-   - **Speech** feeds the Sound Bed block or dialogue direction
-   - **Movement** and **Stillness** feed the Subject Lock block
+<!-- STUDIO-LOCAL BEGIN: retired-block-name retarget — upstream still names the pre-drop-3 Sound Bed and Subject Lock blocks here; the studio's `cinema-director` runs the drop-3 16-slot spine, so both feeder targets are renamed to their slots. Mapping and rationale are declared once in the SWEEPS block under the Version note in `SKILL.md`. -->
+   - **Speech** feeds the SLOT 15 AUDIO block or dialogue direction
+   - **Movement** and **Stillness** feed the character's SLOT 5 ASSETS line, inside its THIS SCENE clause
+<!-- STUDIO-LOCAL END -->
    - **Suno** feeds vocal casting for music prompts
    That's the whole point — the descriptors are formatted this way so they slot in cleanly.
 

@@ -21,7 +21,7 @@ PROP-[PROP-SLUG]                       for prop references
 - `SCENE` — scene plate with characters (banana-pro Mode 3A)
 - `EXT` — exterior vehicle or object reference
 - `INT` — interior vehicle reference
-- `DETAIL` — detail shot (banana-pro Mode 4 scene/environment detail, or a character-builder expression-set panel)
+- `DETAIL` — detail shot: face detail (banana-pro Mode 4, GPT Image 2 chest-up/face only), scene or environment detail (banana-pro Mode 3 — 3A with a character in frame, 3B for pure environment), or a character-builder expression-set panel
 
 ---
 

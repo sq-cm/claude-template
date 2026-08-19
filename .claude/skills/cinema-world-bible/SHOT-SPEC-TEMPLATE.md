@@ -103,8 +103,8 @@ What does this shot need to match from the previous shot, or set up for the next
 **Must set up for next shot:**
 - (e.g., "Wipers are OFF throughout this shot — Shot 4 is the wiper-activation beat")
 
-**Cross-frame rules (if multi-character):**
-- (e.g., "@zara_face holds in driver's seat, @owen_face holds in passenger seat — no position swap across the cut")
+**Cross-shot locks (if multi-character)** — written as a positive ordered chain for cinema-director SLOT 16 LOCKS, never as a list of prohibitions:
+- (e.g., "@zara_face holds the driver's seat and @owen_face holds the passenger seat continuously through the cut, same seating and same eyelines on both sides of it")
 
 ---
 
