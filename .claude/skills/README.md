@@ -2,6 +2,22 @@
 
 Vault-local skills ship with the template. Plugin-provided skills require external plugins (see onboarding).
 
+## Learn page touchpoint (per-adoption)
+
+The operator-facing catalog on the Learn page (`SLASH_COMMANDS` array in
+`Resources/Learn/index.html`) must be reconciled on every catalog-visible
+change — adding or removing a skill here, a command in `.claude/commands/`,
+or an output style in `.claude/output-styles/`. Three co-edits move together:
+the array entry (`type: "skill"`, `"command"`, or `"style"`), the
+"NN entries across N categories" summary line in the same file, and the
+`const LAST_SYNCED` date stamp. The catalog is curated, not a directory
+mirror — plumbing skills are deliberately omitted and marketplace-plugin
+skills deliberately included (any `plugin: true` entry must map to a live
+`enabledPlugins` entry in `.claude/settings.json`) — so reconcile
+deliberately rather than syncing counts. None of this is covered by
+`validate.sh`; this section is the tripwire, same pattern as the `TEAM`
+array adjunct in `Resources/SOPs/Roster Drift SOP.md`.
+
 ---
 
 ## Vault-Local Skills
