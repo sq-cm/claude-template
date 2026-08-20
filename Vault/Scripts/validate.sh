@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 14 read-only checks to verify the vault's structural invariants.
+# Runs 16 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -29,6 +29,7 @@
 #   Check 10 — persona model: pin or effort: value missing or outside documented set/enum
 #   Check 11 — skill SKILL.md missing, malformed frontmatter, or description over the 1024-char loader cap
 #   Check 14 — REQUIRED_KEYS plugin flag maps to a disabled plugin (F21(f) coupling)
+#   Check 16 — output-style missing name/description frontmatter, or duplicate style name
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
@@ -969,6 +970,58 @@ else
     else
         pass "context.md injected size $injected_bytes bytes is within the $CONTEXT_BUDGET_BYTES-byte budget"
     fi
+fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 16 — output-style manifest integrity
+#
+# Every .claude/output-styles/*.md must carry 'name:' and 'description:'
+# frontmatter, and names must be unique — same class of guarantee Check 11
+# gives skills. Mechanical only: no prose grading, no description-length cap
+# (the 1024-char cap in Check 11 is a skill-loader constraint that does not
+# transfer to styles).
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 16: Output-style manifest integrity ---"
+STYLES_DIR="$PROJECT_ROOT/.claude/output-styles"
+check16_pass=true
+
+if [ ! -d "$STYLES_DIR" ]; then
+    warn "Check 16 skipped — $STYLES_DIR missing (tracked directory; investigate)"
+else
+    style_names=""
+    for fpath in "$STYLES_DIR"/*.md; do
+        [ -e "$fpath" ] || continue
+        fname=$(basename "$fpath")
+
+        frontmatter=$(awk '
+            { sub(/\r$/, "") }
+            /^---$/ { count++; if (count == 2) exit; next }
+            count == 1 { print }
+        ' "$fpath")
+
+        style_name=$(echo "$frontmatter" | sed -n 's/^name:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
+        style_desc=$(echo "$frontmatter" | sed -n 's/^description:[[:space:]]*//p' | head -1)
+
+        if [ -z "$style_name" ]; then
+            fail "$fname: no 'name:' in frontmatter — the style selector shows this name"
+            check16_pass=false
+        fi
+        if [ -z "$style_desc" ]; then
+            fail "$fname: no 'description:' in frontmatter"
+            check16_pass=false
+        fi
+
+        case " $style_names " in
+            *" $style_name "*)
+                fail "$fname: duplicate style name '$style_name'"
+                check16_pass=false
+                ;;
+        esac
+        style_names="$style_names $style_name"
+    done
+
+    $check16_pass && pass "All output styles have name/description frontmatter and unique names"
 fi
 echo ""
 
