@@ -36,6 +36,7 @@
 #   Check 10 — model-pin or effort-tier count differs from its tripwire constant
 #   Check 12 — merged PR (recent history) missing a CHANGELOG.md entry, not exempt
 #   Check 13 — settings.json marketplace and SETUP.md accepted-risk table disagree
+#   Check 15 — context.md injected size over the 3,072-byte budget
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -937,6 +938,37 @@ else
     done
 
     $check14_pass && pass "every REQUIRED_KEYS plugin flag maps to an enabled plugin"
+fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 15 — context.md injected-size budget
+#
+# Vault/Memory/context.md is injected at every session start and carries a
+# hard budget of 3,072 bytes comment-stripped (Memory Protocol SOP § Context
+# budget & auto-archival; enforced at fold time by /memory-reconcile step 9).
+# This check is the safety net for folds that skip step 9. The measurement
+# below is the canonical one from memory-reconcile.md step 9 — do NOT swap in
+# load-context.sh's perl, which also squeezes blank lines and measures lower.
+# WARN, not FAIL: the file is git-ignored, machine-local state; a breach is a
+# per-session token tax on this clone, not a template defect. Absent file =
+# fresh clone before onboarding = normal, silently skipped.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 15: context.md injected-size budget ---"
+CONTEXT_FILE="$PROJECT_ROOT/Vault/Memory/context.md"
+CONTEXT_BUDGET_BYTES=3072
+
+if [ ! -f "$CONTEXT_FILE" ]; then
+    pass "Check 15 skipped — no local context.md (normal on a fresh clone)"
+elif ! command -v perl >/dev/null 2>&1; then
+    warn "Check 15 skipped — perl unavailable, injected size not measured"
+else
+    injected_bytes=$(perl -0777 -pe 's/<!--.*?-->//gs' "$CONTEXT_FILE" | wc -c | tr -d '[:space:]')
+    if [ "$injected_bytes" -gt "$CONTEXT_BUDGET_BYTES" ]; then
+        warn "context.md injects $injected_bytes bytes comment-stripped, budget is $CONTEXT_BUDGET_BYTES — run /memory-reconcile (step 9 demotes the oldest Project-context pointers)"
+    else
+        pass "context.md injected size $injected_bytes bytes is within the $CONTEXT_BUDGET_BYTES-byte budget"
+    fi
 fi
 echo ""
 
