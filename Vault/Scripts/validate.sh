@@ -26,14 +26,14 @@
 #   Check 7  — live agent/skill count does not match README assertion
 #   Check 8  — required seed file missing
 #   Check 9  — settings.json hook/statusLine script path does not exist
-#   Check 10 — persona model: pin missing or outside documented tiers
+#   Check 10 — persona model: pin or effort: value missing or outside documented set/enum
 #   Check 11 — skill SKILL.md missing, malformed frontmatter, or description over the 1024-char loader cap
 #   Check 14 — REQUIRED_KEYS plugin flag maps to a disabled plugin (F21(f) coupling)
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
 #   Check 9  — prose `/command` reference with no command file, skill, or built-in
-#   Check 10 — claude-fable-5 pin count differs from FABLE_PIN_COUNT tripwire
+#   Check 10 — model-pin or effort-tier count differs from its tripwire constant
 #   Check 12 — merged PR (recent history) missing a CHANGELOG.md entry, not exempt
 #   Check 13 — settings.json marketplace and SETUP.md accepted-risk table disagree
 # ──────────────────────────────────────────────────────────────────────────────
@@ -588,12 +588,22 @@ echo ""
 # personas (moved from claude-sonnet-5 in the 13/08/2026 roster re-tier;
 # claude-sonnet-5 stays in ALLOWED_MODELS as the documented revert target).
 # Odin is the sole remaining Fable pin.
+#
+# effort: is also validated here because it is the tier discriminator since
+# the 13/08/2026 re-tier (model: pins no longer differ by tier). The
+# XHIGH_EFFORT_COUNT/HIGH_EFFORT_COUNT tripwires follow the same
+# FABLE_PIN_COUNT/OPUS5_PIN_COUNT WARN-not-FAIL pattern above.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
 ALLOWED_MODELS="claude-sonnet-5 claude-opus-5 claude-fable-5"  # Opus 5 judgement tier added (25/07/2026)
 FABLE_PIN_COUNT=1  # Odin (sole Fable gatekeeper; Quinn moved to claude-opus-5, 13/08/2026)
 OPUS5_PIN_COUNT=27  # Everyone except Odin: Judgement six + Quinn + the 20 former-Production personas (roster re-tier, 13/08/2026)
+ALLOWED_EFFORTS="low medium high xhigh max"  # harness enum per Persona Template SOP § Model assignment
+XHIGH_EFFORT_COUNT=7   # Judgement six + Quinn (13/08/2026 re-tier)
+HIGH_EFFORT_COUNT=21   # 20 Production personas + Odin (13/08/2026 re-tier)
+xhigh_effort_live=0
+high_effort_live=0
 fable_pin_live=0
 opus5_pin_live=0
 
@@ -627,6 +637,25 @@ for fpath in "$AGENTS_DIR"/*.md; do
 
     [ "$model_pin" = "claude-fable-5" ] && ((fable_pin_live++))
     [ "$model_pin" = "claude-opus-5" ] && ((opus5_pin_live++))
+
+    effort_val=$(echo "$frontmatter" | sed -n 's/^effort:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
+
+    if [ -z "$effort_val" ]; then
+        fail "$fname: no 'effort:' key in frontmatter — the effort key is the tier's durable signal (Persona Template SOP § Model assignment)"
+        check10_pass=false
+        continue
+    fi
+
+    case " $ALLOWED_EFFORTS " in
+        *" $effort_val "*) : ;;
+        *)
+            fail "$fname: effort value '$effort_val' not in harness enum ($ALLOWED_EFFORTS) — typo or undocumented level"
+            check10_pass=false
+            ;;
+    esac
+
+    [ "$effort_val" = "xhigh" ] && ((xhigh_effort_live++))
+    [ "$effort_val" = "high" ] && ((high_effort_live++))
 done
 
 if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
@@ -637,7 +666,15 @@ if [ "$opus5_pin_live" -ne "$OPUS5_PIN_COUNT" ]; then
     warn "claude-opus-5 pin count is $opus5_pin_live, tripwire expects $OPUS5_PIN_COUNT — update OPUS5_PIN_COUNT in this script on any Opus 5 promotion/revert (that is its job)"
 fi
 
-$check10_pass && pass "All persona model pins match documented tiers"
+if [ "$xhigh_effort_live" -ne "$XHIGH_EFFORT_COUNT" ]; then
+    warn "effort: xhigh count is $xhigh_effort_live, tripwire expects $XHIGH_EFFORT_COUNT — update XHIGH_EFFORT_COUNT in this script on any Judgement-tier change (that is its job)"
+fi
+
+if [ "$high_effort_live" -ne "$HIGH_EFFORT_COUNT" ]; then
+    warn "effort: high count is $high_effort_live, tripwire expects $HIGH_EFFORT_COUNT — update HIGH_EFFORT_COUNT in this script on any Production-tier change (that is its job)"
+fi
+
+$check10_pass && pass "All persona model pins and effort values match documented tiers"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────
