@@ -56,6 +56,7 @@ Your message
 - `.claude/agents/[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
 - `.claude/skills/` — reusable skill modules: brainstorming, html-deliverable, HyperFrames video rendering, the /teach tutor, cinema prompt skills, and more; see `.claude/skills/README.md` for the full catalog
+- `.claude/output-styles/` — optional reply styles (ELI5, ASD-STE100) switched with the built-in `/output-style` command; a style reshapes how replies read but yields to skills and project rules, and wins over the caveman plugin's register
 - `CHANGELOG.md` — append-only log of shipped template changes; your upgrade reference when pulling updates via `/update`
 
 See the ["Why use this?"](Resources/Learn/index.html) tab for who this vault is for and what each role gets out of it.
@@ -170,6 +171,7 @@ Claude - TEMPLATE/
 ├── .claude/
 │   ├── agents/                        ← persona files for all 28 team members
 │   ├── commands/                      ← slash commands (/onboard, /update, /memory-reconcile, …)
+│   ├── output-styles/                 ← reply styles (ELI5, ASD-STE100); switch with /output-style
 │   └── skills/                        ← 30 reusable skill modules (see its README.md)
 ├── Notes/                             ← daily notes, canvas files, clippings, staging for unrouted material
 ├── Projects/
