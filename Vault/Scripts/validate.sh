@@ -744,6 +744,7 @@ echo ""
 #                 because the pattern is routine; a repeat is a cue to check for
 #                 that race, not to widen this class.
 #   269         — changelog backfill for #262; pure-backfill class (#82/#100/#205).
+#   290         — changelog backfill for #289; pure-backfill class (#82/#100/#205).
 #
 # Timing rule (the fix for #257's cause): a CHANGELOG entry must land on its own
 # PR's branch — as a commit added after the PR number exists but before the
@@ -751,6 +752,9 @@ echo ""
 # merged. A PR's number is fixed at creation, not at merge; what the merge
 # forecloses is further commits on that branch, which is what stranded #257's
 # entry.
+# The same timing applies to this constant: a pure-backfill PR must append its
+# OWN number to CHANGELOG_EXEMPT_PRS as a commit on its own branch before the
+# squash-merge — #269 and #290 each cost a follow-up edit because they did not.
 #
 # WARN, not FAIL: squash subject formats vary and the maintainer legitimately
 # batches entries; this is a commit-time tripwire, not a hard gate.
@@ -764,7 +768,7 @@ if ! git rev-parse --git-dir >/dev/null 2>&1 || ! git log -1 >/dev/null 2>&1; th
     warn "Check 12 skipped — not a usable git history"
 else
     check12_pass=true
-    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222 228 234 253 257 269"
+    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222 228 234 253 257 269 290"
 
     pr_numbers=$(git log --format=%s -30 | grep -oE '#[0-9]+' | tr -d '#' | sort -un)
 
