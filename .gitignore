@@ -73,6 +73,9 @@ coverage/
 npm-debug.log*
 pip-log.txt
 
+# Ref-import failure log — written by /import-ref, machine-local
+Vault/Logs/ref-failures.md
+
 # MemPalace per-project files
 mempalace.yaml
 entities.json
@@ -82,6 +85,7 @@ Vault/Logs/Palace/
 Vault/Memory/theme-change-log.md
 Vault/Memory/odin-misses.md
 Vault/Memory/repo-conflicts.md
+Vault/Memory/roster-drift-log.md
 
 # Per-clone state — written by hooks, machine-local
 Vault/Memory/onboarding-flags.json
