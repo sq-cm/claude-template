@@ -25,6 +25,7 @@
     "**/.git": true
   },
   "security.workspace.trust.untrustedFiles": "open",
+  "cSpell.language": "en,en-GB",
   "[markdown]": {
     "editor.wordWrap": "on",
     "editor.quickSuggestions": {
@@ -32,6 +33,7 @@
       "strings": "off",
       "other": "off"
     },
-    "editor.trimAutoWhitespace": false
+    "editor.trimAutoWhitespace": false,
+    "files.trimTrailingWhitespace": false
   }
 }
