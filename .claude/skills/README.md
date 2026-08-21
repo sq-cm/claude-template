@@ -14,13 +14,13 @@ the array entry (`type: "skill"`, `"command"`, or `"style"`), the
 mirror — plumbing skills are deliberately omitted and marketplace-plugin
 skills deliberately included (any `plugin: true` entry must map to a live
 `enabledPlugins` entry in `.claude/settings.json`) — so reconcile
-deliberately rather than syncing counts. None of this is covered by
-`validate.sh`; this section is the tripwire, same pattern as the `TEAM`
-array adjunct in `Resources/SOPs/Roster Drift SOP.md`.
-
-Validator Check 17 backstops this rule mechanically — a catalog-visible
-change that skips the co-edits now warns; deliberate omissions live in
-LEARN_OMITTED in Vault/Scripts/validate.sh, each with a reason.
+deliberately rather than syncing counts. Validator Check 17 now backstops
+the parity dimension mechanically — a catalog-visible change that skips the
+disk-side co-edit warns, and deliberate omissions live in `LEARN_OMITTED` in
+`Vault/Scripts/validate.sh`, each with a reason. The other two co-edits, the
+summary line and `LAST_SYNCED`, stay prose-only and uncovered by
+`validate.sh`; this section remains their tripwire, same pattern as the
+`TEAM` array adjunct in `Resources/SOPs/Roster Drift SOP.md`.
 
 ---
 

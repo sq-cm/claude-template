@@ -1084,7 +1084,14 @@ COMMANDS_DIR="$PROJECT_ROOT/.claude/commands"
 #   skill:verification-before-completion — internal pre-completion discipline, not operator-invoked.
 #   skill:writing-plans                   — internal pre-implementation discipline, not
 #                                          operator-invoked.
-LEARN_OMITTED="skill:brainstorming skill:dispatching-parallel-agents skill:handoff skill:hyperframes-cli skill:hyperframes-media skill:using-superpowers skill:verification-before-completion skill:writing-plans"
+LEARN_OMITTED="skill:brainstorming
+skill:dispatching-parallel-agents
+skill:handoff
+skill:hyperframes-cli
+skill:hyperframes-media
+skill:using-superpowers
+skill:verification-before-completion
+skill:writing-plans"
 
 if [ ! -f "$LEARN_FILE" ]; then
     warn "Check 17 skipped — $LEARN_FILE missing (tracked file; investigate)"
@@ -1134,9 +1141,7 @@ else
     while IFS= read -r entry; do
         [ -n "$entry" ] || continue
         echo "$learn_entries" | grep -qxF "$entry" && continue  # on the page — fine
-        case " $LEARN_OMITTED " in
-            *" $entry "*) continue ;;  # deliberately omitted, with a reason above
-        esac
+        echo "$LEARN_OMITTED" | grep -qxF "$entry" && continue  # deliberately omitted, with a reason above
         warn "$entry exists on disk but is neither on the Learn page nor in LEARN_OMITTED"
         check17_pass=false
     done <<< "$disk_entries"
@@ -1148,7 +1153,8 @@ else
         check17_pass=false
     done <<< "$learn_entries"
 
-    for entry in $LEARN_OMITTED; do
+    while IFS= read -r entry; do
+        [ -n "$entry" ] || continue
         if ! echo "$disk_entries" | grep -qxF "$entry"; then
             warn "LEARN_OMITTED entry $entry no longer exists on disk — prune it"
             check17_pass=false
@@ -1157,7 +1163,7 @@ else
             warn "LEARN_OMITTED entry $entry is also on the Learn page — contradiction, remove one"
             check17_pass=false
         fi
-    done
+    done <<< "$LEARN_OMITTED"
 
     $check17_pass && pass "Learn page catalog and disk (skills/commands/output-styles) agree, modulo LEARN_OMITTED"
 fi
