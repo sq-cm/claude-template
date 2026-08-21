@@ -176,7 +176,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'Reminder: grill-me + plan mode apply per CLAUDE.md § Default Mode. grill-me asks the whole frontier per round, each question with a recommended answer; explore before asking.'"
+            "command": "echo 'Reminder: grill-me + plan mode apply per CLAUDE.md § Default Mode.'"
           }
         ]
       }
