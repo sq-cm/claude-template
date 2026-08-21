@@ -8,13 +8,15 @@ that adopted each drop. Verify a snapshot with the command in each section.
 
 | Drop | Adopted | PR(s) | Snapshot path | Hashes |
 |------|---------|-------|---------------|--------|
-| 3.0  | 14/07/2026 | #197 | `Notes/Team/AI Cinematic World/` (partial — see note) | not hashed at adoption; folder hashed below as found on 21/08/2026 |
+| 3.0  | 14/07/2026 | #197 | `Notes/Team/AI Cinematic World/` (as found — see note below) | not hashed at adoption; folder hashed below as found on 21/08/2026 |
 | 2    | 04/08/2026 | #260, #261 | `Notes/Team/AI Cinematic World/` | as above |
 | 3    | 19/08/2026 | #288 | `Notes/Team/Joey's Skill Files 081626/` | § Drop 3 hashes |
 
-> Drops 1–2 predate this manifest; their hashes record the folder as it
-> exists today, not as it was at adoption. Only drop 3 onward is a true
-> at-adoption fingerprint baseline for future drops.
+> The first two drops (3.0 and 2) predate this manifest; their hashes record
+> the folder as it exists today, not as it was at adoption. Only drop 3
+> onward is a true at-adoption fingerprint baseline for future drops.
+
+Every future drop adoption appends its own hash section to this file at adoption time, in the adopting PR.
 
 ## Drop 3 hashes (`Notes/Team/Joey's Skill Files 081626/`)
 
@@ -23,6 +25,8 @@ Command used (run from inside the snapshot folder):
 ```
 find . -type f -print0 | sort -z | xargs -0 sha256sum
 ```
+
+Output shown is GNU sha256sum on Windows (`*` binary-mode marker). macOS `shasum -a 256` prints a different separator — verify by re-running the exact command above on the same platform, not by cross-platform line-diff.
 
 ```
 ff8371ba48cc05f37a3b17287b1c16b2466f1654185ad5064a40b6da2c64f6c5 *./banana-pro-director-30/SKILL.md
@@ -42,6 +46,8 @@ Command used (run from inside the snapshot folder):
 ```
 find . -type f -print0 | sort -z | xargs -0 sha256sum
 ```
+
+Output shown is GNU sha256sum on Windows (`*` binary-mode marker). macOS `shasum -a 256` prints a different separator — verify by re-running the exact command above on the same platform, not by cross-platform line-diff.
 
 ```
 a1020b5196f12c1cbb53cf1432e344f291953b976b8ca17bb3a7679b45ca3f5e *./Cinema Skill Files/banana-pro-director-30/SKILL.md
