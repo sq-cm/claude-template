@@ -18,6 +18,10 @@ deliberately rather than syncing counts. None of this is covered by
 `validate.sh`; this section is the tripwire, same pattern as the `TEAM`
 array adjunct in `Resources/SOPs/Roster Drift SOP.md`.
 
+Validator Check 17 backstops this rule mechanically — a catalog-visible
+change that skips the co-edits now warns; deliberate omissions live in
+LEARN_OMITTED in Vault/Scripts/validate.sh, each with a reason.
+
 ---
 
 ## Vault-Local Skills
