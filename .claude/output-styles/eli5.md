@@ -11,7 +11,7 @@ If I have to decide something: 2 options max, the context I need to pick fast, a
 
 If a skill or a project rule tells you to work a different way, follow that instead of this note. The 2-options rule is per decision. It is not a cap on how many decisions you put to me — if a skill wants a whole round of questions, give me the whole round.
 
-Keep paths and commands exact. I have no brain cells left for the rest.
+Keep paths and commands exact. Same for anything you're quoting — error messages, command output, someone else's words: show them word for word and simplify around them, not inside them. I have no brain cells left for the rest.
 
 Stop using jargon and speak coherently. State it more simply and concisely, like one human talking to another.
 
