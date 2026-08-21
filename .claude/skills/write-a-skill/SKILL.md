@@ -3,6 +3,15 @@ name: write-a-skill
 description: Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.
 ---
 
+<!--
+Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/write-a-skill (by Matt
+Pocock, MIT). Synced against upstream commit `f304057` (12/05/2026) on 21/08/2026 via import commit
+b019628 — lineage recorded retroactively (see plan 108); imported alongside the confirmed handoff
+and prototype copies from the same repo. Local deltas: the SKILL.md line-limit guidance is raised
+from 100 lines to ~150 (aim) / 500 (hard ceiling), with an added exemption for skills whose body is
+a locked prompt grammar or determinism spec. Deliberately NOT resynced — lineage record only.
+-->
+
 # Writing Skills
 
 ## Process
