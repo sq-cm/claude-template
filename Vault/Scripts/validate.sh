@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 16 read-only checks to verify the vault's structural invariants.
+# Runs 17 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -38,6 +38,7 @@
 #   Check 12 — merged PR (recent history) missing a CHANGELOG.md entry, not exempt
 #   Check 13 — settings.json marketplace and SETUP.md accepted-risk table disagree
 #   Check 15 — context.md injected size over the 3,072-byte budget
+#   Check 17 — Learn-page catalog entry unmatched on disk, or vice versa (minus LEARN_OMITTED)
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1034,6 +1035,137 @@ else
     done
 
     $check16_pass && pass "All output styles have name/description frontmatter and unique names"
+fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 17 — Learn-page catalog exact-set parity with disk (LEARN_OMITTED)
+#
+# Resources/Learn/index.html's SLASH_COMMANDS array is a hand-curated operator
+# catalog (.claude/skills/README.md § Learn page touchpoint) with no mechanical
+# backstop until now — it has already drifted twice (plan 100, plan 101). This
+# check compares three vault-local disk sets (skills, commands, output-styles)
+# against the catalog, admitting a LEARN_OMITTED exclusions list for deliberate
+# gaps — same pattern as Check 4's KNOWN_BENIGN_TOKENS (PR #297): every
+# exclusion carries a written reason so a curated gap is a recorded decision,
+# not silent drift.
+#
+# WARN-tier only: a curated catalog is not meant to exactly mirror disk (some
+# skills are internal/meta, not operator-facing), so an unrecorded gap is a
+# prompt to classify, not a build-breaking defect.
+#
+# Plugin-provided catalog entries (`plugin: true` in the array) have no
+# vault-local disk counterpart by design (plan 100 removed their disk-backed
+# siblings) and are excluded from the comparison entirely.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 17: Learn-page catalog exact-set parity (LEARN_OMITTED) ---"
+LEARN_FILE="$PROJECT_ROOT/Resources/Learn/index.html"
+COMMANDS_DIR="$PROJECT_ROOT/.claude/commands"
+
+# LEARN_OMITTED — deliberate catalog/disk gaps, one reason each. Exact
+# whole-line match only (grep -qxF against a newline list), same discipline as
+# Check 4's KNOWN_BENIGN_TOKENS. Classified per the touchpoint rule's own
+# standard: operator-facing belongs on the page, internal/meta is omitted.
+# This list is where real drift could be laundered into "curated" silently —
+# scrutinise additions here, don't just silence a WARN.
+#   skill:brainstorming                  — auto-invoked pre-creative-work gate; not a surface an
+#                                          operator types or asks for by name.
+#   skill:dispatching-parallel-agents    — internal fan-out decision guide for the Orchestrator,
+#                                          not operator-invoked.
+#   skill:handoff                        — imported generic handoff skill; the vault's own
+#                                          /handoff-save and /handoff-load commands (already
+#                                          catalogued) are the operator-facing surface for this.
+#   skill:hyperframes-cli                — support skill behind hyperframes' dev loop; the
+#                                          hyperframes catalog entry already names it directly.
+#   skill:hyperframes-media               — support skill behind hyperframes' asset preprocessing;
+#                                          same reasoning as hyperframes-cli.
+#   skill:using-superpowers               — session-start meta-skill that establishes skill
+#                                          discovery itself, not something invoked by name.
+#   skill:verification-before-completion — internal pre-completion discipline, not operator-invoked.
+#   skill:writing-plans                   — internal pre-implementation discipline, not
+#                                          operator-invoked.
+LEARN_OMITTED="skill:brainstorming
+skill:dispatching-parallel-agents
+skill:handoff
+skill:hyperframes-cli
+skill:hyperframes-media
+skill:using-superpowers
+skill:verification-before-completion
+skill:writing-plans"
+
+if [ ! -f "$LEARN_FILE" ]; then
+    warn "Check 17 skipped — $LEARN_FILE missing (tracked file; investigate)"
+else
+    # Step 1: extract the catalog set (type:name pairs), excluding plugin-provided
+    # entries. The '/?' is load-bearing — many entries have slash-less names
+    # (e.g. find-skills, hyperframes, the AI-Cinema pipeline skills, both style
+    # names); a slash-requiring pattern silently drops them.
+    learn_entries=$(sed -n '/^const SLASH_COMMANDS = \[/,/^\];/p' "$LEARN_FILE" \
+        | grep -v 'plugin: true' \
+        | grep -oE '\{ name: "/?[^"]*", type: "[^"]*"' \
+        | sed -E 's|\{ name: "/?([^"]*)", type: "([^"]*)"|\2:\1|')
+
+    # Step 2: build the disk set (newline-separated, matching learn_entries'
+    # shape — no arrays, no mapfile, Bash 3.2 / Git Bash safe).
+    disk_entries=""
+    for sdir in "$SKILLS_DIR"/*/; do
+        [ -d "$sdir" ] || continue
+        sname=$(basename "$sdir")
+        [ -f "$sdir/SKILL.md" ] || continue  # defensive — no skill lacks one today
+        disk_entries="${disk_entries}skill:$sname"$'\n'
+    done
+    for fpath in "$COMMANDS_DIR"/*.md; do
+        [ -e "$fpath" ] || continue
+        cname=$(basename "$fpath" .md)
+        disk_entries="${disk_entries}command:$cname"$'\n'
+    done
+    for fpath in "$STYLES_DIR"/*.md; do
+        [ -e "$fpath" ] || continue
+        # The page names styles by their frontmatter 'name:' value verbatim
+        # (e.g. "ELI5", "ASD-STE100") — not the filename, not lowercased.
+        # Confirmed against the two live style entries before writing this.
+        # Reuses Check 16's frontmatter-extraction awk pattern.
+        frontmatter=$(awk '
+            { sub(/\r$/, "") }
+            /^---$/ { count++; if (count == 2) exit; next }
+            count == 1 { print }
+        ' "$fpath")
+        style_name=$(echo "$frontmatter" | sed -n 's/^name:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
+        [ -n "$style_name" ] || continue
+        disk_entries="${disk_entries}style:$style_name"$'\n'
+    done
+
+    # Step 3: three-way comparison.
+    check17_pass=true
+
+    while IFS= read -r entry; do
+        [ -n "$entry" ] || continue
+        echo "$learn_entries" | grep -qxF "$entry" && continue  # on the page — fine
+        echo "$LEARN_OMITTED" | grep -qxF "$entry" && continue  # deliberately omitted, with a reason above
+        warn "$entry exists on disk but is neither on the Learn page nor in LEARN_OMITTED"
+        check17_pass=false
+    done <<< "$disk_entries"
+
+    while IFS= read -r entry; do
+        [ -n "$entry" ] || continue
+        echo "$disk_entries" | grep -qxF "$entry" && continue
+        warn "Learn page lists $entry which no longer exists on disk"
+        check17_pass=false
+    done <<< "$learn_entries"
+
+    while IFS= read -r entry; do
+        [ -n "$entry" ] || continue
+        if ! echo "$disk_entries" | grep -qxF "$entry"; then
+            warn "LEARN_OMITTED entry $entry no longer exists on disk — prune it"
+            check17_pass=false
+        fi
+        if echo "$learn_entries" | grep -qxF "$entry"; then
+            warn "LEARN_OMITTED entry $entry is also on the Learn page — contradiction, remove one"
+            check17_pass=false
+        fi
+    done <<< "$LEARN_OMITTED"
+
+    $check17_pass && pass "Learn page catalog and disk (skills/commands/output-styles) agree, modulo LEARN_OMITTED"
 fi
 echo ""
 
