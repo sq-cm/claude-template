@@ -32,7 +32,7 @@
 #   Check 16 — output-style missing name/description frontmatter, or duplicate style name
 #
 # WARN → non-fatal, exit unaffected:
-#   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/
+#   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/ (minus known-benign allowlist)
 #   Check 9  — prose `/command` reference with no command file, skill, or built-in
 #   Check 10 — model-pin or effort-tier count differs from its tripwire constant
 #   Check 12 — merged PR (recent history) missing a CHANGELOG.md entry, not exempt
@@ -219,6 +219,17 @@ warn_sources=()
 [ -d "$PROJECT_ROOT/Projects" ] && warn_sources+=("$PROJECT_ROOT/Projects")
 [ -d "$PROJECT_ROOT/Vault/Memory/Notes" ] && warn_sources+=("$PROJECT_ROOT/Vault/Memory/Notes")
 
+# Known-benign tokens: standing false positives in Projects/ and Vault/Memory/Notes/.
+# Exact whole-line match only (grep -qxF) — never substring: single-letter 'n' would
+# collide under a substring test.
+#   CopyWriter — historical quote of a fixed casing defect in 2026-06 audit records.
+#                NOTE residual risk: one case-flip from the live 'Copywriter' token, so a
+#                future @{CopyWriter} typo in Projects/Notes will not warn.
+#   n          — git stash syntax `stash@{n}` quoted in a memory note, not a token.
+#   Token      — deliberate "any token" placeholder in specs and notes.
+#   UXDesigner — historical quote of a fixed stale token in 2026-06 audit records.
+KNOWN_BENIGN_TOKENS=$'CopyWriter\nn\nToken\nUXDesigner'
+
 if [ ${#warn_sources[@]} -gt 0 ]; then
     warn_tokens=$(
         for src in "${warn_sources[@]}"; do
@@ -228,6 +239,7 @@ if [ ${#warn_sources[@]} -gt 0 ]; then
     while IFS= read -r tok; do
         [[ -z "$tok" ]] && continue
         [[ "$tok" == "RoleToken" ]] && continue
+        echo "$KNOWN_BENIGN_TOKENS" | grep -qxF "$tok" && continue  # known-benign — drop
         if ! echo "$all_known_tokens" | grep -qxF "$tok"; then
             warn "Unmapped @{$tok} in Projects/Vault/Memory/Notes (non-fatal)"
         fi
