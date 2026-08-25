@@ -37,29 +37,21 @@ Maintainers/ops: see [Resources/Onboarding/SETUP.md](Resources/Onboarding/SETUP.
 
 ## How it works
 
-```
-Your message
-     ↓
-  CLAUDE.md               ← orchestrator rules + active roster
-     ↓
-  Orchestrator            ← routes all requests; never does task work themselves
-     ↓
-  Team member             ← persona file defines who they are, what they do, what they won't
-     ↓
-  Senior Adviser (checkpoint) ← top-tier advisor consulted before/after durable work
-     ↓
-  Deliverable             ← lands in Projects/[project]/03 Deliverables/
-```
+![How a request moves through the team: message → Orchestrator → specialist → checkpoints → QA Gate → deliverable](Resources/Assets/how-it-works.svg)
+
+Every request goes to the Orchestrator first, who hands it to the right specialist. Durable work then passes Senior Adviser checkpoints and a QA Gate (PASS, FLAGGED or BLOCKED) before it lands in `03 Deliverables/`, while light, reversible work takes the Fast-Path Lane straight to `02 Working/`.
 
 **Key files:**
 - `CLAUDE.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
 - `.claude/agents/[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
+- `Vault/Scripts/validate.sh` — 17 read-only consistency checks (roster ↔ theme map, persona pins, links, CHANGELOG ↔ PRs); run before every template PR
+- `Vault/Memory/` — persistent memory: `context.md` (this clone, git-ignored) and `MEMORY.md` (shipped index); each project also carries its own `CONTEXT.md` and `HISTORY.md`
 - `.claude/skills/` — reusable skill modules: brainstorming, html-deliverable, HyperFrames video rendering, the /teach tutor, cinema prompt skills, and more; see `.claude/skills/README.md` for the full catalog
 - `.claude/output-styles/` — optional reply styles (ELI5, ASD-STE100) switched with the built-in `/output-style` command; a style reshapes how replies read but yields to skills and project rules, and wins over the caveman plugin's register
 - `CHANGELOG.md` — append-only log of shipped template changes; your upgrade reference when pulling updates via `/update`
 
-See the ["Why use this?"](Resources/Learn/index.html) tab for who this vault is for and what each role gets out of it.
+See ["Who this is for"](Resources/Learn/index.html) on the Learn page for who this vault is for and what each role gets out of it.
 
 ---
 
@@ -160,8 +152,6 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 
 These are the dependencies the vault's scripts actually use, confirmed by reading the scripts themselves; the install path has not yet been exercised on a machine that genuinely lacks any of them, so treat that case as untested rather than assumed to fail.
 
-**OS note:** Example paths in `CLAUDE.md` and persona files use Windows-style absolute paths (`J:\My Drive\...`) purely as illustration: they aren't live configuration, and nothing needs editing to match your OS.
-
 ---
 
 ## Repo layout
@@ -170,11 +160,14 @@ These are the dependencies the vault's scripts actually use, confirmed by readin
 Claude - TEMPLATE/
 ├── .claude/
 │   ├── agents/                        ← persona files for all 28 team members
-│   ├── commands/                      ← slash commands (/onboard, /update, /memory-reconcile, …)
+│   ├── commands/                      ← slash commands (/onboard, /update, /hire, /handoff-save, /handoff-load, …)
+│   ├── hooks/                         ← SessionStart / UserPromptSubmit bash hooks
 │   ├── output-styles/                 ← reply styles (ELI5, ASD-STE100); switch with /output-style
-│   └── skills/                        ← 30 reusable skill modules (see its README.md)
+│   ├── skills/                        ← 30 reusable skill modules (see its README.md)
+│   └── settings.json                  ← permissions, hooks, enabledPlugins
 ├── Notes/                             ← daily notes, canvas files, clippings, staging for unrouted material
 ├── Projects/
+│   ├── YYYY-MM-DD-<name>/             ← one folder per piece of work; CONTEXT.md + HISTORY.md travel with it
 │   └── Template/                      ← blank project scaffold (copy when starting new work)
 ├── Resources/
 │   ├── Assets/                        ← shared images and demo assets
@@ -182,7 +175,7 @@ Claude - TEMPLATE/
 │   ├── Git/                           ← cloned reference repos (git-ignored)
 │   ├── Refs/                          ← indexed documentation references (INDEX.md + IMPORT.md)
 │   ├── Learn/                         ← interactive onboarding guide (index.html)
-│   ├── Onboarding/                    ← SETUP.md, team-onboarding-guide.md
+│   ├── Onboarding/                    ← SETUP.md, team-onboarding-guide.md, dependencies.md, …
 │   │   └── Demos/                     ← 5 sample onboarding projects
 │   ├── Platform Specs/                ← platform ad-spec references (currently Meta ads)
 │   ├── Research/                      ← Senior Researcher's role research briefs
@@ -192,6 +185,8 @@ Claude - TEMPLATE/
 │   ├── Learning/                      ← personal /teach workspaces (git-ignored)
 │   ├── Logs/                          ← clone failure logs, import logs
 │   ├── Memory/                        ← persistent session memory
+│   ├── Plans/                         ← /improve audit plans (git-ignored)
+│   ├── Scripts/                       ← validate.sh — the consistency checker
 │   └── Templates/                     ← daily and weekly note templates
 ├── CLAUDE.md                          ← orchestrator rules + team roster
 ├── README.md                          ← this file
@@ -200,12 +195,6 @@ Claude - TEMPLATE/
 ├── .env.example                       ← API key template
 └── .mcp.json.example                  ← project MCP servers (optional, copy to .mcp.json)
 ```
-
----
-
-## Demo
-
-![Orchestrator routing a request](Resources/Assets/sam-routing.gif)
 
 ---
 
