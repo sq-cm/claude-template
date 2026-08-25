@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>How a request moves through the team</title>
+  <style>
+    .h  { font-size: 20px; font-weight: 700; fill: #e8ecf2; }
+    .t  { font-size: 17px; font-weight: 700; fill: #e8ecf2; }
+    .s  { font-size: 13px; fill: #a7b1c0; }
+    .tt { font-size: 15px; font-weight: 700; fill: #e8ecf2; }
+    .n  { font-size: 13px; font-weight: 700; fill: #1f2430; }
+    .f  { font-size: 13px; fill: #7f8899; }
+    .at { font-size: 15px; font-weight: 700; fill: #f2a541; }
+    .as { font-size: 13px; fill: #dcc9a4; }
+    .arw { stroke: #6b7689; stroke-width: 2; fill: none; }
+  </style>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#6b7689"/>
+    </marker>
+    <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#f2a541"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="660" fill="#1f2430"/>
+
+  <text class="h" x="32" y="44">How a request moves through the team</text>
+
+  <!-- Row 1 -->
+  <rect x="32" y="80" width="254" height="92" rx="12" fill="#2a3140" stroke="#414c60"/>
+  <text class="t" x="159" y="122" text-anchor="middle">Your message</text>
+  <text class="s" x="159" y="146" text-anchor="middle">plain request, or @Role</text>
+  <circle cx="54" cy="80" r="13" fill="#414c60"/>
+  <text class="n" x="54" y="85" text-anchor="middle">1</text>
+
+  <rect x="326" y="80" width="254" height="92" rx="12" fill="#2a3140" stroke="#414c60"/>
+  <text class="t" x="453" y="122" text-anchor="middle">CLAUDE.md</text>
+  <text class="s" x="453" y="146" text-anchor="middle">rules + active roster</text>
+  <circle cx="348" cy="80" r="13" fill="#414c60"/>
+  <text class="n" x="348" y="85" text-anchor="middle">2</text>
+
+  <rect x="620" y="80" width="254" height="92" rx="12" fill="#313b4f" stroke="#4c5872"/>
+  <text class="t" x="747" y="122" text-anchor="middle">Orchestrator</text>
+  <text class="s" x="747" y="146" text-anchor="middle">routes, never does the work</text>
+  <circle cx="642" cy="80" r="13" fill="#4c5872"/>
+  <text class="n" x="642" y="85" text-anchor="middle">3</text>
+
+  <rect x="914" y="80" width="254" height="92" rx="12" fill="#313b4f" stroke="#4c5872"/>
+  <text class="t" x="1041" y="122" text-anchor="middle">Specialist persona</text>
+  <text class="s" x="1041" y="146" text-anchor="middle">.claude/agents/ — 28 roles</text>
+  <circle cx="936" cy="80" r="13" fill="#4c5872"/>
+  <text class="n" x="936" y="85" text-anchor="middle">4</text>
+
+  <path class="arw" d="M286 126 L320 126" marker-end="url(#ar)"/>
+  <path class="arw" d="M580 126 L614 126" marker-end="url(#ar)"/>
+  <path class="arw" d="M874 126 L908 126" marker-end="url(#ar)"/>
+
+  <!-- Fast-Path branch -->
+  <path d="M747 172 L747 194" stroke="#f2a541" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#ac)"/>
+  <rect x="537" y="198" width="420" height="56" rx="28" fill="#2c2a22" stroke="#f2a541" stroke-width="1.5"/>
+  <text class="at" x="747" y="222" text-anchor="middle">Fast-Path Lane</text>
+  <text class="as" x="747" y="242" text-anchor="middle">light, reversible work — skips 5–6, lands in 02 Working/</text>
+
+  <!-- Wrap connector: row 1 to row 2 -->
+  <path class="arw" d="M1041 172 L1041 276 L208 276 L208 296" marker-end="url(#ar)"/>
+
+  <!-- Row 2 -->
+  <rect x="32" y="300" width="352" height="100" rx="12" fill="#2f3a45" stroke="#46545f"/>
+  <text class="t" x="208" y="342" text-anchor="middle">Checkpoints A + B</text>
+  <text class="s" x="208" y="366" text-anchor="middle">Senior Adviser reviews</text>
+  <circle cx="54" cy="300" r="13" fill="#46545f"/>
+  <text class="n" x="54" y="305" text-anchor="middle">5</text>
+
+  <rect x="424" y="300" width="352" height="100" rx="12" fill="#2f3a45" stroke="#46545f"/>
+  <text class="t" x="600" y="336" text-anchor="middle">QA Gate</text>
+  <text class="s" x="600" y="360" text-anchor="middle">QA Compliance Reviewer</text>
+  <text class="s" x="600" y="380" text-anchor="middle">PASS / FLAGGED / BLOCKED</text>
+  <circle cx="446" cy="300" r="13" fill="#46545f"/>
+  <text class="n" x="446" y="305" text-anchor="middle">6</text>
+
+  <rect x="816" y="300" width="352" height="100" rx="12" fill="#34423a" stroke="#4d6152"/>
+  <text class="t" x="992" y="342" text-anchor="middle">Deliverable</text>
+  <text class="s" x="992" y="366" text-anchor="middle">Projects/&lt;name&gt;/03 Deliverables/</text>
+  <circle cx="838" cy="300" r="13" fill="#4d6152"/>
+  <text class="n" x="838" y="305" text-anchor="middle">7</text>
+
+  <path class="arw" d="M384 350 L418 350" marker-end="url(#ar)"/>
+  <path class="arw" d="M776 350 L810 350" marker-end="url(#ar)"/>
+
+  <line x1="32" y1="444" x2="1168" y2="444" stroke="#333b49" stroke-width="1"/>
+
+  <!-- Bottom strip -->
+  <rect x="32" y="480" width="352" height="100" rx="12" fill="#262c39" stroke="#39404f"/>
+  <text class="tt" x="208" y="514" text-anchor="middle">Memory</text>
+  <text class="s" x="208" y="538" text-anchor="middle">Vault/Memory/context.md</text>
+  <text class="s" x="208" y="558" text-anchor="middle">Projects/&lt;name&gt;/CONTEXT.md + HISTORY.md</text>
+
+  <rect x="424" y="480" width="352" height="100" rx="12" fill="#262c39" stroke="#39404f"/>
+  <text class="tt" x="600" y="514" text-anchor="middle">Validator</text>
+  <text class="s" x="600" y="538" text-anchor="middle">Vault/Scripts/validate.sh</text>
+  <text class="s" x="600" y="558" text-anchor="middle">17 read-only checks</text>
+
+  <rect x="816" y="480" width="352" height="100" rx="12" fill="#262c39" stroke="#39404f"/>
+  <text class="tt" x="992" y="514" text-anchor="middle">Hiring pipeline</text>
+  <text class="s" x="992" y="542" text-anchor="middle">Senior Researcher → HR Lead → Orchestrator</text>
+
+  <text class="f" x="1168" y="628" text-anchor="end">Claude Team Workspace Template</text>
+</svg>
