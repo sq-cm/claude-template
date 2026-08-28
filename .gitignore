@@ -136,3 +136,5 @@ Vault/Learning/*
 # Paseo — local coding-agent orchestrator state, machine-local
 paseo.json
 
+# Unlighthouse — local site-audit scan output, machine-local
+.unlighthouse/
