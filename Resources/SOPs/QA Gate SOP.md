@@ -41,7 +41,7 @@ files state it as pointers to this section, except the sites listed under
    (see Routing above).
 
 **Different rule — do not consolidate here:** the Fast-Path Lane's inline
-AU-English + humaniser pass (CLAUDE.md § Fast-Path Lane, Fast-Path Lane SOP)
+declared-locale + humaniser pass (CLAUDE.md § Fast-Path Lane, Fast-Path Lane SOP)
 is a separate control. Fast-Path work bypasses the QA Gate, so this canonical
 never fires on it — the inline pass is the only check that prose will ever
 get, and its sites stay full rule text. Skill-level carve-outs (prompt

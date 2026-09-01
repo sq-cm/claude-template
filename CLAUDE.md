@@ -41,7 +41,7 @@ Sanctioned route for light work. Rationale, worked examples, escalation detail: 
 
 **Eligible only when ALL hold:** single-file/single-answer output · reversible, low blast-radius · one persona, no fan-out · no client Deliverable · not a governance-artefact edit (see § Advisor Checkpoints). **Ambiguous → full pipeline.**
 
-**Bypasses:** `grill-me`, plan mode + approval, Checkpoints A/B, QA Gate. **Keeps (non-negotiable):** routing to a persona, never Orchestrator-inline · inline AU-English + humaniser pass on any user-facing prose · destination never `03 Deliverables/` (in-project → `02 Working/`; standalone → active chat's `outputs/` if a chat is active, else inline reply or `Notes/`).
+**Bypasses:** `grill-me`, plan mode + approval, Checkpoints A/B, QA Gate. **Keeps (non-negotiable):** routing to a persona, never Orchestrator-inline · inline declared-locale + humaniser pass on any user-facing prose (AU when nothing declares one) · destination never `03 Deliverables/` (in-project → `02 Working/`; standalone → active chat's `outputs/` if a chat is active, else inline reply or `Notes/`).
 
 **Invoking:** the lane is selected by the Orchestrator's judgement by default; the user may also request it explicitly with `/fast-path <task>`. Either way eligibility is asserted, not assumed — an ineligible `/fast-path` names the failing condition and auto-escalates to the full pipeline (grill-me + plan per Default Mode). The command cannot override eligibility.
 
@@ -128,11 +128,15 @@ Six deliverable types may ship an interactive HTML companion via the `html-deliv
 
 ## Output Locale
 
-All written prose — deliverables, docs, reports, copy, notes — uses **Australian English**, AU vocabulary and DD/MM/YYYY dates. Every persona inherits this. When rewriting existing text, preserve AU spellings — do not normalise toward US English.
+**Two tiers.** Vault-internal prose — SOPs, skills, personas, plans, reports, template fields, project `CONTEXT.md` prose itself — is always **Australian English** with DD/MM/YYYY dates. Deliverable/project prose follows the project's declared locale: a `locale:` field (BCP-47, e.g. `en-US`) in the project's `CONTEXT.md`; absent → `en-AU`; a deliverable's brief may override per-deliverable. English variants only — a non-English code is flagged at intake, never translated. Every persona inherits this.
+
+A locale is the full kit — spelling, vocabulary, date format, punctuation, units. Convention tables for the six presets (en-AU, en-GB, en-US, en-CA, en-NZ, en-IE) and best-effort rules for other variants: [Output Locale SOP](Resources/SOPs/Output%20Locale%20SOP.md).
 
 **Prose only.** Never alter code, identifiers, file paths, API/CSS keywords (`color`, `center`), package names, proper nouns, or quotations.
 
-@{QAComplianceReviewer} verifies locale at the QA Gate; US spelling in prose is a **flag**, not a block (unless in a compliance-sensitive claim).
+When rewriting existing text, preserve the document's existing locale — conversion only when the brief explicitly asks for it.
+
+The Orchestrator names the target locale in every dispatch brief, QA dispatch included; personas never look it up themselves. @{QAComplianceReviewer} verifies against the declared locale at the QA Gate; mismatched spelling in prose is a **flag**, not a block (unless in a compliance-sensitive claim).
 
 ---
 

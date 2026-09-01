@@ -23,6 +23,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Folder-Tier CLAUDE.md SOP.md`](Folder-Tier%20CLAUDE.md%20SOP.md) | Lazy-loaded folder-level CLAUDE.md files — placement test, verified load semantics, canonical folder list, Orchestrator-only governance, QA carve-out |
 | [`Herdr SOP.md`](Herdr%20SOP.md)                               | herdr terminal workspace — concept model, first-run walkthrough, `HERDR_ENV=1` nesting rule, diagnosis recipes; condensed from herdr.dev with canonical links |
 | [`Chats SOP.md`](Chats%20SOP.md)                               | Per-conversation chat workspaces — naming, `CHAT.md` anatomy, `/chat` commands, Fast-Path hookup, retention |
+| [`Output Locale SOP.md`](Output%20Locale%20SOP.md)             | Two-tier locale rule — vault-internal prose always en-AU, deliverables follow the project's declared `locale:`; six preset convention tables, QA severity, HTML `lang` |
 
 ## Ownership
 

@@ -20,7 +20,7 @@ The lane is chosen two ways:
 
 Both routes assert eligibility rather than assume it. `/fast-path` prints an auditable five-line
 verdict (one per condition) before acting. On an eligible task it runs the lane — routing to a
-persona, locale + humaniser pass, working-only destination. On an **ineligible** task it names the
+persona, declared-locale + humaniser pass, working-only destination. On an **ineligible** task it names the
 failing condition and **auto-escalates**: it re-enters the full pipeline by feeding the original
 task into grill-me, then plan mode. It never silently proceeds and never re-asks for the task.
 
@@ -49,7 +49,7 @@ Terminology or typo fix · roster check · a quick reformat · a single factual 
 CLAUDE.md § Fast-Path Lane holds the operative Bypasses and Keeps lists. The reasoning behind each keep:
 
 1. **Routing.** Ungoverned inline work is exactly what the lane exists to prevent — speed does not dissolve the routing rule, and Orchestrator-Only Operations are unchanged.
-2. **Locale + humaniser sanity-check.** Light copy can reach the user without ever becoming a Deliverable, so the inline pass is the only check it will ever get. It is a quick inline check, not the full QA Gate.
+2. **Declared-locale + humaniser sanity-check.** Light copy can reach the user without ever becoming a Deliverable, so the inline pass is the only check it will ever get. The locale checked is the one the project declares — `en-AU` when nothing declares one (see [Output Locale SOP](Output%20Locale%20SOP.md)). It is a quick inline check, not the full QA Gate.
 3. **Destination.** `03 Deliverables/` implies QA-passed — letting fast-path output land there would counterfeit that signal. Standalone files land in the active chat's `outputs/` when a chat is active — with the five-line verdict appended to that chat's `CHAT.md § Log`, which is the lane's audit trail there — and otherwise in `Notes/`, which keeps the staging function for unrouted material. See [Chats SOP](Chats%20SOP.md).
 
 ## Escalation

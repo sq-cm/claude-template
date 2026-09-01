@@ -22,7 +22,7 @@ Synced with upstream @ 272f99b on 2026-07-05.
 > loop. It is exempt from the QA gate, PM tracking, and advisor checkpoints: its output is personal
 > learning, never a client Deliverable.
 
-> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies in full — Australian English, prose only, preserve AU spellings.
+> **Output Locale (vault rule):** teach output is vault-internal — always Australian English, prose only, per root `CLAUDE.md` § Output Locale.
 
 The user has asked you to teach them something. This is a stateful request - they intend to learn the topic over multiple sessions.
 

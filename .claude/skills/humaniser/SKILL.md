@@ -55,7 +55,7 @@ all to be carried over on any future resync:
   no such key, so there is nothing left to drop and it is no longer an adaptation.
 -->
 
-> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies in full — Australian English, prose only, preserve AU spellings.
+> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
 
 # Humanizer: remove AI writing patterns
 

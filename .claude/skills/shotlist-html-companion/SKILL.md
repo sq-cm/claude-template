@@ -11,7 +11,7 @@ description: |
 
 # Shotlist HTML Companion
 
-> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies in full — Australian English, prose only, preserve AU spellings.
+> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
 
 ## Scope and distinction
 
@@ -178,11 +178,11 @@ Every prompt block carries a unique label (`Prompt 1a`, `Prompt 2b`, etc.) and t
 
 ## HTML template
 
-Use this skeleton. Fill `{{PROJECT_TITLE}}`, `{{STYLE_PREFIX_TEXT}}`, `{{SCENES_HTML}}`, `{{RENDER_TIMESTAMP}}`, `{{SOURCE_HASH}}`, and `{{STUDIO_NAME}}`.
+Use this skeleton. Fill `{{PROJECT_TITLE}}`, `{{STYLE_PREFIX_TEXT}}`, `{{SCENES_HTML}}`, `{{RENDER_TIMESTAMP}}`, `{{SOURCE_HASH}}`, and `{{STUDIO_NAME}}`. The `lang` attribute is set to the deliverable's declared BCP-47 locale (`en-AU` when nothing declares one).
 
 ```html
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en-AU" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

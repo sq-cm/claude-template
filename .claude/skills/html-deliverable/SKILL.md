@@ -11,7 +11,7 @@ description: |
 
 # HTML-as-deliverable workflow
 
-> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies in full — Australian English, prose only, preserve AU spellings.
+> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
 
 ## When to use
 
@@ -80,8 +80,10 @@ Every rendered HTML file must implement a light/dark theme toggle. This is a BLO
 The `<html>` element must carry `data-theme="light"` as its default:
 
 ```html
-<html lang="en" data-theme="light">
+<html lang="en-AU" data-theme="light">
 ```
+
+The `lang` attribute is set to the deliverable's declared BCP-47 locale (`en-AU` when nothing declares one).
 
 ### No-JS fallback
 

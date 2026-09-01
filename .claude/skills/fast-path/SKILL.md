@@ -38,8 +38,9 @@ escalate. This is not optional; skipping it turns the command into a review-dodg
 - **Route — never inline.** Dispatch the task to the fitting persona via an `Agent` call. The
   Orchestrator does not carry it out itself; speed does not dissolve the routing rule. (`/teach`
   is the only inline carve-out, and it is not this.)
-- **Locale + humaniser.** Any prose shown to the user gets an inline Australian-English and
-  humaniser pass before it lands. Quick inline check, not the full QA Gate.
+- **Locale + humaniser.** Any prose shown to the user gets an inline declared-locale and
+  humaniser pass before it lands — checked against the project's declared locale, Australian
+  English when nothing declares one. Quick inline check, not the full QA Gate.
 - **Destination.** Never `03 Deliverables/`. In-project light work → that project's `02 Working/`.
   Standalone, with a chat active → that chat's `outputs/`, and append this five-line verdict to its
   `CHAT.md § Log`. Standalone, no active chat → inline in the reply, or `Notes/` if a file is
