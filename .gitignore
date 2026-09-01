@@ -112,6 +112,8 @@ Vault/Memory/audit_*
 Vault/Memory/recommendations_*
 
 # Personal work — local only, backed by Google Drive
+/Chats/*
+!/Chats/README.md
 /Notes/
 /Projects/
 Vault/Archive/

@@ -410,7 +410,7 @@
 
 <!-- ═══════════ DATA (single source of truth, edit here when roster, commands, projects or FAQ change) ═══════════ -->
 <script>
-const LAST_SYNCED = "2026-08-20";
+const LAST_SYNCED = "2026-09-01";
 
 const TEAM = [
   {
@@ -745,6 +745,7 @@ const SLASH_COMMANDS = [
   { name: "find-skills", type: "skill", autoInvoked: true, category: "Everyday", desc: "Searches for and installs agent skills on request, from a marketplace or from what is already in the vault.", when: "When you ask whether a skill exists for something, or want one found and installed. Sam brings it in on that ask; ordinary how-do-I questions go through the normal intake instead." },
 
   // ── Session & memory ──
+  { name: "/chat", type: "skill", category: "Session & memory", desc: "Opens a workspace for one conversation, a dated folder under Chats/ holding a running CHAT.md log. An outputs/ folder appears alongside it only when a file is actually produced, so a chat that is just thinking stays a single file. /chat starts one, /chat &lt;name&gt; resumes it, /chat list shows what exists, /chat load reopens the most recent, and /chat save rewrites the pickup brief before you clear context.", when: "At the start of a line of thinking you expect to come back to. While a chat is open, small standalone files land in its outputs/ rather than Notes/. A chat never becomes a project, it spawns one the usual way if the work grows." },
   { name: "/log-session", type: "command", category: "Session & memory", desc: "Saves a structured log of the current session, request, routing trace, Odin checkpoints, artefacts, outcomes, and open loops.", when: "After any session involving decisions, plans, or durable deliverables." },
   { name: "/handoff-save", type: "command", category: "Session & memory", desc: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ (synced via Google Drive), current state, next concrete action, open files, blockers. Distinct from /log-session, which is retrospective.", when: "Before switching machines, ending a day mid-task, or pausing work you intend to resume in a new session. Run /handoff-load in the new session to continue." },
   { name: "/handoff-load", type: "command", category: "Session & memory", desc: "Resumes a session from a handoff saved by /handoff-save. Resolves newest entry by default, fuzzy-matches a slug fragment if given one, falls back to a directory listing on a fresh machine, and lists matches to ask rather than guessing when more than one fits.", when: "Starting a new session on another machine (or this one) to pick up where a saved handoff left off." },
@@ -1117,7 +1118,7 @@ const FAMILY_MAP = {
       <summary>
         <span class="ref-summary-text">
           <span style="font-weight:700; font-size:1.02rem;">Commands &amp; skills</span>
-          <span>40 entries across 8 categories. Some you type, others Sam brings in automatically.</span>
+          <span>41 entries across 8 categories. Some you type, others Sam brings in automatically.</span>
         </span>
         <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </summary>
