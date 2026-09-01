@@ -39,7 +39,7 @@ Maintainers/ops: see [Resources/Onboarding/SETUP.md](Resources/Onboarding/SETUP.
 
 ![How a request moves through the team: message → Orchestrator → specialist → checkpoints → QA Gate → deliverable](Resources/Assets/how-it-works.svg)
 
-Every request goes to the Orchestrator first, who hands it to the right specialist. Durable work then passes Senior Adviser checkpoints and a QA Gate (PASS, FLAGGED or BLOCKED) before it lands in `03 Deliverables/`, while light, reversible work takes the Fast-Path Lane straight to `02 Working/`.
+Every request goes to the Orchestrator first, who hands it to the right specialist. Durable work then passes Senior Adviser checkpoints and a QA Gate (PASS, FLAGGED or BLOCKED) before it lands in `03 Deliverables/`, while light, reversible work takes the Fast-Path Lane straight to `02 Working/` — or, when a `/chat` workspace is active, into that chat's `outputs/`.
 
 **Key files:**
 - `CLAUDE.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
