@@ -36,6 +36,7 @@ Reference detail for CLAUDE.md § Vault Structure. The operative rules (root res
 | Folder       | Purpose                                                     |
 | ------------ | ----------------------------------------------------------- |
 | `.claude/`   | Persona files (`agents/`), hooks/settings, skills, commands |
+| `Chats/`     | Per-conversation chat workspaces — `[YYMMDD] [Chat Name]/`, created only via `/chat` |
 | `Notes/`     | Daily notes, weekly reviews, clippings, canvas files, staging for unrouted material |
 | `Projects/`  | Client and campaign project folders                         |
 | `Resources/` | SOPs, repo clones, research briefs, build standards, onboarding, shared assets |

@@ -50,7 +50,7 @@ CLAUDE.md § Fast-Path Lane holds the operative Bypasses and Keeps lists. The re
 
 1. **Routing.** Ungoverned inline work is exactly what the lane exists to prevent — speed does not dissolve the routing rule, and Orchestrator-Only Operations are unchanged.
 2. **Locale + humaniser sanity-check.** Light copy can reach the user without ever becoming a Deliverable, so the inline pass is the only check it will ever get. It is a quick inline check, not the full QA Gate.
-3. **Destination.** `03 Deliverables/` implies QA-passed — letting fast-path output land there would counterfeit that signal. Standalone files land in `Notes/`, which carries the staging function for unrouted material.
+3. **Destination.** `03 Deliverables/` implies QA-passed — letting fast-path output land there would counterfeit that signal. Standalone files land in the active chat's `outputs/` when a chat is active — with the five-line verdict appended to that chat's `CHAT.md § Log`, which is the lane's audit trail there — and otherwise in `Notes/`, which keeps the staging function for unrouted material. See [Chats SOP](Chats%20SOP.md).
 
 ## Escalation
 

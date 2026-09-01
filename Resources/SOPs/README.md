@@ -22,6 +22,7 @@ Standard operating procedures governing how the Orchestrator and the team work.
 | [`Context Overhead Audit SOP.md`](Context%20Overhead%20Audit%20SOP.md) | Recurring `/context` audit of per-session fixed overhead — plugins, hooks, MCP servers, memory files, both project and user-global scopes |
 | [`Folder-Tier CLAUDE.md SOP.md`](Folder-Tier%20CLAUDE.md%20SOP.md) | Lazy-loaded folder-level CLAUDE.md files — placement test, verified load semantics, canonical folder list, Orchestrator-only governance, QA carve-out |
 | [`Herdr SOP.md`](Herdr%20SOP.md)                               | herdr terminal workspace — concept model, first-run walkthrough, `HERDR_ENV=1` nesting rule, diagnosis recipes; condensed from herdr.dev with canonical links |
+| [`Chats SOP.md`](Chats%20SOP.md)                               | Per-conversation chat workspaces — naming, `CHAT.md` anatomy, `/chat` commands, Fast-Path hookup, retention |
 
 ## Ownership
 
