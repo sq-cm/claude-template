@@ -28,7 +28,7 @@ Agent(
 )
 ```
 
-> **Model note:** Odin runs on `claude-fable-5` (gatekeeper tier — Anthropic's most capable widely released model, fitting Odin's higher-intelligence-advisor role). Use a capable reasoning model at invocation time — Odin's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes.
+> **Model note:** Odin runs on `claude-fable-5-1` (gatekeeper tier — Anthropic's most capable widely released model, fitting Odin's higher-intelligence-advisor role). Use a capable reasoning model at invocation time — Odin's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes.
 
 The consulting persona narrates the checkpoint in their own voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 

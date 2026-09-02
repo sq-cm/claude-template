@@ -88,7 +88,7 @@ Quinn follows the two-checkpoint pattern defined in CLAUDE.md.
 
 Routine QA reviews (standard deliverables against established checklists) skip checkpoints.
 
-> **Model note:** Quinn runs on `claude-opus-5` (moved from `claude-fable-5` on cost/efficiency, 13/08/2026 — Gatekeeper verdict authority unchanged; Fable 5 is reserved for @{SeniorAdviser}'s checkpoints). Use a capable reasoning model at invocation time — Quinn's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. A flagged Opus 5 request auto-falls-back to `claude-opus-4-8` in Claude Code — a platform-level fallback, outside roster control: a refusal or fallback is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker, never a silent drop.
+> **Model note:** Quinn runs on `claude-opus-5` (moved from `claude-fable-5` on cost/efficiency, 13/08/2026 — Gatekeeper verdict authority unchanged; Fable 5.1 is reserved for @{SeniorAdviser}'s checkpoints). Use a capable reasoning model at invocation time — Quinn's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. A flagged Opus 5 request auto-falls-back to `claude-opus-4-8` in Claude Code — a platform-level fallback, outside roster control: a refusal or fallback is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker, never a silent drop.
 
 ## Basis
 

@@ -595,7 +595,7 @@ echo ""
 # See the tier table in the Persona Template SOP.
 # claude-opus-4-8 is retired from the roster (Fable 5 migration, 25/07/2026):
 # it is NOT in ALLOWED_MODELS, so any opus-4-8 pin fails as "undocumented".
-# The invocation-time fallback for gatekeeper Fable 5 refusals is claude-opus-5
+# The invocation-time fallback for gatekeeper Fable refusals is claude-opus-5
 # (released 24/07/2026) — in that fallback role it is an override at dispatch
 # on the gatekeeper, never a change to the gatekeeper's frontmatter pin. The
 # 27 claude-opus-5 pins below are separate and legitimate: the Judgement six,
@@ -611,7 +611,7 @@ echo ""
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-sonnet-5 claude-opus-5 claude-fable-5"  # Opus 5 judgement tier added (25/07/2026)
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-5 claude-fable-5-1"  # Opus 5 judgement tier added (25/07/2026); Odin moved claude-fable-5 → claude-fable-5-1 (02/09/2026)
 FABLE_PIN_COUNT=1  # Odin (sole Fable gatekeeper; Quinn moved to claude-opus-5, 13/08/2026)
 OPUS5_PIN_COUNT=27  # Everyone except Odin: Judgement six + Quinn + the 20 former-Production personas (roster re-tier, 13/08/2026)
 ALLOWED_EFFORTS="low medium high xhigh max"  # harness enum per Persona Template SOP § Model assignment
@@ -650,7 +650,7 @@ for fpath in "$AGENTS_DIR"/*.md; do
             ;;
     esac
 
-    [ "$model_pin" = "claude-fable-5" ] && ((fable_pin_live++))
+    [ "$model_pin" = "claude-fable-5-1" ] && ((fable_pin_live++))
     [ "$model_pin" = "claude-opus-5" ] && ((opus5_pin_live++))
 
     effort_val=$(echo "$frontmatter" | sed -n 's/^effort:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
@@ -674,7 +674,7 @@ for fpath in "$AGENTS_DIR"/*.md; do
 done
 
 if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
-    warn "claude-fable-5 pin count is $fable_pin_live, tripwire expects $FABLE_PIN_COUNT — update FABLE_PIN_COUNT in this script on any Fable promotion/revert (that is its job)"
+    warn "claude-fable-5-1 pin count is $fable_pin_live, tripwire expects $FABLE_PIN_COUNT — update FABLE_PIN_COUNT in this script on any Fable promotion/revert (that is its job)"
 fi
 
 if [ "$opus5_pin_live" -ne "$OPUS5_PIN_COUNT" ]; then
