@@ -16,8 +16,31 @@
 #   3 local/main (or main) missing 8 rebase conflict (left mid-rebase)
 #   4 rebase/merge already in progress
 #   9 already up to date
+#  10 not on local/main (unattended mode only)
+#
+# Modes:
+#   (no args)      interactive /update — a conflict is left mid-rebase for
+#                  the user to resolve.
+#   --unattended   the daily SessionStart hook path. Same mechanics, two
+#                  differences: it refuses to run unless HEAD is already on
+#                  local/main (exit 10), and it cancels its own conflicted
+#                  rebase instead of leaving the repo mid-rebase (exit 8).
+#
+# The auto-cancel is the single sanctioned exception to the rule that this
+# vault never runs `git rebase --abort` on a user's behalf. It exists because
+# a hook cannot ask a question: leaving a session that has just started
+# sitting in a conflicted rebase the user did not ask for is worse than
+# rolling back and telling them to run /update when they are ready.
+# Cancelling also has to reset `main` to its pre-run SHA (`git branch -f main
+# "$OLD_MAIN"` — safe here because HEAD is on local/main, so main is not
+# checked out). Without that reset, main stays fast-forwarded, the hook's
+# `main..origin/main` count reads 0 on every later session, and the conflict
+# the user still needs to resolve goes silent forever.
 
 set -u
+
+UNATTENDED=false
+[ "${1:-}" = "--unattended" ] && UNATTENDED=true
 
 STATE_FILE="Vault/Memory/.update-check-state"
 
@@ -59,6 +82,20 @@ if ! git rev-parse --verify local/main >/dev/null 2>&1 || ! git rev-parse --veri
 fi
 
 # ---------------------------------------------------------------------------
+# Step 3b — unattended mode only: HEAD must already be on local/main
+#
+# The interactive path can check out local/main itself in Step 8 because a
+# person is watching. Unattended, moving someone off the branch they were
+# working on is not a decision a hook gets to make.
+# ---------------------------------------------------------------------------
+if [ "$UNATTENDED" = "true" ]; then
+  HEAD_BRANCH="$(git symbolic-ref --short -q HEAD 2>/dev/null || echo "")"
+  if [ "$HEAD_BRANCH" != "local/main" ]; then
+    fail 10 "Automatic update skipped — this vault is on '${HEAD_BRANCH:-a detached HEAD}', not local/main. Switch back and run /update when convenient."
+  fi
+fi
+
+# ---------------------------------------------------------------------------
 # Step 4 — DFS collision guard (non-fatal — summary passes through)
 # ---------------------------------------------------------------------------
 if [ -f "Vault/Scripts/git-dfs-guard.sh" ]; then
@@ -82,7 +119,9 @@ fi
 # ---------------------------------------------------------------------------
 # Step 6 — fetch latest from origin
 # ---------------------------------------------------------------------------
-if ! git fetch origin >/dev/null 2>&1; then
+# Bounded-hang fetch — same speed floor the SessionStart hook uses, so an
+# unreachable origin fails in seconds instead of stalling a session start.
+if ! git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15 fetch origin >/dev/null 2>&1; then
   fail 6 "Failed to fetch from origin. Check your network connection and remote configuration." \
     "If this persists and looks like local repo corruption, try: git fetch --refetch origin"
 fi
@@ -160,6 +199,15 @@ if git rebase main >/dev/null 2>&1; then
   fi
 
   exit 0
+elif [ "$UNATTENDED" = "true" ]; then
+  # Capture the conflict list before aborting — the unmerged index is gone
+  # once the rebase is cancelled.
+  CONFLICTS="$(git diff --name-only --diff-filter=U 2>/dev/null)"
+  git rebase --abort >/dev/null 2>&1
+  git branch -f main "$OLD_MAIN" >/dev/null 2>&1
+  echo "CONFLICTS (auto-cancelled — run /update to resolve interactively):"
+  printf '%s\n' "$CONFLICTS"
+  exit 8
 else
   echo "CONFLICTS:"
   git diff --name-only --diff-filter=U 2>/dev/null

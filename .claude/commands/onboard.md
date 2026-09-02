@@ -267,28 +267,28 @@ If any plugin command fails, print a warning for that plugin and continue with t
 
 ## Step 10 — Install plannotator binary
 
-Auto-run by the SessionStart onboarding hook — no consent prompt. Download the platform-matching asset from the **latest** release via `gh release download` (no tag — always pulls current) and verify its SHA-256 against the published `.sha256` sibling before running it — do not pipe an installer script from a URL.
+Auto-run by the SessionStart onboarding hook — no consent prompt. One deterministic script resolves the platform, downloads the matching asset from the **latest** release, and verifies its SHA-256 against the published `.sha256` sibling before anything is installed — it never pipes an installer script from a URL. The same script and the same checksum-verified path run on the daily SessionStart update and on `/update` Step 3.
 
-Idempotent: re-running this step (manually, or via `/update`'s tool-freshness nudge) always re-downloads and overwrites the existing install — it is not gated by the `tier2_plannotator_binary` flag already being set.
+Idempotent: re-running this step always re-checks the installed version against the latest release and re-installs if they differ — it is not gated by the `tier2_plannotator_binary` flag already being set.
 
-**Windows:**
-```powershell
-gh release download --repo backnotprop/plannotator --pattern "plannotator-win32-x64.exe*"
-$expected = (Get-Content plannotator-win32-x64.exe.sha256).Split(" ")[0]
-$actual = (Get-FileHash plannotator-win32-x64.exe -Algorithm SHA256).Hash
-if ($expected -ieq $actual) { New-Item -ItemType Directory -Force -Path "$env:LOCALAPPDATA\plannotator" | Out-Null; Move-Item plannotator-win32-x64.exe "$env:LOCALAPPDATA\plannotator\plannotator.exe" -Force } else { Write-Host "⚠️ checksum mismatch — aborting install" }
-```
+Run in one Bash call:
 
-**macOS (arm64) / Linux (x64) — substitute the asset name for your platform:**
 ```bash
-ASSET="plannotator-darwin-arm64"   # or plannotator-linux-x64, etc.
-gh release download --repo backnotprop/plannotator --pattern "${ASSET}*"
-echo "$(cat ${ASSET}.sha256 | cut -d' ' -f1)  ${ASSET}" | sha256sum -c - && chmod +x "$ASSET" && sudo -n mv "$ASSET" /usr/local/bin/plannotator
+bash Vault/Scripts/tool-check.sh --apply
 ```
 
-`sudo -n` never prompts — it either succeeds using a cached credential or fails immediately, rather than blocking an automated step on a password prompt.
+On macOS and Linux the final move uses `sudo -n`, which never prompts — it either succeeds using a cached credential or fails immediately, rather than blocking an automated step on a password prompt.
 
-Report: "plannotator binary installed and checksum-verified ✓" or, on mismatch/failure: "⚠️ plannotator binary skipped — checksum did not match / download failed. Retry manually or report to the maintainer." If `sudo -n` fails for lack of a cached credential, report: "⚠️ plannotator binary downloaded and verified, but installing it needs a password. Re-run Step 10 manually from a terminal where you can authenticate." Then write `tier2_plannotator_binary` as `"skipped"` (never `true`) in `Vault/Memory/onboarding-flags.json` — the step was attempted and deliberately not completed, so recording it resolves the key instead of re-triggering onboarding every session. Never write `"skipped"` on a checksum mismatch or a download failure — those must stay unresolved so the step retries.
+Report the script's own output line to the user, then resolve the flag in `Vault/Memory/onboarding-flags.json` by exit code:
+
+| Exit | Report | `tier2_plannotator_binary` |
+|---|---|---|
+| 0 | "plannotator binary installed and checksum-verified ✓" | `true` |
+| 6 | "⚠️ plannotator downloaded and verified, but installing it needs a password. Finish it with the command in the script's output." | `"skipped"` |
+| 9 | "⚠️ plannotator is already installed outside this vault's install path — update it the way you installed it. [script's output line]" | `"skipped"` |
+| any other non-zero | "⚠️ plannotator binary skipped — [script's output line]. It will be retried next session." | leave unresolved |
+
+Exits 6 and 9 are the only non-zero codes that resolve the key. In both the step was attempted and deliberately not completed — 6 because it needs a password, 9 because a working binary already exists and something other than this vault manages it — so recording them stops onboarding re-triggering every session. Every other failure — checksum mismatch, download failure, unsupported platform, a locked binary — must stay unresolved so the step retries.
 
 ---
 
