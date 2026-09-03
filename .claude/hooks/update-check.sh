@@ -86,7 +86,8 @@ stamp_state() {
 # the jq guard immediately below.
 if [ -f "$STATE_FILE" ]; then
   LAST_CHECK="$(sed -n 's/^last_check=//p' "$STATE_FILE" 2>/dev/null | head -1)"
-  [ -z "$LAST_CHECK" ] && LAST_CHECK=0
+  LAST_CHECK="${LAST_CHECK%$'\r'}"
+  case "$LAST_CHECK" in ''|*[!0-9]*) LAST_CHECK=0 ;; esac
   NOW_EPOCH="$(date +%s 2>/dev/null || echo 0)"
   ELAPSED=$((NOW_EPOCH - LAST_CHECK))
   if [ "$LAST_CHECK" -gt 0 ] && [ "$ELAPSED" -lt 86400 ]; then
@@ -104,15 +105,28 @@ fi
 # jq-guarded failure path in this file does (via log_error) and skips the
 # fetch/template/tool work below entirely rather than computing it and
 # discarding it silently. Stamp the state file before exiting: the throttle
-# above only suppresses a repeat run once last_check has been written, and
-# the sole other stamp_state call sits at the very end of this file, past
-# this exit. Without the stamp here, a jq-less machine never throttles and
-# log_error appends on every single session, without bound.
+# above only suppresses a repeat run once last_check has been written. Two
+# other stamp_state calls exist further down — one immediately after this
+# guard (claiming the throttle up front, before the template section's
+# fetch/rebase work runs) and one after the template section completes
+# (refreshing the stamp with the fetched origin SHA). Without the stamp
+# here, a jq-less machine never throttles and log_error appends on every
+# single session, without bound.
 if ! command -v jq >/dev/null 2>&1; then
   log_error "jq not found on PATH — update-check notification skipped"
   stamp_state ""
   emit_silent
 fi
+
+# Claim the throttle up front, before the expensive/dangerous template work
+# (fetch, fast-forward, rebase) runs below. This is the fix for the
+# two-session race: without this, two sessions opened inside one 24h window
+# can both pass the throttle above and both invoke update.sh concurrently.
+# Stamping here means a second session started while this one is still
+# working is throttled immediately. The stamp is refreshed with the fetched
+# origin SHA once the template section completes (see stamp_state call at
+# the end of this file).
+stamp_state ""
 
 # ---------------------------------------------------------------------------
 # Template section — skipped (not exited) on: maintainer clone, not a git
@@ -130,7 +144,7 @@ elif ! git rev-parse --git-dir >/dev/null 2>&1; then
 elif ! git rev-parse --verify local/main >/dev/null 2>&1 || ! git rev-parse --verify main >/dev/null 2>&1; then
   :
 elif GITDIR="$(git rev-parse --git-dir 2>/dev/null)" && [ -n "$GITDIR" ] && { [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ] || [ -f "$GITDIR/MERGE_HEAD" ]; }; then
-  :
+  log_error "template section skipped — repo is mid-rebase/merge (run /update or git rebase --abort / --continue to clear)"
 elif ! git remote get-url origin >/dev/null 2>&1; then
   :
 else
@@ -155,24 +169,60 @@ else
     [ -z "$BEHIND" ] && BEHIND=0
 
     if [ "$BEHIND" -gt 0 ] && [ -f "Vault/Scripts/update.sh" ]; then
-      # Apply the update rather than describe it. --unattended refuses to run
-      # off local/main (exit 10) and cancels its own conflicted rebase (exit
-      # 8) instead of leaving a just-started session mid-rebase — see that
-      # script's header. Its stdout is the report; the exit code decides how
-      # to introduce it.
-      UPDATE_OUT="$(bash Vault/Scripts/update.sh --unattended 2>/dev/null)"
-      UPDATE_RC=$?
+      # Single-writer lock around the template update, copied from the
+      # noclobber pattern at tool-check.sh:165-180. Lives under the git dir
+      # ($GITDIR was already resolved by the mid-rebase elif above, which
+      # must have evaluated false to reach this branch) — NEVER in the
+      # worktree, because an untracked worktree file would make update.sh's
+      # dirty-tree check (update.sh:109) non-empty on every unattended run,
+      # permanently. Stale after 3600s (a session killed mid-download leaves
+      # one behind) — same constant and takeover logic as tool-check.sh, with
+      # the Step 1 numeric guard on the epoch read. No trap EXIT here: this
+      # hook has work after this block (the tool section, more stamp_state
+      # calls) and its own exit paths, so the lock is released explicitly
+      # instead.
+      LOCK="$GITDIR/.update-template.lock"
+      LOCK_HELD=false
+      if ( set -o noclobber; printf 'pid=%s\nepoch=%s\n' "$$" "$(date +%s 2>/dev/null || echo 0)" > "$LOCK" ) 2>/dev/null; then
+        LOCK_HELD=true
+      else
+        LOCK_EPOCH="$(sed -n 's/^epoch=//p' "$LOCK" 2>/dev/null | head -1)"
+        LOCK_EPOCH="${LOCK_EPOCH%$'\r'}"
+        case "$LOCK_EPOCH" in ''|*[!0-9]*) LOCK_EPOCH=0 ;; esac
+        LOCK_NOW="$(date +%s 2>/dev/null || echo 0)"
+        if [ "$((LOCK_NOW - LOCK_EPOCH))" -lt 3600 ]; then
+          log_error "template update skipped — another session holds the lock"
+        else
+          rm -f "$LOCK" 2>/dev/null
+          if ( set -o noclobber; printf 'pid=%s\nepoch=%s\n' "$$" "$(date +%s 2>/dev/null || echo 0)" > "$LOCK" ) 2>/dev/null; then
+            LOCK_HELD=true
+          else
+            log_error "template update skipped — could not take over the stale lock"
+          fi
+        fi
+      fi
 
-      case "$UPDATE_RC" in
-        0)          UPDATE_LEAD="Template updated automatically." ;;
-        5|7|8|10)   UPDATE_LEAD="Template update available but not applied automatically — see below." ;;
-        *)          UPDATE_LEAD="Template update attempted — see below." ;;
-      esac
+      if [ "$LOCK_HELD" = true ]; then
+        # Apply the update rather than describe it. --unattended refuses to run
+        # off local/main (exit 10) and cancels its own conflicted rebase (exit
+        # 8) instead of leaving a just-started session mid-rebase — see that
+        # script's header. Its stdout is the report; the exit code decides how
+        # to introduce it.
+        UPDATE_OUT="$(bash Vault/Scripts/update.sh --unattended 2>/dev/null)"
+        UPDATE_RC=$?
 
-      TEMPLATE_CTX="$UPDATE_LEAD
+        case "$UPDATE_RC" in
+          0)          UPDATE_LEAD="Template updated automatically." ;;
+          5|7|8|10)   UPDATE_LEAD="Template update available but not applied automatically — see below." ;;
+          *)          UPDATE_LEAD="Template update attempted — see below." ;;
+        esac
+
+        TEMPLATE_CTX="$UPDATE_LEAD
 
 $(fence_data "TEMPLATE UPDATE — update.sh result (exit $UPDATE_RC)" "$UPDATE_OUT")
 "
+        rm -f "$LOCK" 2>/dev/null
+      fi
     fi
   fi
 fi

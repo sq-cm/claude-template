@@ -173,8 +173,18 @@ fi
 # ---------------------------------------------------------------------------
 # Step 8 — rebase local/main onto fresh main
 # ---------------------------------------------------------------------------
-if ! git checkout local/main >/dev/null 2>&1; then
-  fail 1 "Unexpected failure: could not check out local/main."
+# Unattended only: skip the checkout. The exit-10 guard at Step 3b already
+# proved HEAD is on local/main, and nothing between there and here moves
+# HEAD — so the checkout is redundant, and worse, it acquires index.lock
+# even when HEAD is already on the target branch. With index.lock held by a
+# concurrent process, that redundant acquisition is what previously made
+# this run die here (fail 1) with main already fast-forwarded above and no
+# rollback. Interactive mode keeps the checkout unchanged: a person may be
+# on any branch, and this is what moves HEAD onto local/main for them.
+if [ "$UNATTENDED" != "true" ]; then
+  if ! git checkout local/main >/dev/null 2>&1; then
+    fail 1 "Unexpected failure: could not check out local/main."
+  fi
 fi
 
 if git rebase main >/dev/null 2>&1; then
@@ -200,13 +210,31 @@ if git rebase main >/dev/null 2>&1; then
 
   exit 0
 elif [ "$UNATTENDED" = "true" ]; then
-  # Capture the conflict list before aborting — the unmerged index is gone
-  # once the rebase is cancelled.
-  CONFLICTS="$(git diff --name-only --diff-filter=U 2>/dev/null)"
-  git rebase --abort >/dev/null 2>&1
-  git branch -f main "$OLD_MAIN" >/dev/null 2>&1
-  echo "CONFLICTS (auto-cancelled — run /update to resolve interactively):"
-  printf '%s\n' "$CONFLICTS"
+  if [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ]; then
+    # Our own rebase attempt is what is in progress (Step 2 proved the repo
+    # was not mid-rebase when we started) — cancel it and roll main back.
+    # Capture the conflict list before aborting — the unmerged index is gone
+    # once the rebase is cancelled.
+    CONFLICTS="$(git diff --name-only --diff-filter=U 2>/dev/null)"
+    if ! git rebase --abort >/dev/null 2>&1; then
+      echo "RECOVERY FAILED: git rebase --abort did not complete — repo may be mid-rebase. Run /update to inspect."
+    fi
+    if ! git branch -f main "$OLD_MAIN" >/dev/null 2>&1; then
+      echo "RECOVERY FAILED: could not reset main to $OLD_MAIN — run: git branch -f main $OLD_MAIN"
+    fi
+    echo "CONFLICTS (auto-cancelled — run /update to resolve interactively):"
+    printf '%s\n' "$CONFLICTS"
+  else
+    # rebase failed without ever starting (e.g. another process holds
+    # index.lock) — nothing of ours to abort, but the fast-forward at :166
+    # already moved main (unattended always takes that branch: Step 3b
+    # proved HEAD is on local/main, so CURRENT_BRANCH above is never "main")
+    # — roll main back.
+    if ! git branch -f main "$OLD_MAIN" >/dev/null 2>&1; then
+      echo "RECOVERY FAILED: could not reset main to $OLD_MAIN — run: git branch -f main $OLD_MAIN"
+    fi
+    echo "Rebase could not start (another git process may be running). No rebase aborted; main rolled back. Run /update when the other operation finishes."
+  fi
   exit 8
 else
   echo "CONFLICTS:"

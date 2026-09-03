@@ -343,6 +343,59 @@ POST_HEAD_BRANCH_8U="$(git -C "$F8U" symbolic-ref --short -q HEAD)"
 assert_eq "exit 8 unattended: HEAD still on local/main" "local/main" "$POST_HEAD_BRANCH_8U"
 
 # ---------------------------------------------------------------------------
+# Plan 115: lock-contention recovery — another git process holds index.lock
+# when update.sh --unattended runs, so the rebase never starts. Exit code and
+# output were determined empirically (Odin Checkpoint A: not hardcoded from
+# the plan text) by probing the post-fix behaviour directly — with the Step
+# 8 checkout now skipped unattended, `git rebase main` itself is what fails
+# to acquire index.lock, before any rebase-merge/rebase-apply directory is
+# created, so recovery takes the "rebase could not start" branch: exit 8,
+# main rolled back to its pre-run SHA, not left mid-rebase. The invariants
+# below are what must hold regardless of which recovery branch fires; the
+# exact message and exit code are asserted from that observed behaviour.
+#
+# recovery-failure messaging (the "RECOVERY FAILED: ..." lines) is
+# inspection-only here — forcing `git branch -f` or `git rebase --abort` to
+# fail portably from a shell fixture isn't worth the contortion, so no test
+# case exercises that branch; the lines were verified by reading the code.
+# ---------------------------------------------------------------------------
+
+make_fixture
+FLC="$FIXTURE_DIR"
+ORIGINLC="$(git -C "$FLC" remote get-url origin)"
+PUSHCLONELC="$TMP_ROOT/pushclone-lc"
+git clone -q "$ORIGINLC" "$PUSHCLONELC"
+configure_repo "$PUSHCLONELC"
+printf 'template advance content (lock contention)\n' >> "$PUSHCLONELC/other.txt"
+git -C "$PUSHCLONELC" commit -qam "template advances cleanly (lock contention fixture)"
+git -C "$PUSHCLONELC" push -q origin main
+
+PRE_MAIN_SHA_LC="$(git -C "$FLC" rev-parse main)"
+PRE_LOCALMAIN_SHA_LC="$(git -C "$FLC" rev-parse local/main)"
+
+GDLC="$(fixture_gitdir "$FLC")"
+printf 'lock held by another process\n' > "$GDLC/index.lock"
+
+run_update "$FLC" "--unattended"
+assert_exit "lock contention: rebase could not start" 8 "$LAST_CODE"
+assert_contains "lock contention: stdout says rebase could not start" "$LAST_OUT" "Rebase could not start"
+
+if [ -d "$GDLC/rebase-merge" ] || [ -d "$GDLC/rebase-apply" ] || [ -f "$GDLC/MERGE_HEAD" ]; then
+  MIDREBASE_LC=true
+else
+  MIDREBASE_LC=false
+fi
+assert_eq "lock contention: repo NOT left mid-rebase" "false" "$MIDREBASE_LC"
+
+POST_MAIN_SHA_LC="$(git -C "$FLC" rev-parse main)"
+assert_eq "lock contention: main rolled back to its pre-run SHA" "$PRE_MAIN_SHA_LC" "$POST_MAIN_SHA_LC"
+
+POST_LOCALMAIN_SHA_LC="$(git -C "$FLC" rev-parse local/main)"
+assert_eq "lock contention: local/main untouched" "$PRE_LOCALMAIN_SHA_LC" "$POST_LOCALMAIN_SHA_LC"
+
+rm -f "$GDLC/index.lock"
+
+# ---------------------------------------------------------------------------
 # Step 6: summary
 # ---------------------------------------------------------------------------
 
