@@ -1,6 +1,7 @@
 ---
 name: review-claudemd
 description: Mine recent conversation transcripts for evidence-based CLAUDE.md improvements across five lenses (violated, missing-local, missing-global, outdated, friction). Report-only — writes a findings report to Vault/Plans/ for maintainer review; never edits any CLAUDE.md. Use when the user invokes /review-claudemd or asks to review CLAUDE.md against actual usage. Explicit invocation tool — do not fire automatically on ordinary requests.
+disable-model-invocation: true
 metadata:
   author: ykdojo
   adapted_from: https://github.com/ykdojo/claude-code-tips

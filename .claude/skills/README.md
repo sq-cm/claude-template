@@ -17,9 +17,10 @@ skills deliberately included (any `plugin: true` entry must map to a live
 deliberately rather than syncing counts. Validator Check 17 now backstops
 the parity dimension mechanically — a catalog-visible change that skips the
 disk-side co-edit warns, and deliberate omissions live in `LEARN_OMITTED` in
-`Vault/Scripts/validate.sh`, each with a reason. The other two co-edits, the
-summary line and `LAST_SYNCED`, stay prose-only and uncovered by
-`validate.sh`; this section remains their tripwire, same pattern as the
+`Vault/Scripts/validate.sh`, each with a reason. Check 17 also warns on the
+other two co-edits — the summary line and `LAST_SYNCED` — against the live
+entry count and the file's last commit date respectively; this section
+remains the *why* behind keeping all three in sync, same pattern as the
 `TEAM` array adjunct in `Resources/SOPs/Roster Drift SOP.md`.
 
 ---
@@ -77,7 +78,7 @@ Two plugins are worth a standing note beyond "check `/plugin`":
 
 ## Notes
 
-- **Frontmatter standard.** Every vault-local `SKILL.md` carries a YAML frontmatter block with, at minimum, the two **required** keys `name` (must equal the skill's folder name) and `description`. The following keys are **allowed when functional** — keep them only where they change runtime behaviour: `disable-model-invocation`, `argument-hint`, `allowed-tools`. A `license` key (optionally with a `metadata` block) is **kept only as upstream attribution** for a vendored skill — never as cosmetic residue. Cosmetic keys (`version`, `compatibility`, and a bare `license` with no attribution to preserve) are not house-standard and should not be added.
+- **Frontmatter standard.** Every vault-local `SKILL.md` carries a YAML frontmatter block with, at minimum, the two **required** keys `name` (must equal the skill's folder name) and `description`. The following keys are **allowed when functional** — keep them only where they change runtime behaviour: `disable-model-invocation`, `argument-hint`, `allowed-tools`. A `license` key (optionally with a `metadata` block) is **kept only as upstream attribution** for a vendored skill — never as cosmetic residue. Cosmetic keys (`version`, `compatibility`, and a bare `license` with no attribution to preserve) are not house-standard and should not be added. A description that declares itself an explicit-invocation tool must carry disable-model-invocation: true — Check 11 asserts the pairing.
 - Before committing template changes, run `Vault/Scripts/validate.sh` — the read-only consistency checker for persona roster, token references, tool lists, doc counts, and seed files.
 - Vault-local skills are available immediately in any session — no plugin required
 - Plugin-provided skills require their plugin — auto-installed via `.claude/settings.json`; manual fallback in `.claude/commands/onboard.md` Step 9
