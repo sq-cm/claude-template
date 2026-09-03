@@ -40,8 +40,8 @@
 #   Check 13 — settings.json marketplace and SETUP.md accepted-risk table disagree
 #   Check 15 — context.md injected size over the 3,072-byte budget
 #   Check 17 — Learn-page catalog entry unmatched on disk, or vice versa (minus LEARN_OMITTED)
-#   Check 17 — Learn page LAST_SYNCED stamp does not match the file's last commit date
-#   Check 17 — Learn page summary count does not match the live SLASH_COMMANDS entry count
+#   Check 17 — Learn page LAST_SYNCED stamp does not match the file's last commit date, or its anchor is missing
+#   Check 17 — Learn page summary count does not match the live SLASH_COMMANDS entry count, or its anchor is missing
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1187,7 +1187,10 @@ else
     else
         learn_last_synced=$(sed -n 's/^const LAST_SYNCED = "\([0-9-]*\)".*/\1/p' "$LEARN_FILE" | head -1)
         learn_last_commit=$(git log -1 --format=%ad --date=short -- "$LEARN_FILE")
-        if [ -n "$learn_last_synced" ] && [ -n "$learn_last_commit" ] && [ "$learn_last_synced" != "$learn_last_commit" ]; then
+        if [ -z "$learn_last_synced" ]; then
+            warn "Learn page LAST_SYNCED stamp not found — the 'const LAST_SYNCED = \"YYYY-MM-DD\"' anchor moved or was removed"
+            check17_pass=false
+        elif [ -n "$learn_last_commit" ] && [ "$learn_last_synced" != "$learn_last_commit" ]; then
             warn "Learn page LAST_SYNCED ($learn_last_synced) ≠ last commit touching it ($learn_last_commit) — re-sync the stamp"
             check17_pass=false
         fi
@@ -1198,7 +1201,10 @@ else
     # plugin: true rows — the page's own number does).
     learn_summary_count=$(sed -n 's/.*<span>\([0-9]*\) entries across.*/\1/p' "$LEARN_FILE" | head -1)
     learn_live_count=$(sed -n '/^const SLASH_COMMANDS = \[/,/^\];/p' "$LEARN_FILE" | grep -c '{ name: "')
-    if [ -n "$learn_summary_count" ] && [ "$learn_summary_count" != "$learn_live_count" ]; then
+    if [ -z "$learn_summary_count" ]; then
+        warn "Learn page summary line not found — the '<span>NN entries across' anchor moved or was removed"
+        check17_pass=false
+    elif [ "$learn_summary_count" != "$learn_live_count" ]; then
         warn "Learn page summary count ($learn_summary_count) ≠ live SLASH_COMMANDS entry count ($learn_live_count)"
         check17_pass=false
     fi
