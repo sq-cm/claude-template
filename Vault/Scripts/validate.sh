@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 17 read-only checks to verify the vault's structural invariants.
+# Runs 18 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -30,6 +30,7 @@
 #   Check 11 — skill SKILL.md missing, malformed frontmatter, or description over the 1024-char loader cap
 #   Check 14 — REQUIRED_KEYS plugin flag maps to a disabled plugin (F21(f) coupling)
 #   Check 16 — output-style missing name/description frontmatter, or duplicate style name
+#   Check 18 — shell script fails bash -n syntax parse
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/ (minus known-benign allowlist)
@@ -39,6 +40,8 @@
 #   Check 13 — settings.json marketplace and SETUP.md accepted-risk table disagree
 #   Check 15 — context.md injected size over the 3,072-byte budget
 #   Check 17 — Learn-page catalog entry unmatched on disk, or vice versa (minus LEARN_OMITTED)
+#   Check 17 — Learn page LAST_SYNCED stamp does not match the file's last commit date
+#   Check 17 — Learn page summary count does not match the live SLASH_COMMANDS entry count
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -437,11 +440,11 @@ echo ""
 # Check 7 — doc counts match README assertions
 #
 # Live agent count: ls .claude/agents/*.md | wc -l → expect 28
-# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 30
+# Live skill count: find .claude/skills -maxdepth 1 -mindepth 1 -type d | wc -l → expect 31
 #
 # Odin correction 6: target ONLY the numeric assertion in README.md (the line with
 # "N reusable skill modules") — not the prose mention around line 58.
-# Count reconciled at 24 via #144/#145; 25 with prompt-review, 26 with review-claudemd (2026-07-06); 27 with fast-path (2026-07-09); 28 with story-bible-builder (2026-07-14); 29 with character-builder (2026-08-04); 30 with wait-what (2026-08-14).
+# Count reconciled at 24 via #144/#145; 25 with prompt-review, 26 with review-claudemd (2026-07-06); 27 with fast-path (2026-07-09); 28 with story-bible-builder (2026-07-14); 29 with character-builder (2026-08-04); 30 with wait-what (2026-08-14); 31 with chat (2026-09-01).
 #
 # EXPECTED_* below are a deliberate tripwire, not redundancy: adding or removing
 # a skill or persona must consciously touch this file, README.md, and the docs
@@ -514,6 +517,7 @@ seed_files=(
     "$PROJECT_ROOT/Projects/Template/HISTORY.md"
     "$PROJECT_ROOT/Projects/Template/CONTEXT.md"
     "$PROJECT_ROOT/Projects/Template/README.md"
+    "$PROJECT_ROOT/Chats/README.md"  # sole tracked file under Chats/ — its loss removes the directory from clones
 )
 
 for sf in "${seed_files[@]}"; do
@@ -759,6 +763,14 @@ for sdir in "$SKILLS_DIR"/*/; do
         fail "$sname: description $desc_len chars exceeds the $DESCRIPTION_CAP-char loader cap"
         check11_pass=false
     fi
+
+    # Decision 4 (2026-09-03): a description that declares itself an
+    # explicit-invocation tool must carry disable-model-invocation: true.
+    # One-directional on purpose — the key without the phrase is legitimate.
+    if echo "$description" | grep -qF "Explicit invocation tool" && ! echo "$frontmatter" | grep -qE '^disable-model-invocation:[[:space:]]*true'; then
+        fail "$sname: description declares explicit-invocation-only but frontmatter lacks disable-model-invocation: true"
+        check11_pass=false
+    fi
 done
 
 $check11_pass && pass "All $live_skill_count skills have SKILL.md, name/description frontmatter, descriptions within the 1024-char cap"
@@ -797,6 +809,7 @@ echo ""
 #                 that race, not to widen this class.
 #   269         — changelog backfill for #262; pure-backfill class (#82/#100/#205).
 #   290         — changelog backfill for #289; pure-backfill class (#82/#100/#205).
+#   310         — changelog backfill for #307; pure-backfill class (#82/#100/#205).
 #
 # Timing rule (the fix for #257's cause): a CHANGELOG entry must land on its own
 # PR's branch — as a commit added after the PR number exists but before the
@@ -1025,13 +1038,15 @@ else
             check16_pass=false
         fi
 
-        case " $style_names " in
-            *" $style_name "*)
-                fail "$fname: duplicate style name '$style_name'"
-                check16_pass=false
-                ;;
-        esac
-        style_names="$style_names $style_name"
+        if [ -n "$style_name" ]; then
+            case " $style_names " in
+                *" $style_name "*)
+                    fail "$fname: duplicate style name '$style_name'"
+                    check16_pass=false
+                    ;;
+            esac
+            style_names="$style_names $style_name"
+        fi
     done
 
     $check16_pass && pass "All output styles have name/description frontmatter and unique names"
@@ -1165,8 +1180,71 @@ else
         fi
     done <<< "$LEARN_OMITTED"
 
+    # LAST_SYNCED leg: the Learn page's stamp must track the file's own last
+    # commit — same "skip the leg if git is unusable" guard as Check 12.
+    if ! git rev-parse --git-dir >/dev/null 2>&1 || ! git log -1 >/dev/null 2>&1; then
+        warn "Check 17 LAST_SYNCED leg skipped — not a usable git history"
+    else
+        learn_last_synced=$(sed -n 's/^const LAST_SYNCED = "\([0-9-]*\)".*/\1/p' "$LEARN_FILE" | head -1)
+        learn_last_commit=$(git log -1 --format=%ad --date=short -- "$LEARN_FILE")
+        if [ -n "$learn_last_synced" ] && [ -n "$learn_last_commit" ] && [ "$learn_last_synced" != "$learn_last_commit" ]; then
+            warn "Learn page LAST_SYNCED ($learn_last_synced) ≠ last commit touching it ($learn_last_commit) — re-sync the stamp"
+            check17_pass=false
+        fi
+    fi
+
+    # Summary-count leg: the page's own "NN entries across N categories" line
+    # must match the live SLASH_COMMANDS array count (this INCLUDES
+    # plugin: true rows — the page's own number does).
+    learn_summary_count=$(sed -n 's/.*<span>\([0-9]*\) entries across.*/\1/p' "$LEARN_FILE" | head -1)
+    learn_live_count=$(sed -n '/^const SLASH_COMMANDS = \[/,/^\];/p' "$LEARN_FILE" | grep -c '{ name: "')
+    if [ -n "$learn_summary_count" ] && [ "$learn_summary_count" != "$learn_live_count" ]; then
+        warn "Learn page summary count ($learn_summary_count) ≠ live SLASH_COMMANDS entry count ($learn_live_count)"
+        check17_pass=false
+    fi
+
     $check17_pass && pass "Learn page catalog and disk (skills/commands/output-styles) agree, modulo LEARN_OMITTED"
 fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 18 — shell script fails bash -n syntax parse
+#
+# Six hooks run bash at session start; a syntax error in read-guard.sh exits 2
+# = PreToolUse block, killing every Read/Grep/Glob in every session, and the
+# other five fail open silently — yet until now no check parsed any shell
+# script (bash -n was re-run by hand each plan generation). FAIL-tier:
+# .githooks/pre-commit swallows the validator's exit in hook mode (WARN mode,
+# || true), but CLI/CI use exits 1, and a syntax-broken script is a
+# session-killing defect class, not an advisory one.
+#
+# validate.sh never `cd`s, so every glob below is prefixed with
+# "$PROJECT_ROOT/" — a relative glob run from another cwd would silently
+# yield zero files and a false FAIL.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 18: Shell scripts parse with bash -n ---"
+check18_pass=true
+check18_file_count=0
+
+for f in "$PROJECT_ROOT"/.claude/*.sh "$PROJECT_ROOT"/.claude/hooks/*.sh "$PROJECT_ROOT"/Vault/Scripts/*.sh "$PROJECT_ROOT"/Vault/Scripts/lib/*.sh "$PROJECT_ROOT"/Vault/Scripts/tests/*.sh "$PROJECT_ROOT"/.githooks/pre-commit "$PROJECT_ROOT"/.githooks/pre-push "$PROJECT_ROOT"/install.sh; do
+    [ -e "$f" ] || continue
+    check18_file_count=$((check18_file_count + 1))
+    syntax_err=$(bash -n "$f" 2>&1)
+    if [ -n "$syntax_err" ]; then
+        fail "shell syntax error in ${f#$PROJECT_ROOT/}: $(echo "$syntax_err" | head -1)"
+        check18_pass=false
+    fi
+done
+
+# Loud-fail: zero files scanned means the glob set broke (moved directory,
+# typo) or every entry point vanished — same guard shape as Check 9's
+# zero-extracted-paths guard.
+if [ "$check18_file_count" -eq 0 ]; then
+    fail "No shell entry points found to syntax-check — glob set broken or scripts removed"
+    check18_pass=false
+fi
+
+$check18_pass && pass "All $check18_file_count shell entry points parse cleanly with bash -n"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────

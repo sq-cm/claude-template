@@ -1,6 +1,7 @@
 ---
 name: prompt-review
 description: Reviews and improves a draft prompt against the vault's prompt formula cheat sheet (5 slots + a finish line). Use when the user asks to review, sharpen, score, or improve a prompt, or invokes /prompt-review. Explicit invocation tool — do not fire automatically on ordinary requests.
+disable-model-invocation: true
 ---
 
 Read the cheat sheet at `${CLAUDE_PROJECT_DIR}/Resources/Learn/prompt-formula-cheat-sheet.md` before doing anything else. If the file is missing, or if either "The Formula: 5 Slots + a Finish Line" or "10-Second Pre-Send Checklist" can't be found in it, stop and report the problem. Never improvise the formula from memory.

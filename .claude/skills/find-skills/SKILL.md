@@ -1,6 +1,7 @@
 ---
 name: find-skills
 description: Helps users discover and install agent skills on explicit request — "find a skill for X", "install a skill", "is there a skill that can...". Explicit invocation tool — do not fire automatically on ordinary "how do I do X" requests; those follow the normal intake pipeline.
+disable-model-invocation: true
 ---
 
 <!--
