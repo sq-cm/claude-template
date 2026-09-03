@@ -89,7 +89,9 @@ if [ -f "$STATE_FILE" ]; then
   LAST_CHECK="${LAST_CHECK%$'\r'}"
   case "$LAST_CHECK" in ''|*[!0-9]*) LAST_CHECK=0 ;; esac
   NOW_EPOCH="$(date +%s 2>/dev/null || echo 0)"
-  ELAPSED=$((NOW_EPOCH - LAST_CHECK))
+  # A leading-zero value (e.g. 08) passes the digit guard above but $(( ))
+  # reads it as octal — 08/09 abort bash 3.2 outright. Force base 10.
+  ELAPSED=$((NOW_EPOCH - 10#$LAST_CHECK))
   if [ "$LAST_CHECK" -gt 0 ] && [ "$ELAPSED" -lt 86400 ]; then
     emit_silent
   fi
@@ -190,7 +192,9 @@ else
         LOCK_EPOCH="${LOCK_EPOCH%$'\r'}"
         case "$LOCK_EPOCH" in ''|*[!0-9]*) LOCK_EPOCH=0 ;; esac
         LOCK_NOW="$(date +%s 2>/dev/null || echo 0)"
-        if [ "$((LOCK_NOW - LOCK_EPOCH))" -lt 3600 ]; then
+        # Same base-10 force as the epoch guard above — a leading-zero
+        # LOCK_EPOCH would otherwise be read as octal by $(( )).
+        if [ "$((LOCK_NOW - 10#$LOCK_EPOCH))" -lt 3600 ]; then
           log_error "template update skipped — another session holds the lock"
         else
           rm -f "$LOCK" 2>/dev/null
