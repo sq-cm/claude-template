@@ -279,6 +279,53 @@ esac
 assert_eq "exit 0: local/main retains the local commit" "true" "$HAS_LOCAL_0"
 assert_eq "exit 0: local/main contains the new template commit" "true" "$HAS_TEMPLATE_0"
 
+# exit 0 unattended: clean rebase, non-conflicting template advance. Same
+# shape as the interactive exit-0 case above, but this is the path plan
+# 115's Step 8 checkout-skip actually changed — HEAD starts on local/main
+# already (the exit-10 guard requires it), so the fixture never checks out
+# local/main at all, and this pins that the rebase and fast-forward still
+# land correctly without it.
+make_fixture
+F0U="$FIXTURE_DIR"
+ORIGIN0U="$(git -C "$F0U" remote get-url origin)"
+PUSHCLONE0U="$TMP_ROOT/pushclone-0u"
+git clone -q "$ORIGIN0U" "$PUSHCLONE0U"
+configure_repo "$PUSHCLONE0U"
+printf 'template advance content (unattended)\n' >> "$PUSHCLONE0U/other.txt"
+git -C "$PUSHCLONE0U" commit -qam "template advances cleanly (unattended)"
+git -C "$PUSHCLONE0U" push -q origin main
+NEW_ORIGIN_SHA_0U="$(git -C "$PUSHCLONE0U" rev-parse main)"
+
+run_update "$F0U" "--unattended"
+assert_exit "exit 0 unattended: happy path rebase" 0 "$LAST_CODE"
+FIXTURE_MAIN_SHA_0U="$(git -C "$F0U" rev-parse main)"
+assert_eq "exit 0 unattended: main fast-forwarded to origin's new SHA" "$NEW_ORIGIN_SHA_0U" "$FIXTURE_MAIN_SHA_0U"
+LOCALMAIN_LOG_0U="$(git -C "$F0U" log --oneline local/main)"
+case "$LOCALMAIN_LOG_0U" in
+  *"local commit on local/main"*) HAS_LOCAL_0U=true ;;
+  *) HAS_LOCAL_0U=false ;;
+esac
+case "$LOCALMAIN_LOG_0U" in
+  *"template advances cleanly (unattended)"*) HAS_TEMPLATE_0U=true ;;
+  *) HAS_TEMPLATE_0U=false ;;
+esac
+assert_eq "exit 0 unattended: local/main retains the local commit" "true" "$HAS_LOCAL_0U"
+assert_eq "exit 0 unattended: local/main contains the new template commit" "true" "$HAS_TEMPLATE_0U"
+
+POST_HEAD_BRANCH_0U="$(git -C "$F0U" symbolic-ref --short -q HEAD)"
+assert_eq "exit 0 unattended: HEAD still on local/main" "local/main" "$POST_HEAD_BRANCH_0U"
+
+GD0U="$(fixture_gitdir "$F0U")"
+if [ -d "$GD0U/rebase-merge" ] || [ -d "$GD0U/rebase-apply" ] || [ -f "$GD0U/MERGE_HEAD" ]; then
+  MIDREBASE_0U=true
+else
+  MIDREBASE_0U=false
+fi
+assert_eq "exit 0 unattended: not left mid-rebase" "false" "$MIDREBASE_0U"
+
+DIRTY_0U="$(git -C "$F0U" status --porcelain)"
+assert_eq "exit 0 unattended: git status --porcelain empty" "" "$DIRTY_0U"
+
 # exit 8 interactive: conflicting edit, left mid-rebase for the user
 make_fixture
 F8I="$FIXTURE_DIR"
@@ -346,13 +393,21 @@ assert_eq "exit 8 unattended: HEAD still on local/main" "local/main" "$POST_HEAD
 # Plan 115: lock-contention recovery — another git process holds index.lock
 # when update.sh --unattended runs, so the rebase never starts. Exit code and
 # output were determined empirically (Odin Checkpoint A: not hardcoded from
-# the plan text) by probing the post-fix behaviour directly — with the Step
-# 8 checkout now skipped unattended, `git rebase main` itself is what fails
-# to acquire index.lock, before any rebase-merge/rebase-apply directory is
-# created, so recovery takes the "rebase could not start" branch: exit 8,
-# main rolled back to its pre-run SHA, not left mid-rebase. The invariants
-# below are what must hold regardless of which recovery branch fires; the
-# exact message and exit code are asserted from that observed behaviour.
+# the plan text) by probing the post-fix behaviour directly, on git 2.50.1
+# (Apple Git-155): with index.lock already held, `git rebase main` fails to
+# detach HEAD before creating a rebase-merge or rebase-apply state directory
+# — verified for both the merge and apply rebase backends explicitly (`git
+# rebase --merge` / `git rebase --apply` against the same held lock) — so
+# recovery takes the "rebase could not start" branch below: exit 8, main
+# rolled back to its pre-run SHA, not left mid-rebase. This is a git-version
+# observation, not a property this code enforces: on a git whose rebase
+# implementation creates the state directory before acquiring index.lock,
+# recovery would instead take the "our rebase in progress" branch — `git
+# rebase --abort` would itself fail on the held lock, a RECOVERY FAILED line
+# would print, and this case's exact-message and not-mid-rebase asserts
+# below would fail, while the main-rolled-back invariant would still hold
+# (that branch rolls main back too). The asserts are pinned to the observed
+# behaviour on the git version above, not to a guarantee about all gits.
 #
 # recovery-failure messaging (the "RECOVERY FAILED: ..." lines) is
 # inspection-only here — forcing `git branch -f` or `git rebase --abort` to
@@ -392,6 +447,8 @@ assert_eq "lock contention: main rolled back to its pre-run SHA" "$PRE_MAIN_SHA_
 
 POST_LOCALMAIN_SHA_LC="$(git -C "$FLC" rev-parse local/main)"
 assert_eq "lock contention: local/main untouched" "$PRE_LOCALMAIN_SHA_LC" "$POST_LOCALMAIN_SHA_LC"
+
+assert_eq "lock contention: HEAD still on local/main" "local/main" "$(git -C "$FLC" symbolic-ref --short -q HEAD)"
 
 rm -f "$GDLC/index.lock"
 

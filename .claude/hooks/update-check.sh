@@ -124,8 +124,8 @@ fi
 # can both pass the throttle above and both invoke update.sh concurrently.
 # Stamping here means a second session started while this one is still
 # working is throttled immediately. The stamp is refreshed with the fetched
-# origin SHA once the template section completes (see stamp_state call at
-# the end of this file).
+# origin SHA once the template section completes (see the stamp_state call
+# after the template section, ahead of the tool section).
 stamp_state ""
 
 # ---------------------------------------------------------------------------
@@ -144,7 +144,7 @@ elif ! git rev-parse --git-dir >/dev/null 2>&1; then
 elif ! git rev-parse --verify local/main >/dev/null 2>&1 || ! git rev-parse --verify main >/dev/null 2>&1; then
   :
 elif GITDIR="$(git rev-parse --git-dir 2>/dev/null)" && [ -n "$GITDIR" ] && { [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ] || [ -f "$GITDIR/MERGE_HEAD" ]; }; then
-  log_error "template section skipped — repo is mid-rebase/merge (run /update or git rebase --abort / --continue to clear)"
+  log_error "template section skipped — repo is mid-rebase/merge (run git rebase --abort or --continue to clear, then git rebase main on local/main — /update alone will report already up to date because main is already fast-forwarded)"
 elif ! git remote get-url origin >/dev/null 2>&1; then
   :
 else
