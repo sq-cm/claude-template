@@ -1229,8 +1229,7 @@ check18_file_count=0
 for f in "$PROJECT_ROOT"/.claude/*.sh "$PROJECT_ROOT"/.claude/hooks/*.sh "$PROJECT_ROOT"/Vault/Scripts/*.sh "$PROJECT_ROOT"/Vault/Scripts/lib/*.sh "$PROJECT_ROOT"/Vault/Scripts/tests/*.sh "$PROJECT_ROOT"/.githooks/pre-commit "$PROJECT_ROOT"/.githooks/pre-push "$PROJECT_ROOT"/install.sh; do
     [ -e "$f" ] || continue
     check18_file_count=$((check18_file_count + 1))
-    syntax_err=$(bash -n "$f" 2>&1)
-    if [ -n "$syntax_err" ]; then
+    if ! syntax_err=$(bash -n "$f" 2>&1); then
         fail "shell syntax error in ${f#$PROJECT_ROOT/}: $(echo "$syntax_err" | head -1)"
         check18_pass=false
     fi
