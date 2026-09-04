@@ -12,8 +12,25 @@ fi
 emit_silent() { exit 0; }
 
 emit_context() {
-  printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":%s}}\n' \
-    "$(printf '%s' "$1" | jq -Rs . 2>/dev/null || printf '"%s"' "$1")"
+  # jq is guaranteed present at every call site below the jq guard. No
+  # non-jq fallback: the old printf '"%s"' fallback escaped nothing and
+  # produced invalid JSON whenever jq was present but failed on the
+  # multi-line, quote-bearing CTX this hook emits (same fix as
+  # update-check.sh's emit_context). A present-but-malfunctioning jq can
+  # emit partial stdout and still exit non-zero, so checking for emptiness
+  # alone is not sufficient, and `local enc=$(...)` would mask the
+  # pipeline's exit status behind the always-successful `local`
+  # assignment. Declare, assign and capture the status as separate
+  # statements so none of that is masked.
+  local enc
+  local rc
+  enc="$(printf '%s' "$1" | jq -Rs .)"
+  rc=$?
+  if [ "$rc" -ne 0 ] || [ -z "$enc" ]; then
+    log_error "jq present, encoding failed (exit $rc) — onboarding context skipped"
+    emit_silent
+  fi
+  printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":%s}}\n' "$enc"
   exit 0
 }
 
@@ -70,11 +87,13 @@ if ! command -v jq >/dev/null 2>&1; then
   log_error "jq not found on PATH — auto-onboarding disabled"
   # Say something rather than exiting silently. Onboarding cannot run without a
   # JSON parser, and a silent skip leaves the session looking fully configured
-  # when none of Tier 1 or Tier 2 has happened. Note the constraint: in this
-  # branch emit_context's jq-based encoder is unavailable, so its
-  # printf '"%s"' fallback runs, and that fallback escapes nothing. This
-  # message must therefore contain no double quotes and no newlines.
-  emit_context 'AUTO-ONBOARDING SKIPPED: jq is not installed, so first-time setup cannot run. Tell the user in one line that jq must be installed and /onboard re-run, point them at Resources/Onboarding/SETUP.md, and then answer their original question normally. Do not attempt to install jq.'
+  # when none of Tier 1 or Tier 2 has happened. emit_context needs jq, so this
+  # one message is emitted as a bare JSON string literal instead: it contains
+  # no double quotes, no backslashes and no newlines, so the unescaped %s
+  # substitution is valid JSON by construction. Keep it that way.
+  printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s"}}\n' \
+    'AUTO-ONBOARDING SKIPPED: jq is not installed, so first-time setup cannot run. Tell the user in one line that jq must be installed and /onboard re-run, point them at Resources/Onboarding/SETUP.md, and then answer their original question normally. Do not attempt to install jq.'
+  exit 0
 fi
 
 ONBOARDED_JSON="{}"
@@ -229,13 +248,22 @@ fi
 # which added the notes clause only; logged here so the next reader finds it
 # recorded rather than rediscovering it. Fix both clauses together if either
 # is ever revisited.
+
+# The ACTION below runs onboard.md Steps 3, 7, 8, 9 and 10 only. Steps 11–13
+# (print the roster, open the Learn guide in a browser, the demo-project tour)
+# are deliberately left to a manual /onboard: this hook fires while the user
+# is waiting for an answer to their own first message, and launching a
+# browser or a long tour mid-question is intrusive. The ACTION closes with a
+# one-line pointer at the guide instead (plan 119, 04/09/2026). Tier 1 steps
+# stay out of the list for a different reason — the hook performs them itself
+# (plan 091).
 CTX="=== AUTO-ONBOARDING TRIGGERED ===
 
 Tier 1 (done by hook): git=$TIER1_GIT; env=$TIER1_ENV; node=$TIER1_NODE; notes=$TIER1_NOTES.
 Missing flags:$missing
 $BACKFILL_ACTION
 
-ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md (Steps 3, 7, 8, 9, 10). For each missing flag above, complete the matching step and set that key to true under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, stop Tier 2, ask user to install Node.js LTS manually, and write tier1_node and tier2_caveman as the string \"skipped\" (never true) — this records the step as attempted and deliberately not run, which resolves it instead of re-triggering onboarding every session. If Step 10's privileged move fails only because there is no cached sudo credential (not a checksum mismatch or a download failure), write tier2_plannotator_binary as the string \"skipped\" (never true) — the step was attempted and deliberately not completed, so recording it resolves the key instead of re-triggering onboarding every session. On any step failure: one-line warning, continue, do not set that flag. After all attempted, pivot to user's original message ('Setup done. On your question: ...').
+ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md (Steps 3, 7, 8, 9, 10). For each missing flag above, complete the matching step and set that key to true under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, follow onboard.md Step 7's Node branch for this platform (never install Node on macOS or Linux), and if Node is still unavailable write tier1_node and tier2_caveman as the string \"skipped\" (never true) — this records Caveman as attempted and deliberately not run, which resolves both keys instead of re-triggering onboarding every session — then continue with Steps 8, 9 and 10: Caveman is the only step that needs Node; the plugin roster and the plannotator binary do not. Never stop onboarding because Node is missing. If Step 10's privileged move fails only because there is no cached sudo credential (not a checksum mismatch or a download failure), write tier2_plannotator_binary as the string \"skipped\" (never true) — the step was attempted and deliberately not completed, so recording it resolves the key instead of re-triggering onboarding every session. On any step failure: one-line warning, continue, do not set that flag. After all attempted, add one line pointing at the onboarding guide — 'Your onboarding guide is at Resources/Learn/index.html; ask me how to use the system any time and I will open it.' — and do not open it now; then pivot to user's original message ('Setup done. On your question: ...').
 
 Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull (same reasoning as the tier2_plannotator_binary checksum-mismatch rule later in this map); tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = Step 8+9 plugin pairs (the plugin registration flag here covers only the Claude Code plugin, which auto-installs per settings.json); tier2_plannotator_binary = Step 10 (auto-run, checksum-verified, no consent gate), or \"skipped\" if the privileged move needs a password with no cached credential, never on a checksum mismatch or a download failure (never true); tier2_caveman = Step 7 + '/caveman lite', or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3."
 
