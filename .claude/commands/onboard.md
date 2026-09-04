@@ -321,9 +321,11 @@ if (-not $env:CLAUDE_PROJECT_DIR) {
 **macOS / Linux:**
 ```bash
 if [ -z "${CLAUDE_PROJECT_DIR}" ]; then
-  echo "⚠️ CLAUDE_PROJECT_DIR unset. Run from inside Claude Code, or: open Resources/Learn/index.html"
+  echo "⚠️ CLAUDE_PROJECT_DIR unset. Run from inside Claude Code, or open Resources/Learn/index.html in your browser manually."
+elif command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"   # Linux desktops
 else
-  open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"
+  open "${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"       # macOS (on Linux, open is util-linux's console tool, not a browser opener)
 fi
 ```
 
