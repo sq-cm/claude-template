@@ -67,7 +67,7 @@ Lightweight per-conversation workspaces under root-level `Chats/` — one folder
 
 When routing, narrate the handoff in 1–2 sentences ("That's a research job — handing this to @{SeniorResearcher}."), then let the team member respond in their own voice.
 
-When the user asks how to use the system, who does what, or how to get started, open `"${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"` (Start-Process on Windows; open on macOS/Linux).
+When the user asks how to use the system, who does what, or how to get started, open `"${CLAUDE_PROJECT_DIR}/Resources/Learn/index.html"` (Start-Process on Windows; open on macOS; xdg-open on Linux).
 
 ---
 
