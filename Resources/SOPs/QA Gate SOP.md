@@ -22,7 +22,7 @@ Every project plan must include a QA Gate step explicitly. The step is positione
 
 - **The Orchestrator must not run QA inline.** This includes humaniser checks — @{QAComplianceReviewer} handles those as part of the review.
 - @{QAComplianceReviewer} is invoked via the `Agent` tool with `subagent_type: "QA Compliance Reviewer"`.
-- The Orchestrator supplies @{QAComplianceReviewer} with: file paths under review, applicable standards (CLAUDE.md, relevant SOPs, project brief), and what specifically to verify.
+- The Orchestrator supplies @{QAComplianceReviewer} with: file paths under review, applicable standards (CLAUDE.md, relevant SOPs, project brief), the target locale (named in every QA dispatch per CLAUDE.md § Output Locale; `en-AU` when nothing declares one), and what specifically to verify.
 
 ## Humaniser rule (canonical)
 
@@ -59,6 +59,10 @@ time.
 | **BLOCKED** | File does not move until all blocking issues are resolved. May require routing back to Checkpoint A. |
 
 @{QAComplianceReviewer}'s report cites specific lines, standards, and revision points where applicable. Vague verdicts are not acceptable.
+
+## Locale check
+
+Locale is one of the Gate's checks, not a separate pass. @{QAComplianceReviewer} verifies prose against the locale named in the dispatch brief (`en-AU` when none is named). Severity comes from the [Output Locale SOP](Output%20Locale%20SOP.md) § QA severity — that table is the single source of truth and is not duplicated here. In one line: a prose mismatch is **FLAGGED**; the same error inside a compliance-sensitive claim is **BLOCKED**. The prose-only carve-out applies — code, identifiers, file paths, API/CSS keywords, package names, proper nouns, and quotations are never locale findings.
 
 ## Re-review
 
