@@ -25,7 +25,7 @@
 #   1 unexpected failure
 #   2 unsupported platform
 #   3 release lookup failed (API/parse)
-#   4 download failed or too slow (partial staging kept for resume)
+#   4 download failed or too slow (partial staging kept for resume when one exists)
 #   5 checksum mismatch (staging deleted)
 #   6 privileged move needs a password — verified file left at <path> (macOS/Linux)
 #   7 replace failed, binary in use — verified file left at <path> (Windows)
