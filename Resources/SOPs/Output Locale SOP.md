@@ -156,4 +156,4 @@ Two skills deliberately retain upstream US English so their files diff mechanica
 - Operative rule: `CLAUDE.md` § Output Locale
 - Fast-Path inline pass: [Fast-Path Lane SOP](Fast-Path%20Lane%20SOP.md)
 - Gate mechanics and verdicts: [QA Gate SOP](QA%20Gate%20SOP.md)
-- Where the declaration lives: [Memory Protocol SOP](Memory%20Protocol%20SOP.md) § Project-scoped memory, [Project Folder SOP](Project%20Folder%20SOP.md)
+- Where the declaration lives: `Projects/Template/CONTEXT.md` § Locale — the tracked skeleton every project folder copies at creation. Its place beside the other sections is described in [Project Folder SOP](Project%20Folder%20SOP.md) § README vs CONTEXT vs HISTORY boundary; [Memory Protocol SOP](Memory%20Protocol%20SOP.md) § Project-scoped memory records that `/memory-reconcile` never sets or folds it (it only copies the skeleton when the file is missing)

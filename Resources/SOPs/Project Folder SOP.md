@@ -125,7 +125,7 @@ Not every project needs all three. The Orchestrator creates only what the task r
 The three seeded docs answer different questions and are written in different modes:
 
 - **`README.md` — what IS this project?** A living snapshot: identity, scope and success criteria, structure deviations, owners, links, coarse status. **Overwrite in place** to keep it current.
-- **`CONTEXT.md` — what is true about it now?** Current truths and the project's ubiquitous language: `## Vocabulary` (persona-curated — coin a term, record it here), `## Live state` (rewritten in place by `/memory-reconcile`), `## Gotchas` (appended by `/memory-reconcile`, the sole home for operative traps, pruned by anyone once a trap is dead).
+- **`CONTEXT.md` — what is true about it now?** Current truths and the project's ubiquitous language: `## Locale` (the project's declared deliverable locale — one `locale:` line, BCP-47, hand-set, never set or folded by `/memory-reconcile`, which only copies the skeleton when the file is missing; absent means `en-AU`; see [Output Locale SOP](Output%20Locale%20SOP.md)), `## Vocabulary` (persona-curated — coin a term, record it here), `## Live state` (rewritten in place by `/memory-reconcile`), `## Gotchas` (appended by `/memory-reconcile`, the sole home for operative traps, pruned by anyone once a trap is dead).
 - **`HISTORY.md` — how did it get here?** A pure append-only `## Decision log`, written by `/memory-reconcile` from session notes.
 
 The distinction is overwrite-vs-append, not static-vs-changing — all three evolve. README and CONTEXT are overwritten to stay current; HISTORY is only appended to, preserving the trail.

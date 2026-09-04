@@ -96,7 +96,7 @@ The command validates each note (frontmatter handling per Stage 1, point 2), mov
 
 **Purpose.** `context.md` carries a hard 3 KB injected budget (below), so anything specific to one project competes with every other project for that same rent-controlled space. Project-scoped memory gives each foldered project its own durable pair of files, travelling inside the folder itself:
 
-- **`Projects/<name>/CONTEXT.md` — current truths.** `## Vocabulary` (the project's ubiquitous language, persona-curated), `## Live state` (rewritten in place), `## Gotchas` (the sole home for operative traps — appended, prunable). Overwrite surface.
+- **`Projects/<name>/CONTEXT.md` — current truths.** `## Vocabulary` (the project's ubiquitous language, persona-curated), `## Live state` (rewritten in place), `## Gotchas` (the sole home for operative traps — appended, prunable). Overwrite surface. `## Locale` (the declared deliverable locale — [Output Locale SOP](Output%20Locale%20SOP.md)) sits in the same file but is hand-set and never set or folded by `/memory-reconcile`, which only copies the skeleton when the file is missing (step 5.2.1).
 - **`Projects/<name>/HISTORY.md` — the trail.** A pure append-only `## Decision log`: how the project got where it is, and why.
 
 Both survive folder handoffs, carry no size budget of their own, and take the pressure off `context.md`, which then holds only a one-line pointer per active project instead of accumulating project detail directly.
