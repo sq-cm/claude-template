@@ -267,6 +267,7 @@
       <a href="#s-formula">Formula</a>
       <a href="#s-template">Template</a>
       <a href="#s-examples">Examples</a>
+      <a href="#s-effort">Effort</a>
       <a href="#s-tips">Tips</a>
       <a href="#s-checklist">Checklist</a>
     </nav>
@@ -322,12 +323,12 @@
         <tr>
           <td>4</td>
           <td><strong>Output spec</strong></td>
-          <td>How many, what format, who it's for</td>
+          <td>How many, what format, who it's for. A number here is a requirement (180-word emails, five slides, three directions); a number added only to stop the model rambling is not — say "cover the substance, don't pad" instead and let the content find its length</td>
         </tr>
         <tr>
           <td>5</td>
           <td><strong>Constraints &amp; anti-goals</strong></td>
-          <td>Hard limits + what you do not want to see in the response</td>
+          <td>Hard limits, each with the reason it exists. Name something to avoid only when it's a real constraint or a failure you've actually seen — and say what you want instead</td>
         </tr>
         <tr>
           <td>6</td>
@@ -348,7 +349,7 @@
     <div class="cs-template-callout">
       <p>I'm <span class="cs-slot">[task]</span> for <span class="cs-slot">[context]</span> to achieve <span class="cs-slot">[measurable goal]</span>, where <span class="cs-slot">[insight/problem]</span>.</p>
       <p>Generate <span class="cs-slot">[N]</span> <span class="cs-slot">[output type]</span> in <span class="cs-slot">[format]</span> that <span class="cs-slot">[success criteria]</span>.</p>
-      <p>Constraints: <span class="cs-slot">[limits]</span>. Avoid: <span class="cs-slot">[anti-goals]</span>.</p>
+      <p>Constraints: <span class="cs-slot">[limits — and why each one exists]</span>. Avoid: <span class="cs-slot">[anti-goals worth naming]</span>.</p>
       <p>Done when: <span class="cs-slot">[verifiable completion check]</span>.</p>
       <button class="cs-copy-btn" id="cs-copy-template" type="button" aria-label="Copy blank template to clipboard">Copy template</button>
     </div>
@@ -387,13 +388,29 @@
         <div class="cs-example-card__header">Code</div>
         <div class="cs-example-card__body">
           <p>I'm fixing a <strong>broken date filter</strong> in <code>src/components/ReportTable.tsx</code> to <strong>eliminate the "Invalid Date" console error</strong> that blocks 100% of Safari users from viewing reports, where <code>Date.parse()</code> fails on the <code>YYYY-MM-DD</code> strings returned by <code>/api/reports</code>.</p>
-          <p>Generate <strong>1</strong> corrected function in <strong>TypeScript</strong> with an inline comment explaining the change.</p>
+          <p>Generate <strong>1</strong> corrected function in <strong>TypeScript</strong>, and explain the change in your reply rather than in a committed code comment.</p>
           <p>Constraints: do not change the component's prop interface. Avoid: third-party date libraries — this codebase has a policy against adding dependencies for single-use parsing.</p>
           <p>Done when: the ReportTable renders in Safari 17 without a console error and the existing <code>report-table.test.ts</code> suite passes.</p>
         </div>
       </div>
 
     </div>
+  </section>
+
+  <!-- Section: Effort and length -->
+  <section class="block" id="s-effort">
+    <div class="block-head">
+      <p class="block-kicker">Two dials</p>
+      <h2>Effort and length</h2>
+      <p>The formula covers what to ask for. How hard the model works is a setting; how much it writes is something you have to ask for.</p>
+    </div>
+
+    <ul class="cs-tips-list">
+      <li><span><strong>Effort is the main cost and speed control.</strong> Set it with <code>/model</code> or <code>--effort</code>. <code>high</code> is the default and the right place to start; <code>xhigh</code> is for the hardest coding and agentic work. The vault's own dial runs high or xhigh for plan mode, checkpoints, and architecture, and medium or low once a plan is approved (root <code>CLAUDE.md</code> § Default Mode). On your own one-off asks, drop to <code>medium</code> or <code>low</code> for routine work — they hold quality there at a fraction of the tokens and latency.</span></li>
+      <li><span><strong>Don't reach for <code>xhigh</code> on a long deliverable.</strong> At the top settings the model can draft the whole thing in its thinking and then write it out again: twice the wait, twice the tokens, no better result. Run long documents at <code>high</code>.</span></li>
+      <li><span><strong>Effort doesn't shorten the answer.</strong> It changes how much the model thinks, not how much it says. If a reply or a written file runs longer than you want, say so in the prompt: "cover the substance; don't pad with filler sections, redundant summaries, or boilerplate."</span></li>
+      <li><span><strong>At low effort, ask for the search.</strong> Current models look things up less often at <code>low</code> and answer from memory more. If the answer depends on something current, name that thing and say "search before answering."</span></li>
+    </ul>
   </section>
 
   <!-- Section 4: Micro-Tips -->
@@ -407,10 +424,18 @@
       <li><span><strong>Route and scope in one message.</strong> Addressing a specialist directly with <code>@{RoleToken}</code> (e.g. <code>@{Copywriter}</code>) plus the formula gets the right team member a complete brief in one send. Open requests with no <code>@</code> go to Sam for routing.</span></li>
       <li><span><strong>Reference files by path.</strong> "Fix the bug in <code>src/utils/auth.ts</code> line 42" beats "fix the auth bug."</span></li>
       <li><span><strong>Share relevant background up front.</strong> Drip-feeding context mid-task causes course corrections that cost more than the original prompt.</span></li>
-      <li><span><strong>Ask for a plan first on big work.</strong> "Show me the approach before writing any code" catches wrong assumptions before they're baked in.</span></li>
+      <li><span><strong>Ask for a plan when you want a review gate.</strong> On hard or ambiguous work, "show me the approach before writing any code" catches wrong assumptions before they're baked in. Skip it on work you'd approve unread — the extra turn is a cost, and asking for a plan on a task the model could just do encourages over-planning.</span></li>
+      <li><span><strong>Describe the destination, not the driving.</strong> State the goal, the guardrails, and how you'll know it's right, then leave the route alone. Step-by-step choreography written for older models often <em>lowers</em> output quality now — the team member's own plan usually beats a hand-written script. Keep numbered steps only where the order genuinely matters: destructive commands, auth flows, compliance steps.</span></li>
       <li><span><strong>Correct course early.</strong> If a direction feels off after the first response, redirect immediately rather than letting a wrong approach accumulate.</span></li>
       <li><span><strong>Paste errors verbatim.</strong> The exact error string, stack trace included, is faster than a description of what went wrong.</span></li>
       <li><span><strong>Keep the tool reference handy.</strong> Keyboard shortcuts, built-in slash commands, and MCP setup live in the community-maintained <a href="https://cc.storyfox.cz/" target="_blank" rel="noopener">Claude Code Cheat Sheet</a> — updated with each Claude Code release.</span></li>
+      <li><span><strong>Show, don't just describe.</strong> If you have a past output you liked (an email, a table, a paragraph in the right tone), paste it in as a sample. One good example steers format and tone better than three sentences of description.</span></li>
+      <li><span><strong>Say why a constraint exists.</strong> "No date libraries: codebase policy" gets honoured more reliably than "no date libraries", because the team member can apply the reasoning to edge cases you didn't anticipate.</span></li>
+      <li><span><strong>Say whether you're watching.</strong> "I'm not sitting here — don't stop to ask permission for reversible steps this request already covers" gets you a long unattended run. If you <em>are</em> watching, ask for the opposite: "one-line update when you find something load-bearing or change direction."</span></li>
+      <li><span><strong>Hold the scope to the ask.</strong> "Don't fix or tidy anything I didn't ask about — list it at the end as a follow-up instead." Current models widen scope on their own.</span></li>
+      <li><span><strong>Say when you want assessment, not action.</strong> "Assess only, change nothing" stops a question being read as a work order.</span></li>
+      <li><span><strong>Don't ask for a double-check.</strong> "Verify your work", "use a sub-agent to check it" — that behaviour is already built in, and asking again burns tokens without improving the result. The exception is a long unattended build, where asking for a check at set points — tests, a build, a lint pass — does pay.</span></li>
+      <li><span><strong>Sharpen the prompt before you send it.</strong> The vault ships two tools for this: <code>grill-me</code> interviews you until the brief is complete, and <code>/prompt-review</code> scores a draft against this sheet and rewrites it in the same order. Time spent on the brief costs less than iterating on the output.</span></li>
     </ul>
   </section>
 
@@ -433,11 +458,11 @@
       </li>
       <li>
         <span class="cs-checklist__box" aria-hidden="true"></span>
-        <span>Have I named at least one thing to avoid?</span>
+        <span>If I named something to avoid, is it a real constraint or a failure I've seen — with its reason and what I want instead?<span class="cs-checklist__hint">"plain language, not marketing speak — the audience is non-technical"</span></span>
       </li>
       <li>
         <span class="cs-checklist__box" aria-hidden="true"></span>
-        <span>Is this a single task (not two or more asks bundled into one prompt)?</span>
+        <span>Is this one coherent job?<span class="cs-checklist__hint">a multi-step job belongs in one prompt; two unrelated jobs don't</span></span>
       </li>
       <li>
         <span class="cs-checklist__box" aria-hidden="true"></span>
@@ -489,7 +514,7 @@
     var TEMPLATE_TEXT=[
       'I\'m [task] for [context] to achieve [measurable goal], where [insight/problem].',
       'Generate [N] [output type] in [format] that [success criteria].',
-      'Constraints: [limits]. Avoid: [anti-goals].',
+      'Constraints: [limits — and why each one exists]. Avoid: [anti-goals worth naming].',
       'Done when: [verifiable completion check].'
     ].join('\n');
 
