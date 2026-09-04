@@ -19,16 +19,18 @@ Before configuring anything, take five minutes with one of the worked demos unde
 Before you start, make sure these are on your machine:
 
 - **A POSIX shell and `bash`.** On Windows this means Git Bash, which ships with Git for Windows. The vault's hooks are bash scripts, and `.claude/settings.json` invokes them through a shell expression that needs a POSIX shell to evaluate before it needs `bash` itself.
-- **`jq`.** Required by five of the vault's scripts, including the hook that runs first-time setup. Without it, auto-onboarding is skipped and `Vault/Memory/onboarding-errors.md` records why.
+- **`jq`.** Required by the vault's hooks and the validator, including the hook that runs first-time setup. Without it, auto-onboarding is skipped and `Vault/Memory/onboarding-errors.md` records why.
 - **`git`.** For cloning the repo, the pull-only update flow, and the commit hooks.
 - **`curl`.** For the tool-freshness check and the plannotator binary download.
+- **A SHA-256 checksum tool**: `sha256sum` (Linux, Git Bash) or `shasum` (macOS). The checksum-verified plannotator download refuses to install without one.
 
 These are the dependencies the vault's scripts actually use; the install path has not yet been exercised on a machine that genuinely lacks any of them, so treat that case as untested rather than assumed to fail.
 
-Paste this to check all four at once:
+Paste this to check all five at once:
 
 ```bash
 for c in bash jq git curl; do command -v "$c" >/dev/null 2>&1 && echo "ok   $c" || echo "MISS $c"; done
+{ command -v sha256sum || command -v shasum; } >/dev/null 2>&1 && echo "ok   checksum tool" || echo "MISS checksum tool (need sha256sum or shasum)"
 ```
 
 Each line should read `ok`, not `MISS`. If any read `MISS`, install that tool before continuing.
@@ -64,8 +66,10 @@ The template flows one direction: maintainer → upstream → your clone. Your c
 
 ## Step 1 — Copy environment file
 
+The installers and the onboarding hook already create `.env` from `.env.example` when it is missing — if you were auto-onboarded, it exists and this step is a no-op. The copy below is guarded so re-running it never overwrites a populated `.env`:
+
 ```bash
-cp .env.example .env
+[ -f .env ] || cp .env.example .env
 ```
 
 Open `.env` and populate credentials for any services you'll use:
@@ -207,7 +211,9 @@ Every marketplace in `.claude/settings.json` `extraKnownMarketplaces` sourced fr
 
 **Privileged installs during `/onboard` — removed rather than accepted.** Earlier versions of `.claude/commands/onboard.md` Step 7 auto-installed Node.js on the user's behalf: on macOS by piping `https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh` into `/bin/bash` at a moving HEAD, and on Linux with `sudo apt-get install -y nodejs npm`. Neither was reviewable before it ran and neither was recorded here. Both are now gone: Step 7 tells the user how to install Node.js and skips Caveman if they have not, because Caveman is an optional token-saving plugin and installing a system-wide package manager to enable it is out of proportion. Windows still uses `winget`, which needs no privilege escalation and pipes nothing into a shell. The only remaining privilege escalation in the onboarding path is Step 10's placement of the checksum-verified plannotator binary on macOS and Linux: `sudo -n` copies it to a temporary name in `/usr/local/bin`, sets its mode, then renames it over the old one. `sudo -n` never prompts, so this skips instead of hanging. The GitHub CLI (`gh`) is no longer used anywhere in onboarding — Step 10 now runs `Vault/Scripts/tool-check.sh --apply`, which needs only `curl` and a checksum tool.
 
-The daily binary refresh introduced by the SessionStart hook adds no new privilege escalation. It repeats the one exception above and adds nothing else: the same non-prompting, checksum-verified `sudo -n` placement, run by the same script on a 24-hour throttle. Plan 058 (`Vault/Plans/058-onboard-privileged-installs-plugin-trust.md`) removed the unreviewable installers and left that single move standing as the sole accepted exception; it still is, only now it happens more than once.
+The daily binary refresh introduced by the SessionStart hook adds no new privilege escalation. It repeats the one exception above and adds nothing else: the same non-prompting, checksum-verified `sudo -n` placement, run by the same script on a 24-hour throttle. The 2026-07-30 onboarding change (`CHANGELOG.md`, entry "Plan 058 (#252)") removed the unreviewable installers and left that single move standing as the sole accepted exception; it still is, only now it happens more than once.
+
+The template-pull half works the same way, on the same throttle, and adds no privilege escalation of its own — it is plain git against the same repository. `update.sh --unattended`, run by the SessionStart hook once a day at most, only fires when the vault is already on `local/main` with a clean working tree — plus local `main` in sync with `origin/main`, network reachable, no other session holding the update lock, and not a maintainer clone (`CLAUDE_TEMPLATE_MAINTAINER=1` skips it outright). When those hold, it fast-forwards `main` to `origin/main` and rebases `local/main` on top. A conflicting rebase is cancelled automatically and `main` is reset to its pre-run SHA — unlike interactive `/update`, which deliberately leaves the repo mid-rebase for you to resolve; if that automatic recovery itself fails, a `RECOVERY FAILED` line is reported in the session context instead.
 
 The trade-off accepted in its place: each repo's HEAD commit was reviewed (see per-row date below) and recorded below. Anyone auditing what code actually ran can diff against these SHAs; anyone updating a marketplace should re-review and update this list.
 
