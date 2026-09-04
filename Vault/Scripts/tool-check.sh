@@ -39,8 +39,11 @@
 # from the `tag_name` in the API response, never from `/releases/latest/
 # download/` — that path can resolve to a different release than the one the
 # tag was read from. The downloaded file is hashed locally and the two hex
-# strings are compared in bash; no external tool makes the accept/reject
-# decision. Nothing is ever piped from a URL into a shell.
+# strings are compared in bash. The comparison logic runs in this script,
+# but the published digest comes from the same GitHub origin as the asset —
+# it proves transfer integrity (the bytes match what the publisher shipped
+# for that tag), not publisher intent. Nothing is ever piped from a URL
+# into a shell.
 #
 # Network failure or unparseable API response in the two check-only modes:
 # log one line to Vault/Memory/update-check-errors.md and skip that tool
@@ -62,7 +65,7 @@ fetch() {
   # $1 = URL. Prints body on stdout, empty on failure.
   # -L follows redirects: release asset URLs (including the tiny `.sha256`
   # siblings this helper also fetches) answer with a 302 to a CDN host.
-  curl -fsSL --max-time 6 -H 'User-Agent: vault-tool-check' "$1" 2>/dev/null
+  curl -fsSL --proto '=https' --proto-redir '=https' --max-filesize 1048576 --max-time 6 -H 'User-Agent: vault-tool-check' "$1" 2>/dev/null
 }
 
 hash_file() {
@@ -92,7 +95,7 @@ apply_plannotator() {
   local latest="$2"
   local installed="$3"
   local osname arch asset install_dir install_path staging part tagf lock
-  local url expected_raw expected local_hash lock_epoch now newver
+  local url expected_raw expected local_hash lock_epoch now newver rc
   local bin_path bin_dir want_dir
 
   case "$(uname -m 2>/dev/null || echo '?')" in
@@ -167,7 +170,8 @@ apply_plannotator() {
   # leaves one behind) and taken over.
   if ! ( set -o noclobber; printf 'pid=%s\nepoch=%s\n' "$$" "$(date +%s 2>/dev/null || echo 0)" > "$lock" ) 2>/dev/null; then
     lock_epoch="$(sed -n 's/^epoch=//p' "$lock" 2>/dev/null | head -1)"
-    [ -z "$lock_epoch" ] && lock_epoch=0
+    lock_epoch="${lock_epoch%$'\r'}"
+    case "$lock_epoch" in ''|*[!0-9]*) lock_epoch=0 ;; esac
     now="$(date +%s 2>/dev/null || echo 0)"
     if [ "$((now - lock_epoch))" -lt 3600 ]; then
       apply_fail 8 "plannotator: another update is already running (lock held at $lock) — skipping this one."
@@ -209,8 +213,22 @@ apply_plannotator() {
   if [ "$local_hash" != "$expected" ]; then
     # -C - resumes a genuinely partial file. The speed floor aborts a
     # stalled transfer long before --max-time would.
-    if ! curl -fsSL -C - --max-time 180 --speed-limit 51200 --speed-time 30 -o "$part" "$url" 2>/dev/null; then
-      apply_fail 4 "plannotator: download failed or stalled ($url) — partial file kept at $part for resume."
+    curl -fsSL -C - --proto '=https' --proto-redir '=https' --max-filesize 536870912 --max-time 180 --speed-limit 51200 --speed-time 30 -o "$part" "$url" 2>/dev/null
+    rc=$?
+    if [ "$rc" -ne 0 ]; then
+      if [ "$rc" -eq 28 ] || [ "$rc" -eq 63 ]; then
+        # Timed out or stalled (28), or over the size cap (63): the partial
+        # is genuine — keep it for tomorrow's resume.
+        apply_fail 4 "plannotator: download failed or stalled ($url) — partial file kept at $part for resume."
+      fi
+      # Any other failure: the staging file may be complete-but-wrong (a
+      # resume into it answers HTTP 416, which curl < 7.86 fails under -f)
+      # or otherwise unusable. Delete it and try once from byte zero before
+      # giving up.
+      rm -f "$part" 2>/dev/null
+      if ! curl -fsSL --proto '=https' --proto-redir '=https' --max-filesize 536870912 --max-time 180 --speed-limit 51200 --speed-time 30 -o "$part" "$url" 2>/dev/null; then
+        apply_fail 4 "plannotator: download failed or stalled ($url) — partial file kept at $part for resume."
+      fi
     fi
 
     # Verify again after the transfer, so nothing is ever placed unverified.
