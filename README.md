@@ -144,11 +144,13 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 - [Claude Code](https://claude.ai/code) — the CLI or desktop app
 - Access to Claude models. One gatekeeper persona (@{SeniorAdviser}) is pinned to **Claude Fable 5.1** — available on Claude Max and Team plans; the other twenty-seven personas run on `claude-opus-5`, including the other gatekeeper, @{QAComplianceReviewer} (see the [Persona Template SOP](Resources/SOPs/Persona%20Template%20SOP.md) § Model assignment). On a Claude Pro plan, Fable 5.1 is not available: substitute `claude-opus-5` for the @{SeniorAdviser} pin, and in `Vault/Scripts/validate.sh` set `FABLE_PIN_COUNT=0` and `OPUS5_PIN_COUNT=28` so Check 10 accepts the substitution. This edit is local-only too, per the note above.
 - A POSIX shell and `bash`. On Windows this means Git Bash, which ships with Git for Windows. The vault's hooks are bash scripts, and `.claude/settings.json` invokes them through a shell expression that needs a POSIX shell to evaluate before it needs `bash` itself.
-- `jq`. Required by five of the vault's scripts, including the hook that runs first-time setup. Without it, auto-onboarding is skipped and `Vault/Memory/onboarding-errors.md` records why.
+- `jq`. Required by the vault's hooks and the validator, including the hook that runs first-time setup. Without it, auto-onboarding is skipped and `Vault/Memory/onboarding-errors.md` records why.
 - `git`. For cloning the repo, the pull-only update flow, and the commit hooks.
 - `curl`. For the tool-freshness check and the plannotator binary download.
+- A SHA-256 checksum tool: `sha256sum` (Linux, Git Bash) or `shasum` (macOS). The checksum-verified plannotator download refuses to install without one.
 - No external API keys required for basic use
 - Optional: HyperFrames video rendering (Nova's programmatic motion-graphics lane) needs Node.js 22+ and FFmpeg — all other work runs without them
+- Be aware: once a day at most, and only when the vault is already on `local/main` with a clean working tree (plus a few narrower preconditions — see [SETUP.md § Accepted risk](Resources/Onboarding/SETUP.md)), a SessionStart hook fast-forwards `main` from the template repo and rebases your `local/main` on top; otherwise that pull skips and tries again next day. The same hook also refreshes the plannotator binary on the same 24-hour throttle, regardless of branch state. A conflicting rebase is cancelled automatically and `main` is reset back to before the run; run `/update` to resolve it interactively. If that automatic recovery itself fails, a `RECOVERY FAILED` line is reported in the session context.
 
 These are the dependencies the vault's scripts actually use, confirmed by reading the scripts themselves; the install path has not yet been exercised on a machine that genuinely lacks any of them, so treat that case as untested rather than assumed to fail.
 
