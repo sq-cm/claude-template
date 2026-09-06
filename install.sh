@@ -45,28 +45,31 @@ echo "✓ core.fileMode=false (exec-bit diff noise suppressed)"
 find .claude/skills -name '*.sh' -exec chmod +x {} + 2>/dev/null || true
 
 # 3. Copy env file if not present
-if [ ! -f .env ]; then
-  cp .env.example .env
+if [ -f .env ]; then
+  echo "  .env already exists, skipping"
+elif [ -s .env.example ] && cp .env.example .env; then
   echo "✓ .env created — open it and add your credentials"
 else
-  echo "  .env already exists, skipping"
+  echo "⚠ .env not created — .env.example is missing, empty or unreadable (partial pull?). Pull again, then re-run install.sh"
 fi
 
 # 3a. Seed per-clone local memory if not present (gitignored; MEMORY.md stays template-owned)
-if [ ! -f Vault/Memory/context.md ]; then
-  cp Vault/Memory/context.example.md Vault/Memory/context.md
+if [ -f Vault/Memory/context.md ]; then
+  echo "  Vault/Memory/context.md already exists, skipping"
+elif [ -s Vault/Memory/context.example.md ] && cp Vault/Memory/context.example.md Vault/Memory/context.md; then
   echo "✓ Vault/Memory/context.md created from template — your local team memory"
 else
-  echo "  Vault/Memory/context.md already exists, skipping"
+  echo "⚠ Vault/Memory/context.md not created — context.example.md is missing, empty or unreadable (partial pull?). Pull again, then re-run install.sh"
 fi
 
 # 3b. Seed the personal scratchpad if not present (gitignored; yours to edit freely)
 mkdir -p Notes/Personal
-if [ ! -f Notes/Personal/Notes.md ]; then
-  cp Resources/Onboarding/Notes.example.md Notes/Personal/Notes.md
+if [ -f Notes/Personal/Notes.md ]; then
+  echo "  Notes/Personal/Notes.md already exists, skipping"
+elif [ -s Resources/Onboarding/Notes.example.md ] && cp Resources/Onboarding/Notes.example.md Notes/Personal/Notes.md; then
   echo "✓ Notes/Personal/Notes.md created from template — your personal scratchpad"
 else
-  echo "  Notes/Personal/Notes.md already exists, skipping"
+  echo "⚠ Notes/Personal/Notes.md not created — Notes.example.md is missing, empty or unreadable (partial pull?). Pull again, then re-run install.sh"
 fi
 
 echo ""

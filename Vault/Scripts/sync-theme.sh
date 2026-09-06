@@ -67,8 +67,8 @@ while IFS= read -r line; do
     line="${line%%#*}"
 
     # Parse role_token and role_name
-    role_token=$(echo "$line" | cut -d: -f1 | xargs)
-    role_name=$(echo "$line" | cut -d: -f2- | xargs)
+    role_token=$(trim "${line%%:*}")
+    role_name=$(trim "${line#*:}")
 
     # Skip the Studio variable — it's not a role
     [[ "$role_token" == "Studio" ]] && continue
@@ -76,6 +76,13 @@ while IFS= read -r line; do
     # The Orchestrator token has no agent file by design
     if [[ "$role_token" == "Orchestrator" ]]; then
         echo -e "${GREEN}✓ Skipped: Orchestrator (no agent file by design)${NC}"
+        continue
+    fi
+
+    # Refuse an empty name - rewriting the H1 to "#  - Role Label" is never intended
+    if [ -z "$role_name" ]; then
+        echo -e "${YELLOW}⚠ Warning: Empty name for role token '$role_token' in map — H1 not rewritten${NC}"
+        ((error_count++))
         continue
     fi
 

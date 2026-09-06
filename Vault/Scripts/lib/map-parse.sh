@@ -13,6 +13,17 @@
 #       yaml_lines=$(load_yaml_lines "$MAP_FILE")
 #     get_yaml_tokens reads that $yaml_lines variable.
 
+# Trim leading and trailing whitespace (spaces and tabs) from $1, writing the
+# result to stdout with no trailing newline. Pure parameter expansion - never
+# `xargs`, which parses shell quoting: an O'Brien value aborts xargs with
+# "unmatched single quote" and comes back empty (2026-09-02 audit, finding 16).
+trim() {
+    local s="$1"
+    s="${s#"${s%%[![:space:]]*}"}"
+    s="${s%"${s##*[![:space:]]}"}"
+    printf '%s' "$s"
+}
+
 # All YAML token lines (between ```yaml fences).
 # Anchor to lines starting with an ASCII letter to avoid catching values that
 # contain a colon.
@@ -25,7 +36,7 @@ get_yaml_tokens() {
     echo "$yaml_lines" | while IFS= read -r line; do
         [[ -z "$line" || "$line" == \#* ]] && continue
         line="${line%%#*}"
-        token=$(echo "$line" | cut -d: -f1 | xargs)
+        token=$(trim "${line%%:*}")
         [[ "$token" == "Studio" ]] && continue
         [[ "$token" == "Orchestrator" ]] && continue
         echo "$token"
