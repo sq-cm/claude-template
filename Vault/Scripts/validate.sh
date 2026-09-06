@@ -1258,8 +1258,10 @@ echo ""
 # Check 19 — Learn cheat-sheet Markdown/HTML twin: a structural leg differs
 #
 # Resources/Learn/prompt-formula-cheat-sheet.md and its hand-maintained HTML
-# twin drifted silently between 06/07/2026 and 04/09/2026 (plan 124 closed
-# three missing tips and a missing checklist hint by hand). Check 17 covers
+# twin drifted silently from 06/07/2026 (#156 added tips to the Markdown that
+# the HTML's 12/07/2026 restyle, #188, never carried) until plan 124 re-synced
+# them by hand on 04/09/2026 (three missing tips, one missing checklist hint;
+# PR #322). Check 17 covers
 # Resources/Learn/index.html only. This check extracts six structural legs
 # from each side, normalises inline markup (backticks vs <code>, & vs &amp;),
 # and diffs them: slot names, example headers, bold lead-ins (effort bullets +

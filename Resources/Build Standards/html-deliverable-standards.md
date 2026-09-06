@@ -151,7 +151,7 @@ Dark mode is handled by the shell via `[data-theme="dark"]` CSS variable overrid
 
 ### Document language
 
-The `<html>` element carries a `lang` attribute set from the deliverable's declared BCP-47 locale — `en-AU` when nothing declares one (the skill's required shell line at `.claude/skills/html-deliverable/SKILL.md:83-86` already makes the attribute mandatory). The declaration and the mismatch rule live in `Resources/SOPs/Output Locale SOP.md` § HTML deliverables; the severity row lives here so Quinn's HTML checklist has one home. `lang` is markup, not prose: it is set from the declaration, and a locale pass never 'corrects' it.
+The `<html>` element carries a `lang` attribute set from the deliverable's declared BCP-47 locale — `en-AU` when nothing declares one (the skill's required shell line in `.claude/skills/html-deliverable/SKILL.md` § Theme toggle › HTML attribute already makes the attribute mandatory). The declaration and the mismatch rule live in `Resources/SOPs/Output Locale SOP.md` § HTML deliverables; the severity row lives here so Quinn's HTML checklist has one home. `lang` is markup, not prose: it is set from the declaration, and a locale pass never 'corrects' it.
 
 | Rule | Detection | Severity |
 |---|---|---|
