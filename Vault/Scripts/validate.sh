@@ -184,7 +184,7 @@ check4_pass=true
 all_known_tokens=$(echo "$yaml_lines" | while IFS= read -r line; do
     [[ -z "$line" || "$line" == \#* ]] && continue
     line="${line%%#*}"
-    token=$(echo "$line" | cut -d: -f1 | xargs)
+    token=$(trim "${line%%:*}")
     echo "$token"
 done)
 
