@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 18 read-only checks to verify the vault's structural invariants.
+# Runs 20 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -42,6 +42,8 @@
 #   Check 17 — Learn-page catalog entry unmatched on disk, or vice versa (minus LEARN_OMITTED)
 #   Check 17 — Learn page LAST_SYNCED stamp does not match the file's last commit date, or its anchor is missing
 #   Check 17 — Learn page summary count does not match the live SLASH_COMMANDS entry count, or its anchor is missing
+#   Check 19 — Learn cheat-sheet Markdown/HTML twin: a structural leg (slots, examples, lead-ins, checklist, template lines, sections) differs or extracts nothing
+#   Check 20 — locale-severity sites out of lockstep: owner heading/table shape changed, a summary lost the compliance-sensitive block carve-out, or a § pointer no longer names the owner
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1250,6 +1252,152 @@ if [ "$check18_file_count" -eq 0 ]; then
 fi
 
 $check18_pass && pass "All $check18_file_count shell entry points parse cleanly with bash -n"
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 19 — Learn cheat-sheet Markdown/HTML twin: a structural leg differs
+#
+# Resources/Learn/prompt-formula-cheat-sheet.md and its hand-maintained HTML
+# twin drifted silently from 06/07/2026 (#156 added tips to the Markdown that
+# the HTML's 12/07/2026 restyle, #188, never carried) until plan 124 re-synced
+# them by hand on 04/09/2026 (three missing tips, one missing checklist hint;
+# PR #322). Check 17 covers
+# Resources/Learn/index.html only. This check extracts six structural legs
+# from each side, normalises inline markup (backticks vs <code>, & vs &amp;),
+# and diffs them: slot names, example headers, bold lead-ins (effort bullets +
+# micro-tips), checklist questions, template line counts (Markdown blockquote,
+# HTML callout, TEMPLATE_TEXT), and section counts (## vs <h2>). Body prose is
+# not compared — that stays a review-time discipline; the lead-in list is the
+# cheap, exact signal that a tip was added, removed, or renamed on one side.
+#
+# WARN-tier: page content drift is a prompt to re-sync, not a session-killing
+# defect. Empty extraction on either side is also a WARN — an anchor moved.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 19: Learn cheat-sheet Markdown/HTML twin parity ---"
+CS_MD="$PROJECT_ROOT/Resources/Learn/prompt-formula-cheat-sheet.md"
+CS_HTML="$PROJECT_ROOT/Resources/Learn/prompt-formula-cheat-sheet.html"
+if [ ! -f "$CS_MD" ] || [ ! -f "$CS_HTML" ]; then
+    warn "Check 19 skipped — twin file missing (${CS_MD#$PROJECT_ROOT/} / ${CS_HTML#$PROJECT_ROOT/}; tracked files, investigate)"
+else
+    check19_pass=true
+    # Normalise inline markup so the two extractions compare as plain text:
+    # Markdown drops backticks; HTML drops <code></code> and decodes &amp;.
+    cs_md_norm()   { sed 's/`//g'; }
+    cs_html_norm() { sed -e 's/<\/\{0,1\}code>//g' -e 's/&amp;/\&/g'; }
+
+    # Leg 1: slot names (formula table, column 2)
+    cs_md_slots=$(sed -n 's/^| [0-9] | \*\*\(.*\)\*\* |.*/\1/p' "$CS_MD" | cs_md_norm)
+    cs_html_slots=$(sed -n 's/^ *<td><strong>\(.*\)<\/strong><\/td>$/\1/p' "$CS_HTML" | cs_html_norm)
+    # Leg 2: example card headers
+    cs_md_examples=$(sed -n 's/^### \(.*\)$/\1/p' "$CS_MD")
+    cs_html_examples=$(sed -n 's/.*cs-example-card__header">\(.*\)<\/div>.*/\1/p' "$CS_HTML")
+    # Leg 3: bold lead-ins (effort bullets + micro-tips, document order)
+    cs_md_leadins=$(sed -n 's/^- \*\*\(.*\)\*\* .*/\1/p' "$CS_MD" | cs_md_norm)
+    cs_html_leadins=$(sed -n 's/^ *<li><span><strong>\(.*\)<\/strong> .*/\1/p' "$CS_HTML" | cs_html_norm)
+    # Leg 4: checklist questions (text before the italic hint)
+    cs_md_checks=$(sed -n 's/^- \[ \] \(.*\) \*(.*/\1/p' "$CS_MD" | cs_md_norm)
+    cs_html_checks=$(sed -n 's/^ *<span>\(.*\)<span class="cs-checklist__hint">.*/\1/p' "$CS_HTML" | cs_html_norm)
+
+    for cs_leg in slots examples leadins checks; do
+        eval "cs_md_side=\$cs_md_$cs_leg"; eval "cs_html_side=\$cs_html_$cs_leg"
+        if [ -z "$cs_md_side" ] || [ -z "$cs_html_side" ]; then
+            warn "Check 19 $cs_leg leg extracted nothing (MD $(printf '%s' "$cs_md_side" | grep -c .), HTML $(printf '%s' "$cs_html_side" | grep -c .)) — an anchor moved; fix the extraction, don't silence it"
+            check19_pass=false
+        elif [ "$cs_md_side" != "$cs_html_side" ]; then
+            cs_first_diff=$(diff <(printf '%s\n' "$cs_md_side") <(printf '%s\n' "$cs_html_side") | grep '^[<>]' | head -2 | tr '\n' ' ')
+            warn "Learn cheat sheet $cs_leg differ between Markdown and HTML twin: $cs_first_diff"
+            check19_pass=false
+        fi
+    done
+
+    # Leg 5: template line count — Markdown blockquote lines, HTML callout <p>
+    # lines, TEMPLATE_TEXT quoted lines (the "Copy template" payload).
+    cs_md_tpl=$(awk '/^## Fill-in-the-Blank Template/{p=1;next} /^---/{if(p)exit} p&&/^> /' "$CS_MD" | grep -c .)
+    cs_html_tpl=$(sed -n '/<div class="cs-template-callout">/,/<button/p' "$CS_HTML" | grep -c '^ *<p>')
+    cs_js_tpl=$(sed -n '/var TEMPLATE_TEXT=\[/,/^ *\]/p' "$CS_HTML" | grep -c "^ *'")
+    if [ "$cs_md_tpl" -eq 0 ] || [ "$cs_md_tpl" != "$cs_html_tpl" ] || [ "$cs_md_tpl" != "$cs_js_tpl" ]; then
+        warn "Learn cheat sheet template line counts disagree — Markdown $cs_md_tpl, HTML callout $cs_html_tpl, TEMPLATE_TEXT $cs_js_tpl"
+        check19_pass=false
+    fi
+
+    # Leg 6: section count (Markdown H2 vs HTML <h2>)
+    cs_md_h2=$(grep -c '^## ' "$CS_MD")
+    cs_html_h2=$(grep -c '<h2>' "$CS_HTML")
+    if [ "$cs_md_h2" -eq 0 ] || [ "$cs_md_h2" != "$cs_html_h2" ]; then
+        warn "Learn cheat sheet section counts disagree — Markdown ## $cs_md_h2, HTML <h2> $cs_html_h2"
+        check19_pass=false
+    fi
+
+    $check19_pass && pass "Learn cheat sheet Markdown and HTML twin agree ($(printf '%s\n' "$cs_md_slots" | grep -c .) slots, $(printf '%s\n' "$cs_md_examples" | grep -c .) examples, $(printf '%s\n' "$cs_md_leadins" | grep -c .) lead-ins, $(printf '%s\n' "$cs_md_checks" | grep -c .) checklist items, $cs_md_tpl template lines, $cs_md_h2 sections)"
+fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 20 — locale-severity sites out of lockstep
+#
+# Plan 120 (PR #323) put four files in lockstep on locale severity: the
+# Output Locale SOP § QA severity table owns the rule; CLAUDE.md § Output
+# Locale, QA Gate SOP § Locale check and Quinn's persona each carry a one-line
+# summary and (the latter two) a "§ QA severity" pointer. Check 6 resolves
+# ](…) links, not § pointers, so a renamed heading or a trimmed summary would
+# pass every existing check. This pins: the owner heading exists once, the
+# table still has exactly one FLAG row and one BLOCK row, each summary still
+# says "compliance-sensitive" and a block word on its own line/section, and
+# both pointers still name the owner section.
+#
+# WARN-tier: a wording drift is a prompt to re-read the four sites together,
+# not a build-breaking defect.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 20: Locale-severity sites in lockstep ---"
+OL_SOP="$PROJECT_ROOT/Resources/SOPs/Output Locale SOP.md"
+QA_SOP="$PROJECT_ROOT/Resources/SOPs/QA Gate SOP.md"
+QA_PERSONA="$PROJECT_ROOT/.claude/agents/qa-compliance-reviewer.md"
+check20_pass=true
+for f in "$OL_SOP" "$QA_SOP" "$QA_PERSONA" "$PROJECT_ROOT/CLAUDE.md"; do
+    if [ ! -f "$f" ]; then
+        warn "Check 20 skipped — ${f#$PROJECT_ROOT/} missing (tracked file; investigate)"
+        check20_pass=false
+    fi
+done
+if $check20_pass; then
+    # Leg 1: the owner heading exists exactly once
+    ol_heading_count=$(grep -c '^## QA severity' "$OL_SOP")
+    if [ "$ol_heading_count" -ne 1 ]; then
+        warn "Output Locale SOP '## QA severity' heading count is $ol_heading_count (expected 1) — the two '§ QA severity' pointers break"
+        check20_pass=false
+    fi
+    # Leg 2: the owner table carries exactly one FLAG row and one BLOCK row
+    ol_section=$(awk '/^## QA severity/{p=1;next} /^## /{p=0} p' "$OL_SOP")
+    ol_flag_rows=$(printf '%s\n' "$ol_section" | grep -c '^| Prose does not match the declared locale | \*\*FLAG\*\*')
+    ol_block_rows=$(printf '%s\n' "$ol_section" | grep -c '^| Locale error inside a compliance-sensitive claim.*| \*\*BLOCK\*\* |')
+    if [ "$ol_flag_rows" -ne 1 ] || [ "$ol_block_rows" -ne 1 ]; then
+        warn "Output Locale SOP § QA severity table shape changed (FLAG rows $ol_flag_rows, BLOCK rows $ol_block_rows; expected 1/1) — re-read the three summaries"
+        check20_pass=false
+    fi
+    # Leg 3: the three summaries each carry the carve-out AND a block word
+    ls_claude_line=$(grep 'verifies against the declared locale' "$PROJECT_ROOT/CLAUDE.md")
+    ls_qa_section=$(awk '/^## Locale check/{p=1;next} /^## /{p=0} p' "$QA_SOP")
+    ls_persona_line=$(grep 'Locale check' "$QA_PERSONA")
+    for ls_site in "CLAUDE.md § Output Locale|$ls_claude_line" "QA Gate SOP § Locale check|$ls_qa_section" "Quinn persona Locale check|$ls_persona_line"; do
+        ls_name=${ls_site%%|*}; ls_text=${ls_site#*|}
+        if [ -z "$ls_text" ]; then
+            warn "Check 20: $ls_name anchor not found — the summary moved or its anchor wording changed"
+            check20_pass=false
+        elif ! printf '%s' "$ls_text" | grep -q 'compliance-sensitive' || ! printf '%s' "$ls_text" | grep -qi 'block'; then
+            warn "$ls_name no longer states the compliance-sensitive block carve-out — out of lockstep with Output Locale SOP § QA severity"
+            check20_pass=false
+        fi
+    done
+    # Leg 4: the two pointers still name the owner section
+    for ls_site in "QA Gate SOP|$QA_SOP" "Quinn persona|$QA_PERSONA"; do
+        ls_name=${ls_site%%|*}; ls_file=${ls_site#*|}
+        if ! grep -q '§ QA severity' "$ls_file"; then
+            warn "$ls_name no longer points at Output Locale SOP § QA severity"
+            check20_pass=false
+        fi
+    done
+    $check20_pass && pass "Locale severity: owner table intact, three summaries carry the carve-out, both pointers resolve"
+fi
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────

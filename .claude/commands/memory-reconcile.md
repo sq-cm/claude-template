@@ -79,9 +79,9 @@ If `Vault/Memory/context.md` does not exist (a clone that skipped install/onboar
 For each moved note:
 
 1. Read the note's `type`, `scope`, `project`, and `topic` frontmatter.
-2. **Project-scoped routing.** If the note carries a valid `project:` field (validated in step 2 above), route it into that project's own pair — `HISTORY.md` (append-only decision trail) and `CONTEXT.md` (current truths: vocabulary, live state, operative gotchas) — instead of the type-based section matching in item 3 below:
+2. **Project-scoped routing.** If the note carries a valid `project:` field (validated in step 2 above), route it into that project's own pair — `HISTORY.md` (append-only decision trail) and `CONTEXT.md` (current truths: locale, vocabulary, live state, operative gotchas) — instead of the type-based section matching in item 3 below:
    1. **Ensure both files exist; carve if old-shape.**
-      - `CONTEXT.md` missing → seed it from the skeleton at `Projects/Template/CONTEXT.md` (section structure verbatim, placeholder comments intact). Present but missing a required H2 section → add the missing header (non-destructive repair, report it); never reseed over a populated file.
+      - `CONTEXT.md` missing → seed it from the skeleton at `Projects/Template/CONTEXT.md` (section structure verbatim, placeholder comments intact). Present but missing a required H2 section (one of the skeleton's four: `## Locale`, `## Vocabulary`, `## Live state`, `## Gotchas`) → add the missing header only — no value, so a restored `## Locale` carries no `locale:` line and the `en-AU` default applies (non-destructive repair, report it); never reseed over a populated file.
       - `HISTORY.md` missing → seed from `Projects/Template/HISTORY.md`.
       - `HISTORY.md` old-shape — it carries **carve zones**: an H2 `## Live state`, `## Gotchas`, or an obvious variant (e.g. `## Gotchas carried in`), matched at line start **outside fenced code blocks**; when a section's status is ambiguous, skip it and report — → **carve** before folding:
         1. Snapshot `HISTORY.md` to `Vault/Memory/Notes/carve-backups/<project>-HISTORY-<YYYY-MM-DD>.md` (create the directory if absent); report the path.

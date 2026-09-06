@@ -149,6 +149,14 @@ Use `<details>`/`<summary>` as the default collapsible primitive for all collaps
 
 Dark mode is handled by the shell via `[data-theme="dark"]` CSS variable overrides — toggled by the JS theme bootstrap, not `@media (prefers-color-scheme: dark)`. OS preference is used only as the bootstrap default when no localStorage value is stored. Do not introduce hardcoded `#hex` colour values in page-specific CSS unless they are wrapped in their own `[data-theme="dark"]` selector counterpart. Do not use `@media (prefers-color-scheme: dark)` in page-specific CSS — the JS-toggled approach owns dark mode state.
 
+### Document language
+
+The `<html>` element carries a `lang` attribute set from the deliverable's declared BCP-47 locale — `en-AU` when nothing declares one (the skill's required shell line in `.claude/skills/html-deliverable/SKILL.md` § Theme toggle › HTML attribute already makes the attribute mandatory). The declaration and the mismatch rule live in `Resources/SOPs/Output Locale SOP.md` § HTML deliverables; the severity row lives here so Quinn's HTML checklist has one home. `lang` is markup, not prose: it is set from the declaration, and a locale pass never 'corrects' it.
+
+| Rule | Detection | Severity |
+|---|---|---|
+| `lang` missing, or not the declared locale | `<html lang="…">` present and equal to the locale named in the QA dispatch brief (`en-AU` when none is named) | FLAG |
+
 ### Semantic HTML
 
 Use structural elements correctly:
@@ -352,4 +360,5 @@ Rollback scope is the template vault only. Vaults already instantiated from a pr
 | Studio shell CSS scaffold | `.claude/skills/html-deliverable/studio-shell.css` |
 | Example HTMLs (one per deliverable type) | `.claude/skills/html-deliverable/examples/` |
 | QA Gate SOP (Quinn's HTML checklist addendum) | `Resources/SOPs/QA Gate SOP.md` |
+| Locale declaration and the `lang` rule's origin | `Resources/SOPs/Output Locale SOP.md` § HTML deliverables |
 | v2 follow-up — SQ brand pass (Remi, queued) | Tate (ProjectManager) tracks; triggers Odin Checkpoints A + B per skill decision 10 |
