@@ -20,12 +20,12 @@ Ask where the rule is true, then place it at the narrowest tier that still cover
 
 ## Load semantics
 
-Empirically verified 06/07/2026 (findings summarised in full below):
+Empirically verified 06/07/2026, the `.claude/` result re-tested 29/07/2026 and 06/09/2026 (findings summarised in full below):
 
 - **Not injected at session start.** Zero per-session cost while the folder is untouched.
 - **Injected on Read.** The first Read of any file in the folder attaches the folder's `CLAUDE.md` to that tool result — in the main session and identically for a dispatched sub-agent on its own Read.
 - **Write of a new file and Edit do not trigger injection directly.** But Edit requires a prior Read in the same conversation, and that Read fires the injection — so the normal edit path is still covered.
-- **`.claude/` does not inject.** Verified 06/07/2026 via two separate Reads of files in `.claude/agents/` in the same session: no injection occurred at either Read. Confirmed for `.claude/`; other dotfolders are untested.
+- **`.claude/` injects.** A 06/07/2026 test (two separate Reads of files in `.claude/agents/` in one session) recorded no injection; live tests on 29/07/2026 (main session plus two sub-agents) and on 06/09/2026 (clean session, first Read of `.claude/agents/senior-adviser.md`, Claude Code 2.1.263) each attached `.claude/agents/CLAUDE.md` to the tool result. The 06/07 result is superseded; its cause was not recorded (harness versions were not captured then) and is most likely a harness change, not a folder property. Confirmed for `.claude/`; other dotfolders are untested.
 
 **Consequence:** folder-tier files are read-path backstops. A rule that gates a decision made *before* the folder is touched (routing, QA Gate trigger, Fast-Path eligibility) or that must hold on a blind write-only path stays in root `CLAUDE.md`. Folder-tier files carry rules the acting persona needs at the point they're already looking at a file in that folder.
 
@@ -34,7 +34,7 @@ Empirically verified 06/07/2026 (findings summarised in full below):
 Folders shipping a `CLAUDE.md` today:
 
 - `Resources/SOPs/`
-- `.claude/agents/` — **documentation-only.** Dotfolders don't lazily inject, so this file never loads as an enforcement backstop; it ships as a convention marker only. The persona-governance rules it restates are actually carried by root `CLAUDE.md` and the Persona Template SOP.
+- `.claude/agents/` — **loads on Read** like the others (§ Load semantics carries the superseded 06/07 no-injection record). It restates persona-governance rules whose authoritative sources are root `CLAUDE.md` and the Persona Template SOP.
 - `Vault/Memory/`
 - `03 Deliverables/` in every project folder (ships with `Projects/Template/`)
 
