@@ -46,7 +46,6 @@ Every request goes to the Orchestrator first, who hands it to the right speciali
 - `.claude/agents/[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
 - `Vault/Scripts/validate.sh` — 20 read-only consistency checks (roster ↔ theme map, persona pins, links, CHANGELOG ↔ PRs); run before every template PR
-- `Vault/Scripts/tests/run-all.sh` — runs the five behavioural test harnesses (validate.sh, sync-theme.sh, install.sh, update.sh, the onboarding hook) against throwaway trees; run after touching any script under `Vault/Scripts/` or `.claude/hooks/`
 - `Vault/Memory/` — persistent memory: `context.md` (this clone, git-ignored) and `MEMORY.md` (shipped index); each project also carries its own `CONTEXT.md` and `HISTORY.md`
 - `.claude/skills/` — reusable skill modules: brainstorming, html-deliverable, HyperFrames video rendering, the /teach tutor, cinema prompt skills, and more; see `.claude/skills/README.md` for the full catalog
 - `.claude/output-styles/` — optional reply styles (ELI5, ASD-STE100) switched with the built-in `/output-style` command; a style reshapes how replies read but yields to skills and project rules, and wins over the caveman plugin's register
