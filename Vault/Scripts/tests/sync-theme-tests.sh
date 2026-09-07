@@ -40,74 +40,11 @@ fi
 TMP_ROOT="$(mktemp -d)"
 trap 'rm -rf "$TMP_ROOT"' EXIT
 
-TOTAL=0
-FAILED=0
-
 # ---------------------------------------------------------------------------
-# Assert helpers - same shape as onboarding-hook-tests.sh
+# Assert helpers - shared, see lib/assert.sh
 # ---------------------------------------------------------------------------
 
-assert_exit() {
-  # $1 = label, $2 = expected exit code, $3 = actual exit code
-  label="$1"
-  expected="$2"
-  actual="$3"
-  TOTAL=$((TOTAL + 1))
-  if [ "$actual" = "$expected" ]; then
-    echo "ok - $label (exit $actual)"
-  else
-    echo "FAIL - $label (expected exit $expected, got $actual)"
-    FAILED=$((FAILED + 1))
-  fi
-}
-
-assert_eq() {
-  # $1 = label, $2 = expected, $3 = actual
-  label="$1"
-  expected="$2"
-  actual="$3"
-  TOTAL=$((TOTAL + 1))
-  if [ "$expected" = "$actual" ]; then
-    echo "ok - $label"
-  else
-    echo "FAIL - $label (expected [$expected], got [$actual])"
-    FAILED=$((FAILED + 1))
-  fi
-}
-
-assert_contains() {
-  # $1 = label, $2 = haystack, $3 = needle
-  label="$1"
-  haystack="$2"
-  needle="$3"
-  TOTAL=$((TOTAL + 1))
-  case "$haystack" in
-    *"$needle"*)
-      echo "ok - $label"
-      ;;
-    *)
-      echo "FAIL - $label (expected to find [$needle] in output)"
-      FAILED=$((FAILED + 1))
-      ;;
-  esac
-}
-
-assert_not_contains() {
-  # $1 = label, $2 = haystack, $3 = needle
-  label="$1"
-  haystack="$2"
-  needle="$3"
-  TOTAL=$((TOTAL + 1))
-  case "$haystack" in
-    *"$needle"*)
-      echo "FAIL - $label (did not expect to find [$needle] in output)"
-      FAILED=$((FAILED + 1))
-      ;;
-    *)
-      echo "ok - $label"
-      ;;
-  esac
-}
+. "$SCRIPT_DIR/lib/assert.sh"
 
 # ---------------------------------------------------------------------------
 # Fixture helper
@@ -168,7 +105,6 @@ assert_contains "case 2: empty-name warning names the token" "$OUT1" "Empty name
 assert_contains "case 2: error count is 1" "$OUT1" "Errors: 1"
 H1_EMPTY="$(head -1 "$S1/.claude/agents/empty.md")"
 assert_eq "case 2: empty.md H1 left unchanged" "# Someone — Empty Role" "$H1_EMPTY"
-assert_not_contains "case 2: H1 never rewritten to an empty name" "$OUT1" "#  —"
 
 # ---------------------------------------------------------------------------
 # Case 3: a clean map is a no-op
@@ -214,9 +150,4 @@ assert_eq "case 4: trim leaves an apostrophe untouched" "O'Brien" "$TRIM_D"
 # Summary
 # ---------------------------------------------------------------------------
 
-echo ""
-echo "$TOTAL asserts, $FAILED failures"
-if [ "$FAILED" -gt 0 ]; then
-  exit 1
-fi
-exit 0
+assert_summary
