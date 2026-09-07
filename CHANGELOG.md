@@ -6,7 +6,7 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-09-07
 
-- chore(scripts): removes `Vault/Scripts/tests/` in full — the five behavioural harnesses (install, update, sync-theme, onboarding hook, validate), `run-all.sh`, `lib/assert.sh` and the validate fixtures added across #315, #324 and #327 — together with the README bullet and the `Vault/Scripts/tests/*.sh` entry in Check 18's glob. Maintainer decision on 07/09/2026; the scripts themselves are unchanged. (#NNN)
+- chore(scripts): removes `Vault/Scripts/tests/` in full — the five behavioural harnesses (install, update, sync-theme, onboarding hook, validate), `run-all.sh`, `lib/assert.sh` and the validate fixtures added across #315, #324 and #327 — together with the README bullet and the `Vault/Scripts/tests/*.sh` entry in Check 18's glob. Maintainer decision on 07/09/2026; the scripts themselves are unchanged. (#328)
 
 - test(validate): adds `Vault/Scripts/tests/validate-tests.sh`, a characterisation harness that trips and clears every one of `validate.sh`'s 20 checks against throwaway skeleton trees (checked-in fixtures under `tests/fixtures/validate/`, sized from the validator's own tripwire constants so a hire never turns it red); extracts the four assert helpers shared by every harness into `tests/lib/assert.sh` and migrates the four existing harnesses to it (output proven identical); closes plan 122's two deferred nits (`sync-theme-tests.sh` vacuous assert removed, `install-tests.sh` Case 4 now asserts no warning glyph); adds `tests/run-all.sh` and lists it in the README. Documented gaps: the perl-absent WARN in Check 15 and the zero-files FAIL in Check 18 are not reachable from a fixture. Plan 126. (#327)
 
