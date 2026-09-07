@@ -6,7 +6,7 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-09-07
 
-- test(validate): adds `Vault/Scripts/tests/validate-tests.sh`, a characterisation harness that trips and clears every one of `validate.sh`'s 20 checks against throwaway skeleton trees (checked-in fixtures under `tests/fixtures/validate/`, sized from the validator's own tripwire constants so a hire never turns it red); extracts the four assert helpers shared by every harness into `tests/lib/assert.sh` and migrates the four existing harnesses to it (output proven identical); closes plan 122's two deferred nits (`sync-theme-tests.sh` vacuous assert removed, `install-tests.sh` Case 4 now asserts no warning glyph); adds `tests/run-all.sh` and lists it in the README. Documented gaps: the perl-absent WARN in Check 15 and the zero-files FAIL in Check 18 are not reachable from a fixture. Plan 126. (#NNN)
+- test(validate): adds `Vault/Scripts/tests/validate-tests.sh`, a characterisation harness that trips and clears every one of `validate.sh`'s 20 checks against throwaway skeleton trees (checked-in fixtures under `tests/fixtures/validate/`, sized from the validator's own tripwire constants so a hire never turns it red); extracts the four assert helpers shared by every harness into `tests/lib/assert.sh` and migrates the four existing harnesses to it (output proven identical); closes plan 122's two deferred nits (`sync-theme-tests.sh` vacuous assert removed, `install-tests.sh` Case 4 now asserts no warning glyph); adds `tests/run-all.sh` and lists it in the README. Documented gaps: the perl-absent WARN in Check 15 and the zero-files FAIL in Check 18 are not reachable from a fixture. Plan 126. (#327)
 
 ## 2026-09-06
 
