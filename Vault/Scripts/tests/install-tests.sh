@@ -35,74 +35,11 @@ fi
 TMP_ROOT="$(mktemp -d)"
 trap 'rm -rf "$TMP_ROOT"' EXIT
 
-TOTAL=0
-FAILED=0
-
 # ---------------------------------------------------------------------------
-# Assert helpers - same shape as onboarding-hook-tests.sh
+# Assert helpers - shared, see lib/assert.sh
 # ---------------------------------------------------------------------------
 
-assert_exit() {
-  # $1 = label, $2 = expected exit code, $3 = actual exit code
-  label="$1"
-  expected="$2"
-  actual="$3"
-  TOTAL=$((TOTAL + 1))
-  if [ "$actual" = "$expected" ]; then
-    echo "ok - $label (exit $actual)"
-  else
-    echo "FAIL - $label (expected exit $expected, got $actual)"
-    FAILED=$((FAILED + 1))
-  fi
-}
-
-assert_eq() {
-  # $1 = label, $2 = expected, $3 = actual
-  label="$1"
-  expected="$2"
-  actual="$3"
-  TOTAL=$((TOTAL + 1))
-  if [ "$expected" = "$actual" ]; then
-    echo "ok - $label"
-  else
-    echo "FAIL - $label (expected [$expected], got [$actual])"
-    FAILED=$((FAILED + 1))
-  fi
-}
-
-assert_contains() {
-  # $1 = label, $2 = haystack, $3 = needle
-  label="$1"
-  haystack="$2"
-  needle="$3"
-  TOTAL=$((TOTAL + 1))
-  case "$haystack" in
-    *"$needle"*)
-      echo "ok - $label"
-      ;;
-    *)
-      echo "FAIL - $label (expected to find [$needle] in output)"
-      FAILED=$((FAILED + 1))
-      ;;
-  esac
-}
-
-assert_not_contains() {
-  # $1 = label, $2 = haystack, $3 = needle
-  label="$1"
-  haystack="$2"
-  needle="$3"
-  TOTAL=$((TOTAL + 1))
-  case "$haystack" in
-    *"$needle"*)
-      echo "FAIL - $label (did not expect to find [$needle] in output)"
-      FAILED=$((FAILED + 1))
-      ;;
-    *)
-      echo "ok - $label"
-      ;;
-  esac
-}
+. "$SCRIPT_DIR/lib/assert.sh"
 
 # ---------------------------------------------------------------------------
 # Fixture helpers
@@ -216,14 +153,10 @@ run_installer "$REPO2"
 assert_exit "case 4: exit 0" 0 "$INSTALL_CODE"
 SKIP_COUNT="$(printf '%s\n' "$INSTALL_OUT" | grep -c 'already exists, skipping')"
 assert_eq "case 4: three skip lines" "3" "$SKIP_COUNT"
+assert_not_contains "case 4: no warning glyph" "$INSTALL_OUT" "⚠"
 
 # ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
 
-echo ""
-echo "$TOTAL asserts, $FAILED failures"
-if [ "$FAILED" -gt 0 ]; then
-  exit 1
-fi
-exit 0
+assert_summary
