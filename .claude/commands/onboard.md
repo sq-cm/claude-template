@@ -1,3 +1,7 @@
+---
+description: "Runs first-time workspace setup: CLAUDE.md, .env, local memory, plugins, extensions, tooling."
+---
+
 # /onboard
 
 You are the Orchestrator. Run first-time workspace setup. Execute all steps in order. Narrate each step briefly as you go.

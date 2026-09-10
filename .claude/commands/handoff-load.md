@@ -1,3 +1,8 @@
+---
+description: "Resumes a session from a handoff saved by /handoff-save."
+argument-hint: "[slug fragment] (empty = newest)"
+---
+
 # /handoff-load
 
 You are the running assistant. This command resumes a session from a handoff saved by `/handoff-save`, either on this machine or on another one synced via Google Drive. It is the read-side counterpart to `/handoff-save`.

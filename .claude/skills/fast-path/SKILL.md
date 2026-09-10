@@ -1,6 +1,6 @@
 ---
 name: fast-path
-description: Explicitly request the Fast-Path Lane for a light task — the sanctioned shortcut for single-file, reversible, one-persona work. Asserts eligibility, then either runs the task on the lane or auto-escalates to the full pipeline. Use when the user invokes /fast-path. Explicit invocation tool — do not fire automatically on ordinary requests.
+description: Explicitly request the Fast-Path Lane for a light task — the sanctioned shortcut for single-file, reversible, one-persona work. Asserts eligibility, then either runs the task on the lane or auto-escalates to the full pipeline. Use when the user invokes /fast-path. Explicit invocation tool — do not fire automatically on ordinary requests. Not a destination change — that's /chat; not for anything touching 03 Deliverables/.
 disable-model-invocation: true
 argument-hint: "The light task to fast-path"
 ---

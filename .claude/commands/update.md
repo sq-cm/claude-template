@@ -1,3 +1,7 @@
+---
+description: "Pulls latest template changes from origin/main using the two-branch rebase model."
+---
+
 # /update
 
 You are the Orchestrator. Pull the latest template changes from `origin/main` into the local vault using the two-branch model (`main` = upstream mirror, `local/main` = user's work). All update mechanics are deterministic and live in `Vault/Scripts/update.sh` — never run the old manual git steps yourself, and never run `git rebase --abort` on the user's behalf. The one exception is that script's own `--unattended` mode, which the SessionStart hook runs and which cancels its own conflicted rebase — see the header of `Vault/Scripts/update.sh` for why.
