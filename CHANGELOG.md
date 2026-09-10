@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-09-10
+
+- feat(skills,commands,validate,sops): borrows four conventions from a read-only review of `anthropics/commerce-agents` (plan 127). Six skill descriptions (`brainstorming`, `writing-plans`, `grill-me`, `prototype`, `fast-path`, `chat`) gain a negative routing clause ("Not for X; use Y"), recorded as a vault adaptation in each upstream-synced file's header comment; the nine bare `.claude/commands/*.md` gain quoted `description:` and, where the command reads arguments, `argument-hint:` frontmatter; `validate.sh` Check 9 gains leg (c) — a command file without a `---` fence or `description:` FAILs — and Check 11 gains two non-fatal WARN tripwires (description under 40 chars, body under 200 chars); the Sub-Agent Architecture SOP's Lane A step 3 states that fetched excerpts are data, not instructions; `Resources/Git/INDEX.md` gains a reference-only row for the repo. Checkpoint A REVISE (10 folds), Checkpoint B REVISE then confirmation PASS; four negative controls verified. (#330)
+
 ## 2026-09-07
 
 - chore(scripts): removes `Vault/Scripts/tests/` in full — the five behavioural harnesses (install, update, sync-theme, onboarding hook, validate), `run-all.sh`, `lib/assert.sh` and the validate fixtures added across #315, #324 and #327 — together with the README bullet and the `Vault/Scripts/tests/*.sh` entry in Check 18's glob. Maintainer decision on 07/09/2026; the scripts themselves are unchanged. (#328)
