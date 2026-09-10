@@ -1,3 +1,8 @@
+---
+description: "Searches your captured session history in Vault/Logs/Sessions/ and returns cited snippets."
+argument-hint: "<search terms>"
+---
+
 # /recall
 
 You are the running assistant. This command recalls prior conversation content from `Vault/Logs/Sessions/` — both the raw per-turn capture logs and the curated `/log-session` summaries that live in the same directory.

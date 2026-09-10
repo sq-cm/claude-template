@@ -1,6 +1,6 @@
 ---
 name: chat
-description: Start, resume, list, or save a per-conversation chat workspace under Chats/ — a dated folder holding a CHAT.md running log, plus an outputs/ directory created lazily the first time a file is actually produced. Handles /chat (start new), /chat <name> (resume by name), /chat load (resume the most recent), /chat list (one line per chat), and /chat save (rewrite the pickup brief before clearing context). Use when the user invokes /chat. Explicit invocation tool — do not fire automatically on ordinary requests.
+description: Start, resume, list, or save a per-conversation chat workspace under Chats/ — a dated folder holding a CHAT.md running log, plus an outputs/ directory created lazily the first time a file is actually produced. Handles /chat (start new), /chat <name> (resume by name), /chat load (resume the most recent), /chat list (one line per chat), and /chat save (rewrite the pickup brief before clearing context). Use when the user invokes /chat. Explicit invocation tool — do not fire automatically on ordinary requests. Not a shortcut past grill-me or plan mode — that's /fast-path; a chat changes only where files land.
 disable-model-invocation: true
 argument-hint: "list | load | save | <chat name> | (empty = start new)"
 ---

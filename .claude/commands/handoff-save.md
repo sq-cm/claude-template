@@ -1,3 +1,8 @@
+---
+description: "Writes a forward-looking pickup brief to Vault/Logs/Handoffs/ for resuming work in a new session."
+argument-hint: "[optional pickup note]"
+---
+
 # /handoff-save
 
 You are the Orchestrator. Writes a forward-looking handoff brief so the conversation can be picked up on another machine. Vault syncs via Google Drive, so files under `Vault/Logs/Handoffs/` are reachable from any synced machine.

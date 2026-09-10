@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. Not for stress-testing a plan you already hold; use grill-me. Not for sequencing agreed work; use writing-plans."
 ---
 
 <!--
@@ -8,7 +8,9 @@ Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upst
 v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025):
 spec save path repointed to Vault/Specs/ (git-ignored, no commit), depth-1 guard added
 directing routed personas to return reviewer dispatch to the Orchestrator instead of
-dispatching it themselves. Re-sync rule: carry these adaptations over any future
+dispatching it themselves. Vault adaptation (plan 127): negative routing clauses
+appended to the description, pointing stress-testing at grill-me and sequencing at
+writing-plans. Re-sync rule: carry these adaptations over any future
 upstream replace.
 -->
 

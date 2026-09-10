@@ -1,3 +1,7 @@
+---
+description: "Saves a structured log of the current session: request, routing trace, artefacts, outcomes, open loops."
+---
+
 # /log-session
 
 You are the Orchestrator. This command writes a session log for the current conversation.

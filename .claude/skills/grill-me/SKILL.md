@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Interview the user relentlessly about a plan, decision, or idea until reaching shared understanding, working the design tree in rounds. Use when the user wants to stress-test their thinking, get grilled on a design, or mentions "grill me".
+description: Interview the user relentlessly about a plan, decision, or idea until reaching shared understanding, working the design tree in rounds. Use when the user wants to stress-test their thinking, get grilled on a design, or mentions "grill me". Not for open-ended ideation; use brainstorming. Not for producing the step list afterwards; that comes from plan mode.
 adapted_from: https://github.com/mattpocock/skills
 upstream_commit: bfdaef8e989a5c81160e74bc5043bd434da49cac
 ---
@@ -18,6 +18,9 @@ future upstream replace:
      more reliable match target than upstream's "any 'grill' trigger phrases".
   3. Vault depth rule added below. Upstream's fact-finding paragraph tells the reader to
      dispatch a sub-agent; only the Orchestrator may do that here.
+  4. Negative routing clauses appended to the description (plan 127): ideation goes to
+     brainstorming, the step list that follows comes from plan mode (CLAUDE.md § Default Mode),
+     not from this skill.
 -->
 
 > **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona,

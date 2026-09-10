@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Use when you have a spec or requirements for a multi-step task, before touching code. Not for exploring whether to build; use brainstorming. Not for interrogating a design; use grill-me.
 ---
 
 <!--
@@ -13,7 +13,9 @@ personas to return reviewer dispatch to the Orchestrator instead of dispatching 
 themselves. Band-1 trim (F11, 06/08/2026): one prose length-calibration line added
 after the Overview's second paragraph ("Length calibration (vault adaptation): …");
 it calibrates prose only and must never weaken the No Placeholders repeat-the-code
-rule. Re-sync rule: carry these adaptations over any future upstream replace.
+rule. Vault adaptation (plan 127): negative routing clauses appended to the description,
+pointing exploration at brainstorming and design interrogation at grill-me.
+Re-sync rule: carry these adaptations over any future upstream replace.
 -->
 
 # Writing Plans

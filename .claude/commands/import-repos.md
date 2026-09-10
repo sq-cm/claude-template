@@ -1,3 +1,7 @@
+---
+description: "Imports GitHub repositories listed in Resources/Git/IMPORT.md into the local Git reference library."
+---
+
 # /import-repos
 
 You are the Orchestrator. Process all GitHub repo URLs staged in `Resources/Git/IMPORT.md` and integrate them into the vault.

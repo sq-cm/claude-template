@@ -1,3 +1,8 @@
+---
+description: "Imports documentation URLs staged in Resources/Refs/IMPORT.md and records each in Resources/Refs/INDEX.md."
+argument-hint: "[rehydrate]"
+---
+
 # /import-ref
 
 You are the Orchestrator. Process all documentation URLs staged in `Resources/Refs/IMPORT.md` and integrate them into the vault's reference index.

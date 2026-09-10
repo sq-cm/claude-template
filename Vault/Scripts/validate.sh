@@ -26,6 +26,7 @@
 #   Check 7  — live agent/skill count does not match README assertion
 #   Check 8  — required seed file missing
 #   Check 9  — settings.json hook/statusLine script path does not exist
+#   Check 9  — command file missing frontmatter or description:
 #   Check 10 — persona model: pin or effort: value missing or outside documented set/enum
 #   Check 11 — skill SKILL.md missing, malformed frontmatter, or description over the 1024-char loader cap
 #   Check 14 — REQUIRED_KEYS plugin flag maps to a disabled plugin (F21(f) coupling)
@@ -36,6 +37,8 @@
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/ (minus known-benign allowlist)
 #   Check 9  — prose `/command` reference with no command file, skill, or built-in
 #   Check 10 — model-pin or effort-tier count differs from its tripwire constant
+#   Check 11 — skill description shorter than the 40-char routing floor
+#   Check 11 — skill body shorter than the 200-char stub floor
 #   Check 12 — merged PR (recent history) missing a CHANGELOG.md entry, not exempt
 #   Check 13 — settings.json marketplace and SETUP.md accepted-risk table disagree
 #   Check 15 — context.md injected size over the 3,072-byte budget
@@ -544,6 +547,11 @@ echo ""
 # (b) Every `/name` prose reference in CLAUDE.md and .claude/hooks/*.sh should
 #     resolve to .claude/commands/<name>.md, a .claude/skills/<name>/ dir, or a
 #     known built-in. → WARN only (prose legitimately names plugin skills).
+# (c) Every .claude/commands/*.md must open with a YAML frontmatter block
+#     carrying a 'description:' key, or the command lands in the `/` picker with
+#     no hint of what it does — the same ERROR treatment Check 16 gives
+#     output-styles (plan 127). 'argument-hint:' is optional, so unchecked.
+#     → FAIL
 #
 # grep -o over the JSON matches repo style; -E only, never -P.
 # ──────────────────────────────────────────────────────────────────────────────
@@ -573,7 +581,33 @@ else
     done < <(echo "$settings_script_paths")
 fi
 
-$check9_pass && pass "All settings.json script references resolve"
+# Leg (c): command-file frontmatter. The awk extraction below reads any `---`
+# pair as a frontmatter block, so guard on the first line being a fence first —
+# a body hrule pair would otherwise pass a frontmatter-less file.
+for cmd_md in "$PROJECT_ROOT/.claude/commands/"*.md; do
+    [ -f "$cmd_md" ] || continue
+    cmd_name=$(basename "$cmd_md" .md)
+
+    if [ "$(head -1 "$cmd_md" | tr -d '\r')" != "---" ]; then
+        fail "/$cmd_name: no YAML frontmatter block — command file must open with a --- fence"
+        check9_pass=false
+        continue
+    fi
+
+    # Same CRLF-proof first-frontmatter-block extraction as Check 5/10/11
+    cmd_frontmatter=$(awk '
+        { sub(/\r$/, "") }
+        /^---$/ { count++; if (count == 2) exit; next }
+        count == 1 { print }
+    ' "$cmd_md")
+
+    if ! echo "$cmd_frontmatter" | grep -q '^description:'; then
+        fail "/$cmd_name: no 'description:' key in command frontmatter"
+        check9_pass=false
+    fi
+done
+
+$check9_pass && pass "All settings.json script references resolve and all command files carry description: frontmatter"
 
 # WARN pass: `/name` prose references in CLAUDE.md and hook scripts
 BUILTIN_COMMANDS="clear model config context usage fast"
@@ -710,12 +744,18 @@ echo ""
 # continuation) — continuation lines are joined with a single space before
 # measuring length.
 #
+# Two quality tripwires ride along, both WARN (plan 127): a description under
+# DESCRIPTION_MIN chars is too thin for the loader to route on, and a body under
+# BODY_MIN chars is a stub the loader will still advertise. Neither trips today.
+#
 # Frontmatter extraction reuses Check 5/10's CRLF-proof awk idiom.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 11: Skill manifest integrity ---"
 check11_pass=true
 SKILLS_DIR="$PROJECT_ROOT/.claude/skills"
 DESCRIPTION_CAP=1024
+DESCRIPTION_MIN=40
+BODY_MIN=200
 
 for sdir in "$SKILLS_DIR"/*/; do
     sname=$(basename "$sdir")
@@ -764,6 +804,23 @@ for sdir in "$SKILLS_DIR"/*/; do
     if [ "$desc_len" -gt "$DESCRIPTION_CAP" ]; then
         fail "$sname: description $desc_len chars exceeds the $DESCRIPTION_CAP-char loader cap"
         check11_pass=false
+    fi
+
+    if [ "$desc_len" -lt "$DESCRIPTION_MIN" ]; then
+        warn "$sname: description $desc_len chars — too short to route on (< $DESCRIPTION_MIN)"
+    fi
+
+    # Body = everything after the closing --- fence, CRLF-stripped. Body hrules
+    # are kept: the fence counter stops mattering once the frontmatter is past.
+    body=$(awk '
+        { sub(/\r$/, "") }
+        fences >= 2 { print; next }
+        /^---$/ { fences++ }
+    ' "$skill_md")
+
+    body_len=${#body}
+    if [ "$body_len" -lt "$BODY_MIN" ]; then
+        warn "$sname: body $body_len chars — looks like a stub (< $BODY_MIN)"
     fi
 
     # Decision 4 (2026-09-03): a description that declares itself an

@@ -1,15 +1,17 @@
 ---
 name: prototype
-description: Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says "prototype this", "let me play with it", "try a few designs".
+description: Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says "prototype this", "let me play with it", "try a few designs". Not for deciding what to build — that's brainstorming; not for production code — that's the normal pipeline.
 adapted_from: https://github.com/mattpocock/skills
 upstream_commit: f304057d61d3df3c9fd992ac2b6e3833cb9325fb
 ---
 
 <!--
 Source: https://github.com/mattpocock/skills/tree/main/skills/engineering/prototype (by Matt Pocock).
-Verbatim copy — `SKILL.md`, `LOGIC.md` and `UI.md` are all byte-identical to upstream @ f304057
-(12/05/2026), imported here on 13/05/2026. There are no vault adaptations, so a future resync is
-a straight replace: drop in the upstream files and update the pin.
+Near-verbatim copy — `LOGIC.md` and `UI.md` are byte-identical to upstream @ f304057 (12/05/2026),
+imported here on 13/05/2026, and `SKILL.md` carries a single vault adaptation (plan 127): negative
+routing clauses appended to the description, pointing what-to-build questions at brainstorming and
+production code at the normal pipeline. A future resync is otherwise a straight replace: drop in the
+upstream files, carry that clause over, and update the pin.
 
 Staleness warning (13/08/2026): upstream has moved six content commits ahead of f304057. The
 significant one is 6bcbcb0 (17/07/2026), which changes the LOGIC branch to produce a shareable
