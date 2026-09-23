@@ -336,9 +336,10 @@ fi
 # recorded rather than rediscovering it. Fix both clauses together if either
 # is ever revisited.
 
-# Derived step list. The ACTION used to name Steps 3, 7, 8, 9 and 10
-# unconditionally, so a session missing one plugin flag re-ran all five — the
-# list is now built from $missing instead (plan 128). Keep the three clauses
+# Derived step list. The ACTION used to name Steps 3, 7, 8, 9 and 10 (10 was
+# the since-removed plannotator binary step) unconditionally, so a session
+# missing one plugin flag re-ran all five — the list is now built from
+# $missing instead (plan 128). Keep the three clauses
 # in step order: that is what makes the list ascending, with no sort.
 # Tier 1 keys add no step — the hook performs them itself (plan 091). Steps
 # 10–12 (print the roster, open the Learn guide in a browser, the demo-project
