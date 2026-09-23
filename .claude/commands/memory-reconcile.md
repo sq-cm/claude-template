@@ -8,7 +8,7 @@ Move pending session notes from `Vault/Memory/Sessions/` (gitignored, ephemeral)
 
 **Write target is `context.md`, never `MEMORY.md`.** `MEMORY.md` is the shipped, git-tracked vault-operations index, maintainer-curated and identical for every install — writing to it here causes rebase conflicts on `/update`. `context.md` is git-ignored per-clone local memory, so reconciled facts never participate in template updates. See `Resources/SOPs/Memory Protocol SOP.md`.
 
-This is the Stage-2 step of the memory write protocol defined in CLAUDE.md and `Resources/SOPs/Memory Protocol SOP.md`. Sam (the Orchestrator) surfaces a reminder to run this whenever `Vault/Memory/Sessions/` contains files at end of turn.
+This is the Stage-2 step of the memory write protocol defined in AGENTS.md and `Resources/SOPs/Memory Protocol SOP.md`. Sam (the Orchestrator) surfaces a reminder to run this whenever `Vault/Memory/Sessions/` contains files at end of turn.
 
 ---
 
@@ -160,7 +160,7 @@ After processing all notes, report:
 
 ## Related
 
-- `CLAUDE.md` → `## Memory` (canonical protocol — MEMORY.md vs context.md split)
+- `AGENTS.md` → `## Memory` (canonical protocol — MEMORY.md vs context.md split)
 - `Resources/SOPs/Memory Protocol SOP.md` (frontmatter schema, deeper rationale, § Project-scoped memory for the `CONTEXT.md` + `HISTORY.md` routing this command performs)
 - `Resources/SOPs/Project Folder SOP.md` (the project-folder skeletons' home; grandfather clauses for `CONTEXT.md`, `HISTORY.md`, `README.md`)
 - `Vault/Memory/context.example.md` (the tracked seed copied to `context.md`)

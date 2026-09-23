@@ -300,7 +300,7 @@ Exits 6 and 9 are the only non-zero codes that resolve the key. In both the step
 
 ## Step 11 — Setup complete
 
-Read the team roster from `Vault/Memory/theme-name-map.md` (the role → name map and file-path table) and print it. Root `CLAUDE.md` carries no roster table — its `## Theme & Roster` section only points to the name map.
+Read the team roster from `Vault/Memory/theme-name-map.md` (the role → name map and file-path table) and print it. Root `AGENTS.md` carries no roster table — its `## Theme & Roster` section only points to the name map.
 
 Then print:
 

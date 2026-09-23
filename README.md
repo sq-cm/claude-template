@@ -42,7 +42,7 @@ Maintainers/ops: see [Resources/Onboarding/SETUP.md](Resources/Onboarding/SETUP.
 Every request goes to the Orchestrator first, who hands it to the right specialist. Durable work then passes Senior Adviser checkpoints and a QA Gate (PASS, FLAGGED or BLOCKED) before it lands in `03 Deliverables/`, while light, reversible work takes the Fast-Path Lane straight to `02 Working/` — or, when a `/chat` workspace is active, into that chat's `outputs/`.
 
 **Key files:**
-- `CLAUDE.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
+- `AGENTS.md` — the orchestrator's brain; defines the Orchestrator's rules, the hiring pipeline, checkpoint protocol, and the active team roster
 - `.claude/agents/[role].md` — each team member's persona: identity, expertise, constraints, relationships
 - `Resources/SOPs/` — standard operating procedures for checkpoints, repo consultation, project folder structure, theming
 - `Vault/Scripts/validate.sh` — 20 read-only consistency checks (roster ↔ theme map, persona pins, links, CHANGELOG ↔ PRs); run before every template PR
@@ -59,7 +59,7 @@ See ["Who this is for"](Resources/Learn/index.html) on the Learn page for who th
 
 | Role | Description |
 |------|------|
-| [Orchestrator](CLAUDE.md) | Routes all requests, manages the roster, never does task work |
+| [Orchestrator](AGENTS.md) | Routes all requests, manages the roster, never does task work |
 | [HR Lead](.claude/agents/hr-lead.md) | Builds new team member personas from the Senior Researcher's briefs |
 | [Senior Researcher](.claude/agents/senior-researcher.md) | Researches roles before any new hire; writes role briefs |
 | [SEO Specialist](.claude/agents/seo-specialist.md) | Audits, keyword strategy, technical SEO, Search Console analysis |
@@ -98,7 +98,7 @@ The team is not fixed. When a capability gap appears:
 1. The **Orchestrator** identifies the gap and asks your permission to hire
 2. The **Senior Researcher** researches the role — skills, knowledge domains, collaboration patterns, failure modes
 3. The **HR Lead** reads the Senior Researcher's brief and writes a full persona file
-4. The **Orchestrator** announces the hire and updates the team roster in `Vault/Memory/theme-name-map.md` (`CLAUDE.md` only points to it)
+4. The **Orchestrator** announces the hire and updates the team roster in `Vault/Memory/theme-name-map.md` (`AGENTS.md` only points to it)
 
 The new team member is immediately available. No code changes, no config — just a new markdown file.
 
@@ -123,7 +123,7 @@ Each project has a `README.md` with learning objectives and completion steps.
 ## Customising
 
 **Rename the workspace:**
-Duplicate this folder, rename it `Claude - [YourCompany]`, and open that copy in Claude Code. Any edit you make to `CLAUDE.md`, persona files, or `Vault/Scripts/validate.sh` is local-only: `.githooks/pre-commit` blocks it from being committed back to the template, which is deliberate (the clone is read-only for template files; see [SETUP.md](Resources/Onboarding/SETUP.md)).
+Duplicate this folder, rename it `Claude - [YourCompany]`, and open that copy in Claude Code. Any edit you make to `AGENTS.md` or `CLAUDE.md`, persona files, or `Vault/Scripts/validate.sh` is local-only: `.githooks/pre-commit` blocks it from being committed back to the template, which is deliberate (the clone is read-only for template files; see [SETUP.md](Resources/Onboarding/SETUP.md)).
 
 **Add a team member:**
 Tell the Orchestrator you have a capability gap. The hiring pipeline handles the rest.
@@ -191,7 +191,8 @@ Claude - TEMPLATE/
 │   ├── Plans/                         ← /improve audit plans (git-ignored)
 │   ├── Scripts/                       ← validate.sh — the consistency checker
 │   └── Templates/                     ← daily and weekly note templates
-├── CLAUDE.md                          ← orchestrator rules + team roster
+├── AGENTS.md                          ← orchestrator rules + team roster
+├── CLAUDE.md                          ← stub (@AGENTS.md) so Claude Code loads it
 ├── README.md                          ← this file
 ├── CHANGELOG.md                       ← shipped-change log (upgrade reference)
 ├── install.sh / install.bat           ← installer scripts for new team members

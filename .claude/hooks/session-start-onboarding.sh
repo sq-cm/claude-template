@@ -44,7 +44,7 @@ log_error() {
 if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then emit_silent; fi
 
 # Bail if not inside template
-if [ ! -f "$DIR/CLAUDE.md" ] || [ ! -d "$DIR/.claude/agents" ]; then emit_silent; fi
+if [ ! -f "$DIR/AGENTS.md" ] || [ ! -d "$DIR/.claude/agents" ]; then emit_silent; fi
 
 SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 # A plugin disabled in .claude/settings.json enabledPlugins MUST NOT appear in

@@ -178,7 +178,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'Reminder: grill-me + plan mode apply per CLAUDE.md § Default Mode.'"
+            "command": "echo 'Reminder: grill-me + plan mode apply per AGENTS.md § Default Mode.'"
           }
         ]
       }

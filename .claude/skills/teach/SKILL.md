@@ -15,14 +15,14 @@ the orchestrator-routing override below is added. Format helpers in this folder 
 Synced with upstream @ 272f99b on 2026-07-05.
 -->
 
-> **Orchestrator override — read first.** This skill **overrides the CLAUDE.md "never carry out
+> **Orchestrator override — read first.** This skill **overrides the AGENTS.md "never carry out
 > work yourself" rule, for `/teach` only.** It is a personal-learning utility, invoked solely via
 > `/teach` (`disable-model-invocation: true` keeps it from auto-firing). **Run it inline for the
 > user — do not route it to a persona or spawn a sub-agent**; doing so breaks the teaching feedback
 > loop. It is exempt from the QA gate, PM tracking, and advisor checkpoints: its output is personal
 > learning, never a client Deliverable.
 
-> **Output Locale (vault rule):** teach output is vault-internal — always Australian English, prose only, per root `CLAUDE.md` § Output Locale.
+> **Output Locale (vault rule):** teach output is vault-internal — always Australian English, prose only, per root `AGENTS.md` § Output Locale.
 
 The user has asked you to teach them something. This is a stateful request - they intend to learn the topic over multiple sessions.
 

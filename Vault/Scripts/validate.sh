@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 20 read-only checks to verify the vault's structural invariants.
+# Runs 21 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -32,6 +32,8 @@
 #   Check 14 — REQUIRED_KEYS plugin flag maps to a disabled plugin (F21(f) coupling)
 #   Check 16 — output-style missing name/description frontmatter, or duplicate style name
 #   Check 18 — shell script fails bash -n syntax parse
+#   Check 21 — tracked CLAUDE.md (bar .claude/agents/) not an @AGENTS.md stub, or no sibling AGENTS.md;
+#              tracked AGENTS.md with no tracked sibling CLAUDE.md stub
 #
 # WARN → non-fatal, exit unaffected:
 #   Check 4  — unmapped @{Token} in Projects/ or Vault/Memory/Notes/ (minus known-benign allowlist)
@@ -132,7 +134,7 @@ check2_pass=true
 path_table_files=$(get_path_table_files)
 for fpath in "$AGENTS_DIR"/*.md; do
     fname=$(basename "$fpath")
-    [ "$fname" = "CLAUDE.md" ] && continue  # folder-tier CLAUDE.md is not a persona (Folder-Tier CLAUDE.md SOP)
+    [[ "$fname" == "CLAUDE.md" || "$fname" == "AGENTS.md" ]] && continue  # folder-tier CLAUDE.md/AGENTS.md is not a persona (Folder-Tier CLAUDE.md SOP)
     if echo "$path_table_files" | grep -qxF "$fname"; then
         : # found — silent
     else
@@ -179,7 +181,8 @@ echo ""
 # A missing excluded path is a FAIL (silent skip = silent broken check).
 #
 # Two passes:
-#   (a) Governance files (.claude/, Resources/ excl. Demos, CLAUDE.md, README.md) → FAIL
+#   (a) Governance files (.claude/, Resources/ excl. Demos, AGENTS.md root and
+#       folder-tier, README.md) → FAIL
 #   (b) Projects/ and Vault/Memory/Notes/ → WARN
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 4: @{Token} references resolve to known YAML tokens ---"
@@ -200,14 +203,18 @@ if [ ! -d "$DEMOS_DIR" ]; then
     check4_pass=false
 fi
 
-# Governance sources: .claude/, Resources/ (excluding Demos/), CLAUDE.md, README.md
+# Governance sources: .claude/, Resources/ (excluding Demos/), AGENTS.md (root and
+# folder-tier — Resources/SOPs/AGENTS.md is covered by the Resources/ grep), README.md.
+# Root/folder-tier CLAUDE.md files are one-line @AGENTS.md stubs (Check 21).
 # Use -E regex only, never -P (Odin correction 7 applies here too: no GNU -P in Git Bash)
 governance_tokens=$(
     {
         grep -rEho '@\{[A-Za-z]+\}' "$PROJECT_ROOT/.claude/" 2>/dev/null
         grep -rEho '@\{[A-Za-z]+\}' "$PROJECT_ROOT/Resources/" \
             --exclude-dir="$(basename "$DEMOS_DIR")" 2>/dev/null
-        grep -Eho '@\{[A-Za-z]+\}' "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null
+        grep -Eho '@\{[A-Za-z]+\}' "$PROJECT_ROOT/AGENTS.md" \
+            "$PROJECT_ROOT/Vault/Memory/AGENTS.md" \
+            "$PROJECT_ROOT/Projects/Template/03 Deliverables/AGENTS.md" 2>/dev/null
         grep -Eho '@\{[A-Za-z]+\}' "$PROJECT_ROOT/README.md" 2>/dev/null
     } | sed 's/@{//;s/}//' | sort -u
 )
@@ -270,7 +277,7 @@ BASELINE="Read Write Edit Glob Grep Bash"
 
 for fpath in "$AGENTS_DIR"/*.md; do
     fname=$(basename "$fpath")
-    [ "$fname" = "CLAUDE.md" ] && continue  # folder-tier CLAUDE.md is not a persona (Folder-Tier CLAUDE.md SOP)
+    [[ "$fname" == "CLAUDE.md" || "$fname" == "AGENTS.md" ]] && continue  # folder-tier CLAUDE.md/AGENTS.md is not a persona (Folder-Tier CLAUDE.md SOP)
 
     # Extract YAML frontmatter: content between first and second ---
     # Use awk to capture only the first ---…--- block (stops at second ---)
@@ -347,7 +354,8 @@ echo ""
 # ──────────────────────────────────────────────────────────────────────────────
 # Check 6 — internal markdown links resolve to existing files
 #
-# Sources: CLAUDE.md, README.md, CHANGELOG.md, Vault/README.md, Resources/SOPs/*.md,
+# Sources: AGENTS.md (root and folder-tier; Resources/SOPs/AGENTS.md via the SOP
+# glob), README.md, CHANGELOG.md, Vault/README.md, Resources/SOPs/*.md,
 # .claude/skills/**/*.md, .claude/agents/*.md (top-level), Resources/Onboarding/**/*.md
 # Extract ](relative/path) links, URL-decode %20→space.
 # Skip http/https/mailto and pure-anchor (#…) links.
@@ -400,7 +408,9 @@ check_links_file() {
 }
 
 link_check_sources=(
-    "$PROJECT_ROOT/CLAUDE.md"
+    "$PROJECT_ROOT/AGENTS.md"
+    "$PROJECT_ROOT/Vault/Memory/AGENTS.md"
+    "$PROJECT_ROOT/Projects/Template/03 Deliverables/AGENTS.md"
     "$PROJECT_ROOT/README.md"
     "$PROJECT_ROOT/CHANGELOG.md"
     "$PROJECT_ROOT/Vault/README.md"
@@ -463,7 +473,7 @@ EXPECTED_AGENT_COUNT=28
 EXPECTED_SKILL_COUNT=31
 
 # Live counts
-live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | grep -cv '/CLAUDE\.md$' | tr -d ' ')
+live_agent_count=$(ls "$AGENTS_DIR"/*.md 2>/dev/null | grep -Ecv '/(CLAUDE|AGENTS)\.md$' | tr -d ' ')
 live_skill_count=$(find "$PROJECT_ROOT/.claude/skills" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
 
 # Check agent count expectation
@@ -544,7 +554,7 @@ echo ""
 #     strings (hooks and statusLine alike) must exist relative to repo root.
 #     A renamed hook otherwise fails silently at session start — the same
 #     silent-failure class as the #98 CRLF bug. → FAIL
-# (b) Every `/name` prose reference in CLAUDE.md and .claude/hooks/*.sh should
+# (b) Every `/name` prose reference in AGENTS.md and .claude/hooks/*.sh should
 #     resolve to .claude/commands/<name>.md, a .claude/skills/<name>/ dir, or a
 #     known built-in. → WARN only (prose legitimately names plugin skills).
 # (c) Every .claude/commands/*.md must open with a YAML frontmatter block
@@ -609,9 +619,9 @@ done
 
 $check9_pass && pass "All settings.json script references resolve and all command files carry description: frontmatter"
 
-# WARN pass: `/name` prose references in CLAUDE.md and hook scripts
+# WARN pass: `/name` prose references in AGENTS.md and hook scripts
 BUILTIN_COMMANDS="clear model config context usage fast"
-command_refs=$(grep -Eho '`/[a-z][a-z0-9-]+`' "$PROJECT_ROOT/CLAUDE.md" \
+command_refs=$(grep -Eho '`/[a-z][a-z0-9-]+`' "$PROJECT_ROOT/AGENTS.md" \
     "$PROJECT_ROOT/.claude/hooks/"*.sh 2>/dev/null | sed 's/`//g; s|^/||' | sort -u)
 while IFS= read -r cmd; do
     [ -z "$cmd" ] && continue
@@ -673,7 +683,7 @@ opus55_pin_live=0
 
 for fpath in "$AGENTS_DIR"/*.md; do
     fname=$(basename "$fpath")
-    [ "$fname" = "CLAUDE.md" ] && continue  # folder-tier CLAUDE.md is not a persona (Folder-Tier CLAUDE.md SOP)
+    [[ "$fname" == "CLAUDE.md" || "$fname" == "AGENTS.md" ]] && continue  # folder-tier CLAUDE.md/AGENTS.md is not a persona (Folder-Tier CLAUDE.md SOP)
 
     # Same CRLF-proof first-frontmatter-block extraction as Check 5
     frontmatter=$(awk '
@@ -1408,7 +1418,7 @@ echo ""
 # Check 20 — locale-severity sites out of lockstep
 #
 # Plan 120 (PR #323) put four files in lockstep on locale severity: the
-# Output Locale SOP § QA severity table owns the rule; CLAUDE.md § Output
+# Output Locale SOP § QA severity table owns the rule; AGENTS.md § Output
 # Locale, QA Gate SOP § Locale check and Quinn's persona each carry a one-line
 # summary and (the latter two) a "§ QA severity" pointer. Check 6 resolves
 # ](…) links, not § pointers, so a renamed heading or a trimmed summary would
@@ -1425,7 +1435,7 @@ OL_SOP="$PROJECT_ROOT/Resources/SOPs/Output Locale SOP.md"
 QA_SOP="$PROJECT_ROOT/Resources/SOPs/QA Gate SOP.md"
 QA_PERSONA="$PROJECT_ROOT/.claude/agents/qa-compliance-reviewer.md"
 check20_pass=true
-for f in "$OL_SOP" "$QA_SOP" "$QA_PERSONA" "$PROJECT_ROOT/CLAUDE.md"; do
+for f in "$OL_SOP" "$QA_SOP" "$QA_PERSONA" "$PROJECT_ROOT/AGENTS.md"; do
     if [ ! -f "$f" ]; then
         warn "Check 20 skipped — ${f#$PROJECT_ROOT/} missing (tracked file; investigate)"
         check20_pass=false
@@ -1447,10 +1457,10 @@ if $check20_pass; then
         check20_pass=false
     fi
     # Leg 3: the three summaries each carry the carve-out AND a block word
-    ls_claude_line=$(grep 'verifies against the declared locale' "$PROJECT_ROOT/CLAUDE.md")
+    ls_claude_line=$(grep 'verifies against the declared locale' "$PROJECT_ROOT/AGENTS.md")
     ls_qa_section=$(awk '/^## Locale check/{p=1;next} /^## /{p=0} p' "$QA_SOP")
     ls_persona_line=$(grep 'Locale check' "$QA_PERSONA")
-    for ls_site in "CLAUDE.md § Output Locale|$ls_claude_line" "QA Gate SOP § Locale check|$ls_qa_section" "Quinn persona Locale check|$ls_persona_line"; do
+    for ls_site in "AGENTS.md § Output Locale|$ls_claude_line" "QA Gate SOP § Locale check|$ls_qa_section" "Quinn persona Locale check|$ls_persona_line"; do
         ls_name=${ls_site%%|*}; ls_text=${ls_site#*|}
         if [ -z "$ls_text" ]; then
             warn "Check 20: $ls_name anchor not found — the summary moved or its anchor wording changed"
@@ -1470,6 +1480,63 @@ if $check20_pass; then
     done
     $check20_pass && pass "Locale severity: owner table intact, three summaries carry the carve-out, both pointers resolve"
 fi
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 21 — CLAUDE.md files are @AGENTS.md import stubs
+#
+# Instructions live in AGENTS.md; each root/folder-tier CLAUDE.md is a one-line
+# `@AGENTS.md` import, because Claude Code only auto-reads AGENTS.md when no
+# CLAUDE.md exists. Content drifting back into a stub would be read by Claude
+# Code but missed by every AGENTS.md-reading check above (and by other agents).
+# Exception: .claude/agents/CLAUDE.md stays a real instructions file.
+# Reverse leg: every tracked AGENTS.md has a tracked sibling CLAUDE.md stub.
+#
+# git ls-files, not find: Projects/ is git-ignored but Projects/Template/ is
+# tracked, and a user's own project folders must not be scanned. Trailing
+# newline and CR are ignored ($(…) strips the former, tr the latter).
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 21: CLAUDE.md files are @AGENTS.md stubs ---"
+check21_pass=true
+check21_file_count=0
+check21_stubs=$'\n'  # newline-delimited set of tracked stub paths, for the reverse leg
+
+while IFS= read -r -d '' stub_rel; do
+    [ "$stub_rel" = ".claude/agents/CLAUDE.md" ] && continue
+    check21_file_count=$((check21_file_count + 1))
+    check21_stubs+="$stub_rel"$'\n'
+    stub_dir=$(dirname "$stub_rel")
+    if [ "$(tr -d '\r' < "$PROJECT_ROOT/$stub_rel")" != "@AGENTS.md" ]; then
+        fail "$stub_rel is not a one-line '@AGENTS.md' stub — move its content into $stub_dir/AGENTS.md"
+        check21_pass=false
+    fi
+    if [ ! -f "$PROJECT_ROOT/$stub_dir/AGENTS.md" ]; then
+        fail "$stub_rel has no sibling AGENTS.md — the @AGENTS.md import resolves to nothing"
+        check21_pass=false
+    fi
+done < <(git -C "$PROJECT_ROOT" ls-files -z -- 'CLAUDE.md' '*/CLAUDE.md' 2>/dev/null)
+
+# Reverse leg: every tracked AGENTS.md needs a tracked sibling CLAUDE.md stub,
+# or Claude Code (which prefers CLAUDE.md) may never load it. The stub's
+# content is already checked by the forward leg above.
+while IFS= read -r -d '' agents_rel; do
+    agents_dir=$(dirname "$agents_rel")
+    sibling_rel="CLAUDE.md"
+    [ "$agents_dir" != "." ] && sibling_rel="$agents_dir/CLAUDE.md"
+    if [[ "$check21_stubs" != *$'\n'"$sibling_rel"$'\n'* ]]; then
+        fail "$agents_rel has no tracked sibling CLAUDE.md '@AGENTS.md' stub — expected $sibling_rel"
+        check21_pass=false
+    fi
+done < <(git -C "$PROJECT_ROOT" ls-files -z -- 'AGENTS.md' '*/AGENTS.md' 2>/dev/null)
+
+# Loud-fail: the root stub is always tracked, so zero means git or the
+# pathspec broke — same guard shape as Check 18.
+if [ "$check21_file_count" -eq 0 ]; then
+    fail "No tracked CLAUDE.md stubs found — git ls-files failed or pathspec broken"
+    check21_pass=false
+fi
+
+$check21_pass && pass "All $check21_file_count tracked CLAUDE.md stubs import a sibling AGENTS.md, and every tracked AGENTS.md has one"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────

@@ -6,7 +6,7 @@
 
 ---
 
-Every persona file must contain the following sections. **Note:** Personas use actual names (from `Vault/Memory/theme-name-map.md`), not role tokens. Role tokens (`@{RoleToken}`) appear in `CLAUDE.md`, SOPs, and cross-references between persona files.
+Every persona file must contain the following sections. **Note:** Personas use actual names (from `Vault/Memory/theme-name-map.md`), not role tokens. Role tokens (`@{RoleToken}`) appear in `AGENTS.md`, SOPs, and cross-references between persona files.
 
 ```markdown
 ---
@@ -42,7 +42,7 @@ tools:
 
 ## Workflow — Advisor Checkpoints
 
-[Name] follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints").
+[Name] follows the two-checkpoint pattern defined in AGENTS.md ("Advisor Checkpoints").
 
 - **Checkpoint A — [role-specific trigger: when this persona consults @{SeniorAdviser} before committing to an approach].**
 - **Checkpoint B — [role-specific trigger: when this persona consults @{SeniorAdviser} before declaring the work done].**

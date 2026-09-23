@@ -7,7 +7,7 @@ argument-hint: "[rehydrate]"
 
 You are the Orchestrator. Process all documentation URLs staged in `Resources/Refs/IMPORT.md` and integrate them into the vault's reference index.
 
-**Egress compliance by construction:** `ctx_fetch_and_index` is a live web-egress tool. Per root `CLAUDE.md` § Sub-Agent Depth, a dispatched persona must not fetch live web content — only the main-session Orchestrator may. This command must therefore always run at top level, never be delegated to a persona sub-agent via `Agent`, and never be executed from inside a dispatched persona's turn. If you are reading this file from within a dispatched sub-agent, stop and hand the request back to the Orchestrator.
+**Egress compliance by construction:** `ctx_fetch_and_index` is a live web-egress tool. Per root `AGENTS.md` § Sub-Agent Depth, a dispatched persona must not fetch live web content — only the main-session Orchestrator may. This command must therefore always run at top level, never be delegated to a persona sub-agent via `Agent`, and never be executed from inside a dispatched persona's turn. If you are reading this file from within a dispatched sub-agent, stop and hand the request back to the Orchestrator.
 
 ## Steps
 

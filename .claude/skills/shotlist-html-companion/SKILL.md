@@ -11,7 +11,7 @@ description: |
 
 # Shotlist HTML Companion
 
-> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
+> **Output Locale (vault rule):** root `AGENTS.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
 
 ## Scope and distinction
 
@@ -26,7 +26,7 @@ Shotlist HTML companions are in scope for:
 
 ## Architecture constraint — single-pass, no fan-out
 
-This skill runs **inline**. It does **not** dispatch sub-agents. Consistent with the depth-1 sub-agent architecture constraint in CLAUDE.md, the shotlist HTML companion is produced by the generating persona in a single pass. No fan-out, no orchestration layer.
+This skill runs **inline**. It does **not** dispatch sub-agents. Consistent with the depth-1 sub-agent architecture constraint in AGENTS.md, the shotlist HTML companion is produced by the generating persona in a single pass. No fan-out, no orchestration layer.
 
 ---
 

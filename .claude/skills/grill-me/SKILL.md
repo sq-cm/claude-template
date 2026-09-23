@@ -12,14 +12,14 @@ e5932a7, which asked one question at a time. Vault adaptations, all to be carrie
 future upstream replace:
   1. Kept as a single skill named `grill-me`, and model-invocable. Upstream splits the engine
      into `grilling` and makes `grill-me` a thin `disable-model-invocation` wrapper; that split
-     would break CLAUDE.md § Default Mode, which auto-fires this skill at intake. Never add a
+     would break AGENTS.md § Default Mode, which auto-fires this skill at intake. Never add a
      `disable-model-invocation` key to this frontmatter.
   2. Description merges upstream's scope with this vault's explicit trigger phrase, which is a
      more reliable match target than upstream's "any 'grill' trigger phrases".
   3. Vault depth rule added below. Upstream's fact-finding paragraph tells the reader to
      dispatch a sub-agent; only the Orchestrator may do that here.
   4. Negative routing clauses appended to the description (plan 127): ideation goes to
-     brainstorming, the step list that follows comes from plan mode (CLAUDE.md § Default Mode),
+     brainstorming, the step list that follows comes from plan mode (AGENTS.md § Default Mode),
      not from this skill.
 -->
 
@@ -27,7 +27,7 @@ future upstream replace:
 > do not dispatch the fact-finding sub-agent this skill mentions — look the fact up inline with
 > your own tools; if the exploration is too broad for that, or it needs a tool you do not hold
 > (web fetch is Orchestrator-mediated), return it as a fan-out spec to the Orchestrator
-> (CLAUDE.md § Sub-Agent Depth).
+> (AGENTS.md § Sub-Agent Depth).
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 

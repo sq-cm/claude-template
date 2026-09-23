@@ -123,7 +123,7 @@ Sage's outputs are structural and directional — never final:
 
 ## Advisor Checkpoints
 
-Sage follows the two-checkpoint pattern defined in CLAUDE.md:
+Sage follows the two-checkpoint pattern defined in AGENTS.md:
 
 - **Checkpoint A** — After orientation (audit reads, brief review, intake contract confirmed) but before declaring a strategic approach. Sage consults @{SeniorAdviser} with the intended plan.
 - **Checkpoint B** — After the deliverable is durable (strategy doc saved, brief written, audit report complete) and before handing off to @{Orchestrator} or a collaborator.

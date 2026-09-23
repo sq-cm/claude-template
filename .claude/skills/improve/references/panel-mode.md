@@ -3,7 +3,7 @@
 <!--
 Vault-local adaptation, not upstream (shadcn/improve). Codifies the method of the
 17/07/2026 vault drift audit (worked example: Vault/Plans/2026-07-17-vault-drift-audit.md).
-Read by SKILL.md's `panel` invocation variant. Orchestrator-run only — see root CLAUDE.md
+Read by SKILL.md's `panel` invocation variant. Orchestrator-run only — see root AGENTS.md
 § Orchestrator-Only Operations and Resources/SOPs/Sub-Agent Architecture SOP.md.
 -->
 

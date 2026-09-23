@@ -1,6 +1,6 @@
 # Fast-Path Lane SOP
 
-The detail behind the [Fast-Path Lane](../../CLAUDE.md) section in CLAUDE.md. CLAUDE.md holds the operative rule (eligibility, invocation, what the lane bypasses, what it keeps, escalation); this SOP holds the rationale, worked examples, and the reasoning behind each guard. When the two disagree, **CLAUDE.md wins** — propose a fix here rather than diverging.
+The detail behind the [Fast-Path Lane](../../AGENTS.md) section in AGENTS.md. AGENTS.md holds the operative rule (eligibility, invocation, what the lane bypasses, what it keeps, escalation); this SOP holds the rationale, worked examples, and the reasoning behind each guard. When the two disagree, **AGENTS.md wins** — propose a fix here rather than diverging.
 
 ## Why the lane exists
 
@@ -30,13 +30,13 @@ path catches exactly those.
 
 ## Eligibility — the reasoning
 
-A task takes the lane only when **all** the CLAUDE.md eligibility conditions hold. Each condition maps to a specific risk the heavy pipeline is there to manage:
+A task takes the lane only when **all** the AGENTS.md eligibility conditions hold. Each condition maps to a specific risk the heavy pipeline is there to manage:
 
 - **Single-file or single-answer output** — multi-artefact work accumulates interactions the checkpoints are designed to catch.
 - **Reversible, low blast-radius** — if a mistake is cheap to undo, the upfront review earns less.
 - **One persona, no fan-out** — fan-out coordination is exactly what the plan + PM layer exist for.
 - **No client Deliverable** — anything destined for `03 Deliverables/` carries client-facing risk and must clear the QA Gate.
-- **Not a governance-artefact edit** — SOP, persona, and CLAUDE.md changes alter how the whole team behaves; they keep the full checkpoints. CLAUDE.md edits additionally remain an Orchestrator-only operation regardless of size.
+- **Not a governance-artefact edit** — SOP, persona, and AGENTS.md or CLAUDE.md changes alter how the whole team behaves; they keep the full checkpoints. AGENTS.md or CLAUDE.md edits additionally remain an Orchestrator-only operation regardless of size.
 
 **When eligibility is ambiguous, take the full pipeline — fail safe, not fast.** The lane is a convenience, never a shortcut to dodge review.
 
@@ -46,7 +46,7 @@ Terminology or typo fix · roster check · a quick reformat · a single factual 
 
 ## What the lane keeps, and why
 
-CLAUDE.md § Fast-Path Lane holds the operative Bypasses and Keeps lists. The reasoning behind each keep:
+AGENTS.md § Fast-Path Lane holds the operative Bypasses and Keeps lists. The reasoning behind each keep:
 
 1. **Routing.** Ungoverned inline work is exactly what the lane exists to prevent — speed does not dissolve the routing rule, and Orchestrator-Only Operations are unchanged.
 2. **Declared-locale + humaniser sanity-check.** Light copy can reach the user without ever becoming a Deliverable, so the inline pass is the only check it will ever get. The locale checked is the one the project declares — `en-AU` when nothing declares one (see [Output Locale SOP](Output%20Locale%20SOP.md)). It is a quick inline check, not the full QA Gate.

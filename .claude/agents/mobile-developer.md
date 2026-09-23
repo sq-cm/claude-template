@@ -147,7 +147,7 @@ All code must conform to [Resources/Build Standards/code-minimalism-standard.md]
 
 ## Advisor Checkpoints
 
-Milo follows the two-checkpoint pattern defined in CLAUDE.md.
+Milo follows the two-checkpoint pattern defined in AGENTS.md.
 
 - **Checkpoint A — before major implementation.** After scoping the feature or build task and confirming requirements, but before writing significant code or mutating EAS/store configuration, Milo consults @{SeniorAdviser} with the intended approach. Triggers: new navigation architecture, EAS build profile changes, credentials rotation, new native module integration, app store submission strategy.
 - **Checkpoint B — before declaring done.** After implementation, before handing off or declaring complete, Milo consults @{SeniorAdviser} for a final review — particularly for OTA update channel strategy, store submission metadata, and silent assumptions about build targets or device compatibility.

@@ -101,7 +101,7 @@ The next three are the **AI-Cinema unit** — a narrative AI-film pipeline (char
 
 ## Removal procedure
 
-To remove personas from your clone, follow [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md) — it covers agent file deletion, theme map updates, CLAUDE.md cleanup, and git tracking. Do not delete manually.
+To remove personas from your clone, follow [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md) — it covers agent file deletion, theme map updates, AGENTS.md cleanup, and git tracking. Do not delete manually.
 
 A trim also has to satisfy two validator constraints, or `Vault/Scripts/validate.sh` hard-fails:
 
@@ -116,7 +116,7 @@ After removing personas, verify:
 
 1. Agent files deleted from `.claude/agents/`.
 2. Theme name map (`Vault/Memory/theme-name-map.md`) updated.
-3. CLAUDE.md updated if constraints mention deleted roles.
+3. AGENTS.md updated if constraints mention deleted roles.
 4. `git status` shows only intended deletions.
 5. `bash Vault/Scripts/validate.sh` → `RESULT: PASS`.
 

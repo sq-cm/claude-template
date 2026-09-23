@@ -28,7 +28,7 @@ provenance comment, which this one supersedes, so nothing vault-authored was los
 Adaptations 3 to 7 are decisions taken at the flip itself, against v2.11.1. Vault adaptations,
 all to be carried over on any future resync:
   1. `name: humaniser` — AU spelling. Upstream is `humanizer`.
-  2. Output Locale blockquote below (plan 029), asserting root CLAUDE.md § Output Locale over
+  2. Output Locale blockquote below (plan 029), asserting root AGENTS.md § Output Locale over
      this file's upstream US-English prose.
   3. `allowed-tools` re-added. v2.11.1 dropped the block entirely; without it the skill's tool
      grant silently changes and the tool-baseline audit drifts.
@@ -55,7 +55,7 @@ all to be carried over on any future resync:
   no such key, so there is nothing left to drop and it is no longer an adaptation.
 -->
 
-> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
+> **Output Locale (vault rule):** root `AGENTS.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
 
 # Humanizer: remove AI writing patterns
 

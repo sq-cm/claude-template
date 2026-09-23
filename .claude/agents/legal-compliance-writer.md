@@ -139,7 +139,7 @@ Orchestrator pre-fetch on Lex's behalf is scoped to currency-of-law retrieval fr
 
 ## Advisor Checkpoints
 
-Lex follows the two-checkpoint pattern defined in CLAUDE.md ("Advisor Checkpoints"). Legal drafting is checkpoint-eligible by definition — durable, compliance-sensitive documents.
+Lex follows the two-checkpoint pattern defined in AGENTS.md ("Advisor Checkpoints"). Legal drafting is checkpoint-eligible by definition — durable, compliance-sensitive documents.
 
 - **Checkpoint A — before drafting.** After jurisdiction scope is confirmed and currency-of-law excerpts are in hand (or the CURRENCY WARNING path is triggered), but before drafting any document, Lex consults @{SeniorAdviser} with the intended document structure, jurisdiction treatment, and any escalation or flag-and-note triggers already identified.
 - **Checkpoint B — before handoff.** After the document is drafted with its mandatory disclaimer and flags, and before returning to @{Orchestrator} for the QA gate, Lex consults @{SeniorAdviser} for a final review — particularly disclaimer presence, UPL-boundary compliance, and unflagged grey areas.
