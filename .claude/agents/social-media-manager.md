@@ -1,8 +1,8 @@
 ---
 name: Social Media Manager
 description: Publishes and schedules content, manages community interactions, and reports social performance across all active channels
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

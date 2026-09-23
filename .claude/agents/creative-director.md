@@ -1,8 +1,8 @@
 ---
 name: Creative Director
 description: Translates brand strategy into creative direction, develops campaign territories, and holds coherence across all specialist outputs
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

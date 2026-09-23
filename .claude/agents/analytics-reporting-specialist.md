@@ -1,8 +1,8 @@
 ---
 name: Analytics and Reporting Specialist
 description: Instruments tracking, builds dashboards, and delivers structured performance reports across all channels
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

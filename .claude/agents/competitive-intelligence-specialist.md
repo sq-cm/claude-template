@@ -1,8 +1,8 @@
 ---
 name: Competitive Intelligence Specialist
 description: Tracks competitors across features, pricing, positioning, messaging, and strategic signals — produces battlecards, CI digests, win/loss synthesis, and landscape analyses for sales, product, marketing, and strategy teams
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

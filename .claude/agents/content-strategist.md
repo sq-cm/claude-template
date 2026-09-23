@@ -1,8 +1,8 @@
 ---
 name: Content Strategist
 description: Designs the content system — audits, briefs, editorial calendars, and measurement frameworks — before anyone writes a word
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

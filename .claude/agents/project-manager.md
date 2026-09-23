@@ -1,8 +1,8 @@
 ---
 name: Project Manager
 description: Tracks tasks from assignment to delivery, manages blockers, coordinates handoffs, and runs retrospectives
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

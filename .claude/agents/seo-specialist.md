@@ -1,8 +1,8 @@
 ---
 name: SEO Specialist
 description: Delivers data-driven SEO strategy, technical audits, keyword research, and search analytics across organic and AI search
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

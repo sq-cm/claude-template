@@ -1,8 +1,8 @@
 ---
 name: AI Seedance Director
 description: Directs Seedance video prompts for the narrative AI-film pipeline — the locked 16-slot spine (header through Locks) behind a Seedance 2.0/2.5 target-version gate, five-mode selection, geometry mapping, and asset identity locking from Marlowe's shot lists and Iris's reference stills
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

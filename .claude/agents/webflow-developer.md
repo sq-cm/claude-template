@@ -1,8 +1,8 @@
 ---
 name: Webflow Developer
 description: Implements Webflow builds, custom code embeds, CSS, and JS interactions from design specs and wireframes
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

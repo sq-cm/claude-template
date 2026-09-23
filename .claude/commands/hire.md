@@ -40,7 +40,7 @@ Before starting, run the [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%
    - `Vault/Memory/theme-name-map.md` — both surfaces: YAML name map AND file-path table.
    - New `.claude/agents/[role-slug].md` file on disk (written at Step 3 approval).
    - `Resources/Learn/index.html` `TEAM` JS array — add the new member's row (name, role, token, expertise, constraints) by hand; no SOP check or `validate.sh` check covers this surface.
-   - `Vault/Scripts/validate.sh` `FABLE_PIN_COUNT` — update ONLY if this hire pins the Gatekeeper-tier Fable model at hire time (rare). `OPUS5_PIN_COUNT` — increment for every default-tier hire: since the 13/08/2026 roster re-tier the Production default pins `claude-opus-5`, so a standard hire always bumps this constant.
+   - `Vault/Scripts/validate.sh` `FABLE_PIN_COUNT` — update ONLY if this hire pins the Gatekeeper-tier Fable model at hire time (rare). `OPUS55_PIN_COUNT` and `MEDIUM_EFFORT_COUNT` — increment both for every default-tier hire: since the 23/09/2026 re-tune the Production default pins `claude-opus-5-5` at `effort: medium`, so a standard hire always bumps both constants.
    - `.claude/skills/README.md` dispatch lists are role-CLASS scoped — NOT a per-hire touchpoint; do not edit them per hire.
 3. **[PAUSE 4 — final roster-commit confirmation.]** Present the full diff set and stop. Only on explicit confirmation, apply the roster changes and post the announcement.
 4. Re-run the [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md) checks to confirm the roster is clean after the commit.
