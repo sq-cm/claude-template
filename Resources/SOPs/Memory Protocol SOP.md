@@ -147,7 +147,7 @@ Post-carve, `HISTORY.md` holds its `## Decision log` (and any non-canonical lega
 
 Demoted pointers move verbatim to `Vault/Memory/Notes/archive-index.md` (git-ignored, never injected), grouped by month — a grep surface over the archive, not a second memory file. The note files under `Vault/Memory/Notes/<YYYY-MM>/` remain the source of truth throughout; demotion never deletes information, it only stops paying per-session rent on it. If the file is still over budget once no eligible pointers remain, the reconcile stops and reports the over-budget state.
 
-**The `[standing]` tag.** Suffix a pointer's hook with `[standing]` when it records an operative ruling, unresolved gotcha, or action-on-trigger item (e.g. a revert checklist) rather than completed work. Tagged pointers survive budget eviction; remove the tag when the ruling is codified into CLAUDE.md/an SOP or the trigger fires. Tags are re-tested against this eligibility test at every `/memory-reconcile` (step 5.9); a tag that fails is untagged there, after any operative fragment in its hook is preserved into the linked note. Nothing writes to `MEMORY.md` — that file remains maintainer-only, unchanged by this rule.
+**The `[standing]` tag.** Suffix a pointer's hook with `[standing]` when it records an operative ruling, unresolved gotcha, or action-on-trigger item (e.g. a revert checklist) rather than completed work. Tagged pointers survive budget eviction; remove the tag when the ruling is codified into AGENTS.md/an SOP or the trigger fires. Tags are re-tested against this eligibility test at every `/memory-reconcile` (step 5.9); a tag that fails is untagged there, after any operative fragment in its hook is preserved into the linked note. Nothing writes to `MEMORY.md` — that file remains maintainer-only, unchanged by this rule.
 
 ---
 
@@ -222,7 +222,7 @@ If a destination file is malformed (rare — would require manual edit of a `Not
 
 ## Related
 
-- `CLAUDE.md` → `## Memory` (canonical protocol summary)
+- `AGENTS.md` → `## Memory` (canonical protocol summary)
 - `.claude/commands/memory-reconcile.md` (the slash command procedure, incl. `project:` routing detail)
 - `Vault/Memory/MEMORY.md` (shipped vault-operations index, maintainer-curated)
 - `Vault/Memory/context.md` (per-clone local memory, reconcile target; seed: `context.example.md`)

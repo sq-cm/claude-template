@@ -110,7 +110,7 @@ On confirmation, the Orchestrator performs the following in order:
 **3b. Sync persona file headers.** Run `bash Vault/Scripts/sync-theme.sh`. The script updates the H1 line of each persona file in `.claude/agents/` so it matches the map.
 
 **3c. Cross-file find-replace (manual).** The script only covers persona H1 headers. The Orchestrator must perform a manual sweep across the following for any name references:
-1. `CLAUDE.md` — name references (file paths are role-token-based and need no rename).
+1. `AGENTS.md` — name references (file paths are role-token-based and need no rename).
 2. All persona files in `.claude/agents/` — `@Name` addressing, cross-references to other team members. (The H1 is already handled by the script.)
 3. SOPs in `Resources/SOPs/` — most use `@{RoleToken}`, but several carry display names directly. Don't rely on a fixed list: grep the folder for each current display name (the vault-wide grep in the final check below catches stragglers).
 4. `Resources/Onboarding/SETUP.md`, `Resources/Onboarding/team-onboarding-guide.md` — directory tree and any prose name references.
@@ -183,7 +183,7 @@ Run `bash Vault/Scripts/sync-theme.sh`. The script updates the persona file's H1
 
 ### Step 3 — Sweep (if there are name references outside the persona file)
 
-For one-line swaps, most existing references in CLAUDE.md, SOPs, and onboarding files use `@{RoleToken}` and need no change. Cross-check by grep before declaring done:
+For one-line swaps, most existing references in AGENTS.md, SOPs, and onboarding files use `@{RoleToken}` and need no change. Cross-check by grep before declaring done:
 
 ```bash
 grep -rn "[OldName]" --include="*.md" --include="*.html"
@@ -233,7 +233,7 @@ If there is no successor: set the YAML value to `null` (e.g. `SEOSpecialist: nul
 
 It does not update:
 - `@Name` cross-references inside persona bodies
-- Name references in CLAUDE.md, SOPs, onboarding docs
+- Name references in AGENTS.md, SOPs, onboarding docs
 - The `TEAM` array in `Resources/Learn/index.html`
 - The change log
 - Backups of the map
@@ -272,6 +272,6 @@ If `Vault/Memory/theme-change-log.md` has no baseline entry on a revert attempt,
 - [ ] `Vault/Memory/theme-name-map.md` YAML values updated; role tokens unchanged.
 - [ ] Timestamped backup of previous map exists in `Vault/Memory/`.
 - [ ] `bash Vault/Scripts/sync-theme.sh` exited 0; persona H1 headers in sync.
-- [ ] Manual sweep complete: CLAUDE.md, persona bodies, SOPs, onboarding docs, Learn/index.html.
+- [ ] Manual sweep complete: AGENTS.md, persona bodies, SOPs, onboarding docs, Learn/index.html.
 - [ ] Operation logged to `Vault/Memory/theme-change-log.md`.
 - [ ] Routing works — sending `@[NewName]` reaches the correct persona.

@@ -58,7 +58,7 @@ This automatically blocks push to the upstream template repo (your instance is y
 The template flows one direction: maintainer → upstream → your clone. Your clone is read-only for template files.
 
 - **Editable** — `Chats/`, `Notes/`, `Projects/` (all gitignored — your work lives here)
-- **Not editable for commit** — everything else (CLAUDE.md, `.claude/agents/`, SOPs, settings, etc.)
+- **Not editable for commit** — everything else (AGENTS.md, CLAUDE.md, `.claude/agents/`, SOPs, settings, etc.)
 
 `.githooks/pre-commit` blocks any commit touching paths outside the editable zone. `.githooks/pre-push` blocks all pushes. If you genuinely need a template change, propose it to the maintainer.
 
@@ -162,7 +162,7 @@ Or just describe what you need — Sam will intercept and route.
 
 | File | Purpose |
 |------|---------|
-| `CLAUDE.md` | System bible — how Sam and the team work |
+| `AGENTS.md` | System bible — how Sam and the team work |
 | `Vault/Memory/MEMORY.md` | Persistent cross-session memory |
 | `Vault/Memory/theme-name-map.md` | Current name → role mapping |
 | `Resources/SOPs/` | All standard operating procedures |

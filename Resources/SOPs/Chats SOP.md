@@ -1,6 +1,6 @@
 # Chats SOP
 
-The detail behind the [Chats](../../CLAUDE.md) section in CLAUDE.md. CLAUDE.md holds the operative rule (where chats live, how they are created, the commands, the Fast-Path destination change); this SOP holds the rationale, the `CHAT.md` anatomy, and the resolution rules. When the two disagree, **CLAUDE.md wins** — propose a fix here rather than diverging.
+The detail behind the [Chats](../../AGENTS.md) section in AGENTS.md. AGENTS.md holds the operative rule (where chats live, how they are created, the commands, the Fast-Path destination change); this SOP holds the rationale, the `CHAT.md` anatomy, and the resolution rules. When the two disagree, **AGENTS.md wins** — propose a fix here rather than diverging.
 
 ## Why chats exist
 

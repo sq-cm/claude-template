@@ -5,14 +5,14 @@ disable-model-invocation: true
 argument-hint: "The light task to fast-path"
 ---
 
-This skill lets the user **explicitly request** the Fast-Path Lane (CLAUDE.md § Fast-Path Lane).
+This skill lets the user **explicitly request** the Fast-Path Lane (AGENTS.md § Fast-Path Lane).
 It is a pre-routing gate, in the same class as grill-me and prompt-review: it decides how a task
 is handled, then hands off. It can only *request* the lane — it can never override eligibility.
 
 Take the task from the invocation arguments. If none is supplied, ask for it once — the sole
 permitted question.
 
-Read the eligibility rule from CLAUDE.md § Fast-Path Lane before judging; never improvise it from
+Read the eligibility rule from AGENTS.md § Fast-Path Lane before judging; never improvise it from
 memory. Then run these four steps in order.
 
 ## 1. Read the task
@@ -21,14 +21,14 @@ Restate the task in one line so the eligibility verdict is auditable against it.
 
 ## 2. Assert eligibility — output the verdict, never a silent pass
 
-Test the task against the five CLAUDE.md conditions and print a five-line verdict, one line each,
-`✓ pass` / `✗ fail` (the list below is a mirror — CLAUDE.md § Fast-Path Lane wins on any drift):
+Test the task against the five AGENTS.md conditions and print a five-line verdict, one line each,
+`✓ pass` / `✗ fail` (the list below is a mirror — AGENTS.md § Fast-Path Lane wins on any drift):
 
 - Single-file or single-answer output
 - Reversible, low blast-radius
 - One persona, no fan-out
 - No client Deliverable (nothing destined for `03 Deliverables/`)
-- Not a governance-artefact edit (SOP, persona, or any CLAUDE.md)
+- Not a governance-artefact edit (SOP, persona, or any AGENTS.md or CLAUDE.md)
 
 **Ambiguous on any line → treat it as a fail.** The lane is fail-safe, not fast — when in doubt,
 escalate. This is not optional; skipping it turns the command into a review-dodge.

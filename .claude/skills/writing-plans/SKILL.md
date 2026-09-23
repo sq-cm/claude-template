@@ -30,7 +30,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-> **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona, do not dispatch the reviewer sub-agents this skill mentions — return the reviewer prompt as a fan-out spec to the Orchestrator (CLAUDE.md § Sub-Agent Depth).
+> **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona, do not dispatch the reviewer sub-agents this skill mentions — return the reviewer prompt as a fan-out spec to the Orchestrator (AGENTS.md § Sub-Agent Depth).
 
 **Context:** If working in an isolated worktree, it should have been created by the Orchestrator at execution time.
 

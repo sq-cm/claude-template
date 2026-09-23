@@ -40,6 +40,7 @@ This step governs the template pull only — whatever happens here, still run St
   > git rebase --abort
   > ```
   > Your personal files (Projects/, Vault/Memory/, Notes/) are never affected by template updates — conflicts only appear when both you and the template edited the same core file.
+  > If `CLAUDE.md` is among the conflicts, the template moved its instructions to `AGENTS.md`: move your own edits into `AGENTS.md`, keep `CLAUDE.md` as the one-line `@AGENTS.md` stub, then `git add` both and continue the rebase.
 
 - **1** — unexpected failure. Report it plainly and show the script's output; do not guess at a fix.
 

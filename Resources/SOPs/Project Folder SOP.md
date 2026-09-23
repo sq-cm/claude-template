@@ -114,7 +114,7 @@ Numeric prefixes enforce workflow order in alphabetical file listings — Briefs
 
 Not every project needs all three. The Orchestrator creates only what the task requires; gaps are fine (e.g., a copy-only project may have just `02 Working/`). Numbers stay fixed — they signal pipeline position, not presence.
 
-`03 Deliverables/` also carries a folder-tier `CLAUDE.md` — ships with `Projects/Template/`, so every new project folder inherits it. See [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md) for load semantics and governance. Where `03 Deliverables/` is added to an existing project folder later, copy the folder-tier `CLAUDE.md` in from `Projects/Template/03 Deliverables/`.
+`03 Deliverables/` also carries a folder-tier `AGENTS.md` plus its `CLAUDE.md` stub — both ship with `Projects/Template/`, so every new project folder inherits them. See [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md) for load semantics and governance. Where `03 Deliverables/` is added to an existing project folder later, copy both files in from `Projects/Template/03 Deliverables/`.
 
 `CONTEXT.md` and `HISTORY.md` ship with `Projects/Template/` as blank skeletons, copied into every new project folder at creation. Together they are project-scoped memory, self-contained and written in place by `/memory-reconcile` — see [Memory Protocol SOP](Memory%20Protocol%20SOP.md) § Project-scoped memory for the write mechanics; this SOP governs only the folder-lifecycle side.
 
@@ -150,7 +150,7 @@ two extensions:
   <name>.html   ← render of approved MD content
 ```
 
-**In-scope deliverable types:** the six types named in CLAUDE.md § HTML Deliverable Companion; `.claude/skills/html-deliverable/SKILL.md` carries the authoritative enumeration.
+**In-scope deliverable types:** the six types named in AGENTS.md § HTML Deliverable Companion; `.claude/skills/html-deliverable/SKILL.md` carries the authoritative enumeration.
 
 **MD is canonical. HTML is a render.** Within a companion pair, the HTML file is never edited
 directly — when the MD changes, the HTML is rebuilt from the updated MD using the
@@ -202,4 +202,4 @@ Rules:
 - `CONTEXT.md` and `HISTORY.md` travel inside the folder automatically — no separate handling needed. The project's one-line pointer in `Vault/Memory/context.md` (which targets `CONTEXT.md`) demotes (is removed) at the next `/memory-reconcile` once the project is no longer active.
 - `Vault/Archive/` must exist before first use. The repo ships with a `.keep` file.
 - Archived items are not deleted. If a retired artefact must be permanently removed, the Orchestrator surfaces the deletion request to the user and waits for explicit approval.
-- After archiving a persona, the Orchestrator updates `Vault/Memory/theme-name-map.md` and any cross-references in CLAUDE.md or other personas.
+- After archiving a persona, the Orchestrator updates `Vault/Memory/theme-name-map.md` and any cross-references in AGENTS.md or other personas.

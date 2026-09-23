@@ -10,7 +10,7 @@
 
 Locale is decided by **who the prose is for**, not by who wrote it.
 
-**Tier 1 — vault-internal prose is Australian English, always.** No declaration, no override, no exceptions. This covers SOPs, skills, persona files, folder-tier `CLAUDE.md` files, plans, audits, status and research reports, session and memory notes, template field text, and the prose inside a project's own `CONTEXT.md` and `HISTORY.md`. A project may ship deliverables in `en-US`; its `CONTEXT.md` is still written in Australian English, because the file is read by the team, not the client.
+**Tier 1 — vault-internal prose is Australian English, always.** No declaration, no override, no exceptions. This covers SOPs, skills, persona files, folder-tier `AGENTS.md` files, plans, audits, status and research reports, session and memory notes, template field text, and the prose inside a project's own `CONTEXT.md` and `HISTORY.md`. A project may ship deliverables in `en-US`; its `CONTEXT.md` is still written in Australian English, because the file is read by the team, not the client.
 
 **Tier 2 — deliverable and project prose follows the declared locale.** Anything client-facing or destined for `03 Deliverables/` — copy, articles, emails, ad and landing-page text, decks, scripts, UI microcopy, HTML companions — is written in the locale the project declares. Absent a declaration, the locale is `en-AU`.
 
@@ -153,7 +153,7 @@ Two skills deliberately retain upstream US English so their files diff mechanica
 
 ## Cross-references
 
-- Operative rule: `CLAUDE.md` § Output Locale
+- Operative rule: `AGENTS.md` § Output Locale
 - Fast-Path inline pass: [Fast-Path Lane SOP](Fast-Path%20Lane%20SOP.md)
 - Gate mechanics and verdicts: [QA Gate SOP](QA%20Gate%20SOP.md)
 - Where the declaration lives: `Projects/Template/CONTEXT.md` § Locale — the tracked skeleton every project folder copies at creation. Its place beside the other sections is described in [Project Folder SOP](Project%20Folder%20SOP.md) § README vs CONTEXT vs HISTORY boundary; [Memory Protocol SOP](Memory%20Protocol%20SOP.md) § Project-scoped memory records that `/memory-reconcile` never sets or folds it (it only copies the skeleton when the file is missing or restores a missing header (header only, no `locale:` line))

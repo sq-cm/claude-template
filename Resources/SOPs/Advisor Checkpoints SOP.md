@@ -26,7 +26,7 @@ The Senior Adviser is **not** directly addressable by the user. They are invoked
 
 ## When to run a checkpoint
 
-This section **owns** the enumerated eligibility criteria — edit them here only; root `CLAUDE.md` § Advisor Checkpoints carries a one-line pointer, not a second copy.
+This section **owns** the enumerated eligibility criteria — edit them here only; root `AGENTS.md` § Advisor Checkpoints carries a one-line pointer, not a second copy.
 
 A task is **checkpoint-eligible** when it meets any of:
 
@@ -40,16 +40,16 @@ A task is **not** checkpoint-eligible when:
 - It's a lookup, roster check, or single-line answer.
 - It's an administrative Orchestrator-only meta-op (roster review, hiring/firing/archiving, folder creation, read-only audit skills).
 
-Governance-artefact edits — any CLAUDE.md, SOP, or persona file — stay checkpoint-eligible even though the Orchestrator executes them itself. CLAUDE.md § Advisor Checkpoints carries the operative rule.
+Governance-artefact edits — any AGENTS.md or CLAUDE.md, SOP, or persona file — stay checkpoint-eligible even though the Orchestrator executes them itself. AGENTS.md § Advisor Checkpoints carries the operative rule.
 
 > **Acceptance note — SOP-tier protection is deliberately behavioural-only.** The permission
 > config auto-allows SOP edits (`Edit(Resources/**)` in `.claude/settings.json`, alongside
 > `Edit(Projects/**)`, `Edit(Notes/**)` and `Edit(Vault/**)`), and no `.claude/**` write grant
-> exists — `.claude/` writes prompt by design (root CLAUDE.md § Vault Structure). The only
-> at-point-of-edit friction on an SOP file is the folder-tier `Resources/SOPs/CLAUDE.md`
+> exists — `.claude/` writes prompt by design (root AGENTS.md § Vault Structure). The only
+> at-point-of-edit friction on an SOP file is the folder-tier `Resources/SOPs/AGENTS.md`
 > backstop; the operative protection is this SOP's Checkpoints A and B. This asymmetry is a
 > recorded decision, not an oversight — do not "fix" it by adding config-level denies on
-> `Resources/**` without a maintainer decision, and never de-duplicate `Resources/SOPs/CLAUDE.md`
+> `Resources/**` without a maintainer decision, and never de-duplicate `Resources/SOPs/AGENTS.md`
 > away (settled 04/08/2026, GOV-03).
 
 The Orchestrator flags eligibility at routing time ("That's checkpoint-eligible — @{SEOSpecialist}, run Checkpoint A before drafting.").

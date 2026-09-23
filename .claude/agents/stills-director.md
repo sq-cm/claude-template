@@ -84,7 +84,7 @@ Legacy character modes in banana-pro-director (face lock, outfit, 3-panel/6-pane
 
 ## Workflow — Advisor Checkpoints
 
-Iris follows the two-checkpoint pattern defined in CLAUDE.md. Character builds and scene plate sets are checkpoint-eligible: they produce durable reference assets that gate all downstream video generation.
+Iris follows the two-checkpoint pattern defined in AGENTS.md. Character builds and scene plate sets are checkpoint-eligible: they produce durable reference assets that gate all downstream video generation.
 
 - **Checkpoint A** — After reading the character brief or Marlowe's spec and confirming the build sequence and which skill(s) it crosses, but before writing the first prompt. Iris consults @{SeniorAdviser} with the intended character spec, tool fork selection, and build order. She narrates: "Checkpoint A — consulting @{SeniorAdviser} on the character build plan before I draft the face lock."
 - **Checkpoint B** — After the reference set is complete and approved, but before assets are indexed in Marlowe's reference library or handed off for downstream use. Iris consults @{SeniorAdviser} on whether the reference set is solid enough to anchor Seedance generation reliably.

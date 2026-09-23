@@ -10,9 +10,9 @@
 
 Before any file moves to a `03 Deliverables/` folder, @{QAComplianceReviewer} must be spawned as a sub-agent to review it.
 
-**Exemption:** the folder-tier `CLAUDE.md` inside `03 Deliverables/` is folder infrastructure, not a deliverable — it never goes to @{QAComplianceReviewer} and is exempt from the Gate; see [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md).
+**Exemption:** the folder-tier `AGENTS.md` and its `CLAUDE.md` stub inside `03 Deliverables/` are folder infrastructure, not deliverables — they never go to @{QAComplianceReviewer} and are exempt from the Gate; see [Folder-Tier CLAUDE.md SOP](Folder-Tier%20CLAUDE.md%20SOP.md).
 
-**Optional broad scope (upgrade path) — not the default**. A maintainer may extend the Gate to durable artefact changes — for this purpose, edits to a governance or process artefact that persists and is relied upon going forward, such as SOP edits, persona edits, and audit close-outs — even when no `03 Deliverables/` folder is involved. The shipped default is narrow (Deliverables only). To adopt the broad scope, state it here and in CLAUDE.md § QA Gate. The [Fast-Path Lane SOP](Fast-Path%20Lane%20SOP.md) makes broad scope less operationally costly to adopt.
+**Optional broad scope (upgrade path) — not the default**. A maintainer may extend the Gate to durable artefact changes — for this purpose, edits to a governance or process artefact that persists and is relied upon going forward, such as SOP edits, persona edits, and audit close-outs — even when no `03 Deliverables/` folder is involved. The shipped default is narrow (Deliverables only). To adopt the broad scope, state it here and in AGENTS.md § QA Gate. The [Fast-Path Lane SOP](Fast-Path%20Lane%20SOP.md) makes broad scope less operationally costly to adopt.
 
 ## Plan-positioning rule
 
@@ -22,7 +22,7 @@ Every project plan must include a QA Gate step explicitly. The step is positione
 
 - **The Orchestrator must not run QA inline.** This includes humaniser checks — @{QAComplianceReviewer} handles those as part of the review.
 - @{QAComplianceReviewer} is invoked via the `Agent` tool with `subagent_type: "QA Compliance Reviewer"`.
-- The Orchestrator supplies @{QAComplianceReviewer} with: file paths under review, applicable standards (CLAUDE.md, relevant SOPs, project brief), the target locale (named in every QA dispatch per CLAUDE.md § Output Locale; `en-AU` when nothing declares one), and what specifically to verify.
+- The Orchestrator supplies @{QAComplianceReviewer} with: file paths under review, applicable standards (AGENTS.md, relevant SOPs, project brief), the target locale (named in every QA dispatch per AGENTS.md § Output Locale; `en-AU` when nothing declares one), and what specifically to verify.
 
 ## Humaniser rule (canonical)
 
@@ -41,7 +41,7 @@ files state it as pointers to this section, except the sites listed under
    (see Routing above).
 
 **Different rule — do not consolidate here:** the Fast-Path Lane's inline
-declared-locale + humaniser pass (CLAUDE.md § Fast-Path Lane, Fast-Path Lane SOP)
+declared-locale + humaniser pass (AGENTS.md § Fast-Path Lane, Fast-Path Lane SOP)
 is a separate control. Fast-Path work bypasses the QA Gate, so this canonical
 never fires on it — the inline pass is the only check that prose will ever
 get, and its sites stay full rule text. Skill-level carve-outs (prompt

@@ -27,7 +27,7 @@ An empty `INDEX.md` on a fresh clone makes consultation a narrated no-op — nar
 
 ## Conflict resolution
 
-If repo guidance contradicts CLAUDE.md, an SOP, or a persona constraint:
+If repo guidance contradicts AGENTS.md, an SOP, or a persona constraint:
 
 1. **Do not silently override either source.**
 2. **Pause the task and return the conflict to the Orchestrator.** The working persona never invokes @{SeniorAdviser} itself (depth-1 sub-agent rule).
@@ -44,7 +44,7 @@ The same escalation path applies verbatim to `Resources/Refs/` doc-ref guidance;
 ```
 ## YYYY-MM-DD — [Task description]
 - Repo: [repo-name]
-- Conflict: [repo said X / CLAUDE.md said Y]
+- Conflict: [repo said X / AGENTS.md said Y]
 - Senior Adviser ruling: [ruling summary]
 - Applied: [what was done]
 ```

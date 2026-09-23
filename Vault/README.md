@@ -6,7 +6,7 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 
 | Subfolder      | Purpose                                                                                  |
 | -------------- | ---------------------------------------------------------------------------------------- |
-| `Memory/`      | Orchestrator's persistent memory store. See CLAUDE.md § Memory for the two-stage write protocol. |
+| `Memory/`      | Orchestrator's persistent memory store. See AGENTS.md § Memory for the two-stage write protocol. |
 | `Memory/Sessions/` | Per-clone, gitignored. Stage-1 destination for new memories — pending `/memory-reconcile`. |
 | `Memory/Notes/<YYYY-MM>/` | Per-clone, gitignored (skeleton kept via `.gitkeep`). Stage-2 destination after reconcile; `context.md` points here. |
 | `Learning/`    | Personal `/teach` workspaces, one subfolder per topic. Git-ignored except `README.md` (data is personal, Drive-backed, never pushed). |
@@ -25,11 +25,11 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 - All persistent memory writes go to `Vault/Memory/` — not the Claude Code default internal path.
 - New subfolder creation belongs to the Orchestrator. Working personas surface the need; they do not create the folder.
 - Empty placeholder folders (Categories, Bases, Attachments) are kept for Obsidian convention even when unused.
-- Effort dial (operator mechanics, referenced from CLAUDE.md § Default Mode): set via `/model` or `--effort` for the main session — the session dial does not reach sub-agents; per-agent `effort:` frontmatter is the sub-agent mechanism (tier defaults: Persona Template SOP § Model assignment). Model pins unaffected. Verified 07/08/2026.
+- Effort dial (operator mechanics, referenced from AGENTS.md § Default Mode): set via `/model` or `--effort` for the main session — the session dial does not reach sub-agents; per-agent `effort:` frontmatter is the sub-agent mechanism (tier defaults: Persona Template SOP § Model assignment). Model pins unaffected. Verified 07/08/2026.
 
 ## Root-level layout
 
-Reference detail for CLAUDE.md § Vault Structure. The operative rules (root reserved for named folders, no new root folders, the dotfolder exemption, and the `.claude/`-write boundary) live in CLAUDE.md; the tables and rationale below are the lookup behind them.
+Reference detail for AGENTS.md § Vault Structure. The operative rules (root reserved for named folders, no new root folders, the dotfolder exemption, and the `.claude/`-write boundary) live in AGENTS.md; the tables and rationale below are the lookup behind them.
 
 ### Permitted root-level folders
 
@@ -48,7 +48,8 @@ Repo conventions, not storage folders:
 
 | File | Purpose |
 | ------------ | ----------------------------------------------------------- |
-| `CLAUDE.md` | Project instructions for Claude Code |
+| `AGENTS.md` | Project instructions (Orchestrator rules, read by Claude Code and other agents) |
+| `CLAUDE.md` | One-line stub (`@AGENTS.md`) so Claude Code always loads `AGENTS.md` |
 | `README.md` | Human-readable repo overview |
 | `CHANGELOG.md` | Append-only log of shipped changes; upgrade reference for clones |
 | `install.sh` | Installer script (bash) for new team members |

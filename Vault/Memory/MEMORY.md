@@ -11,7 +11,7 @@ session notes, the onboarding bootstrap entry, per-clone decisions) belongs in `
 
 Who edits this file: only the template maintainer, when shipping durable changes to the
 vault's operating knowledge (governance pointers, workflow rules, references). `/memory-reconcile`
-NEVER writes here — it targets `context.md`. See CLAUDE.md § Memory and the Memory Protocol SOP.
+NEVER writes here — it targets `context.md`. See AGENTS.md § Memory and the Memory Protocol SOP.
 
 Format: freeform markdown. Use H2 headings to separate topics.
 
@@ -29,7 +29,7 @@ This file is committed to git.
 
 ## System logs
 
-- [Repo conflict rulings](repo-conflicts.md) — log of conflicts between `Resources/Git/` guidance and CLAUDE.md/SOPs, with Odin rulings and outcomes
+- [Repo conflict rulings](repo-conflicts.md) — log of conflicts between `Resources/Git/` guidance and AGENTS.md/SOPs, with Odin rulings and outcomes
 - [Theme change log](theme-change-log.md) — append-only log of all theme operations; see `Resources/SOPs/Theme SOP.md` for workflow
 - [Odin misses log](odin-misses.md) — append-only log of issues Odin's checkpoints failed to catch; used to improve checkpoint prompts and SOP coverage
 

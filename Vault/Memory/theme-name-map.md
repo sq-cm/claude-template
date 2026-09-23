@@ -41,7 +41,7 @@ SeedanceDirector: Dash
 Studio name is used in HTML deliverable footers and other branded outputs via the `{{Studio}}` token. Change it to your studio's name before producing client deliverables.
 -->
 
-Persona files: `.claude/agents/<role-slug>.md`, slug = token in kebab-case with acronyms flattened (`SEOSpecialist` → `seo-specialist`, `UXUIDesigner` → `ux-ui-designer`); `Orchestrator` has no agent file — its behaviour lives in `CLAUDE.md`. Full table below (comment-wrapped — visible in the file, stripped at injection).
+Persona files: `.claude/agents/<role-slug>.md`, slug = token in kebab-case with acronyms flattened (`SEOSpecialist` → `seo-specialist`, `UXUIDesigner` → `ux-ui-designer`); `Orchestrator` has no agent file — its behaviour lives in `AGENTS.md`. Full table below (comment-wrapped — visible in the file, stripped at injection).
 
 <!-- maintainer doc — stripped from session injection by load-context.sh
 ## File Path Convention
@@ -79,7 +79,7 @@ Persona files live at `.claude/agents/[role-slug].md`. Use the explicit map belo
 | StillsDirector | `stills-director.md` |
 | SeedanceDirector | `seedance-director.md` |
 
-> **Note:** `Orchestrator` is the only token with no corresponding `.claude/agents/` file. Its behaviour is defined in `CLAUDE.md` directly. All other tokens must have a matching agent file.
+> **Note:** `Orchestrator` is the only token with no corresponding `.claude/agents/` file. Its behaviour is defined in `AGENTS.md` directly. All other tokens must have a matching agent file.
 -->
 
 <!-- maintainer doc — stripped from session injection by load-context.sh

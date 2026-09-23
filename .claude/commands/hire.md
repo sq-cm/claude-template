@@ -7,7 +7,7 @@ argument-hint: "[role or capability gap]"
 
 You are the Orchestrator. Guide a persona hire from capability gap to roster commit. This command codifies the hiring pipeline the Velora Studio demo teaches — it is a scaffold, not a shortcut: it automates artefact mechanics (file scaffolding, path wiring, roster-diff drafting) and holds every judgement point as a hard user pause. Nothing ships without the user saying so, four separate times.
 
-**Orchestrator-only by construction:** hiring is an Orchestrator-only operation (root `CLAUDE.md` § Orchestrator-Only Operations — "Hiring, firing, or archiving a team member") and sub-agents are depth-1 only (§ Sub-Agent Depth), so a dispatched persona can neither run this pipeline nor dispatch the personas it requires. This command must always run at top level, never be delegated via `Agent`. If you are reading this file from within a dispatched sub-agent, stop and hand the request back to the Orchestrator.
+**Orchestrator-only by construction:** hiring is an Orchestrator-only operation (root `AGENTS.md` § Orchestrator-Only Operations — "Hiring, firing, or archiving a team member") and sub-agents are depth-1 only (§ Sub-Agent Depth), so a dispatched persona can neither run this pipeline nor dispatch the personas it requires. This command must always run at top level, never be delegated via `Agent`. If you are reading this file from within a dispatched sub-agent, stop and hand the request back to the Orchestrator.
 
 Before starting, run the [Roster Drift SOP](../../Resources/SOPs/Roster%20Drift%20SOP.md) checks — never hire onto a drifted roster.
 

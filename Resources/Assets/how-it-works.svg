@@ -34,7 +34,7 @@
   <text class="n" x="54" y="85" text-anchor="middle">1</text>
 
   <rect x="326" y="80" width="254" height="92" rx="12" fill="#2a3140" stroke="#414c60"/>
-  <text class="t" x="453" y="122" text-anchor="middle">CLAUDE.md</text>
+  <text class="t" x="453" y="122" text-anchor="middle">AGENTS.md</text>
   <text class="s" x="453" y="146" text-anchor="middle">rules + active roster</text>
   <circle cx="348" cy="80" r="13" fill="#414c60"/>
   <text class="n" x="348" y="85" text-anchor="middle">2</text>

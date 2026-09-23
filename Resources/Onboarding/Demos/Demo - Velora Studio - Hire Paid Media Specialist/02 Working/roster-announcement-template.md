@@ -22,7 +22,7 @@ The team roster in `Vault/Memory/theme-name-map.md` has been updated:
 |---|---|---|---|
 | `@{PaidMediaSpecialist}` | Reed | Paid Media Specialist | .claude/agents/paid-media-specialist.md |
 
-*(Add `PaidMediaSpecialist: Reed` to the name map and this row to the file-path table in `Vault/Memory/theme-name-map.md` — that's the only file to update. Root `CLAUDE.md`'s `## Theme & Roster` section just points to the name map and never changes per-hire.)*
+*(Add `PaidMediaSpecialist: Reed` to the name map and this row to the file-path table in `Vault/Memory/theme-name-map.md` — that's the only file to update. Root `AGENTS.md`'s `## Theme & Roster` section just points to the name map and never changes per-hire.)*
 
 ---
 

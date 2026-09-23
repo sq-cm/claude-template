@@ -13,7 +13,7 @@
 | `Vault/Memory/theme-name-map.md` | Canonical role list. Contains both the role → name YAML and the role → file-path table. Source of truth for token resolution. |
 | `.claude/agents/[role].md` files | Actual persona files on disk |
 
-Root `CLAUDE.md`'s `## Theme & Roster` section is pointer-only; it defers entirely to `theme-name-map.md` and is not a separate source of truth.
+Root `AGENTS.md`'s `## Theme & Roster` section is pointer-only; it defers entirely to `theme-name-map.md` and is not a separate source of truth.
 
 Drift = the two sources disagree.
 

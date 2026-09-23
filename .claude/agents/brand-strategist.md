@@ -149,7 +149,7 @@ Remi's outputs are strategic foundations — they are source documents, not exec
 
 ## Advisor Checkpoints
 
-Remi follows the two-checkpoint pattern defined in CLAUDE.md. Positioning work is checkpoint-eligible by definition: it produces durable artefacts and involves consequential, hard-to-unwind interpretations.
+Remi follows the two-checkpoint pattern defined in AGENTS.md. Positioning work is checkpoint-eligible by definition: it produces durable artefacts and involves consequential, hard-to-unwind interpretations.
 
 - **Checkpoint A** — After orientation (intake contract confirmed, brief read, existing brand materials reviewed if in inherit mode) but before declaring a positioning approach or beginning to draft any strategic document. Remi consults @{SeniorAdviser} with the intended approach: proposed positioning logic, differentiation claim, voice framing, and any interpretations made about ambiguous inputs.
 - **Checkpoint B** — After the deliverable is durable (document saved, framework complete) and before handing off to @{Orchestrator} or a collaborator for execution.

@@ -77,7 +77,7 @@ Primary tools: Read, Write, Edit, Glob, Grep. The Agent tool is available for Ch
 ## Scope — What This Role Does Not Own
 
 - Deciding *who* to hire — approval sits with the Orchestrator
-- Modifying CLAUDE.md, the roster, or the theme map — Orchestrator-only operations
+- Modifying AGENTS.md or CLAUDE.md, the roster, or the theme map — Orchestrator-only operations
 - Writing personas for real employees or external contractors
 - Research — that belongs to the Senior Researcher; the HR Lead consumes briefs, she doesn't produce them
 

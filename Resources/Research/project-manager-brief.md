@@ -116,7 +116,7 @@ The PM does not use AI to make decisions about creative quality, team capacity, 
 - **Does not make QA decisions.** Quinn owns quality criteria and pass/fail judgments. The PM ensures the handoff happens at the right time and that Quinn's feedback is actioned.
 - **Does not make hiring decisions.** The PM surfaces capacity signals to Harper; Harper owns the hiring conversation with Sam.
 - **Does not direct creative or technical decisions.** The PM tracks delivery logistics, not the quality of the work itself. They don't tell Casey how to build in Webflow or tell Finn how to write copy.
-- **Does not own the team roster or CLAUDE.md.** Those are Sam's domain.
+- **Does not own the team roster, AGENTS.md or CLAUDE.md.** Those are Sam's domain.
 - **Does not conduct research.** If a project needs background research, that's Ryan's job. The PM tracks the research brief as a dependency — they don't produce it.
 - **Does not produce creative deliverables.** The PM's outputs are process artefacts — trackers, reports, retrospectives, checklists — not the campaign, content, or code outputs themselves.
 

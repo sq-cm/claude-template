@@ -11,7 +11,7 @@ description: |
 
 # HTML-as-deliverable workflow
 
-> **Output Locale (vault rule):** root `CLAUDE.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
+> **Output Locale (vault rule):** root `AGENTS.md` § Output Locale applies — vault-internal prose is Australian English; deliverable prose follows the project's declared locale; prose only; preserve the document's existing locale.
 
 ## When to use
 

@@ -24,7 +24,7 @@ Start by understanding the current project context, then ask questions one at a 
 Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity.
 </HARD-GATE>
 
-> **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona, do not dispatch the reviewer sub-agents this skill mentions — return the reviewer prompt as a fan-out spec to the Orchestrator (CLAUDE.md § Sub-Agent Depth).
+> **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona, do not dispatch the reviewer sub-agents this skill mentions — return the reviewer prompt as a fan-out spec to the Orchestrator (AGENTS.md § Sub-Agent Depth).
 
 ## Anti-Pattern: "This Is Too Simple To Need A Design"
 

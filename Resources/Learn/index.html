@@ -421,8 +421,8 @@ const TEAM = [
     tags: ["Request Routing", "Team Coordination", "Roster Management"],
     desc: "The face of the team and single point of contact for every request. Never does the work. Routes it to the right person.",
     prompt: "Hi, I need help creating a social media strategy for a new client.",
-    expertise: ["Request triage and routing to the right specialist", "Team roster management, hiring, archiving, announcing", "Conflict resolution between team members' outputs", "Meta-operations: editing CLAUDE.md, approving new hires"],
-    constraints: "Never does task work. Every substantive request is delegated. Only the Orchestrator may edit CLAUDE.md or update the roster."
+    expertise: ["Request triage and routing to the right specialist", "Team roster management, hiring, archiving, announcing", "Conflict resolution between team members' outputs", "Meta-operations: editing AGENTS.md or CLAUDE.md, approving new hires"],
+    constraints: "Never does task work. Every substantive request is delegated. Only the Orchestrator may edit AGENTS.md or CLAUDE.md, or update the roster."
   },
   {
     name: "Harper",
@@ -783,7 +783,7 @@ const SLASH_COMMANDS = [
   { name: "shotlist-html-companion", type: "skill", category: "AI Cinema pipeline", desc: "Renders an approved shotlist or Seedance prompt set as a single self-contained HTML file you can edit in the browser, sitting alongside the canonical Markdown. Scoped to shotlists and prompt sets, separate from html-deliverable's six report types.", when: "After a shotlist or prompt set is approved and you want an editable version to work from. Routes to whoever produced it, usually Marlowe or Dash." },
 
   // ── Maintainer/meta ──
-  { name: "/review-claudemd", type: "skill", category: "Maintainer/meta", desc: "Mines recent session transcripts for evidence-based CLAUDE.md findings across five lenses, violated, missing-local, missing-global, outdated, friction, and writes a report without editing CLAUDE.md itself.", when: "Orchestrator-run meta-skill, when you want to check standing instructions against how the vault is actually being used." },
+  { name: "/review-claudemd", type: "skill", category: "Maintainer/meta", desc: "Mines recent session transcripts for evidence-based AGENTS.md findings across five lenses, violated, missing-local, missing-global, outdated, friction, and writes a report without editing AGENTS.md itself.", when: "Orchestrator-run meta-skill, when you want to check standing instructions against how the vault is actually being used." },
   { name: "/improve", type: "skill", category: "Maintainer/meta", desc: "Audits a codebase read-only across correctness, security, performance, tests, tech debt, dependencies, DX, docs, and direction, then writes self-contained implementation plans for another agent to execute.", when: "Orchestrator-run meta-skill, when you want a prioritised improvement roadmap rather than ad-hoc fixes." },
   { name: "/code-minimalism-review", type: "skill", category: "Maintainer/meta", desc: "Reviews a diff or file for over-engineering only, speculative flexibility, unused abstraction, hand-rolled logic the platform already covers, and code that could be shorter without losing meaning. Correctness, security, and performance stay out of scope.", when: "Before calling any code diff finished, per the vault's Code Minimalism Standard." },
   { name: "/write-a-skill", type: "skill", category: "Maintainer/meta", desc: "Scaffolds a new skill with the right structure and frontmatter, progressive disclosure, and any bundled reference files it needs.", when: "When a workflow is repeatable enough to be a skill of its own rather than something you re-explain each session." },
