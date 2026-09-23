@@ -17,6 +17,10 @@ OAuth client is published to Production (not left in Testing mode, where
 Google expires refresh tokens after just 7 days) — a Production refresh
 token only dies if left unused for roughly six months, at which point
 re-running this script mints a fresh one.
+
+The credential file is written owner-only (0600, directory 0700) on
+macOS/Linux; a re-mint replaces the previous token — rotate it (re-run this
+script) if the file was ever copied or shared.
 """
 
 from __future__ import annotations
@@ -40,8 +44,6 @@ SCOPES = [
     "https://www.googleapis.com/auth/analytics.readonly",
     "https://www.googleapis.com/auth/webmasters.readonly",
 ]
-
-DEFAULT_PROJECT_ID = "sq-claude-integrations"
 
 # Vault root is two levels up from this script (Vault/Scripts/ -> vault root).
 VAULT_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -85,7 +87,7 @@ def main() -> None:
 
     client_id = get_setting(env_values, "GOOGLE_CLIENT_ID")
     client_secret = get_setting(env_values, "GOOGLE_CLIENT_SECRET")
-    project_id = get_setting(env_values, "GOOGLE_PROJECT_ID", DEFAULT_PROJECT_ID)
+    project_id = get_setting(env_values, "GOOGLE_PROJECT_ID")
 
     if not client_id or not client_secret:
         print(
@@ -120,18 +122,43 @@ def main() -> None:
         )
         sys.exit(1)
 
-    output_path = Path.home() / ".config" / "claude-google" / "adc.json"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_dir = Path.home() / ".config" / "claude-google"
+    output_path = output_dir / "adc.json"
+    output_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
+    if os.name != "nt":
+        # mkdir's mode only applies when it creates the directory; tighten an
+        # existing one too. Skipped on Windows, where the profile ACL already
+        # protects this path and POSIX mode bits don't map to NTFS.
+        os.chmod(output_dir, 0o700)
 
     credential_payload = {
         "type": "authorized_user",
         "client_id": client_id,
         "client_secret": client_secret,
         "refresh_token": creds.refresh_token,
-        "quota_project_id": project_id,
     }
+    # GOOGLE_PROJECT_ID is optional (.env.example). Without it, Google
+    # attributes quota for these user credentials to the OAuth client's own
+    # project, so write the field only when the user chose one — never a
+    # project this clone doesn't own.
+    if project_id:
+        credential_payload["quota_project_id"] = project_id
+    else:
+        print(
+            "NOTE: GOOGLE_PROJECT_ID is not set, so no quota project was written. "
+            "If a GA4 or Search Console call fails asking for a quota project, "
+            "set GOOGLE_PROJECT_ID in .env and re-run this script.",
+            file=sys.stderr,
+        )
 
-    output_path.write_text(json.dumps(credential_payload, indent=2), encoding="utf-8")
+    # The file holds the client secret and a long-lived refresh token, so it
+    # must never be group- or world-readable. O_CREAT's mode only applies to a
+    # new file; fchmod tightens a pre-existing one before any bytes are written.
+    fd = os.open(output_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    if os.name != "nt":
+        os.fchmod(fd, 0o600)
+    with os.fdopen(fd, "w", encoding="utf-8") as handle:
+        handle.write(json.dumps(credential_payload, indent=2))
 
     print(f"Credential written to: {output_path}")
     print("Google OAuth setup complete — GSC and GA4 MCP servers are ready to authenticate.")
