@@ -3,6 +3,9 @@
 # Blocks unbounded Read calls on files over LIMIT lines; bounded reads
 # (any `offset` or `limit` in the tool input) always pass, so
 # Edit-prerequisite reads of large files still work via offset/limit.
+# Reads carrying the Read tool's `pages` bound, and images and PDFs (png,
+# jpg, jpeg, gif, webp, pdf), are exempt from the line limit — see the Read
+# branch below.
 # The line-limit guard applies to Read alone — Grep and Glob are otherwise
 # unrestricted by it, since a large file must stay searchable and globbable.
 # Also blocks Read, Grep and Glob calls that target .env* or .mcp.json
@@ -23,6 +26,7 @@
 # offset/limit pass-through and a 1000-line threshold per Odin's checkpoint
 # amendments. Grep .env* guard added per 2026-07-06 drift audit; component
 # matching, case-insensitivity, and the Glob branch added by plan 056.
+# Image/PDF exemption added by plan 130.
 #
 # Degraded no-jq path (below) is the ONLY fail-open branch in this file —
 # it always ends in its own `exit 0` inside the `if`. There is deliberately
@@ -217,9 +221,21 @@ case "$(classify_path "$FILE_PATH")" in
     mcp) echo "BLOCKED: $FILE_PATH targets .mcp.json — may hold inline MCP server secrets. (.mcp.json.example is the readable exception.)" >&2; exit 2 ;;
 esac
 
-# Bounded read (offset or limit supplied) → pass
-BOUNDED=$(printf '%s' "$INPUT" | jq -r '(.tool_input.offset // .tool_input.limit) // empty' 2>/dev/null)
+# Bounded read (offset, limit or pages supplied) → pass. `pages` is the Read
+# tool's own bound for PDFs.
+BOUNDED=$(printf '%s' "$INPUT" | jq -r '(.tool_input.offset // .tool_input.limit // .tool_input.pages) // empty' 2>/dev/null)
 [ -n "$BOUNDED" ] && exit 0
+
+# Media the Read tool renders natively (images visually, PDFs by page) →
+# pass. `wc -l` on a binary counts 0x0A bytes, which is meaningless here and
+# blocked most reference stills over ~250 KB. Extension allowlist, not a
+# binary sniff: other binaries stay gated, and a `case` on a lower-cased
+# extension behaves the same on Git Bash, BSD and GNU (no ${var,,} — macOS
+# ships bash 3.2).
+EXT=$(printf '%s' "${FILE_PATH##*.}" | tr '[:upper:]' '[:lower:]')
+case "$EXT" in
+    png|jpg|jpeg|gif|webp|pdf) exit 0 ;;
+esac
 
 # Normalise Windows path for Git Bash if needed
 if command -v cygpath >/dev/null 2>&1 && printf '%s' "$FILE_PATH" | grep -q '^[A-Za-z]:'; then
