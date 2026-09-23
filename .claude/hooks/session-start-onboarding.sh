@@ -55,7 +55,7 @@ SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 # superpowers was exactly that from 17/07/2026 until plan 060. Four sites in
 # this file encode the plugin roster — name them by what they are, not by
 # line number, which drifts every time this file is edited.
-REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_plannotator tier2_plugin_higgsfield tier2_vscode_git tier2_plannotator_binary tier1_notes_seed"
+REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_higgsfield tier2_vscode_git tier1_notes_seed"
 
 # Derived views of REQUIRED_KEYS — the roster is encoded ONCE, above.
 # Check 14 in Vault/Scripts/validate.sh greps the literal REQUIRED_KEYS=
@@ -81,16 +81,12 @@ PLUGIN_MAP_SEGMENT="tier2_plugin_$(printf '%s' "$PLUGIN_SHORT" | sed 's| |/|g')"
 # attempted and deliberately not run (e.g. no Node.js on this machine), as
 # opposed to a step nobody has attempted yet. Never set these true to fake
 # completion; write "skipped" instead, or the block re-fires forever exactly
-# like the disabled-plugin defect described above. tier2_plannotator_binary's
-# "skipped" is narrower than the other two: it applies only when Step 10's
-# privileged move fails for lack of a cached sudo credential, never when the
-# checksum mismatches or the download fails — those stay unresolved so the
-# step retries instead of being silently accepted.
+# like the disabled-plugin defect described above.
 # The tier2_plugin_* keys accept "skipped" too, but they are deliberately NOT
 # listed here: their resolution runs through the plugin install check's own
 # branch in the loop below, which has to honour "skipped" before it consults
-# the install record (plan 128). Keep this list to the three non-plugin keys.
-SKIPPABLE_KEYS="tier1_node tier2_caveman tier2_plannotator_binary"
+# the install record (plan 128). Keep this list to the two non-plugin keys.
+SKIPPABLE_KEYS="tier1_node tier2_caveman"
 
 if ! command -v jq >/dev/null 2>&1; then
   log_error "jq not found on PATH — auto-onboarding disabled"
@@ -210,9 +206,8 @@ plugin_key_present() {         # $1 = a tier2_plugin_<name> flag key
 
 all_complete=true
 missing=""
-# BACKFILL_NOTE is appended to from two places — the plugin branch just below
-# and the plannotator binary probe further down — so it is declared before the
-# first of them rather than next to the second.
+# BACKFILL_NOTE is appended to by the plugin branch just below, so it is
+# declared before the loop.
 BACKFILL_NOTE=""
 for k in $REQUIRED_KEYS; do
   v=$(printf '%s' "$ONBOARDED_JSON" | jq -r --arg k "$k" '.[$k] // false' 2>/dev/null)
@@ -310,24 +305,11 @@ behavioural_pass=true
 # migration early-exit that would have been guesswork either way.
 [ "$ALL_PLUGINS_INSTALLED" = "true" ] || behavioural_pass=false
 
-# tier2_plannotator_binary migration signal — binary on disk. Same locate
-# order as Vault/Scripts/tool-check.sh. Checked independently of
-# behavioural_pass so an existing machine that already has the binary does
-# not trigger a needless re-run of Step 10.
-PLANNOTATOR_BIN_FOUND=false
-if command -v plannotator >/dev/null 2>&1; then
-  PLANNOTATOR_BIN_FOUND=true
-elif [ -n "${LOCALAPPDATA:-}" ] && [ -x "$LOCALAPPDATA/plannotator/plannotator.exe" ]; then
-  PLANNOTATOR_BIN_FOUND=true
-elif [ -x "/usr/local/bin/plannotator" ]; then
-  PLANNOTATOR_BIN_FOUND=true
-fi
-
 # Full early-exit migration path: only when EVERY signal (the whole
 # behavioural_pass bundle — git hooks, .env, the personal scratchpad, Node
-# and the plugin roster — plus the plannotator binary) already passes on
-# disk — matches the "all onboarding signals already pass" claim below.
-if [ "$behavioural_pass" = "true" ] && [ "$PLANNOTATOR_BIN_FOUND" = "true" ]; then
+# and the plugin roster) already passes on disk — matches the "all
+# onboarding signals already pass" claim below.
+if [ "$behavioural_pass" = "true" ]; then
   CTX="=== AUTO-ONBOARDING: MIGRATION ===
 
 All onboarding signals already pass on disk but Vault/Memory/onboarding-flags.json has no onboarded flags.
@@ -339,28 +321,10 @@ ACTION (silent — before responding to user):
   emit_context "$CTX"
 fi
 
-# Partial back-fill: drop tier2_plannotator_binary from the missing-flag
-# list (and queue a silent flag write) whenever its own disk check passes,
-# independently of behavioural_pass — so a machine that already has the
-# binary does not re-trigger Step 10 just because another flag is missing.
-# BACKFILL_NOTE is declared above the all_complete loop, which appends the
-# plugin keys the install record resolved — do not reset it here.
-case " $missing " in
-  *" tier2_plannotator_binary "*)
-    if [ "$PLANNOTATOR_BIN_FOUND" = "true" ]; then
-      missing=" $missing "
-      missing=${missing/ tier2_plannotator_binary / }
-      missing=${missing# }
-      missing=${missing% }
-      BACKFILL_NOTE="${BACKFILL_NOTE}tier2_plannotator_binary "
-    fi
-    ;;
-esac
-
 BACKFILL_ACTION=""
 if [ -n "$BACKFILL_NOTE" ]; then
   BACKFILL_ACTION="
-Before running steps (if any): these keys are already satisfied on disk (plugin present in Claude Code's install record, or binary/tool found) but not recorded in the flags file — silently set them true under 'onboarded' in Vault/Memory/onboarding-flags.json first, no step needed: $BACKFILL_NOTE"
+Before running steps (if any): these keys are already satisfied on disk (plugin present in Claude Code's install record) but not recorded in the flags file — silently set them true under 'onboarded' in Vault/Memory/onboarding-flags.json first, no step needed: $BACKFILL_NOTE"
 fi
 
 # Known gap in the flag→step map below, left alone deliberately by plan 091:
@@ -372,13 +336,13 @@ fi
 # recorded rather than rediscovering it. Fix both clauses together if either
 # is ever revisited.
 
-# Derived step list. The ACTION used to name Steps 3, 7, 8, 9 and 10
-# unconditionally, so a session missing one plugin flag re-ran all five — the
-# list is now built from $missing instead (plan 128). It must be built here,
-# after the plannotator backfill above, which rewrites $missing. Keep the four
-# clauses in step order: that is what makes the list ascending, with no sort.
+# Derived step list. The ACTION used to name Steps 3, 7, 8, 9 and 10 (10 was
+# the since-removed plannotator binary step) unconditionally, so a session
+# missing one plugin flag re-ran all five — the list is now built from
+# $missing instead (plan 128). Keep the three clauses
+# in step order: that is what makes the list ascending, with no sort.
 # Tier 1 keys add no step — the hook performs them itself (plan 091). Steps
-# 11–13 (print the roster, open the Learn guide in a browser, the demo-project
+# 10–12 (print the roster, open the Learn guide in a browser, the demo-project
 # tour) are never derived: this hook fires while the user is waiting for an
 # answer to their own first message, and launching a browser or a long tour
 # mid-question is intrusive, so they are left to a manual /onboard and the
@@ -388,7 +352,6 @@ STEPS=""
 case " $missing " in *" tier2_vscode_git "*) STEPS="$STEPS 3" ;; esac
 case " $missing " in *" tier1_node "*|*" tier2_caveman "*) STEPS="$STEPS 7" ;; esac
 case "$missing" in *tier2_plugin_*) STEPS="$STEPS 8 9" ;; esac
-case " $missing " in *" tier2_plannotator_binary "*) STEPS="$STEPS 10" ;; esac
 STEPS="${STEPS# }"
 
 # "3 7 8" → "Steps 3, 7, 8"; "8" → "Step 8"; "" → "". `set --` inside a
@@ -409,11 +372,11 @@ STEPS_PHRASE=$(fmt_steps "$STEPS")
 # with Step 3" would read as an instruction to go backwards.
 STEPS_AFTER_NODE=""
 for s in $STEPS; do
-  case "$s" in 8|9|10) STEPS_AFTER_NODE="$STEPS_AFTER_NODE $s" ;; esac
+  case "$s" in 8|9) STEPS_AFTER_NODE="$STEPS_AFTER_NODE $s" ;; esac
 done
 STEPS_AFTER_NODE="${STEPS_AFTER_NODE# }"
 if [ -n "$STEPS_AFTER_NODE" ]; then
-  NODE_CONTINUE="then continue with $(fmt_steps "$STEPS_AFTER_NODE"): Caveman is the only step that needs Node; the plugin roster and the plannotator binary do not"
+  NODE_CONTINUE="then continue with $(fmt_steps "$STEPS_AFTER_NODE"): Caveman is the only step that needs Node; the plugin roster does not"
 else
   NODE_CONTINUE="and note that nothing else is waiting on Node: Caveman is the only step that needs it"
 fi
@@ -424,7 +387,7 @@ fi
 if [ -z "$STEPS" ]; then
   ACTION="ACTION (silent — before responding to user): no onboarding steps are outstanding. Every missing flag above is a Tier 1 key this hook performs itself, so only the flag writes remain: apply the flag→step map below and set each missing key under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). Run no onboard.md step and do NOT narrate. Then handle the user's original message normally."
 else
-  ACTION="ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md ($STEPS_PHRASE) — those and no others, whatever else that file documents. For each missing flag above, complete the matching step and set that key to true under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, follow onboard.md Step 7's Node branch for this platform (never install Node on macOS or Linux), and if Node is still unavailable write tier1_node and tier2_caveman as the string \"skipped\" (never true) — this records Caveman as attempted and deliberately not run, which resolves both keys instead of re-triggering onboarding every session — $NODE_CONTINUE. Never stop onboarding because Node is missing. If Step 10's privileged move fails only because there is no cached sudo credential (not a checksum mismatch or a download failure), write tier2_plannotator_binary as the string \"skipped\" (never true) — the step was attempted and deliberately not completed, so recording it resolves the key instead of re-triggering onboarding every session. On any step failure: one-line warning, continue, do not set that flag. After all attempted, add one line pointing at the onboarding guide — 'Your onboarding guide is at Resources/Learn/index.html; ask me how to use the system any time and I will open it.' — and do not open it now; then pivot to user's original message ('Setup done. On your question: ...')."
+  ACTION="ACTION: Tell user one line: 'First-time setup detected — running onboarding (~1 min). Then I will handle your question.' Then execute the steps in .claude/commands/onboard.md ($STEPS_PHRASE) — those and no others, whatever else that file documents. For each missing flag above, complete the matching step and set that key to true under 'onboarded' in Vault/Memory/onboarding-flags.json (read-modify-write, preserve other keys). One-line narration per step ('claude-mem ok'). If Node MISSING, follow onboard.md Step 7's Node branch for this platform (never install Node on macOS or Linux), and if Node is still unavailable write tier1_node and tier2_caveman as the string \"skipped\" (never true) — this records Caveman as attempted and deliberately not run, which resolves both keys instead of re-triggering onboarding every session — $NODE_CONTINUE. Never stop onboarding because Node is missing. On any step failure: one-line warning, continue, do not set that flag. After all attempted, add one line pointing at the onboarding guide — 'Your onboarding guide is at Resources/Learn/index.html; ask me how to use the system any time and I will open it.' — and do not open it now; then pivot to user's original message ('Setup done. On your question: ...')."
 fi
 
 CTX="=== AUTO-ONBOARDING TRIGGERED ===
@@ -435,6 +398,6 @@ $BACKFILL_ACTION
 
 $ACTION
 
-Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull (same reasoning as the tier2_plannotator_binary checksum-mismatch rule later in this map); tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = Step 8+9 plugin pairs (the plugin registration flag here covers only the Claude Code plugin, which auto-installs per settings.json) — these keys are resolved from Claude Code's own install record, not from the flags file, so setting one true without the plugin actually installed changes nothing and the key stays missing; write the string \"skipped\" (never true) only when the plugin is deliberately disabled in .claude/settings.local.json or the user declines to install it, never for an install that failed, which must stay unresolved so the step retries; tier2_plannotator_binary = Step 10 (auto-run, checksum-verified, no consent gate), or \"skipped\" if the privileged move needs a password with no cached credential, never on a checksum mismatch or a download failure (never true); tier2_caveman = Step 7 + '/caveman lite', or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3."
+Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull (same reasoning as the failed-install rule for the plugin keys later in this map); tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = Step 8+9 plugin pairs (the plugin registration flag here covers only the Claude Code plugin, which auto-installs per settings.json) — these keys are resolved from Claude Code's own install record, not from the flags file, so setting one true without the plugin actually installed changes nothing and the key stays missing; write the string \"skipped\" (never true) only when the plugin is deliberately disabled in .claude/settings.local.json or the user declines to install it, never for an install that failed, which must stay unresolved so the step retries; tier2_caveman = Step 7 + '/caveman lite', or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3."
 
 emit_context "$CTX"

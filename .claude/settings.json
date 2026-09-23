@@ -192,7 +192,7 @@
     "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\" | sed 's|\\\\|/|g; s|^\\([A-Za-z]\\):|/\\L\\1|'; fi)/.claude/statusline.sh\""
   },
   "enabledPlugins": {
-    "plannotator@plannotator": true,
+    "plannotator@plannotator": false,
     "context-mode@context-mode": true,
     "obsidian@obsidian-skills": true,
     "caveman@caveman": true,
@@ -203,12 +203,6 @@
     "higgsfield@higgsfield": true
   },
   "extraKnownMarketplaces": {
-    "plannotator": {
-      "source": {
-        "source": "github",
-        "repo": "backnotprop/plannotator"
-      }
-    },
     "context-mode": {
       "source": {
         "source": "github",

@@ -74,7 +74,7 @@ OUT_DIR="$CAP_ROOT/$YEAR"
 # would split into two files). A plain for-loop rather than a nullglob array:
 # an unmatched glob stays literal, the -f test rejects it, and nothing is
 # dereferenced under set -u. Bash 3.2 / Git Bash safe: no arrays
-# (matches Vault/Scripts/update.sh:8 and tool-check.sh:11).
+# (matches Vault/Scripts/update.sh:8).
 OUT_FILE=""
 for existing in "$CAP_ROOT"/*/*"${SESSION_ID}".md; do
   [ -f "$existing" ] || continue

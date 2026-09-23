@@ -257,12 +257,6 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 >
 > Caveat: `/higgsfield:*` skill commands may not register until the CLI supports the `skills` field — the plugin files are cached either way, and the Higgsfield MCP connector tools work regardless. Running `claude plugin marketplace update higgsfield` then reinstalling hits the same error until then; the same workaround applies.
 
-**plannotator** (visual plan & diff review — plugin registration only; the binary is a separate step, see Step 10):
-```
-/plugin marketplace add backnotprop/plannotator
-/plugin install plannotator@plannotator
-```
-
 Report: "All plugins declared in `.claude/settings.json` `enabledPlugins` installed ✓ — restart Claude Code to activate."
 
 If any plugin command fails, print a warning for that plugin and continue with the rest:
@@ -271,34 +265,8 @@ If any plugin command fails, print a warning for that plugin and continue with t
 
 ---
 
-## Step 10 — Install plannotator binary
 
-Auto-run by the SessionStart onboarding hook — no consent prompt. One deterministic script resolves the platform, downloads the matching asset from the **latest** release, and verifies its SHA-256 against the published `.sha256` sibling before anything is installed — it never pipes an installer script from a URL. The same script and the same checksum-verified path run on the daily SessionStart update and on `/update` Step 3.
-
-Idempotent: re-running this step always re-checks the installed version against the latest release and re-installs if they differ — it is not gated by the `tier2_plannotator_binary` flag already being set.
-
-Run in one Bash call:
-
-```bash
-bash Vault/Scripts/tool-check.sh --apply
-```
-
-On macOS and Linux the final move uses `sudo -n`, which never prompts — it either succeeds using a cached credential or fails immediately, rather than blocking an automated step on a password prompt.
-
-Report the script's own output line to the user, then resolve the flag in `Vault/Memory/onboarding-flags.json` by exit code:
-
-| Exit | Report | `tier2_plannotator_binary` |
-|---|---|---|
-| 0 | "plannotator binary installed and checksum-verified ✓" | `true` |
-| 6 | "⚠️ plannotator downloaded and verified, but installing it needs a password. Finish it with the command in the script's output." | `"skipped"` |
-| 9 | "⚠️ plannotator is already installed outside this vault's install path — update it the way you installed it. [script's output line]" | `"skipped"` |
-| any other non-zero | "⚠️ plannotator binary skipped — [script's output line]. It will be retried next session." | leave unresolved |
-
-Exits 6 and 9 are the only non-zero codes that resolve the key. In both the step was attempted and deliberately not completed — 6 because it needs a password, 9 because a working binary already exists and something other than this vault manages it — so recording them stops onboarding re-triggering every session. Every other failure — checksum mismatch, download failure, unsupported platform, a locked binary — must stay unresolved so the step retries.
-
----
-
-## Step 11 — Setup complete
+## Step 10 — Setup complete
 
 Read the team roster from `Vault/Memory/theme-name-map.md` (the role → name map and file-path table) and print it. Root `AGENTS.md` carries no roster table — its `## Theme & Roster` section only points to the name map.
 
@@ -311,7 +279,7 @@ Then print:
 
 ---
 
-## Step 12 — Open the onboarding guide
+## Step 11 — Open the onboarding guide
 
 Open `Resources/Learn/index.html` in the default browser:
 
@@ -342,7 +310,7 @@ Tell the user:
 
 ---
 
-## Step 13 — Learn by doing: sample projects
+## Step 12 — Learn by doing: sample projects
 
 Print the following block exactly:
 
