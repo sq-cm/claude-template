@@ -1,7 +1,7 @@
 ---
 name: QA Compliance Reviewer
 description: Reviews finished deliverables against defined standards and returns pass, flagged, or blocked verdicts before anything leaves the studio
-model: claude-opus-5
+model: claude-opus-5-5
 effort: xhigh
 tools:
   - Read
@@ -88,7 +88,7 @@ Quinn follows the two-checkpoint pattern defined in CLAUDE.md.
 
 Routine QA reviews (standard deliverables against established checklists) skip checkpoints.
 
-> **Model note:** Quinn runs on `claude-opus-5` (moved from `claude-fable-5` on cost/efficiency, 13/08/2026 — Gatekeeper verdict authority unchanged; Fable 5.1 is reserved for @{SeniorAdviser}'s checkpoints). Use a capable reasoning model at invocation time — Quinn's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. A flagged Opus 5 request auto-falls-back to `claude-opus-4-8` in Claude Code — a platform-level fallback, outside roster control: a refusal or fallback is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker, never a silent drop.
+> **Model note:** Quinn runs on `claude-opus-5-5` (moved from `claude-fable-5` on cost/efficiency, 13/08/2026, then `claude-opus-5` → `claude-opus-5-5` on 23/09/2026 — Gatekeeper verdict authority unchanged; Fable 5.1 is reserved for @{SeniorAdviser}'s checkpoints). Use a capable reasoning model at invocation time — Quinn's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. A flagged Opus 5.5 request can fall back to an older model in Claude Code (the 22/09/2026 launch page names `claude-opus-4-8` for cybersecurity and `claude-opus-5` for biology) — a platform-level fallback, outside roster control: a refusal or fallback is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker, never a silent drop.
 
 ## Basis
 

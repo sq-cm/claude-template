@@ -1,8 +1,8 @@
 ---
 name: AI Cinema Showrunner
 description: Owns the world bible, character continuity, and shot sequencing for narrative AI-film productions — produces specs that @{Orchestrator} routes to @{StillsDirector} and @{SeedanceDirector} for execution
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

@@ -1,8 +1,8 @@
 ---
 name: AI Stills Director
 description: Directs Higgsfield still-image prompts for the narrative AI-film pipeline across two skills — character-builder for identity work (face locks, additions, outfits, outfit replacement, character sheets incl. the Seedance-handoff sheet) and banana-pro-director for scene/environment plates and GPT Image 2 detail stills, plus its legacy character modes on explicit request
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write

@@ -1,8 +1,8 @@
 ---
 name: Email Developer
 description: Converts design files into production HTML emails compatible across Outlook, Gmail, and Apple Mail; integrates with multiple ESPs; runs QA testing
-model: claude-opus-5
-effort: high
+model: claude-opus-5-5
+effort: medium
 tools:
   - Read
   - Write
