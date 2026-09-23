@@ -189,7 +189,7 @@ Claude - TEMPLATE/
 │   ├── Plans/                         ← /improve audit plans (git-ignored)
 │   ├── Scripts/                       ← validate.sh — the consistency checker
 │   └── Templates/                     ← daily and weekly note templates
-├── AGENTS.md                          ← orchestrator rules + team roster
+├── AGENTS.md                          ← orchestrator rules (roster: Vault/Memory/theme-name-map.md)
 ├── CLAUDE.md                          ← stub (@AGENTS.md) so Claude Code loads it
 ├── README.md                          ← this file
 ├── CHANGELOG.md                       ← shipped-change log (upgrade reference)

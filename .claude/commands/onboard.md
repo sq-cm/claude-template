@@ -1,5 +1,5 @@
 ---
-description: "Runs first-time workspace setup: CLAUDE.md, .env, local memory, plugins, extensions, tooling."
+description: "Runs first-time workspace setup: pull-only repo lock, .env and local memory, Caveman, claude-mem, recommended plugins, onboarding guide."
 ---
 
 # /onboard

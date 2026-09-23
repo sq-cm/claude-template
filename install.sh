@@ -82,7 +82,7 @@ else
   echo "  - You can edit Chats/, Notes/, Projects/ freely — they're gitignored."
   echo "  - Commits touching other paths are blocked by .githooks/pre-commit."
   echo "  - Pushes are blocked (push URL set to 'no_push' + pre-push hook)."
-  echo "  - Pull template updates anytime: git pull"
+  echo "  - Template updates arrive automatically (at most once a day, at session start). Run /update in Claude Code to pull now."
 fi
 echo ""
 echo "Next steps:"
