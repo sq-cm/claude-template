@@ -55,10 +55,10 @@ SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 # loop, the migration branch's key list and the flag→step map are derived
 # from it below (plan 128). Caveman is the one exception: it is
 # tier2_caveman, not a tier2_plugin_* key, so it also appears literally in
-# SKIPPABLE_KEYS, the install-check loop and the Step 7 case line. Name sites
-# by what they are, not by line number, which drifts every time this file is
-# edited. validate.sh Check 14 FAILs a tier2_plugin_* key whose plugin is
-# disabled or missing.
+# SKIPPABLE_KEYS, the install-check loop, the Step 7 case line and the
+# flag→step map. Name sites by what they are, not by line number, which
+# drifts every time this file is edited. validate.sh Check 14 FAILs a
+# tier2_plugin_* key whose plugin is disabled or missing.
 REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_higgsfield tier2_vscode_git tier1_notes_seed"
 
 # Derived views of REQUIRED_KEYS — the roster is encoded ONCE, above.
