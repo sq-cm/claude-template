@@ -47,14 +47,18 @@ if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then emit_silent; fi
 if [ ! -f "$DIR/AGENTS.md" ] || [ ! -d "$DIR/.claude/agents" ]; then emit_silent; fi
 
 SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
-# A plugin disabled in .claude/settings.json enabledPlugins MUST NOT appear in
-# REQUIRED_KEYS, the plugin install check's roster loop below, the
-# migration branch's comma-separated key list inside the CTX string, or the
-# flag→step map at the bottom of this file. It can never become true,
+# A plugin disabled in .claude/settings.json enabledPlugins MUST NOT keep its
+# tier2_plugin_<name> entry in REQUIRED_KEYS: it can never become true,
 # all_complete never holds, and this block re-fires every session forever.
-# superpowers was exactly that from 17/07/2026 until plan 060. Four sites in
-# this file encode the plugin roster — name them by what they are, not by
-# line number, which drifts every time this file is edited.
+# superpowers was exactly that from 17/07/2026 until plan 060. REQUIRED_KEYS
+# is the ONLY site to edit for a tier2_plugin_* plugin — the install-check
+# loop, the migration branch's key list and the flag→step map are derived
+# from it below (plan 128). Caveman is the one exception: it is
+# tier2_caveman, not a tier2_plugin_* key, so it also appears literally in
+# SKIPPABLE_KEYS, the install-check loop, the Step 7 case line and the
+# flag→step map. Name sites by what they are, not by line number, which
+# drifts every time this file is edited. validate.sh Check 14 FAILs a
+# tier2_plugin_* key whose plugin is disabled or missing.
 REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_plugin_higgsfield tier2_vscode_git tier1_notes_seed"
 
 # Derived views of REQUIRED_KEYS — the roster is encoded ONCE, above.

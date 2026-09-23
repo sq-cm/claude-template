@@ -27,7 +27,7 @@ remains the *why* behind keeping all three in sync, same pattern as the
 
 ## Vault-Local Skills
 
-Skills installed in this directory. Each is a SKILL.md-based capability invocable via the Skill tool or `/skill-name` slash command.
+Skills installed in this directory. Each is a SKILL.md-based capability invocable via the Skill tool or `/skill-name` slash command — except skills whose frontmatter sets `disable-model-invocation: true`, which only start when the user types `/skill-name`; their rows below say "explicit … invocation only".
 
 | Skill | Purpose | Primary users |
 |-------|---------|--------------|
@@ -40,9 +40,9 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `code-minimalism-review` | Over-engineering review of diffs — five tags (delete/stdlib/native/yagni/shrink); findings only, applies nothing (adapted from ponytail, MIT) | Webflow Developer, Email Developer, Mobile Developer, Automation Architect, Creative Technologist |
 | `dispatching-parallel-agents` | Launch independent sub-agents in parallel for multi-track tasks | Orchestrator only (depth-1 wall — personas needing fan-out return a spec to the Orchestrator) |
 | `fast-path` | Explicitly invoke the Fast-Path Lane for a light task — asserts the five eligibility conditions (auditable verdict), then runs the lane or auto-escalates to the full pipeline; explicit `/fast-path` invocation only, cannot override eligibility | Orchestrator (pre-routing) |
-| `find-skills` | Discover and recommend installable agent skills from the skills.sh ecosystem (`npx skills find`) — vault adaptation: project-level installs stay maintainer-gated, never `-y` (vendored from vercel-labs/skills @ `ceea008`) | Orchestrator |
+| `find-skills` | Discover and recommend installable agent skills from the skills.sh ecosystem (`npx skills find`) — vault adaptation: project-level installs stay maintainer-gated, never `-y` (vendored from vercel-labs/skills @ `ceea008`); explicit `/find-skills` invocation only | User |
 | `grill-me` | Interview user relentlessly to surface full requirements before work starts | Orchestrator (default intake for non-trivial requests) |
-| `handoff` | Save and restore task context across sessions — mid-task handoff protocol | All |
+| `handoff` | Writes a compact handoff document of the current conversation to the OS temp directory for another agent on the same machine — save-only, machine-local, no load side; explicit `/handoff` invocation only. For cross-machine resume use the vault's `/handoff-save` + `/handoff-load` commands (`Vault/Logs/Handoffs/`) (vendored from mattpocock/skills) | User |
 | `html-deliverable` | Produce an interactive HTML companion for eligible MD deliverable types | All producing personas |
 | `humaniser` | Rewrite AI-sounding prose to read as natural human writing | Copywriter, Content Strategist |
 | `hyperframes` | HTML/CSS→deterministic MP4 composition authoring — title cards, captions, audio-reactive pieces, scene transitions (vendored from heygen-com/hyperframes @ `8fcbb63`, Apache 2.0; LICENSE in folder) | Nova (Video and Motion Producer), Ellis (Creative Technologist) |
@@ -56,7 +56,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `seedance-commercial-director` | Seedance video prompt director for the **commercial-ad lane** — photoreal/English, twelve-block grammar adding Product Surface + Brand Grade blocks; route on intent (ad/product/brand), **not** `cinema-director`'s narrative lane or its M2 mode | Dash (Seedance Director) |
 | `shotlist-html-companion` | Render a shotlist / Seedance prompt-set as a single self-contained editable HTML — per-scene checkboxes (localStorage), copy-per-prompt, edit-once style prefix; single-pass, routes through `html-deliverable` | All producing personas |
 | `story-bible-builder` | Interview-driven builder for a portable, standalone narrative canon document (world + character + tone) — installs as one dense SKILL.md so future prompts know the world without eating memory slots; hands off to `cinema-world-bible` once a production is underway | Marlowe (Cinema Showrunner) |
-| `teach` | Personal-tutor skill — runs inline by the Orchestrator (AGENTS.md carve-out: exempt from routing, QA Gate, PM tracking, and Advisor Checkpoints); teaches any topic across stateful sessions with lessons, reference docs, and learning records stored git-ignored under `Vault/Learning/<topic>/` | Orchestrator |
+| `teach` | Personal-tutor skill — runs inline by the Orchestrator (AGENTS.md carve-out: exempt from routing, QA Gate, PM tracking, and Advisor Checkpoints); teaches any topic across stateful sessions with lessons, reference docs, and learning records stored git-ignored under `Vault/Learning/<topic>/`; explicit `/teach` invocation only | Orchestrator |
 | `using-superpowers` | Establishes how to find and use skills, repos, and tools at session start | Orchestrator |
 | `verification-before-completion` | Final self-check before claiming work is done | All (mirrors Checkpoint B intent) |
 | `wait-what` | User-fired interjection when a reply did not land — re-pitches the last message with a little context, in ASD-STE100 Simplified Technical English, using the ubiquitous language from the current project's `CONTEXT.md`; explicit `/wait-what` invocation only (adapted from mattpocock/skills) | User |
@@ -69,10 +69,11 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 
 These skills are not stored in this directory. They are provided at runtime by marketplace plugins — the canonical, current roster is `.claude/settings.json` `enabledPlugins` (do not restate it here; it drifts as plugins are added or removed). Fresh clones auto-install the declared plugins after a one-time trust prompt; `.claude/commands/onboard.md` Step 9 is the manual fallback. A plugin's skills will not work without that plugin installed — run `/plugin` to see what is currently active and what each installed plugin provides.
 
-Two plugins are worth a standing note beyond "check `/plugin`":
+One plugin is worth a standing note beyond "check `/plugin`":
 
 - **`obsidian` plugin** (`obsidian-skills` marketplace, kepano/obsidian-skills, MIT) replaces the formerly vault-local copies of the Obsidian skills (`obsidian-bases`, `obsidian-cli`, `obsidian-markdown`, `json-canvas`, `defuddle`), which were content-identical to upstream — the plugin keeps them auto-updated instead of the vault carrying a static snapshot.
-- **`superpowers` plugin** (`claude-plugins-official` marketplace) supplies several skills that wrap the plugin's own runtime capabilities (agent-dispatch, git-worktree management, review-state tracking) rather than being self-contained — they will not function if the plugin is disabled, unlike most vault-local skills above.
+
+The superpowers-derived skills in this folder (`brainstorming`, `dispatching-parallel-agents`, `using-superpowers`, `verification-before-completion`, `writing-plans`) are vendored copies — they need no plugin, and the `superpowers` plugin is deliberately not in the roster (plan 060).
 
 ---
 
