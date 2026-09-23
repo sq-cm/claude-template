@@ -189,16 +189,18 @@ Report: "Caveman installed (plugin) and set to lite mode."
 
 claude-mem is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins` — see that file for the canonical roster) and auto-installs on first launch after the trust prompt. Run the manual steps below only if auto-install failed (check `/plugin`).
 
+The marketplace registers as `thedotmack`, not `claude-mem` — Claude Code takes the name from the upstream manifest's `name` field, not from the repo slug or the `extraKnownMarketplaces` key. `claude-mem@thedotmack` is therefore correct; do not "correct" the marketplace half back to `claude-mem` — that ID resolves to nothing.
+
 ```
 /plugin marketplace add thedotmack/claude-mem
-/plugin install claude-mem@claude-mem
+/plugin install claude-mem@thedotmack
 ```
 
 Report: "claude-mem installed ✓ — restart Claude Code to activate memory hooks."
 
 If the plugin command fails or is unavailable, print:
 
-> ⚠️ claude-mem skipped — plugin marketplace unavailable. Install manually: `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@claude-mem`
+> ⚠️ claude-mem skipped — plugin marketplace unavailable. Install manually: `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@thedotmack`
 
 ---
 

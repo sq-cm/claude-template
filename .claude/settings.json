@@ -197,7 +197,7 @@
     "obsidian@obsidian-skills": true,
     "caveman@caveman": true,
     "document-skills@anthropic-agent-skills": true,
-    "claude-mem@claude-mem": true,
+    "claude-mem@thedotmack": true,
     "skill-creator@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
     "higgsfield@higgsfield": true
@@ -228,7 +228,7 @@
       },
       "autoUpdate": false
     },
-    "claude-mem": {
+    "thedotmack": {
       "source": {
         "source": "github",
         "repo": "thedotmack/claude-mem"
