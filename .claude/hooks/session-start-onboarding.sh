@@ -134,19 +134,36 @@ fi
 # into the flags file, not by this check.
 PLUGIN_RECORD_STATE="absent"   # absent | ok | unrecognised
 INSTALLED_IDS=""
-PLUGIN_HOME="${HOME:-${USERPROFILE:-}}"
-if [ -n "$PLUGIN_HOME" ]; then
+# Where the record lives. CLAUDE_CONFIG_DIR moves Claude Code's whole config
+# tree, plugins/ included, so when it is set it wins outright and neither HOME
+# nor USERPROFILE is consulted at all. Otherwise the config dir is
+# $HOME/.claude, with USERPROFILE as the Windows fallback.
+PLUGIN_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-}"
+if [ -z "$PLUGIN_CONFIG_DIR" ]; then
+  PLUGIN_HOME="${HOME:-${USERPROFILE:-}}"
+  [ -n "$PLUGIN_HOME" ] && PLUGIN_CONFIG_DIR="$PLUGIN_HOME/.claude"
+fi
+if [ -z "$PLUGIN_CONFIG_DIR" ]; then
+  # Nowhere to look at all. That is an unrecognised record, not an absent one:
+  # not knowing where the record lives is not evidence that nothing is
+  # installed, and declaring the whole roster missing on that basis would
+  # re-fire onboarding every session on such a machine. Plugin keys fall back
+  # to flags-file semantics instead.
+  PLUGIN_RECORD_STATE="unrecognised"
+  log_error "no CLAUDE_CONFIG_DIR, HOME or USERPROFILE — plugin install record unlocatable, plugin keys fall back to flags-file semantics"
+else
   if command -v cygpath >/dev/null 2>&1; then
-    PLUGIN_HOME=$(cygpath -u "$PLUGIN_HOME" 2>/dev/null || echo "$PLUGIN_HOME")
+    PLUGIN_CONFIG_DIR=$(cygpath -u "$PLUGIN_CONFIG_DIR" 2>/dev/null || echo "$PLUGIN_CONFIG_DIR")
   fi
-  PLUGIN_RECORD="$PLUGIN_HOME/.claude/plugins/installed_plugins.json"
+  PLUGIN_RECORD="$PLUGIN_CONFIG_DIR/plugins/installed_plugins.json"
+  # A config dir that resolves but holds no record file stays "absent": that is
+  # a machine with no plugins installed, and every plugin counts as missing.
   if [ -f "$PLUGIN_RECORD" ]; then
     # Shape gate. A v2 record is {"version": 2, "plugins": {"<id>": [ ... ]}}.
     # Anything else — a v1 record, a future format, or malformed JSON — falls
     # back to flags-file semantics for plugin keys rather than declaring every
     # plugin missing, so an upstream format change cannot put every machine
-    # into a permanent onboarding loop. An absent file is different: that is a
-    # machine with no plugins installed, and every plugin counts as missing.
+    # into a permanent onboarding loop.
     if [ "$(jq -r '.version // empty' "$PLUGIN_RECORD" 2>/dev/null)" = "2" ] \
       && [ "$(jq -r '.plugins | type' "$PLUGIN_RECORD" 2>/dev/null)" = "object" ]; then
       PLUGIN_RECORD_STATE="ok"
