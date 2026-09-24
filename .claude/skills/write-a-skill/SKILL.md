@@ -10,6 +10,7 @@ b019628 — lineage recorded retroactively (see plan 108); imported alongside th
 and prototype copies from the same repo. Local deltas: the SKILL.md line-limit guidance is raised
 from 100 lines to ~150 (aim) / 500 (hard ceiling), with an added exemption for skills whose body is
 a locked prompt grammar or determinism spec. Deliberately NOT resynced — lineage record only.
+Upstream removed this skill at HEAD (last commit on the path: bc4cf90, 17/06/2026, "Added writing-great-skills skill"); its likely successor there is writing-for-agents. Not adopted — lineage frozen as above (plan 135, 24/09/2026).
 -->
 
 # Writing Skills
