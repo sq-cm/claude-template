@@ -9,6 +9,8 @@ Source: https://github.com/vercel-labs/skills (skills/find-skills). Synced at up
 commit ceea008 on 06/07/2026 (straight copy). Vault adaptation: "Vault note" block
 added below — installs into this template's .claude/skills/ are maintainer decisions
 and prompt for confirmation by design; discovery/search steps unchanged.
+Resynced to upstream 773fb2c on 24/09/2026 (plan 135): upstream's only change on this path
+removed the npx skills check key-command line.
 Re-sync rule: carry the Vault note over any future upstream replace.
 Second adaptation (drift-audit F19): description narrowed to explicit skill-ecosystem
 requests so discovery doesn't compete with grill-me intake.
@@ -43,7 +45,6 @@ The Skills CLI (`npx skills`) is the package manager for the open agent skills e
 
 - `npx skills find [query] [--owner <owner>]` - Search for skills interactively or by keyword, optionally scoped to a GitHub owner
 - `npx skills add <package>` - Install a skill from GitHub or other sources
-- `npx skills check` - Check for skill updates
 - `npx skills update` - Update all installed skills
 
 **Browse skills at:** https://skills.sh/
