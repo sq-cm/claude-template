@@ -15,6 +15,12 @@ after the Overview's second paragraph ("Length calibration (vault adaptation): �
 it calibrates prose only and must never weaken the No Placeholders repeat-the-code
 rule. Vault adaptation (plan 127): negative routing clauses appended to the description,
 pointing exploration at brainstorming and design interrogation at grill-me.
+Partial cherry-pick from upstream v6.4.1 (5bf4e78) on 24/09/2026 (plan 134): the plan-header
+Spec line, the Review Focus template section, Self-Review item 4, and the
+review-before-execution handoff wording (remapped onto the vault's Orchestrator-dispatched /
+Inline options). Deliberately not taken from v6.4.1: the removal of ## Remember, the
+REQUIRED SUB-SKILL lines, the Subagent-driven / Native option names and the
+docs/superpowers/plans/ path. The base stays v6.1.1 for everything else.
 Re-sync rule: carry these adaptations over any future upstream replace.
 -->
 
@@ -86,12 +92,27 @@ independently testable deliverable.
 
 **Tech Stack:** [Key technologies/libraries]
 
+**Spec:** [path to the spec/design doc this plan implements — the plan
+argues from the spec, so the spec travels with it; executors read both]
+
 ## Global Constraints
 
 [The spec's project-wide requirements — version floors, dependency limits,
 naming and copy rules, platform requirements — one line each, with exact
 values copied verbatim from the spec. Every task's requirements implicitly
 include this section.]
+
+## Review Focus
+
+[The five input classes or failure modes the spec implies but no task's
+tests exercise that are most likely to bite a person using this software
+— one line each, naming the input or condition and the behavior a
+reasonable person would expect, most likely first. The spec is a vision
+document: it says what the software must do, not everything it will
+meet, and its silence on an input is not permission for that input to
+break the program. Write the list here, once, with the spec in front of
+you. Then, for each line, add the test that pins it to the task that
+owns the code, in that task's own step style.]
 
 ---
 ```
@@ -171,19 +192,31 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 **3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
 
+**4. Review Focus:** For each input class or failure mode the spec implies, is there a task whose tests exercise it? The five uncovered ones most likely to bite a person go in the Review Focus section, and each line there gets its test added to the owning task. An empty section means you checked and found none, not that you skipped the check.
+
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving and self-reviewing the plan, link it for your human partner
+to read. If they have already explicitly supplied an execution method, ask
+them to review the plan and confirm it captures what they want; wait for that
+review before implementation, then use the preserved method. Otherwise, ask
+them to review the plan and choose an execution method before implementation.
 
-**"Plan complete and saved to `Vault/Plans/<filename>.md`. Two execution options:**
+**When no execution method has already been supplied:**
+
+**"Plan complete and saved to `Vault/Plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
 
 **1. Orchestrator-dispatched (recommended)** - return this plan to the Orchestrator, who dispatches a fresh sub-agent per task with review between tasks
 
 **2. Inline execution** - execute tasks in this session, batch execution with checkpoints
 
-**Which approach?"**
+**For this plan I recommend <one of the two>, because <one sentence from the plan: how much the tasks depend on each other's interfaces, how many there are, what a shipped mistake would cost>. Does the plan capture what you want, and which approach should we use?"**
+
+**When an execution method has already been supplied:**
+
+**"Plan complete and saved to `Vault/Plans/<filename>.md`. Please review the plan. Does it capture what you want?"**
 
 **If Orchestrator-dispatched chosen:**
 - Return the plan to the Orchestrator
