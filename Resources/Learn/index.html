@@ -410,7 +410,7 @@
 
 <!-- ═══════════ DATA (single source of truth, edit here when roster, commands, projects or FAQ change) ═══════════ -->
 <script>
-const LAST_SYNCED = "2026-09-23";
+const LAST_SYNCED = "2026-09-24";
 
 const TEAM = [
   {
@@ -763,7 +763,7 @@ const SLASH_COMMANDS = [
   { name: "/teach", type: "skill", category: "Deliverables & learning", desc: "Runs a personal interactive tutoring loop on any topic you want to learn. Sam handles this inline, it is the only task not routed to a persona. Learning data is saved git-ignored under Vault/Learning/&lt;topic&gt;/ and never counts as a client deliverable.", when: "When you want to learn something rather than produce client work. The only Core-rule carve-out where Sam works inline instead of routing." },
 
   // ── Creative & generation ──
-  { name: "/prototype", type: "skill", category: "Creative & generation", desc: "Builds a throwaway prototype to answer one design question, either a runnable terminal app for a state or logic model, or several radically different UI variations toggleable from a single route.", when: "When you want to test a design by using it rather than describing it, a data model, a state machine, or a look you are still deciding on." },
+  { name: "/prototype", type: "skill", category: "Creative & generation", desc: "Builds a throwaway prototype to answer one design question, either a single-file HTML demo anyone can click through for a state or logic model, or several radically different UI variations toggleable from a single route.", when: "When you want to test a design by using it rather than describing it, a data model, a state machine, or a look you are still deciding on." },
   { name: "Higgsfield generate", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Generates images, video, 3D assets, or audio through the Higgsfield AI CLI, GPT Image 2 for stills, Seedance for video, Nano Banana for character references, Marketing Studio for ads, Seed Audio for audio. Requires a Higgsfield account.", when: "Ask Sam to animate a photo, turn an image into a short video, edit or restyle an image, reframe a video, turn an image into 3D, generate music or audio, or produce an ad or UGC-style video. Chains with Higgsfield Soul ID for a consistent face." },
   { name: "Higgsfield Soul ID", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Trains a one-time 'Soul Character' model of a specific person's face in Higgsfield, so later generations of them stay identity-faithful. Requires a Higgsfield account.", when: "Ask Sam to train a face or character model before generating images or video of a real person, then reuse it whenever that person needs to appear consistently." },
   { name: "Higgsfield product photoshoot", type: "skill", plugin: true, autoInvoked: true, category: "Creative & generation", desc: "Produces professional product imagery through Higgsfield's GPT Image 2 model across ten modes, plain product shots, lifestyle scenes, hero banners, carousels, ad creative, virtual try-on, and floating or splash-style renders. Requires a Higgsfield account.", when: "Ask Sam for product photography, a hero banner, a carousel set, or a virtual try-on image for a listing or ad." },
