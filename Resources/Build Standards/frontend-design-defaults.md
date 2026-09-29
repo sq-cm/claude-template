@@ -2,7 +2,7 @@
 
 **Purpose:** Fallback bans for frontend and visual work that arrives with **no style direction**.
 
-*Last updated: 29/09/2026*
+*Last updated: 2026-09-29*
 
 ---
 
