@@ -61,6 +61,7 @@ The formula covers what to ask for. How hard the model works is a setting; how m
 - **Don't reach for `xhigh` on a long deliverable.** At the top settings the model can draft the whole thing in its thinking and then write it out again: twice the wait, twice the tokens, no better result. Run long documents at `high`.
 - **Effort doesn't shorten the answer.** It changes how much the model thinks, not how much it says. If a reply or a written file runs longer than you want, say so in the prompt: "cover the substance; don't pad with filler sections, redundant summaries, or boilerplate."
 - **At low effort, ask for the search.** Current models look things up less often at `low` and answer from memory more. If the answer depends on something current, name that thing and say "search before answering."
+- **Drop the "think carefully" lines.** Instructions such as "think carefully" or "think step by step" can come out of your prompts: the model decides for itself how much to think, and effort is the main control. Don't ask it to write its reasoning out in the reply either; that request can be declined.
 
 ---
 
@@ -76,6 +77,7 @@ The formula covers what to ask for. How hard the model works is a setting; how m
 - **Keep the tool reference handy.** Keyboard shortcuts, built-in slash commands, and MCP setup live in the community-maintained [Claude Code Cheat Sheet](https://cc.storyfox.cz/) — updated with each Claude Code release.
 - **Show, don't just describe.** If you have a past output you liked (an email, a table, a paragraph in the right tone), paste it in as a sample. One good example steers format and tone better than three sentences of description.
 - **Say why a constraint exists.** "No date libraries: codebase policy" gets honoured more reliably than "no date libraries", because the team member can apply the reasoning to edge cases you didn't anticipate.
+- **Ban specific looks, not "generic".** For design work with no style direction, "avoid a generic AI look" mostly swaps one default for another. Name the patterns to avoid instead: the vault keeps a short list in [Frontend Design Defaults](../Build%20Standards/frontend-design-defaults.md). Brand and design-system direction always come first.
 - **Say whether you're watching.** "I'm not sitting here — don't stop to ask permission for reversible steps this request already covers" gets you a long unattended run. If you *are* watching, ask for the opposite: "one-line update when you find something load-bearing or change direction."
 - **Hold the scope to the ask.** "Don't fix or tidy anything I didn't ask about — list it at the end as a follow-up instead." Current models widen scope on their own.
 - **Say when you want assessment, not action.** "Assess only, change nothing" stops a question being read as a work order.
