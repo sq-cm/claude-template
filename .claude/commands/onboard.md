@@ -170,18 +170,18 @@ After a Windows install, refresh PATH and retry `node --version`. If that instal
 
 > ⚠️ Caveman skipped — could not install Node.js automatically. Install Node.js LTS manually then re-run `/onboard`.
 
-**Once Node.js is confirmed**, install Caveman as a plugin (its hooks run via Node at session start):
+**Once Node.js is confirmed**, confirm the Caveman plugin is installed (its hooks run via Node at session start). The vault's `.claude/settings.json` already declares the caveman marketplace and enables `caveman@caveman`, so Claude Code installs it at the trust prompt. `autoUpdate` is explicitly `false` (see the accepted-risk note in `Resources/Onboarding/SETUP.md`), so the user runs `/plugin marketplace update` manually to get the latest.
+
+**If it isn't installed**, don't install it yourself: as with Steps 8 and 9, you can't run `/plugin`. Print these commands for the user to run:
 
 ```
 /plugin marketplace add JuliusBrussee/caveman
 /plugin install caveman@caveman
 ```
 
-The vault's `.claude/settings.json` already declares the caveman marketplace and enables `caveman@caveman` — if Claude Code already prompted the user to install it when they trusted this folder, skip the commands above and just confirm the plugin is installed. `autoUpdate` is explicitly `false` (see the accepted-risk note in `Resources/Onboarding/SETUP.md`), so run `/plugin marketplace update` manually if you want the latest.
+Then write `{"snoozed_until":"YYYY-MM-DD"}` (30 days on) for `tier2_caveman` in `Vault/Memory/onboarding-flags.json` and move on to Step 8. The session-start hook reminds the user after that date.
 
-After install completes, activate lite mode by invoking: `/caveman lite`
-
-Report: "Caveman installed (plugin) and set to lite mode."
+**Once it's installed**, activate lite mode by invoking `/caveman lite`, set `tier2_caveman` to `true`, and report: "Caveman installed (plugin) and set to lite mode."
 
 ---
 
