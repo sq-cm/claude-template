@@ -187,7 +187,15 @@ Report: "Caveman installed (plugin) and set to lite mode."
 
 ## Step 8 — Install claude-mem
 
-claude-mem is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins` — see that file for the canonical roster) and auto-installs on first launch after the trust prompt. Run the manual steps below only if auto-install failed (check `/plugin`).
+claude-mem is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins` — see that file for the canonical roster) and auto-installs on first launch after the trust prompt. The manual steps below are only for when auto-install failed (check `/plugin`).
+
+**Steps 8 and 9 are the user's to run.** You can't run `/plugin`, and you never install a plugin through Bash, whatever the permission mode. Print the exact `/plugin` commands for any plugin that is missing and let the user run them.
+
+**Plugin flag values.** A `tier2_plugin_*` key in `Vault/Memory/onboarding-flags.json` is read from Claude Code's install state, so never write `true` to one. You only ever write one of two values:
+- `"skipped"`: the user doesn't want this plugin. Permanent; onboarding stops asking.
+- `{"snoozed_until":"YYYY-MM-DD"}`: the commands have been shown, so ask again after that date (30 days on). Use this for a failed install too.
+
+The same two values work on every `tier2_*` key. An installed plugin always counts as done, whatever its flag says.
 
 The marketplace registers as `thedotmack`, not `claude-mem` — Claude Code takes the name from the upstream manifest's `name` field, not from the repo slug or the `extraKnownMarketplaces` key. `claude-mem@thedotmack` is therefore correct; do not "correct" the marketplace half back to `claude-mem` — that ID resolves to nothing.
 
@@ -196,7 +204,7 @@ The marketplace registers as `thedotmack`, not `claude-mem` — Claude Code take
 /plugin install claude-mem@thedotmack
 ```
 
-Report: "claude-mem installed ✓ — restart Claude Code to activate memory hooks."
+Once the user has run them, report: "claude-mem installed ✓ — restart Claude Code to activate memory hooks."
 
 If the plugin command fails or is unavailable, print:
 
@@ -206,7 +214,7 @@ If the plugin command fails or is unavailable, print:
 
 ## Step 9 — Install recommended plugins
 
-The full recommended plugin roster is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) and auto-installs on first launch after the trust prompt. Run the manual steps below only for whichever plugin failed to auto-install (check `/plugin`).
+The full recommended plugin roster is declared in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) and auto-installs on first launch after the trust prompt. For whichever plugin failed to auto-install (check `/plugin`), print its commands below for the user to run, as in Step 8.
 
 **context-mode** (context-window management):
 ```
@@ -238,6 +246,18 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 /plugin install frontend-design@claude-plugins-official
 ```
 
+Report: "All plugins declared in `.claude/settings.json` `enabledPlugins` installed ✓ — restart Claude Code to activate."
+
+If any plugin command fails, print a warning for that plugin and continue with the rest:
+
+> ⚠️ [plugin-name] skipped — install manually: `/plugin marketplace add [source]` then `/plugin install [plugin-name]`
+
+### Optional plugins (install yourself)
+
+These aren't in `.claude/settings.json`, so nothing installs them and onboarding never asks about them. Install one yourself if you want it; once it's installed, onboarding ignores it.
+
+Clones that used higgsfield before 30/09/2026: run `/plugin install higgsfield@higgsfield` to keep it. If that fails with the error in the known-issue note below, the workaround there still applies.
+
 **higgsfield** (Higgsfield AI generation skills — image/video/audio for the AI-Cinema unit):
 ```
 /plugin marketplace add higgsfield-ai/skills
@@ -256,12 +276,6 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 > 3. Restore the original: `mv marketplace.json.bak marketplace.json`
 >
 > Caveat: `/higgsfield:*` skill commands may not register until the CLI supports the `skills` field — the plugin files are cached either way, and the Higgsfield MCP connector tools work regardless. Running `claude plugin marketplace update higgsfield` then reinstalling hits the same error until then; the same workaround applies.
-
-Report: "All plugins declared in `.claude/settings.json` `enabledPlugins` installed ✓ — restart Claude Code to activate."
-
-If any plugin command fails, print a warning for that plugin and continue with the rest:
-
-> ⚠️ [plugin-name] skipped — install manually: `/plugin marketplace add [source]` then `/plugin install [plugin-name]`
 
 ---
 
