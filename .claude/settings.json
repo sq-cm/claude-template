@@ -132,6 +132,11 @@
             "type": "command",
             "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/update-check.sh\"",
             "timeout": 240
+          },
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/permission-hygiene.sh\"",
+            "timeout": 10
           }
         ]
       }

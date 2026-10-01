@@ -1300,9 +1300,9 @@ echo ""
 # ──────────────────────────────────────────────────────────────────────────────
 # Check 18 — shell script fails bash -n syntax parse
 #
-# Six hooks run bash at session start; a syntax error in read-guard.sh exits 2
+# Seven hooks run bash at session start; a syntax error in read-guard.sh exits 2
 # = PreToolUse block, killing every Read/Grep/Glob in every session, and the
-# other five fail open silently — yet until now no check parsed any shell
+# other six fail open silently — yet until now no check parsed any shell
 # script (bash -n was re-run by hand each plan generation). FAIL-tier:
 # .githooks/pre-commit swallows the validator's exit in hook mode (WARN mode,
 # || true), but CLI/CI use exits 1, and a syntax-broken script is a

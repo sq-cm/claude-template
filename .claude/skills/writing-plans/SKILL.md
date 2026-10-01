@@ -21,6 +21,9 @@ review-before-execution handoff wording (remapped onto the vault's Orchestrator-
 Inline options). Deliberately not taken from v6.4.1: the removal of ## Remember, the
 REQUIRED SUB-SKILL lines, the Subagent-driven / Native option names and the
 docs/superpowers/plans/ path. The base stays v6.1.1 for everything else.
+Vault adaptation (plan 142): one sentence added to the Global Constraints template after
+its bracketed guidance, pointing steps that need a human approval moment at Sub-Agent
+Architecture SOP § Auto mode and permissions.
 Re-sync rule: carry these adaptations over any future upstream replace.
 -->
 
@@ -101,6 +104,8 @@ argues from the spec, so the spec travels with it; executors read both]
 naming and copy rules, platform requirements — one line each, with exact
 values copied verbatim from the spec. Every task's requirements implicitly
 include this section.]
+
+Any step that needs a human approval moment follows Sub-Agent Architecture SOP § Auto mode and permissions: name the action and why, and never write "exit auto mode" as a routine step.
 
 ## Review Focus
 
