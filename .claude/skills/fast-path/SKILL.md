@@ -7,7 +7,8 @@ argument-hint: "The light task to fast-path"
 
 This skill lets the user **explicitly request** the Fast-Path Lane (AGENTS.md § Fast-Path Lane).
 It is a pre-routing gate, in the same class as grill-me and prompt-review: it decides how a task
-is handled, then hands off. It can only *request* the lane — it can never override eligibility.
+is handled, then hands off, produces no Deliverable, and is QA-exempt. It can only *request* the
+lane — it can never override eligibility.
 
 Take the task from the invocation arguments. If none is supplied, ask for it once — the sole
 permitted question.
@@ -58,10 +59,3 @@ If a lane task grows mid-flight — new constraints surface, it becomes a durabl
 needs fan-out — **stop the lane and re-enter the full pipeline.** Do not finish on the lane and
 backfill governance afterwards. Promoting any fast-path artefact into `03 Deliverables/` requires
 the full QA Gate first.
-
-## Governance
-
-This is an inline pre-routing utility, in the grill-me / prompt-review class: it produces no
-Deliverable and is QA-exempt. It does **not** relax the Fast-Path Lane's kept guards — routing,
-locale + humaniser, and destination are enforced here, never waived. `disable-model-invocation`
-keeps the lane from ever auto-firing; only the user typing `/fast-path` triggers it.

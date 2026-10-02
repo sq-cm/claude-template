@@ -1,15 +1,12 @@
 ---
 name: chat
-description: Start, resume, list, or save a per-conversation chat workspace under Chats/ — a dated folder holding a CHAT.md running log, plus an outputs/ directory created lazily the first time a file is actually produced. Handles /chat (start new), /chat <name> (resume by name), /chat load (resume the most recent), /chat list (one line per chat), and /chat save (rewrite the pickup brief before clearing context). Use when the user invokes /chat. Explicit invocation tool — do not fire automatically on ordinary requests. Not a shortcut past grill-me or plan mode — that's /fast-path; a chat changes only where files land.
+description: Start, resume, list, or save a per-conversation chat workspace under Chats/ — a dated folder holding a CHAT.md running log, plus an outputs/ directory created lazily the first time a file is actually produced. Handles /chat (start new), /chat NAME (resume by name), /chat load (resume the most recent), /chat list (one line per chat), and /chat save (rewrite the pickup brief before clearing context). Use when the user invokes /chat. Explicit invocation tool — do not fire automatically on ordinary requests. Not a shortcut past grill-me or plan mode — that's /fast-path; a chat changes only where files land.
 disable-model-invocation: true
 argument-hint: "list | load | save | <chat name> | (empty = start new)"
 ---
 
-A chat is a lightweight workspace for one line of thinking: a folder at `Chats/[YYMMDD] [Chat Name]/`
-holding a `CHAT.md` and — created lazily, only once a file is genuinely produced — an `outputs/`
-directory. A chat with no files yet has no `outputs/` folder, and that is correct. It is not a
-project and never becomes one — a chat that grows into real work spawns a project through the normal
-propose-and-approve flow and keeps a pointer line in `CHAT.md`.
+A chat is not a project and never becomes one — a chat that grows into real work spawns a project
+through the normal propose-and-approve flow and keeps a pointer line in `CHAT.md`.
 
 The rules live in [Chats SOP](../../../Resources/SOPs/Chats%20SOP.md) — that document wins on any drift.
 

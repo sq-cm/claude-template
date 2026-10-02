@@ -6,6 +6,8 @@
 
 *Last updated: 2026-05-23*
 
+**Contents:** Purpose & Scope · The Single-File Rule · The Studio-Shell Embed Rule · Theme Toggle and Dark Mode · Table of Contents · Responsive Layout · Accessibility Floor · Print Rules · Footer-Meta Spec · JS Budget · SVG Rules · File Size Guidance · Examples vs Custom Builds · Rollback · Cross-References
+
 ---
 
 ## Purpose & Scope

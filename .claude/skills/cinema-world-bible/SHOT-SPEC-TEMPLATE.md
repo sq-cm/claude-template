@@ -1,3 +1,4 @@
+<!-- Template contents: Dramatic moment · Characters in frame · Reference-image assignments · Cinema-mode · Framing notes · Runtime (video shots only) · Audio notes (video shots only) · Continuity with adjacent shots · Pre-handoff continuity checklist · Destination handoff. Delete on fill. -->
 # Shot Spec — [SHOT-ID]
 
 > This is a spec, not a prompt. It tells banana-pro-director, cinema-director, or seedance-commercial-director what the shot needs. Those skills write the prompt from it. Do not include Banana Pro prompt grammar or Seedance block structure here.

@@ -1,3 +1,4 @@
+<!-- Template contents: Identity spec (locked visual descriptor) · Voice register · Locked reference images · Wardrobe states (one block per outfit slug) · Character continuity rules · Change log. Delete on fill. -->
 # Character Bible — [CHARACTER-SLUG]
 
 > This is the canonical source for this character's visual identity. Every character-builder or banana-pro prompt and every Seedance character asset line points back here — in the narrative lane the old Subject Lock vocabulary now lives in cinema-director SLOT 5 ASSETS, one merged line per character. Do not write character names or real ages into any prompt output — use visual descriptors only. Real brand names appear only where the production has confirmed authorisation (client's own brand or user-accepted risk); otherwise use generic descriptors.

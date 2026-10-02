@@ -1,3 +1,4 @@
+<!-- Template contents: Project overview · Cinema-mode register · Palette and grade · World setting · Recurring locations · Audio world · Characters in this project · Continuity rules (project-wide) · Change log. Delete on fill. -->
 # World Bible — [PROJECT NAME]
 
 > Fill every section before building environment plates or scene plates. The cinema-mode register and palette grade are required before any banana-pro Mode 3 or Seedance prompt runs.

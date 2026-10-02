@@ -11,25 +11,17 @@ description: Continuity tracker and prep system for an ACTIVE narrative AI-film 
 
 The continuity layer that sits between the brief and the prompt skills. This skill owns the prep work that makes shot-to-shot consistency possible: the world record, the character specs, the reference-image index, and the shot specs that feed banana-pro-director, character-builder, and cinema-director.
 
-It does not write Banana Pro, GPT Image 2, or Seedance prompts. It organizes everything those skills need before they run.
-
----
-
-## Why this skill exists
-
-Consistency across shots is the hardest problem in AI film pipelines. Locked reference sheets help. Separating identity from styling helps. Wardrobe locks help. But those things only help if they exist before the video prompt runs — and if they are organized so the prompt skill can find the right references and attach them in the right order.
-
-This skill is the prep infrastructure. Every shot that works first try in a well-run pipeline had locked references, locked wardrobe, and a locked environment plate before the video prompt was written. This skill is the system that produces and tracks those locks.
+It does not write Banana Pro, GPT Image 2, or Seedance prompts, except the schematic-map diagram prompt (workflow 6), a non-photographic utility diagram. It organizes everything those skills need before they run.
 
 ---
 
 ## Scope and boundaries
 
 **This skill owns:**
-- The world bible (setting, palette, tone, cinema-mode register)
+- The world bible (setting, palette, tone, cinema mode (M1–M5))
 - Character bibles (visual identity specs, wardrobe states, identity markers)
 - Outfit Bible (per-character colour palette, signature silhouette, identity markers — a companion doc to the character bibles, never contradicting them)
-- Reference-image library index (naming convention, slot assignments)
+- Reference-image library index (naming convention, element-tag assignments)
 - Continuity rules (the canonical-over-plate rule, wardrobe lock-down, cross-shot checks)
 - Shot specs (a structured brief that names which references attach, in what order, at what runtime)
 
@@ -43,15 +35,17 @@ This skill is the prep infrastructure. Every shot that works first try in a well
 
 ## Workflows
 
+Every template over 100 lines opens with a contents comment; delete it when filling.
+
 ### 1. Start a new project — build the world bible
 
-Run this first on any new project. A world bible does not need to be complete before character work begins, but the cinema-mode register and palette grade must be locked before any scene plates are built.
+Run this first on any new project. A world bible does not need to be complete before character work begins, but the cinema mode (M1–M5) and palette grade must be locked before any scene plates are built.
 
 Use the world bible template: [WORLD-BIBLE-TEMPLATE.md](WORLD-BIBLE-TEMPLATE.md)
 
 Steps:
 1. Take the project brief and fill the world bible template
-2. Lock the cinema-mode register (M1–M5) — this determines the camera grammar that every banana-pro scene plate and every Seedance prompt will use
+2. Lock the cinema mode (M1–M5) — this determines the camera grammar that every banana-pro scene plate and every Seedance prompt will use
 3. Lock the palette grade — dominant tones, color temperature, grade style
 4. Identify recurring locations and flag which need environment plates built in banana-pro-director (Mode 3B)
 5. Note which characters will need character bibles
@@ -71,7 +65,8 @@ Steps:
 2. Fill the character bible template — identity spec, voice register, wardrobe states, identity markers, locked references
 3. Note which reference images still need to be built (face lock, outfit refs, 3-panel character sheet) and flag them as PENDING
 4. Mirror back the locked spec for confirmation before marking anything as LOCKED
-5. Update the reference-image library index with the character's reference slots
+5. Update the reference-image library index with the character's reference entries and their element tags
+6. Once the wardrobe states are confirmed, fill the outfit bible for any character whose colour palette, signature silhouette, or identity markers must hold across outfits: [OUTFIT-BIBLE-TEMPLATE.md](OUTFIT-BIBLE-TEMPLATE.md). The character bible wins any conflict.
 
 Character bible rules:
 - Identity descriptors are visual only — no names in prompt output, no ages, no brand names (real brand names only where the production has confirmed authorisation — client's own brand or user-accepted risk; otherwise generic descriptors)
@@ -116,7 +111,7 @@ Each entry records:
 
 Slugs are an index and operator-handoff convention; the element tag (e.g. `@zara_face`) is the prompt-facing handle assigned once per locked asset — attachment happens in the Higgsfield UI, the tag just names what got attached. Authoritative record, mapping chain (slug → element tag → Elements name), and sync rules: REFERENCE-LIBRARY-TEMPLATE.md § "Higgsfield Elements name mapping".
 
-Reference-slot assignment for Seedance (version-conditional cap — max 9 references per prompt on Seedance 2.0, up to 50 on 2.5; confirm the target version before planning the stack):
+Element-tag assignment for Seedance (version-conditional cap — max 9 references per prompt on Seedance 2.0, up to 50 on 2.5; confirm the target version before planning the stack):
 - When building a shot spec, assign element tags from the index. Record the assignment in the shot spec. Canonical character references always take priority over environment plates when tag count is constrained.
 
 ---
@@ -138,13 +133,15 @@ Environment locks
 - [ ] The canonical-over-plate rule is noted: the environment plate carries world geometry; the character canonical reference carries identity — never substitute one for the other in the element-tag assignment
 
 Cinema-mode alignment
-- [ ] The cinema-mode register for this shot (M1–M5) matches the project's registered mode in the world bible (or deviation is deliberate and noted)
-- [ ] The M-mode selected in the shot spec matches what banana-pro used for the scene plate, if one exists
+- [ ] The cinema mode (M1–M5) for this shot matches the project's registered mode in the world bible (or deviation is deliberate and noted)
+- [ ] The cinema mode (M1–M5) selected in the shot spec matches what banana-pro used for the scene plate, if one exists
 
-Reference-slot assignment
+Element-tag assignment
 - [ ] Element tags are assigned from the library index, with canonical character references filling their tags before environment plates
-- [ ] Total reference count does not exceed 9 (Seedance hard cap)
+- [ ] Total reference count does not exceed the target Seedance version's cap (see Element-tag assignment, workflow 3)
 - [ ] Priority order is documented in the shot spec so cinema-director can place the element tags correctly
+
+**Stop:** any Character-lock item unticked, or any assigned element tag whose index status is not LOCKED → do not route. Mark the shot spec DRAFT, list each PENDING build with its destination (character-builder Mode 0/2/4, banana-pro-director Mode 3B), return to workflow 2 or 3.
 
 ---
 
@@ -184,13 +181,13 @@ A schematic map is a top-down spatial diagram of a single location. It records t
 
 **Relationship to per-shot screen-space grammar (cinema-director):**
 - The schematic map is a **world-space prep artefact** — it records where props and landmarks physically sit in the location geometry (e.g., "fire hydrant at kerb; skydancer anchored 2× person-height to its right on the same line"). It is produced once per location, before shot prompting begins.
-- cinema-director's 16-slot spine carries a standalone screen-space block again: **SLOT 6 GEOMETRY MAP**. It states absolute lateral position (LEFT / MIDDLE / RIGHT, plus what is off-frame in which direction), a depth plane per subject (foreground / mid-ground / background, and which planes fall soft), and vertical relationship where it matters — and it accepts the studio's x/y percentage precision for asymmetric compositions. This reverses the drop-2 position, where the thirteen-block format had no such block and screen-space placement was scattered across per-shot Position lines. Write screen-space content into the shot spec expecting a Geometry Map destination. Staging is then held across cuts by **SLOT 16 LOCKS**, which restates the old Cross-Frame Rules as a positive ordered chain of what must hold rather than a list of prohibitions.
-- The schematic map informs the SHOT block Position lines. It does not replace them. Do not duplicate the schematic map's world-space spatial facts inside a Position line; reference the schematic map instead.
+- cinema-director's 16-slot spine carries a standalone screen-space block again: **SLOT 6 GEOMETRY MAP**. It states absolute lateral position (LEFT / MIDDLE / RIGHT, plus what is off-frame in which direction), a depth plane per subject (foreground / mid-ground / background, and which planes fall soft), and vertical relationship where it matters — and it accepts the studio's x/y percentage precision for asymmetric compositions. Write screen-space content into the shot spec expecting a Geometry Map destination. Staging is then held across cuts by **SLOT 16 LOCKS**, which restates the old Cross-Frame Rules as a positive ordered chain of what must hold rather than a list of prohibitions.
+- The schematic map informs the SLOT 6 Geometry Map. It does not replace it. Do not duplicate the schematic map's world-space spatial facts inside the Geometry Map; reference the schematic map instead.
 
 Steps:
 1. Identify the location and list every prop or landmark that must stay spatially consistent
 2. Write the GPT Image 2 schematic prompt (top-down view, labelled diagram, clean linework — no shading, no perspective)
-3. Generate the diagram and save it to the project folder
+3. Hand the prompt to the operator (the Showrunner; see Scope and boundaries) to run in GPT Image 2; record the saved diagram path
 4. Extract locked spatial facts from the diagram (position, relative size, clearance distances) and record them in the template
 5. Attach the schematic map file path to the world bible's location entry and to any shot spec that uses this location
 
@@ -204,7 +201,7 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 
 **New character:** "Build a character bible for [character description]." → Skill fills the character bible template and flags what reference builds are needed.
 
-**Index a new reference:** "Add [reference name] to the library index." → Skill adds the entry with status, type, and slot note.
+**Index a new reference:** "Add [reference name] to the library index." → Skill adds the entry with status, type, and element tag.
 
 **Pre-video checklist:** "Run the continuity checklist for [shot description]." → Skill runs the checklist and flags any gaps before the shot spec routes to cinema-director.
 
@@ -226,13 +223,14 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 | Build environment plate | Flags as PENDING, writes spec | banana-pro-director Mode 3B |
 | Write Banana Pro / GPT Image 2 prompt (scene, environment, or detail plate) | Never | banana-pro-director |
 | Write Banana Pro / GPT Image 2 prompt (character reference) | Never | character-builder |
+| Write schematic-map diagram prompt | Yes — workflow 6 | operator runs it |
 | Write Seedance prompt | Never | cinema-director |
 | Assign element tags for a shot | Yes — in the shot spec | cinema-director uses these |
 | Map slug → element tag → Higgsfield Elements name | Yes — Elements name mapping in reference library | Operator loads matching asset in Higgsfield UI |
-| Track M-mode consistency | Yes — world bible | cinema-director enforces in prompt |
+| Track cinema mode (M1–M5) consistency | Yes — world bible | cinema-director enforces in prompt |
 | Run pre-video continuity check | Yes | — |
 | Build schematic map (world-space prop layout) | Yes — schematic map template | — |
-| Screen-space character position per shot (SHOT block Position line) | Schematic map informs it | cinema-director owns the Position-line grammar |
+| Screen-space character position per shot (SLOT 6 Geometry Map) | Schematic map informs it | cinema-director owns the Geometry Map grammar |
 
 ---
 
@@ -241,6 +239,6 @@ Deliver: a completed schematic map markdown file, saved to the project folder, w
 - [WORLD-BIBLE-TEMPLATE.md](WORLD-BIBLE-TEMPLATE.md) — project-level world record
 - [CHARACTER-BIBLE-TEMPLATE.md](CHARACTER-BIBLE-TEMPLATE.md) — per-character identity and wardrobe record
 - [OUTFIT-BIBLE-TEMPLATE.md](OUTFIT-BIBLE-TEMPLATE.md) — per-character colour palette, silhouette, and identity-marker companion doc, cross-checked against the character bible
-- [REFERENCE-LIBRARY-TEMPLATE.md](REFERENCE-LIBRARY-TEMPLATE.md) — reference-image index, slot assignments, and Higgsfield Elements name mapping
+- [REFERENCE-LIBRARY-TEMPLATE.md](REFERENCE-LIBRARY-TEMPLATE.md) — reference-image index, element-tag assignments, and Higgsfield Elements name mapping
 - [SHOT-SPEC-TEMPLATE.md](SHOT-SPEC-TEMPLATE.md) — shot brief for handoff to banana-pro-director or cinema-director
 - [SCHEMATIC-MAP-TEMPLATE.md](SCHEMATIC-MAP-TEMPLATE.md) — top-down spatial diagram spec for locking prop position and size per location

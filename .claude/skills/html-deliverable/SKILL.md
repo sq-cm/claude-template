@@ -5,7 +5,7 @@ description: |
   Use when the user or a collaborator requests: "audit report", "status report",
   "implementation plan", "comparison", "research explainer", "incident post-mortem",
   "make it HTML", "interactive HTML version", or "HTML companion". Produces a
-  sibling-pair — <name>.md (canonical) + <name>.html (render) — in the same folder.
+  sibling-pair — NAME.md (canonical) + NAME.html (render) — in the same folder.
   For shotlists or Seedance prompt sets, use shotlist-html-companion instead.
 ---
 
@@ -56,7 +56,7 @@ Deliverables ship as a matched pair in the same folder, same stem:
 
 MD is canonical. HTML is a render — it is never edited directly. When MD changes, HTML is rebuilt from the updated MD.
 
-When handing off, the Producer or Orchestrator announces both paths in chat:
+When handing off, the generating persona or Orchestrator announces both paths in chat:
 
 > "Markdown at [path], interactive HTML companion at [path]."
 
@@ -69,7 +69,8 @@ When handing off, the Producer or Orchestrator announces both paths in chat:
 - Charts: inline SVG only.
 - Diagrams: inline SVG or CSS grid only.
 - Use the `studio-shell.css` scaffold for base styles and CSS variables (`--accent`, `--ink`, `--paper`, `--rule`). Embed it inline at render time — do not link it. Path for reference: `./studio-shell.css`.
-- See `./examples/` for six reference HTMLs (one per deliverable type). Match their structural patterns. Do not treat them as rigid templates.
+- `studio-shell.css` sections: Custom Properties · Dark Mode · Reduced Motion · Reset · Base · Type · Focus · Tables · Components (KPI, Timeline, Tabs, Collapsible, Diff Table, Risk Table, Footer Meta, Theme Toggle, Table of Contents) · Print.
+- See `./examples/` for six reference HTMLs (one per deliverable type). Read only the example for the deliverable's type. Match its structural patterns. Do not treat it as a rigid template.
 
 ## Theme toggle (mandatory — all 6 deliverable types)
 
@@ -136,8 +137,6 @@ Dark mode is implemented via `[data-theme="dark"]` selector on `:root` variables
   }());
 </script>
 ```
-
-Bootstrap logic: read `localStorage.getItem('html-deliverable-theme')`. If a stored value exists, apply it. If not, check `window.matchMedia('(prefers-color-scheme: dark)').matches` — if true, apply dark. Otherwise stay light. Persist every toggle to localStorage under key `html-deliverable-theme`. Values: `light` / `dark`.
 
 ### Button markup
 
@@ -223,7 +222,7 @@ At `<900px` the TOC collapses from the right rail to a top-stacked block above `
 
 ### Print
 
-The print block suppresses the TOC (`display: none`) and collapses the grid layout (`display: block`). TOC content does not appear in print. This is correct — section headings provide sufficient navigation for a printed document.
+The print block suppresses the TOC (`display: none`) and collapses the grid layout (`display: block`). This is correct — section headings provide sufficient navigation for a printed document.
 
 ---
 
@@ -279,8 +278,11 @@ Each component owns its own breakpoint, declared inline with its rules:
 Every rendered HTML file carries a `<footer class="footer-meta" role="contentinfo">` with three elements, each in its own `<span class="footer-meta__item">`, in this exact label format:
 
 1. **Render timestamp** — `Rendered: <ISO 8601, local timezone>`. Example: `Rendered: 2026-05-23T15:32:00+10:00`.
-2. **Content hash** — `Source hash: <8 chars>`. First 8 characters of the SHA-1 hash of the source MD file. Before hashing, normalise the MD content to LF line endings and strip trailing whitespace from each line. This normalisation prevents false drift on Windows checkouts or git line-ending conversions.
-3. **Studio attribution** — `Produced by {{Studio}} · <date>`. No logo. No colour. No styling commitment beyond the base shell in v1.
+2. **Content hash** — `Source hash: <8 chars>`. Run exactly this, in Bash (normalises to LF and strips trailing whitespace, so Windows checkouts don't show false drift):
+   ```bash
+   tr -d '\r' < "<md>" | sed 's/[[:space:]]*$//' | sha1sum | cut -c1-8
+   ```
+3. **Studio attribution** — `Produced by {{Studio}} · <date>`. No logo. No colour. No styling commitment beyond the base shell.
 
 Label punctuation is canonical — `Rendered:` and `Source hash:` (with colon and single space). QA blocks footers that omit either label or use a different prefix.
 
@@ -293,15 +295,20 @@ Steps must run in order:
 1. MD produced by the generating persona.
 2. Humaniser pass on MD.
 3. @{QAComplianceReviewer} QA on MD — must PASS before HTML is rendered.
-4. HTML rendered from approved MD.
+4. HTML rendered from approved MD. Read `Resources/Build Standards/html-deliverable-standards.md` before rendering. Copy this checklist and tick each item before step 5:
+   ```
+   - [ ] Single file; inline <style>/<script>; no CDN, network request or external link
+   - [ ] studio-shell.css embedded inline
+   - [ ] <html lang="<locale>" data-theme="light">; noscript toggle-hide in <head>
+   - [ ] Theme toggle button + JS bootstrap before </body>
+   - [ ] TOC with s-[slug] heading ids (audit, research, post-mortem; others at 5+ sections)
+   - [ ] Component breakpoints declared inline after each component's rules
+   - [ ] Footer: Rendered:, Source hash: (command above), Produced by
+   ```
 5. @{QAComplianceReviewer} second pass on HTML against the HTML checklist (see `Resources/SOPs/QA Gate SOP.md` § HTML Deliverable QA Checklist). Checks include: links resolve, no JS console errors, prints cleanly, accessibility floor met (`<details>`/`<summary>` for disclosure, keyboard nav for tabs, `prefers-reduced-motion` respected).
 6. **Open on completion** — once both QA gates PASS, the Orchestrator opens the rendered HTML in the user's default browser from the main session (never a sub-agent): `open "<path>"` on macOS, `Start-Process "<path>"` on Windows, `xdg-open "<path>"` on Linux. The sibling-pair announcement ("Markdown at [path], interactive HTML companion at [path]") still runs. On rebuilds triggered by MD-HTML drift, reopening is optional — mention the refresh instead of forcing a new tab.
 
 HTML is not shipped until both QA gates pass.
-
-## Rollback scope
-
-Git tag pre-install covers the template vault only. Vaults already instantiated from a prior template release are out of v1 rollback scope.
 
 ## References
 

@@ -8,11 +8,12 @@ Read the cheat sheet at `${CLAUDE_PROJECT_DIR}/Resources/Learn/prompt-formula-ch
 
 Take the draft prompt from the invocation arguments. If none is supplied, ask for it — that's the one permitted question by default, and it does not count toward the 1–2 clarifying-question cap below.
 
-This is a single-pass review, not an interview:
+Output is conversational only, never a Deliverable, and QA-exempt, and it does not suppress grill-me or Default Mode — a reviewed prompt goes through normal routing once the user re-sends it. This is a single-pass review, not an interview:
 
 1. Diagnose the sheet's formula against the draft: the 5 slots plus the "Done when" finish line, one line each, with a verdict of ✓ present, ⚠ weak, or ✗ missing.
 2. Run the sheet's 10-Second Pre-Send Checklist against the draft. Checklist findings fold into the slot diagnosis table by annotating the relevant slot line; where a finding doesn't map to a slot, let it inform the rewrite only. Either way, the checklist never adds a fourth output section.
 3. Rewrite the prompt in the Fill-in-the-Blank Template's order.
+4. Re-run the Pre-Send Checklist against the rewrite; fix any item that still fails (placeholders count as filled); ship only when none fail.
 
 Rewrite rules:
 
@@ -27,7 +28,3 @@ Output exactly three parts, around 25 lines total:
 3. One line starting "Biggest gap:" naming the single highest-impact fix.
 
 Ask at most one or two clarifying questions, and only when a slot is so absent that the rewrite would be meaningless even with placeholders. Otherwise, don't interview — rewrite with placeholders and move on.
-
-## Governance
-
-This is an inline pre-routing utility, in the same class as grill-me: output is conversational only, never a Deliverable, and QA-exempt. It does not replace or suppress grill-me or Default Mode — a prompt reviewed here still goes through normal routing once the user re-sends it.

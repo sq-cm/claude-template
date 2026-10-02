@@ -13,16 +13,15 @@ See `references/pipeline-integration.md` for cross-scene workflow (previous-vide
 
 ---
 
-## RELATIONSHIP TO cinema-director
+## RUN ORDER
 
-Two separate skills. Use the right one:
-
-| Intent | Skill |
-|---|---|
-| Photoreal / live-action narrative cinema, English-only output, element-tag reference workflow | `cinema-director` |
-| Stylized / animated looks (cartoon, manga, claymation, chibi, low-poly, stop-motion, graphic-novel, mixed-media), bilingual EN+ZH JSON output, dialogue-heavy archetype routing | this skill (`seedance-bilingual-director`) |
-
-Never merge or substitute. These skills do not overlap.
+1. **INPUT** — parse scene type, duration and camera from the user's text.
+2. **INVENTORY** — silently catalogue characters, location, props and style.
+3. **ROUTER** — pick the archetype.
+4. **EN** — write the EN prompt (ENGINE RULES, CUT RULES, OUTPUT FORMAT, LANGUAGE RULES).
+5. **ZH** — write the ZH prompt from the EN prompt.
+6. **Check (silent)** — check every item in § HARD CONSTRAINTS; count the ZH string's characters. Any fail → fix, return to step 6. Continue only when none fail.
+7. **Emit** — output the JSON array only.
 
 ---
 
