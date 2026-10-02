@@ -1,3 +1,4 @@
+<!-- Template contents: Naming convention · Character references · Environment plates · Vehicle references · Prop references · Higgsfield Elements name mapping · Element-tag assignment log · Build queue · Change log. Delete on fill. -->
 # Reference Library Index — [PROJECT NAME]
 
 > Every reference image asset for this project. Character-builder builds face locks, outfits, and character sheets; banana-pro-director builds environment plates, scene plates, vehicle, and prop references; this index tracks all of them. Shot specs pull element-tag assignments from here. Canonical character references always take priority over environment plates when tag count is constrained (Seedance reference cap is version-conditional: 9 references per prompt on 2.0, up to 50 on 2.5).
@@ -93,7 +94,7 @@ Slug (library index)  →  @element_tag (Seedance prompt)  →  Higgsfield Eleme
 
 ## Element-tag assignment log
 
-When a shot spec is written, record the element tags assigned here so any future shot in the same sequence can maintain consistency. Up to 9 element tags per prompt (Seedance hard cap).
+When a shot spec is written, record the element tags assigned here so any future shot in the same sequence can maintain consistency. Element tags per prompt stay within the target Seedance version's cap (9 on 2.0, up to 50 on 2.5).
 
 | Shot ID | Element tags attached (in priority order) |
 |---|---|

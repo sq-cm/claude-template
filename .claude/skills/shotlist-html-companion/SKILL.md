@@ -18,15 +18,15 @@ description: |
 This skill turns an **approved shotlist or Seedance prompt set** into a single self-contained editable HTML file. It is **not** a substitute for the `html-deliverable` skill, which covers audit reports, status reports, implementation plans, comparisons, research explainers, and incident post-mortems. If the deliverable is one of those six types, route to `html-deliverable` instead.
 
 Shotlist HTML companions are in scope for:
-- Seedance 2.0 commercial shotlists
-- Seedance 2.0 narrative / short-film shotlists
+- Seedance commercial shotlists
+- Seedance narrative / short-film shotlists
 - Any structured prompt set where the operator needs per-scene checkboxes, copy-ready prompts, and a shared style prefix
 
 ---
 
 ## Architecture constraint — single-pass, no fan-out
 
-This skill runs **inline**. It does **not** dispatch sub-agents. Consistent with the depth-1 sub-agent architecture constraint in AGENTS.md, the shotlist HTML companion is produced by the generating persona in a single pass. No fan-out, no orchestration layer.
+This skill runs **inline**, in a single pass. It does **not** dispatch sub-agents.
 
 ---
 
@@ -94,7 +94,7 @@ MD is canonical. When MD changes, rebuild the HTML from the updated MD — do no
 Every rendered HTML file carries a `<footer class="footer-meta" role="contentinfo">` with three elements, each in its own `<span class="footer-meta__item">`, in this exact label format:
 
 1. **Render timestamp** — `Rendered: <ISO 8601, local timezone>`. Example: `Rendered: 2026-05-23T15:32:00+10:00`.
-2. **Content hash** — `Source hash: <8 chars>`. First 8 characters of the SHA-1 hash of the source MD file. Normalise to LF line endings and strip trailing whitespace before hashing — prevents false drift on Windows checkouts.
+2. **Content hash** — `Source hash: <8 chars>`. Run exactly this, in Bash (same command as `html-deliverable`): `tr -d '\r' < "<md>" | sed 's/[[:space:]]*$//' | sha1sum | cut -c1-8`
 3. **Studio attribution** — `Produced by {{Studio}} · <date>`.
 
 Label punctuation is canonical — `Rendered:` and `Source hash:` (with colon and single space). QA blocks footers that omit either label or use a different prefix.
@@ -133,23 +133,6 @@ The generating persona judges substantive vs cosmetic. When ambiguous, rebuild.
 
 ## HTML structure
 
-### CSS variables and visual style
-
-The shotlist companion uses a dark directing-room palette — easy on the eyes for long sessions, distinct from the studio-shell light-mode defaults used by `html-deliverable`. Override the shell defaults with the variables below.
-
-```css
-:root {
-  --bg: #0e0e10;
-  --panel: #17171a;
-  --panel-2: #1d1d21;
-  --border: #2a2a30;
-  --text: #e8e8ea;
-  --text-dim: #9a9aa2;
-  --accent: #d4a259;
-  --done: #4ade80;
-}
-```
-
 ### Required interactive features
 
 **Per-scene checkboxes with localStorage persistence**
@@ -168,11 +151,7 @@ Button states: default → "Copy"; on success → "Copied" (green, 1500 ms) → 
 
 **Collapsible global Style Prefix block**
 
-The Style Prefix appears once at the top of the document in a `<details>` / `<summary>` disclosure block. Collapsed by default after first load (the operator knows it is there; they do not need to read it every time). The same prefix text is also prepended verbatim to every prompt's copy-block content — invisible in the UI but present in the copied text.
-
-**Individually addressable prompts (1a / 1b / 2a naming)**
-
-Every prompt block carries a unique label (`Prompt 1a`, `Prompt 2b`, etc.) and the HTML `id` attribute `prompt-{sceneNumber}{letter}` (e.g. `id="prompt-1a"`). This allows a single prompt to be revised and the HTML rebuilt without disturbing scene numbering, localStorage keys, or surrounding prompts.
+The Style Prefix appears once at the top of the document in a `<details>` / `<summary>` disclosure block with no `open` attribute, so it renders collapsed. The same prefix text is also prepended verbatim inside every prompt's visible `<pre class="prompt">`, so the copied text matches what the operator sees.
 
 ---
 
@@ -354,12 +333,12 @@ Use this skeleton. Fill `{{PROJECT_TITLE}}`, `{{STYLE_PREFIX_TEXT}}`, `{{SCENES_
 <body>
 <div class="container">
   <h1>{{PROJECT_TITLE}}</h1>
-  <div class="subtitle">Director's Shotlist · Seedance 2.0</div>
+  <div class="subtitle">Director's Shotlist · Seedance</div>
 
   <div class="howto">
     Tick scenes as you finish them — progress saves automatically in your browser.
     Click Copy on any prompt to grab the full text (Style Prefix + Characters + Scene + Cuts) ready for Seedance.
-    To revise, tell the producing persona what to change — the HTML is rebuilt from the source MD, not edited directly.
+    To revise, tell the generating persona what to change — the HTML is rebuilt from the source MD, not edited directly.
   </div>
 
   <details class="style-prefix">
@@ -485,8 +464,6 @@ Each prompt block carries:
 </div>
 ```
 
-**Scene number stability rule:** never renumber existing scenes during a revision. New scenes append (or insert with a letter suffix, e.g. `4b`) so localStorage keys and operator progress are preserved. The `id` on each `.prompt-block` (`id="prompt-3a"`) allows a single prompt to be revised without disturbing the rest of the document.
-
 ---
 
 ## Revision workflow
@@ -496,13 +473,12 @@ When the operator requests changes to the shotlist:
 1. Revise the canonical MD first.
 2. Confirm the revision is substantive (see drift policy above).
 3. Rebuild the HTML from the updated MD using the template.
-4. Preserve existing scene numbers and `data-scene` values — only new or removed scenes affect the numbering.
-5. Update the footer: new render timestamp, new source hash.
-6. Do not edit the HTML directly — always rebuild from MD.
+4. Update the footer: new render timestamp, new source hash.
+5. Do not edit the HTML directly — always rebuild from MD.
 
 ---
 
-## Checklist for the rendering persona
+## Checklist for the generating persona
 
 Before handing off the HTML to `@{QAComplianceReviewer}`:
 
@@ -512,7 +488,7 @@ Before handing off the HTML to `@{QAComplianceReviewer}`:
 - [ ] Each prompt block has a unique `id` (`prompt-1a`, `prompt-2b`, etc.)
 - [ ] Copy button on every prompt block; full prompt text (with Style Prefix) in the `<pre>`
 - [ ] Footer present with `Rendered:`, `Source hash:`, and `Produced by` fields
-- [ ] Source hash is first 8 chars of SHA-1 of the normalised MD (LF endings, no trailing whitespace)
+- [ ] Source hash matches the Footer spec command's output for the current MD
 - [ ] Theme toggle present, keyboard-focusable, `aria-label="Toggle theme"`
 - [ ] No hardcoded `/mnt/user-data/outputs/` or other environment-specific paths
 - [ ] HTML saved next to the canonical MD (not in `03 Deliverables/` — that move requires QA Gate)

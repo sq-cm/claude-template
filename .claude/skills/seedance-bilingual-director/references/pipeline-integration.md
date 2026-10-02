@@ -8,7 +8,7 @@ Process lore for multi-scene animated short-film production. These are workflow 
 
 ## Previous-Video Attachment for Cross-Scene Consistency
 
-Feed the completed video from scene N into the generation tool alongside the prompt for scene N+1. This carries forward:
+Feed the completed video from scene N into the generation engine alongside the prompt for scene N+1. This carries forward:
 - Visual style continuity (the engine reads the prior clip's aesthetic register)
 - Portal effects, teleport signatures, or other recurring visual motifs
 - Character silhouette and costume state as they appeared at the end of the prior scene
@@ -48,7 +48,7 @@ This preserves the style, lighting, and composition of a successful generation w
 2. If the character needs to match a prior scene's look, refine the key frame in an image editor rather than regenerating.
 3. Upload the key frame + the prior scene's video into Claude with the scene description.
 4. Claude produces the prompt.
-5. Feed the prompt + key frame + prior video into the generation tool.
+5. Feed the prompt + key frame + prior video into the generation engine.
 
 This three-input structure (prompt + key frame + prior video) is what maintains story continuity across scenes with different visual styles.
 
