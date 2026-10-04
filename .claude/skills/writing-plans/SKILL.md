@@ -24,6 +24,9 @@ docs/superpowers/plans/ path. The base stays v6.1.1 for everything else.
 Vault adaptation (plan 142): one sentence added to the Global Constraints template after
 its bracketed guidance, pointing steps that need a human approval moment at Sub-Agent
 Architecture SOP § Auto mode and permissions.
+Vault adaptation (plan 148): one sentence added to the Global Constraints template pointing
+time figures at AGENTS.md § Time Estimates & Status. The upstream "2-5 minutes" step line is
+kept as step granularity, not a duration prediction.
 Re-sync rule: carry these adaptations over any future upstream replace.
 -->
 
@@ -106,6 +109,8 @@ values copied verbatim from the spec. Every task's requirements implicitly
 include this section.]
 
 Any step that needs a human approval moment follows Sub-Agent Architecture SOP § Auto mode and permissions: name the action and why, and never write "exit auto mode" as a routine step.
+
+Agent-run steps carry routing, parallel vs sequential and dependencies, not wall-clock figures; any time figure follows AGENTS.md § Time Estimates & Status.
 
 ## Review Focus
 

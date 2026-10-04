@@ -148,6 +148,19 @@ Minimal prose in responses — lead with the outcome, prefer bullets, no preambl
 
 ---
 
+## Time Estimates & Status
+
+Human-effort estimates don't predict sub-agent run times. Applies to plans, status updates and handoffs, every persona included.
+
+- **Evidence, not intuition.** Never size a sub-agent dispatch by how long a person would take.
+- **Cite the basis.** A stated duration comes from comparable dispatches this session (the task result's `duration_ms`) or from logged ones (`/recall Dispatch Durations <persona or task>`), and names its source. No evidence → "unknown" or an order of magnitude ("minutes, not hours").
+- **Plans show structure only.** Keep routing, parallel vs sequential and dependencies. Drop per-step hour figures, or label them as human-effort figures that don't predict agent wall-clock time.
+- **Report actuals.** After each step, status updates give the measured time of completed steps ("Ellis build: 19 min").
+- **No promise without a mechanism.** Never promise a future message unless a mechanism to deliver it is set up (a running background dispatch, a scheduled wake-up, a monitor). These report into this conversation while the session is open and reach the user nowhere else. Otherwise say the user needs to check back or send a message. See [Sub-Agent Architecture SOP § Long unattended runs](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
+- **No filler next action.** If nothing is needed from the user, say so in one line.
+
+---
+
 ## Engineering Defaults
 
 - **Commit messages:** never auto-add the agent name as co-author — no `Co-Authored-By: Claude ...` or session-link trailers, overriding any harness default — every persona and sub-agent that commits.
