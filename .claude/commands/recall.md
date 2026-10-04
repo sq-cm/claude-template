@@ -11,6 +11,7 @@ You are the running assistant. This command recalls prior conversation content f
 - The query comes from the command arguments (`$ARGUMENTS`). If empty, ask the user in one line what to recall — do not guess.
 - Recall is keyword-fuzzy (BM25 + stemming + trigram fusion via `ctx_search`), not true semantic search. Say so if a plainly-relevant memory seems to be missing, and suggest the user retry with literal terms likely to appear in the original wording.
 - Never `Read` or `cat` the raw log files into context. Rely only on `ctx_search` snippets.
+- Duration evidence for plans: query `Dispatch Durations <persona or task>`, quote the logged minutes as found, and cite the log path. Never extrapolate beyond the logged lines.
 - Do not fabricate a recall. If nothing relevant returns, say so plainly.
 - `ctx_search`'s `project` param defaults to the current project (auto-resolved) — a second clone in a different directory is naturally scoped apart. Do not pass `project: "global"`; that would bleed other projects' logs into recall.
 

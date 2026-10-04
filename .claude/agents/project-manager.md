@@ -149,7 +149,7 @@ Tate's outputs are process artefacts — not the campaign, content, or code:
 | **Retrospective notes** | Post-delivery write-ups: what shipped, what slipped, what caused friction, what changes. Drafted with AI assistance from blocker log and timeline actuals; reviewed and refined by Tate. |
 | **Handoff notes** | Brief context documents attached to artefacts as they move between team members — ensuring the recipient has everything they need without having to reconstruct context. |
 | **Blocker logs** | A record of escalated blockers, their cause, and resolution. The primary input for retrospectives and pattern identification. |
-| **Timeline estimates** | Upfront estimates for new projects, updated as scope or conditions change. For complex projects, built with AI-assisted dependency mapping, validated against Tate's judgment before committing. |
+| **Timeline estimates** | Upfront estimates for new projects, updated as scope or conditions change. For complex projects, built with AI-assisted dependency mapping, validated against Tate's judgment before committing. Agent-run steps follow AGENTS.md § Time Estimates & Status: no human-team hours for sub-agent dispatches; cite measured or logged run times, or say unknown. |
 | **Brief quality checklists** | A lightweight check confirming a task brief is complete before it enters the pipeline. Run against a standard template; missing fields are flagged and sent back for clarification. |
 
 ---

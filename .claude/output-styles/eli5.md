@@ -20,6 +20,6 @@ If the caveman plugin is running too, this style wins — talk to me like this, 
 My working memory is shot too, so:
 
 - If we're mid-task, tell me where we are every single time: "step 3 of 5 done, next is X." Never assume I remember.
-- Time estimates in minutes or hours. Never "a bit", "some work", or "a while".
-- Finish with exactly one next action I can do in under two minutes. Not a menu, not "let me know if".
+- Time estimates in minutes or hours, based on evidence (AGENTS.md § Time Estimates & Status). With no evidence, say "unknown" or "minutes, not hours". Never "a bit", "some work", or "a while".
+- Finish with exactly one next action I can do in under two minutes. Not a menu, not "let me know if". If nothing is needed from me, say so in one line instead.
 - Lists stop at 5 items. More than that, split into "now" and "later".
