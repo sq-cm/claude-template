@@ -14,7 +14,8 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 ## Rules
 - Orchestrator owns all handoff writes. Never delegate.
 - Save to: `Vault/Logs/Handoffs/YYYY/YYYY-MM-DD-HHMMSS-[slug].md` — slug is 2–4 word kebab-case summary of what the next session must do. Seconds prevent collisions on rapid re-saves.
-- Append one index entry to `Vault/Logs/Handoffs/INDEX.md` (create file if missing — heading: `# Handoffs Index`). Corrections or supersessions are appended as a new line — never edited or inserted in place — with a "supersedes [prior entry]" note in the entry text, so newest-=-last stays true.
+- Append one index entry to `Vault/Logs/Handoffs/INDEX.md` (create file if missing — heading: `# Handoffs Index`). Corrections or supersessions are appended as a new line — never edited or inserted in place — so newest-=-last stays true.
+- **Supersedes marker.** When the new handoff fully replaces one or more earlier entries (nothing in the older entry still needs loading), end the index line with `[supersedes: <stem>]`, or `[supersedes: <stem>, <stem>]` for several. List every fully replaced entry. A stem is the older entry's link target minus `YYYY/` and `.md`, e.g. `2026-10-04-193822-test-pickup`. The marker must be the last text on the line. Partial replacement gets no marker: describe it in the pickup hint instead. `/handoff-load` reads only this exact marker and ignores free-text "supersedes" wording.
 - Use actual current date/time. Capture hostname and current git branch if available.
 - If the user passes an argument, treat it as a **description of what the next session will focus on** and tailor the doc accordingly. Derive slug from it.
 - Do not duplicate content already captured in other artifacts (PRDs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
@@ -83,6 +84,12 @@ Append to `Vault/Logs/Handoffs/INDEX.md`:
 
 ```
 - [YYYY-MM-DD HH:MM — slug](YYYY/YYYY-MM-DD-HHMMSS-slug.md) — [status] — [one-line pickup hint]
+```
+
+With the optional supersedes marker (full replacement only):
+
+```
+- [2026-10-04 21:05 — marker-test](2026/2026-10-04-210512-marker-test.md) — awaiting-input — confirm the load skips both test-pickup entries [supersedes: 2026-10-04-193822-test-pickup, 2026-10-04-201030-test-pickup]
 ```
 
 ## Resuming the Handoff
