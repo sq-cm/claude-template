@@ -5,7 +5,7 @@ argument-hint: "[optional pickup note]"
 
 # /handoff-save
 
-You are the Orchestrator. Writes a forward-looking handoff brief so the conversation can be picked up in a new session, on this machine or another one. Same machine: in the desktop app, the save offers a resume card; one click opens a new session that loads this exact handoff. Other machine: vault syncs via Google Drive, so files under `Vault/Logs/Handoffs/` are reachable from any synced machine; paste the printed `/handoff-load` line there.
+You are the Orchestrator. Writes a forward-looking handoff brief so the conversation can be picked up in a new session, on this machine or another one. Same machine: in the desktop app, the save offers a resume card; one click opens a new session that loads this exact handoff. In Orca it asks whether to open that session for you in a split pane. Other machine: vault syncs via Google Drive, so files under `Vault/Logs/Handoffs/` are reachable from any synced machine; paste the printed `/handoff-load` line there.
 
 Use `/log-session` for retrospective (what happened). Use `/handoff-save` for prospective pickup (what to do next).
 
@@ -28,17 +28,32 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 2. Capture environment: hostname (`$env:COMPUTERNAME` Windows, `hostname` elsewhere), current git branch if in a repo, active plan file path if one exists.
 3. Write handoff file using template below. Redact secrets. Reference — don't restate — existing artifacts.
 4. Append index entry.
-5. Confirm to user with absolute file path. On first successful save, remind once how to pick up: click the resume card's dropdown and choose "Start locally" (same machine, desktop app), or paste the printed `/handoff-load` line in a new session on the other machine.
-6. **Offer the resume card.** If `mcp__ccd_session__spawn_task` isn't loaded (it may be deferred, listed by name only), run one `ToolSearch` with `select:mcp__ccd_session__spawn_task`. Once loaded, call it once with:
+5. Confirm to user with absolute file path. On first successful save, remind once how to pick up: click the resume card's dropdown and choose "Start locally" (same machine, desktop app), answer yes to "Open a new session to continue?" (same machine, Orca), or paste the printed `/handoff-load` line in a new session on the other machine.
+6. **Offer a resume session.** Always, card or no card, first print the paste line: `/handoff-load <path relative to the vault root>`. Cards get dismissed, and the relative form works on another synced machine. Then:
+
+   **Desktop app — resume card.** If `mcp__ccd_session__spawn_task` isn't loaded (it may be deferred, listed by name only), run one `ToolSearch` with `select:mcp__ccd_session__spawn_task`. Once loaded, call it once with:
    - `title`: `Resume handoff: <slug>` — keep under 60 characters; truncate the slug to fit.
    - `prompt`: `/handoff-load <absolute path to the saved handoff file>` (absolute, because the card only runs on this machine).
    - `tldr`: two plain sentences: the first names the handoff's Next Concrete Action; the second is exactly "Pick Start locally from the dropdown."
 
    Why "Start locally": "Start with worktree" (the default) opens a fresh git worktree without the vault's git-ignored local memory and handoff logs.
 
-   Still absent after the `ToolSearch` (terminal CLI, other hosts) → skip. Call fails → skip. Never retry, and never fail the save over it.
+   Card offered → stop here; no Orca launch. Call fails → skip. Never retry, and never fail the save over it.
 
-   Always, card or no card, print the paste line: `/handoff-load <path relative to the vault root>`. Cards get dismissed, and the relative form works on another synced machine.
+   **Orca — ask, then split.** Tool still absent after the `ToolSearch`, and `TERM_PROGRAM=Orca` with `ORCA_TERMINAL_HANDLE` set → ask one yes/no question (AskUserQuestion): "Open a new session to continue?" No or no answer → stop. Any other host → no question, no launch; the paste line is already printed.
+
+   Yes → run the launch with the Bash tool. Fill in:
+   - `<claude>`: absolute path from `command -v claude`; on Windows convert with `cygpath -m` (forward slashes; it returns the `.exe` path). Not found → say so in one line, skip. New panes may not have `~/.local/bin` on PATH, so never launch a bare `claude`.
+   - `<rel>`: the saved file's path relative to the vault root, forward slashes.
+   - `<orca>`: `$ORCA_CLI_COMMAND` if set, else `orca`.
+
+   Splits side by side, new session on the right. `orca terminal split` has no working-directory flag; the new pane starts in the vault root (tested), so there is no `cd` and the relative path resolves. Quote `<claude>` inside `--command` only if it contains spaces. The `MSYS_NO_PATHCONV=1` prefix stops Git Bash on Windows rewriting the `/handoff-load …` argument into a file path; it is harmless elsewhere.
+   ```bash
+   MSYS_NO_PATHCONV=1 <orca> terminal split --terminal "$ORCA_TERMINAL_HANDLE" --direction horizontal --command '<claude> "/handoff-load <rel>"' --json
+   ```
+
+   Launch fails (non-zero exit or an error) → say so in one line, skip. Never retry, and never fail the save over it. The Bash permission prompt for the launch is expected.
+7. **Stop.** Once step 6 is done, end the turn, whichever path it took: card, Orca launch, no launch, or failure. Don't carry on with the conversation's task, start the handoff's Next Concrete Action, or take any further action; the work continues in the resumed session or wherever the paste line is run.
 
 ## Handoff Template
 
@@ -95,7 +110,7 @@ With the optional supersedes marker (full replacement only):
 ## Resuming the Handoff
 
 On first successful save, tell user once how to resume from "Next Concrete Action":
-- **Same machine** — click the resume card's dropdown and choose "Start locally" (desktop app only).
+- **Same machine** — click the resume card's dropdown and choose "Start locally" (desktop app). In Orca, answer yes to "Open a new session to continue?" and it opens in a split pane. Any other terminal: paste the printed `/handoff-load` line into a new session.
 - **Other machine** — paste the printed `/handoff-load <relative path>` line into a new session, or run `/handoff-load` for the newest (or `/handoff-load <slug-fragment>`).
 
 If no index exists there yet (fresh machine, Drive sync hasn't caught up), `/handoff-load` falls back to a directory listing, and — as a last resort — paste the absolute file path into a new session and Claude will `Read` it directly.
