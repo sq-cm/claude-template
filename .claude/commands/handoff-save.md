@@ -27,11 +27,13 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 2. Capture environment: hostname (`$env:COMPUTERNAME` Windows, `hostname` elsewhere), current git branch if in a repo, active plan file path if one exists.
 3. Write handoff file using template below. Redact secrets. Reference — don't restate — existing artifacts.
 4. Append index entry.
-5. Confirm to user with absolute file path. On first successful save, remind once how to pick up: click the resume card (same machine, desktop app), or paste the printed `/handoff-load` line in a new session on the other machine.
+5. Confirm to user with absolute file path. On first successful save, remind once how to pick up: click the resume card's dropdown and choose "Start locally" (same machine, desktop app), or paste the printed `/handoff-load` line in a new session on the other machine.
 6. **Offer the resume card.** If `mcp__ccd_session__spawn_task` isn't loaded (it may be deferred, listed by name only), run one `ToolSearch` with `select:mcp__ccd_session__spawn_task`. Once loaded, call it once with:
    - `title`: `Resume handoff: <slug>` — keep under 60 characters; truncate the slug to fit.
    - `prompt`: `/handoff-load <absolute path to the saved handoff file>` (absolute, because the card only runs on this machine).
-   - `tldr`: one or two plain sentences naming the handoff's Next Concrete Action.
+   - `tldr`: two plain sentences: the first names the handoff's Next Concrete Action; the second is exactly "Pick Start locally from the dropdown."
+
+   Why "Start locally": "Start with worktree" (the default) opens a fresh git worktree without the vault's git-ignored local memory and handoff logs.
 
    Still absent after the `ToolSearch` (terminal CLI, other hosts) → skip. Call fails → skip. Never retry, and never fail the save over it.
 
@@ -86,7 +88,7 @@ Append to `Vault/Logs/Handoffs/INDEX.md`:
 ## Resuming the Handoff
 
 On first successful save, tell user once how to resume from "Next Concrete Action":
-- **Same machine** — click the resume card (desktop app only).
+- **Same machine** — click the resume card's dropdown and choose "Start locally" (desktop app only).
 - **Other machine** — paste the printed `/handoff-load <relative path>` line into a new session, or run `/handoff-load` for the newest (or `/handoff-load <slug-fragment>`).
 
 If no index exists there yet (fresh machine, Drive sync hasn't caught up), `/handoff-load` falls back to a directory listing, and — as a last resort — paste the absolute file path into a new session and Claude will `Read` it directly.
