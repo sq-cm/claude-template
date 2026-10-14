@@ -15,7 +15,7 @@ metadata:
 
 # Code Quality Review
 
-Reviews a code diff for what can go wrong: does it do what was asked, does it work, is it safe, would the tests catch a break, and will its design cause trouble later. **It lists findings and applies nothing.** No edits, no refactors, no auto-fixes to the code under review. The author decides what to act on.
+Reviews a code diff for what can go wrong: does it do what was asked, does it work, is it safe, would the tests catch a break, and will its design cause trouble later. **It lists findings and applies nothing.** It makes no fixes or refactors to the code under review; the only temporary edit is the Step 4 mutation probe, restored before you report. The author decides what to act on.
 
 > **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona,
 > run the single-reviewer mode and never panel mode: look facts up inline with your own tools;
@@ -28,7 +28,7 @@ Reviews a code diff for what can go wrong: does it do what was asked, does it wo
 - **Single reviewer (default).** Runs inline in the invoking session, the way you would run a linter. You take the five axes one after another and act as your own lead reviewer (Step 7). This is the mode for the five code personas (Webflow Developer, Email Developer, Mobile Developer, Automation Architect, Creative Technologist) reviewing their own diff before calling the work done, and for any other persona reviewing a diff it was handed. The Orchestrator does not run this mode itself: it routes single-reviewer work to a code persona and runs only panel mode.
 - **Panel (`panel` in the request; Orchestrator only).** The Orchestrator dispatches one read-only reviewer per axis in parallel and does the lead judgment itself. See § Panel mode and AGENTS.md § Orchestrator-Only Operations.
 
-Over-engineering is not reviewed here. Run `code-minimalism-review` as well: the two skills cover different ground and neither repeats the other.
+Over-engineering is not reviewed here. Run `code-minimalism-review` as well: the two skills do not overlap.
 
 ## The five axes
 
@@ -129,7 +129,7 @@ Most risky-looking changes are safe because of one fact ("this call only drops c
 4. **Ran**: a test or throwaway script that calls the real code and fails loudly if you are wrong (single-reviewer mode only).
 5. **Reproduced**: you saw it happen in the running app.
 
-Every finding states its rung. An Act on finding needs rung 2 or higher. A Critical finding needs rung 3 or higher, or it is marked "unproven". Throwaway scripts live outside the reviewed tree (the session scratchpad or the project's `02 Working/`) and are never committed. Panel reviewers write nothing, so they stop at rung 3 and mark a finding that needs a run "probe recommended".
+Every finding except a Dismissed one states its rung. An Act on finding needs rung 2 or higher. A Critical finding needs rung 3 or higher, or it is marked "unproven". Throwaway scripts live outside the reviewed tree (the session scratchpad or the project's `02 Working/`) and are never committed. Panel reviewers write nothing, so they stop at rung 3 and mark a finding that needs a run "probe recommended".
 
 ### Step 7: Lead judgment
 
@@ -163,9 +163,9 @@ Load-bearing fact: <fact> (rung <n>: <proof, or "unproven">)
 **Act on**
 - `<file>:L<line>` [Critical|Required] <what is wrong>. Evidence (rung <n>): <why>. Fix: <the move>.
 **Consider**
-- `<file>:L<line>` <what>. Trade-off: <cost of fixing now against the risk of leaving it>.
+- `<file>:L<line>` <what> (rung <n>). Trade-off: <cost of fixing now against the risk of leaving it>.
 **Noted**
-- `<file>:L<line>` <what>.
+- `<file>:L<line>` <what> (rung <n>).
 **Dismissed**
 - <concern>: <why it is fine>.
 

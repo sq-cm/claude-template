@@ -11,7 +11,7 @@ re-applying every adaptation listed here. Never replace SKILL.md with any single
      https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/code-review/SKILL.md
    - Taken: separate axes reported side by side and never reranked across axes ("Why two axes");
      pin the fixed point and fail early on a bad ref or an empty diff; the spec-source search order;
-     the standards-source search; the Fowler smell baseline as labelled judgement calls that a
+     the standards-source search; the Fowler smell baseline as labelled judgment calls that a
      documented standard overrides; the three Spec questions (missing, not asked for, wrong).
 2. **pstack** by Lauren Tan. Canonical home `cursor/plugins`, folder `pstack/`, at `837067b` (v0.15.23).
    Read through the mirror `backnotprop/pstack` at `1f0f9c3bac03c4297f6fc8f7644fa412eda57085`
