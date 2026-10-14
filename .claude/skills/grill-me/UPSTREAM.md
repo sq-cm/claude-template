@@ -1,7 +1,8 @@
 # grill-me: upstream provenance and vault adaptations
 
 Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling (by Matt Pocock).
-Synced with upstream @ c55ee46 on 24/09/2026 (plan 135), and before that @ bfdaef8 on 13/08/2026
+Synced with upstream @ 49dd158 on 14/10/2026 (plan 150), which added one sentence to the round
+format (95249b0); before that @ c55ee46 on 24/09/2026 (plan 135) and @ bfdaef8 on 13/08/2026
 (plan 092), replacing the older copy pinned at e5932a7, which asked one question at a time. Vault
 adaptations, all to be carried over any future upstream replace:
   1. Kept as a single skill named `grill-me`, and model-invocable. Upstream splits the engine

@@ -2,7 +2,7 @@
 name: grill-me
 description: Interview the user relentlessly about a plan, decision, or idea until reaching shared understanding, working the design tree in rounds. Use when the user wants to stress-test their thinking, get grilled on a design, or mentions "grill me". Not for open-ended ideation; use brainstorming. Not for producing the step list afterwards; that comes from plan mode.
 adapted_from: https://github.com/mattpocock/skills
-upstream_commit: c55ee46073ed923f86ce59a5eb3b6d895095d1b7
+upstream_commit: 49dd158d1076134a641b33efb035946536778336
 ---
 
 <!-- Upstream provenance and vault adaptations: see UPSTREAM.md in this folder. Read it before any resync. -->
@@ -30,6 +30,8 @@ Format a round like so:
 
 ➡️ <your recommended answer>
 ```
+
+Word each question so "yes" accepts your recommended answer.
 
 Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 
