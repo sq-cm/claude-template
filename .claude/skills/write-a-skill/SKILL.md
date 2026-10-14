@@ -11,11 +11,16 @@ and prototype copies from the same repo. Local deltas: the SKILL.md line-limit g
 from 100 lines to ~150 (aim) / 500 (hard ceiling), with an added exemption for skills whose body is
 a locked prompt grammar or determinism spec. Deliberately NOT resynced — lineage record only.
 Upstream removed this skill at HEAD (last commit on the path: bc4cf90, 17/06/2026, "Added writing-great-skills skill"); its likely successor there is writing-for-agents. Not adopted — lineage frozen as above (plan 135, 24/09/2026).
+Local adaptation, not a resync (plan 153, 15/10/2026): on a user ruling of 14/10/2026, writing-for-agents is vendored as its own skill (.claude/skills/writing-for-agents/, upstream 49dd158), reversing plan 135's "Not adopted" for it. This file stays frozen and keeps the lineage above; it gains one pointer line to writing-for-agents, an overlap check under Process, the "What makes a description fire" subsection and one Review Checklist item, the last three drawn from addyosmani/agent-skills @ aeac41d (by Addy Osmani, MIT).
 -->
 
 # Writing Skills
 
+For the writing inside the skill (pointer wording, what stays in SKILL.md and what moves behind a pointer, completion criteria, pruning), use the `writing-for-agents` skill.
+
 ## Process
+
+Before step 1, check for overlap: read the table in `.claude/skills/README.md` and the skill descriptions already in your context. If an existing skill covers the idea in whole or in part, propose extending that skill instead of adding a near-duplicate, and reference other skills by name rather than copying their content.
 
 1. **Gather requirements** - ask user about:
    - What task/domain does the skill cover?
@@ -97,6 +102,16 @@ Helps with documents.
 
 The bad example gives your agent no way to distinguish this from other document skills.
 
+### What makes a description fire
+
+- **Name the case the model would do alone.** In agent-skills' measured runs (Claude Code, `claude-opus-5-5` pinned), describing what a skill adds did not raise firing; naming the requests users make, and saying the skill applies even in the case the model treats as "I can just do this myself", did. One clause, "even when the diff is pasted inline", took a review skill from 7 of 27 fires to 21 of 27, and nine nearby prompts that must not fire stayed at 0 of 27. A TDD skill needed its three request types named as well: 6 of 24 became 19 of 24.
+- **Read rates, not single runs.** The same prompt fires in some runs and not in others. Compare a description change over several runs on one pinned model.
+- **Say when; leave the how to the body.** An agent can follow process steps written in a description instead of reading the skill.
+- **Use the user's words.** If a realistic request can't match because the description lacks its vocabulary, fix the description.
+- **Close each overlap with a sibling skill** with a negative clause, "Not for X; use Y." (vault house style, plan 127; see `grill-me` and `brainstorming`).
+
+Source: addyosmani/agent-skills @ aeac41d (by Addy Osmani, MIT): `evals/README.md` § Plugin evals, `docs/skill-anatomy.md`, `CONTRIBUTING.md` § Before proposing a new skill.
+
 ## When to Add Scripts
 
 Add utility scripts when:
@@ -121,6 +136,7 @@ Split into separate files when:
 After drafting, verify:
 
 - [ ] Description includes triggers ("Use when...")
+- [ ] Overlap check done; each overlapping sibling skill is closed off with "Not for X; use Y."
 - [ ] SKILL.md under ~150 lines (hard ceiling 500 — split before you reach it, unless the determinism-spec exemption applies)
 - [ ] No time-sensitive info
 - [ ] Consistent terminology
