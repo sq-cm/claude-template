@@ -4,15 +4,15 @@ description: Compact the current conversation into a handoff document for anothe
 argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 adapted_from: https://github.com/mattpocock/skills
-upstream_commit: c55ee46073ed923f86ce59a5eb3b6d895095d1b7
+upstream_commit: 49dd158d1076134a641b33efb035946536778336
 ---
 
 <!--
 Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff (by Matt Pocock).
-Verbatim copy. Synced with upstream @ c55ee46 on 24/09/2026 (plan 135); previously 386d4ff (13/08/2026).
+Verbatim copy. Synced with upstream @ 49dd158 on 14/10/2026 (plan 150); previously c55ee46 (24/09/2026, plan 135) and 386d4ff (13/08/2026).
 -->
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.
+Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows) - not the current workspace.
 
 Include a "suggested skills" section in the document, naming which skills the next agent should call the Skill tool for.
 
