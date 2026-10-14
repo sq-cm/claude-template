@@ -13,7 +13,7 @@ and @ 50777fc on 14/08/2026 (plan 094); body restored to upstream verbatim on 14
 One body adaptation (plan 135, 24/09/2026; updated by plan 150): upstream's last sentence ends
 "`GLOSSARY.md` (follow `GLOSSARY-MAP.md` to the right one if the repo has more than one)"; ours
 ends "`CONTEXT.md` (the active project's `Projects/<name>/CONTEXT.md` when more than one exists)",
-because this vault keeps one CONTEXT.md per project and has no glossary or map file. Upstream
+because this vault keeps one CONTEXT.md per project and has no project-level glossary or map file. Upstream
 renamed its CONTEXT.md/CONTEXT-MAP.md convention to GLOSSARY.md/GLOSSARY-MAP.md in d80fa0f
 (merged 24/09/2026 via e484a80). Our file name matched upstream's old one by coincidence, so
 upstream's GLOSSARY wording is covered by this adaptation, not drift. Note: `CONTEXT.md` resolves

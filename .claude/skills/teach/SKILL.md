@@ -14,7 +14,7 @@ The four *-FORMAT.md helpers in this folder are upstream-verbatim. SKILL.md carr
 adaptations, all to be carried over any future upstream replace:
   1. Workspace pin: the teaching workspace is `Vault/Learning/<topic-slug>/` (git-ignored,
      personal), and every workspace-relative path resolves under it, never the current directory
-     (#46, 09/06/2026). It replaces upstream's opening sentence of the Teaching Workspace
+     (#46, 09/06/2026). It replaces upstream's whole opening paragraph of the Teaching Workspace
      section. For the same reason plan 150 rejected upstream's workspace-path anchoring sentence
      (ad5400b), which ties paths to the directory /teach was run in.
   2. Topic-slug rule: derive a short topic slug from the free-text /teach argument, and confirm
