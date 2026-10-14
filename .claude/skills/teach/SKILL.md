@@ -4,15 +4,34 @@ description: Teach the user a new skill or concept, within this workspace.
 disable-model-invocation: true
 argument-hint: "What would you like to learn about?"
 adapted_from: https://github.com/mattpocock/skills
-upstream_commit: 272f99b22574f50e4266791c86b9302682970e23
+upstream_commit: 49dd158d1076134a641b33efb035946536778336
 ---
 
 <!--
 Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/teach (by Matt Pocock).
-Adapted for the AI Team Orchestrator template vault: the teaching workspace is pinned to
-`Vault/Learning/<topic-slug>/` (git-ignored, personal) instead of the current directory, and
-the orchestrator-routing override below is added. Format helpers in this folder are upstream-verbatim.
-Synced with upstream @ 272f99b on 2026-07-05.
+Synced with upstream @ 49dd158 on 14/10/2026 (plan 150); earlier @ 272f99b on 05/07/2026 (#116).
+The four *-FORMAT.md helpers in this folder are upstream-verbatim. SKILL.md carries six vault
+adaptations, all to be carried over any future upstream replace:
+  1. Workspace pin: the teaching workspace is `Vault/Learning/<topic-slug>/` (git-ignored,
+     personal), and every workspace-relative path resolves under it, never the current directory
+     (#46, 09/06/2026). It replaces upstream's opening sentence of the Teaching Workspace
+     section. For the same reason plan 150 rejected upstream's workspace-path anchoring sentence
+     (ad5400b), which ties paths to the directory /teach was run in.
+  2. Topic-slug rule: derive a short topic slug from the free-text /teach argument, and confirm
+     it with the user when it is ambiguous (#46, 09/06/2026).
+  3. Orchestrator override block: /teach runs inline, is never routed, and is exempt from the QA
+     Gate, PM tracking and Advisor Checkpoints (AGENTS.md § Identity, the /teach exception).
+  4. Output Locale note: teach output is vault-internal, so its prose is Australian English
+     (#142, 06/07/2026; reworded since to point at AGENTS.md § Output Locale).
+  5. `GLOSSARY.md` bullet in the workspace file list, in the vault's own wording (#137,
+     06/07/2026). Upstream had a differently worded GLOSSARY.md bullet until 88eb3f8
+     (06/06/2026) removed it; 272f99b and 49dd158 have none, though both ship GLOSSARY-FORMAT.md.
+  6. Opening a lesson: per-platform commands (macOS/Linux `open`, Windows `Start-Process`)
+     replace upstream's one-line instruction to open the lesson with a CLI command (#46,
+     09/06/2026).
+Plan 150 took upstream's quiz answer-position rule (ad5400b) and its em-dash sweep (3216582) on
+upstream-origin lines only; vault-authored lines keep their dashes. Upstream's `agents/openai.yaml`
+(Codex metadata, 697d4ce) is deliberately not vendored.
 -->
 
 > **Orchestrator override — read first.** This skill **overrides the AGENTS.md "never carry out
@@ -70,9 +89,9 @@ Fluency can give the user an illusory sense of mastery, but storage strength is 
 
 ## Lessons
 
-A lesson is the main thing you produce — the unit in which knowledge and skills reach the user. Each lesson is one self-contained HTML file, saved to `./lessons/` and titled `0001-<dash-case-name>.html` where the number increments each time.
+A lesson is the main thing you produce: the unit in which knowledge and skills reach the user. Each lesson is one self-contained HTML file, saved to `./lessons/` and titled `0001-<dash-case-name>.html` where the number increments each time.
 
-A lesson should be **beautiful** — clean, readable typography and layout — since the user will return to these later to review. Think Tufte.
+A lesson should be **beautiful**, with clean, readable typography and layout, since the user will return to these later to review. Think Tufte.
 
 The lesson should be short, and completable very quickly. Learners' working memory is very small, and we need to stay within it. But each lesson should give the user a single tangible win that they can build on. It should be directly tied to the mission, and should be in the user's zone of proximal development.
 
@@ -86,9 +105,9 @@ Each lesson should contain a reminder to ask followup questions to the agent. Th
 
 ## Assets
 
-Lessons are built from reusable **components**, stored in `./assets/`: stylesheets, quiz widgets, simulators, diagram helpers — anything a second lesson could reuse.
+Lessons are built from reusable **components**, stored in `./assets/`: stylesheets, quiz widgets, simulators, diagram helpers, and anything else a second lesson could reuse.
 
-Reuse is the default, not the exception. Before authoring a lesson, read `./assets/` and build from the components already there. When a lesson needs something new and reusable, write it as a component in `./assets/` and link to it — never inline code a future lesson would duplicate.
+Reuse is the default, not the exception. Before authoring a lesson, read `./assets/` and build from the components already there. When a lesson needs something new and reusable, write it as a component in `./assets/` and link to it; never inline code a future lesson would duplicate.
 
 A shared stylesheet is the first component every workspace earns: every lesson links it, so the lessons look like one consistent course rather than a pile of one-offs. As the workspace grows, so should the component library.
 
@@ -131,7 +150,7 @@ For skill acquisition, difficulty is the tool. Effortful retrieval is what build
 
 Each of these should be based on a **feedback loop**, where the user receives feedback on their performance. This feedback loop should be as tight as possible, giving feedback immediately - and ideally automatically.
 
-For quizzes, each answer should be exactly the same number of words (and characters, if possible). Don't give the user any clues about the answer through formatting.
+For quizzes, each answer should be exactly the same number of words (and characters, if possible). Vary which position holds the correct answer across questions. Don't give the user any clues about the answer through formatting or order.
 
 ## Acquiring Wisdom
 
