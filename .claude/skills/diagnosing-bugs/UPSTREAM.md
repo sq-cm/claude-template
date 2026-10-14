@@ -27,11 +27,11 @@ another agent harness) is not carried.
 Carry all of these over any future upstream resync of source 1:
 
 1. **Vault depth rule added** at the top of SKILL.md. Upstream dispatches no sub-agent, but a routed
-   persona has no live channel to the user. Moments that need the user before work can go on
-   (redaction gaps, no loop possible, a HITL run) stop and hand back with the question; moments that
-   only show or surface something (the ranked hypotheses, flagged instructions in error output)
-   carry on and are listed in the hand-back to the Orchestrator. MCP `browser_*` tools, not local
-   browser scripts, are named as Orchestrator-mediated.
+   persona has no live channel to the user. When work cannot go on without the user (redaction gaps,
+   no loop possible, a HITL run), the persona stops and hands back with the question; when the skill
+   only shows or surfaces something (the ranked hypotheses, flagged instructions in error output),
+   the persona carries on and lists it in the hand-back to the Orchestrator. MCP `browser_*` tools,
+   not local browser scripts, are named as Orchestrator-mediated.
 2. **Glossary line repointed**: upstream's `GLOSSARY.md` and ADRs become the project's
    `Projects/<name>/CONTEXT.md` and `HISTORY.md` (AGENTS.md § Memory).
 3. **Loop option 4 (headless browser)**: local dev-server targets only; live web and MCP `browser_*`
@@ -48,12 +48,15 @@ Carry all of these over any future upstream resync of source 1:
    shortened); the restart-bug rule in Phase 3, and the root-cause and fix-every-instance paragraph in
    Phase 5 (source 3, fix-root-causes); § When fixes keep failing (source 3, attack-the-premise, the
    write-the-premise-down rule only; its census and rotation steps are left out). Fix-every-instance is
-   limited to the same defect within the brief's scope (others are listed in the hand-back), per
-   AGENTS.md § Engineering Defaults (surgical changes). § Stop the line also defers to a brief's or
+   limited to the same defect within the brief's scope (instances outside it are listed in the
+   hand-back), per AGENTS.md § Engineering Defaults (surgical changes). § Stop the line also defers to a brief's or
    plan's STOP conditions.
-8. **Spelling**: "artifact(s)" becomes "artefact(s)" (en-AU, AGENTS.md § Output Locale). The rest of
-   upstream source 1 is already British spelling and is kept word for word.
-9. **Description**: a routing clause appended (house style, plan 127): diff review goes to
+8. **Spelling**: "artifact(s)" becomes "artefact(s)" (en-AU, AGENTS.md § Output Locale). Apart from
+   the adaptations above, the rest of upstream source 1 is already British spelling and is kept word
+   for word.
+9. **Description**: rewritten from upstream's two sentences. Added: a one-sentence method summary;
+   the slash lists spelled out as words; "flaky" and "including a failing test or a broken build"
+   (to match § Stop the line); and a routing clause (house style, plan 127) sending diff review to
    `code-quality-review`.
 
 The vault's one-line inline method in `using-superpowers` ("Fix this bug" → reproduce, isolate, then
