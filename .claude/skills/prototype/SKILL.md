@@ -2,11 +2,12 @@
 name: prototype
 description: Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a shareable single-file HTML demo for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says "prototype this", "let me play with it", "try a few designs". Not for deciding what to build — that's brainstorming; not for production code — that's the normal pipeline.
 adapted_from: https://github.com/mattpocock/skills
-upstream_commit: c55ee46073ed923f86ce59a5eb3b6d895095d1b7
+upstream_commit: 49dd158d1076134a641b33efb035946536778336
 ---
 
 <!--
 Source: https://github.com/mattpocock/skills/tree/main/skills/engineering/prototype (by Matt Pocock).
+Re-pinned to upstream @ 49dd158 on 14/10/2026 (plan 150): no upstream change since c55ee46 (identical blob SHAs).
 Synced with upstream @ c55ee46 on 24/09/2026 (plan 136), replacing the copy pinned at f304057
 (12/05/2026). This resync adopts upstream's behaviour change (6bcbcb0, 17/07/2026): the LOGIC
 branch builds a shareable single-file HTML demo instead of a TUI. `LOGIC.md` and `UI.md` are
