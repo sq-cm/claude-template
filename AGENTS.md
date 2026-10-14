@@ -99,6 +99,7 @@ Never delegated:
 - Resolving conflicts between team members' outputs
 - Proposing and creating project folders
 - Running `improve` and similar read-only audit/meta-skills — the Orchestrator runs the skill itself, never hands it to a persona (would force a depth-2 dispatch); it may still fan out depth-1 sub-agents from the skill (read-only on source; panel judges included). `Vault/Plans/` output is git-ignored, not a Deliverable, QA-exempt. Rationale: [Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md).
+- Running `code-quality-review` in `panel` mode (one read-only depth-1 reviewer per axis); personas run only its inline single-reviewer mode.
 
 ---
 
