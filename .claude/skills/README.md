@@ -63,7 +63,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `verification-before-completion` | Final self-check before claiming work is done | All (mirrors Checkpoint B intent) |
 | `wait-what` | User-fired interjection when a reply did not land — re-pitches the last message with a little context, in ASD-STE100 Simplified Technical English, using the ubiquitous language from the current project's `CONTEXT.md`; explicit `/wait-what` invocation only (adapted from mattpocock/skills) | User |
 | `write-a-skill` | Create or improve SKILL.md skill files | Orchestrator, Ellis |
-| `writing-for-agents` | Reference for writing any document an agent reads (skills, AGENTS.md/CLAUDE.md, SOPs, persona files): context pointers, the two loads, the information hierarchy, completion criteria, leading words, pruning; to scaffold a new skill start at `write-a-skill`, which points here (vendored from mattpocock/skills @ `49dd158`, MIT; adaptations in its `UPSTREAM.md`) | Orchestrator, Ellis |
+| `writing-for-agents` | Reference for writing any document an agent reads (skills, AGENTS.md/CLAUDE.md, SOPs, persona files): context pointers, the two loads, the information hierarchy, completion criteria, leading words, pruning; to scaffold a new skill, start at `write-a-skill`, which points here (vendored from mattpocock/skills @ `49dd158`, MIT; adaptations in its `UPSTREAM.md`) | Orchestrator, Ellis |
 | `writing-plans` | Write an implementation plan from a spec before touching code | All |
 
 ---

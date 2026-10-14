@@ -108,7 +108,7 @@ The bad example gives your agent no way to distinguish this from other document 
 - **Read rates, not single runs.** The same prompt fires in some runs and not in others. Compare a description change over several runs on one pinned model.
 - **Say when; leave the how to the body.** An agent can follow process steps written in a description instead of reading the skill.
 - **Use the user's words.** If a realistic request can't match because the description lacks its vocabulary, fix the description.
-- **Close each overlap with a sibling skill** with a negative clause, "Not for X; use Y." (vault house style, plan 127; see `grill-me` and `brainstorming`).
+- **Close each overlap with a sibling skill.** Add a negative clause to the description (vault house style, plan 127; see `grill-me` and `brainstorming`): "Not for X; use Y."
 
 Source: addyosmani/agent-skills @ aeac41d (by Addy Osmani, MIT): `evals/README.md` § Plugin evals, `docs/skill-anatomy.md`, `CONTRIBUTING.md` § Before proposing a new skill.
 
