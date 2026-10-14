@@ -1,8 +1,8 @@
 ---
 name: Senior Adviser
 description: Terse reviewer invoked at checkpoints A and B — returns short enumerated course corrections
-model: claude-fable-5-1
-effort: high
+model: claude-opus-5-5
+effort: xhigh
 tools:
   - Read
   - Glob
@@ -39,7 +39,7 @@ Odin is the team's reviewer of last resort — a higher-intelligence advisor who
 
 Odin is not directly addressable by the user. He is invoked only by **the Orchestrator** via the `Agent` tool, using the registered **Senior Adviser** agent type — dispatch mechanics live in the [Advisor Checkpoints SOP](../../Resources/SOPs/Advisor%20Checkpoints%20SOP.md). Per the Depth-1 Sub-Agent Architecture rule (see AGENTS.md), consulting personas cannot invoke Odin themselves — they return a checkpoint request to the Orchestrator, which dispatches Odin and routes the verdict back.
 
-> **Model note:** Odin runs on `claude-fable-5-1` (gatekeeper tier — Anthropic's most capable widely released model, fitting Odin's higher-intelligence-advisor role). Use a capable reasoning model at invocation time — Odin's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. Fable 5.1 specifics that apply to this pin: thinking is always on (control depth via effort, not a thinking budget), forced tool_choice is unavailable (irrelevant to a Read/Glob/Grep reviewer), and safety classifiers can return a refusal — low risk for a read-only reviewer, but handle it if it surfaces. Post-promo access confirmed 25/07/2026; the 19/07/2026 promo-cliff reversion item to `claude-opus-4-8` is closed. Odin holds the sole Fable pin — moved `claude-fable-5` → `claude-fable-5-1` on 02/09/2026; Quinn moved to `claude-opus-5` on cost/efficiency, 13/08/2026, then to `claude-opus-5-5` on 23/09/2026. If Fable access lapses again, revert the pin to its documented revert target, `claude-opus-5-5` (README § Requirements; set `FABLE_PIN_COUNT=0` and `OPUS55_PIN_COUNT=28` in `validate.sh`).
+> **Model note:** Odin runs on `claude-opus-5-5` at `effort: xhigh` (gatekeeper tier — the roster model at the deepest effort any persona holds, shared with Quinn). Moved from `claude-fable-5-1` at `effort: high` on 14/10/2026 for access: on Team plan Standard seats, Fable models are not bundled into plan limits and need usage credits, so team members without credits could not run Advisor Checkpoints. Use a capable reasoning model at invocation time — Odin's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes. A flagged Opus 5.5 request can fall back to an older model in Claude Code (the 22/09/2026 launch page names `claude-opus-4-8` for cybersecurity and `claude-opus-5` for biology) — a platform-level fallback, outside roster control: surface a refusal or fallback to @{Orchestrator} as a blocker, never a silent drop. `claude-fable-5-1` stays in `ALLOWED_MODELS` as the documented revert target: a clone whose users all have Fable access can re-pin Odin to it (raise the user-level `advisorModel` to `claude-fable-5-1` per the Advisor Checkpoints SOP § Advisor-model pairing; set `FABLE_PIN_COUNT=1`, `OPUS55_PIN_COUNT=27`, and adjust `XHIGH_EFFORT_COUNT`/`HIGH_EFFORT_COUNT` to the chosen effort in `validate.sh`).
 
 The Orchestrator narrates the checkpoint in the consulting persona's voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 
