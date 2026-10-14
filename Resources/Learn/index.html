@@ -410,7 +410,7 @@
 
 <!-- ═══════════ DATA (single source of truth, edit here when roster, commands, projects or FAQ change) ═══════════ -->
 <script>
-const LAST_SYNCED = "2026-10-14";
+const LAST_SYNCED = "2026-10-15";
 
 const TEAM = [
   {
@@ -789,6 +789,7 @@ const SLASH_COMMANDS = [
   { name: "/code-quality-review", type: "skill", category: "Maintainer/meta", desc: "Reviews a code diff on five separate axes: does it do what the plan asked, does it work, is it secure, would the tests catch a break, and will its design cause trouble later. Findings are sorted into Act on (five at most per axis), Consider, Noted and Dismissed, each with its evidence, and no fixes are applied. Over-engineering stays with /code-minimalism-review.", when: "Before calling any code change done. Code personas run it inline on their own diff; ask the Orchestrator for a panel review, one reviewer per axis, on a large or security-sensitive change." },
   { name: "/diagnosing-bugs", type: "skill", category: "Maintainer/meta", desc: "Works a hard bug or performance regression to its root cause. It builds a quick pass/fail check that goes red on the bug before any theory, shrinks the repro, tests three to five falsifiable hypotheses with tagged debug logs, fixes the cause behind a regression test, then cleans up the debug logs and throwaway code.", when: "When something is broken, throwing, failing, flaky or slow and the cause is not obvious. Code personas run it on their own work, and any question it raises for you comes back in their report." },
   { name: "/write-a-skill", type: "skill", category: "Maintainer/meta", desc: "Scaffolds a new skill with the right structure and frontmatter, progressive disclosure, and any bundled reference files it needs.", when: "When a workflow is repeatable enough to be a skill of its own rather than something you re-explain each session." },
+  { name: "/writing-for-agents", type: "skill", category: "Maintainer/meta", desc: "A reference for writing anything an agent reads, skills, AGENTS.md and CLAUDE.md, SOPs and persona files. It covers how a pointer's wording decides when material gets read, what stays in the main file and what moves out, clear completion criteria, and pruning lines that no longer change behaviour.", when: "When you edit a skill, SOP, persona or AGENTS.md and want it shorter and more predictable. To scaffold a brand-new skill, start with /write-a-skill, which points here." },
 
   // ── Output styles ──
   { name: "ELI5", type: "style", category: "Output styles", desc: "Plain-language replies, what happened, whether it worked, what to do next. Anything needing a decision comes back as two options at most, with the context to choose fast and a recommendation. Paths and commands stay exact.", when: "Switch with /output-style (or /config) and pick ELI5, the choice persists as your default until you change it. Both styles live in .claude/output-styles/. A skill or project rule asking for a different shape wins over the style." },
@@ -1120,7 +1121,7 @@ const FAMILY_MAP = {
       <summary>
         <span class="ref-summary-text">
           <span style="font-weight:700; font-size:1.02rem;">Commands &amp; skills</span>
-          <span>43 entries across 8 categories. Some you type, others Sam brings in automatically.</span>
+          <span>44 entries across 8 categories. Some you type, others Sam brings in automatically.</span>
         </span>
         <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </summary>
