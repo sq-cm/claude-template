@@ -787,6 +787,7 @@ const SLASH_COMMANDS = [
   { name: "/improve", type: "skill", category: "Maintainer/meta", desc: "Audits a codebase read-only across correctness, security, performance, tests, tech debt, dependencies, DX, docs, and direction, then writes self-contained implementation plans for another agent to execute.", when: "Orchestrator-run meta-skill, when you want a prioritised improvement roadmap rather than ad-hoc fixes." },
   { name: "/code-minimalism-review", type: "skill", category: "Maintainer/meta", desc: "Reviews a diff or file for over-engineering only, speculative flexibility, unused abstraction, hand-rolled logic the platform already covers, and code that could be shorter without losing meaning. Correctness, security, and performance stay out of scope.", when: "Before calling any code diff finished, per the vault's Code Minimalism Standard." },
   { name: "/code-quality-review", type: "skill", category: "Maintainer/meta", desc: "Reviews a code diff on five separate axes: does it do what the plan asked, does it work, is it secure, would the tests catch a break, and will its design cause trouble later. Findings are sorted into Act on (five at most per axis), Consider, Noted and Dismissed, each with its evidence, and no fixes are applied. Over-engineering stays with /code-minimalism-review.", when: "Before calling any code change done. Code personas run it inline on their own diff; ask the Orchestrator for a panel review, one reviewer per axis, on a large or security-sensitive change." },
+  { name: "/diagnosing-bugs", type: "skill", category: "Maintainer/meta", desc: "Works a hard bug or performance regression to its root cause. It builds a quick pass/fail check that goes red on the bug before any theory, shrinks the repro, tests three to five falsifiable hypotheses with tagged debug logs, fixes the cause behind a regression test, then cleans up the debug logs and throwaway code.", when: "When something is broken, throwing, failing, flaky or slow and the cause is not obvious. Code personas run it on their own work, and any question it raises for you comes back in their report." },
   { name: "/write-a-skill", type: "skill", category: "Maintainer/meta", desc: "Scaffolds a new skill with the right structure and frontmatter, progressive disclosure, and any bundled reference files it needs.", when: "When a workflow is repeatable enough to be a skill of its own rather than something you re-explain each session." },
 
   // ── Output styles ──
@@ -1119,7 +1120,7 @@ const FAMILY_MAP = {
       <summary>
         <span class="ref-summary-text">
           <span style="font-weight:700; font-size:1.02rem;">Commands &amp; skills</span>
-          <span>42 entries across 8 categories. Some you type, others Sam brings in automatically.</span>
+          <span>43 entries across 8 categories. Some you type, others Sam brings in automatically.</span>
         </span>
         <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </summary>

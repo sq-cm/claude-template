@@ -163,7 +163,7 @@ Claude - TEMPLATE/
 │   ├── commands/                      ← slash commands (/onboard, /update, /hire, /handoff-save, /handoff-load, …)
 │   ├── hooks/                         ← SessionStart / UserPromptSubmit bash hooks
 │   ├── output-styles/                 ← reply styles (ELI5, ASD-STE100); switch with /output-style
-│   ├── skills/                        ← 32 reusable skill modules (see its README.md)
+│   ├── skills/                        ← 33 reusable skill modules (see its README.md)
 │   └── settings.json                  ← permissions, hooks, enabledPlugins
 ├── Chats/                             ← per-conversation workspaces, created via /chat (git-ignored)
 ├── Notes/                             ← daily notes, canvas files, clippings, staging for unrouted material
