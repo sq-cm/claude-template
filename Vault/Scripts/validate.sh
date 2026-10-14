@@ -647,14 +647,13 @@ echo ""
 # it is NOT in ALLOWED_MODELS, so any opus-4-8 pin fails as "undocumented".
 # claude-opus-5 is retired the same way (Opus 5.5 swap, 23/09/2026): it is NOT
 # in ALLOWED_MODELS either, so any opus-5 pin now fails as "undocumented".
-# The invocation-time fallback for gatekeeper Fable refusals is claude-opus-5-5
-# (released 22/09/2026) — in that fallback role it is an override at dispatch
-# on the gatekeeper, never a change to the gatekeeper's frontmatter pin. The
-# 27 claude-opus-5-5 pins below are separate and legitimate: the Judgement six,
-# Quinn (gatekeeper, moved from Fable 13/08/2026) and the 20 Production
-# personas (moved from claude-sonnet-5 in the 13/08/2026 roster re-tier;
-# claude-sonnet-5 stays in ALLOWED_MODELS as the documented revert target).
-# Odin is the sole remaining Fable pin.
+# All 28 personas pin claude-opus-5-5: both gatekeepers (Quinn, moved from
+# Fable 13/08/2026; Odin, moved from claude-fable-5-1 14/10/2026 because Team
+# Standard seats need usage credits for Fable), the Judgement six and the 20
+# Production personas (moved from claude-sonnet-5 in the 13/08/2026 roster
+# re-tier). claude-sonnet-5 stays in ALLOWED_MODELS as the documented revert
+# target for the Opus tiers; claude-fable-5-1 stays as Odin's documented revert
+# target, with no live pin.
 #
 # effort: is also validated here because it is the tier discriminator since
 # the 13/08/2026 re-tier (model: pins no longer differ by tier). The
@@ -664,16 +663,18 @@ echo ""
 # 5.5 launch page (22/09/2026) reports that 5.5 defaults to medium effort and at
 # that setting beats Opus 5 at max on Terminal-Bench for roughly a fifth of the
 # cost — so Production dropped high → medium (20), the Judgement six dropped
-# xhigh → high and Odin stays high (7 together), and Quinn alone holds xhigh (1).
+# xhigh → high (6), and Quinn held xhigh (1) while Odin stayed high on Fable.
+# Odin's move to Opus 5.5, 14/10/2026: Odin joins Quinn at xhigh (2), and high
+# is now the Judgement six alone (6).
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-sonnet-5 claude-opus-5-5 claude-fable-5-1"  # claude-opus-5 → claude-opus-5-5 and Opus 5 retired (23/09/2026); Odin moved claude-fable-5 → claude-fable-5-1 (02/09/2026)
-FABLE_PIN_COUNT=1  # Odin (sole Fable gatekeeper; Quinn moved to Opus 5, 13/08/2026)
-OPUS55_PIN_COUNT=27  # Everyone except Odin: Judgement six + Quinn + the 20 Production personas (Opus 5.5 swap, 23/09/2026)
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-5-5 claude-fable-5-1"  # claude-opus-5 → claude-opus-5-5 and Opus 5 retired (23/09/2026); claude-fable-5-1 kept as Odin's revert target after his move to Opus 5.5 (14/10/2026)
+FABLE_PIN_COUNT=0  # no live Fable pin since Odin moved to Opus 5.5 (14/10/2026); a clone re-pinning Odin to Fable sets 1
+OPUS55_PIN_COUNT=28  # All 28 personas: both gatekeepers + Judgement six + the 20 Production personas (Odin joined 14/10/2026)
 ALLOWED_EFFORTS="low medium high xhigh max"  # harness enum per Persona Template SOP § Model assignment
-XHIGH_EFFORT_COUNT=1   # Quinn alone (Gatekeeper; 23/09/2026 re-tune)
-HIGH_EFFORT_COUNT=7    # Judgement six + Odin (23/09/2026 re-tune)
+XHIGH_EFFORT_COUNT=2   # both Gatekeepers, Quinn + Odin (Odin joined 14/10/2026)
+HIGH_EFFORT_COUNT=6    # the Judgement six (Odin left high 14/10/2026)
 MEDIUM_EFFORT_COUNT=20  # the 20 Production personas (23/09/2026 re-tune)
 xhigh_effort_live=0
 high_effort_live=0
@@ -742,11 +743,11 @@ if [ "$opus55_pin_live" -ne "$OPUS55_PIN_COUNT" ]; then
 fi
 
 if [ "$xhigh_effort_live" -ne "$XHIGH_EFFORT_COUNT" ]; then
-    warn "effort: xhigh count is $xhigh_effort_live, tripwire expects $XHIGH_EFFORT_COUNT — update XHIGH_EFFORT_COUNT in this script on any Gatekeeper (Quinn) change (that is its job)"
+    warn "effort: xhigh count is $xhigh_effort_live, tripwire expects $XHIGH_EFFORT_COUNT — update XHIGH_EFFORT_COUNT in this script on any Gatekeeper (Quinn or Odin) change (that is its job)"
 fi
 
 if [ "$high_effort_live" -ne "$HIGH_EFFORT_COUNT" ]; then
-    warn "effort: high count is $high_effort_live, tripwire expects $HIGH_EFFORT_COUNT — update HIGH_EFFORT_COUNT in this script on any Judgement-tier or Odin change (that is its job)"
+    warn "effort: high count is $high_effort_live, tripwire expects $HIGH_EFFORT_COUNT — update HIGH_EFFORT_COUNT in this script on any Judgement-tier or Gatekeeper effort change (that is its job)"
 fi
 
 if [ "$medium_effort_live" -ne "$MEDIUM_EFFORT_COUNT" ]; then
