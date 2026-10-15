@@ -176,7 +176,7 @@ else
       # ($GITDIR was already resolved by the mid-rebase elif above, which
       # must have evaluated false to reach this branch) — NEVER in the
       # worktree, because an untracked worktree file would make update.sh's
-      # dirty-tree check (update.sh:109) non-empty on every unattended run,
+      # dirty-tree check (Step 5) non-empty on every unattended run,
       # permanently. Stale after 3600s (a session killed mid-update leaves
       # one behind) and then taken over, with the Step 1 numeric guard on the
       # epoch read. No trap EXIT here: this hook has work after this block

@@ -62,6 +62,8 @@ if [ -z "$TOPLEVEL" ]; then
   fail 2 "Not a git repository — /update cannot run."
 fi
 cd "$TOPLEVEL" || fail 1 "Could not cd to repo root: $TOPLEVEL"
+# Drive for desktop drops the git hooks' exec bit; restore it on every run (plan 154).
+chmod +x .githooks/pre-commit .githooks/pre-push 2>/dev/null || true
 
 # ---------------------------------------------------------------------------
 # Step 2 — bail if a rebase or merge is already in progress
@@ -226,7 +228,7 @@ elif [ "$UNATTENDED" = "true" ]; then
     printf '%s\n' "$CONFLICTS"
   else
     # rebase failed without ever starting (e.g. another process holds
-    # index.lock) — nothing of ours to abort, but the fast-forward at :166
+    # index.lock) — nothing of ours to abort, but Step 7's fetch fast-forward
     # already moved main (unattended always takes that branch: Step 3b
     # proved HEAD is on local/main, so CURRENT_BRANCH above is never "main")
     # — roll main back.

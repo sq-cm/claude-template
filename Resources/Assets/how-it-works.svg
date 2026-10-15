@@ -98,7 +98,7 @@
   <rect x="424" y="480" width="352" height="100" rx="12" fill="#262c39" stroke="#39404f"/>
   <text class="tt" x="600" y="514" text-anchor="middle">Validator</text>
   <text class="s" x="600" y="538" text-anchor="middle">Vault/Scripts/validate.sh</text>
-  <text class="s" x="600" y="558" text-anchor="middle">17 read-only checks</text>
+  <text class="s" x="600" y="558" text-anchor="middle">22 read-only checks</text>
 
   <rect x="816" y="480" width="352" height="100" rx="12" fill="#262c39" stroke="#39404f"/>
   <text class="tt" x="992" y="514" text-anchor="middle">Hiring pipeline</text>
