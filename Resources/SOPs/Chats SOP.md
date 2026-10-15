@@ -1,6 +1,6 @@
 # Chats SOP
 
-The detail behind the [Chats](../../AGENTS.md) section in AGENTS.md. AGENTS.md holds the operative rule (where chats live, how they are created, the commands, the Fast-Path destination change); this SOP holds the rationale, the `CHAT.md` anatomy, and the resolution rules. When the two disagree, **AGENTS.md wins** — propose a fix here rather than diverging.
+The detail behind the [Chats](../../AGENTS.md) section in AGENTS.md. AGENTS.md holds a pointer and the destination-only rule. This SOP is the operative source for where chats live, how they are named and created, the commands, and the Fast-Path output destination, and it also holds the rationale, the `CHAT.md` anatomy and the resolution rules. If the two disagree on the destination-only rule, **AGENTS.md wins**; propose a fix here rather than diverging.
 
 ## Why chats exist
 

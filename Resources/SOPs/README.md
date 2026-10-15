@@ -27,10 +27,10 @@ Standard operating procedures governing how the Orchestrator and the team work.
 
 ## Ownership
 
-SOPs are referenced directly from `AGENTS.md`. Changes should be routed through @{Orchestrator} — edits affect team-wide behaviour and need to stay consistent with AGENTS.md.
+SOPs are referenced from `AGENTS.md` or from this index. Changes should be routed through @{Orchestrator} — edits affect team-wide behaviour and need to stay consistent with AGENTS.md.
 
 ## Adding a new SOP
 
 1. Draft the SOP as a new `.md` file in this folder
-2. Link it from the relevant section in `AGENTS.md`
+2. Add a row to the table above; link it from `AGENTS.md` only when a root rule points to it
 3. The Orchestrator confirms it's consistent with existing operations
