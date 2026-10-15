@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 21 read-only checks to verify the vault's structural invariants.
+# Runs 22 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -49,6 +49,7 @@
 #   Check 17 — Learn page summary count does not match the live SLASH_COMMANDS entry count, or its anchor is missing
 #   Check 19 — Learn cheat-sheet Markdown/HTML twin: a structural leg (slots, examples, lead-ins, checklist, template lines, sections) differs or extracts nothing
 #   Check 20 — locale-severity sites out of lockstep: owner heading/table shape changed, a summary lost the compliance-sensitive block carve-out, or a § pointer no longer names the owner
+#   Check 22 — .githooks/pre-commit or pre-push not executable (skipped on Windows or when core.hooksPath ≠ .githooks)
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1538,6 +1539,45 @@ if [ "$check21_file_count" -eq 0 ]; then
 fi
 
 $check21_pass && pass "All $check21_file_count tracked CLAUDE.md stubs import a sibling AGENTS.md, and every tracked AGENTS.md has one"
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 22 — git hooks are executable (WARN)
+#
+# Google Drive for desktop drops POSIX mode bits on any file it downloads from
+# another device, so a hook can land as -rw------- and git skips it with "hook
+# was ignored" — pre-commit's guard is then silently off. The session hook and
+# update.sh restore the bit; this check surfaces a clone where neither has run.
+# Skipped (plain note, never a warning) on Windows, which has no exec bit, and
+# when core.hooksPath is not .githooks, because git is not reading these hooks.
+# git -C, because this validator never cds into PROJECT_ROOT.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 22: git hooks are executable ---"
+check22_pass=true
+check22_hooks_path=$(git -C "$PROJECT_ROOT" config --get core.hooksPath 2>/dev/null)
+case "$(uname -s 2>/dev/null)" in
+    MINGW*|MSYS*|CYGWIN*)
+        echo "  Check 22 skipped — Windows has no exec bit"
+        check22_pass=false
+        ;;
+    *)
+        if [ "$check22_hooks_path" != ".githooks" ]; then
+            echo "  Check 22 skipped — core.hooksPath is ${check22_hooks_path:-unset}, not .githooks"
+            check22_pass=false
+        else
+            for hook in pre-commit pre-push; do
+                if [ ! -f "$PROJECT_ROOT/.githooks/$hook" ]; then
+                    echo "  Check 22 note — .githooks/$hook is missing, nothing to test"
+                    check22_pass=false
+                elif [ ! -x "$PROJECT_ROOT/.githooks/$hook" ]; then
+                    warn ".githooks/$hook is not executable, so git skips it — fix: chmod +x .githooks/pre-commit .githooks/pre-push"
+                    check22_pass=false
+                fi
+            done
+        fi
+        ;;
+esac
+$check22_pass && pass "Both git hooks in .githooks/ are executable"
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────

@@ -19,12 +19,14 @@ Run the following commands to prevent accidental pushes back to the template rep
 ```bash
 git remote set-url --push origin no_push
 git config core.hooksPath .githooks
+chmod +x .githooks/pre-commit .githooks/pre-push 2>/dev/null || true
 git checkout -b local/main 2>/dev/null || git checkout local/main
 ```
 
 - First command disables push — `git push` will fail with a clear error.
-- Second command activates the pre-push hook as a backup layer.
-- Third command creates and switches to `local/main` — all personal commits go here; `main` stays clean as the upstream mirror. If the branch already exists (re-run), it just checks it out.
+- Second command activates both git hooks (commit and push gates) as a backup layer.
+- Third command makes both hooks executable. Drive for desktop drops the exec bit; this restores it (a no-op on Windows).
+- Fourth command creates and switches to `local/main` — all personal commits go here; `main` stays clean as the upstream mirror. If the branch already exists (re-run), it just checks it out.
 
 Report: "Repo locked to pull-only, switched to local/main ✓"
 

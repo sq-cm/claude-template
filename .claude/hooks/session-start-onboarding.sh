@@ -40,6 +40,29 @@ log_error() {
     >> "$DIR/Vault/Memory/onboarding-errors.md" 2>/dev/null || true
 }
 
+# Restore the git hooks' exec bit (plan 154). Google Drive for desktop drops
+# POSIX mode bits on any file it downloads from another device, so git skips
+# a hook that lands as -rw------- with "hook was ignored". This runs before the
+# maintainer short-circuit and the all-complete early exit because almost
+# every session takes one of those, and the Tier 1 block below runs only
+# during first-time setup. Guarded on AGENTS.md because the template bail has
+# not run yet and DIR defaults to ".". TIER1_HOOKS is informational only: it
+# never gates or sets a flag, so it never takes "skipped" or "FAILED".
+TIER1_HOOKS="absent"
+if [ -f "$DIR/AGENTS.md" ] && [ -d "$DIR/.githooks" ]; then
+  for h in "$DIR/.githooks/pre-commit" "$DIR/.githooks/pre-push"; do
+    [ -f "$h" ] || continue
+    [ "$TIER1_HOOKS" = "absent" ] && TIER1_HOOKS="ok"
+    [ -x "$h" ] && continue
+    chmod +x "$h" 2>/dev/null || true
+    if [ -x "$h" ]; then
+      [ "$TIER1_HOOKS" = "ok" ] && TIER1_HOOKS="restored"
+    else
+      TIER1_HOOKS="not-restored"
+    fi
+  done
+fi
+
 # Maintainer short-circuit
 if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then emit_silent; fi
 
@@ -522,11 +545,11 @@ fi
 
 CTX="=== AUTO-ONBOARDING TRIGGERED ===
 
-Tier 1 (done by hook): git=$TIER1_GIT; env=$TIER1_ENV; node=$TIER1_NODE; notes=$TIER1_NOTES.
+Tier 1 (done by hook): git=$TIER1_GIT; env=$TIER1_ENV; node=$TIER1_NODE; notes=$TIER1_NOTES; hooks=$TIER1_HOOKS.
 Missing flags:$missing
 
 $ACTION
 
-Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull; tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = no onboard.md step — plugin keys are read from Claude Code's install state; the only values you ever write to one are \"skipped\" (the user does not want it) or a snooze object {\"snoozed_until\":\"YYYY-MM-DD\"}; tier2_caveman = Step 7 + '/caveman lite' once caveman@caveman is confirmed installed (if it isn't, the user runs the /plugin commands and the key gets a snooze object, never true), or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3."
+Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull; tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = no onboard.md step — plugin keys are read from Claude Code's install state; the only values you ever write to one are \"skipped\" (the user does not want it) or a snooze object {\"snoozed_until\":\"YYYY-MM-DD\"}; tier2_caveman = Step 7 + '/caveman lite' once caveman@caveman is confirmed installed (if it isn't, the user runs the /plugin commands and the key gets a snooze object, never true), or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3. hooks= is informational only; it never gates or sets any flag."
 
 emit_context "$CTX"

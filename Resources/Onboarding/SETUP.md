@@ -88,6 +88,20 @@ git config --get core.hooksPath
 
 Expected output: `.githooks`. If you see nothing, re-run the install script.
 
+Then check the hooks are executable (macOS / Linux):
+
+```bash
+ls -l .githooks/pre-commit .githooks/pre-push
+```
+
+Expected: an `x` in each mode (e.g. `-rwxr-xr-x`). Google Drive for desktop drops the exec bit on files it syncs down from another device, and git then skips the hook. If the `x` is missing, restore it (macOS / Linux):
+
+```bash
+chmod +x .githooks/pre-commit .githooks/pre-push
+```
+
+Windows: skip — exec bits do not exist there.
+
 ---
 
 ## Step 3 — Choose a team naming theme (or keep default)
