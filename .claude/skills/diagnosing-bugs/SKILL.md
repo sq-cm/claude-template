@@ -45,7 +45,7 @@ Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give
 ### Ways to construct one, in roughly this order
 
 1. **Failing test** at whatever seam reaches the bug: unit, integration, e2e.
-2. **Curl / HTTP script** against a running dev server.
+2. **Curl / HTTP script** against a running local dev server.
 3. **CLI invocation** with a fixture input, diffing stdout against a known-good snapshot.
 4. **Headless browser script** (Playwright / Puppeteer) that drives the UI and asserts on DOM/console/network. Point it at a local dev server. A routed persona does not fetch live web content or use MCP `browser_*` tools: name the URL and what to observe in a fan-out spec, and the Orchestrator supplies the capture (Sub-Agent Architecture SOP § Web Fetch & Visual Eval).
 5. **Replay a captured trace.** Save a real network request / payload / event log to disk; replay it through the code path in isolation.

@@ -58,6 +58,9 @@ Carry all of these over any future upstream resync of source 1:
    the slash lists spelled out as words; "flaky" and "including a failing test or a broken build"
    (to match § Stop the line); and a routing clause (house style, plan 127) sending diff review to
    `code-quality-review`.
+10. **Loop option 2 (curl / HTTP script)**: "a running dev server" becomes "a running local dev
+    server" (plan 157), matching option 4. A remote dev server is live web content, which a routed
+    persona leaves to the Orchestrator (Sub-Agent Architecture SOP § Web Fetch & Visual Eval).
 
 The vault's one-line inline method in `using-superpowers` ("Fix this bug" → reproduce, isolate, then
 fix) is unchanged and does not point here.
