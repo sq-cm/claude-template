@@ -1,6 +1,6 @@
 ---
 name: code-quality-review
-description: Review a code diff for spec fit, correctness bugs, security holes, weak tests and design risk. Use before calling any code change done, and when asked to review a branch, PR, commit range or work-in-progress diff written by you, another agent or a human, even when the diff is pasted inline. Not for over-engineering or what can be deleted; use code-minimalism-review. Not for auditing a whole codebase or the vault; use improve. Not for prose, locale or compliance checks on a deliverable; that is the QA Gate.
+description: Review a code diff for spec fit, correctness bugs, security holes, weak tests and design risk. Use before calling any code change done, and when asked to review a branch, PR, commit range or work-in-progress diff written by you, another agent or a human, even when the diff is pasted inline. Not for over-engineering or what can be deleted; use code-minimalism-review. Not for auditing a whole codebase or the vault; use improve. Not for prose, locale or compliance checks on a deliverable; that is the QA Gate. Not for diagnosing a known bug; use diagnosing-bugs.
 argument-hint: "[fixed point: commit, branch or main] [panel]"
 license: MIT
 metadata:
