@@ -1,6 +1,6 @@
 # Fast-Path Lane SOP
 
-The detail behind the [Fast-Path Lane](../../AGENTS.md) section in AGENTS.md. AGENTS.md holds the operative rule (eligibility, invocation, what the lane bypasses, what it keeps, escalation); this SOP holds the rationale, worked examples, and the reasoning behind each guard. When the two disagree, **AGENTS.md wins** — propose a fix here rather than diverging.
+The detail behind the [Fast-Path Lane](../../AGENTS.md) section in AGENTS.md. AGENTS.md states how the lane is chosen (by judgement or with `/fast-path <task>`), eligibility, what the lane bypasses, what it keeps, and escalation. This SOP holds the invocation detail, the rationale, worked examples and the reasoning behind each guard. If the two disagree on anything AGENTS.md states, **AGENTS.md wins**; propose a fix here rather than diverging.
 
 ## Why the lane exists
 

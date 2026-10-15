@@ -38,11 +38,13 @@ If a deliverable falls outside this list, the Orchestrator asks the user before 
 
 ## Post-MD nudge
 
-After MD is QA-passed, deliver this line exactly:
+After MD is QA-passed, the persona that produced the MD delivers this line exactly:
 
 > "Want this as an interactive HTML companion? Say the word."
 
 Do not offer HTML before QA sign-off on MD.
+
+Applies to MD↔HTML companion pairs only; standalone HTML is unaffected (Project Folder SOP § Sibling pair convention for HTML companions).
 
 ## Sibling-pair rule
 
