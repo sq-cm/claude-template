@@ -1601,9 +1601,17 @@ echo ""
 # fresh clones have none, so a FAIL would make the same tree pass in CI and
 # fail locally. Absent registry = pass-skip (as Check 15); keys whose repo is
 # not registered on this machine get a plain note (as Check 22), not a warning.
+#
+# Base dir: CLAUDE_CONFIG_DIR, else the user home Claude Code itself resolves.
+# On Windows that is USERPROFILE (Node's os.homedir()), not a custom Git Bash
+# HOME — reading HOME there would silently skip the check.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 23: Marketplace keys match their registered names ---"
-check23_registry="${CLAUDE_CONFIG_DIR:-${HOME:-$USERPROFILE}/.claude}/plugins/known_marketplaces.json"
+case "$(uname -s 2>/dev/null)" in
+    MINGW*|MSYS*|CYGWIN*) check23_home="${USERPROFILE:-$HOME}" ;;
+    *)                    check23_home="${HOME:-$USERPROFILE}" ;;
+esac
+check23_registry="${CLAUDE_CONFIG_DIR:-$check23_home/.claude}/plugins/known_marketplaces.json"
 
 if [ ! -f "$check23_registry" ]; then
     pass "Check 23 skipped — no known_marketplaces.json (normal on CI and fresh clones)"
@@ -1616,6 +1624,7 @@ else
     check23_checked=0
     check23_unregistered=""
     check23_keys=$(jq -r '.extraKnownMarketplaces // {} | keys[]' "$SETTINGS_FILE" | tr -d '\r')
+    [ -z "$check23_keys" ] && echo "  Check 23 note — settings.json registers no marketplaces, nothing to check"
 
     while IFS= read -r key; do
         [ -n "$key" ] || continue
@@ -1627,7 +1636,7 @@ else
             continue
         fi
         check23_checked=$((check23_checked + 1))
-        if ! grep -qxF "$key" <<< "$registered"; then
+        if ! grep -qxF -- "$key" <<< "$registered"; then
             warn "marketplace key \`$key\` in settings.json is registered as \`$(echo $registered)\` — plugin IDs <plugin>@$key will not resolve; rename the settings key to the registered name"
             check23_pass=false
         fi
