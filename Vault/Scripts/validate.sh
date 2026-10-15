@@ -1587,8 +1587,8 @@ echo ""
 # Motivating incident: #154 added the claude-mem marketplace to
 # .claude/settings.json under the key `claude-mem`, but Claude Code registers a
 # marketplace under its manifest `name` — `thedotmack` — so every
-# `claude-mem@claude-mem` plugin ID failed to resolve. Nothing caught it until
-# #332 renamed the key by hand.
+# `claude-mem@claude-mem` plugin ID failed to resolve. Nothing caught it; a user
+# hit the "not found" prompt, and #332 renamed the key and plugin ID by hand.
 #
 # Source of truth is Claude Code's own registry, known_marketplaces.json, matched
 # by source repo — not marketplaces/<settings-key>/.claude-plugin/marketplace.json.
@@ -1637,7 +1637,8 @@ else
         fi
         check23_checked=$((check23_checked + 1))
         if ! grep -qxF -- "$key" <<< "$registered"; then
-            warn "marketplace key \`$key\` in settings.json is registered as \`$(echo $registered)\` — plugin IDs <plugin>@$key will not resolve; rename the settings key to the registered name"
+            check23_names=$(echo $registered | sed 's/ /` or `/g')
+            warn "marketplace key \`$key\` in settings.json is registered as \`$check23_names\` — plugin IDs <plugin>@$key will not resolve; rename the settings key, and each <plugin>@$key ID in enabledPlugins, to \`$check23_names\`"
             check23_pass=false
         fi
     done <<< "$check23_keys"
