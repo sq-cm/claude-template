@@ -2,7 +2,7 @@
 
 # validate.sh — Template Vault Consistency Checker
 #
-# Runs 22 read-only checks to verify the vault's structural invariants.
+# Runs 23 read-only checks to verify the vault's structural invariants.
 # Call before committing template changes to surface drift early.
 #
 # Usage:
@@ -50,6 +50,7 @@
 #   Check 19 — Learn cheat-sheet Markdown/HTML twin: a structural leg (slots, examples, lead-ins, checklist, template lines, sections) differs or extracts nothing
 #   Check 20 — locale-severity sites out of lockstep: owner heading/table shape changed, a summary lost the compliance-sensitive block carve-out, or a § pointer no longer names the owner
 #   Check 22 — .githooks/pre-commit or pre-push not executable (skipped on Windows or when core.hooksPath ≠ .githooks)
+#   Check 23 — settings.json marketplace key differs from the name Claude Code registered that repo under (skipped when no local registry)
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1578,6 +1579,63 @@ case "$(uname -s 2>/dev/null)" in
         ;;
 esac
 $check22_pass && pass "Both git hooks in .githooks/ are executable"
+echo ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Check 23 — settings.json marketplace keys match their registered names (WARN)
+#
+# Motivating incident: #154 added the claude-mem marketplace to
+# .claude/settings.json under the key `claude-mem`, but Claude Code registers a
+# marketplace under its manifest `name` — `thedotmack` — so every
+# `claude-mem@claude-mem` plugin ID failed to resolve. Nothing caught it until
+# #332 renamed the key by hand.
+#
+# Source of truth is Claude Code's own registry, known_marketplaces.json, matched
+# by source repo — not marketplaces/<settings-key>/.claude-plugin/marketplace.json.
+# Claude Code installs each marketplace under its registered name, so a
+# mis-keyed entry has no directory at its settings key: the per-key lookup
+# would have read #154 as "not installed" and passed. installLocation is never
+# read (backslashed on Windows).
+#
+# WARN, not FAIL: the registry is machine-local state outside the repo. CI and
+# fresh clones have none, so a FAIL would make the same tree pass in CI and
+# fail locally. Absent registry = pass-skip (as Check 15); keys whose repo is
+# not registered on this machine get a plain note (as Check 22), not a warning.
+# ──────────────────────────────────────────────────────────────────────────────
+echo "--- Check 23: Marketplace keys match their registered names ---"
+check23_registry="${CLAUDE_CONFIG_DIR:-${HOME:-$USERPROFILE}/.claude}/plugins/known_marketplaces.json"
+
+if [ ! -f "$check23_registry" ]; then
+    pass "Check 23 skipped — no known_marketplaces.json (normal on CI and fresh clones)"
+elif ! command -v jq >/dev/null 2>&1 || [ ! -f "$SETTINGS_FILE" ]; then
+    warn "Check 23 skipped — jq or settings.json unavailable"
+elif ! jq -e 'type == "object"' "$check23_registry" >/dev/null 2>&1; then
+    warn "Check 23 skipped — $check23_registry is not a valid JSON object"
+else
+    check23_pass=true
+    check23_checked=0
+    check23_unregistered=""
+    check23_keys=$(jq -r '.extraKnownMarketplaces // {} | keys[]' "$SETTINGS_FILE" | tr -d '\r')
+
+    while IFS= read -r key; do
+        [ -n "$key" ] || continue
+        repo=$(jq -r --arg k "$key" '.extraKnownMarketplaces[$k].source | .repo // .url // empty' "$SETTINGS_FILE" | tr -d '\r')
+        registered=""
+        [ -n "$repo" ] && registered=$(jq -r --arg r "$repo" 'to_entries[] | select((.value.source.repo // .value.source.url // empty) == $r) | .key' "$check23_registry" | tr -d '\r')
+        if [ -z "$registered" ]; then
+            check23_unregistered="$check23_unregistered $key"
+            continue
+        fi
+        check23_checked=$((check23_checked + 1))
+        if ! grep -qxF "$key" <<< "$registered"; then
+            warn "marketplace key \`$key\` in settings.json is registered as \`$(echo $registered)\` — plugin IDs <plugin>@$key will not resolve; rename the settings key to the registered name"
+            check23_pass=false
+        fi
+    done <<< "$check23_keys"
+
+    [ -n "$check23_unregistered" ] && echo "  Check 23 note — not registered on this machine, not checked:$check23_unregistered"
+    $check23_pass && [ "$check23_checked" -gt 0 ] && pass "All $check23_checked registered marketplace key(s) in settings.json match their registered names"
+fi
 echo ""
 
 # ──────────────────────────────────────────────────────────────────────────────
