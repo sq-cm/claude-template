@@ -109,6 +109,15 @@
             "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/read-guard.sh\""
           }
         ]
+      },
+      {
+        "matcher": "mcp__ccd_session__start_session|mcp__ccd_session__hand_off_to_session",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$(if command -v cygpath >/dev/null 2>&1; then cygpath -u \"${CLAUDE_PROJECT_DIR:-.}\"; else echo \"${CLAUDE_PROJECT_DIR:-.}\"; fi)/.claude/hooks/subagent-session-guard.sh\""
+          }
+        ]
       }
     ],
     "SessionStart": [
