@@ -13,6 +13,7 @@ Every persona file must contain the following sections. **Note:** Personas use a
 name: [Role Title]
 description: [One-line description of what this agent does — used by the Orchestrator for routing]
 model: [see model assignment guidance below]
+effort: [see model assignment guidance below — Production default: medium]
 tools:
   - Read
   - Write
