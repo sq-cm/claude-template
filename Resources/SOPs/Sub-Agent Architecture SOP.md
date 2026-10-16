@@ -85,10 +85,10 @@ AGENTS.md § Parallel Fan-Out sends independent steps out together, and that inc
 When two or more dispatches that can write files run at the same time (one message, or background runs that overlap):
 
 1. **Disjoint files.** Each brief's Scope names the exact paths that worker may write, and no path appears in two briefs. That includes files a command writes as a side effect (a lockfile, build output, a repo-wide formatter run) and the Orchestrator's own edits while background workers run. Two chunks that need the same file aren't independent: run them one after the other.
-2. **No worker commits.** Each brief's Scope bans every git command that writes: `add`, `commit`, `stash`, `restore`, `checkout`, `reset`, `switch` and `pull`. The ban wins over any persona habit of committing each change. Workers leave their changes in the working tree.
-3. **The Orchestrator commits once.** It dispatches from a clean tree, so every change traces to a brief. When every worker has replied, it checks `git status --short` against the paths the briefs allowed (a path outside them → stop and sort it out before committing) and reads each worker's diff against its brief. It stages the allowed paths by name, never `git add -A`, then commits. If a worker stopped or failed, its paths stay out of the commit until its fix has been routed.
+2. **No worker commits.** Each brief's Scope bans every git command that writes, including `add`, `rm`, `mv`, `commit`, `stash`, `restore`, `checkout`, `reset`, `switch` and `pull`. The ban wins over any persona habit of committing each change. Workers leave their changes in the working tree.
+3. **The Orchestrator commits once.** It dispatches from a clean tree, so every change traces to a brief. When every worker has replied, it checks `git status --short --untracked-files=all` against the paths the briefs allowed (a path outside them → stop and sort it out before committing) and reads each worker's diff against its brief. It stages the allowed paths by name, never `git add -A`, then commits. If a worker stopped or failed, its paths stay out of the commit until its fix has been routed.
 
-Read-only dispatches (research, review, Explore) need none of this.
+Dispatches that write no files (Explore, or a research or review run that replies only) need none of this.
 
 ## Web Fetch & Visual Eval for Sub-Agents
 
