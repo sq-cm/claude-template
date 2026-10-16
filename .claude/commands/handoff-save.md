@@ -28,15 +28,18 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 2. Capture environment: hostname (`$env:COMPUTERNAME` Windows, `hostname` elsewhere), current git branch if in a repo, active plan file path if one exists.
 3. Write handoff file using template below. Redact secrets. Reference — don't restate — existing artifacts.
 4. Append index entry.
-5. Confirm to user with absolute file path. On first successful save, remind once how to pick up: click the resume card's dropdown and choose "Start locally" (same machine, desktop app), answer yes to "Open a new session to continue?" (same machine, Orca), or paste the printed `/handoff-load` line in a new session on the other machine.
+5. Confirm to user with absolute file path. On first successful save, remind once how to pick up: click the resume card (same machine, desktop app), answer yes to "Open a new session to continue?" (same machine, Orca), or paste the printed `/handoff-load` line in a new session on the other machine.
 6. **Offer a resume session.** Always, card or no card, first print the paste line: `/handoff-load <path relative to the vault root>`. Cards get dismissed, and the relative form works on another synced machine. Then:
 
-   **Desktop app — resume card.** If `mcp__ccd_session__spawn_task` isn't loaded (it may be deferred, listed by name only), run one `ToolSearch` with `select:mcp__ccd_session__spawn_task`. Once loaded, call it once with:
-   - `title`: `Resume handoff: <slug>` — keep under 60 characters; truncate the slug to fit.
-   - `prompt`: `/handoff-load <absolute path to the saved handoff file>` (absolute, because the card only runs on this machine).
-   - `tldr`: two plain sentences: the first names the handoff's Next Concrete Action; the second is exactly "Pick Start locally from the dropdown."
+   **Desktop app — resume card.** If `mcp__ccd_session__start_session` isn't loaded (it may be deferred, listed by name only), run one `ToolSearch` with `select:mcp__ccd_session__start_session`. Once loaded, call it once with:
+   - `initiation`: `"own_initiative"`. This shows a card that the user starts with a click; nothing runs until they do. Not "user_asked" (starts at once) or "offer" (asks about the current task and holds the turn).
+   - `title`: `Resume handoff: <slug>`. Keep it under 60 characters; truncate the slug to fit.
+   - `prompt`: `/handoff-load <absolute path to the saved handoff file>`. Absolute, because the card only runs on this machine.
+   - `context`: `"fresh"`.
+   - `background`: two plain sentences, at least 80 characters in total. The first says this resumes a session saved with `/handoff-save`; the second names the handoff's Next Concrete Action.
+   - `use_worktree`: `false`.
 
-   Why "Start locally": "Start with worktree" (the default) opens a fresh git worktree without the vault's git-ignored local memory and handoff logs.
+   Why `use_worktree: false`: a worktree session opens a fresh git worktree without the vault's git-ignored local memory and handoff logs.
 
    Card offered → stop here; no Orca launch. Call fails → skip. Never retry, and never fail the save over it.
 
@@ -111,7 +114,7 @@ With the optional supersedes marker (full replacement only):
 ## Resuming the Handoff
 
 On first successful save, tell user once how to resume from "Next Concrete Action":
-- **Same machine** — click the resume card's dropdown and choose "Start locally" (desktop app). In Orca, answer yes to "Open a new session to continue?" and it opens in a new tab. Any other terminal: paste the printed `/handoff-load` line into a new session.
+- **Same machine** — click the resume card under the save message (desktop app). In Orca, answer yes to "Open a new session to continue?" and it opens in a new tab. Any other terminal: paste the printed `/handoff-load` line into a new session.
 - **Other machine** — paste the printed `/handoff-load <relative path>` line into a new session, or run `/handoff-load` for the newest (or `/handoff-load <slug-fragment>`).
 
 If no index exists there yet (fresh machine, Drive sync hasn't caught up), `/handoff-load` falls back to a directory listing, and — as a last resort — paste the absolute file path into a new session and Claude will `Read` it directly.
