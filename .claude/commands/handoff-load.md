@@ -18,6 +18,8 @@ You are the running assistant. This command resumes a session from a handoff sav
 
 ## Steps
 
+**First, detach (desktop app only).** A session started from a `/handoff-save` resume card nests under the session that saved the handoff. That session is woken with a note each time this one ends a turn, and archiving it archives this one too. If `printenv CLAUDE_CODE_ENTRYPOINT` prints `claude-desktop`, load `mcp__ccd_session_mgmt__detach_session` (one `ToolSearch` with `select:mcp__ccd_session_mgmt__detach_session` if it is deferred) and call it once with `session_id` `"self"`. Detached, or the reply says this session is already top-level → say nothing and go on. Tool not found, or any other refusal → print one line, `Not detached: <the error text>.`, and go on. Never retry, and never fail the load over it. Any other entrypoint → skip this paragraph.
+
 1. **Path argument.** First strip one pair of surrounding quotes (`"` or `'`) from `$ARGUMENTS`, if present. Unquoted paths with spaces work as-is, because `$ARGUMENTS` is the raw remainder. Does it look like a path (ends in `.md`, or contains `/` or `\`)?
    - **No** → go to step 2.
    - **Yes** → normalise separators (`\` ↔ `/`). Resolve a relative path against the vault root; accept an absolute path as given. This step needs no index, so it works on any machine.
