@@ -1,6 +1,6 @@
 ---
 name: using-superpowers
-description: Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions
+description: Use when starting any conversation - establishes how to find and use skills, and to check for a relevant skill before responding, including before clarifying questions
 ---
 
 <!--
@@ -13,6 +13,9 @@ these adaptations over any future upstream replace.
 Phase-5 audit shrink (W19/C2, 11/07/2026): removed the 1% mandate block, plan-mode
 brainstorm line, the rationalisation table section, and the harness-adaptation section
 + references/; carry over any future upstream replace.
+Vault adaptation (plan 162, 16/10/2026): description and "The Rule" reworded
+without older-model forcing language (ANY/BEFORE); checklist line no longer names a
+todo tool. Carry over any future upstream replace.
 -->
 
 <SUBAGENT-STOP>
@@ -21,9 +24,9 @@ If you were dispatched as a subagent to execute a specific task, ignore this ski
 
 ## The Rule
 
-**Invoke relevant or requested skills BEFORE any response or action** — including clarifying questions, exploring the codebase, or checking files. If it turns out wrong for the situation, you don't have to use it.
+**Invoke a relevant or requested skill before you respond or act** — including clarifying questions, exploring the codebase, or checking files. If it turns out wrong for the situation, you don't have to use it.
 
-Then announce "Using [skill] to [purpose]" and follow the skill exactly. If it has a checklist, create a todo per item.
+Then announce "Using [skill] to [purpose]" and follow the skill exactly. If it has a checklist, track each item in your task list.
 
 ## Skill Priority
 
