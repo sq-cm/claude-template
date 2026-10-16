@@ -41,7 +41,9 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 
    Why `use_worktree: false`: a worktree session opens a fresh git worktree without the vault's git-ignored local memory and handoff logs.
 
-   Card offered → stop here; no Orca launch. Call fails → skip. Never retry, and never fail the save over it.
+   Card offered → stop here; no Orca launch. Call fails → print the notice below, then skip. Never retry, and never fail the save over it.
+
+   **No-card notice (desktop app only).** If no card was offered (the tool is still absent after the `ToolSearch`, or the call failed) and `printenv CLAUDE_CODE_ENTRYPOINT` prints `claude-desktop`, print one line: `No resume card: <tool name> not found.` or `No resume card: <the error text>.` Then go on. Any other entrypoint → no notice: a plain terminal never has the tool, so the line would show on every save.
 
    **Orca — ask, then open a tab.** Tool still absent after the `ToolSearch`, and `TERM_PROGRAM=Orca` with `ORCA_TERMINAL_HANDLE` set → ask one yes/no question (AskUserQuestion): "Open a new session to continue?" No or no answer → stop. Any other host → no question, no launch; the paste line is already printed.
 

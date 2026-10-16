@@ -47,6 +47,7 @@
       "Bash(ls)",
       "Bash(ls *)",
       "Bash(pwd)",
+      "Bash(printenv CLAUDE_CODE_ENTRYPOINT)",
       "Bash(which *)",
       "Bash(tree)",
       "Bash(tree *)",
