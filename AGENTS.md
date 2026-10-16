@@ -48,7 +48,7 @@ When the user asks how to use the system, who does what, or how to get started, 
 
 ## Parallel Fan-Out (Default)
 
-Dispatch **2+ independent steps** (no shared state, no sequential dependency) **in parallel** — one message, multiple `Agent` calls. Stay sequential only on a named dependency: Advisor Checkpoints (A → work → B) · QA Gate (after the deliverable, never alongside) · a step consuming another's artefact or sharing a file write. Unsure → `dispatching-parallel-agents` skill.
+Dispatch **2+ independent steps** (no shared state, no sequential dependency) **in parallel** — one message, multiple `Agent` calls. Stay sequential only on a named dependency: Advisor Checkpoints (A → work → B) · QA Gate (after the deliverable, never alongside) · a step consuming another's artefact or sharing a file write. Parallel writers share one checkout: each brief names disjoint files, workers don't commit, and the Orchestrator reads each diff, then commits once ([Sub-Agent Architecture SOP](Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § Parallel writers). Unsure → `dispatching-parallel-agents` skill.
 
 ## Sub-Agent Depth
 
