@@ -12,6 +12,9 @@ dispatcher); the audience/wording fix for non-Orchestrator readers is a separate
 Phase-5 audit shrink (W19, 11/07/2026): deleted the four trailing sections (session
 anecdote, benefits recap, verification recap, impact recap); carry over any future
 upstream replace.
+Vault adaptation (plan 159, 16/10/2026): the "one per response = sequential"
+line now says sub-agents run in the background, so a dependent step waits for the
+completion notification. Carry over any future upstream replace.
 -->
 
 # Dispatching Parallel Agents
@@ -85,7 +88,7 @@ Subagent (general-purpose): "Fix tool-approval-race-conditions.test.ts failures"
 # All three run concurrently.
 ```
 
-Multiple dispatch calls in one response = parallel execution. One per response = sequential.
+Multiple dispatch calls in one response = parallel execution. Sub-agents run in the background by default, so a dispatch in a later response is not automatically sequential: for a dependent step, wait for the earlier agent's completion notification before dispatching the next.
 
 ### 4. Review and Integrate
 

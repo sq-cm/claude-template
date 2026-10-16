@@ -22,7 +22,7 @@ On intake, grill-me and the Fast-Path Lane take precedence over any skill-level 
 - [ ] QA Gate step included before any file moves to Deliverables
 - [ ] Parallel vs sequential routing called out for each step group
 
-**Effort dial.** High/xhigh for plan mode, checkpoints, and architecture; medium/low once a plan is approved and for Fast-Path work; the session dial does not reach sub-agents — per-agent `effort:` frontmatter does ([Vault/README.md](Vault/README.md) § Rules).
+**Effort dial.** High/xhigh for plan mode, checkpoints, and architecture; medium/low once a plan is approved and for Fast-Path work; the session dial does not reach sub-agents — per-agent `effort:` frontmatter does, and persona dispatches never pass the Agent tool's per-call `effort` ([Vault/README.md](Vault/README.md) § Rules).
 
 ## Fast-Path Lane
 

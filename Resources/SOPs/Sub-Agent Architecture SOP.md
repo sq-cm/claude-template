@@ -2,13 +2,16 @@
 
 **Status:** Active
 **Owner:** @{Orchestrator}
-**Last verified:** 2026-07-01
+**Last verified:** 2026-10-16
 
 ## Constraint
 
-Claude Code does not surface the `Agent` tool to sub-agents at runtime, regardless of what the persona's YAML frontmatter declares. **Sub-agents are depth-1 only — they cannot recursively dispatch further sub-agents.** Verified empirically 2026-05-26 by direct dispatch.
+**Sub-agents are depth-1 only: only the Orchestrator dispatches.** This is vault policy, and two guards enforce it:
 
-This is a Claude Code platform constraint, not a configuration bug. It cannot be worked around with frontmatter, settings, or skill instructions.
+- **Personas**: no persona's `tools:` list includes `Agent` (validator Check 5 FAILs if one does), so a persona can't dispatch.
+- **Every sub-agent, built-ins included**: `.claude/settings.json` sets `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` to `1`. Since Claude Code 2.1.219, sub-agents can spawn their own sub-agents up to depth 3 by default, and built-in `general-purpose` agents hold every tool, `Agent` included. The setting turns nesting off.
+
+When this SOP was first written, the harness hid `Agent` from sub-agents (verified 26/05/2026). Current versions don't, so the two guards above are what hold the rule.
 
 ## Implications
 
@@ -57,7 +60,7 @@ A dispatched sub-agent can't ask the Orchestrator a question mid-run, so whateve
 | Output | The exact path for each file, or `reply only`. A path in `03 Deliverables/` only after the QA Gate (AGENTS.md § QA Gate). |
 | Reply | What comes back: status (a QA verdict for QA dispatches), files written, commands run and their results, deviations from the brief, and any fan-out spec or checkpoint request. |
 
-Standing rules (depth-1, no co-author trailers, surgical changes) live in AGENTS.md and the persona file. A brief repeats one only when the task is likely to trip it. Effort isn't a brief field: each persona's `effort:` frontmatter sets it.
+Standing rules (depth-1, no co-author trailers, surgical changes) live in AGENTS.md and the persona file. A brief repeats one only when the task is likely to trip it. Effort isn't a brief field: each persona's `effort:` frontmatter sets its tier. Never pass the Agent tool's per-call `effort` parameter (Claude Code 2.1.292+) when dispatching a persona; it overrides the frontmatter tier. Built-in agents (Explore, Plan, `general-purpose`) may take it. Precedence, highest first: the `CLAUDE_CODE_EFFORT_LEVEL` env var, the per-call parameter, frontmatter.
 
 Fill-in template for the `Agent` prompt:
 
@@ -105,7 +108,7 @@ Render happens above the dispatch boundary; judgement happens within it. Both la
 
 ## Frontmatter Rule
 
-Persona YAML frontmatter must **not** list `Agent` under `tools:`. The grant is non-functional and listing it creates false expectations. The same applies to `WebFetch`, `ctx_*`, and Playwright `browser_*` tools: even though Lane A/B above establish they are technically reachable by a dispatched persona, listing them in frontmatter would misrepresent a policy-restricted capability as a sanctioned grant. `tool-exceptions.md` stays empty on this basis. See [Persona Template SOP](Persona%20Template%20SOP.md) for canonical tool baseline.
+Persona YAML frontmatter must **not** list `Agent` under `tools:`. Since Claude Code 2.1.219 the grant would work unless `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` stops it, so listing it breaks the depth-1 rule (§ Constraint). The same applies to `WebFetch`, `ctx_*`, and Playwright `browser_*` tools: even though Lane A/B above establish they are technically reachable by a dispatched persona, listing them in frontmatter would misrepresent a policy-restricted capability as a sanctioned grant. `tool-exceptions.md` stays empty on this basis. See [Persona Template SOP](Persona%20Template%20SOP.md) for canonical tool baseline.
 
 ## `improve` and read-only meta-skills
 
@@ -149,16 +152,16 @@ The bundled `/fewer-permission-prompts` skill works the other way: it adds rules
 
 ## Verification Procedure
 
-To re-test the constraint (e.g. after a Claude Code version bump):
+To re-test after a Claude Code version bump, run this in a fresh session (settings load at session start). Use a built-in agent, not a persona: a persona has no `Agent` tool, so it would pass even if the setting were missing.
 
 ```
 Agent(
-  subagent_type: "<any persona>",
-  prompt: "List the tools available to you. If 'Agent' is in your tool set, invoke it once with a trivial prompt and return the result. Otherwise return your tool list verbatim."
+  subagent_type: "general-purpose",
+  prompt: "Sanctioned harness test from the Orchestrator. List your tool names verbatim. If Agent is among them, invoke it once with subagent_type general-purpose and the prompt 'reply ok'. Return the tool list and exactly what happened: the result or the error text."
 )
 ```
 
-If the sub-agent returns a successful `Agent` invocation, depth-2 dispatch is now supported and this SOP should be updated.
+Expected: `Agent` is missing from the tool list, or the call fails with a harness error. A refusal on policy grounds proves nothing; re-run. A successful nested `ok` means `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` isn't taking effect: check `.claude/settings.json` `env` and the Claude Code changelog for a renamed variable.
 
 ## Attribution
 
@@ -166,6 +169,7 @@ Adapted from [cursor/plugins/pstack](https://github.com/cursor/plugins/blob/8370
 
 ## Change Log
 
+- **2026-10-16** — § Constraint now rests on two guards, not a harness limit: personas' `tools:` lists omit `Agent` (Check 5), and `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` in `.claude/settings.json` turns off the default depth-3 nesting Claude Code added in 2.1.219. § Frontmatter Rule says an `Agent` grant would now work without that setting. § Dispatch brief: persona dispatches never pass the per-call `effort` parameter (2.1.292), and the precedence order is stated. § Verification Procedure re-tests with a built-in agent. Plan 159.
 - **2026-10-15** — § Web Fetch & Visual Eval gains a Local exception: a persona may run a headless browser script (Playwright or Puppeteer, through Bash) against a local dev server on `localhost`, `127.0.0.1` or `[::1]`, and the script opens or requests no other host. MCP `browser_*` tools, `WebFetch` and `ctx_fetch_and_index` stay Orchestrator-only. The Policy paragraph, Lane B step 1 and § Dispatch brief's External content row point to it. This settles the clash with `diagnosing-bugs` loop option 4 raised at plan 151's Checkpoint B. Plan 155.
 - **2026-10-14** — Added § Dispatch brief: eleven fields every Orchestrator dispatch carries (Senior Adviser checkpoints keep the Advisor Checkpoints SOP's prompt block, plus the Locale line), a fill-in template, and three rules: a field you can't fill means the task isn't scoped yet, the brief is sized to the task, and earlier returns are passed in full. Added § Attribution. Adapted from pstack `skills/poteto-mode/playbooks/orchestrate.md` (MIT, Lauren Tan, cursor/plugins/pstack `837067b`). Its run-time cap, verbatim standing orders, nested coordinators, worktree tooling and autonomy rules were left out: they clash with AGENTS.md § Time Estimates & Status, the depth-1 rule, hook-disabled worktrees and § Default Mode. Plan 152.
 - **2026-10-01** — Added § Auto mode and permissions: no routine "exit auto mode" steps, a fresh dispatch for new scope, human-approved settings self-edits, allow rules don't fix classifier blocks, no `CLAUDE_TEMPLATE_MAINTAINER` allow rules, and how to prune `settings.local.json` with the new `permission-hygiene.sh` SessionStart hook. Sources: Claude Code docs `permission-modes`, `permissions` and `auto-mode-config`, checked 01/10/2026; a downstream clone audit, 01/10/2026. Plan 142.
