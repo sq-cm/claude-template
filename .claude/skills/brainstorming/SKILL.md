@@ -14,7 +14,8 @@ writing-plans. Re-sync rule: carry these adaptations over any future
 upstream replace.
 Vault adaptation (plan 162, 16/10/2026): description trigger, HARD-GATE
 sentence, anti-pattern paragraph and checklist lead-in rewritten without older-model
-forcing language (MUST/EVERY) and without naming a task tool; substance unchanged.
+forcing language (MUST/EVERY) and without naming a task tool; the trigger is now
+scoped to work whose design is still open, and the gate itself is unchanged.
 Carry over any future upstream replace.
 -->
 
