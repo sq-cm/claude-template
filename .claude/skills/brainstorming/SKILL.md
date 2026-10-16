@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. Not for stress-testing a plan you already hold; use grill-me. Not for sequencing agreed work; use writing-plans."
+description: "Use before building something new or changing behavior while the design is still open - creating features, building components, adding functionality. Explores user intent, requirements and design before implementation. Not for stress-testing a plan you already hold; use grill-me. Not for sequencing agreed work; use writing-plans."
 ---
 
 <!--
@@ -12,6 +12,10 @@ dispatching it themselves. Vault adaptation (plan 127): negative routing clauses
 appended to the description, pointing stress-testing at grill-me and sequencing at
 writing-plans. Re-sync rule: carry these adaptations over any future
 upstream replace.
+Vault adaptation (plan 162, 16/10/2026): description trigger, HARD-GATE
+sentence, anti-pattern paragraph and checklist lead-in rewritten without older-model
+forcing language (MUST/EVERY) and without naming a task tool; substance unchanged.
+Carry over any future upstream replace.
 -->
 
 # Brainstorming Ideas Into Designs
@@ -21,18 +25,18 @@ Help turn ideas into fully formed designs and specs through natural collaborativ
 Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design and get user approval.
 
 <HARD-GATE>
-Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity.
+Don't invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. That includes small projects.
 </HARD-GATE>
 
 > **Vault depth rule:** Only the Orchestrator dispatches sub-agents. If you are a routed persona, do not dispatch the reviewer sub-agents this skill mentions — return the reviewer prompt as a fan-out spec to the Orchestrator (AGENTS.md § Sub-Agent Depth).
 
 ## Anti-Pattern: "This Is Too Simple To Need A Design"
 
-Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short (a few sentences for truly simple projects), but you MUST present it and get approval.
+Once this skill is in use, every project goes through the process, including a todo list, a single-function utility, or a config change. Simple projects are where unexamined assumptions waste the most work. The design can be a few sentences, but present it and get approval before building.
 
 ## Checklist
 
-You MUST create a task for each of these items and complete them in order:
+Track each of these items in your task list and complete them in order:
 
 1. **Explore project context** — check files, docs, recent commits
 2. **Offer the visual companion just-in-time** — NOT upfront. The first time a question would genuinely be clearer shown than described, offer it then (its own message); on approval its browser tab opens for you. If no visual question ever arises, never offer it. See the Visual Companion section below.
