@@ -32,7 +32,7 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 6. **Offer a resume session.** Always, card or no card, first print the paste line: `/handoff-load <path relative to the vault root>`. Cards get dismissed, and the relative form works on another synced machine. Then:
 
    **Desktop app — resume card.** If `mcp__ccd_session__start_session` isn't loaded (it may be deferred, listed by name only), run one `ToolSearch` with `select:mcp__ccd_session__start_session`. Once loaded, call it once with:
-   - `initiation`: `"own_initiative"`. This shows a card that the user starts with a click; nothing runs until they do. Not "user_asked" (starts at once) or "offer" (asks about the current task and holds the turn).
+   - `initiation`: `"own_initiative"`. This shows a card that the user starts with a click; nothing runs until they do. Not `"user_asked"` (starts at once) or `"offer"` (asks about the current task and holds the turn).
    - `title`: `Resume handoff: <slug>`. Keep it under 60 characters; truncate the slug to fit.
    - `prompt`: `/handoff-load <absolute path to the saved handoff file>`. Absolute, because the card only runs on this machine.
    - `context`: `"fresh"`.
