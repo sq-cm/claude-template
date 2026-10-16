@@ -13,6 +13,8 @@
 
 When this SOP was first written, the harness hid `Agent` from sub-agents (verified 26/05/2026). Current versions don't, so the two guards above are what hold the rule.
 
+**Sessions are the Orchestrator's too.** Built-in sub-agents inherit every MCP tool, including the desktop app's `mcp__ccd_session__start_session` and `mcp__ccd_session__hand_off_to_session`. A probe on 16/10/2026 showed a `general-purpose` sub-agent could put a session card in front of the user with no user prompt, and only auto mode's classifier, which depends on the permission mode, stopped a direct start. The `PreToolUse` hook `.claude/hooks/subagent-session-guard.sh` blocks both tools whenever the hook input carries `agent_id`, which Claude Code adds only inside a sub-agent or in-process teammate; the main session keeps them. A sub-agent that thinks a session is needed says so in its reply. Personas never held these tools: their `tools:` lists name no MCP tools.
+
 ## Implications
 
 - A persona dispatched via `Agent` cannot itself call `Agent`.
@@ -175,12 +177,24 @@ Agent(
 
 Expected: `Agent` is missing from the tool list, or the call fails with a harness error. A refusal on policy grounds proves nothing; re-run. A successful nested `ok` means `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` isn't taking effect: check `.claude/settings.json` `env` and the Claude Code changelog for a renamed variable.
 
+The session guard is re-tested the same way, in a fresh session:
+
+```
+Agent(
+  subagent_type: "general-purpose",
+  prompt: "Sanctioned harness test from the Orchestrator. Load mcp__ccd_session__start_session with ToolSearch if it is deferred, then call it once with initiation own_initiative, context fresh, use_worktree false, title 'GUARD TEST - safe to dismiss', prompt 'do nothing', and a background of two plain sentences, at least 80 characters in total, saying this is a harness test and nothing should run. Return exactly what happened: the result or the error text."
+)
+```
+
+Expected: the call fails with the hook's `Blocked: sub-agents do not start, propose or hand off sessions` message. A proposal card (a `task_id`) means the hook isn't firing: check the `PreToolUse` entry in `.claude/settings.json` and whether the tool was renamed. No call, an input error or the auto mode classifier's denial proves nothing; re-run. Dismiss any card the test leaves.
+
 ## Attribution
 
 Adapted from [cursor/plugins/pstack](https://github.com/cursor/plugins/blob/837067b/pstack/skills/poteto-mode/playbooks/orchestrate.md), upstream commit `837067b` (read from the mirror [backnotprop/pstack](https://github.com/backnotprop/pstack/blob/1f0f9c3/skills/poteto-mode/playbooks/orchestrate.md) at `1f0f9c3`), MIT License, Copyright (c) 2026 Lauren Tan. § Dispatch brief's fixed field list, the rule that a field you can't fill means the task isn't scoped, sizing the brief to the task, and passing earlier returns in full are adapted from that project's `skills/poteto-mode/playbooks/orchestrate.md` § The brief. The wording, and the Persona, Locale, External content and Checkpoints fields, are the vault's own.
 
 ## Change Log
 
+- **2026-10-16** — § Constraint: sub-agents can't start, propose or hand off sessions. A 16/10/2026 probe showed a built-in `general-purpose` sub-agent could raise a session card unprompted; the new `PreToolUse` hook `.claude/hooks/subagent-session-guard.sh` blocks `mcp__ccd_session__start_session` and `mcp__ccd_session__hand_off_to_session` when the hook input carries `agent_id`. § Verification Procedure gains the re-test. Plan 166.
 - **2026-10-16** — § Dispatch brief: persona dispatches never pass the Agent tool's per-call `model` either, since it beats a persona's `model:` pin; the model precedence order is stated. The effort precedence list gains its last step, the session dial, which reaches only agents with no `effort:` key and never a persona. Plan 165.
 - **2026-10-16** — Added § Parallel writers: when two or more dispatches that can write files run at the same time (one message, or background runs that overlap), each brief names disjoint paths, workers don't commit, and the Orchestrator checks `git status` against the allowed paths, reads each diff, then commits once. It covers same-persona fan-outs (several Ellis briefs on separate chunks) and any other parallel writers; the `WorktreeCreate` hook blocks the worktree isolation that would separate sub-agents. AGENTS.md § Parallel Fan-Out points here. Plan 164.
 - **2026-10-16** — § Constraint now rests on two guards, not a harness limit: personas' `tools:` lists omit `Agent` (Check 5), and `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` in `.claude/settings.json` turns off the default depth-3 nesting Claude Code added in 2.1.219. § Frontmatter Rule says an `Agent` grant would now work without that setting. § Dispatch brief: persona dispatches never pass the per-call `effort` parameter (2.1.292), and the precedence order is stated. § Verification Procedure re-tests with a built-in agent. Plan 159.
