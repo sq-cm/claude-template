@@ -723,7 +723,7 @@ for fpath in "$AGENTS_DIR"/*.md; do
     effort_val=$(echo "$frontmatter" | sed -n 's/^effort:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
 
     if [ -z "$effort_val" ]; then
-        fail "$fname: no 'effort:' key in frontmatter — the effort key is the tier's durable signal (Persona Template SOP § Model assignment)"
+        fail "$fname: no 'effort:' key in frontmatter — every persona carries an explicit effort: key (Persona Template SOP § Model assignment)"
         check10_pass=false
         continue
     fi
