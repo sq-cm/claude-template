@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-11-10
+
+- docs(personas): Odin's and Quinn's model notes now say to change the model through the `model:` pin and never through the Agent tool's per-call `model`. They used to say "Use a capable reasoning model at invocation time", which read as permission to pick a model per dispatch, the override plan 165 bars. The Senior Adviser brief gets the same fix, and its Basis line now matches the persona's ("a registered sub-agent type with a pinned model"). Checkpoint A: PASS with folds (Odin, 17/10/2026; six folds). Checkpoint B: PASS (Odin, 10/11/2026). QA: PASS (Quinn, 10/11/2026). Validator `PASS (1 warning(s))`, the same warning. Plan 167 (#374)
+
 ## 2026-10-16
 
 - feat(hooks): sub-agents can no longer start, propose or hand off sessions. A 16/10/2026 probe showed a built-in `general-purpose` sub-agent could raise a session card with no user prompt, and only auto mode's classifier stopped a direct start. The new `PreToolUse` hook `.claude/hooks/subagent-session-guard.sh` blocks `mcp__ccd_session__start_session` and `mcp__ccd_session__hand_off_to_session` whenever the hook input carries `agent_id`; the main session keeps both. The Sub-Agent Architecture SOP § Constraint explains it, and § Verification Procedure re-tests it. A live test on the branch passed on both sides: the sub-agent got the hook's `Blocked:` message, and the main session's card was raised, then dismissed. Checkpoint A: PASS with folds (Odin, 16/10/2026; eight folds). Checkpoint B: PASS with folds (Odin, 16/10/2026; four folds). QA: PASS (Quinn, 16/10/2026; one optional wording note folded in). Validator `PASS (1 warning(s))`, the same warning. Plan 166 (#373)
