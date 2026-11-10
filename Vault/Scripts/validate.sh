@@ -649,16 +649,19 @@ echo ""
 # it is NOT in ALLOWED_MODELS, so any opus-4-8 pin fails as "undocumented".
 # claude-opus-5 is retired the same way (Opus 5.5 swap, 23/09/2026): it is NOT
 # in ALLOWED_MODELS either, so any opus-5 pin now fails as "undocumented".
-# All 28 personas pin claude-opus-5-5: both gatekeepers (Quinn, moved from
-# Fable 13/08/2026; Odin, moved from claude-fable-5-1 14/10/2026 because Team
-# Standard seats need usage credits for Fable), the Judgement six and the 20
-# Production personas (moved from claude-sonnet-5 in the 13/08/2026 roster
-# re-tier). claude-sonnet-5 stays in ALLOWED_MODELS as the documented revert
-# target for the Opus tiers; claude-fable-5-1 stays as Odin's documented revert
-# target, with no live pin.
+# 26 personas pin claude-opus-5-5: the Judgement six and the 20 Production
+# personas (moved from claude-sonnet-5 in the 13/08/2026 roster re-tier).
+# Both gatekeepers pin claude-fable-5-2 since 10/11/2026 by user ruling, which
+# accepts that Team Standard seats need usage credits for Fable (reversing
+# Odin's 14/10/2026 move from claude-fable-5-1 to claude-opus-5-5; Quinn had
+# been on Opus since 13/08/2026). claude-sonnet-5 stays in ALLOWED_MODELS as
+# the documented revert target for the Opus tiers; claude-opus-5-5 at xhigh is
+# the documented revert target for both gatekeepers.
 #
-# effort: is also validated here because it is the tier discriminator since
-# the 13/08/2026 re-tier (model: pins no longer differ by tier). The
+# effort: is also validated here. The Gatekeeper tier is carried by the
+# claude-fable-5-2 pin (FABLE_PIN_COUNT is its tripwire) and effort is set per
+# gatekeeper; among the Opus tiers, effort is the tier discriminator since the
+# 13/08/2026 re-tier (model: pins no longer differ by tier there). The
 # XHIGH_EFFORT_COUNT/HIGH_EFFORT_COUNT/MEDIUM_EFFORT_COUNT tripwires follow the
 # same FABLE_PIN_COUNT/OPUS55_PIN_COUNT WARN-not-FAIL pattern above.
 # Effort re-tune, 23/09/2026: the ladder was calibrated on Opus 5, and the Opus
@@ -668,16 +671,18 @@ echo ""
 # xhigh → high (6), and Quinn held xhigh (1) while Odin stayed high on Fable.
 # Odin's move to Opus 5.5, 14/10/2026: Odin joins Quinn at xhigh (2), and high
 # is now the Judgement six alone (6).
+# Gatekeepers to claude-fable-5-2, 10/11/2026: Odin stays xhigh (1), Quinn
+# drops xhigh → medium by user ruling (medium 21), high unchanged (6).
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
-ALLOWED_MODELS="claude-sonnet-5 claude-opus-5-5 claude-fable-5-1"  # claude-opus-5 → claude-opus-5-5 and Opus 5 retired (23/09/2026); claude-fable-5-1 kept as Odin's revert target after his move to Opus 5.5 (14/10/2026)
-FABLE_PIN_COUNT=0  # no live Fable pin since Odin moved to Opus 5.5 (14/10/2026); a clone re-pinning Odin to Fable sets 1
-OPUS55_PIN_COUNT=28  # All 28 personas: both gatekeepers + Judgement six + the 20 Production personas (Odin joined 14/10/2026)
+ALLOWED_MODELS="claude-sonnet-5 claude-opus-5-5 claude-fable-5-2"  # claude-opus-5 → claude-opus-5-5 and Opus 5 retired (23/09/2026); claude-fable-5-2 replaced claude-fable-5-1 when both gatekeepers moved to it (10/11/2026)
+FABLE_PIN_COUNT=2  # both Gatekeepers, Odin + Quinn, on claude-fable-5-2 (10/11/2026); a clone reverting both to claude-opus-5-5 sets 0
+OPUS55_PIN_COUNT=26  # Judgement six + the 20 Production personas (both gatekeepers left for claude-fable-5-2 10/11/2026)
 ALLOWED_EFFORTS="low medium high xhigh max"  # harness enum per Persona Template SOP § Model assignment
-XHIGH_EFFORT_COUNT=2   # both Gatekeepers, Quinn + Odin (Odin joined 14/10/2026)
+XHIGH_EFFORT_COUNT=1   # Odin (Quinn moved to medium 10/11/2026)
 HIGH_EFFORT_COUNT=6    # the Judgement six (Odin left high 14/10/2026)
-MEDIUM_EFFORT_COUNT=20  # the 20 Production personas (23/09/2026 re-tune)
+MEDIUM_EFFORT_COUNT=21  # the 20 Production personas (23/09/2026 re-tune) + Quinn (10/11/2026)
 xhigh_effort_live=0
 high_effort_live=0
 medium_effort_live=0
@@ -712,7 +717,7 @@ for fpath in "$AGENTS_DIR"/*.md; do
             ;;
     esac
 
-    [ "$model_pin" = "claude-fable-5-1" ] && ((fable_pin_live++))
+    [ "$model_pin" = "claude-fable-5-2" ] && ((fable_pin_live++))
     [ "$model_pin" = "claude-opus-5-5" ] && ((opus55_pin_live++))
 
     effort_val=$(echo "$frontmatter" | sed -n 's/^effort:[[:space:]]*//p' | head -1 | sed 's/[[:space:]]*$//')
@@ -737,7 +742,7 @@ for fpath in "$AGENTS_DIR"/*.md; do
 done
 
 if [ "$fable_pin_live" -ne "$FABLE_PIN_COUNT" ]; then
-    warn "claude-fable-5-1 pin count is $fable_pin_live, tripwire expects $FABLE_PIN_COUNT — update FABLE_PIN_COUNT in this script on any Fable promotion/revert (that is its job)"
+    warn "claude-fable-5-2 pin count is $fable_pin_live, tripwire expects $FABLE_PIN_COUNT — update FABLE_PIN_COUNT in this script on any Fable promotion/revert (that is its job)"
 fi
 
 if [ "$opus55_pin_live" -ne "$OPUS55_PIN_COUNT" ]; then
@@ -753,7 +758,7 @@ if [ "$high_effort_live" -ne "$HIGH_EFFORT_COUNT" ]; then
 fi
 
 if [ "$medium_effort_live" -ne "$MEDIUM_EFFORT_COUNT" ]; then
-    warn "effort: medium count is $medium_effort_live, tripwire expects $MEDIUM_EFFORT_COUNT — update MEDIUM_EFFORT_COUNT in this script on any Production-tier change or default hire (that is its job)"
+    warn "effort: medium count is $medium_effort_live, tripwire expects $MEDIUM_EFFORT_COUNT — update MEDIUM_EFFORT_COUNT in this script on any Production-tier change, default hire or Quinn effort change (that is its job)"
 fi
 
 $check10_pass && pass "All persona model pins and effort values match documented tiers"
