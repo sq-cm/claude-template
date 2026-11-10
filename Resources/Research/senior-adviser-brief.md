@@ -28,7 +28,7 @@ Agent(
 )
 ```
 
-> **Model note:** Odin runs on `claude-opus-5-5` at `effort: xhigh` (gatekeeper tier — the roster model at the deepest effort any persona holds; moved from `claude-fable-5-1` on 14/10/2026 because on Team plan Standard seats Fable needs usage credits). Use a capable reasoning model at invocation time — Odin's value comes from reasoning depth, not a specific model ID. Update this if the team's flagship pin changes.
+> **Model note:** Odin runs on `claude-opus-5-5` at `effort: xhigh` (gatekeeper tier — the roster model at the deepest effort any persona holds; moved from `claude-fable-5-1` on 14/10/2026 because on Team plan Standard seats Fable needs usage credits). Odin's value comes from reasoning depth, not a specific model ID, so the model can change, but only through the `model:` pin in `.claude/agents/senior-adviser.md` frontmatter, never the Agent tool's per-call `model` (Sub-Agent Architecture SOP § Dispatch brief). Update this if the team's flagship pin changes.
 
 The consulting persona narrates the checkpoint in their own voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 
@@ -51,4 +51,4 @@ The consulting persona narrates the checkpoint in their own voice ("Checkpoint A
 - Never consulted by @{Orchestrator} directly — @{Orchestrator} routes, he doesn't execute.
 
 ## Basis
-Founding advisor role. Full workflow definition lives in [Resources/SOPs/Advisor Checkpoints SOP.md](../../Resources/SOPs/Advisor%20Checkpoints%20SOP.md) — that SOP is the authoritative reference. Pattern is adapted from Anthropic's Advisor tool for Claude Code's Agent-tool-with-model-override mechanism, since the native API feature is not available inside Claude Code sessions.
+Founding advisor role. Full workflow definition lives in [Resources/SOPs/Advisor Checkpoints SOP.md](../../Resources/SOPs/Advisor%20Checkpoints%20SOP.md) — that SOP is the authoritative reference. Pattern is adapted from Anthropic's Advisor tool, dispatched as a registered sub-agent type with a pinned model, since the native API feature is not available inside Claude Code sessions.
