@@ -16,7 +16,7 @@ In practice, their day-to-day falls into four categories:
 1. **Feature development** — writing React Native components, screens, and business logic in TypeScript; wiring up navigation flows; connecting to backend APIs
 2. **Build and release management** — configuring EAS Build for development, preview, and production profiles; submitting to the App Store and Google Play via EAS Submit or manually; managing OTA update channels through EAS Update
 3. **Native integration** — adding and configuring Expo modules or bare React Native native modules when SDK coverage falls short; writing minimal native config plugin code to modify `AndroidManifest.xml` or `Info.plist` without ejecting
-4. **Debugging and performance** — using Flipper, React Native DevTools, and Expo's internal debugger to diagnose crashes, JS errors, and slow renders; profiling with the Hermes engine's built-in tools
+4. **Debugging and performance** — using React Native DevTools (the default debugger since React Native 0.76) and Expo's internal debugger to diagnose crashes, JS errors, and slow renders; profiling with the Hermes engine's built-in tools
 
 ---
 
@@ -43,8 +43,8 @@ In practice, their day-to-day falls into four categories:
 - Styling: React Native's style system (not CSS), `StyleSheet.create`, flexbox-only layout model, platform-specific styles via `Platform.select`
 - `Animated` API and `react-native-reanimated` for performant animations (understanding the UI thread vs. JS thread distinction)
 - `react-native-gesture-handler` — gesture system that replaces the default gesture responder
-- Native modules — wrapping or installing third-party native modules; understanding the JSI (JavaScript Interface) and the old bridge architecture enough to diagnose issues
-- Hermes engine — default JS engine, its implications for debugging, source maps, and profiling
+- Native modules — wrapping or installing third-party native modules; understanding the JSI (JavaScript Interface) and the New Architecture (the default) enough to diagnose issues; the old bridge architecture matters only on projects still on Expo SDK 54 or earlier, since SDK 55 is New Architecture only
+- Hermes V1 — default JS engine since React Native 0.84; its implications for debugging, source maps, and profiling
 - Metro bundler — configuration, cache issues, module resolution
 
 ### Navigation
@@ -74,7 +74,7 @@ In practice, their day-to-day falls into four categories:
 
 ### App Store and Google Play
 - App Store Connect: creating app records, managing TestFlight, submitting for review, understanding review guidelines
-- Google Play Console: internal/closed/open testing tracks, production rollout, managed publishing
+- Google Play Console: internal/closed/open testing tracks, staged rollout on the production track (app updates only, not first publication; the percentage does not rise automatically), managed publishing
 - App signing, entitlements (iOS), and permissions declarations (both platforms)
 - Privacy manifests (iOS 17+ requirement) — declaring API usage
 - Screenshot and metadata requirements; knowing what triggers a rejection
@@ -112,7 +112,7 @@ In practice, their day-to-day falls into four categories:
 | Package management | npm or Yarn (Yarn Berry increasingly common) |
 | Build and release | EAS Build, EAS Submit, EAS Update |
 | Device testing | iOS Simulator (Xcode), Android Emulator (Android Studio), physical devices |
-| Debugging | Flipper, React Native DevTools, Chrome DevTools via Hermes, Expo DevTools |
+| Debugging | React Native DevTools, Chrome DevTools via Hermes, Expo DevTools |
 | API development | Postman or Insomnia for endpoint testing |
 | Crash reporting | Sentry (`@sentry/react-native`) |
 | Analytics | Amplitude, Mixpanel, or PostHog (project-dependent) |

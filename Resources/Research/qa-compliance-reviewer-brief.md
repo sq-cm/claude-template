@@ -66,7 +66,7 @@ Scope: functional and visual verification of production builds — not deep code
 - **Functional link and form checking**: verifying that all links resolve, all form submissions route correctly, all interactive elements behave as designed
 - **Content-layout consistency**: checking that live Webflow output matches the approved design spec — no text overflow, no image cropping, no broken responsive behaviour
 - **Page performance baseline**: checking Core Web Vitals scores (LCP, CLS, INP) against acceptable thresholds using PageSpeed Insights or Lighthouse; flagging pages below threshold before launch
-- **Accessibility compliance (WCAG 2.1 AA)**: checking contrast ratios, alt text presence, keyboard navigability, heading hierarchy, and ARIA label accuracy against WCAG 2.1 AA minimum standard
+- **Accessibility compliance (WCAG 2.2 AA)**: checking contrast ratios, alt text presence, keyboard navigability, heading hierarchy, and ARIA label accuracy against WCAG 2.2 AA minimum standard
 - **404 and redirect verification**: confirming that pages removed or moved have correct redirects in place and that no internal links point to deprecated URLs
 - **CMS-populated content accuracy**: verifying that CMS-driven content (blog posts, team bios, case studies) is rendering the correct data and that no CMS field is blank, truncated, or displaying raw field names
 
@@ -74,11 +74,11 @@ Scope: functional and visual verification of production builds — not deep code
 
 The reviewer does not provide legal advice. They flag potential compliance issues for escalation — they do not resolve them.
 
-- **WCAG 2.1 AA accessibility**: the minimum standard for all web output. Reviewer checks against this standard; failures are non-publishable
-- **Privacy copy and GDPR**: verifying that privacy notices, cookie consent copy, and data collection disclosures are present where required, current, and accurate relative to what the site actually does
-- **Advertising and endorsement standards**: checking that paid, sponsored, or affiliate content is correctly disclosed in line with ACCC/FTC/ASA guidelines as applicable to target markets
+- **WCAG 2.2 AA accessibility**: the minimum standard for all web output. Reviewer checks against this standard; failures are non-publishable
+- **Privacy copy, GDPR and the Australian Privacy Act**: verifying that privacy notices, cookie consent copy, and data collection disclosures are present where required, current, and accurate relative to what the site actually does. For Australian entities covered by the Privacy Act 1988, the Privacy and Other Legislation Amendment Act 2024 adds APP 1.7–1.9 from 10/12/2026. They apply where the entity has arranged for a computer program "to make, or do a thing that is substantially and directly related to making, a decision" that "could reasonably be expected to significantly affect the rights or interests of an individual". The privacy policy must then say which kinds of personal information are used in, and which kinds of decisions are made by, those computer programs
+- **Advertising and endorsement standards**: checking that paid, sponsored, or affiliate content is correctly disclosed in line with ACCC/FTC/ASA guidelines as applicable to target markets. For UK-facing content, cite the ASA's "Influencers' guide to making clear that ads are ads", now in its fourth edition (ASA page dated 23/10/2026). It was developed with the CMA and updated for the Digital Markets, Competition and Consumers Act (DMCC Act), with new information on fake consumer reviews
 - **Copyright and usage rights**: confirming that images, fonts, and third-party content used in production have documented usage rights; flagging any asset where provenance is unknown
-- **AI-generated content disclosure**: where platform policy or client requirement mandates disclosure of AI-generated content, reviewer confirms disclosure is in place
+- **AI-generated content disclosure**: where platform policy, client requirement or law mandates disclosure of AI-generated content, reviewer confirms disclosure is in place. For EU-facing content, EU AI Act Article 50 applies from 02/08/2026: deployers must disclose deepfake content, and AI-generated or manipulated text published to inform the public needs a label unless it has had human review or editorial control. The European Commission's Code of Practice on Transparency of AI-Generated Content was published on 10/06/2026 and is voluntary. The Commission has also envisaged a limited grace period, to 02/12/2026, for providers' machine-marking of AI systems placed on the market before 02/08/2026; it does not cover deployer disclosure
 - **Platform-specific policy compliance**: content destined for social platforms (LinkedIn, Meta, Google Ads) is reviewed against that platform's current content policies before publication
 
 ---
@@ -103,7 +103,7 @@ Strong: Distinguishes between: (a) non-publishable — compliance or accuracy fa
 
 **Compliance framework currency**
 Average: Knows the frameworks that were in force when they last worked in this area.
-Strong: Actively maintains currency on WCAG updates, platform policy changes, and regional advertising standards. ACCC, FTC, Meta, and Google policy documents get reviewed on a rolling basis — not just when a problem surfaces.
+Strong: Actively maintains currency on WCAG updates, platform policy changes, and regional advertising standards. ACCC, FTC, ASA, Meta, and Google policy documents get reviewed on a rolling basis — not just when a problem surfaces. For example, the ASA's influencers' guide is now in its fourth edition (ASA page dated 23/10/2026).
 
 **Scope discipline**
 Average: Starts suggesting edits, rewriting flagged passages, or offering design opinions.
@@ -141,8 +141,8 @@ Casey's builds are subject to functional, visual, and accessibility QA before la
 ### QA ↔ Cleo (Visual AI Producer)
 Cleo's visual outputs are reviewed for brand compliance (colour, typography, logo usage), usage rights documentation, platform-appropriateness, and — in the case of AI-generated imagery — any compliance obligations around disclosure or platform restrictions on AI visuals. QA does not assess aesthetic quality.
 
-### QA ↔ Morgan (Dev Environment Specialist)
-When Morgan sets up new tooling, CI pipelines, or deployment environments, QA verifies that quality gates are correctly configured — that automated checks (linting, accessibility scans, link checkers) are running and their outputs are being surfaced before publication. QA does not configure tooling; Morgan does. QA validates that the tooling is catching what it should.
+### QA ↔ Ellis (Creative Technologist)
+When Ellis sets up vault-infrastructure tooling (Claude Code hooks, CLI helpers, MCP server setup), QA verifies that quality gates are correctly configured — that automated checks (linting, accessibility scans, link checkers) are running and their outputs are being surfaced before publication. QA does not configure this tooling; Ellis does. QA validates that the tooling is catching what it should.
 
 ### QA ↔ Sam (Orchestrator)
 Sam routes work to QA at the appropriate pipeline stage. QA returns a pass/flag/block verdict to Sam. Escalated disputes — where a producer contests a QA finding — route to Sam for resolution, not back to QA.
@@ -156,7 +156,7 @@ Sam routes work to QA at the appropriate pipeline stage. QA returns a pass/flag/
 | QA Pass Report | Signed-off confirmation that a deliverable has passed all applicable checks; records what was checked and against what standard |
 | Flag Report | Itemised list of issues found: issue description, location (URL/paragraph/field), applicable standard or rule, severity (block/flag/note), and responsible producer for resolution |
 | Compliance Checklist | Pre-publication checklist tailored to deliverable type (blog post, landing page, social asset, Webflow build); documents each check run and its result |
-| Accessibility Audit | WCAG 2.1 AA check results for a web page or UI component; includes tool output (Lighthouse/axe) and manual check findings |
+| Accessibility Audit | WCAG 2.2 AA check results for a web page or UI component; includes tool output (Lighthouse/axe) and manual check findings |
 | AI-Output Verification Log | Per-piece record of AI-specific checks: claims verified, citations checked, tone drift assessment, hallucination risk rating |
 | Usage Rights Register | Documentation of asset provenance and usage rights for images, fonts, and third-party content in a production |
 | QA Block Notice | Formal record of a non-publishable finding; routes to Sam with the specific block reason and the producer responsible for resolving it |

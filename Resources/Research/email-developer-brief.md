@@ -9,12 +9,12 @@
 
 ## What This Role Actually Does
 
-An Email Developer is a front-end specialist who works inside one of the most constrained rendering environments in all of web development. Every browser follows the same standards body. Every email client does not. Outlook on Windows still renders HTML through Microsoft Word's layout engine. Gmail strips `<style>` blocks in certain contexts. Apple Mail on iOS supports dark mode inversion in ways that can break carefully chosen brand colours. A good email developer knows this landscape intimately and writes code that survives it.
+An Email Developer is a front-end specialist who works inside one of the most constrained rendering environments in all of web development. Every browser follows the same standards body. Every email client does not. Classic Outlook for Windows still renders HTML through Microsoft Word's layout engine. Gmail strips `<style>` blocks in certain contexts. Apple Mail on iOS supports dark mode inversion in ways that can break carefully chosen brand colours. A good email developer knows this landscape intimately and writes code that survives it.
 
 In practice, their day-to-day falls into three categories:
 
 1. **Design-to-code production** — taking a Figma file, visual spec, or comp and translating it into hand-coded HTML that renders correctly across 20+ client/OS/app combinations. This is not exporting from a template builder; it is writing structural markup from scratch or from a controlled base template.
-2. **Client and ESP integration** — wiring the built template into an email service provider (Mailchimp, Klaviyo, Campaign Monitor, HubSpot, etc.), inserting merge tags, conditional blocks, and dynamic content tokens in the correct syntax for that platform.
+2. **Client and ESP integration** — wiring the built template into an email service provider (Mailchimp, Klaviyo or Campaign Monitor), inserting merge tags, conditional blocks, and dynamic content tokens in the correct syntax for that platform.
 3. **QA, testing, and iteration** — running the built email through Litmus or Email on Acid, diagnosing rendering failures client-by-client, fixing them, and repeating until the send is clean. This also covers pre-send preflight: file weight checks, spam-indicator markup review, image hosting verification.
 
 ---
@@ -30,7 +30,8 @@ In practice, their day-to-day falls into three categories:
 - Image handling — hosted image URLs (not inline base64 for deliverability reasons), `width`/`height` attributes on `<img>` elements, `display:block` to kill phantom image-bottom gaps
 
 ### Multi-Client Rendering Knowledge
-- **Outlook (Windows, 2016–2023+):** Word rendering engine, ghost tables, VML, no CSS `border-radius`, no `background-image` in `<div>`, MSO line-height quirks
+- **Classic Outlook for Windows:** Word rendering engine, ghost tables, VML, no CSS `border-radius`, no `background-image` in `<div>`, MSO line-height quirks. Microsoft says it will honour published support timelines for classic Outlook for Windows "until at least 2029", so the Word-engine quirks stay relevant
+- **New Outlook for Windows:** a separate client, built on WebView2 and modelled on the Outlook web experience; it does not use the Word engine. Microsoft publishes no HTML/CSS rendering specification for it, so the claim that it renders the same as Outlook on the web is reported, unconfirmed (as of 12/11/2026). Test it as its own client. No primary figure was found for the share of users on new Outlook
 - **Gmail (web, iOS, Android):** `<style>` block stripping in certain delivery modes, class specificity behaviour post-delivery, Promotions tab tab triggering, Gmail clipping at 102KB message size
 - **Apple Mail / iOS Mail:** the most capable renderer (WebKit), but dark mode inversion can recolour elements unexpectedly; `-apple-mail-implicit-dark-scheme` handling
 - **Outlook on Mac:** WebKit-based (very different from Windows Outlook), but still has quirks with certain font stacks
@@ -46,7 +47,7 @@ In practice, their day-to-day falls into three categories:
 - **Mailchimp:** merge tag syntax (`*|FNAME|*`), editable regions, template language, drag-drop vs. coded template distinction
 - **Klaviyo:** Jinja2-based templating (`{{ first_name }}`), conditional blocks (`{% if %}`), dynamic blocks, flow-level vs. campaign-level template management
 - **Campaign Monitor:** Editable region markup, personalisation syntax
-- **HubSpot / Salesforce Marketing Cloud (Pardot/SFMC):** AMPscript or HubL where relevant; awareness of what changes when deploying to enterprise platforms
+- **HubSpot, Salesforce Marketing Cloud and Pardot:** out of scope. The syntax knowledge transfers, but the developer flags these platforms early so the Orchestrator can scope the work and supply documented reference material
 - Understanding the difference between a reusable master template and a one-off send — and coding for the right scenario
 
 ### Accessibility in Email
@@ -62,7 +63,7 @@ In practice, their day-to-day falls into three categories:
 - **Image-to-text ratio:** heavily image-based emails with little live text are more likely to trigger spam filters; the developer makes structural choices that affect this ratio
 - **Spam-trigger markup:** certain HTML patterns (e.g., `display:none` on large blocks, invisible text, excessive `!important` usage) flag spam filters; the email dev is responsible for avoiding them
 - **Image hosting:** images must be externally hosted (not inline) at a reliable CDN; broken image links are a send-day failure
-- **AMP for Email:** an awareness of what AMP for Email enables (interactive carousels, live data, form submissions inside the email) and its severe client support limitations — currently only Gmail, Yahoo, and Outlook.com web support it; most sends do not use it
+- **AMP for Email:** an awareness of what AMP for Email enables (interactive carousels, live data, form submissions inside the email) and its severe client support limitations — the AMP Project lists AOL Mail, FairEmail, Gmail, Mail.ru and Yahoo Mail as supporting clients. Outlook is not on the list: Outlook.com's AMP developer preview ended on 01/10/2020, and AMP emails fall back to HTML there. Most sends do not use it
 
 ### QA and Testing Workflow
 - Litmus and/or Email on Acid — the industry-standard rendering preview tools; running a test matrix across 20–40 client/device combinations before send

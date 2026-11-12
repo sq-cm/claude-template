@@ -2,7 +2,7 @@
 
 **Prepared by**: Ryan (Senior Researcher)
 **Date**: 2026-04-13
-**Sources**: `Resources/Git/claude-seo/`, `Resources/Git/msitarzewski-agency-agents/marketing/marketing-seo-specialist.md`
+**Sources**: `claude-seo` (https://github.com/AgriciDaniel/claude-seo) and `agency-agents` (https://github.com/msitarzewski/agency-agents, file `marketing/marketing-seo-specialist.md`). Both are reference-only, with no local clone; see `Resources/Git/INDEX.md`.
 
 ---
 
@@ -19,7 +19,7 @@ An SEO Specialist drives sustainable organic search visibility through the inter
 - Core Web Vitals: LCP < 2.5s, INP < 200ms, CLS < 0.1 (INP replaced FID in March 2024)
 - URL architecture, redirect chains, crawl budget management
 - JavaScript rendering (CSR vs SSR), mobile optimisation
-- IndexNow protocol (Bing, Yandex, Naver)
+- IndexNow protocol (Amazon, Bing, Naver, Seznam.cz, Yandex, Yep; Google is not a listed participant)
 - Structured data / Schema.org implementation and validation
 - Security headers, HTTPS
 
@@ -46,12 +46,13 @@ An SEO Specialist drives sustainable organic search visibility through the inter
 ### 5. Search Analytics & Reporting
 - Google Search Console (queries, pages, sitemaps, URL inspection)
 - GA4 organic traffic segmentation and conversion attribution
-- CrUX History API (25-week trends), PageSpeed Insights
+- CrUX History API (25 weeks by default, up to 40 via `collectionPeriodCount`), PageSpeed Insights
 - Branded vs non-branded traffic separation
 - Algorithm update tracking and recovery (Helpful Content, Core Updates)
 
 ### 6. AI Search & GEO (Generative Engine Optimisation)
-- Optimising content for AI-generated search overviews and citations
+- Optimising content for Google's generative AI search features (such as AI Overviews and AI Mode) and AI citations
+- Search Console "Search Generative AI" performance reports (launched 03/06/2026, available to all sites as of 31/08/2026): separate reports for Search and Discover showing impressions by page, country, device and date; the same data also sits in the overall Performance report
 - Structured data strategies for AI-powered SERP features
 - Authority building for AI training source positioning
 

@@ -105,7 +105,7 @@ Key APPs for document drafting:
 **The 2024–25 Reform Package — critical moving-target flag**
 
 The Privacy and Other Legislation Amendment Act 2024 received Royal Assent in December 2024. Key enacted changes include:
-- New tort of serious invasion of privacy (coming into force on a date to be proclaimed)
+- New tort of serious invasion of privacy (commenced 10/06/2025)
 - Strengthened enforcement powers for the OAIC
 - New Children's Online Privacy Code (in development)
 - Mandatory retention and destruction requirements (in development/staged)
@@ -127,6 +127,7 @@ Pending/proposed changes (as of mid-2026, still in-progress):
 - Schedule 2 to the Competition and Consumer Act 2010
 - Prohibitions: misleading or deceptive conduct (s 18), false representations (s 29), unconscionable conduct
 - Unfair contract terms: ACL ss 23–28 (for consumer contracts); ACCC actively enforcement-active on this
+- Unfair trading practices: the Competition and Consumer Amendment (Unfair Trading Practices) Bill 2026 passed both Houses on 02/07/2026 and received assent on 06/07/2026 as Act No. 64 of 2026. The new rules apply from 01/07/2027. They add a general prohibition on unfair trading practices in trade or commerce; disclosure of transaction-based charges where a base price is offered (drip pricing); and, for subscription contracts, pre-contract and ongoing information plus an easy way to end a subscription, including an online cancellation option in certain circumstances. Check the Act text for provision-level detail
 - Cooling-off period, refund rights, and mandatory consumer guarantees — must be reflected in T&Cs for consumer-facing businesses
 - Substantiation obligation: the ACCC can require businesses to substantiate advertising claims
 
@@ -167,6 +168,7 @@ More than 20 states have enacted comprehensive consumer privacy laws. The most s
 **COPPA**
 - Children's Online Privacy Protection Act: applies to websites/services directed to children under 13, or that have actual knowledge they are collecting from under-13s
 - Requires verifiable parental consent before collecting personal information from children
+- Amended COPPA Rule (FTC final rule, Federal Register 22/04/2025): in effect from 23/06/2025; operators had until 22/04/2026 to comply. Three Safe Harbor programme provisions (§ 312.11(d)(1), (d)(4) and (g)) had earlier compliance dates
 - Relevant for any client whose service might be used by children — this is a flag-and-escalate trigger, not a standard drafting exercise
 
 **Key US regulators and authoritative sources:**
@@ -217,7 +219,7 @@ Right of access, rectification, erasure (right to be forgotten), restriction of 
 
 **Key EU regulators and authoritative sources:**
 - European Data Protection Board (EDPB) — edpb.europa.eu — issues guidelines, recommendations, and opinions on GDPR interpretation
-- National Data Protection Authorities (DPAs) — vary by member state; the Irish DPA (DPC) is significant given it supervises many US tech companies' EU operations
+- National Data Protection Authorities (DPAs) — vary by member state
 - ICO (UK) — ico.org.uk — post-Brexit, the UK has its own UK GDPR; guidance from ICO is highly useful for EU GDPR interpretation even though legally distinct
 
 **EU Consumer Protection**
@@ -225,6 +227,13 @@ Right of access, rectification, erasure (right to be forgotten), restriction of 
 - Unfair Contract Terms Directive (93/13/EEC): terms must be transparent and not create significant imbalance against the consumer
 - Digital Content Directive (2019/770/EU): specific rules for digital products and services
 - Omnibus Directive (2019/2161/EU): enhanced enforcement, fake reviews, transparency for online marketplaces
+
+**EU AI Act transparency (Article 50)**
+- Regulation (EU) 2024/1689: the AI Act's transparency obligations apply from 02/08/2026
+- People must be told when they are interacting with a chatbot
+- Providers of generative AI must make AI-generated content identifiable
+- Deepfakes, and text published to inform the public on matters of public interest, must be clearly and visibly labelled. The text label is not needed if the text has had human review or editorial control
+- The "AI Omnibus" amendments entered into force on 27/07/2026. Check the final text for any change to Article 50 detail (such as a transition period for systems already on the market) before drafting to that level
 
 ---
 
@@ -490,7 +499,6 @@ An AI persona operating on static training data will, with certainty, produce do
 - EDPB — edpb.europa.eu — guidelines, recommendations, opinions; the most important source for GDPR interpretation
 - EUR-Lex — eur-lex.europa.eu — authoritative text of EU Regulations and Directives (GDPR, ePrivacy Directive, Consumer Rights Directive)
 - ICO (UK GDPR) — ico.org.uk — post-Brexit, legally distinct, but ICO guidance is practically useful and closely mirrors EU interpretation
-- National DPA websites (DPC Ireland, CNIL France, BfDI Germany) for jurisdiction-specific enforcement stances
 
 ### Important Source Discipline
 

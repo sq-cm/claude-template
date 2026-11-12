@@ -97,7 +97,7 @@ A working Market Research Specialist spends their time across three modes, which
 - SurveyMonkey / Typeform — lighter-weight surveys, faster deployment
 - Prolific / Respondent.io — B2C and B2B panel recruitment for primary research
 - Dscout — mobile diary studies and qual research
-- UserZoom / Maze — qual/concept testing (overlaps with UX research; the market researcher uses these for concept validation, not usability)
+- UserZoom (UserTesting/Auros) / Maze — qual/concept testing (overlaps with UX research; the market researcher uses these for concept validation, not usability)
 
 **Secondary research and data sources.**
 - IBISWorld, Mintel, Euromonitor — industry and market reports
@@ -108,7 +108,7 @@ A working Market Research Specialist spends their time across three modes, which
 
 **Demand signal tools.**
 - Google Trends — category and topic demand over time
-- SEMrush / Ahrefs — keyword volume as demand proxy (note: used here for market insight, not SEO optimisation)
+- SEMrush (an Adobe company since 28/04/2026) / Ahrefs — keyword volume as demand proxy (note: used here for market insight, not SEO optimisation)
 - Exploding Topics — emerging trend identification
 
 **Analysis and synthesis.**

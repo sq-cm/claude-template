@@ -55,9 +55,9 @@ A CI Specialist's day does not look like a single clean workflow. It is a mix of
 
 **Free and low-cost:** Google Alerts, LinkedIn, SimilarWeb (free tier), BuiltWith/Wappalyzer, SEC EDGAR, G2/Capterra/Trustpilot, Wayback Machine, RSS feeds.
 
-**Mid-tier:** Owler, Crunchbase, PitchBook; SpyFu/Semrush/Ahrefs; Mention/Brand24; Chorus/Gong (if sales call access is granted).
+**Mid-tier:** Owler, Crunchbase, PitchBook; SpyFu/Semrush/Ahrefs (Semrush has been an Adobe company since 28/04/2026 and, as at 12/11/2026, is still sold directly with its own plans); Mention/Brand24; ZoomInfo Chorus/Gong (if sales call access is granted).
 
-**Enterprise-grade:** Crayon, Klue, or Battlefiq (purpose-built CI platforms); Salesforce/HubSpot integrations.
+**Enterprise-grade:** Crayon, Klue, or Battlefiq (purpose-built CI platforms; the name Battlefiq is unverified as at 12/11/2026, as no vendor page was found); Salesforce/HubSpot integrations.
 
 **Methodologies:** Signal categorisation (features, pricing, messaging, GTM, talent, financial); win/loss interview protocol design; SWOT and positioning matrices as communication frameworks; jobs-to-be-done applied to competitor positioning; confidence tiering.
 

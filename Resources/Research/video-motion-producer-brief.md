@@ -8,17 +8,17 @@
 
 ## 1. Role Overview
 
-The Video & Motion Producer sits at the intersection of AI-native video generation and traditional motion production craft. This is not a "push the button and ship it" role — it is a production discipline. The person in this seat orchestrates AI video tools (Runway, Kling, Sora, Pika, Luma Dream Machine, Haiper, etc.) as primary generation engines, then applies traditional post-production judgment — compositing, colour grading, motion graphics, sound-to-picture sync, export and delivery — to turn raw AI output into polished, platform-ready assets.
+The Video & Motion Producer sits at the intersection of AI-native video generation and traditional motion production craft. This is not a "push the button and ship it" role — it is a production discipline. The person in this seat orchestrates AI video tools (Runway, Kling, Pika, Luma Dream Machine, Haiper, etc.; Haiper is reported discontinued, unconfirmed (as of 12/11/2026)) as primary generation engines, then applies traditional post-production judgment — compositing, colour grading, motion graphics, sound-to-picture sync, export and delivery — to turn raw AI output into polished, platform-ready assets.
 
 The role exists because AI video generation is now fast and cheap enough to be a real production pipeline, but the output is rarely shippable without a skilled eye and a post-production pass. The studio needs someone who understands both the generative side (prompt craft, model selection, iteration cycles) and the finishing side (After Effects, Premiere or DaVinci Resolve, export specs, compression for web and social).
 
-This person is the studio's single owner of anything that moves — video, animation, motion graphics, cinemagraphs, looping reels, title sequences, and motion-enhanced social content.
+This person is the studio's single owner of anything that moves — video, animation, motion graphics, cinemagraphs, looping reels, title sequences, and motion-enhanced social content. The exception is Seedance: AI-generated hero, TVC and product-ad video made in Seedance belongs to @{SeedanceDirector} (skill `seedance-commercial-director`); filmed or edited brand hero video belongs to @{VideoMotionProducer}.
 
 ---
 
 ## 2. Core Responsibilities
 
-- **AI video generation and iteration.** Selecting the right AI video tool for each job, writing and refining prompts through multiple generation cycles, evaluating outputs for motion quality, consistency, and brand alignment. Understanding the distinct strengths of each platform (e.g. Runway Gen-3 for cinematic control, Kling for longer sequences, Pika for quick social clips, Sora for complex scene composition).
+- **AI video generation and iteration.** Selecting the right AI video tool for each job, writing and refining prompts through multiple generation cycles, evaluating outputs for motion quality, consistency, and brand alignment. Understanding the distinct strengths of each platform (e.g. Runway Gen-4.5 for cinematic control, Kling for longer sequences, Pika for quick social clips).
 - **Post-production finishing.** Importing AI-generated footage into traditional NLE/compositing software. Colour grading, motion graphics overlays, text animation, sound design integration, transitions, and pacing edits. The AI output is the raw material; this person shapes it into a final asset.
 - **Motion graphics creation.** Building branded motion graphics, lower thirds, animated logos, title cards, and kinetic typography in After Effects or equivalent. Not all motion output is AI-generated — some needs to be hand-built for precision.
 - **Platform-aware delivery.** Understanding format and compression requirements for Instagram Reels, TikTok, YouTube Shorts, web hero video, LinkedIn video, and client presentation formats. Exporting correctly for each destination without quality loss.
@@ -31,11 +31,10 @@ This person is the studio's single owner of anything that moves — video, anima
 ## 3. Key Skills and Knowledge
 
 **AI Video Tools**
-- Runway (Gen-3 Alpha, Act-One, motion brush, camera controls)
-- Kling (longer-form video, character consistency)
-- Sora (complex prompt-to-scene, world simulation)
+- Runway (Gen-4.5 for generation, launched 04/12/2025, with image-to-video added 18/12/2025; Act-Two for performance capture; motion brush, camera controls)
+- Kling (longer-form video, character consistency; Kling 4.0 is current at 3–30 s per generation, up from 3–15 s on Kling 3.0, as of 12/11/2026)
 - Pika (quick iteration, social-format video)
-- Luma Dream Machine / Haiper / Stable Video Diffusion as supplementary tools
+- Luma (current model Ray3.2) / Haiper (reported shut down in early 2025, unconfirmed; site shows no product as at 12/11/2026) / Stable Video Diffusion (still offered by Stability AI for self-hosting as at 12/11/2026) as supplementary tools
 - Understanding of model-specific prompt syntax, aspect ratio controls, seed management, and interpolation settings
 
 **Traditional Video and Motion Production**
@@ -45,6 +44,11 @@ This person is the studio's single owner of anything that moves — video, anima
 - Understanding of frame rates (24fps, 25fps, 30fps, 60fps) and when each is appropriate
 - Codec and container knowledge (H.264, H.265, ProRes, WebM, MP4) and when to use each
 
+**Programmatic Motion Graphics (HyperFrames)**
+- HyperFrames (`npx hyperframes`, github.com/heygen-com/hyperframes) renders HTML/CSS compositions to MP4. It suits title cards, lower thirds, captions and other motion graphics that need exact, repeatable output.
+- Optional tool. It needs Node.js 22+ and FFmpeg; `python3` is needed only for audio-reactive data extraction.
+- If it is missing, only the programmatic motion-graphics lane is lost. The AI-video and finishing lanes still work. (Source: `Resources/Onboarding/dependencies.md`.)
+
 **Prompt Engineering (Video-Specific)**
 - Translating visual briefs into generative video prompts
 - Iterative refinement methodology — isolating variables, not changing everything at once
@@ -52,7 +56,7 @@ This person is the studio's single owner of anything that moves — video, anima
 - Understanding how camera direction language (dolly in, rack focus, wide establishing) maps to AI video prompt syntax
 
 **Platform and Delivery Specs**
-- Social: Instagram Reels (9:16, up to 90s), TikTok (9:16), YouTube Shorts (9:16, up to 60s), LinkedIn (16:9 or square)
+- Social: Instagram Reels (9:16, up to 20 minutes; reels over 3 minutes are not recommended to new audiences, as of 12/11/2026), TikTok (9:16), YouTube Shorts (9:16, up to 3 minutes), LinkedIn (16:9 or square)
 - Web: Looping MP4/WebM for hero video, max file size targets for page performance
 - Presentation: High-res exports for client decks and screen recordings
 
@@ -101,7 +105,7 @@ The Video & Motion Producer's AI workflow is a production pipeline, not a one-sh
 7. **Export and QA.** Export to all required formats. Self-QA against platform specs and brand standards.
 8. **Handoff.** Deliver assets with naming convention and format notes. Notify Casey for web embeds, or deposit in project folder for client delivery.
 
-**Key AI tools in the stack:** Runway, Kling, Sora, Pika, Luma Dream Machine. Supporting tools: ElevenLabs (AI audio/voiceover), Descript (transcript-driven editing), CapCut Pro (quick social edits).
+**Key AI tools in the stack:** Runway, Kling, Pika, Luma Dream Machine. Supporting tools: ElevenLabs (AI audio/voiceover), Descript (transcript-driven editing), CapCut Pro (quick social edits).
 
 ---
 

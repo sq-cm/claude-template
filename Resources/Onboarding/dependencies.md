@@ -9,15 +9,15 @@ Lists the external tools each persona needs to produce work. Read it before invo
 | Persona | Tool | Type | Required/Optional | Where to get | If missing |
 |---|---|---|---|---|---|
 | Casey | Webflow MCP server (`https://mcp.webflow.com/mcp`) | MCP server | Required | Vendor docs: https://developers.webflow.com/data/docs/ai-tools — MCP URL is fixed by Webflow; configure as a remote MCP in Claude Code | Casey escalates to @{Orchestrator}; no manual UI fallback |
-| Cleo | Gemini CLI + nanobanana extension (`/nano-banana` skill) | CLI extension | Required (any 1 of this or Higgsfield MCP) | Gemini CLI: https://github.com/google-gemini/gemini-cli · nanobanana extension install per its README | Cleo cannot use nanobanana path; falls back to Higgsfield MCP if installed |
+| Cleo | Gemini CLI + nanobanana extension (a Gemini CLI extension, not a vault skill) | CLI extension | Required (any 1 of this or Higgsfield MCP) | Gemini CLI: https://github.com/google-gemini/gemini-cli · nanobanana extension install per its README | Cleo cannot use nanobanana path; falls back to Higgsfield MCP if installed |
 | Cleo | Higgsfield MCP (`mcp__claude_ai_Higgsfield__*`) | MCP server | Required (any 1 of this or nanobanana) | Configure Higgsfield MCP server in Claude Code per Higgsfield docs | Cleo uses nanobanana path; Higgsfield alternative unavailable |
-| Nova | Runway / Kling / Sora / Pika (named AI video tools) | SaaS subscription | Required (any 1 from set) | Vendor sites; paid subscriptions (runwayml.com, kling.ai, openai.com/sora, pika.art) | Nova cannot generate AI video; flag at intake |
+| Nova | Runway / Kling / Pika (named AI video tools) | SaaS subscription | Required (any 1 from set) | Vendor sites; paid subscriptions (runwayml.com, kling.ai, pika.art) | Nova cannot generate AI video; flag at intake |
 | Nova | After Effects OR Premiere OR DaVinci Resolve | Desktop app | Required (any 1) | Adobe Creative Cloud (adobe.com) or Blackmagic Design (blackmagicdesign.com) | Nova cannot finish raw AI output; flag at intake |
 | Nova | HyperFrames (`npx hyperframes`) | CLI extension | Optional | github.com/heygen-com/hyperframes — Node.js 22+ and FFmpeg required; `python3` only for audio-reactive data extraction | Programmatic motion-graphics lane unavailable; AI-video and finishing lanes unaffected |
-| Jordan | Figma | SaaS subscription | Required | figma.com — paid plan (Starter or higher) | Jordan cannot produce primary deliverable; flag at intake |
-| Jordan | FigJam | SaaS subscription | Optional (plan-tier dependent — included in Figma Professional and above; not Starter) | figma.com plan upgrade | Journey mapping and affinity mapping degrade to text-only |
+| Jordan | Figma | SaaS subscription | Required | figma.com — paid plan (Professional or higher) | Jordan cannot produce primary deliverable; flag at intake |
+| Jordan | FigJam | SaaS subscription | Optional (available on all Figma plans; Starter is limited in file count) | figma.com — included with every plan, Starter included | Journey mapping and affinity mapping degrade to text-only |
 | Jordan | Maze / Lyssna / UserTesting | SaaS subscription | Optional (any 1) | Vendor sites; paid subscriptions (maze.co, lyssna.com, usertesting.com) | Usability testing degrades to heuristic evaluation only |
-| Jordan | Hotjar | SaaS subscription | Optional | hotjar.com | Behavioural analytics unavailable; rely on GA4 |
+| Jordan | Contentsquare (formerly Hotjar) | SaaS subscription | Optional | contentsquare.com — Hotjar merged into the Contentsquare Group on 01/07/2025; new sign-ups go to Contentsquare | Behavioural analytics unavailable; rely on GA4 |
 
 ## Type definitions
 

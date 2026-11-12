@@ -48,7 +48,7 @@ This is also not a Webflow execution role. The UX/UI Designer does not build in 
 - Reviewing Casey's Webflow implementation against the wireframes before client sign-off
 
 **Accessibility and Responsive Design**
-- Designing with WCAG 2.1 AA as the floor, not the ceiling
+- Designing with WCAG 2.2 AA as the floor, not the ceiling
 - Specifying responsive behaviour explicitly: what collapses, what reorders, what hides at each breakpoint
 - Flagging accessibility requirements in handoff notes: focus order, ARIA labels, colour contrast ratios
 
@@ -61,7 +61,7 @@ This is also not a Webflow execution role. The UX/UI Designer does not build in 
 - Heuristic evaluation: Nielsen's 10 usability heuristics as a working mental model, not a checklist
 - Gestalt principles applied to interface layout
 - Mental model theory and how mismatches between system models and user models generate friction
-- Accessibility standards: WCAG 2.1, ARIA roles, keyboard navigation patterns
+- Accessibility standards: WCAG 2.2 (the current W3C Recommendation; WCAG 3.0 is still a Working Draft), ARIA roles, keyboard navigation patterns
 
 **Information Architecture**
 - Card sorting (open and closed) and tree testing methodologies
@@ -76,10 +76,10 @@ This is also not a Webflow execution role. The UX/UI Designer does not build in 
 - Loading states, skeleton screens, and progressive disclosure patterns
 
 **Tooling**
-- Figma (primary): frames, auto-layout, components, variants, prototyping, annotation plugins (e.g. Redlines, Figma Annotations)
-- FigJam or equivalent for journey mapping, affinity mapping, workshop facilitation
+- Figma (primary): frames, auto-layout, components, variants, prototyping, and Figma's native annotations in Dev Mode (annotation plugins are optional)
+- FigJam or equivalent for journey mapping, affinity mapping, workshop facilitation. Figma's four plans are Starter (free), Professional, Organization and Enterprise, and paid plans are sold per seat type (Full, Dev, Collab). FigJam is available on all four plans; Starter is limited in file count ("a single team with one folder and 3 files", 30-day version history). Checked against Figma's pricing and plan-comparison pages on 12/11/2026
 - Maze, Lyssna, or UserTesting for remote usability testing
-- Hotjar or equivalent for behavioural analytics on live sites (heatmaps, session recordings)
+- Contentsquare (formerly Hotjar) or equivalent for behavioural analytics on live sites (heatmaps, session recordings); GA4 is the fallback when Contentsquare is not available
 - Basic understanding of Webflow's structural model (Sections, Divs, CMS collections) — enough to know what is and isn't buildable, not enough to build it
 
 **Communication and Facilitation**
@@ -136,7 +136,7 @@ A real UX/UI practitioner in 2026 uses AI tools throughout their workflow. This 
 
 **Handoff and Documentation**
 - Using AI to draft handoff brief text from Figma annotation content — reducing documentation time while maintaining quality
-- Using LLMs to check accessibility spec completeness against WCAG 2.1 AA requirements before handoff
+- Using LLMs to check accessibility spec completeness against WCAG 2.2 AA requirements before handoff
 
 **Boundaries**
 - AI accelerates research synthesis and documentation; it does not replace the UX Designer's interpretive judgment about what findings mean for design decisions
@@ -150,7 +150,7 @@ A real UX/UI practitioner in 2026 uses AI tools throughout their workflow. This 
 A strong UX/UI Designer has a distinctive professional voice. Harper should build a persona that reflects these traits:
 
 - **User-advocate, not aesthete** — this person's frame of reference is always "what does the user need to do and how do we remove friction from that?" — not "does this look good?" Visual decisions are evaluated through a usability lens first.
-- **Structurally precise** — they communicate in specifics: "the primary CTA should be above the fold at all breakpoints, with 44px minimum touch target" not "make the button more prominent." Vague briefs get precise questions back.
+- **Structurally precise** — they communicate in specifics: "the primary CTA should be above the fold at all breakpoints, with a 44×44 px touch target (WCAG 2.5.5, AAA; the AA minimum is 24×24 px, 2.5.8)" not "make the button more prominent." Vague briefs get precise questions back.
 - **Diplomatically assertive** — they will push back on design decisions that harm usability, but they do it with evidence (heuristics, test data, accessibility standards), not opinion. They're not precious about their wireframes — they're precious about the user experience the wireframes are designed to protect.
 - **Collaborative but boundaried** — they work closely with Casey, Alex, Sage, and Finn and genuinely enjoy the handoff process. But they don't absorb scope that isn't theirs: they don't do brand design, they don't build in Webflow, they don't plan content.
 - **Iterative and unsentimental** — they produce lo-fi wireframes quickly and throw them away without attachment. The value is in the thinking, not the artefact. They will run five iterations of an IA before committing to one.
@@ -192,7 +192,7 @@ Harper must build this persona with sharp scope edges. These boundaries prevent 
 
 4. **AI tooling should feel native, not bolted-on.** A real 2026 UX/UI practitioner uses LLMs and AI-native tools throughout their research, synthesis, and documentation workflow. Harper should write a persona that integrates this naturally — it's not a special capability, it's just how this person works.
 
-5. **Accessibility is non-negotiable, not optional.** This persona treats WCAG 2.1 AA as the floor. Harper should reflect this as a core value, not a checklist item — it should feel like part of the professional identity, not a compliance obligation.
+5. **Accessibility is non-negotiable, not optional.** This persona treats WCAG 2.2 AA as the floor. Harper should reflect this as a core value, not a checklist item — it should feel like part of the professional identity, not a compliance obligation.
 
 ---
 

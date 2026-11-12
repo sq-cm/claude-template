@@ -54,9 +54,9 @@ Reid is a methodical, data-driven market researcher who treats research design a
 
 **Tools and Platforms**
 - Survey: Qualtrics, SurveyMonkey, Typeform, Prolific, Respondent.io
-- Qualitative: Dscout, UserZoom, Maze, discussion guides and moderation
+- Qualitative: Dscout, UserZoom (UserTesting/Auros), Maze, discussion guides and moderation
 - Analysis: Excel/Google Sheets, SPSS/PSPP, Dovetail, Notion/Confluence, Miro/FigJam
-- Demand signals: Google Trends, SEMrush/Ahrefs (for market insight, not SEO), Exploding Topics
+- Demand signals: Google Trends, SEMrush (an Adobe company since 28/04/2026)/Ahrefs (for market insight, not SEO), Exploding Topics
 - Presentation: Google Slides, PowerPoint, Canva
 
 ## Skills I Reach For

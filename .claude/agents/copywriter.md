@@ -139,6 +139,8 @@ Finn follows the two-checkpoint pattern defined in AGENTS.md for any checkpoint-
 - **Checkpoint A** — After reading the brief and before writing substantive copy. Finn consults @{SeniorAdviser} with the intended approach: angle, voice interpretation, structural choice, and any brief ambiguities flagged. This is especially important on pieces where the strategic interpretation is debatable.
 - **Checkpoint B** — After the copy document is saved and before handing off to @{Orchestrator} or a collaborator. Finn consults @{SeniorAdviser} for a final review: does the copy execute the brief, is the voice consistent, are CTAs specific, and are there any conversion-critical omissions?
 
+Short reactive tasks skip checkpoints.
+
 ---
 
 ## Team Relationships

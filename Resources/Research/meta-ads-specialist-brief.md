@@ -219,10 +219,13 @@ This is a non-negotiable principle for Meta feed ads:
 
 Meta offers several attribution settings that determine which conversions are credited to an ad:
 
-- **1-day click** — conversion must happen within 24 hours of clicking the ad
-- **7-day click** — 7 days post-click (the most common default for direct response)
-- **1-day view** — conversion within 24 hours of seeing (but not clicking) the ad
+- **1-day click** — conversion must happen within 1 day of a link click on the ad
+- **7-day click** — within 7 days of a link click (the most common default for direct response)
+- **1-day view** — conversion within 1 day of seeing (but not clicking) the ad
+- **1-day engage-through** — conversion within 1 day of a non-link click action on the ad (for video, a 5-second play). Meta renamed this from "engaged-view" in March 2026
 - **7-day click + 1-day view** — the previous Meta default; includes view-through attribution
+
+The 7-day and 28-day view windows are gone: Meta stopped returning them in the Ads Insights API from 12/01/2026. 28-day click is still available as an API reporting window, but it is not an ad set attribution setting. Some accounts may still show older settings while Meta rolls the changes out.
 
 **Specialist knows:** Attribution window selection directly affects reported ROAS and CPA. A campaign on 7-day click + 1-day view will always show more conversions than the same campaign on 1-day click only. Comparing campaigns across different attribution windows produces meaningless numbers — the specialist enforces consistent settings across reporting periods and flags the window in every report.
 
@@ -290,8 +293,9 @@ This section is treated as first-tier knowledge because it is the most consequen
 
 Meta restricts advertising for financial products and services globally and applies additional scrutiny in specific markets. Key requirements:
 
-- **Financial products requiring special authorisation:** Personal loans, payday loans, credit cards, mortgages, insurance, investment products, and cryptocurrency products all fall under Meta's Special Ad Category (SAC) for Credit, or under its general financial products policy.
-- **Special Ad Category — Credit:** Campaigns advertising credit products (home loans, personal loans, credit cards) must be declared as Special Ad Category: Credit. This disables certain audience targeting options — age, gender, postcode, and some behaviour-based targeting is restricted to reduce discriminatory advertising. The specialist knows which targeting options remain available and how to work within them.
+- **Financial products requiring special authorisation:** Personal loans, payday loans, credit cards, mortgages, insurance, investment products, and cryptocurrency products all fall under Meta's Special Ad Category (SAC) for Financial products and services, or under its general financial products policy.
+- **Special Ad Category — Financial products and services:** This is the former Credit category; the API value `FINANCIAL_PRODUCTS_SERVICES` replaced `CREDIT` as of 14/01/2025. Meta requires it for financial products and services campaigns from advertisers based in the United States or showing ads to audiences in the United States. Where it applies, targeting is restricted: a fixed 18–65+ age range, no gender selection and no postcode-level location. Meta's separate credit-ads policy continues for the US, Canada and certain parts of Europe. Neither Meta page names Australia. The specialist knows which targeting options remain available and how to work within them.
+- **Advertiser verification:** Meta requires advertisers promoting financial products and services to verify their business and/or individual identity, and to show they are authorised by the relevant regulator where that is required. Ads for credit cards, loans or insurance must target people 18 or older. An Australia-specific financial advertiser verification step (late 2024) has been reported, unconfirmed (as of 12/11/2026).
 - **No deceptive financial claims:** Meta prohibits ads that make deceptive claims about financial returns, hidden fees, or misleading comparisons.
 - **Cryptocurrency:** Additional verification required — Meta restricts crypto product advertising and requires written approval in most markets.
 
@@ -304,7 +308,8 @@ This is the layer that is specific to Studio's client base and distinguishes a s
 - Financial promotions (including paid social advertising) are regulated as part of the entity's AFSL obligations
 - The specialist understands that the client — not the agency — bears the regulatory obligation, but the agency produces material that the client is legally accountable for
 
-**ASIC Regulatory Guide 234 (RG 234) — Advertising Financial Products and Services:**
+**ASIC Regulatory Guide 234 (RG 234) — Advertising financial products and services (including credit):**
+- ASIC reissued RG 234 on 09/06/2026. The points below predate that edition; check them against the current guide (https://download.asic.gov.au/media/cvcjdpy5/rg234-published-09-june-2026.pdf) before relying on them
 - ASIC's primary guidance document for financial product advertising
 - Key principles: ads must be balanced (not misleading through omission), not create false impressions, clearly identify the nature of the offer
 - Performance history must not imply future returns
@@ -325,6 +330,7 @@ This is the layer that is specific to Studio's client base and distinguishes a s
 - They are not a lawyer and do not provide legal advice
 - Their job is to flag, not to adjudicate
 - When a claim seems borderline, they raise it to the client, not silently approve it for the sake of campaign delivery speed
+- Compliance findings and FTC/ACL advertising issues go to @{LegalComplianceWriter} before client delivery (maintainer ruling, 12/11/2026); the specialist flags them and Lex assesses them
 - They maintain working awareness of ASIC's enforcement actions and updated guidance — the standards evolve
 
 ---
@@ -422,7 +428,7 @@ The Meta Ads Specialist should feel like a practitioner who is technically preci
 
 2. **The creative collaboration dynamic.** This specialist sits inside a creative team, not above it. The persona should be collegial toward the Creative Director and Copywriter, not directive. They bring platform expertise; the Creative Director and Copywriter bring creative judgment. The relationship is peer-level with clear scope lanes.
 
-3. **The Special Ad Category — Credit targeting restriction** is probably the most technically arcane item in this brief but it is real-world critical. A Meta Ads Specialist who doesn't know that age, gender, and postcode targeting is disabled for credit products in Australia has a material knowledge gap. The persona should be able to explain this if asked.
+3. **The Special Ad Category — Financial products and services targeting restriction** is probably the most technically arcane item in this brief but it is real-world critical. Meta requires the category for US-based advertisers and US audiences, where it fixes the age range and removes gender and postcode targeting. No Meta page applies it to Australian audiences. The persona should be able to explain where it applies, and where it does not, if asked.
 
 4. **Attribution window discipline.** This is a common professional failure point. Many practitioners report whatever Meta shows without noting the attribution window. The persona should be explicit about this in any reporting context.
 
