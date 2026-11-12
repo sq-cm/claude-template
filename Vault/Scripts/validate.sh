@@ -649,19 +649,24 @@ echo ""
 # it is NOT in ALLOWED_MODELS, so any opus-4-8 pin fails as "undocumented".
 # claude-opus-5 is retired the same way (Opus 5.5 swap, 23/09/2026): it is NOT
 # in ALLOWED_MODELS either, so any opus-5 pin now fails as "undocumented".
-# 26 personas pin claude-opus-5-5: the Judgement six and the 20 Production
-# personas (moved from claude-sonnet-5 in the 13/08/2026 roster re-tier).
-# Both gatekeepers pin claude-fable-5-2 since 10/11/2026 by user ruling, which
+# 27 personas pin claude-opus-5-5: the Judgement six, the 20 Production
+# personas (moved from claude-sonnet-5 in the 13/08/2026 roster re-tier) and
+# Quinn (back from claude-fable-5-2 on 12/11/2026 by user ruling).
+# Both gatekeepers pinned claude-fable-5-2 from 10/11/2026 by user ruling, which
 # accepts that Team Standard seats need usage credits for Fable (reversing
 # Odin's 14/10/2026 move from claude-fable-5-1 to claude-opus-5-5; Quinn had
-# been on Opus since 13/08/2026). claude-sonnet-5 stays in ALLOWED_MODELS as
-# the documented revert target for the Opus tiers; claude-opus-5-5 at xhigh is
-# the documented revert target for both gatekeepers.
+# been on Opus since 13/08/2026). Since 12/11/2026 Odin is alone on
+# claude-fable-5-2. claude-sonnet-5 stays in ALLOWED_MODELS as the documented
+# revert target for the Opus tiers; claude-opus-5-5 at xhigh is the documented
+# revert target for Odin only.
 #
-# effort: is also validated here. The Gatekeeper tier is carried by the
-# claude-fable-5-2 pin (FABLE_PIN_COUNT is its tripwire) and effort is set per
-# gatekeeper; among the Opus tiers, effort is the tier discriminator since the
-# 13/08/2026 re-tier (model: pins no longer differ by tier there). The
+# effort: is also validated here. The Gatekeeper tier is defined by gatekeeping
+# authority G=5 in the Persona Template SOP tier table, not by a pin; model and
+# effort are set per gatekeeper, and FABLE_PIN_COUNT is a tripwire for Fable
+# pins only. Among the Opus tiers, effort is the tier discriminator since the
+# 13/08/2026 re-tier (model: pins no longer differ by tier there), except that
+# Quinn shares the Judgement six's opus-5-5 + high frontmatter since 12/11/2026,
+# so only the tier table marks Quinn as a Gatekeeper. The
 # XHIGH_EFFORT_COUNT/HIGH_EFFORT_COUNT/MEDIUM_EFFORT_COUNT tripwires follow the
 # same FABLE_PIN_COUNT/OPUS55_PIN_COUNT WARN-not-FAIL pattern above.
 # Effort re-tune, 23/09/2026: the ladder was calibrated on Opus 5, and the Opus
@@ -673,16 +678,18 @@ echo ""
 # is now the Judgement six alone (6).
 # Gatekeepers to claude-fable-5-2, 10/11/2026: Odin stays xhigh (1), Quinn
 # drops xhigh → medium by user ruling (medium 21), high unchanged (6).
+# Odin to high and Quinn to claude-opus-5-5 at high, 12/11/2026 by user ruling:
+# xhigh 0, high 8 (Judgement six + both gatekeepers), medium 20.
 # ──────────────────────────────────────────────────────────────────────────────
 echo "--- Check 10: Persona model pins match documented tiers ---"
 check10_pass=true
 ALLOWED_MODELS="claude-sonnet-5 claude-opus-5-5 claude-fable-5-2"  # claude-opus-5 → claude-opus-5-5 and Opus 5 retired (23/09/2026); claude-fable-5-2 replaced claude-fable-5-1 when both gatekeepers moved to it (10/11/2026)
-FABLE_PIN_COUNT=2  # both Gatekeepers, Odin + Quinn, on claude-fable-5-2 (10/11/2026); a clone reverting both to claude-opus-5-5 sets 0
-OPUS55_PIN_COUNT=26  # Judgement six + the 20 Production personas (both gatekeepers left for claude-fable-5-2 10/11/2026)
+FABLE_PIN_COUNT=1  # Odin on claude-fable-5-2 (since 10/11/2026; Quinn back to claude-opus-5-5 12/11/2026); a clone reverting Odin to claude-opus-5-5 sets 0
+OPUS55_PIN_COUNT=27  # Judgement six + the 20 Production personas + Quinn (rejoined 12/11/2026)
 ALLOWED_EFFORTS="low medium high xhigh max"  # harness enum per Persona Template SOP § Model assignment
-XHIGH_EFFORT_COUNT=1   # Odin (Quinn moved to medium 10/11/2026)
-HIGH_EFFORT_COUNT=6    # the Judgement six (Odin left high 14/10/2026)
-MEDIUM_EFFORT_COUNT=21  # the 20 Production personas (23/09/2026 re-tune) + Quinn (10/11/2026)
+XHIGH_EFFORT_COUNT=0   # none (Quinn moved to medium 10/11/2026, Odin to high 12/11/2026)
+HIGH_EFFORT_COUNT=8    # the Judgement six + Odin + Quinn (both 12/11/2026)
+MEDIUM_EFFORT_COUNT=20  # the 20 Production personas (23/09/2026 re-tune; Quinn left medium 12/11/2026)
 xhigh_effort_live=0
 high_effort_live=0
 medium_effort_live=0
