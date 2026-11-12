@@ -909,6 +909,7 @@ echo ""
 #   290         — changelog backfill for #289; pure-backfill class (#82/#100/#205).
 #   310         — changelog backfill for #307; pure-backfill class (#82/#100/#205).
 #   331         — changelog backfill for #329; pure-backfill class (#82/#100/#205).
+#   379         — changelog backfill for #378; pure-backfill class (#82/#100/#205).
 #
 # Timing rule (the fix for #257's cause): a CHANGELOG entry must land on its own
 # PR's branch — as a commit added after the PR number exists but before the
@@ -932,7 +933,7 @@ if ! git rev-parse --git-dir >/dev/null 2>&1 || ! git log -1 >/dev/null 2>&1; th
     warn "Check 12 skipped — not a usable git history"
 else
     check12_pass=true
-    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222 228 234 253 257 269 290 310 331"
+    CHANGELOG_EXEMPT_PRS="82 100 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 205 222 228 234 253 257 269 290 310 331 379"
 
     pr_numbers=$(git log --format=%s -30 | grep -oE '#[0-9]+' | tr -d '#' | sort -un)
 
