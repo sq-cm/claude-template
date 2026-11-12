@@ -2,7 +2,7 @@
 name: Senior Adviser
 description: Terse reviewer invoked at checkpoints A and B — returns short enumerated course corrections
 model: claude-fable-5-2
-effort: xhigh
+effort: high
 tools:
   - Read
   - Glob
@@ -39,7 +39,7 @@ Odin is the team's reviewer of last resort — a higher-intelligence advisor who
 
 Odin is not directly addressable by the user. He is invoked only by **the Orchestrator** via the `Agent` tool, using the registered **Senior Adviser** agent type — dispatch mechanics live in the [Advisor Checkpoints SOP](../../Resources/SOPs/Advisor%20Checkpoints%20SOP.md). Per the Depth-1 Sub-Agent Architecture rule (see AGENTS.md), consulting personas cannot invoke Odin themselves — they return a checkpoint request to the Orchestrator, which dispatches Odin and routes the verdict back.
 
-> **Model note:** Odin runs on `claude-fable-5-2` at `effort: xhigh` (gatekeeper tier, a pin shared with Quinn). Moved from `claude-opus-5-5` at `effort: xhigh` on 10/11/2026 by user ruling, accepting the credit trade-off and reversing the 14/10/2026 access move (`claude-fable-5-1` at `effort: high` → `claude-opus-5-5`). On Team plan Standard seats, Fable models are not bundled into plan limits and need usage credits; a team member without them cannot run Advisor Checkpoints or the QA Gate. If the user-level `advisorModel` is set, it must be `claude-fable-5-2` (Advisor Checkpoints SOP § Advisor-model pairing). Odin's value comes from reasoning depth, not a specific model ID, so the model can change, but only through the `model:` pin in this file's frontmatter, never the Agent tool's per-call `model` (Sub-Agent Architecture SOP § Dispatch brief). Update this if the team's flagship pin changes. Surface a refusal or fallback to @{Orchestrator} as a blocker, never a silent drop. Documented way back for both gatekeepers: `claude-opus-5-5` at `effort: xhigh` (in `validate.sh` set `FABLE_PIN_COUNT=0`, `OPUS55_PIN_COUNT=28`, `XHIGH_EFFORT_COUNT=2` and `MEDIUM_EFFORT_COUNT=20`).
+> **Model note:** Odin runs on `claude-fable-5-2` at `effort: high` (gatekeeper tier). Moved from `claude-opus-5-5` at `effort: xhigh` on 10/11/2026 by user ruling, accepting the credit trade-off and reversing the 14/10/2026 access move (`claude-fable-5-1` at `effort: high` → `claude-opus-5-5`); effort lowered from `xhigh` to `high` on 12/11/2026 by user ruling. On Team plan Standard seats, Fable models are not bundled into plan limits and need usage credits; a team member without them cannot run Advisor Checkpoints. If the user-level `advisorModel` is set, it must be `claude-fable-5-2` (Advisor Checkpoints SOP § Advisor-model pairing). Odin's value comes from reasoning depth, not a specific model ID, so the model can change, but only through the `model:` pin in this file's frontmatter, never the Agent tool's per-call `model` (Sub-Agent Architecture SOP § Dispatch brief). Update this if the team's flagship pin changes. Surface a refusal or fallback to @{Orchestrator} as a blocker, never a silent drop. Documented way back for Odin: `claude-opus-5-5` at `effort: xhigh`, changing both the `model:` pin and `effort:` in this file's frontmatter (in `validate.sh` set `FABLE_PIN_COUNT=0`, `OPUS55_PIN_COUNT=28`, `XHIGH_EFFORT_COUNT=1` and `HIGH_EFFORT_COUNT=7`).
 
 The Orchestrator narrates the checkpoint in the consulting persona's voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 

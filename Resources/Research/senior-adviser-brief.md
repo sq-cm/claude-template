@@ -28,7 +28,7 @@ Agent(
 )
 ```
 
-> **Model note:** Odin runs on `claude-fable-5-2` at `effort: xhigh` (gatekeeper tier, a pin shared with Quinn; moved from `claude-fable-5-1` to `claude-opus-5-5` on 14/10/2026 because on Team plan Standard seats Fable needs usage credits, then to `claude-fable-5-2` on 10/11/2026 by user ruling, accepting that trade-off). Odin's value comes from reasoning depth, not a specific model ID, so the model can change, but only through the `model:` pin in `.claude/agents/senior-adviser.md` frontmatter, never the Agent tool's per-call `model` (Sub-Agent Architecture SOP § Dispatch brief). Update this if the team's flagship pin changes.
+> **Model note:** Odin runs on `claude-fable-5-2` at `effort: high` (gatekeeper tier; moved from `claude-fable-5-1` to `claude-opus-5-5` on 14/10/2026 because on Team plan Standard seats Fable needs usage credits, then to `claude-fable-5-2` on 10/11/2026 by user ruling, accepting that trade-off; effort lowered from `xhigh` to `high` on 12/11/2026 by user ruling). Odin's value comes from reasoning depth, not a specific model ID, so the model can change, but only through the `model:` pin in `.claude/agents/senior-adviser.md` frontmatter, never the Agent tool's per-call `model` (Sub-Agent Architecture SOP § Dispatch brief). Update this if the team's flagship pin changes.
 
 The consulting persona narrates the checkpoint in their own voice ("Checkpoint A — consulting the Senior Adviser before drafting") so the user can see when advice is being sought.
 

@@ -410,7 +410,7 @@
 
 <!-- ═══════════ DATA (single source of truth, edit here when roster, commands, projects or FAQ change) ═══════════ -->
 <script>
-const LAST_SYNCED = "2026-11-10";
+const LAST_SYNCED = "2026-11-12";
 
 const TEAM = [
   {
@@ -488,7 +488,7 @@ const TEAM = [
     desc: "The team's reviewer of last resort. Consulted at key checkpoints, not day-to-day execution. Spots the flaw in the approach before it becomes durable.",
     prompt: "Internal use only. Odin is invoked by the Orchestrator at checkpoints, not directly by users.",
     expertise: ["Pre-work checkpoint review, approach validation before drafting begins", "Post-work checkpoint review, final quality gate before delivery", "Identifying flawed assumptions and structural weaknesses in plans", "Returning concise, enumerated course corrections"],
-    constraints: "Does not produce deliverables. Reviews and advises only. Invoked by the Orchestrator via the Agent tool, on claude-fable-5-2 at the deepest effort on the team (xhigh)."
+    constraints: "Does not produce deliverables. Reviews and advises only. Invoked by the Orchestrator via the Agent tool, on claude-fable-5-2 at effort high."
   },
   {
     name: "Sage",
@@ -1096,7 +1096,7 @@ const FAMILY_MAP = {
         <p class="who-headline">Nothing reaches a client or stakeholder unchecked.</p>
         <p class="who-hook">Every file heading to <code>03 Deliverables/</code> goes through the QA Compliance Reviewer first, with an Advisor Checkpoint before drafting and before handoff on checkpoint-eligible work (durable or hard-to-unwind jobs, as opposed to a quick lookup).</p>
         <p class="who-best"><strong>Best way to use it:</strong> treat the QA Gate (PASS / FLAGGED / BLOCKED) as non-negotiable. Route regulated-category copy through <code>@{LegalComplianceWriter}</code> before it goes near anyone outside the team.</p>
-        <p class="who-catch"><strong>The catch:</strong> Advisor Checkpoints and the QA Gate both run on <code>claude-fable-5-2</code>, which on Team plan Standard seats needs usage credits: real cost on every checkpoint-eligible job. Safety isn't free.</p>
+        <p class="who-catch"><strong>The catch:</strong> Advisor Checkpoints run on <code>claude-fable-5-2</code>, which on Team plan Standard seats needs usage credits: real cost on every checkpoint-eligible job. Safety isn't free.</p>
       </div>
       <div class="who-card">
         <h3>Non-technical team member</h3>

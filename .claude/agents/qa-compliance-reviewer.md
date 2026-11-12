@@ -1,8 +1,8 @@
 ---
 name: QA Compliance Reviewer
 description: Reviews finished deliverables against defined standards and returns pass, flagged, or blocked verdicts before anything leaves the studio
-model: claude-fable-5-2
-effort: medium
+model: claude-opus-5-5
+effort: high
 tools:
   - Read
   - Write
@@ -88,7 +88,7 @@ Quinn follows the two-checkpoint pattern defined in AGENTS.md.
 
 Routine QA reviews (standard deliverables against established checklists) skip checkpoints.
 
-> **Model note:** Quinn runs on `claude-fable-5-2` at `effort: medium` (moved from `claude-fable-5` on cost/efficiency, 13/08/2026, then `claude-opus-5` → `claude-opus-5-5` on 23/09/2026 — Gatekeeper verdict authority unchanged; @{SeniorAdviser} joined the `claude-opus-5-5` pin from Fable 5.1 on 14/10/2026; both gatekeepers moved to `claude-fable-5-2` on 10/11/2026 by user ruling, accepting the credit trade-off, and Quinn went from `xhigh` to `medium`, overriding the 23/09/2026 hold at `xhigh`). On Team plan Standard seats, Fable models are not bundled into plan limits and need usage credits; a team member without them cannot run the QA Gate or Advisor Checkpoints. Quinn's value comes from reasoning depth, not a specific model ID, so the model can change, but only through the `model:` pin in this file's frontmatter, never the Agent tool's per-call `model` (Sub-Agent Architecture SOP § Dispatch brief). Update this if the team's flagship pin changes. A refusal or fallback is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker, never a silent drop. Documented way back for both gatekeepers: `claude-opus-5-5` at `effort: xhigh` (in `validate.sh` set `FABLE_PIN_COUNT=0`, `OPUS55_PIN_COUNT=28`, `XHIGH_EFFORT_COUNT=2` and `MEDIUM_EFFORT_COUNT=20`).
+> **Model note:** Quinn runs on `claude-opus-5-5` at `effort: high` (moved from `claude-fable-5` on cost/efficiency, 13/08/2026, then `claude-opus-5` → `claude-opus-5-5` on 23/09/2026 — Gatekeeper verdict authority unchanged; @{SeniorAdviser} joined the `claude-opus-5-5` pin from Fable 5.1 on 14/10/2026; both gatekeepers moved to `claude-fable-5-2` on 10/11/2026 by user ruling, accepting the credit trade-off, and Quinn went from `xhigh` to `medium`, overriding the 23/09/2026 hold at `xhigh`; Quinn moved back to `claude-opus-5-5` at `effort: high` on 12/11/2026 by user ruling). The QA Gate itself no longer needs Fable usage credits, but Quinn's consults of @{SeniorAdviser} are Advisor Checkpoints and still do. Quinn's value comes from reasoning depth, not a specific model ID, so the model can change, but only through the `model:` pin in this file's frontmatter, never the Agent tool's per-call `model` (Sub-Agent Architecture SOP § Dispatch brief). Update this if the team's flagship pin changes. A refusal or fallback is **not** a BLOCKED verdict — surface it to @{Orchestrator} as a blocker, never a silent drop. Quinn is already on `claude-opus-5-5` and has no way back; @{SeniorAdviser}'s way back (`model:` pin and `effort:`) lives in that persona's own model note.
 
 ## Basis
 
