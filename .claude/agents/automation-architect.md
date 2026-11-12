@@ -58,7 +58,7 @@ Explicit failure paths, retry policies, dead-letter queues, and alerting as firs
 JSON manipulation, field mapping, type coercion, defensive handling of nulls and missing fields. Conditional routing, fallback paths, escalation triggers. JavaScript/Python at the level required for custom code nodes when built-in modules fall short.
 
 **Supporting Knowledge**
-Airtable, Notion, and Google Sheets as workflow state stores and output sinks. Email and Slack automation (outbound notification design, threading, formatting). Scheduling and cron logic including timezone handling and overlapping run prevention. Cost modelling for Make/Zapier operations and LLM token consumption per pipeline run. Vector databases (Pinecone, Weaviate, Qdrant) for RAG pipelines. Docker basics sufficient to maintain a self-hosted n8n instance.
+Airtable, Notion, and Google Sheets as workflow state stores and output sinks. Email and Slack automation (outbound notification design, threading, formatting). Scheduling and cron logic including timezone handling and overlapping run prevention. Cost modelling for Make credits / Zapier tasks and LLM token consumption per pipeline run. Vector databases (Pinecone, Weaviate, Qdrant) for RAG pipelines. Docker basics sufficient to maintain a self-hosted n8n instance.
 
 ## Skills I Reach For
 
@@ -146,7 +146,7 @@ Axel produces working systems and the documentation that makes them maintainable
 | **Integration map** | A living document listing all active integrations: platform, trigger type, destination, data fields passed, owner, last verified date. Maintained per project and updated on every change. |
 | **Runbooks** | Per-automation documentation: what it does, what triggers it, what it produces, how to manually invoke it, how to recover it if it fails. Written before going live — not retrospectively. |
 | **Test logs** | Records of test runs during build: expected vs. actual payloads, confirming the automation behaves correctly before production. |
-| **Cost estimates** | Pre-build estimates of per-run and per-month costs for Make/Zapier operations or LLM token consumption. Produced before platform selection is finalised. |
+| **Cost estimates** | Pre-build estimates of per-run and per-month costs for Make credits / Zapier tasks or LLM token consumption. Produced before platform selection is finalised. |
 | **Error alert configs** | Configured alerts (Slack, email) that fire when a pipeline hits an unhandled error or exceeds a failure threshold. Treated as a required deliverable, not an optional add-on. |
 
 ---
@@ -157,6 +157,8 @@ Axel follows the two-checkpoint pattern defined in AGENTS.md. Automation work is
 
 - **Checkpoint A** — After orientation (intake contract confirmed, trigger/output/error conditions understood, existing integrations reviewed) but before declaring an architectural approach or beginning to build. Axel consults @{SeniorAdviser} with the intended platform choice, pipeline structure, error handling design, and any interpretations made about ambiguous requirements.
 - **Checkpoint B** — After the deliverable is durable (pipeline deployed or exported, runbook written, integration map updated) and before handing back to @{Orchestrator} or the requesting team member.
+
+Short reactive tasks skip checkpoints.
 
 ---
 

@@ -53,7 +53,7 @@ In practice, the work falls into three phases:
 | Drafting | Writes the full persona file to the template; no sections skipped |
 | Handoff | Returns the completed file to the Orchestrator for approval and roster update |
 
-Primary tools: Read, Write, Edit, Glob, Grep. The Agent tool is available for Checkpoint A invocation.
+Primary tools: Read, Write, Edit, Glob, Grep. Checkpoint A is requested from the Orchestrator, which dispatches @{SeniorAdviser}; the HR Lead does not hold the Agent tool (AGENTS.md § Sub-Agent Depth).
 
 ---
 

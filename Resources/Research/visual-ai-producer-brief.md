@@ -21,14 +21,15 @@ The real-world analogy: think of a retoucher/photo editor who's transitioned int
 A competent practitioner understands:
 - Composition basics: rule of thirds, negative space, focal points
 - Colour theory: warm/cool, contrast, brand palette alignment
-- Typography awareness: why "no text" matters in generated images (AI text rendering is unreliable), and when to add text in post
+- Typography awareness: in-image text quality depends on the model tier (Google states Nano Banana Pro renders legible text; it makes no such claim for the legacy `gemini-2.5-flash-image`), so when to use "no text" in prompts and when to add text in post (see Constraints & Failure Modes)
 - Style vocabulary: can distinguish between "editorial photography", "flat illustration", "isometric 3D", "watercolour", "photorealistic", "concept art", etc. — and knows which to use for which context
 
 ### 2. Platform & Format Knowledge
 Real practitioners know the output specs cold:
 - YouTube thumbnails: 1280×720, high contrast, readable at small size
 - Blog featured images: 1200×630 (Open Graph), text overlay-safe zones
-- Instagram/LinkedIn: 1080×1080 square
+- Instagram feed: Instagram keeps photos at their original resolution, up to 1,080 px wide, for aspect ratios from 1.91:1 to 3:4, so 1080×1440 (3:4), 1080×1350 (4:5) and 1080×1080 (1:1) are all supported (Instagram Help Centre, checked 12/11/2026). Reports that the profile grid now displays at 3:4, and that 1080×1350 is the safe size for schedulers and ads, are reported, unconfirmed (as of 12/11/2026).
+- LinkedIn: 1080×1080 square (not re-checked)
 - Story formats: 1080×1920 (9:16)
 - Favicon/icon sets: 16px through 512px, with alpha transparency
 
@@ -46,7 +47,7 @@ This is the craft skill. A strong practitioner:
 The specific tool here is the **Gemini CLI with nanobanana extension** (`gemini --yolo`). A specialist in this role would:
 - Know all available commands: `/generate`, `/edit`, `/icon`, `/diagram`, `/pattern`, `/restore`, `/story`
 - Understand `--count`, `--styles`, `--aspect`, `--preview`, `--format` flags
-- Know the model tier tradeoffs: `gemini-2.5-flash-image` (fast/cheap) vs higher quality models
+- Know the model tier tradeoffs: the extension's default is Nano Banana 2 (`gemini-3.1-flash-image-preview`, from v1.0.11) for fast work, with Nano Banana Pro (`gemini-3-pro-image-preview`) chosen via `NANOBANANA_MODEL` as the higher tier
 - Manage API keys and quotas without drama
 - Know how to iterate: regenerate, edit-in-place, or adjust prompt vs adjust flags
 
@@ -73,7 +74,7 @@ In professional practice, an image specialist:
 
 ## Constraints & Failure Modes to Watch
 
-- **Hallucinated text in images**: AI models render text poorly. Specialist must proactively add "no text" to prompts for most commercial use cases.
+- **Hallucinated text in images**: Text quality depends on the model tier (as of 12/11/2026). Google states that Nano Banana Pro (`gemini-3-pro-image`) renders legible in-image text, from a short tagline to a long paragraph, and that Nano Banana 2.1 (`gemini-nano-banana-2.1`) has improved text rendering. Google makes no text-rendering claim for the legacy `gemini-2.5-flash-image`. These are vendor claims, not test results. Specialist should check any generated text before delivery and, on tiers without that claim, add "no text" to prompts and set text in post.
 - **Copyright/style mimicry**: Prompts referencing living artists or brands can trigger policy rejections. Specialist should use style *descriptions* rather than artist names.
 - **Quota exhaustion**: Flash model has generous quotas; pro model is heavier. Specialist should default to flash and only escalate when quality demands it.
 - **Context blindness**: Without brand context, generated images are generic. Specialist should always ask for brand colours, tone, and audience before starting.
@@ -82,7 +83,7 @@ In professional practice, an image specialist:
 
 ## Recommended Name & Role Title
 
-**Jordan** — feels creative-professional without being gendered, sits well in a team context.
+**Jordan** — feels creative-professional without being gendered, sits well in a team context. *(Superseded: the hired name is Cleo. Jordan is the UX/UI Designer's roster name.)*
 **Role title:** Visual AI Producer
 
 ---

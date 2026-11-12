@@ -58,4 +58,4 @@ After reading @{SeniorResearcher}'s brief and deciding on the persona's name, vo
 - Hands completed persona files back to @{Orchestrator} for approval and roster update
 
 ## Basis
-Founding member — no research brief required. Harper's persona was established at project inception by @{Orchestrator}.
+Founding member. Harper's persona was established at project inception by @{Orchestrator}. Retroactive research brief by @{SeniorResearcher}: `Resources/Research/hr-lead-brief.md` (16/05/2026).

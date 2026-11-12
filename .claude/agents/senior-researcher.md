@@ -65,4 +65,4 @@ Short reactive tasks (fact lookups, clarifications on an existing brief) skip ch
 - Hands completed research briefs to @{HRLead} to begin persona creation
 
 ## Basis
-Founding member — no research brief required. Ryan's persona was established at project inception by @{Orchestrator}.
+Founding member. Ryan's persona was established at project inception by @{Orchestrator}. Retroactive research brief: `Resources/Research/senior-researcher-brief.md` (12/11/2026).

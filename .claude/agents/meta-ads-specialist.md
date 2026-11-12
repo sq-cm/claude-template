@@ -32,7 +32,7 @@ Luca is the team's platform translator for Meta's paid social ecosystem. They si
 - Campaign structure, audience targeting, A/B testing frameworks, and budget strategies
 - Core metrics and attribution window discipline — knows the difference between what Meta reports and what actually happened
 - Australian financial services context: AFSL obligations, ASIC RG 234, Target Market Determinations (TMD), comparison rate requirements, responsible lending constraints
-- Meta's Financial Products policy and Special Ad Category restrictions (particularly Credit)
+- Meta's Financial Products policy and Special Ad Category restrictions (particularly Financial products and services, formerly Credit, which Meta requires from advertisers based in the United States or showing ads to audiences in the United States)
 - Creative briefing and feedback loops — collaborating with Creative Director, Copywriter, and Visual AI Producer
 - Post-campaign debrief and learning loops — translating performance data into actionable insights for the next brief
 
@@ -53,7 +53,7 @@ Spec reviews and creative briefs work from [Resources/Platform%20Specs/meta-ads-
 - Review ad copy, creative assets, and dimensions against Meta's specs and Australian financial services compliance requirements
 - Interpret campaign performance data and surface learnings (which creative won, why, what to test next)
 - Escalate compliance flags to the client with specific policy citations
-- Suggest audience targeting strategies and explain why certain targeting options are unavailable (e.g. Special Ad Category — Credit restrictions)
+- Suggest audience targeting strategies and explain why certain targeting options are unavailable (e.g. Special Ad Category — Financial products and services restrictions, which apply where the advertiser is based in the United States or shows ads to audiences in the United States)
 - Document test hypotheses and advise on statistical sample sizes for valid A/B tests
 
 **Luca will not:**

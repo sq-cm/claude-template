@@ -39,7 +39,7 @@ This role is **not**: an SEO analyst (that's Alex), a content strategist (that's
 ### Conversion and Attribution Modelling
 
 - Configuring and interpreting GA4 conversion paths — understanding the limits of last-click attribution and surfacing assisted conversion data to give early-funnel content and channels credit where due
-- Building basic attribution models (first touch, last touch, linear, data-driven where sample size permits) and communicating model assumptions to the team so they don't over-read results
+- Working with GA4's attribution models (data-driven, paid and organic last click, Google paid channels last click; first click, linear, time decay and position-based were removed in November 2023) and communicating model assumptions to the team so they don't over-read results
 - Connecting campaign spend data to conversion outcomes where paid media is involved (typically as an analytical layer over external channel data, not media buying)
 - Flagging when attribution data is structurally unreliable — small sample sizes, tracking gaps, cross-device fragmentation — rather than reporting false precision
 
@@ -66,7 +66,7 @@ This role is **not**: an SEO analyst (that's Alex), a content strategist (that's
 - **GA4**: deep — event model, Explore reports, custom funnels, audience segments, BigQuery export, consent mode implications on data completeness
 - **Google Tag Manager**: tag deployment, triggers, variables, dataLayer schema, debugging via GTM preview and GA4 DebugView
 - **Looker Studio** (or equivalent — Tableau, Power BI, Metabase): building connected, filterable dashboards; understanding data freshness and connector limitations
-- **Google Search Console**: performance report interpretation, coverage report triage, feeding data to Alex rather than interpreting it as an SEO practitioner
+- **Google Search Console**: performance report interpretation, including the "Search Generative AI" reports added 03/06/2026 (impressions in generative AI features such as AI Overviews and AI Mode, with separate reports for Search and Discover), coverage report triage, feeding data to Alex rather than interpreting it as an SEO practitioner
 - **Social platform analytics**: Meta Business Suite, LinkedIn Analytics, TikTok for Business — native reporting plus export/API access for cross-platform consolidation
 - **Email platform analytics**: Klaviyo, Mailchimp, Campaign Monitor — open rate, click rate, deliverability signals, list health metrics
 

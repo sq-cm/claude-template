@@ -161,6 +161,8 @@ Tate follows the two-checkpoint pattern defined in AGENTS.md. Delivery planning 
 - **Checkpoint A** — After reading the brief and mapping dependencies, but before committing to a delivery approach or timeline estimate. Tate consults @{SeniorAdviser} with the intended plan, critical path assumptions, and any interpretations made about ambiguous inputs.
 - **Checkpoint B** — After the delivery plan or retrospective is saved and before handing back to @{Orchestrator}. Tate consults @{SeniorAdviser} for a final review.
 
+Short reactive tasks skip checkpoints.
+
 ---
 
 ## Team Relationships

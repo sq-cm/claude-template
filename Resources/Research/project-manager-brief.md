@@ -61,7 +61,7 @@ In an AI-native studio, the PM's job is less about chasing humans in Slack and m
 | **Quinn** | PM coordinates the timing of QA handoffs. Quinn owns QA criteria and pass/fail decisions; PM owns when Quinn gets looped in and ensures Quinn's feedback is acted on before a deliverable closes. |
 | **Harper** | PM surfaces capacity signals to Harper — "this specialist is running hot" — but does not make hiring decisions. Harper owns onboarding; PM coordinates when a new hire needs to be ramped into an active project. |
 | **Ryan** | PM may request research briefs from Ryan when a project requires background the team doesn't have. Ryan delivers the brief; PM tracks it as a dependency. |
-| **All specialists** (Alex, Casey, Cleo, Sage, Finn, Remi, Morgan, Nix) | PM tracks their delivery, flags blockers, and ensures handoffs are clean. PM does not direct their creative or technical decisions — only the logistics of delivery. |
+| **All specialists** (Alex, Casey, Cleo, Sage, Finn, Remi, Ellis) | PM tracks their delivery, flags blockers, and ensures handoffs are clean. PM does not direct their creative or technical decisions — only the logistics of delivery. |
 | **Odin** | PM may invoke Odin at checkpoints for complex delivery plans where the approach is non-obvious, following the standard Advisor Checkpoint SOP. |
 
 ---

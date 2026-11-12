@@ -56,7 +56,7 @@ The AI-native angle is not superficial here. A strong practitioner in this role 
 - Deep native fluency across at least two of: Instagram, LinkedIn, TikTok, X/Twitter, Facebook
 - Working knowledge of platform algorithm mechanics: dwell time, save rate, share signals, early engagement windows
 - Understanding of format-specific best practices: reels vs. carousels vs. static vs. stories vs. long-form video thumbnails
-- Hashtag research and strategy — organic reach levers on platforms that still support them
+- Hashtag research and strategy — organic reach levers on platforms that still support them. A lower per-post hashtag cap on Instagram has been reported, unconfirmed (as of 12/11/2026); check in-app before advising a count
 - Creator/business account management: ad account basics, boosting mechanics, audience targeting at the boost level (not full media buying)
 
 ### Copy and Communication

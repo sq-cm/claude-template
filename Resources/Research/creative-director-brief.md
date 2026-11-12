@@ -100,7 +100,7 @@ Ongoing literacy in subculture, popular culture, design trends, and emerging aes
 3. CD develops two or three distinct creative territories: each is a concept platform with a name, a governing idea, a mood reference set, and a rough sense of executions. This is the concept presentation.
 4. CD runs Checkpoint A with Odin before presenting territories internally.
 5. CD presents territories to Tate and (if internal approval required) the client. One direction is selected, often with notes.
-6. CD writes directional briefs for Finn (copy), Jordan (design), Cleo (imagery), Nova (hero video concept). Each brief references the approved territory and specifies what the individual execution needs to achieve.
+6. CD writes directional briefs for Finn (copy), Jordan (design), Cleo (imagery) and the hero video owner (hero video concept). AI-generated hero, TVC and product-ad video made in Seedance belongs to @{SeedanceDirector} (skill `seedance-commercial-director`); filmed or edited brand hero video belongs to @{VideoMotionProducer}. Each brief references the approved territory and specifies what the individual execution needs to achieve.
 7. Specialists produce first-pass work. CD reviews all outputs in a single pass — not individually but holistically, checking coherence across the campaign.
 8. CD consolidates feedback and returns notes to each specialist. Second-pass revisions follow.
 9. CD approves final outputs, then runs Checkpoint B with Odin before declaring the campaign ready for client presentation.
