@@ -4,6 +4,7 @@
 **Date:** 2026-05-01
 **For:** Harper (HR Lead) — use this brief to build the Meta Ads Specialist persona file.
 **Client context:** Studio — creative studio producing campaign work for Australian financial services clients.
+**Spec figures:** updated 13/11/2026 (plan 176). `Resources/Platform Specs/meta-ads-specs.md` is authoritative for specs and Meta policy figures.
 
 ---
 
@@ -21,57 +22,47 @@ In 2026, this role is substantially AI-assisted at the campaign management and r
 
 ## 2. Platform Knowledge — Ad Formats, Specs, and Placements
 
-This is the core technical literacy that separates a real Meta Ads specialist from someone who "runs Facebook ads." A practitioner knows the following cold, without looking them up.
+This is the core technical literacy that separates a real Meta Ads specialist from someone who "runs Facebook ads." A practitioner knows where the limits bite for each format and placement, and checks the current figures in the specs file before quoting them.
 
 ### Ad Formats
 
+Dimensions, ratios, file types, file sizes, video lengths and safe zones for image, video, carousel, Reels and Stories ads (not Collection ads): `Resources/Platform Specs/meta-ads-specs.md` Section 2 — Image and Video Specs.
+
 **Image Ads**
-- Recommended resolution: 1080 × 1080px (square) or 1200 × 628px (landscape)
-- Aspect ratios: 1:1 (feed), 1.91:1 (landscape), 4:5 (portrait — tallest format before it becomes a Story)
-- File type: JPG or PNG
-- File size: Max 30MB
-- Text in image: No formal 20% rule since 2020, but heavy text copy still triggers reduced delivery — specialist knows this implicitly
+- Square, landscape and portrait (4:5) ratios are all supported; portrait (4:5) is Meta's recommended ratio for Facebook Feed and takes the most vertical space in feed (reported, unconfirmed)
+- Text in image: Meta no longer limits text in ad images, but says too much copy can lead to the ad being shown to fewer people — specialist knows this implicitly
 
 **Video Ads**
-- Recommended ratio: 4:5 for feed (uses maximum vertical real estate), 9:16 for Reels and Stories
-- Minimum resolution: 1080 × 1080px for square; 1080 × 1920px for Stories/Reels
-- File format: MP4 or MOV
-- File size: Up to 4GB (feed); keep Reels under 1GB for reliable upload
-- Length: Feed video — 1 second to 241 minutes (but 15–30 seconds is the practitioner's working norm for performance); Stories/Reels — max 60 seconds natively (15 seconds is the sweet spot); in-stream — 5 seconds to 15 minutes
+- 4:5 for feed (uses maximum vertical real estate) (reported, unconfirmed), 9:16 for Reels and Stories
+- Length: 15–30 seconds is the practitioner's working norm for feed performance; 15 seconds is the sweet spot for Stories/Reels
 
 **Carousel Ads**
-- 2 to 10 cards per carousel
-- Recommended image size: 1080 × 1080px per card (square is safest for cross-placement)
-- Each card has its own headline, description, and URL
+- Card limits differ by placement (Instagram Stories allows fewer cards than Feed) — see the Carousel subsection of Section 2
+- Card image size and ratio differ between Meta's sources and by placement; check the Carousel subsection before briefing
+- Each card can link to its own URL; card headline and description support varies by placement
 - Specialist knows that carousel scroll rate drops sharply after card 3 — card 1 must earn the swipe
 
 **Collection Ads**
-- Cover image or video plus 4 product images pulled from a catalogue
+- Cover image or video plus product images pulled from a catalogue
 - Less commonly used in financial services (more e-commerce native) — specialist knows when to rule it out
 
 **Reels Ads**
 - 9:16 vertical, full-screen
-- Safe zones: 250px from the top, 350px from the bottom (UI elements overlay these areas — text and key visuals must avoid them)
-- Duration: max 60 seconds; under 15 seconds performs best for direct response
+- Safe zones: Meta says UI such as the profile icon and call to action can cover key elements, so text and key visuals must stay inside the safe zone (Section 2). Reels ads with disclaimers need extra clear space at the bottom
+- Duration: under 15 seconds performs best for direct response
 - No skippable option — full impression unless user scrolls
 
 **Stories Ads**
-- 9:16 full-screen; 1080 × 1920px
-- Safe zones: 250px from top and bottom edges
-- Duration: up to 15 seconds per card; multi-card Stories allowed
+- 9:16 full-screen
+- Safe zones: as for Reels (Section 2)
+- Duration: longer videos are split into separate Stories cards; the split point differs between Facebook and Instagram (Section 2)
 - Link available via swipe-up behaviour (now converted to link sticker in native Stories — the tap behaviour is the equivalent)
 
-### Character Limits (as of 2026)
+### Character Limits
 
-| Field | Limit |
-|---|---|
-| Primary text | 125 characters before truncation (up to 2,200 total) |
-| Headline | 27 characters |
-| Description | 27 characters |
-| Link description | 30 characters |
-| Call to action button | Fixed Meta-defined labels (Learn More, Apply Now, Get Quote, etc.) |
+Recommended primary text, headline and description lengths vary by placement: `Resources/Platform Specs/meta-ads-specs.md` Section 1 — Character Limits by Placement. Meta's Ads Guide labels these as recommendations, not hard caps. Call to action buttons use fixed Meta-defined labels (Learn More, Apply Now, Get Quote, etc.).
 
-Specialist note: "truncation" means users see a "See more" prompt — most don't click it. The 125-character primary text limit is the real constraint for any hook or offer.
+Specialist note: "truncation" means users see a "See more" prompt — most don't click it. The hook or offer has to land before the text truncates.
 
 ### Placement Options the Specialist Manages
 
@@ -164,7 +155,7 @@ The first 1–3 seconds of a video (or the first scan of a static image) determi
 
 - **Motion in frame 1:** Video ads that open with movement — a cut, a zoom, an unexpected element — outperform slow fades and logo-first openers. The logo is the last thing the user needs to see, not the first.
 - **Human faces:** Faces attract attention, particularly when making eye contact with the camera. Strong for testimonial formats and adviser-to-camera approaches in financial services.
-- **Text overlay hook:** 80–85% of users watch with sound off. The hook must be readable in silent mode. First text overlay within 2 seconds, high contrast, large font.
+- **Text overlay hook:** Meta says most video ads in mobile feed are viewed without sound. The hook must be readable in silent mode. First text overlay within 2 seconds, high contrast, large font.
 - **Contrast and colour:** High-contrast frames stop scroll faster than low-saturation imagery. The specialist advises on which brand colour palette elements perform best in a busy feed context.
 - **Pattern interrupt:** Anything unexpected relative to the surrounding content — a question, a counterintuitive stat, an unusual visual — creates a scroll pause.
 
@@ -293,11 +284,10 @@ This section is treated as first-tier knowledge because it is the most consequen
 
 Meta restricts advertising for financial products and services globally and applies additional scrutiny in specific markets. Key requirements:
 
-- **Financial products requiring special authorisation:** Personal loans, payday loans, credit cards, mortgages, insurance, investment products, and cryptocurrency products all fall under Meta's Special Ad Category (SAC) for Financial products and services, or under its general financial products policy.
-- **Special Ad Category — Financial products and services:** This is the former Credit category; the API value `FINANCIAL_PRODUCTS_SERVICES` replaced `CREDIT` as of 14/01/2025. Meta requires it for financial products and services campaigns from advertisers based in the United States or showing ads to audiences in the United States. Where it applies, targeting is restricted: a fixed 18–65+ age range, no gender selection and no postcode-level location. Meta's separate credit-ads policy continues for the US, Canada and certain parts of Europe. Neither Meta page names Australia. The specialist knows which targeting options remain available and how to work within them.
-- **Advertiser verification:** Meta requires advertisers promoting financial products and services to verify their business and/or individual identity, and to show they are authorised by the relevant regulator where that is required. Ads for credit cards, loans or insurance must target people 18 or older. An Australia-specific financial advertiser verification step (late 2024) has been reported, unconfirmed (as of 12/11/2026).
+- **Financial products requiring special authorisation:** Personal loans, credit cards, mortgages, insurance, and investment products all fall under Meta's Special Ad Category (SAC) for Financial products and services, or under its general financial products policy. Meta's Ad Standards prohibit short-term loans of 90 days or less and contract for difference (CFD) trading outright. For cryptocurrency products, check Meta's current policy before briefing.
+- **Special Ad Category — Financial products and services:** This is the former Credit category; the API value `FINANCIAL_PRODUCTS_SERVICES` replaced `CREDIT` as of 14/01/2025. Meta requires it for financial products and services campaigns from advertisers based in the United States or showing ads to audiences in the United States. Where it applies, targeting is restricted: a fixed 18–65+ age range, no gender selection and no postcode-level location. Meta's separate credit-ads policy continues for the US, Canada and certain parts of Europe. Meta's Special Ad Category pages do not name Australia; Meta does name Australia on its separate advertiser verification page (next point). Where the category applies and what it restricts: `Resources/Platform Specs/meta-ads-specs.md` Section 4 — Special Ad Category: Financial products and services. The specialist knows which targeting options remain available and how to work within them.
+- **Advertiser verification:** Meta requires advertisers promoting financial products and services to verify their business and/or individual identity, and to show they are authorised by the relevant regulator where that is required. Ads for credit cards, loans or insurance must target people 18 or older. Advertisers running financial products and services ads targeting audiences in Australia require verification. For ads covered by the Australia Online Scams Code, the advertiser verifies the ad's beneficiary and payer before running eligible financial services ads, including their Australian Financial Services Licence information (unless otherwise exempt). Eligible ads carry a "Paid for by" disclaimer, and the verified information is shown publicly on the ad while it runs and in Meta's Ad Library for up to seven years.
 - **No deceptive financial claims:** Meta prohibits ads that make deceptive claims about financial returns, hidden fees, or misleading comparisons.
-- **Cryptocurrency:** Additional verification required — Meta restricts crypto product advertising and requires written approval in most markets.
 
 ### Australian Regulatory Context (AFSL and Related)
 
@@ -365,7 +355,7 @@ When a new Meta campaign is being built, the specialist provides the creative te
 The specialist is the last technical check before creative goes into Ads Manager:
 
 - Verifies dimensions and aspect ratios match spec
-- Checks primary text is within working character limits (125 characters for the visible portion)
+- Checks primary text is within the character limits for each placement in the plan (specs file Section 1 — Character Limits by Placement)
 - Confirms compliance flags are addressed in the copy
 - Reviews text overlay placement against safe zones for Reels/Stories
 - Checks that the CTA button choice is available in Meta and matches the landing page action
@@ -376,7 +366,7 @@ The specialist is the last technical check before creative goes into Ads Manager
 When creative does not meet spec or is likely to underperform, the specialist gives feedback in three parts:
 1. **What the specific issue is** (dimensions, compliance flag, truncation risk)
 2. **Why it matters** (which placement breaks, what the policy violation risks)
-3. **What the fix is** (specific, actionable, quantified where possible — "crop to 1080×1350 to ensure 4:5 ratio in feed")
+3. **What the fix is** (specific, actionable, quantified where possible — "crop to 4:5 at 1440 x 1800 px, Meta's recommended size for Facebook Feed")
 
 This avoids the "I don't think it'll perform" non-feedback that frustrates creative teams without giving them anything to act on.
 
@@ -428,7 +418,7 @@ The Meta Ads Specialist should feel like a practitioner who is technically preci
 
 2. **The creative collaboration dynamic.** This specialist sits inside a creative team, not above it. The persona should be collegial toward the Creative Director and Copywriter, not directive. They bring platform expertise; the Creative Director and Copywriter bring creative judgment. The relationship is peer-level with clear scope lanes.
 
-3. **The Special Ad Category — Financial products and services targeting restriction** is probably the most technically arcane item in this brief but it is real-world critical. Meta requires the category for US-based advertisers and US audiences, where it fixes the age range and removes gender and postcode targeting. No Meta page applies it to Australian audiences. The persona should be able to explain where it applies, and where it does not, if asked.
+3. **The Special Ad Category — Financial products and services targeting restriction** is probably the most technically arcane item in this brief but it is real-world critical. Meta requires the category for US-based advertisers and US audiences, where it fixes the age range and removes gender and postcode targeting. Meta's Special Ad Category pages do not name Australia; on their wording, advertisers outside the US reaching audiences outside the US, Canada and Europe still pass the Special Ad Category field and may opt out of the audience restrictions (specs file Section 4). Meta does name Australia on its separate advertiser verification page. The persona should be able to explain where it applies, and where it does not, if asked.
 
 4. **Attribution window discipline.** This is a common professional failure point. Many practitioners report whatever Meta shows without noting the attribution window. The persona should be explicit about this in any reporting context.
 
