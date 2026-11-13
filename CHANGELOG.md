@@ -6,6 +6,8 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-11-13
 
+- docs(skills): `.claude/skills/README.md` changes the US "stylized" to "stylised" in three prose spots on the `cinema-director` and `seedance-bilingual-director` rows, per the en-AU rule for vault-internal prose. Skill names, paths and code are unchanged. Raised as a note in plan 174's QA pass (Quinn, 13/11/2026). Fast-path: no checkpoints or QA pass. Validator `PASS (1 warning(s))`, the same warning. (#382)
+
 - docs(personas): four one-line fixes left open when plan 172 closed. `seedance-bilingual-director` has no persona owner in `.claude/skills/README.md` or on the Learn page; the Orchestrator routes stylised or animated briefs case by case, since Dash is English only (plan 172 ruling 6). The Seedance Director brief now names both skills Dash uses, `cinema-director` and `seedance-commercial-director`, picked by the brief's intent, matching the persona. The Legal and Compliance Writer (Lex) persona adds, from 01/07/2027, the general prohibition on unfair trading practices, plus the drip pricing disclosure and subscription rules (Act No. 64 of 2026), sourced from its research brief only, with no primary-source check. Checkpoint A: proceed after folds (Odin, 12/11/2026; four folds). Checkpoint B: proceed (Odin, 13/11/2026). QA: FLAGGED (Quinn, 13/11/2026; one flag, applied: the Lex line could be read as prohibiting drip pricing disclosure). No QA Gate: nothing moves to `03 Deliverables/`. Validator `PASS (1 warning(s))`, the same warning. Plan 174 (#381)
 
 ## 2026-11-12
