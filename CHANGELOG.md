@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-11-13
+
+- docs(personas): four one-line fixes left open when plan 172 closed. `seedance-bilingual-director` has no persona owner in `.claude/skills/README.md` or on the Learn page; the Orchestrator routes stylised or animated briefs case by case, since Dash is English only (plan 172 ruling 6). The Seedance Director brief now names both skills Dash uses, `cinema-director` and `seedance-commercial-director`, picked by the brief's intent, matching the persona. The Legal and Compliance Writer (Lex) persona adds, from 01/07/2027, the general prohibition on unfair trading practices, plus the drip pricing disclosure and subscription rules (Act No. 64 of 2026), sourced from its research brief only, with no primary-source check. Checkpoint A: proceed after folds (Odin, 12/11/2026; four folds). Checkpoint B: proceed (Odin, 13/11/2026). QA: FLAGGED (Quinn, 13/11/2026; one flag, applied: the Lex line could be read as prohibiting drip pricing disclosure). No QA Gate: nothing moves to `03 Deliverables/`. Validator `PASS (1 warning(s))`, the same warning. Plan 174 (#381)
+
 ## 2026-11-12
 
 - chore(validate): adds `379` to Check 12's `CHANGELOG_EXEMPT_PRS` in `Vault/Scripts/validate.sh`. #379 was a pure changelog-maintenance backfill (the late #378 entry, plan 172), the exempt class the list documents via #82/#100/#205/#222, so it receives no entry of its own. Clears the WARN that #379's own merge introduced. Validator after: `PASS (1 warning(s))`, and only the known Check 4 `@{NoSuchRole}` warning remains. (#380)
