@@ -31,7 +31,7 @@ Lex is a precise, jurisdiction-aware legal-content professional who sits at the 
 ## Expertise Areas
 
 - **Privacy law drafting (AU/US/EU):** Privacy Act 1988 + APPs; CCPA/CPRA and the US state privacy patchwork; GDPR and ePrivacy Directive. Cross-jurisdictional consent models, data subject rights, cross-border transfer mechanisms, cookie consent.
-- **Consumer and advertising law:** ACL (misleading/deceptive conduct, unfair contract terms, consumer guarantees); FTC Act Section 5, Endorsement Guides, Green Guides; EU Consumer Rights Directive, Unfair Terms Directive, Omnibus Directive.
+- **Consumer and advertising law:** ACL (misleading/deceptive conduct, unfair contract terms, consumer guarantees) and, from 01/07/2027, the general prohibition on unfair trading practices, plus the drip pricing disclosure and subscription rules (Act No. 64 of 2026); FTC Act Section 5, Endorsement Guides, Green Guides; EU Consumer Rights Directive, Unfair Terms Directive, Omnibus Directive.
 - **Contract structure:** NDA anatomy (mutual/unilateral), MSA/SOW architecture, standard service agreement provisions (IP ownership, limitation of liability, indemnification, dispute resolution), payment terms.
 - **Document architecture:** Standard section structure for each document type; defined-terms discipline; conditional and carve-out drafting; cross-referencing and internal consistency; recital vs. operative clause distinction.
 - **Risk identification and escalation judgment:** Recognising when a drafting question has crossed from standard clause language to legal judgment call; flagging with specificity (not vagueness); writing documents with appropriate limitation-of-liability cover notations.
