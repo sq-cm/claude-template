@@ -3,18 +3,7 @@ name: hyperframes
 description: Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.
 ---
 
-<!--
-Source: https://github.com/heygen-com/hyperframes (vendored). Frozen at upstream commit `8fcbb63`;
-vendoring record: Vault/Memory/Notes/2026-07/2026-07-05-phase3-shortlist-execution.md (Odin
-recommendation, adopted — do not re-litigate without demonstrated need).
-Upstream restructured in 2026-07 (monolith split into modular skills; `skills/gsap` removed) and is
-NO LONGER TRACKED — refresh attempts exceed the >60% rewrite threshold (plan 024, STOPPED).
-Upstream-layout pointers in this skill (`packages/shader-transitions/`, `registry/blocks/`,
-`skills/gsap`) describe the pre-restructure layout; `skills/gsap` no longer exists upstream. Runtime
-surface is npm (`hyperframes`, `@hyperframes/shader-transitions`), verified publishing at v0.7.60,
-2026-07-17.
-Divergence annotated 17/07/2026 (plan 036).
--->
+<!-- Upstream provenance and vault adaptations: see UPSTREAM.md in this folder. Read it before any resync. -->
 
 # HyperFrames
 
@@ -85,7 +74,7 @@ Position every element where it should be at its **most visible moment** — the
 1. **Identify the hero frame** for each scene — the moment when the most elements are simultaneously visible. This is the layout you build.
 2. **Write static CSS** for that frame. The `.scene-content` container MUST fill the full scene using `width: 100%; height: 100%; padding: Npx;` with `display: flex; flex-direction: column; gap: Npx; box-sizing: border-box`. Use padding to push content inward — NEVER `position: absolute; top: Npx` on a content container. Absolute-positioned content containers overflow when content is taller than the remaining space. Reserve `position: absolute` for decoratives only.
 3. **Add entrances with `gsap.from()`** — animate FROM offscreen/invisible TO the CSS position. The CSS position is the ground truth; the tween describes the journey to get there. (In sub-compositions loaded via `data-composition-src`, prefer `gsap.fromTo()` — see load-bearing GSAP rules in [references/motion-principles.md](references/motion-principles.md).)
-4. **Add exits with `gsap.to()`** — animate TO offscreen/invisible FROM the CSS position.
+4. **Add exits with `gsap.to()`** — animate TO offscreen/invisible FROM the CSS position. Only on the final scene or in a single-scene composition: in a multi-scene composition the transition is the exit (see Scene Transitions below).
 
 ### Example
 
@@ -501,4 +490,4 @@ Skip on small edits (fixing a color, adjusting one duration). Run on new composi
   - [transitions/catalog.md](references/transitions/catalog.md) — Hard rules, scene template, and routing to per-type implementation code.
   - Shader transitions are in `@hyperframes/shader-transitions` — read the package source (`node_modules/@hyperframes/shader-transitions` after install, or `packages/shader-transitions/` in the upstream repo), not skill files.
 
-GSAP patterns and effects are in the upstream `gsap` skill (`skills/gsap` in github.com/heygen-com/hyperframes — not vendored here; its `extract-audio-data.py` is bundled in this skill's `scripts/`).
+GSAP patterns and effects are not vendored here. This skill's `scripts/extract-audio-data.py` came from the former upstream `gsap` skill, which upstream has since removed, so there is no upstream `skills/gsap` to consult.

@@ -4,7 +4,7 @@ description: "Pulls latest template changes from origin/main using the two-branc
 
 # /update
 
-You are the Orchestrator. Pull the latest template changes from `origin/main` into the local vault using the two-branch model (`main` = upstream mirror, `local/main` = user's work). All update mechanics are deterministic and live in `Vault/Scripts/update.sh` — never run the old manual git steps yourself, and never run `git rebase --abort` on the user's behalf. The one exception is that script's own `--unattended` mode, which the SessionStart hook runs and which cancels its own conflicted rebase — see the header of `Vault/Scripts/update.sh` for why.
+You are the Orchestrator. Pull the latest template changes from `origin/main` into the local vault using the two-branch model (`main` = upstream mirror, `local/main` = user's work). All update mechanics are deterministic and live in `Vault/Scripts/update.sh` — never run the fetch, fast-forward or rebase steps by hand, and never run `git rebase --abort` on the user's behalf. The one exception is that script's own `--unattended` mode, which the SessionStart hook runs and which cancels its own conflicted rebase — see the header of `Vault/Scripts/update.sh` for why.
 
 The SessionStart hook runs this same update automatically once a day, so most of the time there is nothing left to pull; `/update` is the manual path, and the way to resolve a conflict the hook cancelled.
 

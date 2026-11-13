@@ -145,13 +145,13 @@ Scene numbers are the stability anchor — never renumber existing scenes during
 
 **Copy button per prompt**
 
-Each individual prompt block (1a, 2a, 2b, etc.) carries its own Copy button. Clicking it copies the full prompt text to the clipboard — Style Prefix prepended verbatim, followed by Characters, Scene, and CUT blocks. The operator pastes directly into Seedance; no reassembly needed.
+Each individual prompt block (1a, 2a, 2b, etc.) carries its own Copy button. Clicking it copies the full prompt text to the clipboard exactly as the director skill delivered it, every slot or block in that skill's locked order: cinema-director's sixteen-slot spine (Style Prefix in SLOT 2), or seedance-commercial-director's twelve blocks (no style header). The operator pastes directly into Seedance; no reassembly needed.
 
 Button states: default → "Copy"; on success → "Copied" (green, 1500 ms) → revert.
 
-**Collapsible global Style Prefix block**
+**Collapsible global Style Prefix block (cinema-director sets only)**
 
-The Style Prefix appears once at the top of the document in a `<details>` / `<summary>` disclosure block with no `open` attribute, so it renders collapsed. The same prefix text is also prepended verbatim inside every prompt's visible `<pre class="prompt">`, so the copied text matches what the operator sees.
+When every prompt in a cinema-director set shares one SLOT 2 Style Prefix, also show it once at the top of the document in a `<details>` / `<summary>` disclosure block with no `open` attribute, so it renders collapsed. It stays in its slot position inside every prompt's visible `<pre class="prompt">`, so the copied text matches what the operator sees. Commercial sets carry no style header, so leave the block out.
 
 ---
 

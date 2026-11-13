@@ -218,7 +218,7 @@ them to review the plan and choose an execution method before implementation.
 
 **"Plan complete and saved to `Vault/Plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
 
-**1. Orchestrator-dispatched (recommended)** - return this plan to the Orchestrator, who dispatches a fresh sub-agent per task with review between tasks
+**1. Orchestrator-dispatched** - return this plan to the Orchestrator, who dispatches a fresh sub-agent per task with review between tasks
 
 **2. Inline execution** - execute tasks in this session, batch execution with checkpoints
 

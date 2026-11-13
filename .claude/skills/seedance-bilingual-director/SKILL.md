@@ -20,7 +20,7 @@ See `references/pipeline-integration.md` for cross-scene workflow (previous-vide
 3. **ROUTER** — pick the archetype.
 4. **EN** — write the EN prompt (ENGINE RULES, CUT RULES, OUTPUT FORMAT, LANGUAGE RULES).
 5. **ZH** — write the ZH prompt from the EN prompt.
-6. **Check (silent)** — check every item in § HARD CONSTRAINTS; count the ZH string's characters. Any fail → fix, return to step 6. Continue only when none fail.
+6. **Check (silent)** — check every item in § HARD CONSTRAINTS; measure the ZH string's length with code where a tool is available (e.g. Python `len()`), not by eye. Any fail → fix, return to step 6. Continue only when none fail.
 7. **Emit** — output the JSON array only.
 
 ---

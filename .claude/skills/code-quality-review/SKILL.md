@@ -193,7 +193,7 @@ Orchestrator only, on the explicit `panel` keyword. It costs several times the t
 
 1. The Orchestrator runs Steps 1 to 3 itself: the diff command, the commit list, the intent paragraph, and the spec and standards sources.
 2. It dispatches one read-only reviewer per axis, all in a single message. For a small diff it may give one reviewer two related axes (Correctness with Tests, say), but never Spec together with another axis, and never more than five reviewers. A two-axis reviewer reports each axis under its own heading. Reviewers are personas with priors for their axis, for example a code persona who did not write the diff. The persona that wrote the diff never reviews it, and the Senior Adviser is never a reviewer.
-3. Each reviewer brief carries: the diff command and the commit list; the intent paragraph; the spec path (Spec reviewer) or the standards paths (the others); the absolute path of this file, with the sections to apply (its own axis under Step 5, plus Step 4 for the Tests reviewer, plus Step 6 and the finding line in § Output format for everyone); the target locale; a 400-word cap; and these two passages, verbatim:
+3. Each reviewer brief carries: the diff command and the commit list; the intent paragraph; the spec path (Spec reviewer) or the standards paths (the others); the absolute path of this file, with the sections to apply (its own axis under Step 5, plus Step 4 for the Tests reviewer, plus Step 6 and the finding line in § Output format for everyone); the target locale; and these two passages, verbatim:
 
    > You are read-only for this task. Do not create, edit, or delete any file. Any write invalidates your findings.
 

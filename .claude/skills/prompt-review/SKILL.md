@@ -21,7 +21,7 @@ Rewrite rules:
 - Use `[bracketed placeholders]` for facts only the user can supply — metrics, dates, file paths.
 - Keep the user's language throughout.
 
-Output exactly three parts, around 25 lines total:
+Output exactly three parts, short enough to scan before re-sending:
 
 1. The slot diagnosis table.
 2. The improved prompt, in a blockquote, ready to re-send as-is.
