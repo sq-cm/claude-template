@@ -70,9 +70,9 @@ Any spatial facts about the location itself (not props) that affect shot composi
 
 ## Shot cross-reference
 
-This section links the schematic map to the per-shot spec entries that use this location. Do not copy SHOT block Position-line content here — record the reference only.
+This section links the schematic map to the per-shot spec entries that use this location. Do not copy a shot spec's Framing notes or Geometry Map placement here — record the reference only.
 
-| Shot ID | Shot spec Position-line location | Notes |
+| Shot ID | Shot spec section | Notes |
 |---|---|---|
 | (e.g., S01-E02-003) | (e.g., `SHOT-SPEC-S01-E02-003.md` § Reference-image assignments) | (e.g., skydancer slug used as `@skydancer_ref` in this shot) |
 

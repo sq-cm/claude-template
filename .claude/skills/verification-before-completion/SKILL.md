@@ -62,7 +62,6 @@ BEFORE claiming any status or expressing satisfaction:
 | Regression test works | Red-green cycle verified (fails on revert, passes on restore) | Test passes once |
 | Agent completed | VCS diff shows the changes | Agent reports "success" — verify independently |
 | Requirements met | Line-by-line checklist against the plan | Tests passing |
-| Fatigue or time pressure | Run the verification anyway | "Just this once" — no exceptions |
 | Hedged wording ("should", "probably", "seems to") or satisfaction ("Great!", "Done!") | Fresh verification before any success wording | "Different words so rule doesn't apply" — spirit over letter |
 
 ## Key Patterns
@@ -82,10 +81,10 @@ BEFORE claiming any status or expressing satisfaction:
 
 ## When To Apply
 
-**ALWAYS before:** any variation of a success/completion claim or expression of satisfaction; any positive statement about work state; committing, PR creation, task completion; moving to the next task; delegating to agents.
+**Apply before:** any variation of a success/completion claim or expression of satisfaction; any positive statement about work state; committing, PR creation, task completion; moving to the next task; delegating to agents.
 
 **Rule applies to:**
 - Exact phrases
 - Paraphrases and synonyms
 - Implications of success
-- ANY communication suggesting completion/correctness
+- any communication suggesting completion or correctness

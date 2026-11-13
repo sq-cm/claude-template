@@ -18,7 +18,7 @@ This SOP is a Claude-Code-native adaptation of Anthropic's Advisor tool pattern.
 
 ## Who is the Senior Adviser
 
-The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They never write files, run tools, or produce deliverables — they only return short enumerated advice when consulted (shape rules below).
+The Senior Adviser is the team's advisor-only persona. They live at `.claude/agents/senior-adviser.md`. They may read and search files to check a claim, but never write or edit files or produce deliverables — they only return short enumerated advice when consulted (shape rules below).
 
 The Senior Adviser is **not** directly addressable by the user. They are invoked only by **the Orchestrator**, via the `Agent` tool using the registered **Senior Adviser** agent type (which carries the model pin). Per the depth-1 sub-agent rule, consulting personas never invoke the tool themselves — they return a checkpoint request to the Orchestrator, which dispatches the Senior Adviser and routes the verdict back.
 

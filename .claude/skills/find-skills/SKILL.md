@@ -29,13 +29,7 @@ This skill helps you discover and install skills from the open agent skills ecos
 
 ## When to Use This Skill
 
-Use this skill when the user:
-
-- Says "find a skill for X" or "is there a skill for X"
-- Asks "can you do X" where X is a specialized capability
-- Expresses interest in extending agent capabilities
-- Wants to search for tools, templates, or workflows
-- Mentions they wish they had help with a specific domain (design, testing, deployment, etc.)
+Use this skill when the user explicitly asks to find, search for, or install a skill ("find a skill for X", "is there a skill that can...", "install a skill"). Ordinary "how do I do X" or "can you do X" requests follow the normal intake pipeline instead.
 
 ## What is the Skills CLI?
 

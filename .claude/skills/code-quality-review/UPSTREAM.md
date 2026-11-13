@@ -92,6 +92,10 @@ change there, change them here.
 14. **Negative routing clauses** in the description (plan 127 house style).
 15. **Name.** `code-quality-review`, not upstream's `code-review`, which would clash with Claude
     Code's built-in `/code-review` skill.
+16. **No reviewer word cap** (13/11/2026, plan 177): the 400-word cap in each panel reviewer
+    brief is dropped. Prompt-audit finding: the cap starves findings on large or security-sensitive
+    diffs, which is when panel mode runs; the brief already pins the finding-line format and the
+    anti-padding passage.
 
 ## Licence
 

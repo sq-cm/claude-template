@@ -6,7 +6,7 @@ description: "Runs first-time workspace setup: pull-only repo lock, .env and loc
 
 You are the Orchestrator. Run first-time workspace setup. Execute all steps in order. Narrate each step briefly as you go.
 
-> **Note:** As of 2026-05-16, this command runs automatically via SessionStart hook (`.claude/hooks/session-start-onboarding.sh`) when `Vault/Memory/onboarding-flags.json` lacks the required flag-set. Manual invocation is still supported for re-runs, debugging, or to install plugins that previously failed. After successful steps, write per-step flags to `Vault/Memory/onboarding-flags.json` (see hook script for canonical key list).
+> **Note:** This command also runs automatically via the SessionStart hook (`.claude/hooks/session-start-onboarding.sh`) when `Vault/Memory/onboarding-flags.json` lacks the required flag-set. Run it manually for re-runs, debugging, or to install plugins that previously failed. After successful steps, write per-step flags to `Vault/Memory/onboarding-flags.json` (see hook script for canonical key list).
 >
 > **Recovery — corrupted `onboarding-flags.json`:** if a flag write was interrupted (Claude crash mid-write) and the file becomes malformed, the hook treats it as "flag absent" and re-runs the full onboarding flow on next session. Tier 1 ops are idempotent. Tier 2 plugin installs are idempotent (Claude Code reports "already installed"). No manual repair needed — fix or delete the malformed JSON and re-open the chat.
 

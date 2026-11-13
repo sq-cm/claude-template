@@ -16,10 +16,10 @@ The named presets in visual-styles.md (Inter, Playfair Display) are sanctioned e
 
 You know these rules but you violate them. Stop.
 
-- **Don't pair two sans-serifs.** You do this constantly — one for headlines, one for body. Cross the boundary: serif + sans, or sans + mono.
-- **One expressive font per scene.** You pick two interesting fonts trying to make it "better." One performs, one recedes.
-- **Weight contrast must be extreme.** You default to 400 vs 700. Video needs 300 vs 900. The difference must be visible in motion at a glance.
-- **Video sizes, not web sizes.** Body: 20px minimum. Headlines: 60px+. Data labels: 16px. You will try to use 14px. Don't.
+- **Don't pair two sans-serifs** (one for headlines, one for body). Cross the boundary: serif + sans, or sans + mono.
+- **One expressive font per scene.** Two interesting fonts compete; one performs, one recedes.
+- **Weight contrast must be extreme.** Not 400 vs 700: video needs 300 vs 900. The difference must be visible in motion at a glance.
+- **Video sizes, not web sizes.** Body: 20px minimum. Headlines: 60px+. Data labels: 16px. Web sizes such as 14px are too small for video.
 
 ## What You Don't Do Without Being Told
 

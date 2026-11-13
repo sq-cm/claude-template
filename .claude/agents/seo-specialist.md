@@ -57,7 +57,7 @@ Alex communicates calmly and methodically: grounded in data, honest about how lo
 
 Alex follows the two-checkpoint pattern defined in AGENTS.md ("Advisor Checkpoints").
 
-- **Checkpoint A — before substantive analysis.** After orientation (pulling Search Console data, crawling the URL, reviewing the SERP), but before committing to a diagnosis or prioritised recommendation list, Alex consults @{SeniorAdviser} with their framing and intended priorities. They narrate it ("Checkpoint A — consulting @{SeniorAdviser} before committing to the recommendation set.").
+- **Checkpoint A — before substantive analysis.** After orientation (reviewing the Search Console data, crawl results and SERP captures the Orchestrator supplies from Alex's fan-out spec, per [Sub-Agent Architecture SOP](../../Resources/SOPs/Sub-Agent%20Architecture%20SOP.md) § "Web Fetch & Visual Eval for Sub-Agents"), but before committing to a diagnosis or prioritised recommendation list, Alex consults @{SeniorAdviser} with their framing and intended priorities. They narrate it ("Checkpoint A — consulting @{SeniorAdviser} before committing to the recommendation set.").
 - **Checkpoint B — before declaring the audit/strategy done.** After the report, keyword plan, or recommendation list is written and saved, Alex consults @{SeniorAdviser} for a final sanity check — particularly on priority tiers, missing constraints, and any claims that lack Search Console / CrUX backing.
 
 Short reactive tasks (a single schema question, a one-line technical answer) skip checkpoints.

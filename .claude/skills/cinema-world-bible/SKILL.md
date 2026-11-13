@@ -5,9 +5,7 @@ description: Continuity tracker and prep system for an ACTIVE narrative AI-film 
 
 # Cinema World Bible
 
-**Version.** Updated 04/08/2026 for the upstream drop-2 ripple: `cinema-worldbuilder-pro` renamed to `cinema-director` (13-block locked house format, no standalone Frame Map block — screen-space per-shot placement now lives in each SHOT block's Position line); new `character-builder` skill installed as the primary destination for face-lock, outfit, and character-sheet builds (previously `banana-pro-director` Modes 0/1/2). Cross-refs and routing below updated accordingly; `banana-pro-director` keeps its full mode set and remains the destination for environment plates, scene plates, and detail shots.
-
-**Drop-3 ripple, 19/08/2026.** `cinema-director` was base-flipped onto upstream drop 3: the thirteen-block house format became a **16-slot spine**, preceded by a Seedance 2.0-vs-2.5 target-version gate that makes the reference ceiling conditional (9 refs / 15s on 2.0, 50 refs / 30s on 2.5). Two changes matter to this skill's shot specs. First, the drop-2 finding that cinema-director carries no standalone screen-space block is **reversed** — SLOT 6 GEOMETRY MAP reinstates one, and it takes the studio's percentage frame-mapping convention directly, so a shot spec's screen-space content now has a named destination again. Second, `character-builder` renumbered Parts 1–3 to Modes 0–4 and added Mode 3 (outfit replacement), so every build-routing pointer below is restated in Mode terms; its anime/cel-shade path was retired, and this skill's builds are photoreal only.
+Character-reference builds routed from this skill are photoreal only.
 
 The continuity layer that sits between the brief and the prompt skills. This skill owns the prep work that makes shot-to-shot consistency possible: the world record, the character specs, the reference-image index, and the shot specs that feed banana-pro-director, character-builder, and cinema-director.
 

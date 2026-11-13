@@ -61,6 +61,10 @@ Carry all of these over any future upstream resync of source 1:
 10. **Loop option 2 (curl / HTTP script)**: "a running dev server" becomes "a running local dev
     server" (plan 157), matching option 4. A remote dev server is live web content, which a routed
     persona leaves to the Orchestrator (Sub-Agent Architecture SOP § Web Fetch & Visual Eval).
+11. **Phase 1 pressure line** (13/11/2026, plan 177): "Be aggressive. Be creative. Refuse to give
+    up." becomes an outcome — work through the loop options, and combine them, before concluding
+    no loop is possible. Prompt-audit finding: a motivational booster written for models that stopped
+    early; the skill already supplies the real mechanism.
 
 The vault's one-line inline method in `using-superpowers` ("Fix this bug" → reproduce, isolate, then
 fix) is unchanged and does not point here.
