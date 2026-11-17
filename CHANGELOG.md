@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-11-17
+
+- feat(hooks): new SessionStart hook `.claude/hooks/session-start-plugin-versions.sh` warns, once a day, when an enabled plugin is behind its GitHub upstream, and prints the update command (`/plugin` menu wording in-session; `claude plugin update <name>@<mkt> --scope <scope>` from a terminal). It never updates anything. Versioned plugins compare `version` with `sort -V`; unversioned ones are flagged only when the GitHub compare API shows changes under the plugin's own path. Marketplaces with an explicit `autoUpdate: false` (caveman) are skipped, it stays silent offline, and it stops starting fetches after 20s inside a 30s hook timeout. State and error files are git-ignored; `Resources/Onboarding/SETUP.md` says how to force a re-check or switch it off. Checkpoint A: proceed after folds (Odin, 17/11/2026; six folds). Checkpoint B: proceed after fixes (Odin, 17/11/2026; five fixes). No QA Gate: nothing moves to `03 Deliverables/`. Validator `PASS (1 warning(s))`, the same warning. Plan 178 (#386)
+
 ## 2026-11-13
 
 - docs(skills): the 13/11/2026 prompt audit's High and Medium fixes land across 46 instruction files. Broken pointers are repaired (`using-superpowers` no longer names a missing `systematic-debugging` skill, `cinema-world-bible` describes the 16-slot spine). Seven skills' provenance notes move word for word into `PROVENANCE.md`/`UPSTREAM.md` sidecars. `improve` loses its `execute` mode, the Senior Adviser may read and search files and states its word cap once, the ELI5 status line is an exception to Output Economy, and Casey and Alex route connector and live-web work through the Orchestrator. (plan 177) (#385)
