@@ -4,7 +4,7 @@ The detail behind the [Chats](../../AGENTS.md) section in AGENTS.md. AGENTS.md s
 
 ## Why chats exist
 
-Between a project and a passing thought there was nothing. `Projects/` is heavy by design — propose-and-approve, README/CONTEXT/HISTORY, numbered subfolders, a QA Gate at the end. That weight is right for durable client work and absurd for an afternoon of poking at an idea. `Notes/` sits at the other extreme: flat, ungrouped, no log, nothing to resume from once the context is gone.
+Between a project and a passing thought there was nothing. `Projects/` is heavy by design — propose-and-approve, README/CONTEXT/HISTORY, numbered subfolders, a QA Gate at the end. That weight is right for durable client work and absurd for an afternoon of poking at an idea. `Inbox/` sits at the other extreme: flat, ungrouped, no log, nothing to resume from once the context is gone.
 
 A chat is the middle. One folder per intentional conversation, one file that records where you got to, and somewhere for the files that fall out along the way. No project machinery, no approval step.
 
@@ -48,10 +48,10 @@ Chat folders are created only through `/chat` — never by hand, never automatic
 
 Any `/chat` invocation makes that chat active for the rest of the session. While one is active:
 
-- Standalone Fast-Path file output lands in that chat's `outputs/` instead of `Notes/`.
+- Standalone Fast-Path file output lands in that chat's `outputs/` instead of `Inbox/`.
 - The lane's five-line eligibility verdict is appended to `CHAT.md § Log`, so the audit trail follows the work.
 
-That is the entire hookup. It diverts chat-scoped standalone Fast-Path files while a chat is active and nothing else — in-project Fast-Path output still goes to `02 Working/`, and `Notes/` keeps every other staging role it has today. With no active chat, behaviour is unchanged.
+That is the entire hookup. It diverts chat-scoped standalone Fast-Path files while a chat is active and nothing else — in-project Fast-Path output still goes to `02 Working/`, and `Inbox/` keeps every other staging role it has today. With no active chat, behaviour is unchanged.
 
 ## Spawning projects
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # capture-log.sh — unattended, deterministic, per-turn raw capture of every
-# Stop event (Notes/Personal/Claude-Code-Memory-Plan-implementation-plan.md,
+# Stop event (Inbox/Personal/Claude-Code-Memory-Plan-implementation-plan.md,
 # Phase 1). Additive to, not a replacement for, the curated /log-session flow
 # and the existing nudge Stop hook — writes verbatim, no model call, no
 # summarisation. Never touches Vault/Memory/. Must ALWAYS exit 0.

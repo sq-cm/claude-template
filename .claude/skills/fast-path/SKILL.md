@@ -44,7 +44,7 @@ escalate. This is not optional; skipping it turns the command into a review-dodg
   English when nothing declares one. Quick inline check, not the full QA Gate.
 - **Destination.** Never `03 Deliverables/`. In-project light work → that project's `02 Working/`.
   Standalone, with a chat active → that chat's `outputs/`, and append this five-line verdict to its
-  `CHAT.md § Log`. Standalone, no active chat → inline in the reply, or `Notes/` if a file is
+  `CHAT.md § Log`. Standalone, no active chat → inline in the reply, or `Inbox/` if a file is
   genuinely produced.
 
 ## 4. Any line fails → auto-escalate, do not stop

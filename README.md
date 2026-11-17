@@ -166,7 +166,7 @@ Claude - TEMPLATE/
 │   ├── skills/                        ← 34 reusable skill modules (see its README.md)
 │   └── settings.json                  ← permissions, hooks, enabledPlugins
 ├── Chats/                             ← per-conversation workspaces, created via /chat (git-ignored)
-├── Notes/                             ← daily notes, canvas files, clippings, staging for unrouted material
+├── Inbox/                             ← Personal/ and Team/ scratch, staging for unrouted material (git-ignored)
 ├── Projects/
 │   ├── YYYY-MM-DD-<name>/             ← one folder per piece of work; CONTEXT.md + HISTORY.md travel with it
 │   └── Template/                      ← blank project scaffold (copy when starting new work)
@@ -187,8 +187,7 @@ Claude - TEMPLATE/
 │   ├── Logs/                          ← clone failure logs, import logs
 │   ├── Memory/                        ← persistent session memory
 │   ├── Plans/                         ← /improve audit plans (git-ignored)
-│   ├── Scripts/                       ← validate.sh — the consistency checker
-│   └── Templates/                     ← daily and weekly note templates
+│   └── Scripts/                       ← validate.sh — the consistency checker
 ├── AGENTS.md                          ← orchestrator rules (roster: Vault/Memory/theme-name-map.md)
 ├── CLAUDE.md                          ← stub (@AGENTS.md) so Claude Code loads it
 ├── README.md                          ← this file

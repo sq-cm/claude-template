@@ -18,7 +18,7 @@ over any future upstream replace:
   2. Rule 6 (capture): upstream's throwaway-branch-plus-issue rule applies only in a code
      repository with its own git history. Vault projects keep the prototype in `02 Working/` and
      record the answer as a `project:` session note for /memory-reconcile; standalone work uses
-     the chat `outputs/` or `Notes/` destinations. The rule also tells readers how to read
+     the chat `outputs/` or `Inbox/` destinations. The rule also tells readers how to read
      "throwaway branch" in LOGIC.md and UI.md, so those two files need no edits.
   3. UI-branch sub-bullet under "Pick a branch" (plan 137, 29/09/2026): with no style direction,
      variations avoid the bans in Resources/Build Standards/frontend-design-defaults.md; brand,
@@ -50,7 +50,7 @@ The two branches produce very different artifacts, so getting this wrong wastes 
 5. **Surface the state.** After every action (logic) or on every variant switch (UI), print or render the full relevant state so the user can see what changed.
 6. **Capture it when done.** Fold any validated decision into the real work, then keep the prototype itself as a **primary source** and capture the answer (the verdict and the question it settled). Where each goes depends on where you are working:
    - **In a vault project (`Projects/<name>/`):** the prototype file stays in that project's `02 Working/`, never `03 Deliverables/`. `Projects/` is git-ignored, so it is already out of the main branch. Record the answer in a session note in `Vault/Memory/Sessions/` with `project: <name>` set; `/memory-reconcile` folds it into the project's `HISTORY.md` decision log. Never hand-write `HISTORY.md`.
-   - **No project:** the prototype goes in the active chat's `outputs/` if a chat is active, else `Notes/`. Record the answer in a session note without a `project:` field.
+   - **No project:** the prototype goes in the active chat's `outputs/` if a chat is active, else `Inbox/`. Record the answer in a session note without a `project:` field.
    - **In a code repository with its own git history** (for example a client build): commit the prototype to a throwaway branch, out of main, and leave a context pointer to that branch on the implementation issue. Capture the answer in the issue or a commit. The main branch keeps only the validated decision.
 
    Wherever [LOGIC.md](LOGIC.md) or [UI.md](UI.md) say "the throwaway branch" or "out of main", apply the destination above that matches where you are working.

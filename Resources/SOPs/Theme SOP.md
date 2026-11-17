@@ -115,7 +115,7 @@ On confirmation, the Orchestrator performs the following in order:
 3. SOPs in `Resources/SOPs/` — most use `@{RoleToken}`, but several carry display names directly. Don't rely on a fixed list: grep the folder for each current display name (the vault-wide grep in the final check below catches stragglers).
 4. `Resources/Onboarding/SETUP.md`, `Resources/Onboarding/team-onboarding-guide.md` — directory tree and any prose name references.
 5. `Resources/Learn/index.html` and any sibling JS/data files in `Resources/Learn/` — `TEAM` array name fields and the `LAST_SYNCED` constant.
-6. `Notes/` — daily notes or weekly reviews may reference personas by name; sweep these too.
+6. `Inbox/` — personal and team notes may reference personas by name; sweep these too.
 
 **Authoritative final check.** After the sweep, run a vault-wide grep for each replaced name to confirm no stragglers:
 
@@ -247,7 +247,7 @@ Those are manual sweep responsibilities — see Workflow A Step 3c. A follow-up 
 - Roles never change — only names.
 - `@Name` syntax must be updated in every persona's "How to Address" section during a sweep.
 - Role tokens (YAML keys) in the name map are immutable across all re-themes; only names (values) change.
-- Wikilinks and Obsidian backlinks are out of scope — Obsidian manages link integrity separately.
+- Wikilinks are out of scope.
 - Windows path length limit (260 chars) — if a new name would push a path over this limit, @{SeniorResearcher} must propose a shorter alternative.
 
 ### Backup retention

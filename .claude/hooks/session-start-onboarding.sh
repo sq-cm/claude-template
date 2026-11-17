@@ -9,7 +9,16 @@ if command -v cygpath >/dev/null 2>&1; then
   DIR=$(cygpath -u "$DIR" 2>/dev/null || echo "$DIR")
 fi
 
-emit_silent() { exit 0; }
+# One-line user-facing notice, shown through systemMessage on whichever exit
+# path runs (set by the Notes/ -> Inbox/ migration block below).
+MIGRATE_NOTICE=""
+
+emit_silent() {
+  if [ -n "$MIGRATE_NOTICE" ] && command -v jq >/dev/null 2>&1; then
+    jq -n --arg m "$MIGRATE_NOTICE" '{systemMessage: $m}' 2>/dev/null
+  fi
+  exit 0
+}
 
 emit_context() {
   # jq is guaranteed present at every call site below the jq guard. No
@@ -30,7 +39,13 @@ emit_context() {
     log_error "jq present, encoding failed (exit $rc) — onboarding context skipped"
     emit_silent
   fi
-  printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":%s}}\n' "$enc"
+  if [ -n "$MIGRATE_NOTICE" ]; then
+    local msg
+    msg="$(printf '%s' "$MIGRATE_NOTICE" | jq -Rs .)" || msg='""'
+    printf '{"systemMessage":%s,"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":%s}}\n' "$msg" "$enc"
+  else
+    printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":%s}}\n' "$enc"
+  fi
   exit 0
 }
 
@@ -69,6 +84,32 @@ if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then emit_silent; fi
 # Bail if not inside template
 if [ ! -f "$DIR/AGENTS.md" ] || [ ! -d "$DIR/.claude/agents" ]; then emit_silent; fi
 
+# One-off Notes/ -> Inbox/ move for clones made before plan 179. It runs on
+# every session, not only first-run Tier 1 below, because the /update that
+# pulls plan 179 still executes the old update.sh, which has no migration
+# step. Silent when Notes/ is absent. Runs before the Notes.md seed so an
+# existing Notes/Personal/Notes.md is moved, not shadowed by a fresh copy.
+# If Notes/ survives (a clash, or git still tracks files there), each distinct
+# report is logged and shown to the user once: its signature (the report minus
+# the "moved N" count, which changes between runs) is kept in MIGRATE_STATE.
+MIGRATE_STATE="$DIR/Vault/Memory/.notes-migration-state"
+if [ -d "$DIR/Notes" ] && [ -f "$DIR/Vault/Scripts/migrate-notes-to-inbox.sh" ]; then
+  MIGRATE_OUT="$(bash "$DIR/Vault/Scripts/migrate-notes-to-inbox.sh" --hook 2>&1)"
+  if [ -d "$DIR/Notes" ]; then
+    MIGRATE_SIG="$(printf '%s\n' "$MIGRATE_OUT" | grep -v 'moved [0-9]* item' | cksum | awk '{print $1}')"
+    if [ "$(cat "$MIGRATE_STATE" 2>/dev/null)" != "$MIGRATE_SIG" ]; then
+      log_error "Notes/ -> Inbox/ migration incomplete: $MIGRATE_OUT"
+      mkdir -p "$DIR/Vault/Memory" 2>/dev/null || true
+      printf '%s\n' "$MIGRATE_SIG" > "$MIGRATE_STATE" 2>/dev/null || true
+      case "$MIGRATE_OUT" in
+        *"skipped."*) MIGRATE_NOTICE="Notes/ wasn't moved to Inbox/ because git still tracks files in it. Run /update, then: bash Vault/Scripts/migrate-notes-to-inbox.sh" ;;
+        *) MIGRATE_NOTICE="Some files in Notes/ couldn't move to Inbox/ because the same names already exist there. Sort them out, then run: bash Vault/Scripts/migrate-notes-to-inbox.sh" ;;
+      esac
+    fi
+  fi
+fi
+[ -d "$DIR/Notes" ] || rm -f "$MIGRATE_STATE" 2>/dev/null
+
 SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 # A plugin disabled in .claude/settings.json enabledPlugins MUST NOT keep its
 # tier2_plugin_<name> entry in REQUIRED_KEYS: it can never become true,
@@ -82,7 +123,7 @@ SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 # flag→step map. Name sites by what they are, not by line number, which
 # drifts every time this file is edited. validate.sh Check 14 FAILs a
 # tier2_plugin_* key whose plugin is disabled or missing.
-REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_obsidian tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_vscode_git tier1_notes_seed"
+REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_vscode_git tier1_notes_seed"
 
 # Derived views of REQUIRED_KEYS — the roster is encoded ONCE, above.
 # Check 14 in Vault/Scripts/validate.sh greps the literal REQUIRED_KEYS=
@@ -431,11 +472,14 @@ elif [ -f "$DIR/.env.example" ]; then
 fi
 
 TIER1_NOTES="no Notes.example.md found"
-if [ -f "$DIR/Notes/Personal/Notes.md" ]; then
+if [ -f "$DIR/Inbox/Personal/Notes.md" ]; then
   TIER1_NOTES="exists"
+elif [ -f "$DIR/Notes/Personal/Notes.md" ]; then
+  # A seeded copy would make the user's own file clash with it for good.
+  TIER1_NOTES="skipped, Notes/Personal/Notes.md not yet moved to Inbox/"
 elif [ -f "$DIR/Resources/Onboarding/Notes.example.md" ]; then
-  mkdir -p "$DIR/Notes/Personal" 2>/dev/null || true
-  if cp "$DIR/Resources/Onboarding/Notes.example.md" "$DIR/Notes/Personal/Notes.md" 2>/dev/null; then
+  mkdir -p "$DIR/Inbox/Personal" 2>/dev/null || true
+  if cp "$DIR/Resources/Onboarding/Notes.example.md" "$DIR/Inbox/Personal/Notes.md" 2>/dev/null; then
     TIER1_NOTES="created from Notes.example.md"
   else
     TIER1_NOTES="FAILED to copy"
@@ -550,6 +594,6 @@ Missing flags:$missing
 
 $ACTION
 
-Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull; tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = no onboard.md step — plugin keys are read from Claude Code's install state; the only values you ever write to one are \"skipped\" (the user does not want it) or a snooze object {\"snoozed_until\":\"YYYY-MM-DD\"}; tier2_caveman = Step 7 + '/caveman lite' once caveman@caveman is confirmed installed (if it isn't, the user runs the /plugin commands and the key gets a snooze object, never true), or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3. hooks= is informational only; it never gates or sets any flag."
+Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull; the same goes for notes=skipped, Notes/Personal/Notes.md not yet moved to Inbox/; tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = no onboard.md step — plugin keys are read from Claude Code's install state; the only values you ever write to one are \"skipped\" (the user does not want it) or a snooze object {\"snoozed_until\":\"YYYY-MM-DD\"}; tier2_caveman = Step 7 + '/caveman lite' once caveman@caveman is confirmed installed (if it isn't, the user runs the /plugin commands and the key gets a snooze object, never true), or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3. hooks= is informational only; it never gates or sets any flag."
 
 emit_context "$CTX"

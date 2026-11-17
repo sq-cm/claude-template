@@ -86,10 +86,11 @@ Then check if `Vault/Memory/context.md` exists (idempotent, same shape as `insta
 - **If it does not exist:** Copy `Vault/Memory/context.example.md` to `Vault/Memory/context.md` — `cp` only, never overwrite an existing file. Report: "`Vault/Memory/context.md` created from template — your local team memory."
 - **If it already exists:** Report: "`Vault/Memory/context.md` already present — skipped." This is the common case when the installer already ran.
 
-Then check if `Notes/Personal/Notes.md` exists (same copy-if-absent shape again).
+Then check if `Inbox/Personal/Notes.md` exists (same copy-if-absent shape again).
 
-- **If it does not exist:** Copy `Resources/Onboarding/Notes.example.md` to `Notes/Personal/Notes.md` — `cp` only, never overwrite an existing file. Report: "`Notes/Personal/Notes.md` created from template — your personal scratchpad, git-ignored and yours to edit freely."
-- **If it already exists:** Report: "`Notes/Personal/Notes.md` already present — skipped." This is the common case when the installer already ran.
+- **If it does not exist but `Notes/Personal/Notes.md` does:** don't copy. That file is the user's own scratchpad from before the Notes/ → Inbox/ rename, and a seeded copy would block its move for good. Run `bash Vault/Scripts/migrate-notes-to-inbox.sh` and relay its one-line summary instead.
+- **If it does not exist:** Copy `Resources/Onboarding/Notes.example.md` to `Inbox/Personal/Notes.md` — `cp` only, never overwrite an existing file. Report: "`Inbox/Personal/Notes.md` created from template — your personal scratchpad, git-ignored and yours to edit freely."
+- **If it already exists:** Report: "`Inbox/Personal/Notes.md` already present — skipped." This is the common case when the installer already ran.
 
 ---
 
@@ -222,12 +223,6 @@ The full recommended plugin roster is declared in `.claude/settings.json` (`extr
 ```
 /plugin marketplace add mksglu/context-mode
 /plugin install context-mode@context-mode
-```
-
-**obsidian** (Obsidian vault skills — bases, CLI, markdown, JSON Canvas, defuddle):
-```
-/plugin marketplace add kepano/obsidian-skills
-/plugin install obsidian@obsidian-skills
 ```
 
 **document-skills**:

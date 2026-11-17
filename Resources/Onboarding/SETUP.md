@@ -54,7 +54,7 @@ This automatically blocks push to the upstream template repo (your instance is y
 
 The template flows one direction: maintainer → upstream → your clone. Your clone is read-only for template files.
 
-- **Editable** — `Chats/`, `Notes/`, `Projects/` (all gitignored — your work lives here)
+- **Editable** — `Chats/`, `Inbox/`, `Projects/` (all gitignored — your work lives here)
 - **Not editable for commit** — everything else (AGENTS.md, CLAUDE.md, `.claude/agents/`, SOPs, settings, etc.)
 
 `.githooks/pre-commit` blocks any commit touching paths outside the editable zone. `.githooks/pre-push` blocks all pushes. If you genuinely need a template change, propose it to the maintainer.
@@ -133,7 +133,7 @@ See `Resources/SOPs/Theme SOP.md` for the full workflow.
 
 This anchors your local memory for future sessions.
 
-`Notes/Personal/Notes.md` was created the same way, from the tracked sample (`Resources/Onboarding/Notes.example.md`), by whichever ran first on your clone — the SessionStart onboarding hook (which also backfills it on an already-onboarded clone), `install.sh` / `install.bat`, or `/onboard` — and it is your personal scratchpad, git-ignored, yours to edit freely, and never overwritten once it exists.
+`Inbox/Personal/Notes.md` was created the same way, from the tracked sample (`Resources/Onboarding/Notes.example.md`), by whichever ran first on your clone — the SessionStart onboarding hook (which also backfills it on an already-onboarded clone), `install.sh` / `install.bat`, or `/onboard` — and it is your personal scratchpad, git-ignored, yours to edit freely, and never overwritten once it exists.
 
 > **`context.md` vs `MEMORY.md`.** `context.md` is your clone's **local** team memory — git-ignored, the write target for the bootstrap entry above and for `/memory-reconcile`. `MEMORY.md` is the shipped, git-tracked **vault-operations index**, maintainer-curated and the same for every install. Never hand-edit `MEMORY.md` for local facts — doing so causes rebase conflicts on `/update`. Both files load into context every prompt.
 
@@ -218,7 +218,7 @@ Restart Claude Code after any plugin install.
 
 ### Accepted risk — unpinned third-party code paths
 
-Every marketplace in `.claude/settings.json` `extraKnownMarketplaces` sourced from GitHub (`context-mode`, `obsidian-skills`, `caveman`, `anthropic-agent-skills`, `thedotmack`) tracks its repo's default branch at HEAD, not a pinned commit or tag. None of the five publishes tags, and commit-SHA refs were tested and rejected by the clone mechanism (`git clone --branch <sha>` fails), so branch-at-HEAD is the only option. `autoUpdate` is explicitly `false` on the caveman entry (previously `true`); the other four entries omit the key, which defaults to `false`. Either way, a fresh trust-prompt install always uses whatever is at HEAD at trust time, and updates only happen when a maintainer explicitly runs `/plugin marketplace update`.
+Every marketplace in `.claude/settings.json` `extraKnownMarketplaces` sourced from GitHub (`context-mode`, `caveman`, `anthropic-agent-skills`, `thedotmack`) tracks its repo's default branch at HEAD, not a pinned commit or tag. None of the four publishes tags, and commit-SHA refs were tested and rejected by the clone mechanism (`git clone --branch <sha>` fails), so branch-at-HEAD is the only option. `autoUpdate` is explicitly `false` on the caveman entry (previously `true`); the other three entries omit the key, which defaults to `false`. Either way, a fresh trust-prompt install always uses whatever is at HEAD at trust time, and updates only happen when a maintainer explicitly runs `/plugin marketplace update`.
 
 **Privileged installs during `/onboard` — removed rather than accepted.** Earlier versions of `.claude/commands/onboard.md` Step 7 auto-installed Node.js on the user's behalf: on macOS by piping `https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh` into `/bin/bash` at a moving HEAD, and on Linux with `sudo apt-get install -y nodejs npm`. Neither was reviewable before it ran and neither was recorded here. Both are now gone: Step 7 tells the user how to install Node.js and skips Caveman if they have not, because Caveman is an optional token-saving plugin and installing a system-wide package manager to enable it is out of proportion. Windows still uses `winget`, which needs no privilege escalation and pipes nothing into a shell. The onboarding path no longer escalates privilege anywhere. The last exception was a `sudo -n` move that placed a downloaded binary in `/usr/local/bin`, and it went when that binary's onboarding step was removed (see `CHANGELOG.md`). The GitHub CLI (`gh`) is no longer used anywhere in onboarding either.
 
@@ -229,7 +229,6 @@ The trade-off accepted in its place: each repo's HEAD commit was reviewed (see p
 | Repo | Reviewed HEAD SHA | Reviewed |
 |------|--------------------|----------|
 | mksglu/context-mode | `f267bdae970f0b01652a2ab413793318ed02065a` | 2026-07-06 |
-| kepano/obsidian-skills | `a1dc48e68138490d522c04cbf5822214c6eb1202` | 2026-07-06 |
 | JuliusBrussee/caveman | `0d95a81d35a9f2d123a5e9430d1cfc43d55f1bb0` | 2026-07-06 |
 | anthropics/skills | `9d2f1ae187231d8199c64b5b762e1bdf2244733d` | 2026-07-06 |
 | thedotmack/claude-mem | `804504b351cabbe45c63fa8692ff09c57e0d03e6` | 2026-07-06 |
@@ -242,9 +241,11 @@ This is the single place this SHA list is recorded — other docs link here rath
 
 ### What enabling a plugin grants
 
-Seven plugins are enabled by default in `.claude/settings.json` `enabledPlugins`. Four are third-party (`context-mode`, `obsidian`, `caveman`, `claude-mem`); three are Anthropic's own — `document-skills@anthropic-agent-skills` (from `anthropics/skills`), plus `skill-creator` and `frontend-design` (from `claude-plugins-official`). They install at the trust prompt, before the user has reviewed anything.
+Six plugins are enabled by default in `.claude/settings.json` `enabledPlugins`. Three are third-party (`context-mode`, `caveman`, `claude-mem`); three are Anthropic's own — `document-skills@anthropic-agent-skills` (from `anthropics/skills`), plus `skill-creator` and `frontend-design` (from `claude-plugins-official`). They install at the trust prompt, before the user has reviewed anything.
 
 `higgsfield` (from `higgsfield-ai/skills`) was removed from the roster on 30/09/2026 and is now optional: install it yourself if you want it. See `.claude/commands/onboard.md` § Optional plugins (install yourself).
+
+`obsidian` (from `kepano/obsidian-skills`) was removed on 17/11/2026 (plan 179), along with the vault's Obsidian setup.
 
 A Claude Code plugin, once enabled, can register hooks via its own `hooks/hooks.json`, place executables where the Bash tool can reach them, and run background processes. This is a statement of capability, not an accusation against any specific plugin in the roster above. In practice, enabling a plugin is a trust decision of the same weight as running its install script — the marketplace SHA table above is the record of what was reviewed for each one.
 

@@ -14,17 +14,12 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 | `Logs/`        | Append-only operational logs. Example folder; create on first use.                       |
 | `Plans/`       | Output home for `improve`, advisor plans, and `writing-plans` artefacts. Git-ignored (per-clone working plans, never Deliverables). |
 | `Specs/`       | Output home for `brainstorming` design specs. Git-ignored.                               |
-| `Templates/`   | Reusable note templates (daily note, weekly note, etc.).                                 |
 | `Scripts/`     | Vault-local automation scripts (e.g. theme sync).                                        |
-| `Categories/`  | Obsidian-managed staging — note categorisation; empty placeholder until vault use begins.|
-| `Bases/`       | Obsidian-managed staging — `.base` database views; empty placeholder.                    |
-| `Attachments/` | Obsidian-managed staging — note attachments; empty placeholder.                          |
 
 ## Rules
 
 - All persistent memory writes go to `Vault/Memory/` — not the Claude Code default internal path.
 - New subfolder creation belongs to the Orchestrator. Working personas surface the need; they do not create the folder.
-- Empty placeholder folders (Categories, Bases, Attachments) are kept for Obsidian convention even when unused.
 - Effort dial (operator mechanics, referenced from AGENTS.md § Default Mode): set via `/model` or `--effort` for the main session — the session dial reaches only sub-agents with no `effort:` key, so never a persona; per-agent `effort:` frontmatter sets a persona's tier (tier defaults: Persona Template SOP § Model assignment). The Agent tool's per-call `effort` parameter overrides frontmatter, so persona dispatches never pass one; the `CLAUDE_CODE_EFFORT_LEVEL` env var overrides both. Neither `/model` nor the session dial changes a `model:` pin, but the per-call `model` parameter overrides one, so persona dispatches never pass that either (Sub-Agent Architecture SOP § Dispatch brief). Verified 07/08/2026; per-call override from the Claude Code 2.1.292 docs, 16/10/2026; session-dial reach and model order from the sub-agents docs, 16/10/2026.
 
 ## Root-level layout
@@ -37,7 +32,7 @@ Reference detail for AGENTS.md § Vault Structure. The operative rules (root res
 | ------------ | ----------------------------------------------------------- |
 | `.claude/`   | Persona files (`agents/`), hooks/settings, skills, commands |
 | `Chats/`     | Per-conversation chat workspaces — `[YYMMDD] [Chat Name]/`, created only via `/chat` |
-| `Notes/`     | Daily notes, weekly reviews, clippings, canvas files, staging for unrouted material |
+| `Inbox/`     | Personal and team scratch (`Personal/`, `Team/`), staging for unrouted material |
 | `Projects/`  | Client and campaign project folders                         |
 | `Resources/` | SOPs, repo clones, research briefs, build standards, onboarding, shared assets |
 | `Vault/`     | Persistent internal storage — see the subfolder map above   |

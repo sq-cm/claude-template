@@ -178,7 +178,7 @@ Assistant now assembles the full SKILL.md. The final section — "When this skil
 
 Ask the user what production companion skills they use (if any) and name them explicitly in this closing section so future Claude knows the paired workflow.
 
-Ship the file with the YAML frontmatter (name + pushy description) and the full canon body. Save to `[working-title-slug].md` in the active chat's `outputs/` folder, else `Notes/`, or the project's `02 Working/` folder when the user names a project — never `03 Deliverables/` (AGENTS.md § Fast-Path Lane destinations) — and present.
+Ship the file with the YAML frontmatter (name + pushy description) and the full canon body. Save to `[working-title-slug].md` in the active chat's `outputs/` folder, else `Inbox/`, or the project's `02 Working/` folder when the user names a project — never `03 Deliverables/` (AGENTS.md § Fast-Path Lane destinations) — and present.
 
 Offer to zip it as an installable `.skill` file if the user wants that packaging.
 

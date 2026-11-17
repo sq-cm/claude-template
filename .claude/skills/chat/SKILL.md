@@ -70,7 +70,7 @@ context and that `/chat load` brings them back.
 
 A chat stays active from invocation until the session ends. While it is:
 
-- Standalone Fast-Path file output lands in the chat's `outputs/`, not `Notes/`, and the five-line
+- Standalone Fast-Path file output lands in the chat's `outputs/`, not `Inbox/`, and the five-line
   eligibility verdict is appended to `CHAT.md § Log`. In-project work is unaffected — it still goes
   to that project's `02 Working/`.
 - Log entries are appended as work happens: what was asked, what was decided, what was produced,
