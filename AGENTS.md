@@ -30,7 +30,7 @@ Sanctioned route for light work, chosen by judgement or requested with `/fast-pa
 
 **Eligible only when ALL hold:** single-file/single-answer output · reversible, low blast-radius · one persona, no fan-out · no client Deliverable · not a governance-artefact edit. **Ambiguous → full pipeline**; `/fast-path` cannot override eligibility.
 
-**Bypasses:** `grill-me`, plan mode + approval, Checkpoints A/B, QA Gate. **Keeps (non-negotiable):** routing to a persona, never Orchestrator-inline · inline declared-locale + humaniser pass on any user-facing prose · destination never `03 Deliverables/` (in-project → `02 Working/`; standalone → active chat's `outputs/`, else inline reply or `Notes/`). Scope grows → stop, re-enter the full pipeline.
+**Bypasses:** `grill-me`, plan mode + approval, Checkpoints A/B, QA Gate. **Keeps (non-negotiable):** routing to a persona, never Orchestrator-inline · inline declared-locale + humaniser pass on any user-facing prose · destination never `03 Deliverables/` (in-project → `02 Working/`; standalone → active chat's `outputs/`, else inline reply or `Inbox/`). Scope grows → stop, re-enter the full pipeline.
 
 ## Chats
 
@@ -118,7 +118,7 @@ Name map: `Vault/Memory/theme-name-map.md`. Agent files: `.claude/agents/[role-s
 
 ## Vault Structure
 
-Root holds only `.claude/` · `Chats/` · `Notes/` · `Projects/` · `Resources/` · `Vault/`, plus tool/VCS dotfolders, dotfiles and permitted root files. **Never create a new root folder** — new persistent storage goes under `Vault/`; enforce this on any folder-creation request. `.claude/` writes prompt for confirmation by design — no auto-approve grant without a maintainer decision. Detail: [Vault/README.md](Vault/README.md) § Root-level layout.
+Root holds only `.claude/` · `Chats/` · `Inbox/` · `Projects/` · `Resources/` · `Vault/`, plus tool/VCS dotfolders, dotfiles and permitted root files. **Never create a new root folder** — new persistent storage goes under `Vault/`; enforce this on any folder-creation request. `.claude/` writes prompt for confirmation by design — no auto-approve grant without a maintainer decision. Detail: [Vault/README.md](Vault/README.md) § Root-level layout.
 
 ## Repo Consultation
 

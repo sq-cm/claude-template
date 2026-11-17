@@ -210,6 +210,13 @@ if git rebase main >/dev/null 2>&1; then
     echo "…and $MORE more — see CHANGELOG.md"
   fi
 
+  # One-off Notes/ -> Inbox/ move (plan 179). Placed after the rebase: the
+  # tracked Notes/ READMEs are gone by now, and Step 5's clean-tree check has
+  # already passed, so moving git-ignored files cannot trip it.
+  if [ -f "Vault/Scripts/migrate-notes-to-inbox.sh" ]; then
+    bash Vault/Scripts/migrate-notes-to-inbox.sh --hook
+  fi
+
   exit 0
 elif [ "$UNATTENDED" = "true" ]; then
   if [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ]; then

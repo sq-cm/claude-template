@@ -44,7 +44,7 @@ Governance-artefact edits — any AGENTS.md or CLAUDE.md, SOP, or persona file �
 
 > **Acceptance note — SOP-tier protection is deliberately behavioural-only.** The permission
 > config auto-allows SOP edits (`Edit(Resources/**)` in `.claude/settings.json`, alongside
-> `Edit(Projects/**)`, `Edit(Notes/**)` and `Edit(Vault/**)`), and no `.claude/**` write grant
+> `Edit(Projects/**)`, `Edit(Inbox/**)` and `Edit(Vault/**)`), and no `.claude/**` write grant
 > exists — `.claude/` writes prompt by design (root AGENTS.md § Vault Structure). The only
 > at-point-of-edit friction on an SOP file is the folder-tier `Resources/SOPs/AGENTS.md`
 > backstop; the operative protection is this SOP's Checkpoints A and B. This asymmetry is a

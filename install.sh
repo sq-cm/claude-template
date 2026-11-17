@@ -63,13 +63,15 @@ else
 fi
 
 # 3b. Seed the personal scratchpad if not present (gitignored; yours to edit freely)
-mkdir -p Notes/Personal
-if [ -f Notes/Personal/Notes.md ]; then
-  echo "  Notes/Personal/Notes.md already exists, skipping"
-elif [ -s Resources/Onboarding/Notes.example.md ] && cp Resources/Onboarding/Notes.example.md Notes/Personal/Notes.md; then
-  echo "✓ Notes/Personal/Notes.md created from template — your personal scratchpad"
+mkdir -p Inbox/Personal
+if [ -f Inbox/Personal/Notes.md ]; then
+  echo "  Inbox/Personal/Notes.md already exists, skipping"
+elif [ -f Notes/Personal/Notes.md ]; then
+  echo "  Inbox/Personal/Notes.md not seeded — your Notes/Personal/Notes.md moves there; run: bash Vault/Scripts/migrate-notes-to-inbox.sh"
+elif [ -s Resources/Onboarding/Notes.example.md ] && cp Resources/Onboarding/Notes.example.md Inbox/Personal/Notes.md; then
+  echo "✓ Inbox/Personal/Notes.md created from template — your personal scratchpad"
 else
-  echo "⚠ Notes/Personal/Notes.md not created — Notes.example.md is missing, empty or unreadable (partial pull?). Pull again, then re-run install.sh"
+  echo "⚠ Inbox/Personal/Notes.md not created — Notes.example.md is missing, empty or unreadable (partial pull?). Pull again, then re-run install.sh"
 fi
 
 echo ""
@@ -79,7 +81,7 @@ if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then
   echo "  - Set CLAUDE_TEMPLATE_MAINTAINER=1 in your shell profile (e.g. ~/.bashrc, ~/.zshrc) so it persists."
 else
   echo "Teammate install complete."
-  echo "  - You can edit Chats/, Notes/, Projects/ freely — they're gitignored."
+  echo "  - You can edit Chats/, Inbox/, Projects/ freely — they're gitignored."
   echo "  - Commits touching other paths are blocked by .githooks/pre-commit."
   echo "  - Pushes are blocked (push URL set to 'no_push' + pre-push hook)."
   echo "  - Template updates arrive automatically (at most once a day, at session start). Run /update in Claude Code to pull now."

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # pre-commit — restrict commits to teammate-editable paths
 #
-# Allowlist: Chats/, Notes/, Projects/ (all gitignored — typically empty in staged diff).
+# Allowlist: Chats/, Inbox/, Projects/ (all gitignored — typically empty in staged diff).
 # Anything else means the commit is touching template state and is rejected.
 # Known trade-off: tracked seed files under an allowlisted folder (Chats/README.md,
 # Projects/Template/*) pass this gate, so upstream PR protection is the real guard there.
@@ -27,14 +27,14 @@ if [ -z "$STAGED" ]; then
   exit 0
 fi
 
-VIOLATIONS=$(echo "$STAGED" | grep -vE '^(Chats/|Notes/|Projects/)' || true)
+VIOLATIONS=$(echo "$STAGED" | grep -vE '^(Chats/|Inbox/|Projects/)' || true)
 
 if [ -n "$VIOLATIONS" ]; then
   echo ""
   echo "❌  Commit blocked — this is a shared template vault."
   echo ""
   echo "    You're trying to commit files outside the teammate-editable zone"
-  echo "    (Chats/, Notes/, Projects/). The template flows one direction:"
+  echo "    (Chats/, Inbox/, Projects/). The template flows one direction:"
   echo "    upstream → your clone. Local edits to template files stay local."
   echo ""
   echo "    Files in this commit that are not allowed:"

@@ -28,6 +28,7 @@ desktop.ini
 .obsidian/workspace
 .obsidian/workspace.json
 .obsidian/workspaces.json
+/.obsidian/
 
 # Octarine
 .octarine/
@@ -104,6 +105,8 @@ Vault/Memory/update-check-errors.md
 # session-start-plugin-versions.sh throttle state + error log, machine-local
 Vault/Memory/.plugin-version-check-state
 Vault/Memory/plugin-version-check-errors.md
+# Notes/ -> Inbox/ migration: signature of the last incomplete-move report (onboarding hook), machine-local
+Vault/Memory/.notes-migration-state
 
 # Per-clone local team memory — reconcile + bootstrap write target (context.example.md is the tracked seed)
 Vault/Memory/context.md
@@ -120,6 +123,8 @@ Vault/Memory/recommendations_*
 # Personal work — local only, backed by Google Drive
 /Chats/*
 !/Chats/README.md
+/Inbox/
+# Pre-rename leftovers in older clones (Notes/ became Inbox/)
 /Notes/
 /Projects/
 Vault/Archive/

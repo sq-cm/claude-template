@@ -18,7 +18,7 @@ that adopted each drop. Verify a snapshot with the command in each section.
 
 Every future drop adoption appends its own hash section to this file at adoption time, in the adopting PR.
 
-## Drop 3 hashes (`Notes/Team/Joey's Skill Files 081626/`)
+## Drop 3 hashes (`Inbox/Team/Joey's Skill Files 081626/`)
 
 Command used (run from inside the snapshot folder):
 
@@ -39,7 +39,7 @@ c3f44e2d8e890da070fb1b41bd498cd9bfb71d3550048f1c74d4bea5e00f8145 *./story-bible-
 b8dd88d66df00d6b9cf8aa576b7bb711f1053a70db8113e430a2bc0ed544d94e *./transcript.md
 ```
 
-## AI Cinematic World hashes (`Notes/Team/AI Cinematic World/`)
+## AI Cinematic World hashes (`Inbox/Team/AI Cinematic World/`)
 
 Command used (run from inside the snapshot folder):
 

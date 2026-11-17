@@ -32,7 +32,7 @@
 #
 #   Scope includes gitignored trees. The `find .` below prunes only `./.git`,
 #   and the untracked-file test passes trivially inside a gitignored
-#   directory, so Notes/, Projects/, Vault/Plans/ and Vault/Logs/ are all in
+#   directory, so Inbox/, Projects/, Vault/Plans/ and Vault/Logs/ are all in
 #   scope for Pass 2's delete, the same as any other untracked path.
 #
 #   Wiring and silence. Invoked from a SessionStart hook

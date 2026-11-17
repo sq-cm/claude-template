@@ -66,7 +66,7 @@
       "WebFetch(domain:registry.npmjs.org)",
       "WebFetch(domain:pypi.org)",
       "Edit(Projects/**)",
-      "Edit(Notes/**)",
+      "Edit(Inbox/**)",
       "Edit(Resources/**)",
       "Edit(Vault/**)",
       "Edit(Chats/**)"
@@ -222,7 +222,6 @@
   "enabledPlugins": {
     "plannotator@plannotator": false,
     "context-mode@context-mode": true,
-    "obsidian@obsidian-skills": true,
     "caveman@caveman": true,
     "document-skills@anthropic-agent-skills": true,
     "claude-mem@thedotmack": true,
@@ -234,12 +233,6 @@
       "source": {
         "source": "github",
         "repo": "mksglu/context-mode"
-      }
-    },
-    "obsidian-skills": {
-      "source": {
-        "source": "github",
-        "repo": "kepano/obsidian-skills"
       }
     },
     "caveman": {

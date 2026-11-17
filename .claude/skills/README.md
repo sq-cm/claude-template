@@ -34,7 +34,7 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 | `banana-pro-director` | Higgsfield still-image prompt director (Banana Pro / Soul Cinema / GPT Image 2) for scene plates, environment plates, GPT Image 2 detail stills, and scene-staged outfit replacement; character identity work (face locks, outfits, sheets, and outfit replacement banked as a character reference — `character-builder` Mode 3) routes to `character-builder` by default, retained here as legacy on explicit request | Iris (Stills Director) |
 | `brainstorming` | Structured creative ideation before feature or content work | All |
 | `character-builder` | Photoreal Higgsfield character and outfit builder — five modes: face lock (0), additions/re-locks (1), outfit builder (2), outfit replacement (3), and character sheets (4) including the 3-panel default, the legacy 6-panel, and the studio-local headless Seedance-handoff sheet | Iris (Stills Director) |
-| `chat` | Per-conversation workspaces under `Chats/` — start, resume, list, and save a dated chat folder (`CHAT.md` running log + lazily created `outputs/`); while a chat is active, standalone Fast-Path output lands in its `outputs/` instead of `Notes/`; explicit `/chat` invocation only | Everyone (session workflow) |
+| `chat` | Per-conversation workspaces under `Chats/` — start, resume, list, and save a dated chat folder (`CHAT.md` running log + lazily created `outputs/`); while a chat is active, standalone Fast-Path output lands in its `outputs/` instead of `Inbox/`; explicit `/chat` invocation only | Everyone (session workflow) |
 | `cinema-director` | Seedance video prompt director — a Seedance 2.0/2.5 target-version gate ahead of the locked 16-slot spine, five cinema modes, Assets-line continuity grammar, diegetic audio under `NO BGM`; **photoreal/live-action and English-only** (for stylised/bilingual work use `seedance-bilingual-director`) | Dash (Seedance Director) |
 | `cinema-world-bible` | Continuity tracker for an ACTIVE narrative AI-film production — world bible, character bibles, reference-library index, shot specs that route to the operator skills; for a portable standalone canon document with no production yet, use `story-bible-builder` first | Marlowe (Cinema Showrunner) |
 | `code-minimalism-review` | Over-engineering review of diffs — five tags (delete/stdlib/native/yagni/shrink); findings only, applies nothing (adapted from ponytail, MIT) | Webflow Developer, Email Developer, Mobile Developer, Automation Architect, Creative Technologist |
@@ -71,10 +71,6 @@ Skills installed in this directory. Each is a SKILL.md-based capability invocabl
 ## Plugin-Provided Skills
 
 These skills are not stored in this directory. They are provided at runtime by marketplace plugins — the canonical, current roster is `.claude/settings.json` `enabledPlugins` (do not restate it here; it drifts as plugins are added or removed). Fresh clones auto-install the declared plugins after a one-time trust prompt; `.claude/commands/onboard.md` Step 9 is the manual fallback. A plugin's skills will not work without that plugin installed — run `/plugin` to see what is currently active and what each installed plugin provides.
-
-One plugin is worth a standing note beyond "check `/plugin`":
-
-- **`obsidian` plugin** (`obsidian-skills` marketplace, kepano/obsidian-skills, MIT) replaces the formerly vault-local copies of the Obsidian skills (`obsidian-bases`, `obsidian-cli`, `obsidian-markdown`, `json-canvas`, `defuddle`), which were content-identical to upstream — the plugin keeps them auto-updated instead of the vault carrying a static snapshot.
 
 The superpowers-derived skills in this folder (`brainstorming`, `dispatching-parallel-agents`, `using-superpowers`, `verification-before-completion`, `writing-plans`) are vendored copies — they need no plugin, and the `superpowers` plugin is deliberately not in the roster (plan 060).
 
