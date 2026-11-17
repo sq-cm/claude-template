@@ -214,6 +214,8 @@ Claude Code installs the recommended plugins itself, at the trust prompt; onboar
 
 Restart Claude Code after any plugin install.
 
+**Plugin version check.** Once a day, at session start, `.claude/hooks/session-start-plugin-versions.sh` compares each enabled plugin with its upstream marketplace and tells you which ones are behind, with the update commands to run. It only warns. It never updates anything, it says nothing when everything is current or the network is down, and it skips caveman because that marketplace explicitly sets `autoUpdate: false`. To check again before the day is up, delete `Vault/Memory/.plugin-version-check-state`. To turn it off, remove the hook's entry from `hooks.SessionStart` in `.claude/settings.json`. Failures go to `Vault/Memory/plugin-version-check-errors.md`.
+
 ### Accepted risk — unpinned third-party code paths
 
 Every marketplace in `.claude/settings.json` `extraKnownMarketplaces` sourced from GitHub (`context-mode`, `obsidian-skills`, `caveman`, `anthropic-agent-skills`, `thedotmack`) tracks its repo's default branch at HEAD, not a pinned commit or tag. None of the five publishes tags, and commit-SHA refs were tested and rejected by the clone mechanism (`git clone --branch <sha>` fails), so branch-at-HEAD is the only option. `autoUpdate` is explicitly `false` on the caveman entry (previously `true`); the other four entries omit the key, which defaults to `false`. Either way, a fresh trust-prompt install always uses whatever is at HEAD at trust time, and updates only happen when a maintainer explicitly runs `/plugin marketplace update`.
