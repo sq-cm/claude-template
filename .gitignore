@@ -101,6 +101,9 @@ Vault/Memory/Sessions/
 # update-check.sh SessionStart hook, machine-local
 Vault/Memory/.update-check-state
 Vault/Memory/update-check-errors.md
+# session-start-plugin-versions.sh throttle state + error log, machine-local
+Vault/Memory/.plugin-version-check-state
+Vault/Memory/plugin-version-check-errors.md
 
 # Per-clone local team memory — reconcile + bootstrap write target (context.example.md is the tracked seed)
 Vault/Memory/context.md
