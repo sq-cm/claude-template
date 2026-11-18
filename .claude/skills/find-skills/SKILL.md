@@ -4,17 +4,7 @@ description: Helps users discover and install agent skills on explicit request â
 disable-model-invocation: true
 ---
 
-<!--
-Source: https://github.com/vercel-labs/skills (skills/find-skills). Synced at upstream
-commit ceea008 on 06/07/2026 (straight copy). Vault adaptation: "Vault note" block
-added below â€” installs into this template's .claude/skills/ are maintainer decisions
-and prompt for confirmation by design; discovery/search steps unchanged.
-Resynced to upstream 773fb2c on 24/09/2026 (plan 135): upstream's only change on this path
-removed the npx skills check key-command line.
-Re-sync rule: carry the Vault note over any future upstream replace.
-Second adaptation (drift-audit F19): description narrowed to explicit skill-ecosystem
-requests so discovery doesn't compete with grill-me intake.
--->
+<!-- Upstream provenance and vault adaptations: see UPSTREAM.md in this folder. Read it before any resync. -->
 
 # Find Skills
 

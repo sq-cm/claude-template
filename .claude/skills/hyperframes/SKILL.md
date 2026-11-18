@@ -322,11 +322,11 @@ Video must be `muted playsinline`. Audio is always a separate `<audio>` element:
 
 ## Scene Transitions (Non-Negotiable)
 
-Every multi-scene composition MUST follow ALL of these rules. Violating any one of them is a broken composition.
+Every multi-scene composition follows all of these rules. Breaking any one of them gives a broken composition.
 
 1. **Every scene change is a deliberate transition choice** — shader, CSS, or an intentional hard cut placed on the beat (see references/beat-direction.md). No accidental jump cuts.
-2. **ALWAYS use entrance animations on every scene.** Every element animates IN via `gsap.from()`. No element may appear fully-formed. If a scene has 5 elements, it needs 5 entrance tweens.
-3. **NEVER use exit animations** except on the final scene. This means: NO `gsap.to()` that animates opacity to 0, y offscreen, scale to 0, or any other "out" animation before a transition fires. The transition IS the exit. The outgoing scene's content MUST be fully visible at the moment the transition starts.
+2. **Use entrance animations on every scene.** Every element animates in via `gsap.from()`. No element may appear fully-formed. If a scene has 5 elements, it needs 5 entrance tweens.
+3. **No exit animations** except on the final scene. This means: no `gsap.to()` that animates opacity to 0, y offscreen, scale to 0, or any other "out" animation before a transition fires. The transition IS the exit. The outgoing scene's content is fully visible at the moment the transition starts.
 4. **Final scene only:** The last scene may fade elements out (e.g., fade to black). This is the ONLY scene where `gsap.to(..., { opacity: 0 })` is allowed.
 
 **WRONG — exit animation before transition:**

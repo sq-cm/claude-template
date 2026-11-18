@@ -8,15 +8,7 @@ metadata:
   upstream_commit: 0307d5c9b3258f4354cab86239d9b2b9e22482c3
 ---
 
-<!--
-Source: https://github.com/ykdojo/claude-code-tips skills/review-claudemd (idea-level
-adaptation — this build is a rewrite, not a port; pinned upstream commit `0307d5c`,
-2026-06-22). Vault divergences from upstream: report-only hard rule (upstream offers to
-draft edits); five lenses (upstream has four — Friction is vault-local); zero-dep Node
-extractor replacing bash+jq (cross-platform, tool-call digests, mechanical hook-noise
-stripping, secret redaction — upstream extracts text turns only); all CLAUDE.md tiers
-including folder-tier; output to git-ignored Vault/Plans/ per vault convention.
--->
+<!-- Upstream provenance and vault adaptations: see UPSTREAM.md in this folder. Read it before any resync. -->
 
 # Review CLAUDE.md from conversation history
 
