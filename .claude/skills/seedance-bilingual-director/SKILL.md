@@ -32,7 +32,7 @@ User provides plain text describing a scene, optionally with attached reference 
 **Extract from user text:**
 - **Scene type:** determine if the scene is action, general, or dialogue (or a hybrid). This decides which archetype set to use.
 - **Duration:** if mentioned (e.g., "10 seconds"), respect it. If not, default to 10 seconds. Hard cap: 15 seconds.
-- **Camera:** if user specifies camera movement or angle (e.g., "dolly in," "low-angle," "tracking shot"), it MUST appear in the final prompt — both EN and ZH. User camera direction overrides all defaults.
+- **Camera:** if user specifies camera movement or angle (e.g., "dolly in," "low-angle," "tracking shot"), it appears in the final prompt — both EN and ZH. User camera direction overrides all defaults.
 
 ---
 
@@ -48,7 +48,7 @@ Before writing, silently catalog every asset from the user's text and images:
 
 *Exception: if the user's request implies scene creation rather than adaptation (e.g., "come up with a fight scene," "create a landscape," or vague descriptions like "two guys fighting"), you may invent supporting elements (location details, props, environmental features) to build the most effective scene. Named characters and their core attributes still come only from the user.*
 
-**Age-blind character rule (CRITICAL).** Never describe characters by age — in either language. Trigger words to avoid: *boy, girl, child, kid, young, teen, little, 男孩, 女孩, 孩子, 少年, 少女, 小孩, 年轻*.
+**Age-blind character rule.** Never describe characters by age — in either language. Trigger words to avoid: *boy, girl, child, kid, young, teen, little, 男孩, 女孩, 孩子, 少年, 少女, 小孩, 年轻*.
 - **With image input:** describe by **role** (rider, figure, traveler, speaker), **clothing**, and **action**. Never label who they are — label what they do.
 - **Without image input:** use functional labels: "a figure in a wool cloak," "a silhouette against the horizon."
 
@@ -63,7 +63,7 @@ Identify which archetype the scene fits — this guides camera behavior, spatial
 | Archetype | Camera focus | Space dynamic |
 |---|---|---|
 | **Pursuit** | Distance closing/opening. Pursued ahead in frame, pursuer behind | Path narrows/opens |
-| **Duel** | Camera lower on dominant side; dominance MUST alternate | Fighters trade position |
+| **Duel** | Camera lower on dominant side; dominance alternates | Fighters trade position |
 | **Impact** | Build-up slow → hit fast → aftermath slow | Point of contact = center |
 
 **Action decision tree:**
@@ -218,7 +218,7 @@ ZH hard cap = 1,800 characters. Heuristic: 1 ZH sentence ≈ 40–60 chars. If E
 - Dynamic Description = pure physics for dialogue. No emotion labels — describe muscle movements, body positions
 
 ### Creative
-- User camera instructions MUST appear in final prompt — both EN and ZH
+- User camera instructions appear in the final prompt — both EN and ZH
 - Style & Mood section: never skip, always specific
 - Double contrast on every cut
 - Inserts: causally motivated, named subject

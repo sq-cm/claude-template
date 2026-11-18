@@ -3,19 +3,7 @@ name: dispatching-parallel-agents
 description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
 ---
 
-<!--
-Source: https://github.com/obra/superpowers (superpowers plugin). Synced at upstream
-v6.1.1 on 2026-07-06 (PR #133, straight replace). Vault adaptation (plan 025): none
-beyond this header — mechanics are correct for the Orchestrator (this vault's only
-dispatcher); the audience/wording fix for non-Orchestrator readers is a separate plan
-(026). Re-sync rule: carry this header over any future upstream replace.
-Phase-5 audit shrink (W19, 11/07/2026): deleted the four trailing sections (session
-anecdote, benefits recap, verification recap, impact recap); carry over any future
-upstream replace.
-Vault adaptation (plan 159, 16/10/2026): the "one per response = sequential"
-line now says sub-agents run in the background, so a dependent step waits for the
-completion notification. Carry over any future upstream replace.
--->
+<!-- Upstream provenance and vault adaptations: see UPSTREAM.md in this folder. Read it before any resync. -->
 
 # Dispatching Parallel Agents
 

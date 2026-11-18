@@ -22,3 +22,7 @@ Carry these over any resync:
 - `SKILL.md` step 4 (exits): exits with `gsap.to()` only on the final scene or a single-scene composition; in multi-scene work the transition is the exit.
 - `SKILL.md` GSAP closer: the pointer to upstream `skills/gsap` is replaced, because upstream removed that skill.
 - `references/typography.md`: the four font rules lose their accusatory asides ("You do this constantly", "You will try to use 14px"); the rules themselves are unchanged.
+
+## Local wording change 19/11/2026 (plan 180)
+
+`SKILL.md` § Scene Transitions (three lines) lost its capital-letter emphasis words (MUST, ALL, ALWAYS, IN, NEVER, NO), and its lead sentence now reads "Breaking any one of them gives a broken composition" where it read "Violating any one of them is a broken composition"; the rules themselves are unchanged. This is a local edit to the frozen copy, not an upstream change. Carry it over any resync.
