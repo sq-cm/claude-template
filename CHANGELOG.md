@@ -7,6 +7,7 @@ This log tracks the **template itself** — structural changes clones inherit on
 ## 2026-11-19
 
 - docs(skills): twelve skills (`brainstorming`, `dispatching-parallel-agents`, `find-skills`, `improve`, `prototype`, `review-claudemd`, `teach`, `using-superpowers`, `verification-before-completion`, `wait-what`, `write-a-skill`, `writing-plans`) no longer carry their maintainer history comment inside `SKILL.md`. Each block moved word for word into a new `UPSTREAM.md` beside it, so it stops loading on every use; a one-line pointer stays behind, as in `grill-me`. `seedance-bilingual-director/SKILL.md` (four lines) and `hyperframes/SKILL.md` § Scene Transitions (three lines) lose their capital-letter emphasis words; the rules are unchanged, and `hyperframes/UPSTREAM.md` records the local edit. Source: the 19/11/2026 `/doctor prompt-audit` run, fixes F1–F3. Advisor Checkpoints A and B (19/11/2026); opt-in QA pass PASS, all twelve moves byte-checked. No QA Gate: nothing moves to `03 Deliverables/`. Validator `PASS` (one existing warning). Plan 180 (#388)
+- docs(skills): two pointers left stale by plan 180 now name the right place. `writing-for-agents/UPSTREAM.md` cites `write-a-skill/UPSTREAM.md` instead of the `write-a-skill/SKILL.md` header, and the vault note in `find-skills/SKILL.md` says provenance is required in an `UPSTREAM.md` beside `SKILL.md`. Two files, one line each. Advisor Checkpoint B (19/11/2026). No QA Gate: nothing moves to `03 Deliverables/`. Validator `PASS` (one existing warning). Plan 181 (#389)
 
 ## 2026-11-17
 
