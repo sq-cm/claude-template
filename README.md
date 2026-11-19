@@ -18,6 +18,8 @@ Quality gates are built in too. A frontier-model advisor — the **Senior Advise
 
 ## Quick start
 
+Before you start, you need `bash`, `jq` and `git`. [Prerequisites](Resources/Onboarding/SETUP.md#prerequisites) has a one-line check and the install commands.
+
 1. Clone this repo
 2. Run the installer once from the vault root: `bash install.sh` on Mac or Linux, `install.bat` on Windows
 3. Open the folder as your working directory in [Claude Code](https://claude.ai/code)

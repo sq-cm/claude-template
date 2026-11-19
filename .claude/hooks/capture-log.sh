@@ -57,7 +57,7 @@ redact() {
     -e 's#1//[A-Za-z0-9_-]{20,}#1//***REDACTED***#g' \
     -e 's/eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/***REDACTED JWT***/g' \
     -e 's/([Bb]earer )[A-Za-z0-9._-]{20,}/\1***REDACTED***/g' \
-    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)[\"']?[^[:space:]\"']{8,}/\\1***REDACTED***/g" \
+    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)([\"'][^[:space:]\"']{8,}[\"']?|[^[:space:]\"']{8,})/\\1***REDACTED***/g" \
     2>/dev/null
 }
 

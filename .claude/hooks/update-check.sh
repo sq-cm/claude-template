@@ -177,7 +177,7 @@ else
   # then not exported at all, since git would let it override GIT_SSH.
   FETCH_SSH="${GIT_SSH_COMMAND:-$(git config --get core.sshCommand 2>/dev/null || true)}"
   case "$FETCH_SSH" in
-    *[Pp]link*) ;;
+    *[Pp][Ll][Ii][Nn][Kk]*) ;;
     "") [ -n "${GIT_SSH:-}" ] || FETCH_SSH="ssh -o BatchMode=yes -o ConnectTimeout=10" ;;
     *) FETCH_SSH="$FETCH_SSH -o BatchMode=yes -o ConnectTimeout=10" ;;
   esac
