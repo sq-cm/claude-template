@@ -6,3 +6,7 @@ Maintainer-only. Moved here verbatim from `SKILL.md` on 19/11/2026 (plan 182) so
 
 Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff (by Matt Pocock).
 Verbatim copy. Synced with upstream @ 49dd158 on 14/10/2026 (plan 150); previously c55ee46 (24/09/2026, plan 135) and 386d4ff (13/08/2026).
+
+## Not vendored (noted 19/11/2026, plan 183)
+
+Upstream's `agents/openai.yaml` (Codex config) is deliberately not vendored. `wait-what` and `writing-for-agents` cite this as their precedent; the `mattpocock/skills` row in `Resources/Git/INDEX.md` records it for the five skills resynced under plan 150.
