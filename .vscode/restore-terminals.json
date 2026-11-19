@@ -7,7 +7,7 @@
       "splitTerminals": [
         {
           "name": "Agents",
-          "commands": ["herdr"]
+          "commands": ["command -v herdr >/dev/null 2>&1 && herdr || true"]
         }
       ]
     }

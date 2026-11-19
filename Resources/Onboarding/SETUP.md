@@ -32,6 +32,16 @@ for c in bash jq git; do command -v "$c" >/dev/null 2>&1 && echo "ok   $c" || ec
 
 Each line should read `ok`, not `MISS`. If any read `MISS`, install that tool before continuing.
 
+Git for Windows does not include `jq`. Install it with your platform's package manager, then open a new terminal so it is on your `PATH`:
+
+| Platform | Command |
+|---|---|
+| macOS (Homebrew) | `brew install jq` |
+| Windows (winget) | `winget install jqlang.jq` |
+| Debian / Ubuntu | `sudo apt-get install jq` |
+
+Run the check above again afterwards. These commands come from each package manager's own listing and have not been exercised by the vault's maintainers on a clean machine; if one fails, see [jqlang.org/download](https://jqlang.org/download/).
+
 ---
 
 ## Step 0 — Run the install script
@@ -48,7 +58,7 @@ bash install.sh
 install.bat
 ```
 
-This automatically blocks push to the upstream template repo (your instance is yours — you can't accidentally push back), activates git hooks (commit + push gates), creates your `.env` file, and seeds your local `Vault/Memory/context.md`. The script verifies `core.hooksPath` resolved before proceeding — if it prints `[FAIL]`, fix that before continuing.
+This automatically blocks push to the upstream template repo (your instance is yours — you can't accidentally push back), activates git hooks (commit + push gates), creates your `.env` file, and seeds your local `Vault/Memory/context.md`. The script verifies `core.hooksPath` resolved before proceeding — if it prints a line starting `[FAIL]` (Windows) or `✗` (Mac / Linux), fix that before continuing.
 
 ### What you can and can't change locally
 
@@ -120,7 +130,7 @@ See `Resources/SOPs/Theme SOP.md` for the full workflow.
 
 ## Step 4 — Bootstrap memory
 
-`Vault/Memory/context.md` was created from the tracked seed (`context.example.md`) by whichever of these ran on your clone: `install.sh` / `install.bat`, or `/onboard` (which also seeds it, since the documented quick-start path in `README.md` goes straight to `/onboard` without an installer step). Open `Vault/Memory/context.md` and fill in the `## Session Bootstrap` block:
+`Vault/Memory/context.md` was created from the tracked seed (`context.example.md`) by whichever of these ran on your clone: `install.sh` / `install.bat`, or `/onboard` (which also seeds it, for a clone where the installer was skipped). Open `Vault/Memory/context.md` and fill in the `## Session Bootstrap` block:
 
 ```markdown
 ## Session Bootstrap — [YYYY-MM-DD]
@@ -137,7 +147,7 @@ This anchors your local memory for future sessions.
 
 > **`context.md` vs `MEMORY.md`.** `context.md` is your clone's **local** team memory — git-ignored, the write target for the bootstrap entry above and for `/memory-reconcile`. `MEMORY.md` is the shipped, git-tracked **vault-operations index**, maintainer-curated and the same for every install. Never hand-edit `MEMORY.md` for local facts — doing so causes rebase conflicts on `/update`. Both files load into context every prompt.
 
-> **Migrating an existing clone (one-time).** If your clone predates the memory split, local entries you added to `MEMORY.md` are now in the maintainer-owned tracked file and will conflict on your next `/update`. Move them into `Vault/Memory/context.md`, then run `git checkout MEMORY.md` to restore the shipped index. New clones skip this — `context.md` already exists by the time this matters, created by the installer or by `/onboard`.
+> **Migrating an existing clone (one-time).** If your clone predates the memory split, local entries you added to `MEMORY.md` are now in the maintainer-owned tracked file and will conflict on your next `/update`. Move them into `Vault/Memory/context.md`, then run `git checkout -- Vault/Memory/MEMORY.md` from the vault root to restore the shipped index. New clones skip this — `context.md` already exists by the time this matters, created by the installer or by `/onboard`.
 
 ---
 
@@ -233,7 +243,7 @@ The trade-off accepted in its place: each repo's HEAD commit was reviewed (see p
 | anthropics/skills | `9d2f1ae187231d8199c64b5b762e1bdf2244733d` | 2026-07-06 |
 | thedotmack/claude-mem | `804504b351cabbe45c63fa8692ff09c57e0d03e6` | 2026-07-06 |
 
-**Retired marketplace — `coreyhaines31/marketingskills`.** Removed from `extraKnownMarketplaces` on 04/09/2026 (plan 121, maintainer decision of 03/09/2026). Its plugin, `marketing-skills@marketingskills`, had already been unbundled from `enabledPlugins`, onboarding and `REQUIRED_KEYS` on 04/08/2026 (CHANGELOG entry "(#263)"), and nothing in the roster depended on the registration. It is now a two-command local opt-in rather than one: `/plugin marketplace add coreyhaines31/marketingskills` then `/plugin install marketing-skills@marketingskills`. A clone that already registered the marketplace keeps that registration — it is local Claude Code state (`~/.claude/plugins/known_marketplaces.json`), not something this repository controls — and `/plugin marketplace remove marketingskills` clears it. If you would rather declare it in git-ignored `.claude/settings.local.json` under `extraKnownMarketplaces`: the Claude Code docs state that list-valued keys such as `permissions.allow` merge across settings files, but do not say how an object-valued key like `extraKnownMarketplaces` combines, so after adding it run `/plugin marketplace list` and confirm the five template marketplaces are still registered — if any are missing, copy the template's full `extraKnownMarketplaces` block into the local file alongside your addition (docs checked 04/09/2026).
+**Retired marketplace — `coreyhaines31/marketingskills`.** Removed from `extraKnownMarketplaces` on 04/09/2026 (plan 121, maintainer decision of 03/09/2026). Its plugin, `marketing-skills@marketingskills`, had already been unbundled from `enabledPlugins`, onboarding and `REQUIRED_KEYS` on 04/08/2026 (CHANGELOG entry "(#263)"), and nothing in the roster depended on the registration. It is now a two-command local opt-in rather than one: `/plugin marketplace add coreyhaines31/marketingskills` then `/plugin install marketing-skills@marketingskills`. A clone that already registered the marketplace keeps that registration — it is local Claude Code state (`~/.claude/plugins/known_marketplaces.json`), not something this repository controls — and `/plugin marketplace remove marketingskills` clears it. If you would rather declare it in git-ignored `.claude/settings.local.json` under `extraKnownMarketplaces`: the Claude Code docs state that list-valued keys such as `permissions.allow` merge across settings files, but do not say how an object-valued key like `extraKnownMarketplaces` combines, so after adding it run `/plugin marketplace list` and confirm the four template marketplaces (`context-mode`, `caveman`, `thedotmack`, `anthropic-agent-skills`) are still registered — if any are missing, copy the template's full `extraKnownMarketplaces` block into the local file alongside your addition (docs checked 04/09/2026).
 
 Disabling any plugin listed here requires removing its matching `tier2_plugin_<name>` entry from `REQUIRED_KEYS` in `.claude/hooks/session-start-onboarding.sh` in the same change — a `REQUIRED_KEYS` entry that can never become true makes onboarding re-fire every session, forever.
 
