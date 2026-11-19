@@ -7,10 +7,7 @@ adapted_from: https://github.com/mattpocock/skills
 upstream_commit: 49dd158d1076134a641b33efb035946536778336
 ---
 
-<!--
-Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff (by Matt Pocock).
-Verbatim copy. Synced with upstream @ 49dd158 on 14/10/2026 (plan 150); previously c55ee46 (24/09/2026, plan 135) and 386d4ff (13/08/2026).
--->
+<!-- Upstream provenance and vault adaptations: see UPSTREAM.md in this folder. Read it before any resync. -->
 
 Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows) - not the current workspace.
 
