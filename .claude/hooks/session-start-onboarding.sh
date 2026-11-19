@@ -84,6 +84,39 @@ if [ "${CLAUDE_TEMPLATE_MAINTAINER:-}" = "1" ]; then emit_silent; fi
 # Bail if not inside template
 if [ ! -f "$DIR/AGENTS.md" ] || [ ! -d "$DIR/.claude/agents" ]; then emit_silent; fi
 
+# Two-branch model: main mirrors the template, local/main holds this clone's
+# own commits, and update-check.sh skips a clone that has no local/main. Only
+# /onboard Step 1 used to create the branch, and the automatic onboarding path
+# never runs Step 1, so installer-path clones never received an update (plan
+# 185). Created here on every session of an installed or onboarded clone until
+# it exists. The .git directory test comes first because rev-parse also
+# succeeds when DIR sits inside some enclosing repository. The clone must also
+# be push-locked: CLAUDE_TEMPLATE_MAINTAINER lives only in the maintainer's
+# shell profile, so a maintainer session started without it would otherwise
+# be moved off main silently; both installers and /onboard Step 1 set the push
+# URL to no_push, which marks a teammate clone (plan 185). Switching is safe
+# with uncommitted changes because the new branch points at the same commit;
+# when HEAD is somewhere other than main the branch is created without
+# switching, and update.sh moves onto it on the next /update. Never during a
+# rebase or merge. Runs after the maintainer short-circuit above, so a session
+# with CLAUDE_TEMPLATE_MAINTAINER=1 never reaches it.
+if [ -d "$DIR/.git" ] \
+   && git -C "$DIR" rev-parse --git-dir >/dev/null 2>&1 \
+   && [ "$(git -C "$DIR" remote get-url --push origin 2>/dev/null || echo "")" = "no_push" ] \
+   && git -C "$DIR" rev-parse --verify --quiet refs/heads/main >/dev/null 2>&1 \
+   && ! git -C "$DIR" rev-parse --verify --quiet refs/heads/local/main >/dev/null 2>&1; then
+  LM_GITDIR="$(git -C "$DIR" rev-parse --absolute-git-dir 2>/dev/null || echo "")"
+  if [ -n "$LM_GITDIR" ] && [ ! -d "$LM_GITDIR/rebase-merge" ] && [ ! -d "$LM_GITDIR/rebase-apply" ] && [ ! -f "$LM_GITDIR/MERGE_HEAD" ]; then
+    if [ "$(git -C "$DIR" symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")" = "main" ]; then
+      git -C "$DIR" checkout -b local/main >/dev/null 2>&1 \
+        || log_error "could not create and switch to local/main — run: git checkout -b local/main"
+    else
+      git -C "$DIR" branch local/main main >/dev/null 2>&1 \
+        || log_error "could not create local/main — run: git branch local/main main"
+    fi
+  fi
+fi
+
 # One-off Notes/ -> Inbox/ move for clones made before plan 179. It runs on
 # every session, not only first-run Tier 1 below, because the /update that
 # pulls plan 179 still executes the old update.sh, which has no migration
@@ -123,7 +156,7 @@ SETTINGS="$DIR/Vault/Memory/onboarding-flags.json"
 # flag→step map. Name sites by what they are, not by line number, which
 # drifts every time this file is edited. validate.sh Check 14 FAILs a
 # tier2_plugin_* key whose plugin is disabled or missing.
-REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier2_vscode_git tier1_notes_seed"
+REQUIRED_KEYS="tier1_git_hooks tier1_env_copy tier1_node tier2_caveman tier2_plugin_claude_mem tier2_plugin_context_mode tier2_plugin_document_skills tier2_plugin_skill_creator tier2_plugin_frontend_design tier1_notes_seed"
 
 # Derived views of REQUIRED_KEYS — the roster is encoded ONCE, above.
 # Check 14 in Vault/Scripts/validate.sh greps the literal REQUIRED_KEYS=
@@ -158,7 +191,7 @@ PLUGIN_MAP_SEGMENT="tier2_plugin_$(printf '%s' "$PLUGIN_SHORT" | sed 's| |/|g')"
 # listed here: their resolution runs through the plugin install check's own
 # branch in the loop below (plan 128). Every tier2_* key, plugin or not, also
 # accepts a snooze object {"snoozed_until":"YYYY-MM-DD"} — see snooze_active.
-SKIPPABLE_KEYS="tier1_node tier2_caveman tier2_vscode_git"
+SKIPPABLE_KEYS="tier1_node tier2_caveman"
 
 if ! command -v jq >/dev/null 2>&1; then
   log_error "jq not found on PATH — auto-onboarding disabled"
@@ -431,7 +464,6 @@ if [ "$FIRST_RUN" != "true" ]; then
   # established clones already have them, and a missing tier1_* key is first-run.
   SETUP_ITEMS=""
   case " $missing " in *" tier2_caveman "*) SETUP_ITEMS="Caveman" ;; esac
-  case " $missing " in *" tier2_vscode_git "*) SETUP_ITEMS="${SETUP_ITEMS:+$SETUP_ITEMS / }VS Code settings" ;; esac
   TOPUP_LINES="$PLUGIN_LINE"
   if [ -n "$SETUP_ITEMS" ]; then
     TOPUP_LINES="${TOPUP_LINES:+$TOPUP_LINES
@@ -532,10 +564,13 @@ fi
 # is ever revisited.
 
 # Derived step list. The ACTION used to name Steps 3, 7, 8, 9 and 10 (10 was
-# the since-removed plannotator binary step) unconditionally, so a session
+# the since-removed plannotator binary step; Step 3 retired by plan 185)
+# unconditionally, so a session
 # missing one plugin flag re-ran all five — the list is now built from
-# $missing instead (plan 128). Keep the two clauses in step order: that is
-# what makes the list ascending, with no sort. Steps 8 and 9 (the plugins) are
+# $missing instead (plan 128). It used to hold two clauses, Step 3 and Step 7
+# (Step 3 retired by plan 185), so Step 7 is now the only step it can derive;
+# any clause added later goes in step order, which keeps the list ascending
+# with no sort. Steps 8 and 9 (the plugins) are
 # never derived: the agent cannot install a plugin, so a missing plugin gets
 # the /plugin commands in PLUGIN_LINE instead (plan 139). Step 7 is therefore
 # the last step the list can hold, and nothing ever waits on Node after it.
@@ -547,11 +582,12 @@ fi
 # ACTION closes with a one-line pointer at the guide instead (plan 119,
 # 04/09/2026).
 STEPS=""
-case " $missing " in *" tier2_vscode_git "*) STEPS="$STEPS 3" ;; esac
 case " $missing " in *" tier1_node "*|*" tier2_caveman "*) STEPS="$STEPS 7" ;; esac
 STEPS="${STEPS# }"
 
-# "3 7" → "Steps 3, 7"; "7" → "Step 7"; "" → "". `set --` inside a
+# "7" → "Step 7"; "" → "". A multi-step list such as "3 7" (Step 3 retired
+# by plan 185) would give "Steps 3, 7"; the list now only ever holds 7, and
+# the plural branch is kept for any step derived later. `set --` inside a
 # function only rebinds that function's positional parameters.
 fmt_steps() {
   set -- $1
@@ -594,6 +630,6 @@ Missing flags:$missing
 
 $ACTION
 
-Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull; the same goes for notes=skipped, Notes/Personal/Notes.md not yet moved to Inbox/; tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = no onboard.md step — plugin keys are read from Claude Code's install state; the only values you ever write to one are \"skipped\" (the user does not want it) or a snooze object {\"snoozed_until\":\"YYYY-MM-DD\"}; tier2_caveman = Step 7 + '/caveman lite' once caveman@caveman is confirmed installed (if it isn't, the user runs the /plugin commands and the key gets a snooze object, never true), or \"skipped\" alongside tier1_node when Node is unavailable; tier2_vscode_git = Step 3. hooks= is informational only; it never gates or sets any flag."
+Flag→step map: tier1_git_hooks/tier1_env_copy/tier1_notes_seed = hook already ran (set true unless the Tier 1 line reports FAILED for that key — for the two copy keys both 'exists' and 'created from ...' set it true); for tier1_notes_seed there is one further case — if the Tier 1 line reports notes=no Notes.example.md found, the tracked sample is missing from a partial pull, so leave the key unset rather than true and the step retries after the next pull; the same goes for notes=skipped, Notes/Personal/Notes.md not yet moved to Inbox/; tier1_node = set true iff Node present, else \"skipped\" if the user declines or cannot install it (never true); $PLUGIN_MAP_SEGMENT = no onboard.md step — plugin keys are read from Claude Code's install state; the only values you ever write to one are \"skipped\" (the user does not want it) or a snooze object {\"snoozed_until\":\"YYYY-MM-DD\"}; tier2_caveman = Step 7 + '/caveman lite' once caveman@caveman is confirmed installed (if it isn't, the user runs the /plugin commands and the key gets a snooze object, never true), or \"skipped\" alongside tier1_node when Node is unavailable. hooks= is informational only; it never gates or sets any flag."
 
 emit_context "$CTX"

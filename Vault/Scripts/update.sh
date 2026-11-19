@@ -114,6 +114,11 @@ if [ -n "$DIRTY" ]; then
   echo ""
   echo "$DIRTY" | head -20
   echo ""
+  case "$DIRTY" in
+    *".vscode/settings.json"*)
+      echo "Note: .vscode/settings.json was edited by an older onboarding step (retired by plan 185). If 'git diff -- .vscode/settings.json' shows only a \"git.enabled\" line, clear it with: git checkout -- .vscode/settings.json"
+      ;;
+  esac
   echo "Note: if a file shows as modified here but 'git diff -- <file>' is empty, it is a Google Drive sync phantom — clear it with: git checkout -- <file>"
   exit 5
 fi
