@@ -19,15 +19,16 @@ Quality gates are built in too. A frontier-model advisor — the **Senior Advise
 ## Quick start
 
 1. Clone this repo
-2. Open the folder as your working directory in [Claude Code](https://claude.ai/code)
-3. Run `/onboard` — this locks the repo to pull-only (your local changes stay local) and completes first-time setup
-4. Say hello:
+2. Run the installer once from the vault root: `bash install.sh` on Mac or Linux, `install.bat` on Windows
+3. Open the folder as your working directory in [Claude Code](https://claude.ai/code)
+4. Run `/onboard` — this locks the repo to pull-only (your local changes stay local) and completes first-time setup
+5. Say hello:
 
 ```
 Hi, what can the team help me with today?
 ```
 
-That's it. Sam responds immediately. No API keys to wire up, no bootstrapping.
+That's it. Sam responds immediately. No API keys to wire up.
 
 **New users: start with [Resources/Onboarding/team-onboarding-guide.md](Resources/Onboarding/team-onboarding-guide.md)** — how to talk to the team, what each persona does, sample workflows. Want to see the team work before setting anything up? Skim a finished demo in [Resources/Onboarding/Demos/](Resources/Onboarding/Demos/README.md).
 
