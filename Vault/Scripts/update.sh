@@ -128,7 +128,29 @@ fi
 # ---------------------------------------------------------------------------
 # Bounded-hang fetch — same speed floor the SessionStart hook uses, so an
 # unreachable origin fails in seconds instead of stalling a session start.
-if ! git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15 fetch origin >/dev/null 2>&1; then
+# The fetch also refuses to prompt, because /update is run by the agent
+# without a terminal as well as by the hook (plan 188). GIT_TERMINAL_PROMPT=0
+# makes git fail instead of asking, GCM_INTERACTIVE does the same for Git
+# Credential Manager on Windows, and an empty GIT_ASKPASS stops git calling
+# any askpass pop-up helper (GIT_ASKPASS, core.askPass or SSH_ASKPASS); saved-
+# credential helpers still answer. For an SSH remote, BatchMode with a
+# ConnectTimeout makes ssh fail instead of prompting. The user's own ssh
+# command (GIT_SSH_COMMAND, else core.sshCommand) is kept and only extended.
+# A plink or TortoisePlink command is left untouched because plink rejects
+# OpenSSH -o options, and a user who sets only GIT_SSH keeps that program
+# because GIT_SSH_COMMAND is then not exported at all, since git would let it
+# override GIT_SSH.
+FETCH_SSH="${GIT_SSH_COMMAND:-$(git config --get core.sshCommand 2>/dev/null || true)}"
+case "$FETCH_SSH" in
+  *[Pp]link*) ;;
+  "") [ -n "${GIT_SSH:-}" ] || FETCH_SSH="ssh -o BatchMode=yes -o ConnectTimeout=10" ;;
+  *) FETCH_SSH="$FETCH_SSH -o BatchMode=yes -o ConnectTimeout=10" ;;
+esac
+if ! (
+  [ -z "$FETCH_SSH" ] || export GIT_SSH_COMMAND="$FETCH_SSH"
+  GIT_TERMINAL_PROMPT=0 GCM_INTERACTIVE=never GIT_ASKPASS= \
+    git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15 fetch origin >/dev/null 2>&1
+); then
   fail 6 "Failed to fetch from origin. Check your network connection and remote configuration." \
     "If this persists and looks like local repo corruption, try: git fetch --refetch origin"
 fi
