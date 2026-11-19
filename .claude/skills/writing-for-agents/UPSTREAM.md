@@ -9,7 +9,7 @@ bc4cf90 (17/06/2026) and renamed it in 1fc6573 (23/07/2026); its last change to 
 
 Plan 135 (24/09/2026) recorded writing-for-agents as "Not adopted". A user ruling of 14/10/2026
 reversed that: it is vendored here as its own skill so it stays resyncable against upstream, and
-the frozen write-a-skill points to it (write-a-skill/SKILL.md header, plan 153, 15/10/2026).
+the frozen write-a-skill points to it (write-a-skill/UPSTREAM.md, plan 153, 15/10/2026).
 
 SKILL-MECHANICS.md is byte-identical to upstream. SKILL.md is byte-identical to upstream from
 "Reference for writing any document" to the end. Vault adaptations, all to be carried over any

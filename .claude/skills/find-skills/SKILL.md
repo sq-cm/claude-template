@@ -13,7 +13,7 @@ This skill helps you discover and install skills from the open agent skills ecos
 > **Vault note (this template):** searching and recommending skills is unrestricted, but
 > *installing* is not automatic here. Project-level installs land in `.claude/skills/`,
 > which is git-tracked template surface — writes there prompt for confirmation by design
-> and are a maintainer decision (provenance header required, see existing skills).
+> and are a maintainer decision (provenance required, in an UPSTREAM.md beside SKILL.md — see existing skills).
 > Prefer presenting the install command and letting the user choose project vs user-level
 > (`-g`). Never pass `-y` to skip confirmation on a project-level install.
 
