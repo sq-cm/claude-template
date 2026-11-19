@@ -12,7 +12,7 @@
 # Exit codes:
 #   0 success (rebase clean)      5 dirty working tree
 #   1 unexpected failure          6 fetch failed
-#   2 not a git repository        7 local main diverged from origin/main
+#   2 not a git repository        7 main could not be updated safely
 #   3 local/main (or main) missing 8 rebase conflict (left mid-rebase)
 #   4 rebase/merge already in progress
 #   9 already up to date
@@ -31,9 +31,12 @@
 # a hook cannot ask a question: leaving a session that has just started
 # sitting in a conflicted rebase the user did not ask for is worse than
 # rolling back and telling them to run /update when they are ready.
-# Cancelling also has to reset `main` to its pre-run SHA (`git branch -f main
-# "$OLD_MAIN"` — safe here because HEAD is on local/main, so main is not
-# checked out). Without that reset, main stays fast-forwarded, the hook's
+# Cancelling also has to reset `main` to the SHA it held just before the
+# fast-forward (`git branch -f main "$OLD_MAIN"` — safe here because HEAD is
+# on local/main, so main is not checked out). After a Step 7 realignment
+# (plan 190) that is the realigned point, the merge base with origin/main,
+# not the commit main started on; nothing is lost, because those commits are
+# on local/main. Without that reset, main stays fast-forwarded, the hook's
 # `main..origin/main` count reads 0 on every later session, and the conflict
 # the user still needs to resolve goes silent forever.
 
@@ -166,14 +169,47 @@ NOW_EPOCH="$(date +%s 2>/dev/null || echo 0)"
 } > "$STATE_FILE" 2>/dev/null || true
 
 # ---------------------------------------------------------------------------
-# Step 7 — divergence check, then fast-forward main (no checkout when possible)
+# Step 7 — realign a main that is ahead of origin, then fast-forward main
 # ---------------------------------------------------------------------------
+# A teammate who commits on main before onboarding creates local/main ends up
+# with those commits on both branches, because the onboarding hook copies main
+# to make local/main. Main is then ahead of origin/main, and the old check
+# here stopped every later update with exit 7 (plan 190). When every commit on
+# main is also on local/main, moving main back loses nothing, so it is done
+# automatically. Main moves to its merge base with origin/main, not to
+# origin/main itself, so the behind count, OLD_MAIN, the incoming-changes
+# list, the unattended rollback and the exit 9 case below all run unchanged.
 AHEAD="$(git rev-list --count origin/main..main 2>/dev/null)"
 [ -z "$AHEAD" ] && AHEAD=0
 if [ "$AHEAD" -gt 0 ]; then
-  fail 7 "Local main has diverged from origin/main." \
-    "Inspect with: git log main..origin/main    and    git log origin/main..main" \
-    "Then reset with: git reset --hard origin/main    if local main commits are not needed."
+  # A commit on main that is not on local/main would be lost by moving main,
+  # so stop and say how to bring it onto local/main first. A merge, not a
+  # cherry-pick, is advised because only a merge makes main an ancestor of
+  # local/main, which lets the next run pass this test (plan 190).
+  if ! git merge-base --is-ancestor main local/main 2>/dev/null; then
+    fail 7 "Local main has commits that are not on local/main, so /update has not moved any branch." \
+      "To keep those commits, run these two commands, then re-run /update:" \
+      "  git checkout local/main" \
+      "  git merge --no-edit main"
+  fi
+  MAIN_BASE="$(git merge-base main origin/main 2>/dev/null)"
+  if [ -z "$MAIN_BASE" ]; then
+    fail 1 "Unexpected failure: local main and origin/main share no history, so main cannot be realigned."
+  fi
+  # git branch -f refuses to move the checked-out branch. Only an interactive
+  # run can be on main here, because Step 3b stops an unattended run that is
+  # not on local/main, and Step 8 would check out local/main anyway (plan 190).
+  if [ "$(git symbolic-ref --short -q HEAD 2>/dev/null || echo "")" = "main" ]; then
+    if ! git checkout local/main >/dev/null 2>&1; then
+      fail 1 "Unexpected failure: could not check out local/main to realign main. No branch was moved."
+    fi
+    echo "Switched to local/main."
+  fi
+  if ! git branch -f main "$MAIN_BASE" >/dev/null 2>&1; then
+    fail 1 "Unexpected failure: could not realign main with the template. Your commits are still on local/main." \
+      "Re-run /update once no other git process is running."
+  fi
+  echo "Realigned main with the template; no commits were lost (they are on local/main)."
 fi
 
 BEHIND="$(git rev-list --count main..origin/main 2>/dev/null)"
@@ -187,15 +223,13 @@ OLD_MAIN="$(git rev-parse main 2>/dev/null)"
 CURRENT_BRANCH="$(git symbolic-ref --short -q HEAD 2>/dev/null || echo "")"
 if [ "$CURRENT_BRANCH" = "main" ]; then
   if ! git merge --ff-only origin/main >/dev/null 2>&1; then
-    fail 7 "Local main has diverged from origin/main." \
-      "Inspect with: git log main..origin/main    and    git log origin/main..main" \
-      "Then reset with: git reset --hard origin/main    if local main commits are not needed."
+    fail 7 "Could not fast-forward main to origin/main. Nothing was rebased and local/main is unchanged." \
+      "Re-run /update once no other git process is running. Inspect with: git log --oneline main..origin/main"
   fi
 else
   if ! git fetch . origin/main:main >/dev/null 2>&1; then
-    fail 7 "Local main has diverged from origin/main." \
-      "Inspect with: git log main..origin/main    and    git log origin/main..main" \
-      "Then reset with: git reset --hard origin/main    if local main commits are not needed."
+    fail 7 "Could not fast-forward main to origin/main. Nothing was rebased and local/main is unchanged." \
+      "Re-run /update once no other git process is running. Inspect with: git log --oneline main..origin/main"
   fi
 fi
 
