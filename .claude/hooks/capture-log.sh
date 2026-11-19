@@ -39,17 +39,25 @@ redact() {
   ' 2>/dev/null |
   # Second pass (sed): single-line token shapes. `-E`, never `-r` — `-r` is
   # GNU-only and this repo targets BSD sed (macOS) as well.
+  # Plan 187 added OpenAI project/service-account/admin keys (left boundary so
+  # kebab-case slugs are left alone), Google API keys, Google OAuth client
+  # secrets and Stripe live keys; the specific sk- prefixes sit before the
+  # generic sk- rule.
   sed -E \
     -e 's/sk-ant-[A-Za-z0-9_-]{16,}/sk-ant-***REDACTED***/g' \
+    -e 's/(^|[^A-Za-z0-9_-])sk-(proj|svcacct|admin)-[A-Za-z0-9_-]{20,}/\1sk-***REDACTED***/g' \
     -e 's/sk-[A-Za-z0-9]{20,}/sk-***REDACTED***/g' \
     -e 's/gh[pousr]_[A-Za-z0-9]{16,}/gh_***REDACTED***/g' \
     -e 's/github_pat_[A-Za-z0-9_]{16,}/github_pat_***REDACTED***/g' \
     -e 's/AKIA[0-9A-Z]{16}/AKIA***REDACTED***/g' \
+    -e 's/AIza[0-9A-Za-z_-]{35}/AIza***REDACTED***/g' \
+    -e 's/GOCSPX-[A-Za-z0-9_-]{20,}/GOCSPX-***REDACTED***/g' \
+    -e 's/([sr]k_live_)[A-Za-z0-9]{16,}/\1***REDACTED***/g' \
     -e 's/xox[abprs]-[A-Za-z0-9-]{10,}/xox-***REDACTED***/g' \
     -e 's#1//[A-Za-z0-9_-]{20,}#1//***REDACTED***#g' \
     -e 's/eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/***REDACTED JWT***/g' \
     -e 's/([Bb]earer )[A-Za-z0-9._-]{20,}/\1***REDACTED***/g' \
-    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[[:space:]]*[=:][[:space:]]*)[\"']?[^[:space:]\"']{8,}/\\1***REDACTED***/g" \
+    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)[\"']?[^[:space:]\"']{8,}/\\1***REDACTED***/g" \
     2>/dev/null
 }
 
@@ -88,13 +96,26 @@ if [ -z "$OUT_FILE" ]; then
   NEW_SESSION_FILE=true
 fi
 
+# Read the end of the transcript, not all of it. This hook runs every turn and
+# the transcript grows all session, so three full jq scans per turn made the
+# cost of a session quadratic (plan 187). The last assistant entry and the
+# last human prompt are almost always within the final CAP_TAIL_LINES lines;
+# each lookup below falls back to the full transcript when the tail yields
+# nothing, so a very long tool-heavy turn is still captured correctly.
+CAP_TAIL_LINES=2000
+RECENT=$(mktemp "${TMPDIR:-/tmp}/capture-recent.XXXXXX" 2>/dev/null) || exit 0
+trap 'rm -f "$RECENT" 2>/dev/null' EXIT
+tail -n "$CAP_TAIL_LINES" "$TRANSCRIPT" > "$RECENT" 2>/dev/null || exit 0
+
 # --- Idempotency key: turn_number, falling back to the last assistant
 # transcript entry's uuid if turn_number is absent/empty.
 KEY="$TURN_NUM"
+last_assistant_uuid() {  # $1 = JSONL file
+  jq -r 'select(.type == "assistant") | .uuid // empty' "$1" 2>/dev/null | tail -n 1
+}
 if [ -z "$KEY" ]; then
-  KEY=$(jq -r '
-    select(.type == "assistant") | .uuid // empty
-  ' "$TRANSCRIPT" 2>/dev/null | tail -n 1)
+  KEY=$(last_assistant_uuid "$RECENT")
+  [ -n "$KEY" ] || KEY=$(last_assistant_uuid "$TRANSCRIPT")
 fi
 [ -n "$KEY" ] || exit 0
 
@@ -107,23 +128,36 @@ fi
 
 # --- Extract the last genuine human user turn from the transcript, scanning
 # backward and skipping any "user" entry that is actually a tool_result.
-USER_TEXT=$(jq -r '
-  select(.type == "user") |
-  select(.isSidechain != true) |
-  select(
-    (.message.content | type) == "string"
-    or (
-      (.message.content | type) == "array"
-      and ([.message.content[] | select(.type == "tool_result")] | length) == 0
+# jq -c, not -r: each candidate prompt is emitted as ONE JSON-encoded line, so
+# tail -n 1 picks the last whole prompt. With -r a multi-line prompt spanned
+# several output lines and only its final line was kept (plan 187). isMeta
+# entries are text Claude Code injected as a "user" message — a skill body, a
+# sub-agent report — not something the human typed. isCompactSummary entries
+# are the auto-compaction summary Claude Code injects as a "user" message, not
+# human text (plan 187).
+last_user_text() {  # $1 = JSONL file
+  jq -c '
+    select(.type == "user") |
+    select(.isSidechain != true) |
+    select(.isMeta != true) |
+    select(.isCompactSummary != true) |
+    select(
+      (.message.content | type) == "string"
+      or (
+        (.message.content | type) == "array"
+        and ([.message.content[] | select(.type == "tool_result")] | length) == 0
+      )
+    ) |
+    select(has("tool_use_id") | not) |
+    (
+      if (.message.content | type) == "string" then .message.content
+      else (.message.content | map(select(.type == "text") | .text) | join("\n"))
+      end
     )
-  ) |
-  select(has("tool_use_id") | not) |
-  (
-    if (.message.content | type) == "string" then .message.content
-    else (.message.content | map(select(.type == "text") | .text) | join("\n"))
-    end
-  )
-' "$TRANSCRIPT" 2>/dev/null | tail -n 1)
+  ' "$1" 2>/dev/null | tail -n 1 | jq -r '.' 2>/dev/null
+}
+USER_TEXT=$(last_user_text "$RECENT")
+[ -n "$USER_TEXT" ] || USER_TEXT=$(last_user_text "$TRANSCRIPT")
 
 if [ -z "$USER_TEXT" ]; then
   USER_TEXT="(no human turn found)"
@@ -132,8 +166,8 @@ fi
 # --- Assistant text: prefer last_assistant_message from stdin, else fall
 # back to the last assistant text block in the transcript.
 ASSISTANT_TEXT="$LAST_ASSISTANT"
-if [ -z "$ASSISTANT_TEXT" ]; then
-  ASSISTANT_TEXT=$(jq -r '
+last_assistant_text() {  # $1 = JSONL file
+  jq -c '
     select(.type == "assistant") |
     select(.isSidechain != true) |
     (
@@ -141,7 +175,11 @@ if [ -z "$ASSISTANT_TEXT" ]; then
       else (.message.content | map(select(.type == "text") | .text) | join("\n"))
       end
     )
-  ' "$TRANSCRIPT" 2>/dev/null | tail -n 1)
+  ' "$1" 2>/dev/null | tail -n 1 | jq -r '.' 2>/dev/null
+}
+if [ -z "$ASSISTANT_TEXT" ]; then
+  ASSISTANT_TEXT=$(last_assistant_text "$RECENT")
+  [ -n "$ASSISTANT_TEXT" ] || ASSISTANT_TEXT=$(last_assistant_text "$TRANSCRIPT")
 fi
 [ -n "$ASSISTANT_TEXT" ] || ASSISTANT_TEXT="(no assistant turn found)"
 
