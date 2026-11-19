@@ -45,7 +45,13 @@ Use `/log-session` for retrospective (what happened). Use `/handoff-save` for pr
 
    **No-card notice (desktop app only).** If no card was offered (the tool is still absent after the `ToolSearch`, or the call failed) and `printenv CLAUDE_CODE_ENTRYPOINT` prints `claude-desktop`, print one line: `No resume card: <tool name> not found.` or `No resume card: <the error text>.` Then go on. Any other entrypoint → no notice: a plain terminal never has the tool, so the line would show on every save.
 
-   **Orca — ask, then open a tab.** Tool still absent after the `ToolSearch`, and `TERM_PROGRAM=Orca` with `ORCA_TERMINAL_HANDLE` set → ask one yes/no question (AskUserQuestion): "Open a new session to continue?" No or no answer → stop. Any other host → no question, no launch; the paste line is already printed.
+   **Orca — ask, then open a tab.** Tool still absent after the `ToolSearch` → check the host with exactly this command in the Bash tool, one call with nothing else in it:
+   ```bash
+   echo "TERM_PROGRAM=[${TERM_PROGRAM-}] ORCA_TERMINAL_HANDLE=[${ORCA_TERMINAL_HANDLE:+set}]"
+   ```
+   Output `TERM_PROGRAM=[Orca] ORCA_TERMINAL_HANDLE=[set]` → ask one yes/no question (AskUserQuestion): "Open a new session to continue?" No or no answer → stop. Any other output, or the check is denied or fails → no question, no launch, no retry; the paste line is already printed.
+
+   Never check both variables with one `printenv`: given two names it prints only the first on macOS and still exits 0, so an Orca session reads as a plain terminal. The Bash permission prompt for the check is expected.
 
    Yes → run the launch with the Bash tool. Fill in:
    - `<claude>`: absolute path from `command -v claude`; on Windows convert with `cygpath -m` (forward slashes; it returns the `.exe` path). Not found → say so in one line, skip. New tabs may not have `~/.local/bin` on PATH, so never launch a bare `claude`.
