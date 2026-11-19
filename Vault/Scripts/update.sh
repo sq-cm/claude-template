@@ -145,7 +145,7 @@ fi
 # override GIT_SSH.
 FETCH_SSH="${GIT_SSH_COMMAND:-$(git config --get core.sshCommand 2>/dev/null || true)}"
 case "$FETCH_SSH" in
-  *[Pp]link*) ;;
+  *[Pp][Ll][Ii][Nn][Kk]*) ;;
   "") [ -n "${GIT_SSH:-}" ] || FETCH_SSH="ssh -o BatchMode=yes -o ConnectTimeout=10" ;;
   *) FETCH_SSH="$FETCH_SSH -o BatchMode=yes -o ConnectTimeout=10" ;;
 esac
@@ -154,7 +154,7 @@ if ! (
   GIT_TERMINAL_PROMPT=0 GCM_INTERACTIVE=never GIT_ASKPASS= \
     git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15 fetch origin >/dev/null 2>&1
 ); then
-  fail 6 "Failed to fetch from origin. Check your network connection and remote configuration." \
+  fail 6 "Failed to fetch from origin. Check your network connection, your git credentials and the remote configuration." \
     "If this persists and looks like local repo corruption, try: git fetch --refetch origin"
 fi
 
