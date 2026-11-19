@@ -58,19 +58,17 @@ No symlinks or junctions needed. Claude Code accesses `../../Shared Projects` au
 
 ---
 
-## Step 3 — Configure VS Code settings
+## Step 3 — (retired)
 
-Add `"git.enabled": false` to `.vscode/settings.json` if not already present.
+This step used to add `"git.enabled": false` to `.vscode/settings.json`. That
+file is tracked by git, so the edit left every clone with an uncommittable
+change that blocked `/update` and the daily automatic update. Retired by plan
+185. Nothing to do here — go to the next step. Never edit
+`.vscode/settings.json` during onboarding.
 
-Read `.vscode/settings.json`, check if `git.enabled` exists. If not, add it:
-
-```json
-"git.enabled": false
-```
-
-Report: "VS Code git.enabled set to false ✓"
-
-This disables VS Code's built-in git UI for the vault — Claude Code handles git operations directly.
+If your clone already carries that edit, and `git diff -- .vscode/settings.json`
+shows only a `"git.enabled"` line, undo it with:
+`git checkout -- .vscode/settings.json`
 
 ---
 
