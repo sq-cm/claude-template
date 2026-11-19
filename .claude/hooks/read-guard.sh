@@ -91,7 +91,12 @@ fi
 #   **/.env*  (a glob pattern, not a path)      -> env   (component starts .env)
 #   .env.example, .mcp.json.example             -> ""    (exempt, git-tracked)
 #   mail.envelope.json, config.environment.md   -> ""    (NOT a component match)
-#   .environment                                -> ""    (.env not followed by . or *)
+#   .environment                                -> ""    (.env not followed by ., *, _ or -,
+#                                                         and not .envrc; plan 186)
+#   .envrc, .envrc.local, .env-prod, .env_backup -> env  (plan 186)
+#   .envrc_bak, .envrc-old                      -> env   (plan 186)
+#   .envrcs                                     -> ""    (.envrc not followed by ., *, _ or -;
+#                                                         plan 186)
 # The mail.envelope.json line is load-bearing: the old *.env* substring form
 # blocked it, which is the false positive PR #238's reviewer rejected.
 # Component matching is the fix for every branch at once.
@@ -157,12 +162,21 @@ classify_path() {
             # `.env` exactly, or `.env` followed by `.` (.env.local, .env.d) or
             # by `*` (the glob-pattern form `**/.env*`). The [.*] bracket is what
             # keeps `.environment` out — `.env` there is followed by `i`.
-            .env|.env[.*]*)     IFS=$_oldifs; set +f; printf 'env'; return 0 ;;
+            # Also `.envrc` (direnv) and `.env` followed by `_` or `-`
+            # (.env_backup, .env-prod): .gitignore line 2 (`.env*`) already
+            # treats all of these as secret, and the guard must not be
+            # narrower than the ignore rule (plan 186). `.envrc` matches
+            # exactly, or when followed by `.`, `*`, `_` or `-` (.envrc.local,
+            # .envrc_bak, .envrc-old, the glob-pattern form `**/.envrc*`).
+            # The glob-mode wildcard-prefixed branch below accepts only `.`
+            # or `*` after `.envrc`. `.envrcs` and `.environment` stay out,
+            # because neither `s` nor `i` is one of the accepted followers.
+            .env|.envrc|.envrc[.*_-]*|.env[.*_-]*)     IFS=$_oldifs; set +f; printf 'env'; return 0 ;;
             .mcp.json|.mcp.json[.*]*) IFS=$_oldifs; set +f; printf 'mcp'; return 0 ;;
         esac
         if [ "$_mode" = "glob" ]; then
             case "$_c" in
-                *.env|*.env[.*]*) IFS=$_oldifs; set +f; printf 'env'; return 0 ;;
+                *.env|*.envrc|*.envrc[.*]*|*.env[.*]*) IFS=$_oldifs; set +f; printf 'env'; return 0 ;;
                 *.mcp.json|*.mcp.json[.*]*) IFS=$_oldifs; set +f; printf 'mcp'; return 0 ;;
             esac
         fi
