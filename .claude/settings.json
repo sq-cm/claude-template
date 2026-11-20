@@ -68,6 +68,10 @@
       "Edit(Vault/**)",
       "Edit(Chats/**)"
     ],
+    "ask": [
+      "Edit(Vault/Scripts/**)",
+      "Edit(.githooks/**)"
+    ],
     "deny": [
       "Read(./.env)",
       "Read(./**/.env)",
