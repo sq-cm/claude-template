@@ -143,6 +143,9 @@ Vault/Specs/
 Vault/Learning/*
 !Vault/Learning/README.md
 
+# brainstorming skill browser companion — session files, port and session key. Local only.
+.superpowers/
+
 # Local Netlify folder
 .netlify
 

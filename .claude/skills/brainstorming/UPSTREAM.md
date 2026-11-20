@@ -17,3 +17,8 @@ sentence, anti-pattern paragraph and checklist lead-in rewritten without older-m
 forcing language (MUST/EVERY) and without naming a task tool; the trigger is now
 scoped to work whose design is still open, and the gate itself is unchanged.
 Carry over any future upstream replace.
+Vault adaptation (plan 196, 20/11/2026): the note in `visual-companion.md` that
+told the agent to remind the user to add `.superpowers/` to `.gitignore` now says
+the vault already ignores it (tracked `.gitignore`), because teammates cannot
+commit a `.gitignore` edit and an uncommitted one blocks `/update`.
+Carry over any future upstream replace.
