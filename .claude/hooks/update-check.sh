@@ -146,7 +146,7 @@ elif ! git rev-parse --git-dir >/dev/null 2>&1; then
 elif ! git rev-parse --verify local/main >/dev/null 2>&1 || ! git rev-parse --verify main >/dev/null 2>&1; then
   :
 elif GITDIR="$(git rev-parse --git-dir 2>/dev/null)" && [ -n "$GITDIR" ] && { [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ] || [ -f "$GITDIR/MERGE_HEAD" ]; }; then
-  log_error "template section skipped — repo is mid-rebase/merge (run git rebase --abort or --continue to clear, then git rebase main on local/main — /update alone will report already up to date because main is already fast-forwarded)"
+  log_error "template section skipped — repo is mid-rebase/merge (run git rebase --continue or --abort to clear, then /update)"
 elif ! git remote get-url origin >/dev/null 2>&1; then
   :
 else
@@ -193,7 +193,18 @@ else
     BEHIND="$(git rev-list --count main..origin/main 2>/dev/null)"
     [ -z "$BEHIND" ] && BEHIND=0
 
-    if [ "$BEHIND" -gt 0 ] && [ -f "Vault/Scripts/update.sh" ]; then
+    # A clone whose earlier interactive update was cancelled with
+    # `git rebase --abort` has main already fast-forwarded, so the behind
+    # count is 0 although local/main still lacks the template changes. Main
+    # not being an ancestor of local/main is the sign of that; update.sh
+    # finishes the rebase, or cancels it again and reports the conflict
+    # (plan 197).
+    PENDING=false
+    ANC_RC=0
+    git merge-base --is-ancestor main local/main 2>/dev/null || ANC_RC=$?
+    [ "$ANC_RC" -eq 1 ] && PENDING=true
+
+    if { [ "$BEHIND" -gt 0 ] || [ "$PENDING" = true ]; } && [ -f "Vault/Scripts/update.sh" ]; then
       # Single-writer lock around the template update. noclobber makes the
       # create-or-fail atomic. Lives under the git dir
       # ($GITDIR was already resolved by the mid-rebase elif above, which
