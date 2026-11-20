@@ -11,7 +11,7 @@ Persistent internal storage for the studio. Everything in `Vault/` is durable an
 | `Memory/Notes/<YYYY-MM>/` | Per-clone, gitignored (skeleton kept via `.gitkeep`). Stage-2 destination after reconcile; `context.md` points here. |
 | `Learning/`    | Personal `/teach` workspaces, one subfolder per topic. Git-ignored except `README.md` (data is personal, Drive-backed, never pushed). |
 | `Archive/`     | Retired projects, personas, briefs, artefacts. Preserves original folder structure.      |
-| `Logs/`        | Append-only operational logs. Example folder; create on first use.                       |
+| `Logs/`        | Append-only operational logs. `Sessions/Captures/` holds the plain-text copy of every turn that the `capture-log.sh` Stop hook writes (git-ignored, kept 90 days); `Handoffs/` holds `/handoff-save` briefs (git-ignored). |
 | `Plans/`       | Output home for `improve`, advisor plans, and `writing-plans` artefacts. Git-ignored (per-clone working plans, never Deliverables). |
 | `Specs/`       | Output home for `brainstorming` design specs. Git-ignored.                               |
 | `Scripts/`     | Vault-local automation scripts (e.g. theme sync).                                        |
