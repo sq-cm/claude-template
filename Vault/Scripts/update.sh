@@ -182,6 +182,21 @@ NOW_EPOCH="$(date +%s 2>/dev/null || echo 0)"
 AHEAD="$(git rev-list --count origin/main..main 2>/dev/null)"
 [ -z "$AHEAD" ] && AHEAD=0
 if [ "$AHEAD" -gt 0 ]; then
+  # A rewrite of the template's history (a force-push to its main) also leaves
+  # main ahead of origin/main, because main still holds the commits the
+  # template dropped. Realigning then would replay those dropped template
+  # commits onto local/main as if they were the teammate's own. Main only ever
+  # moves by fast-forward to origin/main, so after a rewrite main's tip is
+  # reachable from an earlier origin/main value in the reflog; a teammate's
+  # own commit on main never is. An empty reflog (expired, or logging turned
+  # off) skips this test and the realignment below runs as before (plan 197).
+  ORIGIN_PAST="$(git reflog show --format='^%H' origin/main 2>/dev/null)"
+  if [ -n "$ORIGIN_PAST" ]; then
+    if NOT_UPSTREAM="$(printf '%s\n' "$ORIGIN_PAST" | git rev-list -1 --stdin main 2>/dev/null)" && [ -z "$NOT_UPSTREAM" ]; then
+      fail 7 "The template's history on origin/main was rewritten, so /update has not moved any branch." \
+        "Your own commits on local/main are untouched. Ask the template maintainer how to realign this clone, then re-run /update."
+    fi
+  fi
   # A commit on main that is not on local/main would be lost by moving main,
   # so stop and say how to bring it onto local/main first. A merge, not a
   # cherry-pick, is advised because only a merge makes main an ancestor of
@@ -214,11 +229,30 @@ fi
 
 BEHIND="$(git rev-list --count main..origin/main 2>/dev/null)"
 [ -z "$BEHIND" ] && BEHIND=0
-if [ "$BEHIND" -eq 0 ]; then
+# Main is an ancestor of local/main in a healthy clone: onboarding copies main
+# to make local/main, and every finished update rebases local/main onto main.
+# When it is not, an earlier interactive update fast-forwarded main and its
+# conflicted rebase was then cancelled with `git rebase --abort`, which puts
+# local/main back but leaves main moved. The behind count is then 0 although
+# local/main still lacks the template changes, so that case carries on to the
+# rebase instead of stopping at exit 9 (plan 197).
+PENDING=false
+ANC_RC=0
+git merge-base --is-ancestor main local/main 2>/dev/null || ANC_RC=$?
+[ "$ANC_RC" -eq 1 ] && PENDING=true
+if [ "$BEHIND" -eq 0 ] && [ "$PENDING" != "true" ]; then
   fail 9 "Already up to date. No template changes to pull."
 fi
 
 OLD_MAIN="$(git rev-parse main 2>/dev/null)"
+# The incoming-changes list starts where local/main last had the template:
+# OLD_MAIN normally, the fork point when an earlier update is being finished.
+LIST_BASE="$OLD_MAIN"
+if [ "$PENDING" = "true" ]; then
+  LIST_BASE="$(git merge-base main local/main 2>/dev/null)"
+  [ -n "$LIST_BASE" ] || LIST_BASE="$OLD_MAIN"
+  echo "Finishing an earlier update whose rebase was cancelled."
+fi
 
 CURRENT_BRANCH="$(git symbolic-ref --short -q HEAD 2>/dev/null || echo "")"
 if [ "$CURRENT_BRANCH" = "main" ]; then
@@ -255,7 +289,7 @@ if git rebase main >/dev/null 2>&1; then
   echo ""
   echo "**Incoming template changes:**"
 
-  LOG_LINES="$(git log --oneline --no-decorate "$OLD_MAIN"..main 2>/dev/null)"
+  LOG_LINES="$(git log --oneline --no-decorate "$LIST_BASE"..main 2>/dev/null)"
   TOTAL="$(printf '%s\n' "$LOG_LINES" | grep -c .)"
   [ -z "$TOTAL" ] && TOTAL=0
 
