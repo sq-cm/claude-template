@@ -152,6 +152,7 @@ The Orchestrator will preview changes and ask for confirmation before touching a
 - No external API keys required for basic use
 - Optional: HyperFrames video rendering (Nova's programmatic motion-graphics lane) needs Node.js 22+ and FFmpeg — all other work runs without them
 - Be aware: once a day at most, and only when the vault is already on `local/main` with a clean working tree (plus a few narrower preconditions — see [SETUP.md § Accepted risk](Resources/Onboarding/SETUP.md)), a SessionStart hook fast-forwards `main` from the template repo and rebases your `local/main` on top; otherwise that pull skips and tries again next day. A conflicting rebase is cancelled automatically and `main` is reset back to before the run; run `/update` to resolve it interactively. If that automatic recovery itself fails, a `RECOVERY FAILED` line is reported in the session context.
+- Be aware: a Stop hook saves every turn (your prompt and the reply, in full) as plain text under `Vault/Logs/Sessions/Captures/`. The folder is git-ignored, but it syncs to Google Drive when the vault lives there. `/recall` searches these files. Common secret formats are masked before a turn is written; the masking works by pattern and misses unusual formats, so do not paste passwords or keys into a prompt. Captures older than 90 days are deleted automatically when a new session starts, and you can delete any of them sooner. The hook has no off switch.
 
 These are the dependencies the vault's scripts actually use, confirmed by reading the scripts themselves; the install path has not yet been exercised on a machine that genuinely lacks any of them, so treat that case as untested rather than assumed to fail.
 
@@ -187,7 +188,7 @@ Claude - TEMPLATE/
 ├── Vault/                             ← persistent internal storage (full map: Vault/README.md)
 │   ├── Archive/                       ← retired projects and personas
 │   ├── Learning/                      ← personal /teach workspaces (git-ignored)
-│   ├── Logs/                          ← clone failure logs, import logs
+│   ├── Logs/                          ← session captures and handoffs (git-ignored), clone and import failure logs
 │   ├── Memory/                        ← persistent session memory
 │   ├── Plans/                         ← /improve audit plans (git-ignored)
 │   └── Scripts/                       ← validate.sh — the consistency checker
