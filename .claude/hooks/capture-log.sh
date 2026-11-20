@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # capture-log.sh — unattended, deterministic, per-turn raw capture of every
-# Stop event (Inbox/Personal/Claude-Code-Memory-Plan-implementation-plan.md,
-# Phase 1). Additive to, not a replacement for, the curated /log-session flow
+# Stop event (history: plans 187, 192, 193, 194 and 199 in CHANGELOG.md).
+# Additive to, not a replacement for, the curated /log-session flow
 # and the existing nudge Stop hook — writes verbatim, no model call, no
 # summarisation. Never touches Vault/Memory/. Must ALWAYS exit 0.
 #
@@ -23,18 +23,20 @@ command -v jq >/dev/null 2>&1 || exit 0
 # guarantee; the primary control is still "do not paste secrets into a prompt".
 # Fails CLOSED: the caller substitutes a placeholder if this produces nothing,
 # because writing the raw text on a redactor failure defeats the whole point.
+# After editing redact(), run: bash Vault/Scripts/tests/redact-regression.sh
 redact() {
   # Case-insensitive keyword class spelled out character by character. BSD sed
   # has no `I` flag on s///, so this is the portable way to catch `api_key=`,
   # `Api_Key:` and `API_KEY=` without a case flag. `KW` feeds the two
-  # key-value rules near the end of the sed pass below.
-  KW='([Aa][Pp][Ii]_?[Kk][Ee][Yy]|[Tt][Oo][Kk][Ee][Nn]|[Ss][Ee][Cc][Rr][Ee][Tt]|[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|[Pp][Aa][Ss][Ss][Ww][Dd]|[Cc][Rr][Ee][Dd][Ee][Nn][Tt][Ii][Aa][Ll][Ss]?)'
+  # key-value rules in the sed pass below.
+  KW='([Aa][Pp][Ii]_?[Kk][Ee][Yy]|[Tt][Oo][Kk][Ee][Nn]|[Ss][Ee][Cc][Rr][Ee][Tt]|[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|[Pp][Aa][Ss][Ss][Ww][Dd]|[Cc][Rr][Ee][Dd][Ee][Nn][Tt][Ii][Aa][Ll][Ss]?|[Pp][Aa][Ss][Ss][Pp][Hh][Rr][Aa][Ss][Ee]|[Pp][Rr][Ii][Vv][Aa][Tt][Ee]_?[Kk][Ee][Yy]|[Aa][Cc][Cc][Ee][Ss][Ss]_?[Kk][Ee][Yy]|[Aa][Uu][Tt][Hh]_?[Kk][Ee][Yy])'
 
   # First pass (awk): blank out the body of PEM-style key blocks, which span
-  # lines and so cannot be matched by line-oriented sed.
+  # lines and so cannot be matched by line-oriented sed. Armoured PGP private
+  # keys end their marker lines in `KEY BLOCK` (plan 199).
   awk '
-    /-----BEGIN [A-Z ]*PRIVATE KEY-----/ { print "***REDACTED PRIVATE KEY BLOCK***"; inkey=1; next }
-    /-----END [A-Z ]*PRIVATE KEY-----/   { inkey=0; next }
+    /-----BEGIN [A-Z ]*PRIVATE KEY( BLOCK)?-----/ { print "***REDACTED PRIVATE KEY BLOCK***"; inkey=1; next }
+    /-----END [A-Z ]*PRIVATE KEY( BLOCK)?-----/   { inkey=0; next }
     inkey != 1 { print }
   ' 2>/dev/null |
   # Second pass (sed): single-line token shapes. `-E`, never `-r` — `-r` is
@@ -43,11 +45,20 @@ redact() {
   # kebab-case slugs are left alone), Google API keys, Google OAuth client
   # secrets and Stripe live keys; the specific sk- prefixes sit before the
   # generic sk- rule.
-  # The last three rules hide key=value secrets. The first matches what the
-  # earlier single rule matched and keeps an unclosed opening quote; the second
-  # extends a quoted value to its closing quote or the end of the line, spaces
-  # and escaped quotes included. Values under 8 characters pass through. The
-  # third hides everything from the first placeholder that follows a space,
+  # Plan 199 added GitLab `glpat-` tokens, Hugging Face and npm tokens, Slack
+  # webhook paths, Azure AccountKey values, a password inside a URL
+  # (scheme://user:pass@), Basic auth after an Authorization label, and
+  # `-u user:pass`. These seven rules run after the two key-value rules, so
+  # the older rules, the bearer rule included, always see the original text
+  # first. The key-value rules also accept `=>` as the separator. A
+  # placeholder that follows `:`, `=`, a space or a quote triggers the last
+  # rule, so the rest of such a line is hidden as well.
+  # Three rules hide key=value secrets: the two key-value rules and the last
+  # rule. The first key-value rule matches what the earlier single rule
+  # matched and keeps an unclosed opening quote; the second extends a quoted
+  # value to its closing quote or the end of the line, spaces and escaped
+  # quotes included. Values under 8 characters pass through. The last rule
+  # hides everything from the first placeholder that follows a space,
   # `=`, `:` or a quote to the end of the line. That closes the tested leaks
   # after a quoted label or a chained keyword. Harmless text after such a
   # secret goes too, bearer lines included, which is accepted.
@@ -65,8 +76,15 @@ redact() {
     -e 's#1//[A-Za-z0-9_-]{20,}#1//***REDACTED***#g' \
     -e 's/eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/***REDACTED JWT***/g' \
     -e 's/([Bb]earer )[A-Za-z0-9._-]{20,}/\1***REDACTED***/g' \
-    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)(\"[^[:space:]\"']{8,}\"|'[^[:space:]\"']{8,}'|(\")[^[:space:]\"']{8,}'?|(')[^[:space:]\"']{8,}\"?|[^[:space:]\"']{8,})/\\1\\5\\6***REDACTED***/g" \
-    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)(\"([^\"\\\\]|\\\\.){8,}(\"|\\\\?\$)|'([^'\\\\]|\\\\.){8,}('|\\\\?\$)|(\\*\\*\\*REDACTED\\*\\*\\*)?[^[:space:]\"'*][^[:space:]\"']{7,})/\\1***REDACTED***/g" \
+    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:]>?[[:space:]]*)(\"[^[:space:]\"']{8,}\"|'[^[:space:]\"']{8,}'|(\")[^[:space:]\"']{8,}'?|(')[^[:space:]\"']{8,}\"?|[^[:space:]\"']{8,})/\\1\\5\\6***REDACTED***/g" \
+    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:]>?[[:space:]]*)(\"([^\"\\\\]|\\\\.){8,}(\"|\\\\?\$)|'([^'\\\\]|\\\\.){8,}('|\\\\?\$)|(\\*\\*\\*REDACTED\\*\\*\\*)?[^[:space:]\"'*][^[:space:]\"']{7,})/\\1***REDACTED***/g" \
+    -e 's/glpat-[A-Za-z0-9_-]{20,}/glpat-***REDACTED***/g' \
+    -e 's/(^|[^A-Za-z0-9_])(hf|npm)_[A-Za-z0-9]{30,}/\1\2_***REDACTED***/g' \
+    -e 's#(hooks\.slack\.com/services/)[A-Za-z0-9/_-]+#\1***REDACTED***#g' \
+    -e 's#(AccountKey=)[A-Za-z0-9+/=]{20,}#\1***REDACTED***#g' \
+    -e 's#([A-Za-z][A-Za-z0-9+.-]*://[^/[:space:]:@]*:)[^@/[:space:]]+@#\1***REDACTED***@#g' \
+    -e "s#([Aa]uthorization[\"']?[[:space:]]*[:=]?[[:space:]]*[\"']?[Bb]asic[[:space:]]+)[A-Za-z0-9+/=]{8,}#\\1***REDACTED***#g" \
+    -e "s/((^|[[:space:]])(-u|--user)[[:space:]]+[\"']?[^[:space:]:\"']+:)[^[:space:]\"']+/\\1***REDACTED***/g" \
     -e "s/([[:space:]=:\"'])(\\*\\*\\*REDACTED\\*\\*\\*).*/\\1***REDACTED***/" \
     2>/dev/null
 }
