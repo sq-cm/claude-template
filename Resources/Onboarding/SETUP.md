@@ -42,6 +42,8 @@ Git for Windows does not include `jq`. Install it with your platform's package m
 
 Run the check above again afterwards. These commands come from each package manager's own listing and have not been exercised by the vault's maintainers on a clean machine; if one fails, see [jqlang.org/download](https://jqlang.org/download/).
 
+Get `git` from [git-scm.com/downloads](https://git-scm.com/downloads); macOS and most Linux systems already include `bash`, and Git for Windows installs Git Bash alongside `git`.
+
 ---
 
 ## Step 0 — Run the install script

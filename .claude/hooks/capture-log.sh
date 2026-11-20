@@ -43,6 +43,10 @@ redact() {
   # kebab-case slugs are left alone), Google API keys, Google OAuth client
   # secrets and Stripe live keys; the specific sk- prefixes sit before the
   # generic sk- rule.
+  # The last two rules hide key=value secrets. The first matches what the
+  # earlier single rule matched and keeps an unclosed opening quote; the second
+  # extends a quoted value to its closing quote or the end of the line, spaces
+  # and escaped quotes included. Values under 8 characters pass through.
   sed -E \
     -e 's/sk-ant-[A-Za-z0-9_-]{16,}/sk-ant-***REDACTED***/g' \
     -e 's/(^|[^A-Za-z0-9_-])sk-(proj|svcacct|admin)-[A-Za-z0-9_-]{20,}/\1sk-***REDACTED***/g' \
@@ -57,7 +61,8 @@ redact() {
     -e 's#1//[A-Za-z0-9_-]{20,}#1//***REDACTED***#g' \
     -e 's/eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/***REDACTED JWT***/g' \
     -e 's/([Bb]earer )[A-Za-z0-9._-]{20,}/\1***REDACTED***/g' \
-    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)([\"'][^[:space:]\"']{8,}[\"']?|[^[:space:]\"']{8,})/\\1***REDACTED***/g" \
+    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)(\"[^[:space:]\"']{8,}\"|'[^[:space:]\"']{8,}'|(\")[^[:space:]\"']{8,}'?|(')[^[:space:]\"']{8,}\"?|[^[:space:]\"']{8,})/\\1\\5\\6***REDACTED***/g" \
+    -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)(\"([^\"\\\\]|\\\\.){8,}(\"|\\\\?\$)|'([^'\\\\]|\\\\.){8,}('|\\\\?\$)|(\\*\\*\\*REDACTED\\*\\*\\*)?[^[:space:]\"'*][^[:space:]\"']{7,})/\\1***REDACTED***/g" \
     2>/dev/null
 }
 
