@@ -26,8 +26,8 @@ command -v jq >/dev/null 2>&1 || exit 0
 redact() {
   # Case-insensitive keyword class spelled out character by character. BSD sed
   # has no `I` flag on s///, so this is the portable way to catch `api_key=`,
-  # `Api_Key:` and `API_KEY=` with a single rule. This is the deliberately
-  # over-broad rule — tighten the value pattern before dropping it.
+  # `Api_Key:` and `API_KEY=` without a case flag. `KW` feeds the two
+  # key-value rules near the end of the sed pass below.
   KW='([Aa][Pp][Ii]_?[Kk][Ee][Yy]|[Tt][Oo][Kk][Ee][Nn]|[Ss][Ee][Cc][Rr][Ee][Tt]|[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|[Pp][Aa][Ss][Ss][Ww][Dd]|[Cc][Rr][Ee][Dd][Ee][Nn][Tt][Ii][Aa][Ll][Ss]?)'
 
   # First pass (awk): blank out the body of PEM-style key blocks, which span
@@ -43,10 +43,14 @@ redact() {
   # kebab-case slugs are left alone), Google API keys, Google OAuth client
   # secrets and Stripe live keys; the specific sk- prefixes sit before the
   # generic sk- rule.
-  # The last two rules hide key=value secrets. The first matches what the
+  # The last three rules hide key=value secrets. The first matches what the
   # earlier single rule matched and keeps an unclosed opening quote; the second
   # extends a quoted value to its closing quote or the end of the line, spaces
-  # and escaped quotes included. Values under 8 characters pass through.
+  # and escaped quotes included. Values under 8 characters pass through. The
+  # third hides everything from the first placeholder that follows a space,
+  # `=`, `:` or a quote to the end of the line. That closes the tested leaks
+  # after a quoted label or a chained keyword. Harmless text after such a
+  # secret goes too, bearer lines included, which is accepted.
   sed -E \
     -e 's/sk-ant-[A-Za-z0-9_-]{16,}/sk-ant-***REDACTED***/g' \
     -e 's/(^|[^A-Za-z0-9_-])sk-(proj|svcacct|admin)-[A-Za-z0-9_-]{20,}/\1sk-***REDACTED***/g' \
@@ -63,6 +67,7 @@ redact() {
     -e 's/([Bb]earer )[A-Za-z0-9._-]{20,}/\1***REDACTED***/g' \
     -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)(\"[^[:space:]\"']{8,}\"|'[^[:space:]\"']{8,}'|(\")[^[:space:]\"']{8,}'?|(')[^[:space:]\"']{8,}\"?|[^[:space:]\"']{8,})/\\1\\5\\6***REDACTED***/g" \
     -e "s/(([A-Za-z_]*)${KW}[A-Za-z_]*[\"']?[[:space:]]*[=:][[:space:]]*)(\"([^\"\\\\]|\\\\.){8,}(\"|\\\\?\$)|'([^'\\\\]|\\\\.){8,}('|\\\\?\$)|(\\*\\*\\*REDACTED\\*\\*\\*)?[^[:space:]\"'*][^[:space:]\"']{7,})/\\1***REDACTED***/g" \
+    -e "s/([[:space:]=:\"'])(\\*\\*\\*REDACTED\\*\\*\\*).*/\\1***REDACTED***/" \
     2>/dev/null
 }
 
