@@ -99,32 +99,6 @@ Check if `.mcp.json` exists in the vault root. This step is **optional** — unl
 - **If it does not exist and the user wants project MCP servers:** Copy `.mcp.json.example` to `.mcp.json` and add server definitions there. Report: "`.mcp.json` created from `.mcp.json.example`. Add your MCP server definitions before use."
 - **Otherwise:** Skip. Report: "`.mcp.json` skipped — optional, add later if project MCP servers are needed."
 
-Google Search Console + GA4 example (analytics-mcp, gsc):
-
-```json
-{
-  "mcpServers": {
-    "analytics-mcp": {
-      "command": "uvx",
-      "args": ["--python", "3.12", "analytics-mcp==0.6.0"],
-      "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "${USERPROFILE}/.config/claude-google/adc.json",
-        "GOOGLE_PROJECT_ID": "${GOOGLE_PROJECT_ID}"
-      }
-    },
-    "gsc": {
-      "command": "npx",
-      "args": ["-y", "mcp-server-gsc@0.3.0"],
-      "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "${USERPROFILE}/.config/claude-google/adc.json"
-      }
-    }
-  }
-}
-```
-
-Env values (`${USERPROFILE}`, `${GOOGLE_PROJECT_ID}`) resolve from the shell/`.env`; on macOS/Linux change `${USERPROFILE}` to `${HOME}`.
-
 ---
 
 ## Step 6 — Verify SOP path
