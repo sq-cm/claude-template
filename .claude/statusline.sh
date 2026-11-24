@@ -5,7 +5,6 @@ input=$(cat)
 # JSON parsing — prefer jq, fall back to Python, then use static defaults
 # ---------------------------------------------------------------------------
 
-SESSION_ID=""
 _in=0
 _out=0
 COST_USD=0
@@ -18,9 +17,7 @@ if command -v jq >/dev/null 2>&1; then
     WORKSPACE_PROJECT_DIR=$(printf '%s' "$input" | jq -r '.workspace.project_dir // "" | split("/") | last | split("\\") | last' 2>/dev/null || echo "")
     _in=$(printf '%s' "$input" | jq -r '.context_window.total_input_tokens // 0' 2>/dev/null || echo "0")
     _out=$(printf '%s' "$input" | jq -r '.context_window.total_output_tokens // 0' 2>/dev/null || echo "0")
-    SESSION_ID=$(printf '%s' "$input" | jq -r '.session_id // ""' 2>/dev/null || echo "")
     COST_USD=$(printf '%s' "$input" | jq -r '.cost.total_cost_usd // 0' 2>/dev/null || echo "0")
-    SESSION_TOKENS=$(( _in + _out ))
 
 else
     # --- Python path ---
@@ -46,22 +43,19 @@ try:
     cw = d.get('context_window', {}) or {}
     tin = cw.get('total_input_tokens', 0) or 0
     tout = cw.get('total_output_tokens', 0) or 0
-    sid = d.get('session_id') or ''
     cost = d.get('cost', {}).get('total_cost_usd', 0) or 0
     c = lambda v: str(v).replace('\x1f', ' ').replace('\r', ' ').replace('\n', ' ')
-    print('\x1f'.join(c(v) for v in [pct, name, mid, proj, tin, tout, sid, cost]))
+    print('\x1f'.join(c(v) for v in [pct, name, mid, proj, tin, tout, cost]))
 except Exception:
-    print('0\x1f\x1f\x1f\x1f0\x1f0\x1f\x1f0')
+    print('0\x1f\x1f\x1f\x1f0\x1f0\x1f0')
 " 2>/dev/null)
-        IFS=$'\x1f' read -r CONTEXT_WINDOW_USED_PERCENTAGE MODEL_DISPLAY_NAME MODEL_ID WORKSPACE_PROJECT_DIR _in _out SESSION_ID COST_USD <<< "$_parsed"
-        SESSION_TOKENS=$(( _in + _out ))
+        IFS=$'\x1f' read -r CONTEXT_WINDOW_USED_PERCENTAGE MODEL_DISPLAY_NAME MODEL_ID WORKSPACE_PROJECT_DIR _in _out COST_USD <<< "$_parsed"
     else
         # --- static fallback (neither jq nor Python available) ---
         CONTEXT_WINDOW_USED_PERCENTAGE="?"
         MODEL_DISPLAY_NAME="claude"
         MODEL_ID=""
         WORKSPACE_PROJECT_DIR="$(basename "$(pwd)" 2>/dev/null || echo "")"
-        SESSION_TOKENS=0
         COST_USD=0
     fi
 fi
@@ -140,23 +134,6 @@ case "$_model_lc" in
     *haiku*)  MODEL_EMOJI="🍃" ;;
     *)        MODEL_EMOJI="🤖" ;;
 esac
-
-# ---------------------------------------------------------------------------
-# Delta since last turn — state in temp dir keyed by session id
-# ---------------------------------------------------------------------------
-DELTA_FMT=""
-if [ -n "$SESSION_ID" ]; then
-    _state_dir="${TMPDIR:-/tmp}"
-    _state_file="${_state_dir}/claude-statusline-${SESSION_ID}.last"
-    _last=0
-    [ -f "$_state_file" ] && _last=$(cat "$_state_file" 2>/dev/null || echo 0)
-    case "$_last" in ''|*[!0-9]*) _last=0 ;; esac
-    _delta=$(( SESSION_TOKENS - _last ))
-    if [ "$_delta" -gt 0 ] 2>/dev/null; then
-        DELTA_FMT=" (+$(fmt_k $_delta))"
-    fi
-    printf '%s' "$SESSION_TOKENS" > "$_state_file" 2>/dev/null
-fi
 
 # ---------------------------------------------------------------------------
 # Output
