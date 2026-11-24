@@ -112,15 +112,17 @@ case "$COST_USD" in
 esac
 
 # ---------------------------------------------------------------------------
-# Threshold emoji based on context window %
+# Threshold emoji based on raw input tokens (the ↑ count beside it)
 # ---------------------------------------------------------------------------
-PCT_NUM=$CONTEXT_WINDOW_USED_PERCENTAGE
-case "$PCT_NUM" in
-    ''|*[!0-9]*) PCT_NUM=0 ;;
+BURN_WARN_TOKENS=200000
+BURN_ALERT_TOKENS=400000
+IN_NUM=$_in
+case "$IN_NUM" in
+    ''|*[!0-9]*) IN_NUM=0 ;;
 esac
-if [ "$PCT_NUM" -ge 90 ] 2>/dev/null; then
+if [ "$IN_NUM" -gt "$BURN_ALERT_TOKENS" ] 2>/dev/null; then
     BURN_EMOJI="🚨"
-elif [ "$PCT_NUM" -ge 75 ] 2>/dev/null; then
+elif [ "$IN_NUM" -gt "$BURN_WARN_TOKENS" ] 2>/dev/null; then
     BURN_EMOJI="🥵"
 else
     BURN_EMOJI="🔥"
