@@ -4,6 +4,10 @@ All notable changes to this template are logged here, newest first. Each entry m
 
 This log tracks the **template itself** — structural changes clones inherit on a fresh pull. It does not track work done inside an individual clone (that lives in `Vault/Memory/`, which is per-clone and largely git-ignored).
 
+## 2026-11-24
+
+- chore(onboard): the template no longer ships the analytics-mcp and gsc MCP recipe. Onboarding Step 5 in `.claude/commands/onboard.md` loses its Google Search Console + GA4 example, `.env.example` loses `GOOGLE_PROJECT_ID` and its commented setup notes, and `Vault/Scripts/google-oauth-setup.py` is deleted, since it only served those two servers. `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` stay for other Google Workspace MCPs. A clone that still runs these servers from its own `.mcp.json` keeps working until its token needs re-minting; get the helper back with `git show 012fa36:Vault/Scripts/google-oauth-setup.py`. Plan 200 (#408)
+
 ## 2026-11-20
 
 - fix(hooks): capture-log hides ten more secret shapes. `redact()` in `.claude/hooks/capture-log.sh` now masks a password inside a URL, `-u user:pass`, Basic auth after an `Authorization` label, GitLab `glpat-`, Hugging Face `hf_` and npm `npm_` tokens, Slack webhook URLs, Azure `AccountKey=` values, armoured PGP private key blocks, and key-value pairs written with `=>` or under the keywords `passphrase`, `private_key`, `access_key` and `auth_key`. The new rules run after the older key-value rules, so the hook shows no more than before on the lines tested. `Vault/Scripts/tests/redact-regression.sh` is a hand-run check for `redact()`, wired to nothing; it is the one test file allowed as an exception to the #328 no-test-harness ruling. Run it after any change to `redact()`. Not covered: mysql `-p<pass>`, `-uuser:pass` without a space, and the other gaps listed in the PR. Plan 199 (#407)
