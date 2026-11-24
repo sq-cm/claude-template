@@ -48,11 +48,12 @@ try:
     tout = cw.get('total_output_tokens', 0) or 0
     sid = d.get('session_id') or ''
     cost = d.get('cost', {}).get('total_cost_usd', 0) or 0
-    print('\t'.join([str(pct), name, mid, proj, str(tin), str(tout), sid, str(cost)]))
+    c = lambda v: str(v).replace('\x1f', ' ').replace('\r', ' ').replace('\n', ' ')
+    print('\x1f'.join(c(v) for v in [pct, name, mid, proj, tin, tout, sid, cost]))
 except Exception:
-    print('0\t\t\t\t0\t0\t\t0')
+    print('0\x1f\x1f\x1f\x1f0\x1f0\x1f\x1f0')
 " 2>/dev/null)
-        IFS=$'\t' read -r CONTEXT_WINDOW_USED_PERCENTAGE MODEL_DISPLAY_NAME MODEL_ID WORKSPACE_PROJECT_DIR _in _out SESSION_ID COST_USD <<< "$_parsed"
+        IFS=$'\x1f' read -r CONTEXT_WINDOW_USED_PERCENTAGE MODEL_DISPLAY_NAME MODEL_ID WORKSPACE_PROJECT_DIR _in _out SESSION_ID COST_USD <<< "$_parsed"
         SESSION_TOKENS=$(( _in + _out ))
     else
         # --- static fallback (neither jq nor Python available) ---

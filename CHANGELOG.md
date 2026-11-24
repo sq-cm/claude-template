@@ -6,6 +6,7 @@ This log tracks the **template itself** — structural changes clones inherit on
 
 ## 2026-11-24
 
+- fix(statusline): on a machine without jq, `.claude/statusline.sh` reads its data through Python, and an empty model name, model id or project folder used to push every later value one place along, so the ↑ count, burn emoji and folder name came out wrong. The fields now use a separator that never collapses (`\x1f`), and the jq path is unchanged. Plan 202 (#410)
 - feat(statusline): the burn emoji beside the token totals in `.claude/statusline.sh` now follows the ↑ input-token count instead of the context-window percentage. Over 200,000 input tokens shows 🥵, over 400,000 shows 🚨, otherwise 🔥. Change the limits in `BURN_WARN_TOKENS` and `BURN_ALERT_TOKENS`. The 🧠 percentage is unchanged. Plan 201 (#409)
 - chore(onboard): the template no longer ships the analytics-mcp and gsc MCP recipe. Onboarding Step 5 in `.claude/commands/onboard.md` loses its Google Search Console + GA4 example, `.env.example` loses `GOOGLE_PROJECT_ID` and its commented setup notes, and `Vault/Scripts/google-oauth-setup.py` is deleted, since it only served those two servers. `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` stay for other Google Workspace MCPs. A clone that still runs these servers from its own `.mcp.json` keeps working until its token needs re-minting; get the helper back with `git show 012fa36:Vault/Scripts/google-oauth-setup.py`. Plan 200 (#408)
 
